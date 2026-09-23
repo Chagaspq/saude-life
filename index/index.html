@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saúde Life — Sua Plataforma Fitness Completa</title>
+    <meta
+      name="description"
+      content="Plataforma fitness moderna integrando treinos, rede social, evolução e gestão para academias e profissionais."
+    />
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <!-- ==================== APLICAÇÃO PRINCIPAL (APP) ==================== -->
+    <div id="app-container" class="app-layout">
+      <!-- Overlay escuro atrás da sidebar quando aberta no mobile -->
+      <div id="sidebar-overlay" class="sidebar-overlay hidden"></div>
+
+      <!-- SIDEBAR -->
+      <aside
+        id="app-sidebar"
+        class="app-sidebar"
+        aria-label="Navegação lateral principal"
+      >
+        <div class="sidebar-brand">
+          <h2>SAÚDE LIFE</h2>
+        </div>
+        <nav class="sidebar-nav">
+          <ul>
+            <li>
+              <a href="#inicio" class="nav-link active" data-view="inicio"
+                >Início</a
+              >
+            </li>
+            <li>
+              <a href="#descobrir" class="nav-link" data-view="descobrir"
+                >Descobrir</a
+              >
+            </li>
+            <li>
+              <a href="#treinos" class="nav-link" data-view="treinos"
+                >Treinos</a
+              >
+            </li>
+            <li>
+              <a href="#aulas" class="nav-link" data-view="aulas">Aulas</a>
+            </li>
+            <li>
+              <a href="#alimentacao" class="nav-link" data-view="alimentacao"
+                >Alimentação</a
+              >
+            </li>
+            <li>
+              <a href="#evolucao" class="nav-link" data-view="evolucao"
+                >Evolução</a
+              >
+            </li>
+            <li>
+              <a
+                href="#profissionais"
+                class="nav-link"
+                data-view="profissionais"
+                >Profissionais</a
+              >
+            </li>
+            <li>
+              <a href="#planos" class="nav-link" data-view="planos">Planos</a>
+            </li>
+            <li>
+              <a href="#salvos" class="nav-link" data-view="salvos">Salvos</a>
+            </li>
+          </ul>
+        </nav>
+        <div class="sidebar-footer">
+          <div class="user-profile-summary">
+            <img
+              src="avatar-placeholder.png"
+              alt="Avatar do usuário"
+              class="user-avatar"
+            />
+            <span class="user-name">Nome do Usuário</span>
+          </div>
+          <button
+            class="btn-icon"
+            data-action="open-settings"
+            aria-label="Configurações"
+          >
+            ⚙️
+          </button>
+          <button
+            class="btn-icon"
+            data-action="logout"
+            aria-label="Sair da conta"
+          >
+            🚪
+          </button>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT WRAPPER -->
+      <div class="app-main-wrapper">
+        <!-- HEADER / TOPBAR -->
+        <header class="app-topbar">
+          <button
+            id="sidebar-toggle"
+            class="btn-icon btn-menu-toggle"
+            aria-label="Abrir menu"
+            aria-expanded="false"
+            aria-controls="app-sidebar"
+          >
+            ☰
+          </button>
+
+          <div class="search-box">
+            <input
+              type="search"
+              id="global-search"
+              placeholder="Pesquisar treinos, profissionais, conteúdos..."
+              aria-label="Pesquisar"
+            />
+            <div
+              id="search-results-dropdown"
+              class="search-dropdown hidden"
+              aria-live="polite"
+            ></div>
+          </div>
+          <div class="topbar-actions">
+            <button
+              class="btn-icon"
+              aria-label="Notificações"
+              data-action="open-notifications"
+            >
+              🔔<span class="badge">3</span>
+            </button>
+            <button
+              class="btn-icon"
+              aria-label="Mensagens"
+              data-action="open-messages"
+            >
+              💬<span class="badge">1</span>
+            </button>
+            <div class="user-menu-trigger">
+              <img
+                src="avatar-placeholder.png"
+                alt="Avatar"
+                class="avatar-small"
+              />
+              <span class="username-top">Biel</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- VIEWS CONTAINER -->
+        <main class="app-views-container">
+          <!-- 1. PÁGINA INÍCIO -->
+          <section
+            id="view-inicio"
+            class="view-section active"
+            aria-labelledby="heading-inicio"
+          >
+            <div class="welcome-banner">
+              <h1 id="heading-inicio">Olá, Biel</h1>
+              <p>Pronto para treinar hoje?</p>
+            </div>
+
+            <section class="continue-training-section">
+              <h2>Continue seu treino</h2>
+              <div class="cards-grid">
+                <article class="workout-card" data-workout-id="1">
+                  <div class="card-info">
+                    <h3>Super Inferiores A</h3>
+                    <p class="muscle-group">Quadríceps e Panturrilhas</p>
+                    <p class="duration">45 min • 6 exercícios</p>
+                    <div class="progress-bar-sm">
+                      <div class="fill" style="width: 60%"></div>
+                    </div>
+                  </div>
+                  <button class="btn-primary" data-action="continue-workout">
+                    Continuar
+                  </button>
+                </article>
+              </div>
+            </section>
+
+            <section class="recommended-section">
+              <h2>Recomendados para você</h2>
+              <div class="horizontal-scroll">
+                <article class="rec-card">
+                  <div class="card-img-placeholder"></div>
+                  <div class="card-details">
+                    <h3>Fullbody Explosivo</h3>
+                    <p class="category">Força • Intermediário</p>
+                    <p class="meta">30 min • ⭐ 4.9</p>
+                    <button
+                      class="btn-secondary"
+                      data-action="open-workout-modal"
+                    >
+                      Abrir
+                    </button>
+                  </div>
+                </article>
+              </div>
+            </section>
+
+            <section class="featured-pros-section">
+              <h2>Profissionais em destaque</h2>
+              <div class="cards-grid">
+                <article class="pro-card">
+                  <img src="pro-placeholder.png" alt="Foto do profissional" />
+                  <h3>Ana Souza</h3>
+                  <p class="specialty">Personal Trainer & Nutricionista</p>
+                  <p class="stats">⭐ 5.0 • 1.2k seguidores</p>
+                  <button class="btn-secondary" data-action="follow-pro">
+                    Seguir
+                  </button>
+                </article>
+              </div>
+            </section>
+
+            <section class="challenges-section">
+              <h2>Desafios</h2>
+              <div class="cards-grid">
+                <article class="challenge-card">
+                  <h3>Desafio 30 Dias Abdominais</h3>
+                  <p>Definição e resistência do core</p>
+                  <p class="meta">Duração: 30 dias • 450 participantes</p>
+                  <div class="progress-bar-sm">
+                    <div class="fill" style="width: 20%"></div>
+                  </div>
+                  <button class="btn-primary" data-action="join-challenge">
+                    Participar
+                  </button>
+                </article>
+              </div>
+            </section>
+
+            <section class="user-progress-summary">
+              <h2>Seu progresso</h2>
+              <div class="stats-grid">
+                <div class="stat-box">
+                  <span>Treinos realizados</span><strong>14</strong>
+                </div>
+                <div class="stat-box">
+                  <span>Sequência atual</span><strong>5 dias 🔥</strong>
+                </div>
+                <div class="stat-box">
+                  <span>Tempo treinado</span><strong>8h 30m</strong>
+                </div>
+                <div class="stat-box">
+                  <span>Meta semanal</span><strong>3 / 4 treinos</strong>
+                </div>
+              </div>
+            </section>
+          </section>
+
+          <!-- 2. DESCUBRIR -->
+          <section
+            id="view-descobrir"
+            class="view-section hidden"
+            aria-labelledby="heading-descobrir"
+          >
+            <h1 id="heading-descobrir">Descobrir</h1>
+            <div class="filters-bar">
+              <select aria-label="Filtrar por objetivo">
+                <option>Objetivo</option>
+              </select>
+              <select aria-label="Filtrar por nível">
+                <option>Nível</option>
+              </select>
+              <select aria-label="Filtrar por duração">
+                <option>Duração</option>
+              </select>
+              <select aria-label="Filtrar por grupo muscular">
+                <option>Grupo Muscular</option>
+              </select>
+            </div>
+            <div class="discovery-content">
+              <h2>Categorias em alta</h2>
+              <div class="categories-grid">
+                <div class="category-pill">Hipertrofia</div>
+                <div class="category-pill">HIIT</div>
+                <div class="category-pill">Yoga & Mobilidade</div>
+                <div class="category-pill">Resistência</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 3. TREINOS -->
+          <section
+            id="view-treinos"
+            class="view-section hidden"
+            aria-labelledby="heading-treinos"
+          >
+            <header class="section-top-flex">
+              <h1 id="heading-treinos">Meus Treinos</h1>
+              <button class="btn-primary" data-action="create-workout">
+                + Novo Treino
+              </button>
+            </header>
+            <div class="workouts-list-container">
+              <!-- Lista de treinos gerenciados pelo usuário -->
+            </div>
+          </section>
+
+          <!-- 4. PERFIL -->
+          <section
+            id="view-perfil"
+            class="view-section hidden"
+            aria-labelledby="heading-perfil"
+          >
+            <div class="profile-header-card">
+              <img
+                src="avatar-placeholder.png"
+                alt="Foto de perfil"
+                class="profile-avatar-lg"
+              />
+              <div class="profile-info">
+                <h1 id="heading-perfil">Biel Silva</h1>
+                <p class="username">@biel_fitness</p>
+                <p class="bio">Foco em hipertrofia e consistência diária. 🚀</p>
+                <div class="profile-stats-bar">
+                  <span><strong>14</strong> Treinos</span>
+                  <span><strong>120</strong> Seguidores</span>
+                  <span><strong>85</strong> Seguindo</span>
+                </div>
+              </div>
+              <button class="btn-secondary" data-action="edit-profile">
+                Editar perfil
+              </button>
+            </div>
+          </section>
+
+          <!-- 5. PROFISSIONAIS -->
+          <section
+            id="view-profissionais"
+            class="view-section hidden"
+            aria-labelledby="heading-profissionais"
+          >
+            <h1 id="heading-profissionais">Profissionais e Especialistas</h1>
+            <div class="professionals-grid">
+              <!-- Cards de profissionais -->
+            </div>
+          </section>
+
+          <!-- 6. EVOLUÇÃO -->
+          <section
+            id="view-evolucao"
+            class="view-section hidden"
+            aria-labelledby="heading-evolucao"
+          >
+            <h1 id="heading-evolucao">Evolução & Métricas</h1>
+            <div class="evolution-dashboard">
+              <div class="chart-container" data-chart="peso">
+                Gráfico de Peso (Em breve via JS)
+              </div>
+              <div class="chart-container" data-chart="cargas">
+                Gráfico de Cargas (Em breve via JS)
+              </div>
+            </div>
+          </section>
+
+          <!-- 7. ALIMENTAÇÃO -->
+          <section
+            id="view-alimentacao"
+            class="view-section hidden"
+            aria-labelledby="heading-alimentacao"
+          >
+            <h1 id="heading-alimentacao">Alimentação & Nutrição</h1>
+            <div class="nutrition-overview">
+              <div class="macro-card">
+                <span>Calorias</span><strong>2100 / 2500 kcal</strong>
+              </div>
+              <div class="macro-card">
+                <span>Proteínas</span><strong>160 / 180g</strong>
+              </div>
+              <div class="macro-card">
+                <span>Carboidratos</span><strong>220 / 300g</strong>
+              </div>
+              <div class="macro-card">
+                <span>Gorduras</span><strong>60 / 70g</strong>
+              </div>
+              <div class="macro-card">
+                <span>Água</span><strong>2.5 / 3.0 L</strong>
+              </div>
+            </div>
+          </section>
+
+          <!-- 8. PLANOS -->
+          <section
+            id="view-planos"
+            class="view-section hidden"
+            aria-labelledby="heading-planos"
+          >
+            <h1 id="heading-planos">Planos Saúde Life</h1>
+            <div class="pricing-grid">
+              <div class="pricing-card">
+                <h3>Free</h3>
+                <p class="price">R$ 0</p>
+                <ul>
+                  <li>Recursos básicos de treino</li>
+                </ul>
+                <button class="btn-secondary" data-action="select-plan">
+                  Plano Atual
+                </button>
+              </div>
+              <div class="pricing-card featured">
+                <h3>Premium</h3>
+                <p class="price">R$ 29,90/mês</p>
+                <ul>
+                  <li>Acesso total, IA de treinos, relatórios avançados</li>
+                </ul>
+                <button class="btn-primary" data-action="select-plan">
+                  Assinar Premium
+                </button>
+              </div>
+              <div class="pricing-card">
+                <h3>Profissional</h3>
+                <p class="price">R$ 79,90/mês</p>
+                <ul>
+                  <li>Ferramentas para personal trainers</li>
+                </ul>
+                <button class="btn-primary" data-action="select-plan">
+                  Assinar Pro
+                </button>
+              </div>
+              <div class="pricing-card">
+                <h3>Academia</h3>
+                <p class="price">Consulte</p>
+                <ul>
+                  <li>Sistema completo para gestão de academias</li>
+                </ul>
+                <button class="btn-primary" data-action="select-plan">
+                  Falar com Consultor
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- 9. ACADEMIA (ÁREA EXCLUSIVA) -->
+          <section
+            id="view-academia"
+            class="view-section hidden"
+            aria-labelledby="heading-academia"
+          >
+            <h1 id="heading-academia">Painel da Academia</h1>
+            <div class="gym-admin-dashboard">
+              <div class="stat-box">
+                <span>Alunos Ativos</span><strong>340</strong>
+              </div>
+              <div class="stat-box">
+                <span>Professores</span><strong>12</strong>
+              </div>
+            </div>
+          </section>
+
+          <!-- Demais views menores mapeadas por padrão -->
+          <section id="view-aulas" class="view-section hidden">
+            <h1>Aulas</h1>
+          </section>
+          <section id="view-salvos" class="view-section hidden">
+            <h1>Salvos</h1>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <!-- ==================== MODAIS REUTILIZÁVEIS ==================== -->
+    <div id="modal-overlay" class="modal-overlay hidden" aria-hidden="true">
+      <div
+        class="modal-window"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+      >
+        <header class="modal-header">
+          <h2 id="modal-title">Título do Modal</h2>
+          <button
+            class="btn-close-modal"
+            aria-label="Fechar modal"
+            data-action="close-modal"
+          >
+            &times;
+          </button>
+        </header>
+        <div class="modal-body">
+          <!-- Conteúdo dinâmico via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== FOOTER GERAL ==================== -->
+    <footer class="site-footer">
+      <div class="footer-content">
+        <div class="footer-col">
+          <h3>Sobre a Saúde Life</h3>
+          <p>
+            A plataforma fitness definitiva integrando treino, comunidade e alta
+            performance.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Links Úteis</h4>
+          <ul>
+            <li><a href="termos.html" target="_blank">Termos de Uso</a></li>
+            <li>
+              <a href="politica-de-privacidade.html" target="_blank"
+                >Política de Privacidade</a
+              >
+            </li>
+            <li><a href="#contato">Contato</a></li>
+            <li><a href="#ajuda">Ajuda</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Redes Sociais</h4>
+          <div class="social-links">
+            <a href="#" aria-label="Instagram">Instagram</a>
+            <a href="#" aria-label="Twitter">Twitter</a>
+            <a href="#" aria-label="YouTube">YouTube</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Saúde Life. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <script src="index.js"></script>
+  </body>
+</html>

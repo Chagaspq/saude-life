@@ -1,0 +1,823 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap");
+
+/* ============================================
+   SAÚDE LIFE — App principal (index.css)
+   Mesmo design system das páginas de auth:
+   fundo escuro + vermelho de destaque
+   ============================================ */
+
+:root {
+  --bg: #0e1512;
+  --surface: #16211d;
+  --surface-2: #1e2b25;
+  --surface-border: #263832;
+  --ink: #f4f1ea;
+  --muted: #a3b0a8;
+  --muted-2: #6d7a73;
+
+  --red: #ff7a45;
+  --red-light: #ffa06b;
+  --red-dark: #d85f2e;
+  --red-focus: rgba(255, 122, 69, 0.35);
+  --red-soft-bg: rgba(255, 122, 69, 0.1);
+
+  --success: #34d399;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --sidebar-w: 240px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  margin: 0;
+  color: #ffffff;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ============================================
+   LAYOUT GERAL
+   ============================================ */
+
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.app-main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* ============================================
+   SIDEBAR
+   ============================================ */
+
+.app-sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--surface-border);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.sidebar-brand {
+  padding: 0 8px;
+  margin-bottom: 32px;
+}
+
+.sidebar-brand h2 {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--red);
+}
+
+.sidebar-nav {
+  flex: 1;
+}
+
+.sidebar-nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nav-link {
+  display: block;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.nav-link:hover {
+  background: var(--surface-2);
+  color: var(--ink);
+}
+
+.nav-link.active {
+  background: var(--red-soft-bg);
+  color: var(--red-light);
+}
+
+.sidebar-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 16px;
+  border-top: 1px solid var(--surface-border);
+}
+
+.user-profile-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.user-avatar,
+.avatar-small,
+.profile-avatar-lg {
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--surface-2);
+  flex-shrink: 0;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+}
+
+.avatar-small {
+  width: 28px;
+  height: 28px;
+}
+
+.profile-avatar-lg {
+  width: 88px;
+  height: 88px;
+}
+
+.user-name {
+  font-size: 13px;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-icon {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+
+.btn-icon:hover {
+  background: var(--surface-2);
+  color: var(--ink);
+}
+
+.badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: var(--red);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+}
+
+/* ============================================
+   TOPBAR
+   ============================================ */
+
+.app-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 32px;
+  border-bottom: 1px solid var(--surface-border);
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.search-box {
+  position: relative;
+  flex: 1;
+  max-width: 420px;
+}
+
+.search-box input {
+  width: 100%;
+  background: var(--surface);
+  border: 1.5px solid var(--surface-border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--ink);
+  outline: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.search-box input::placeholder {
+  color: var(--muted-2);
+}
+
+.search-box input:focus {
+  border-color: var(--red);
+  box-shadow: 0 0 0 4px var(--red-focus);
+}
+
+.search-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-sm);
+  padding: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-menu-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px 4px 4px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.user-menu-trigger:hover {
+  background: var(--surface);
+}
+
+.username-top {
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+/* ============================================
+   VIEWS / CONTEÚDO PRINCIPAL
+   ============================================ */
+
+.app-views-container {
+  padding: 32px;
+  flex: 1;
+}
+
+.view-section {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.view-section h1 {
+  font-size: 26px;
+}
+
+.view-section h2 {
+  font-size: 17px;
+  margin-bottom: 16px;
+}
+
+.welcome-banner p {
+  color: var(--muted);
+  margin: 6px 0 0;
+  font-size: 14.5px;
+}
+
+.section-top-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ============================================
+   BOTÕES
+   ============================================ */
+
+.btn-primary,
+.btn-secondary {
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  padding: 10px 18px;
+  cursor: pointer;
+  border: none;
+  transition:
+    filter 0.15s ease,
+    transform 0.1s ease;
+}
+
+.btn-primary {
+  color: #fff;
+  background: linear-gradient(180deg, var(--red-light), var(--red) 70%);
+}
+
+.btn-primary:hover {
+  filter: brightness(1.08);
+}
+
+.btn-secondary {
+  color: var(--ink);
+  background: var(--surface-2);
+  border: 1px solid var(--surface-border);
+}
+
+.btn-secondary:hover {
+  background: #24352e;
+}
+
+.btn-primary:active,
+.btn-secondary:active {
+  transform: translateY(1px);
+}
+
+/* ============================================
+   CARDS — grid & scroll horizontal
+   ============================================ */
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.horizontal-scroll {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.horizontal-scroll::-webkit-scrollbar-thumb {
+  background: var(--surface-border);
+  border-radius: 999px;
+}
+
+/* Base compartilhada de todos os cartões */
+.workout-card,
+.rec-card,
+.pro-card,
+.challenge-card,
+.pricing-card {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.workout-card {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.rec-card {
+  flex-shrink: 0;
+  width: 220px;
+}
+
+.card-img-placeholder {
+  width: 100%;
+  height: 110px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--surface-2), #0e1512);
+  margin-bottom: 8px;
+}
+
+.pro-card {
+  align-items: center;
+  text-align: center;
+}
+
+.pro-card img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--surface-2);
+  margin-bottom: 4px;
+}
+
+.muscle-group,
+.duration,
+.category,
+.meta,
+.specialty,
+.stats {
+  color: var(--muted);
+  font-size: 12.5px;
+  margin: 0;
+}
+
+.progress-bar-sm {
+  width: 100%;
+  height: 6px;
+  background: var(--surface-2);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.progress-bar-sm .fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--red-dark), var(--red-light));
+  border-radius: 999px;
+}
+
+/* ============================================
+   FILTROS / CATEGORIAS (Descobrir)
+   ============================================ */
+
+.filters-bar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filters-bar select {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 13px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+}
+
+.categories-grid {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.category-pill {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.category-pill:hover {
+  border-color: var(--red);
+  color: var(--red-light);
+}
+
+/* ============================================
+   STATS / MACROS (progresso, alimentação)
+   ============================================ */
+
+.stats-grid,
+.nutrition-overview,
+.gym-admin-dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+}
+
+.stat-box,
+.macro-card {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-box span,
+.macro-card span {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.stat-box strong,
+.macro-card strong {
+  font-size: 18px;
+  font-family: "Space Grotesk", sans-serif;
+}
+
+/* ============================================
+   PERFIL
+   ============================================ */
+
+.profile-header-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius);
+  padding: 24px;
+  flex-wrap: wrap;
+}
+
+.profile-info {
+  flex: 1;
+  min-width: 200px;
+}
+
+.username {
+  color: var(--muted);
+  font-size: 13.5px;
+  margin: 2px 0 8px;
+}
+
+.bio {
+  font-size: 13.5px;
+  margin: 0 0 12px;
+}
+
+.profile-stats-bar {
+  display: flex;
+  gap: 20px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.profile-stats-bar strong {
+  color: var(--ink);
+}
+
+/* ============================================
+   PLANOS / PRICING
+   ============================================ */
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.pricing-card {
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.pricing-card.featured {
+  border-color: var(--red);
+  box-shadow: 0 0 0 1px var(--red);
+}
+
+.pricing-card .price {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.pricing-card ul {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--muted);
+  width: 100%;
+}
+
+.pricing-card ul li::before {
+  content: "✓ ";
+  color: var(--success);
+}
+
+.pricing-card button {
+  width: 100%;
+  margin-top: 4px;
+}
+
+/* ============================================
+   MODAL
+   ============================================ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 24px;
+}
+
+.modal-window {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius);
+  width: 100%;
+  max-width: 480px;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.modal-header h2 {
+  font-size: 16px;
+}
+
+.btn-close-modal {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.btn-close-modal:hover {
+  color: var(--ink);
+}
+
+.modal-body {
+  padding: 20px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* ============================================
+   FOOTER DO SITE
+   ============================================ */
+
+.site-footer {
+  border-top: 1px solid var(--surface-border);
+  background: var(--surface);
+  padding: 40px 32px 24px;
+  margin-left: var(--sidebar-w);
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 32px;
+  max-width: 1000px;
+}
+
+.footer-col h3,
+.footer-col h4 {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.footer-col p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.footer-col ul {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-col a {
+  color: var(--muted);
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.footer-col a:hover {
+  color: var(--red-light);
+}
+
+.social-links {
+  display: flex;
+  gap: 12px;
+}
+
+.footer-bottom {
+  max-width: 1000px;
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--surface-border);
+}
+
+.footer-bottom p {
+  color: var(--muted-2);
+  font-size: 12px;
+  margin: 0;
+}
+
+/* ============================================
+   RESPONSIVO
+   ============================================ */
+
+@media (max-width: 900px) {
+  .app-sidebar {
+    position: fixed;
+    left: -100%;
+    z-index: 50;
+    transition: left 0.2s ease;
+  }
+
+  .app-sidebar.is-open {
+    left: 0;
+  }
+
+  .site-footer {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-topbar {
+    padding: 14px 16px;
+  }
+
+  .app-views-container {
+    padding: 20px 16px;
+  }
+
+  .workout-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -1,0 +1,391 @@
+/* ============================================
+   SAÚDE LIFE — Auth pages (login / recuperar senha)
+   Fonts: Space Grotesk (display) + Inter (corpo)
+   ============================================ */
+
+:root {
+  --bg: #0e1512;
+  --surface: #16211d;
+  --surface-border: #263832;
+  --ink: #f4f1ea;
+  --muted: #a3b0a8;
+  --muted-2: #6d7a73;
+
+  --red: #ff7a45;
+  --red-light: #ffa06b;
+  --red-dark: #d85f2e;
+  --red-focus: rgba(255, 122, 69, 0.35);
+
+  --success: #34d399;
+  --success-bg: rgba(52, 211, 153, 0.1);
+  --error: #e09f3e;
+  --error-bg: rgba(224, 159, 62, 0.1);
+
+  --radius: 14px;
+  --radius-sm: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  background-image:
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(255, 122, 69, 0.1),
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 85% 90%,
+      rgba(52, 211, 153, 0.08),
+      transparent 45%
+    );
+  color: var(--ink);
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* ============================================
+   CONTAINER
+   ============================================ */
+
+.auth-container {
+  width: 100%;
+  max-width: 400px;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-top: 3px solid transparent;
+  border-image: linear-gradient(90deg, var(--red), var(--success)) 1;
+  border-radius: var(--radius);
+  padding: 40px 32px 32px;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+.auth-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.logo-compact {
+  color: var(--red);
+  margin-bottom: 16px;
+  display: flex;
+}
+
+.auth-header h1 {
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
+}
+
+.auth-subtitle {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 30ch;
+}
+
+/* ============================================
+   FORM
+   ============================================ */
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--muted);
+  pointer-events: none;
+  transition: color 0.15s ease;
+}
+
+.input-wrapper:focus-within .input-icon {
+  color: var(--red-light);
+}
+
+.form-group input {
+  width: 100%;
+  background: #0e1512;
+  border: 1.5px solid var(--surface-border);
+  border-radius: var(--radius-sm);
+  padding: 13px 14px 13px 42px;
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--ink);
+  outline: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.form-group input::placeholder {
+  color: var(--muted-2);
+}
+
+.form-group input:hover {
+  border-color: #3a3a3a;
+}
+
+.form-group input:focus {
+  border-color: var(--red);
+  box-shadow: 0 0 0 4px var(--red-focus);
+}
+
+.form-group input[aria-invalid="true"] {
+  border-color: var(--error);
+}
+
+.form-group input[aria-invalid="true"]:focus {
+  box-shadow: 0 0 0 4px var(--error-bg);
+}
+
+/* ============================================
+   MENSAGENS DE ERRO / SUCESSO
+   ============================================ */
+
+.field-error {
+  font-size: 12.5px;
+  color: var(--error);
+  min-height: 16px;
+  line-height: 1.4;
+}
+
+.field-error:empty {
+  display: none;
+}
+
+p.field-error,
+p.field-success {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+p.field-error {
+  background: var(--error-bg);
+  border: 1px solid rgba(255, 71, 87, 0.25);
+}
+
+p.field-success {
+  background: var(--success-bg);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  color: var(--success);
+}
+
+/* ============================================
+   BOTÃO SUBMIT
+   ============================================ */
+
+.btn-submit {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 14px 20px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(180deg, var(--red-light), var(--red) 70%);
+  cursor: pointer;
+  transition:
+    filter 0.15s ease,
+    transform 0.1s ease;
+}
+
+.btn-submit:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.btn-submit:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn-submit:focus-visible {
+  outline: 2px solid var(--red-light);
+  outline-offset: 2px;
+}
+
+.btn-submit:disabled {
+  cursor: not-allowed;
+  filter: brightness(0.85);
+}
+
+.btn-submit .arrow {
+  transition: transform 0.15s ease;
+}
+
+.btn-submit:hover:not(:disabled) .arrow {
+  transform: translateX(2px);
+}
+
+/* Spinner */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 1.4s;
+  }
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.auth-footer {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.auth-footer p {
+  font-size: 13.5px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.btn-comecar {
+  color: var(--red-light);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.btn-comecar:hover {
+  text-decoration: underline;
+}
+
+.btn-comecar:focus-visible {
+  outline: 2px solid var(--red-light);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* ============================================
+   RESPONSIVO
+   ============================================ */
+
+@media (max-width: 420px) {
+  .auth-container {
+    padding: 32px 22px 24px;
+    border-radius: 12px;
+  }
+
+  .auth-header h1 {
+    font-size: 21px;
+  }
+}
+/* Força o link do rodapé a manter a cor correta mesmo depois de clicado */
+.auth-footer a,
+.auth-footer a:visited {
+  color: #ffffff; /* Deixa o texto branco */
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+/* Efeito ao passar o mouse por cima */
+.auth-footer a:hover {
+  color: #ffa06b; /* Fica coral no hover */
+  text-decoration: underline;
+}
+
+/* Trava todos os links visitados para manterem a cor original sem ficar roxo */
+a:visited {
+  color: inherit;
+}
+
+/* Link 'Esqueci minha senha' em coral */
+.forgot-password,
+.forgot-password:visited {
+  color: #ffa06b;
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: opacity 0.2s ease;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+/* Links de destaque do rodapé ('Criar conta' / 'Entrar') em coral */
+.auth-footer a,
+.auth-footer a:visited,
+.btn-comecar,
+.btn-comecar:visited {
+  color: #ffa06b;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.auth-footer a:hover,
+.btn-comecar:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
