@@ -1,10 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap");
 
-/* ============================================
-   SAÚDE LIFE — Welcome (boas-vindas)
-   Paleta: verde-carvão quente + coral + esmeralda
-   ============================================ */
-
 :root {
   --bg: #0e1512;
   --surface: #16211d;
@@ -69,10 +64,6 @@ ol {
   padding: 0;
   list-style: none;
 }
-
-/* ============================================
-   TOP BAR
-   ============================================ */
 
 .top-bar {
   display: flex;
@@ -148,10 +139,6 @@ ol {
   font-size: 13.5px;
   padding: 9px 20px;
 }
-
-/* ============================================
-   HERO
-   ============================================ */
 
 .hero {
   display: grid;
@@ -272,10 +259,6 @@ ol {
   }
 }
 
-/* ============================================
-   JOURNEY (Como funciona)
-   ============================================ */
-
 .journey {
   max-width: 1280px;
   margin: 0 auto;
@@ -347,10 +330,6 @@ ol {
   line-height: 1.6;
   margin: 0;
 }
-
-/* ============================================
-   PROFISSIONAIS
-   ============================================ */
 
 .pros-strip {
   background: var(--surface);
@@ -447,10 +426,6 @@ ol {
   margin-top: auto;
 }
 
-/* ============================================
-   PLANOS + CTA FINAL (seção única)
-   ============================================ */
-
 .plans-cta {
   max-width: 640px;
   margin: 0 auto;
@@ -474,10 +449,6 @@ ol {
   padding: 14px 28px;
 }
 
-/* ============================================
-   FOOTER
-   ============================================ */
-
 .welcome-footer {
   border-top: 1px solid var(--surface-border);
   padding: 24px clamp(20px, 5vw, 64px) 32px;
@@ -489,11 +460,6 @@ ol {
   font-size: 12px;
   margin: 0;
 }
-
-/* ============================================
-   RESPONSIVO
-   ============================================ */
-
 @media (max-width: 880px) {
   .hero {
     grid-template-columns: 1fr;

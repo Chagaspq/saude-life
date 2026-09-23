@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // --- Sistema de Modais Reutilizáveis ---
   const modalOverlay = document.getElementById("modal-overlay");
   const modalTitle = document.getElementById("modal-title");
   const modalBody = document.querySelector(".modal-body");
@@ -24,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- Ações de Botões e Modais ---
   document.addEventListener("click", (e) => {
     const action = e.target.getAttribute("data-action");
     if (action === "open-settings") {
@@ -53,7 +51,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // --- Sistema de Pesquisa Global na Topbar ---
   const globalSearch = document.getElementById("global-search");
   const searchDropdown = document.getElementById("search-results-dropdown");
   if (globalSearch && searchDropdown) {

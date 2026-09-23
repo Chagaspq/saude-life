@@ -1,11 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap");
 
-/* ============================================
-   SAÚDE LIFE — App principal (index.css)
-   Mesmo design system das páginas de auth:
-   fundo escuro + vermelho de destaque
-   ============================================ */
-
 :root {
   --bg: #0e1512;
   --surface: #16211d;

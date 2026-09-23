@@ -1,4 +1,3 @@
-/* Estilos para a página de Termos de Uso */
 body {
   background-color: #0e1512;
   color: #f4f1ea;
@@ -17,7 +16,7 @@ body {
   border-radius: 16px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start !important;
+  align-items: flex-start !important;a
   text-align: left !important;
   box-sizing: border-box;
 }

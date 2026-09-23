@@ -1,12 +1,7 @@
-// ============================================
-// CONFIGURAÇÃO DO EMAILJS
-// Troque pelos seus valores (emailjs.com > Account / Email Services / Email Templates)
-// ============================================
 const EMAILJS_PUBLIC_KEY = "SUA_PUBLIC_KEY";
 const EMAILJS_SERVICE_ID = "SEU_SERVICE_ID";
 const EMAILJS_TEMPLATE_ID = "SEU_TEMPLATE_ID";
 
-// URL base da página que vai receber o token (crie esse arquivo depois)
 const RESET_PAGE_URL = "https://seusite.com/redefinir-senha.html";
 
 // Inicializa o EmailJS assim que o script carrega
@@ -27,11 +22,7 @@ const btnText = submitBtn.querySelector(".btn-text");
 const spinner = submitBtn.querySelector(".spinner");
 const arrow = submitBtn.querySelector(".arrow");
 
-// ============================================
-// HELPERS DE UI
-// ============================================
 function isValidEmail(value) {
-  // validação simples e suficiente pra front-end
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
 }
 

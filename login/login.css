@@ -47,10 +47,6 @@ body {
   min-height: 100vh;
 }
 
-/* ============================================
-   PAINEL VISUAL (esquerda)
-   ============================================ */
-
 .auth-visual {
   position: relative;
   display: flex;
@@ -150,10 +146,6 @@ body {
   filter: drop-shadow(0 0 8px rgba(255, 122, 69, 0.45));
 }
 
-/* ============================================
-   PAINEL DO FORMULÁRIO (direita)
-   ============================================ */
-
 .auth-form-panel {
   display: flex;
   align-items: center;
@@ -235,7 +227,6 @@ body {
   gap: 16px;
 }
 
-/* Erro global — id, não classe, pois o JS busca #form-global-error */
 #form-global-error {
   background: var(--color-error-dim);
   border: 1px solid var(--color-error);
@@ -251,7 +242,6 @@ body {
   display: none;
 }
 
-/* Variante de sucesso (ex: após cadastro concluído) */
 #form-global-error.is-success {
   background: rgba(42, 157, 143, 0.12);
   border-color: var(--color-success);
@@ -353,7 +343,6 @@ body {
   color: var(--color-text);
 }
 
-/* Indicador de força de senha (tela de cadastro) */
 .password-strength {
   display: flex;
   flex-direction: column;
@@ -593,12 +582,10 @@ body {
   }
 }
 
-/* Trava todos os links visitados para manterem a cor original sem ficar roxo */
 a:visited {
   color: inherit;
 }
 
-/* Link 'Esqueci minha senha' em coral */
 .forgot-password,
 .forgot-password:visited {
   color: #ffa06b;
@@ -612,7 +599,6 @@ a:visited {
   opacity: 0.8;
 }
 
-/* Links de destaque do rodapé ('Criar conta' / 'Entrar') em coral */
 .auth-footer a,
 .auth-footer a:visited,
 .btn-comecar,
