@@ -10,6 +10,7 @@
     />
     <link rel="stylesheet" href="index.css" />
   </head>
+
   <body>
     <!-- ==================== APLICAÇÃO PRINCIPAL (APP) ==================== -->
     <div id="app-container" class="app-layout">
@@ -23,9 +24,40 @@
         aria-label="Navegação lateral principal"
       >
         <div class="sidebar-brand">
-          <h2>SAÚDE LIFE</h2>
+          <a href="#inicio" class="brand" aria-label="Saúde Life — Início">
+            <svg
+              aria-hidden="true"
+              width="28"
+              height="28"
+              viewBox="0 0 48 48"
+              fill="none"
+            >
+              <defs>
+                <linearGradient
+                  id="logo-gradient"
+                  x1="2"
+                  y1="40"
+                  x2="46"
+                  y2="6"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop offset="0%" stop-color="#ff7a45" />
+                  <stop offset="100%" stop-color="#34d399" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M4 31 L9 31 L12 19 L15 37 L18 27 C23 13 30 9 35 16 Q40 21 44 8"
+                stroke="url(#logo-gradient)"
+                stroke-width="4.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span>Saúde Life</span>
+          </a>
         </div>
-        <nav class="sidebar-nav">
+
+        <nav class="sidebar-nav" aria-label="Seções do app">
           <ul>
             <li>
               <a href="#inicio" class="nav-link active" data-view="inicio"
@@ -69,23 +101,50 @@
             <li>
               <a href="#salvos" class="nav-link" data-view="salvos">Salvos</a>
             </li>
+            <li>
+              <a href="#academia" class="nav-link" data-view="academia"
+                >Academia</a
+              >
+            </li>
+            <li>
+              <a href="#perfil" class="nav-link" data-view="perfil">Perfil</a>
+            </li>
           </ul>
         </nav>
+
         <div class="sidebar-footer">
-          <div class="user-profile-summary">
-            <span class="user-avatar avatar-initials" data-user-initials aria-hidden="true">BS</span>
-            <span class="user-name">Nome do Usuário</span>
-          </div>
+          <a href="#perfil" class="user-profile-summary">
+            <span
+              class="user-avatar avatar-initials"
+              data-user-initials
+              aria-hidden="true"
+              >BS</span
+            >
+            <span class="user-name" data-user-name>Nome do Usuário</span>
+          </a>
           <button
             class="btn-icon"
             data-action="open-settings"
             aria-label="Configurações"
-          ></button>
+          >
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"
+              ></path>
+            </svg>
+          </button>
           <button
             class="btn-icon"
             data-action="logout"
             aria-label="Sair da conta"
-          ></button>
+          >
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <path d="m16 17 5-5-5-5"></path>
+              <path d="M21 12H9"></path>
+            </svg>
+          </button>
         </div>
       </aside>
 
@@ -100,15 +159,22 @@
             aria-expanded="false"
             aria-controls="app-sidebar"
           >
-            ☰
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
           </button>
 
           <div class="search-box">
+            <svg class="icon search-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m20 20-3.5-3.5"></path>
+            </svg>
             <input
               type="search"
               id="global-search"
               placeholder="Pesquisar treinos, profissionais, conteúdos..."
               aria-label="Pesquisar"
+              autocomplete="off"
             />
             <div
               id="search-results-dropdown"
@@ -116,30 +182,49 @@
               aria-live="polite"
             ></div>
           </div>
+
           <div class="topbar-actions">
             <button
               class="btn-icon"
-              aria-label="Notificações"
+              aria-label="Notificações (3 novas)"
               data-action="open-notifications"
             >
-              <span class="badge">3</span>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+                <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+              </svg>
+              <span class="badge" aria-hidden="true">3</span>
             </button>
             <button
               class="btn-icon"
-              aria-label="Mensagens"
+              aria-label="Mensagens (1 nova)"
               data-action="open-messages"
             >
-              💬<span class="badge">1</span>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                ></path>
+              </svg>
+              <span class="badge" aria-hidden="true">1</span>
             </button>
-            <div class="user-menu-trigger">
-              <span class="avatar-small avatar-initials" data-user-initials aria-hidden="true">BS</span>
-              <span class="username-top">Biel</span>
-            </div>
+            <a
+              href="#perfil"
+              class="user-menu-trigger"
+              aria-label="Abrir meu perfil"
+            >
+              <span
+                class="avatar-small avatar-initials"
+                data-user-initials
+                aria-hidden="true"
+                >BS</span
+              >
+              <span class="username-top" data-user-first-name>Biel</span>
+            </a>
           </div>
         </header>
 
         <!-- VIEWS CONTAINER -->
-        <main class="app-views-container">
+        <main class="app-views-container" id="conteudo" tabindex="-1">
           <!-- 1. PÁGINA INÍCIO -->
           <section
             id="view-inicio"
@@ -147,7 +232,9 @@
             aria-labelledby="heading-inicio"
           >
             <div class="welcome-banner">
-              <h1 id="heading-inicio">Olá, Biel</h1>
+              <h1 id="heading-inicio">
+                Olá, <span data-user-first-name>Biel</span>
+              </h1>
               <p>Pronto para treinar hoje?</p>
             </div>
 
@@ -159,8 +246,15 @@
                     <h3>Super Inferiores A</h3>
                     <p class="muscle-group">Quadríceps e Panturrilhas</p>
                     <p class="duration">45 min • 6 exercícios</p>
-                    <div class="progress-bar-sm">
-                      <div class="fill" style="width: 60%"></div>
+                    <div
+                      class="progress-bar-sm"
+                      role="progressbar"
+                      aria-label="Progresso do treino"
+                      aria-valuenow="60"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    >
+                      <div class="fill" data-progress="60"></div>
                     </div>
                   </div>
                   <button class="btn-primary" data-action="continue-workout">
@@ -172,13 +266,15 @@
 
             <section class="recommended-section">
               <h2>Recomendados para você</h2>
-              <div class="horizontal-scroll">
+              <div class="horizontal-scroll" data-render="recomendados">
                 <article class="rec-card">
-                  <div class="card-img-placeholder"></div>
+                  <div class="card-img-placeholder" data-objetivo="hipertrofia">
+                    <span class="card-tag">Hipertrofia</span>
+                  </div>
                   <div class="card-details">
                     <h3>Fullbody Explosivo</h3>
                     <p class="category">Força • Intermediário</p>
-                    <p class="meta">30 min • ⭐ 4.9</p>
+                    <p class="meta">30 min • <span class="sr-only">Nota</span><svg class="icon-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> 4.9</p>
                     <button
                       class="btn-secondary"
                       data-action="open-workout-modal"
@@ -194,11 +290,17 @@
               <h2>Profissionais em destaque</h2>
               <div class="cards-grid">
                 <article class="pro-card">
-                  <span class="pro-avatar avatar-initials" aria-hidden="true">AS</span>
+                  <span class="pro-avatar avatar-initials" aria-hidden="true"
+                    >AS</span
+                  >
                   <h3>Ana Souza</h3>
                   <p class="specialty">Personal Trainer & Nutricionista</p>
-                  <p class="stats">⭐ 5.0 • 1.2k seguidores</p>
-                  <button class="btn-secondary" data-action="follow-pro">
+                  <p class="stats"><span class="sr-only">Nota</span><svg class="icon-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> 5.0 • 1.2k seguidores</p>
+                  <button
+                    class="btn-secondary"
+                    data-action="follow-pro"
+                    aria-pressed="false"
+                  >
                     Seguir
                   </button>
                 </article>
@@ -212,8 +314,15 @@
                   <h3>Desafio 30 Dias Abdominais</h3>
                   <p>Definição e resistência do core</p>
                   <p class="meta">Duração: 30 dias • 450 participantes</p>
-                  <div class="progress-bar-sm">
-                    <div class="fill" style="width: 20%"></div>
+                  <div
+                    class="progress-bar-sm"
+                    role="progressbar"
+                    aria-label="Progresso do desafio"
+                    aria-valuenow="20"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  >
+                    <div class="fill" data-progress="20"></div>
                   </div>
                   <button class="btn-primary" data-action="join-challenge">
                     Participar
@@ -229,7 +338,7 @@
                   <span>Treinos realizados</span><strong>14</strong>
                 </div>
                 <div class="stat-box">
-                  <span>Sequência atual</span><strong>5 dias 🔥</strong>
+                  <span>Sequência atual</span><strong>5 dias</strong>
                 </div>
                 <div class="stat-box">
                   <span>Tempo treinado</span><strong>8h 30m</strong>
@@ -248,29 +357,82 @@
             aria-labelledby="heading-descobrir"
           >
             <h1 id="heading-descobrir">Descobrir</h1>
-            <div class="filters-bar">
-              <select aria-label="Filtrar por objetivo">
-                <option>Objetivo</option>
+
+            <div class="filters-bar" role="group" aria-label="Filtros">
+              <select aria-label="Filtrar por objetivo" data-filter="objetivo">
+                <option value="">Objetivo</option>
+                <option value="Hipertrofia">Hipertrofia</option>
+                <option value="HIIT">HIIT</option>
+                <option value="Yoga & Mobilidade">Yoga & Mobilidade</option>
+                <option value="Resistência">Resistência</option>
               </select>
-              <select aria-label="Filtrar por nível">
-                <option>Nível</option>
+              <select aria-label="Filtrar por nível" data-filter="nivel">
+                <option value="">Nível</option>
+                <option value="Iniciante">Iniciante</option>
+                <option value="Intermediário">Intermediário</option>
+                <option value="Avançado">Avançado</option>
               </select>
-              <select aria-label="Filtrar por duração">
-                <option>Duração</option>
+              <select aria-label="Filtrar por duração" data-filter="duracao">
+                <option value="">Duração</option>
+                <option value="curto">Até 20 min</option>
+                <option value="medio">20 a 40 min</option>
+                <option value="longo">Mais de 40 min</option>
               </select>
-              <select aria-label="Filtrar por grupo muscular">
-                <option>Grupo Muscular</option>
+              <select
+                aria-label="Filtrar por grupo muscular"
+                data-filter="grupo"
+              >
+                <option value="">Grupo Muscular</option>
+                <option value="Corpo inteiro">Corpo inteiro</option>
+                <option value="Inferiores">Inferiores</option>
+                <option value="Superiores">Superiores</option>
+                <option value="Core">Core</option>
               </select>
+              <button class="btn-link" data-action="clear-filters" hidden>
+                Limpar filtros
+              </button>
             </div>
+
             <div class="discovery-content">
               <h2>Categorias em alta</h2>
               <div class="categories-grid">
-                <div class="category-pill">Hipertrofia</div>
-                <div class="category-pill">HIIT</div>
-                <div class="category-pill">Yoga & Mobilidade</div>
-                <div class="category-pill">Resistência</div>
+                <button
+                  class="category-pill"
+                  data-category="Hipertrofia"
+                  aria-pressed="false"
+                >
+                  Hipertrofia
+                </button>
+                <button
+                  class="category-pill"
+                  data-category="HIIT"
+                  aria-pressed="false"
+                >
+                  HIIT
+                </button>
+                <button
+                  class="category-pill"
+                  data-category="Yoga & Mobilidade"
+                  aria-pressed="false"
+                >
+                  Yoga & Mobilidade
+                </button>
+                <button
+                  class="category-pill"
+                  data-category="Resistência"
+                  aria-pressed="false"
+                >
+                  Resistência
+                </button>
               </div>
             </div>
+
+            <section aria-labelledby="heading-resultados">
+              <h2 id="heading-resultados">
+                Treinos <span class="count" data-render="descobrir-count"></span>
+              </h2>
+              <div class="cards-grid" data-render="descobrir"></div>
+            </section>
           </section>
 
           <!-- 3. TREINOS -->
@@ -285,8 +447,8 @@
                 + Novo Treino
               </button>
             </header>
-            <div class="workouts-list-container">
-              <!-- Lista de treinos gerenciados pelo usuário -->
+            <div class="workouts-list-container cards-grid">
+              <!-- Lista de treinos gerenciados pelo usuário (via JS) -->
             </div>
           </section>
 
@@ -297,13 +459,20 @@
             aria-labelledby="heading-perfil"
           >
             <div class="profile-header-card">
-              <span class="profile-avatar-lg avatar-initials" data-user-initials aria-hidden="true">BS</span>
+              <span
+                class="profile-avatar-lg avatar-initials"
+                data-user-initials
+                aria-hidden="true"
+                >BS</span
+              >
               <div class="profile-info">
-                <h1 id="heading-perfil">Biel Silva</h1>
-                <p class="username">@biel_fitness</p>
-                <p class="bio">Foco em hipertrofia e consistência diária. 🚀</p>
+                <h1 id="heading-perfil" data-user-name>Biel Silva</h1>
+                <p class="username" data-user-handle>@biel_fitness</p>
+                <p class="bio" data-user-bio>
+                  Foco em hipertrofia e consistência diária.
+                </p>
                 <div class="profile-stats-bar">
-                  <span><strong>14</strong> Treinos</span>
+                  <span><strong data-render="treinos-count">14</strong> Treinos</span>
                   <span><strong>120</strong> Seguidores</span>
                   <span><strong>85</strong> Seguindo</span>
                 </div>
@@ -321,8 +490,14 @@
             aria-labelledby="heading-profissionais"
           >
             <h1 id="heading-profissionais">Profissionais e Especialistas</h1>
-            <div class="professionals-grid">
-              <!-- Cards de profissionais -->
+            <div
+              class="chips-bar"
+              role="group"
+              aria-label="Filtrar por especialidade"
+              data-render="pros-filtros"
+            ></div>
+            <div class="professionals-grid cards-grid">
+              <!-- Cards de profissionais (via JS) -->
             </div>
           </section>
 
@@ -334,12 +509,18 @@
           >
             <h1 id="heading-evolucao">Evolução & Métricas</h1>
             <div class="evolution-dashboard">
-              <div class="chart-container" data-chart="peso">
-                Gráfico de Peso (Em breve via JS)
-              </div>
-              <div class="chart-container" data-chart="cargas">
-                Gráfico de Cargas (Em breve via JS)
-              </div>
+              <figure class="chart-container" data-chart="peso">
+                <figcaption>
+                  <h2>Peso corporal</h2>
+                  <span class="chart-meta">Últimas 8 semanas (kg)</span>
+                </figcaption>
+              </figure>
+              <figure class="chart-container" data-chart="cargas">
+                <figcaption>
+                  <h2>Carga no agachamento</h2>
+                  <span class="chart-meta">Últimas 8 semanas (kg)</span>
+                </figcaption>
+              </figure>
             </div>
           </section>
 
@@ -351,22 +532,56 @@
           >
             <h1 id="heading-alimentacao">Alimentação & Nutrição</h1>
             <div class="nutrition-overview">
-              <div class="macro-card">
+              <div class="macro-card" data-atual="2100" data-meta="2500">
                 <span>Calorias</span><strong>2100 / 2500 kcal</strong>
               </div>
-              <div class="macro-card">
+              <div class="macro-card" data-atual="160" data-meta="180">
                 <span>Proteínas</span><strong>160 / 180g</strong>
               </div>
-              <div class="macro-card">
+              <div class="macro-card" data-atual="220" data-meta="300">
                 <span>Carboidratos</span><strong>220 / 300g</strong>
               </div>
-              <div class="macro-card">
+              <div class="macro-card" data-atual="60" data-meta="70">
                 <span>Gorduras</span><strong>60 / 70g</strong>
               </div>
-              <div class="macro-card">
+              <div class="macro-card" data-atual="2.5" data-meta="3.0">
                 <span>Água</span><strong>2.5 / 3.0 L</strong>
               </div>
             </div>
+
+            <section aria-labelledby="heading-refeicoes">
+              <h2 id="heading-refeicoes">Refeições de hoje</h2>
+              <ul class="list-panel">
+                <li>
+                  <div>
+                    <strong>Café da manhã</strong>
+                    <span>Ovos mexidos, pão integral e banana</span>
+                  </div>
+                  <span class="tag">480 kcal</span>
+                </li>
+                <li>
+                  <div>
+                    <strong>Almoço</strong>
+                    <span>Arroz, feijão, frango grelhado e salada</span>
+                  </div>
+                  <span class="tag">720 kcal</span>
+                </li>
+                <li>
+                  <div>
+                    <strong>Lanche pré-treino</strong>
+                    <span>Iogurte natural com aveia e mel</span>
+                  </div>
+                  <span class="tag">310 kcal</span>
+                </li>
+                <li>
+                  <div>
+                    <strong>Jantar</strong>
+                    <span>Omelete de legumes e batata-doce</span>
+                  </div>
+                  <span class="tag">590 kcal</span>
+                </li>
+              </ul>
+            </section>
           </section>
 
           <!-- 8. PLANOS -->
@@ -434,15 +649,74 @@
               <div class="stat-box">
                 <span>Professores</span><strong>12</strong>
               </div>
+              <div class="stat-box">
+                <span>Check-ins hoje</span><strong>87</strong>
+              </div>
+              <div class="stat-box">
+                <span>Novas matrículas (mês)</span><strong>23</strong>
+              </div>
             </div>
+
+            <section aria-labelledby="heading-ocupacao">
+              <h2 id="heading-ocupacao">Ocupação por horário</h2>
+              <ul class="bars-list">
+                <li>
+                  <span>06h–09h</span>
+                  <div class="progress-bar-sm"><div class="fill" data-progress="85"></div></div>
+                  <strong>85%</strong>
+                </li>
+                <li>
+                  <span>12h–14h</span>
+                  <div class="progress-bar-sm"><div class="fill" data-progress="55"></div></div>
+                  <strong>55%</strong>
+                </li>
+                <li>
+                  <span>18h–21h</span>
+                  <div class="progress-bar-sm"><div class="fill" data-progress="95"></div></div>
+                  <strong>95%</strong>
+                </li>
+              </ul>
+            </section>
+
+            <section aria-labelledby="heading-avisos">
+              <h2 id="heading-avisos">Avisos recentes</h2>
+              <ul class="list-panel">
+                <li>
+                  <div>
+                    <strong>Manutenção da esteira 3</strong>
+                    <span>Previsão de retorno: sexta-feira</span>
+                  </div>
+                  <span class="tag">Equipamento</span>
+                </li>
+                <li>
+                  <div>
+                    <strong>Nova turma de Pilates</strong>
+                    <span>Terças e quintas, às 19h</span>
+                  </div>
+                  <span class="tag tag-success">Aulas</span>
+                </li>
+              </ul>
+            </section>
           </section>
 
-          <!-- Demais views menores mapeadas por padrão -->
-          <section id="view-aulas" class="view-section hidden">
-            <h1>Aulas</h1>
+          <!-- 10. AULAS -->
+          <section
+            id="view-aulas"
+            class="view-section hidden"
+            aria-labelledby="heading-aulas"
+          >
+            <h1 id="heading-aulas">Aulas</h1>
+            <div class="cards-grid" data-render="aulas"></div>
           </section>
-          <section id="view-salvos" class="view-section hidden">
-            <h1>Salvos</h1>
+
+          <!-- 11. SALVOS -->
+          <section
+            id="view-salvos"
+            class="view-section hidden"
+            aria-labelledby="heading-salvos"
+          >
+            <h1 id="heading-salvos">Salvos</h1>
+            <div class="cards-grid" data-render="salvos"></div>
           </section>
         </main>
       </div>
@@ -472,6 +746,9 @@
       </div>
     </div>
 
+    <!-- Aviso rápido (toast) -->
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
     <!-- ==================== FOOTER GERAL ==================== -->
     <footer class="site-footer">
       <div class="footer-content">
@@ -487,9 +764,7 @@
           <ul>
             <li><a href="../termos/termos.html">Termos de Uso</a></li>
             <li>
-              <a href="../politica/politica.html"
-                >Política de Privacidade</a
-              >
+              <a href="../politica/politica.html">Política de Privacidade</a>
             </li>
             <li><a href="#contato">Contato</a></li>
             <li><a href="#ajuda">Ajuda</a></li>

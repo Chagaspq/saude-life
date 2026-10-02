@@ -80,12 +80,17 @@
   position: relative;
 }
 
+/* Marca de "check" desenhada em CSS */
 .plan-full li::before {
-  content: "✓";
+  content: "";
   position: absolute;
-  left: 0;
-  color: var(--emerald);
-  font-weight: 700;
+  left: 3px;
+  top: 4px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--emerald);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
 
 .plan-full .btn-hero-primary,

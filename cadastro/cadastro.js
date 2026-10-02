@@ -249,6 +249,31 @@
     }, 1200);
   }
 
+  // Sem backend: a conta e a sessão ficam salvas no navegador (localStorage)
+  function saveAccount(form) {
+    const conta = {
+      nome: qs("#name", form).value.trim(),
+      email: qs("#email", form).value.trim().toLowerCase(),
+    };
+    try {
+      localStorage.setItem("sl-conta", JSON.stringify(conta));
+    } catch (e) {
+      /* armazenamento indisponível: segue sem salvar */
+    }
+  }
+
+  function startSession(form) {
+    const email = qs("#email", form).value.trim().toLowerCase();
+    let nome = email.split("@")[0];
+    try {
+      const conta = JSON.parse(localStorage.getItem("sl-conta") || "null");
+      if (conta && conta.email === email && conta.nome) nome = conta.nome;
+      localStorage.setItem("sl-sessao", JSON.stringify({ nome, email }));
+    } catch (e) {
+      /* armazenamento indisponível: segue sem salvar */
+    }
+  }
+
   function checkCadastroSuccess(loginForm) {
     if (!loginForm) return;
     const params = new URLSearchParams(window.location.search);
@@ -284,15 +309,19 @@
       event.preventDefault();
 
       if (loginForm && activeForm === loginForm) {
-        if (validateLoginForm(loginForm))
+        if (validateLoginForm(loginForm)) {
+          startSession(loginForm);
           submitForm(loginForm, "Entrando...", "../index/index.html");
+        }
       } else if (cadastroForm && activeForm === cadastroForm) {
-        if (validateCadastroForm(cadastroForm))
+        if (validateCadastroForm(cadastroForm)) {
+          saveAccount(cadastroForm);
           submitForm(
             cadastroForm,
             "Criando conta...",
             "../login/login.html?cadastro=sucesso",
           );
+        }
       }
     });
   });

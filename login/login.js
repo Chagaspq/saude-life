@@ -215,6 +215,19 @@
     return isValid;
   }
 
+  // Sem backend: a sessão fica salva no navegador (localStorage)
+  function startSession(form) {
+    const email = qs("#email", form).value.trim().toLowerCase();
+    let nome = email.split("@")[0];
+    try {
+      const conta = JSON.parse(localStorage.getItem("sl-conta") || "null");
+      if (conta && conta.email === email && conta.nome) nome = conta.nome;
+      localStorage.setItem("sl-sessao", JSON.stringify({ nome, email }));
+    } catch (e) {
+      /* armazenamento indisponível: segue sem salvar */
+    }
+  }
+
   function submitForm(form, loadingText) {
     const button = qs(".btn-submit", form);
     hideGlobalError(form);
@@ -248,7 +261,10 @@
       event.preventDefault();
 
       if (loginForm && activeForm === loginForm) {
-        if (validateLoginForm(loginForm)) submitForm(loginForm, "Entrando...");
+        if (validateLoginForm(loginForm)) {
+          startSession(loginForm);
+          submitForm(loginForm, "Entrando...");
+        }
       } else if (cadastroForm && activeForm === cadastroForm) {
         if (validateCadastroForm(cadastroForm))
           submitForm(cadastroForm, "Criando conta...");
