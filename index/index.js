@@ -85,6 +85,19 @@ document.addEventListener("DOMContentLoaded", () => {
     return icone;
   }
 
+  function iconeLixeira() {
+    const icone = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    icone.setAttribute("viewBox", "0 0 24 24");
+    icone.setAttribute("class", "icon");
+    icone.setAttribute("aria-hidden", "true");
+    ["M3 6h18", "M8 6V4h8v2", "M19 6l-1 14H6L5 6"].forEach((d) => {
+      const caminho = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      caminho.setAttribute("d", d);
+      icone.append(caminho);
+    });
+    return icone;
+  }
+
   const toastEl = document.getElementById("toast");
   let toastTimer;
   function toast(mensagem) {
@@ -357,8 +370,7 @@ document.addEventListener("DOMContentLoaded", () => {
               "data-action": "delete-workout",
               "data-id": treino.id,
               "aria-label": `Excluir treino ${treino.nome}`,
-              text: "×",
-            }),
+            }, [iconeLixeira()]),
           ]),
         ]),
       );
@@ -946,28 +958,56 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ============================================
-     INICIALIZAÇÃO
+     INICIALIZAÇÃO (com skeleton enquanto "carrega")
      ============================================ */
 
-  renderUsuario();
-  renderTreinos();
-  renderRecomendados();
-  renderDescobrir();
-  renderSalvos();
-  renderProfissionais();
-  // Sincroniza o card fixo de "Profissionais em destaque" com quem já é seguido
-  document.querySelectorAll('#view-inicio .pro-card [data-action="follow-pro"]').forEach((btn) => {
-    const nome = btn.closest(".pro-card").querySelector("h3").textContent;
-    if (seguindo.includes(nome)) {
-      btn.textContent = "Seguindo";
-      btn.className = "btn-primary";
-      btn.setAttribute("aria-pressed", "true");
-    }
+  function skeleton(quantidade) {
+    return Array.from({ length: quantidade }, () =>
+      el("div", { class: "skeleton-card", "aria-hidden": "true" }, [
+        el("div", { class: "skeleton-line is-block" }),
+        el("div", { class: "skeleton-line" }),
+        el("div", { class: "skeleton-line is-short" }),
+      ]),
+    );
+  }
+
+  const gridsDinamicos = [
+    listaTreinos,
+    gridDescobrir,
+    gridPros,
+    document.querySelector('[data-render="aulas"]'),
+    document.querySelector('[data-render="salvos"]'),
+  ];
+  gridsDinamicos.forEach((grid) => {
+    grid.setAttribute("aria-busy", "true");
+    grid.replaceChildren(...skeleton(3));
   });
-  renderAulas();
-  renderMacros();
-  renderGrafico(document.querySelector('[data-chart="peso"]'), EVOLUCAO.peso, "kg");
-  renderGrafico(document.querySelector('[data-chart="cargas"]'), EVOLUCAO.cargas, "kg");
+
+  renderUsuario();
   aplicarProgresso();
   showView(viewDoHash());
+
+  // Simula o tempo de resposta de um servidor
+  setTimeout(() => {
+    renderTreinos();
+    renderRecomendados();
+    renderDescobrir();
+    renderSalvos();
+    renderProfissionais();
+    // Sincroniza o card fixo de "Profissionais em destaque" com quem já é seguido
+    document.querySelectorAll('#view-inicio .pro-card [data-action="follow-pro"]').forEach((btn) => {
+      const nome = btn.closest(".pro-card").querySelector("h3").textContent;
+      if (seguindo.includes(nome)) {
+        btn.textContent = "Seguindo";
+        btn.className = "btn-primary";
+        btn.setAttribute("aria-pressed", "true");
+      }
+    });
+    renderAulas();
+    renderMacros();
+    renderGrafico(document.querySelector('[data-chart="peso"]'), EVOLUCAO.peso, "kg");
+    renderGrafico(document.querySelector('[data-chart="cargas"]'), EVOLUCAO.cargas, "kg");
+    aplicarProgresso();
+    gridsDinamicos.forEach((grid) => grid.removeAttribute("aria-busy"));
+  }, 450);
 });

@@ -614,3 +614,12 @@ a:visited {
   text-decoration: underline;
   opacity: 0.8;
 }
+
+/* Foco visível para quem navega pelo teclado */
+a:focus-visible,
+button:focus-visible,
+input[type="checkbox"]:focus-visible {
+  outline: 2px solid #ff7a45;
+  outline-offset: 3px;
+  border-radius: 6px;
+}

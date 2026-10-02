@@ -1288,6 +1288,141 @@ a.btn-primary {
 }
 
 /* ============================================
+   ESTADOS (hover, foco, ativo) E ANIMAÇÕES
+   ============================================ */
+
+a:focus-visible,
+button:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 2px;
+}
+
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible {
+  outline-offset: 3px;
+}
+
+#conteudo:focus {
+  outline: none;
+}
+
+.workout-card,
+.rec-card,
+.pro-card,
+.challenge-card,
+.stat-box,
+.macro-card,
+.chart-container {
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.workout-card:hover,
+.rec-card:hover,
+.pro-card:hover,
+.challenge-card:hover {
+  transform: translateY(-2px);
+  border-color: #35503f;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+}
+
+.stat-box:hover,
+.macro-card:hover {
+  border-color: #35503f;
+}
+
+.btn-primary:disabled,
+.btn-secondary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  filter: none;
+  transform: none;
+}
+
+.filters-bar select:hover {
+  border-color: #35503f;
+}
+
+.view-section.active {
+  animation: view-in 0.2s ease-out both;
+}
+
+@keyframes view-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.modal-overlay:not(.hidden) .modal-window {
+  animation: view-in 0.18s ease-out both;
+}
+
+/* Skeletons de carregamento */
+.skeleton-card {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 150px;
+}
+
+.skeleton-line {
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--surface-2) 25%, #26362f 50%, var(--surface-2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s linear infinite;
+}
+
+.skeleton-line.is-block {
+  height: 80px;
+  border-radius: var(--radius-sm);
+}
+
+.skeleton-line.is-short {
+  width: 55%;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .workout-card:hover,
+  .rec-card:hover,
+  .pro-card:hover,
+  .challenge-card:hover {
+    transform: none;
+  }
+}
+
+/* ============================================
    RESPONSIVO
    ============================================ */
 
