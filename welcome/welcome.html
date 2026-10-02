@@ -15,10 +15,11 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="welcome.css" />
+    <link rel="stylesheet" href="../shared/site.css" />
   </head>
   <body>
     <header class="top-bar">
-      <a href="welcome.html" class="brand">
+      <a href="../welcome/welcome.html" class="brand" aria-current="page">
         <svg
           aria-hidden="true"
           width="30"
@@ -47,13 +48,12 @@
             stroke-linejoin="round"
           />
         </svg>
-        Saúde Life
+        <span>Saúde Life</span>
       </a>
-      <nav class="top-bar-actions" aria-label="Acesso à conta">
+      <nav class="top-bar-actions" aria-label="Navegação principal">
+        <a href="../planos/planos.html" class="link-entrar">Planos</a>
         <a href="../login/login.html" class="link-entrar">Entrar</a>
-        <a href="../cadastro/cadastro.html" class="btn-criar-conta"
-          >Criar conta</a
-        >
+        <a href="../cadastro/cadastro.html" class="btn-criar-conta">Começar</a>
       </nav>
     </header>
 
@@ -293,8 +293,43 @@
       </section>
     </main>
 
-    <footer class="welcome-footer">
-      <p>&copy; 2026 Saúde Life. Todos os direitos reservados.</p>
+    <footer class="site-footer-public">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a href="../welcome/welcome.html" class="brand">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 48 48" fill="none">
+              <path
+                d="M4 31 L9 31 L12 19 L15 37 L18 27 C23 13 30 9 35 16 Q40 21 44 8"
+                stroke="url(#logo-gradient)"
+                stroke-width="4.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span>Saúde Life</span>
+          </a>
+          <p>
+            Treinos guiados, profissionais de confiança e o acompanhamento da
+            sua evolução em um só lugar.
+          </p>
+        </div>
+        <nav aria-labelledby="footer-produto">
+          <h2 id="footer-produto">Produto</h2>
+          <ul>
+            <li><a href="../planos/planos.html">Planos</a></li>
+            <li><a href="../cadastro/cadastro.html">Criar conta</a></li>
+            <li><a href="../login/login.html">Entrar</a></li>
+          </ul>
+        </nav>
+        <nav aria-labelledby="footer-legal">
+          <h2 id="footer-legal">Legal</h2>
+          <ul>
+            <li><a href="../termos/termos.html">Termos de Uso</a></li>
+            <li><a href="../politica/politica.html">Política de Privacidade</a></li>
+          </ul>
+        </nav>
+      </div>
+      <p class="footer-copy">&copy; 2026 Saúde Life. Todos os direitos reservados.</p>
     </footer>
   </body>
 </html>

@@ -14,14 +14,75 @@
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="termos.css" />
+    <link rel="stylesheet" href="../shared/site.css" />
+    <link rel="stylesheet" href="../shared/legal.css" />
   </head>
   <body>
-    <main class="auth-container">
+    <header class="top-bar">
+      <a href="../welcome/welcome.html" class="brand">
+        <svg
+          aria-hidden="true"
+          width="30"
+          height="30"
+          viewBox="0 0 48 48"
+          fill="none"
+        >
+          <defs>
+            <linearGradient
+              id="logo-gradient"
+              x1="2"
+              y1="40"
+              x2="46"
+              y2="6"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0%" stop-color="#ff7a45" />
+              <stop offset="100%" stop-color="#34d399" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M4 31 L9 31 L12 19 L15 37 L18 27 C23 13 30 9 35 16 Q40 21 44 8"
+            stroke="url(#logo-gradient)"
+            stroke-width="4.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span>Saúde Life</span>
+      </a>
+      <nav class="top-bar-actions" aria-label="Navegação principal">
+        <a href="../planos/planos.html" class="link-entrar">Planos</a>
+        <a href="../login/login.html" class="link-entrar">Entrar</a>
+        <a href="../cadastro/cadastro.html" class="btn-criar-conta">Começar</a>
+      </nav>
+    </header>
+
+    <main class="auth-container" id="topo">
       <header class="auth-header">
         <h1>Termos de Uso</h1>
         <p class="auth-subtitle">Última atualização: 12 de setembro de 2026</p>
       </header>
+
+      <nav class="toc" aria-labelledby="toc-title">
+        <h2 id="toc-title">Nesta página</h2>
+        <ol>
+            <li><a href="#sobre-a-saude-life">1. Sobre a Saúde Life</a></li>
+            <li><a href="#cadastro-e-conta">2. Cadastro e conta</a></li>
+            <li><a href="#uso-da-plataforma">3. Uso da plataforma</a></li>
+            <li><a href="#treinos-e-informacoes-de-saude">4. Treinos e informações de saúde</a></li>
+            <li><a href="#conteudo-publicado-pelos-usuarios">5. Conteúdo publicado pelos usuários</a></li>
+            <li><a href="#profissionais-e-academias">6. Profissionais e academias</a></li>
+            <li><a href="#planos-e-servicos-pagos">7. Planos e serviços pagos</a></li>
+            <li><a href="#propriedade-intelectual">8. Propriedade intelectual</a></li>
+            <li><a href="#disponibilidade-do-servico">9. Disponibilidade do serviço</a></li>
+            <li><a href="#limitacao-de-responsabilidade">10. Limitação de responsabilidade</a></li>
+            <li><a href="#privacidade">11. Privacidade</a></li>
+            <li><a href="#alteracoes-destes-termos">12. Alterações destes Termos</a></li>
+            <li><a href="#encerramento-da-conta">13. Encerramento da conta</a></li>
+            <li><a href="#legislacao-aplicavel">14. Legislação aplicável</a></li>
+            <li><a href="#contato">15. Contato</a></li>
+        </ol>
+      </nav>
 
       <div class="terms-content">
         <p>Bem-vindo à Saúde Life.</p>
@@ -37,7 +98,7 @@
           de Privacidade.
         </p>
 
-        <section>
+        <section id="sobre-a-saude-life">
           <h2>1. Sobre a Saúde Life</h2>
           <p>
             A Saúde Life é uma plataforma digital voltada para fitness,
@@ -51,7 +112,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="cadastro-e-conta">
           <h2>2. Cadastro e conta</h2>
           <p>
             Para utilizar determinadas funcionalidades, o usuário poderá
@@ -81,7 +142,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="uso-da-plataforma">
           <h2>3. Uso da plataforma</h2>
           <p>
             O usuário concorda em utilizar a Saúde Life de maneira legal,
@@ -112,7 +173,7 @@
           </ul>
         </section>
 
-        <section>
+        <section id="treinos-e-informacoes-de-saude">
           <h2>4. Treinos e informações de saúde</h2>
           <p>
             Os conteúdos, treinos, sugestões, recomendações e informações
@@ -140,7 +201,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="conteudo-publicado-pelos-usuarios">
           <h2>5. Conteúdo publicado pelos usuários</h2>
           <p>
             A Saúde Life poderá permitir que usuários e profissionais publiquem
@@ -163,7 +224,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="profissionais-e-academias">
           <h2>6. Profissionais e academias</h2>
           <p>
             A plataforma poderá disponibilizar perfis e serviços destinados a
@@ -186,7 +247,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="planos-e-servicos-pagos">
           <h2>7. Planos e serviços pagos</h2>
           <p>
             A Saúde Life poderá oferecer planos gratuitos e pagos, incluindo
@@ -208,7 +269,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="propriedade-intelectual">
           <h2>8. Propriedade intelectual</h2>
           <p>
             A Saúde Life e seus respectivos elementos, incluindo nome, marca,
@@ -227,7 +288,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="disponibilidade-do-servico">
           <h2>9. Disponibilidade do serviço</h2>
           <p>
             A Saúde Life buscará manter a plataforma disponível e funcionando
@@ -240,7 +301,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="limitacao-de-responsabilidade">
           <h2>10. Limitação de responsabilidade</h2>
           <p>A Saúde Life não será responsável por danos decorrentes de:</p>
           <ul>
@@ -261,7 +322,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="privacidade">
           <h2>11. Privacidade</h2>
           <p>
             A utilização de dados pessoais pela Saúde Life será realizada de
@@ -274,7 +335,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="alteracoes-destes-termos">
           <h2>12. Alterações destes Termos</h2>
           <p>
             A Saúde Life poderá atualizar estes Termos de Uso para refletir
@@ -291,7 +352,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="encerramento-da-conta">
           <h2>13. Encerramento da conta</h2>
           <p>
             O usuário poderá solicitar o encerramento de sua conta de acordo com
@@ -304,7 +365,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="legislacao-aplicavel">
           <h2>14. Legislação aplicável</h2>
           <p>
             Estes Termos de Uso serão interpretados de acordo com a legislação
@@ -316,7 +377,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="contato">
           <h2>15. Contato</h2>
           <p>
             Em caso de dúvidas, solicitações ou questões relacionadas a estes
@@ -338,5 +399,48 @@
         </p>
       </footer>
     </main>
+    <a href="#topo" class="back-to-top" aria-label="Voltar ao topo">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m18 15-6-6-6 6"></path></svg>
+    </a>
+
+    <footer class="site-footer-public">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a href="../welcome/welcome.html" class="brand">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 48 48" fill="none">
+              <path
+                d="M4 31 L9 31 L12 19 L15 37 L18 27 C23 13 30 9 35 16 Q40 21 44 8"
+                stroke="url(#logo-gradient)"
+                stroke-width="4.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span>Saúde Life</span>
+          </a>
+          <p>
+            Treinos guiados, profissionais de confiança e o acompanhamento da
+            sua evolução em um só lugar.
+          </p>
+        </div>
+        <nav aria-labelledby="footer-produto">
+          <h2 id="footer-produto">Produto</h2>
+          <ul>
+            <li><a href="../planos/planos.html">Planos</a></li>
+            <li><a href="../cadastro/cadastro.html">Criar conta</a></li>
+            <li><a href="../login/login.html">Entrar</a></li>
+          </ul>
+        </nav>
+        <nav aria-labelledby="footer-legal">
+          <h2 id="footer-legal">Legal</h2>
+          <ul>
+            <li><a href="../termos/termos.html">Termos de Uso</a></li>
+            <li><a href="../politica/politica.html">Política de Privacidade</a></li>
+          </ul>
+        </nav>
+      </div>
+      <p class="footer-copy">&copy; 2026 Saúde Life. Todos os direitos reservados.</p>
+    </footer>
+    <script src="../shared/legal.js"></script>
   </body>
 </html>

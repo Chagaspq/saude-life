@@ -1,0 +1,173 @@
+/*
+ * Header e footer públicos — iguais em welcome, planos, termos e política.
+ */
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px clamp(16px, 5vw, 64px);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(14, 21, 18, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid #263832;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: #ffa06b;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.top-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.link-entrar {
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #a3b0a8;
+  border-radius: 6px;
+  transition: color 0.15s ease;
+}
+
+.link-entrar:hover,
+.link-entrar[aria-current="page"] {
+  color: #f4f1ea;
+}
+
+.btn-criar-conta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 9px 20px;
+  text-decoration: none;
+  color: #14100c;
+  background: linear-gradient(180deg, #ffa06b, #ff7a45 70%);
+  border-radius: 999px;
+  transition:
+    filter 0.15s ease,
+    transform 0.1s ease;
+}
+
+.btn-criar-conta:hover {
+  filter: brightness(1.08);
+}
+
+.btn-criar-conta:active {
+  transform: translateY(1px);
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer-public {
+  border-top: 1px solid #263832;
+  background: #16211d;
+  padding: 40px clamp(16px, 5vw, 64px) 24px;
+  font-family: "Inter", sans-serif;
+}
+
+.site-footer-public .footer-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr repeat(2, 1fr);
+  gap: 32px;
+}
+
+.site-footer-public .footer-about p {
+  color: #a3b0a8;
+  font-size: 13.5px;
+  line-height: 1.6;
+  margin: 12px 0 0;
+  max-width: 36ch;
+}
+
+.site-footer-public h2 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #f4f1ea;
+  margin: 0 0 12px;
+}
+
+.site-footer-public ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.site-footer-public ul a {
+  color: #a3b0a8;
+  font-size: 13.5px;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.site-footer-public ul a:hover {
+  color: #ffa06b;
+}
+
+.site-footer-public .footer-copy {
+  max-width: 1200px;
+  margin: 32px auto 0;
+  padding-top: 16px;
+  border-top: 1px solid #263832;
+  color: #6d7a73;
+  font-size: 12px;
+}
+
+/* Foco visível para teclado */
+.top-bar a:focus-visible,
+.site-footer-public a:focus-visible {
+  outline: 2px solid #ff7a45;
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .top-bar-actions {
+    gap: 14px;
+  }
+
+  .site-footer-public .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .site-footer-public .footer-about {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 420px) {
+  .brand span {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link-entrar,
+  .btn-criar-conta {
+    transition: none;
+  }
+}

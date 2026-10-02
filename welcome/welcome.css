@@ -65,49 +65,7 @@ ol {
   list-style: none;
 }
 
-.top-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 20px clamp(20px, 5vw, 64px);
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: rgba(14, 21, 18, 0.75);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--surface-border);
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: "Space Grotesk", sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  color: var(--coral-light);
-  text-decoration: none;
-}
-
-.top-bar-actions {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.link-entrar {
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  color: var(--muted);
-  transition: color 0.15s ease;
-}
-
-.link-entrar:hover {
-  color: var(--ink);
-}
+/* Header e footer públicos: ver ../shared/site.css */
 
 .btn-criar-conta,
 .btn-hero-primary {
@@ -133,11 +91,6 @@ ol {
 .btn-criar-conta:active,
 .btn-hero-primary:active {
   transform: translateY(1px);
-}
-
-.btn-criar-conta {
-  font-size: 13.5px;
-  padding: 9px 20px;
 }
 
 .hero {
@@ -449,17 +402,6 @@ ol {
   padding: 14px 28px;
 }
 
-.welcome-footer {
-  border-top: 1px solid var(--surface-border);
-  padding: 24px clamp(20px, 5vw, 64px) 32px;
-  text-align: center;
-}
-
-.welcome-footer p {
-  color: var(--muted-2);
-  font-size: 12px;
-  margin: 0;
-}
 @media (max-width: 880px) {
   .hero {
     grid-template-columns: 1fr;
@@ -489,14 +431,6 @@ ol {
 }
 
 @media (max-width: 560px) {
-  .top-bar {
-    padding: 16px 20px;
-  }
-
-  .brand span {
-    display: none;
-  }
-
   .hero-actions,
   .closing-actions {
     flex-direction: column;

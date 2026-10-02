@@ -14,14 +14,76 @@
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="politica.css" />
+    <link rel="stylesheet" href="../shared/site.css" />
+    <link rel="stylesheet" href="../shared/legal.css" />
   </head>
   <body>
-    <main class="auth-container">
+    <header class="top-bar">
+      <a href="../welcome/welcome.html" class="brand">
+        <svg
+          aria-hidden="true"
+          width="30"
+          height="30"
+          viewBox="0 0 48 48"
+          fill="none"
+        >
+          <defs>
+            <linearGradient
+              id="logo-gradient"
+              x1="2"
+              y1="40"
+              x2="46"
+              y2="6"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0%" stop-color="#ff7a45" />
+              <stop offset="100%" stop-color="#34d399" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M4 31 L9 31 L12 19 L15 37 L18 27 C23 13 30 9 35 16 Q40 21 44 8"
+            stroke="url(#logo-gradient)"
+            stroke-width="4.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span>Saúde Life</span>
+      </a>
+      <nav class="top-bar-actions" aria-label="Navegação principal">
+        <a href="../planos/planos.html" class="link-entrar">Planos</a>
+        <a href="../login/login.html" class="link-entrar">Entrar</a>
+        <a href="../cadastro/cadastro.html" class="btn-criar-conta">Começar</a>
+      </nav>
+    </header>
+
+    <main class="auth-container" id="topo">
       <header class="auth-header">
         <h1>Política de Privacidade</h1>
         <p class="auth-subtitle">Última atualização: 12 de setembro de 2026</p>
       </header>
+
+      <nav class="toc" aria-labelledby="toc-title">
+        <h2 id="toc-title">Nesta página</h2>
+        <ol>
+            <li><a href="#informacoes-que-podemos-coletar">1. Informações que podemos coletar</a></li>
+            <li><a href="#como-utilizamos-as-informacoes">2. Como utilizamos as informações</a></li>
+            <li><a href="#informacoes-de-saude-e-condicionamento-fisico">3. Informações de saúde e condicionamento físico</a></li>
+            <li><a href="#conteudos-publicados-pelo-usuario">4. Conteúdos publicados pelo usuário</a></li>
+            <li><a href="#compartilhamento-de-informacoes">5. Compartilhamento de informações</a></li>
+            <li><a href="#dados-de-academias-e-profissionais">6. Dados de academias e profissionais</a></li>
+            <li><a href="#cookies-e-tecnologias-semelhantes">7. Cookies e tecnologias semelhantes</a></li>
+            <li><a href="#armazenamento-e-seguranca">8. Armazenamento e segurança</a></li>
+            <li><a href="#retencao-dos-dados">9. Retenção dos dados</a></li>
+            <li><a href="#direitos-do-usuario">10. Direitos do usuário</a></li>
+            <li><a href="#criancas-e-adolescentes">11. Crianças e adolescentes</a></li>
+            <li><a href="#servicos-de-terceiros">12. Serviços de terceiros</a></li>
+            <li><a href="#pagamentos">13. Pagamentos</a></li>
+            <li><a href="#alteracoes-nesta-politica">14. Alterações nesta Política</a></li>
+            <li><a href="#contato">15. Contato</a></li>
+            <li><a href="#aceitacao">16. Aceitação</a></li>
+        </ol>
+      </nav>
 
       <div class="terms-content">
         <p>
@@ -39,7 +101,7 @@
           descritas nesta Política de Privacidade.
         </p>
 
-        <section>
+        <section id="informacoes-que-podemos-coletar">
           <h2>1. Informações que podemos coletar</h2>
           <p>
             Dependendo das funcionalidades utilizadas, a Saúde Life poderá
@@ -69,7 +131,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="como-utilizamos-as-informacoes">
           <h2>2. Como utilizamos as informações</h2>
           <p>As informações poderão ser utilizadas para:</p>
           <ul>
@@ -93,7 +155,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="informacoes-de-saude-e-condicionamento-fisico">
           <h2>3. Informações de saúde e condicionamento físico</h2>
           <p>
             Algumas funcionalidades da Saúde Life poderão envolver informações
@@ -116,7 +178,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="conteudos-publicados-pelo-usuario">
           <h2>4. Conteúdos publicados pelo usuário</h2>
           <p>A Saúde Life poderá permitir que o usuário publique:</p>
           <ul>
@@ -139,7 +201,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="compartilhamento-de-informacoes">
           <h2>5. Compartilhamento de informações</h2>
           <p>A Saúde Life não deverá vender dados pessoais dos usuários.</p>
           <p>
@@ -163,7 +225,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="dados-de-academias-e-profissionais">
           <h2>6. Dados de academias e profissionais</h2>
           <p>
             Quando o usuário estiver vinculado a uma academia ou profissional
@@ -184,7 +246,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="cookies-e-tecnologias-semelhantes">
           <h2>7. Cookies e tecnologias semelhantes</h2>
           <p>
             A Saúde Life poderá utilizar cookies e tecnologias semelhantes para:
@@ -204,7 +266,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="armazenamento-e-seguranca">
           <h2>8. Armazenamento e segurança</h2>
           <p>
             A Saúde Life adotará medidas técnicas e organizacionais destinadas a
@@ -228,7 +290,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="retencao-dos-dados">
           <h2>9. Retenção dos dados</h2>
           <p>
             As informações pessoais poderão ser armazenadas pelo período
@@ -248,7 +310,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="direitos-do-usuario">
           <h2>10. Direitos do usuário</h2>
           <p>
             O usuário poderá, conforme a legislação aplicável, solicitar
@@ -275,7 +337,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="criancas-e-adolescentes">
           <h2>11. Crianças e adolescentes</h2>
           <p>
             A Saúde Life poderá estabelecer regras específicas para usuários
@@ -292,7 +354,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="servicos-de-terceiros">
           <h2>12. Serviços de terceiros</h2>
           <p>A plataforma poderá utilizar serviços externos, como:</p>
           <ul>
@@ -313,7 +375,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="pagamentos">
           <h2>13. Pagamentos</h2>
           <p>
             Quando a Saúde Life disponibilizar serviços pagos, informações
@@ -331,7 +393,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="alteracoes-nesta-politica">
           <h2>14. Alterações nesta Política</h2>
           <p>
             A Saúde Life poderá atualizar esta Política de Privacidade para
@@ -347,7 +409,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="contato">
           <h2>15. Contato</h2>
           <p>
             Caso o usuário tenha dúvidas, solicitações ou reclamações
@@ -357,7 +419,7 @@
           </p>
         </section>
 
-        <section>
+        <section id="aceitacao">
           <h2>16. Aceitação</h2>
           <p>
             Ao utilizar a Saúde Life e, quando aplicável, marcar a opção de
@@ -380,5 +442,48 @@
         </p>
       </footer>
     </main>
+    <a href="#topo" class="back-to-top" aria-label="Voltar ao topo">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m18 15-6-6-6 6"></path></svg>
+    </a>
+
+    <footer class="site-footer-public">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a href="../welcome/welcome.html" class="brand">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 48 48" fill="none">
+              <path
+                d="M4 31 L9 31 L12 19 L15 37 L18 27 C23 13 30 9 35 16 Q40 21 44 8"
+                stroke="url(#logo-gradient)"
+                stroke-width="4.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span>Saúde Life</span>
+          </a>
+          <p>
+            Treinos guiados, profissionais de confiança e o acompanhamento da
+            sua evolução em um só lugar.
+          </p>
+        </div>
+        <nav aria-labelledby="footer-produto">
+          <h2 id="footer-produto">Produto</h2>
+          <ul>
+            <li><a href="../planos/planos.html">Planos</a></li>
+            <li><a href="../cadastro/cadastro.html">Criar conta</a></li>
+            <li><a href="../login/login.html">Entrar</a></li>
+          </ul>
+        </nav>
+        <nav aria-labelledby="footer-legal">
+          <h2 id="footer-legal">Legal</h2>
+          <ul>
+            <li><a href="../termos/termos.html">Termos de Uso</a></li>
+            <li><a href="../politica/politica.html">Política de Privacidade</a></li>
+          </ul>
+        </nav>
+      </div>
+      <p class="footer-copy">&copy; 2026 Saúde Life. Todos os direitos reservados.</p>
+    </footer>
+    <script src="../shared/legal.js"></script>
   </body>
 </html>

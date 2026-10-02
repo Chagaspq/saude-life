@@ -15,6 +15,8 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../welcome/welcome.css" />
+    <link rel="stylesheet" href="../shared/site.css" />
+    <link rel="stylesheet" href="../shared/planos.css" />
     <link rel="stylesheet" href="planos.css" />
   </head>
   <body>
@@ -48,13 +50,12 @@
             stroke-linejoin="round"
           />
         </svg>
-        Saúde Life
+        <span>Saúde Life</span>
       </a>
-      <nav class="top-bar-actions" aria-label="Acesso à conta">
+      <nav class="top-bar-actions" aria-label="Navegação principal">
+        <a href="../planos/planos.html" class="link-entrar" aria-current="page">Planos</a>
         <a href="../login/login.html" class="link-entrar">Entrar</a>
-        <a href="../cadastro/cadastro.html" class="btn-criar-conta"
-          >Criar conta</a
-        >
+        <a href="../cadastro/cadastro.html" class="btn-criar-conta">Começar</a>
       </nav>
     </header>
 
@@ -69,59 +70,7 @@
       </section>
 
       <section class="plans-full-grid" aria-label="Comparativo de planos">
-        <article class="plan-full">
-          <h2>Free</h2>
-          <p class="plan-full-price">R$ 0</p>
-          <ul>
-            <li>Treinos básicos da plataforma</li>
-            <li>Acompanhamento simples de evolução</li>
-            <li>Acesso à comunidade</li>
-          </ul>
-          <a href="../cadastro/cadastro.html" class="btn-hero-secondary"
-            >Começar grátis</a
-          >
-        </article>
-
-        <article class="plan-full plan-full-highlight">
-          <span class="plan-mini-tag">Mais escolhido</span>
-          <h2>Premium</h2>
-          <p class="plan-full-price">R$ 29,90<span>/mês</span></p>
-          <ul>
-            <li>Acesso total à plataforma</li>
-            <li>Treinos personalizados com IA</li>
-            <li>Relatórios avançados de evolução</li>
-            <li>Suporte prioritário</li>
-          </ul>
-          <a href="../cadastro/cadastro.html" class="btn-hero-primary"
-            >Assinar Premium</a
-          >
-        </article>
-
-        <article class="plan-full">
-          <h2>Profissional</h2>
-          <p class="plan-full-price">R$ 79,90<span>/mês</span></p>
-          <ul>
-            <li>Ferramentas pra personal trainers</li>
-            <li>Gestão de alunos e planos de treino</li>
-            <li>Relatórios de desempenho dos alunos</li>
-          </ul>
-          <a href="../cadastro/cadastro.html" class="btn-hero-secondary"
-            >Assinar Pro</a
-          >
-        </article>
-
-        <article class="plan-full">
-          <h2>Academia</h2>
-          <p class="plan-full-price">Consulte</p>
-          <ul>
-            <li>Sistema completo de gestão</li>
-            <li>Múltiplos professores e alunos</li>
-            <li>Relatórios e suporte dedicado</li>
-          </ul>
-          <a href="../cadastro/cadastro.html" class="btn-hero-secondary"
-            >Falar com consultor</a
-          >
-        </article>
+        <div data-planos data-cta="../cadastro/cadastro.html"></div>
       </section>
 
       <section class="plans-cta">
@@ -133,8 +82,44 @@
       </section>
     </main>
 
-    <footer class="welcome-footer">
-      <p>&copy; 2026 Saúde Life. Todos os direitos reservados.</p>
+    <footer class="site-footer-public">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a href="../welcome/welcome.html" class="brand">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 48 48" fill="none">
+              <path
+                d="M4 31 L9 31 L12 19 L15 37 L18 27 C23 13 30 9 35 16 Q40 21 44 8"
+                stroke="url(#logo-gradient)"
+                stroke-width="4.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span>Saúde Life</span>
+          </a>
+          <p>
+            Treinos guiados, profissionais de confiança e o acompanhamento da
+            sua evolução em um só lugar.
+          </p>
+        </div>
+        <nav aria-labelledby="footer-produto">
+          <h2 id="footer-produto">Produto</h2>
+          <ul>
+            <li><a href="../planos/planos.html">Planos</a></li>
+            <li><a href="../cadastro/cadastro.html">Criar conta</a></li>
+            <li><a href="../login/login.html">Entrar</a></li>
+          </ul>
+        </nav>
+        <nav aria-labelledby="footer-legal">
+          <h2 id="footer-legal">Legal</h2>
+          <ul>
+            <li><a href="../termos/termos.html">Termos de Uso</a></li>
+            <li><a href="../politica/politica.html">Política de Privacidade</a></li>
+          </ul>
+        </nav>
+      </div>
+      <p class="footer-copy">&copy; 2026 Saúde Life. Todos os direitos reservados.</p>
     </footer>
+    <script src="../shared/planos.js"></script>
   </body>
 </html>

@@ -8,6 +8,7 @@
       name="description"
       content="Plataforma fitness moderna integrando treinos, rede social, evolução e gestão para academias e profissionais."
     />
+    <link rel="stylesheet" href="../shared/planos.css" />
     <link rel="stylesheet" href="index.css" />
   </head>
 
@@ -591,48 +592,11 @@
             aria-labelledby="heading-planos"
           >
             <h1 id="heading-planos">Planos Saúde Life</h1>
-            <div class="pricing-grid">
-              <div class="pricing-card">
-                <h3>Free</h3>
-                <p class="price">R$ 0</p>
-                <ul>
-                  <li>Recursos básicos de treino</li>
-                </ul>
-                <button class="btn-secondary" data-action="select-plan">
-                  Plano Atual
-                </button>
-              </div>
-              <div class="pricing-card featured">
-                <h3>Premium</h3>
-                <p class="price">R$ 29,90/mês</p>
-                <ul>
-                  <li>Acesso total, IA de treinos, relatórios avançados</li>
-                </ul>
-                <button class="btn-primary" data-action="select-plan">
-                  Assinar Premium
-                </button>
-              </div>
-              <div class="pricing-card">
-                <h3>Profissional</h3>
-                <p class="price">R$ 79,90/mês</p>
-                <ul>
-                  <li>Ferramentas para personal trainers</li>
-                </ul>
-                <button class="btn-primary" data-action="select-plan">
-                  Assinar Pro
-                </button>
-              </div>
-              <div class="pricing-card">
-                <h3>Academia</h3>
-                <p class="price">Consulte</p>
-                <ul>
-                  <li>Sistema completo para gestão de academias</li>
-                </ul>
-                <button class="btn-primary" data-action="select-plan">
-                  Falar com Consultor
-                </button>
-              </div>
-            </div>
+            <p class="view-lead">
+              Comece de graça e evolua quando fizer sentido. Sem fidelidade,
+              cancele quando quiser.
+            </p>
+            <div data-planos></div>
           </section>
 
           <!-- 9. ACADEMIA (ÁREA EXCLUSIVA) -->
@@ -784,6 +748,7 @@
       </div>
     </footer>
 
+    <script src="../shared/planos.js"></script>
     <script src="index.js"></script>
   </body>
 </html>

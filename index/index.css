@@ -439,8 +439,7 @@ a {
 .workout-card,
 .rec-card,
 .pro-card,
-.challenge-card,
-.pricing-card {
+.challenge-card {
   background: var(--surface);
   border: 1px solid var(--surface-border);
   border-radius: var(--radius);
@@ -663,62 +662,17 @@ a {
 }
 
 /* ============================================
-   PLANOS / PRICING
+   PLANOS (visual em ../shared/planos.css)
    ============================================ */
 
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-}
-
-.pricing-card {
-  align-items: flex-start;
-  gap: 12px;
-}
-
-.pricing-card.featured {
-  border-color: var(--red);
-  box-shadow: 0 0 0 1px var(--red);
-}
-
-.pricing-card .price {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  margin: 0;
-}
-
-.pricing-card ul {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 13px;
+.view-lead {
   color: var(--muted);
-  width: 100%;
+  font-size: 14.5px;
+  margin: -20px 0 0;
 }
 
-.pricing-card ul li {
-  position: relative;
-  padding-left: 18px;
-}
-
-/* Marca de "check" desenhada em CSS */
-.pricing-card ul li::before {
-  content: "";
-  position: absolute;
-  left: 2px;
-  top: 3px;
-  width: 5px;
-  height: 9px;
-  border: solid var(--success);
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
-
-.pricing-card button {
-  width: 100%;
-  margin-top: 4px;
+#view-planos [data-planos] {
+  align-items: flex-start;
 }
 
 /* ============================================
