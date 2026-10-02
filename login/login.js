@@ -222,7 +222,7 @@
 
     setTimeout(function () {
       setLoading(button, false);
-      window.location.href = "../index.html";
+      window.location.href = "../index/index.html";
     }, 1200);
   }
 

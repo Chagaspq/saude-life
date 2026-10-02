@@ -372,3 +372,11 @@ a:visited {
   text-decoration: underline;
   opacity: 0.8;
 }
+
+/* Link exibido no modo demonstração */
+.demo-link {
+  display: inline-block;
+  margin-top: 6px;
+  color: var(--coral-light);
+  font-weight: 600;
+}

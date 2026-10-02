@@ -57,7 +57,10 @@ document.addEventListener("DOMContentLoaded", () => {
     globalSearch.addEventListener("input", (e) => {
       const val = e.target.value.trim();
       if (val.length > 0) {
-        searchDropdown.innerHTML = `<div style="padding: 10px; color: #a1a1aa; font-size: 0.85rem;">Buscando por "${val}"...</div>`;
+        const msg = document.createElement("div");
+        msg.className = "search-status";
+        msg.textContent = `Buscando por "${val}"...`;
+        searchDropdown.replaceChildren(msg);
         searchDropdown.classList.remove("hidden");
       } else {
         searchDropdown.classList.add("hidden");

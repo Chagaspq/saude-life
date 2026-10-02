@@ -285,7 +285,7 @@
 
       if (loginForm && activeForm === loginForm) {
         if (validateLoginForm(loginForm))
-          submitForm(loginForm, "Entrando...", "index.html");
+          submitForm(loginForm, "Entrando...", "../index/index.html");
       } else if (cadastroForm && activeForm === cadastroForm) {
         if (validateCadastroForm(cadastroForm))
           submitForm(

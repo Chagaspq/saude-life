@@ -456,13 +456,37 @@ a {
   text-align: center;
 }
 
-.pro-card img {
+.pro-card .pro-avatar {
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  object-fit: cover;
-  background: var(--surface-2);
   margin-bottom: 4px;
+  font-size: 20px;
+}
+
+/* Avatar com iniciais (substitui as imagens que não existiam) */
+.avatar-initials {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--red), var(--success));
+  color: #0e1512;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.profile-avatar-lg.avatar-initials {
+  font-size: 30px;
+}
+
+.search-status {
+  padding: 10px;
+  color: var(--muted);
+  font-size: 0.85rem;
 }
 
 .muscle-group,
