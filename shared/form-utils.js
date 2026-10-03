@@ -251,7 +251,32 @@
     });
   }
 
+  // Google e Apple ainda não funcionam: avisa em vez de não fazer nada
+  function initSocialButtons() {
+    let aviso = document.querySelector(".auth-toast");
+    if (!aviso) {
+      aviso = document.createElement("div");
+      aviso.className = "auth-toast";
+      aviso.setAttribute("role", "status");
+      aviso.setAttribute("aria-live", "polite");
+      aviso.hidden = true;
+      document.body.append(aviso);
+    }
+    let timer;
+    document.querySelectorAll(".btn-social").forEach(function (botao) {
+      botao.addEventListener("click", function () {
+        aviso.textContent = "Login social disponível em breve. Use seu e-mail por enquanto.";
+        aviso.hidden = false;
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          aviso.hidden = true;
+        }, 3000);
+      });
+    });
+  }
+
   window.SaudeLifeForm = {
+    initSocialButtons,
     qs,
     setFieldError,
     clearFieldError,

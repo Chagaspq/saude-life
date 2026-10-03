@@ -1,0 +1,69 @@
+/*
+ * Correções comuns às telas de autenticação
+ * (login, cadastro, recuperar senha e redefinir senha).
+ */
+
+/* Esconde o "olho" nativo do Edge: já temos o nosso botão de mostrar senha */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+/*
+ * Autopreenchimento do navegador: em vez de pintar um fundo por cima
+ * (que deixava uma "caixa" visível dentro do campo), adia a troca de cor
+ * para sempre, mantendo o fundo do próprio campo.
+ */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: #f4f1ea !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  caret-color: #f4f1ea;
+  transition:
+    background-color 600000s 0s,
+    color 600000s 0s;
+}
+
+/*
+ * Faixa colorida no topo do card. Antes era feita com border-image,
+ * que ignora o border-radius e deixava os cantos retos.
+ */
+.auth-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-container::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ff7a45, #34d399);
+  pointer-events: none;
+}
+
+/* Garante que elementos com o atributo hidden fiquem escondidos
+   mesmo quando o CSS da página define display (ex.: medidor de senha) */
+[hidden] {
+  display: none !important;
+}
+
+/* Aviso rápido (ex.: login social ainda indisponível) */
+.auth-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  max-width: calc(100% - 32px);
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: #1e2b25;
+  border: 1px solid #263832;
+  color: #f4f1ea;
+  font-size: 14px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  z-index: 100;
+}

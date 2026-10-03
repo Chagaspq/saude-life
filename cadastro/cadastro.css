@@ -69,8 +69,6 @@ body {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--color-border-subtle);
-  border-top: 3px solid transparent;
-  border-image: linear-gradient(90deg, var(--color-primary), #34d399) 1;
   border-radius: var(--radius-lg);
   padding: 32px 24px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
@@ -208,16 +206,6 @@ body {
 
 .input-wrapper input::placeholder {
   color: rgba(194, 181, 183, 0.4);
-}
-
-.input-wrapper input:-webkit-autofill,
-.input-wrapper input:-webkit-autofill:hover,
-.input-wrapper input:-webkit-autofill:focus {
-  /* Aproximação sólida de --color-card-glass, pois box-shadow inset não lida com transparência */
-  -webkit-box-shadow: 0 0 0 30px #16211d inset !important;
-  -webkit-text-fill-color: var(--color-text) !important;
-  caret-color: var(--color-text);
-  border-radius: var(--radius-sm);
 }
 
 .form-group.has-error .input-wrapper {
