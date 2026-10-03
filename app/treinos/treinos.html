@@ -4,31 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0e1512" />
-    <link rel="icon" href="../shared/favicon.svg" type="image/svg+xml" />
-    <link rel="manifest" href="../manifest.webmanifest" />
-    <link rel="apple-touch-icon" href="../shared/icon-192.png" />
+    <link rel="icon" href="../../shared/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="../../manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="../../shared/icon-192.png" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Saúde Life" />
     <meta property="og:locale" content="pt_BR" />
-    <meta property="og:title" content="Início — Saúde Life" />
-    <meta property="og:description" content="Seu resumo do dia: treino em andamento, recomendações e progresso." />
-    <meta property="og:image" content="../shared/og-image.png" />
+    <meta property="og:title" content="Meus treinos — Saúde Life" />
+    <meta property="og:description" content="Crie e organize seus treinos." />
+    <meta property="og:image" content="../../shared/og-image.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <title>Início — Saúde Life</title>
+    <title>Meus treinos — Saúde Life</title>
     <meta
       name="description"
-      content="Seu resumo do dia: treino em andamento, recomendações e progresso."
+      content="Crie e organize seus treinos."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../shared/tokens.css" />
-    <link rel="stylesheet" href="../shared/base.css" />
-    <link rel="stylesheet" href="app.css" />
-    <link rel="stylesheet" href="css/inicio.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/base.css" />
+    <link rel="stylesheet" href="../comum/app.css" />
+    <link rel="stylesheet" href="treinos.css" />
   </head>
 
-  <body data-pagina="inicio">
+  <body data-pagina="treinos">
     <!-- ==================== APLICAÇÃO PRINCIPAL (APP) ==================== -->
     <div id="app-container" class="app-layout">
       <!-- Overlay escuro atrás da sidebar quando aberta no mobile -->
@@ -41,7 +41,7 @@
         aria-label="Navegação lateral principal"
       >
         <div class="sidebar-brand">
-          <a href="inicio.html" class="brand" aria-label="Saúde Life — Início">
+          <a href="../inicio/inicio.html" class="brand" aria-label="Saúde Life — Início">
             <svg
               aria-hidden="true"
               width="28"
@@ -77,60 +77,60 @@
         <nav class="sidebar-nav" aria-label="Seções do app">
           <ul>
             <li>
-              <a href="inicio.html" class="nav-link" data-pagina="inicio"
+              <a href="../inicio/inicio.html" class="nav-link" data-pagina="inicio"
                 ><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 9v11h14V9"></path><path d="M10 20v-6h4v6"></path></svg><span>Início</span></a
               >
             </li>
             <li>
-              <a href="descobrir.html" class="nav-link" data-pagina="descobrir"
+              <a href="../descobrir/descobrir.html" class="nav-link" data-pagina="descobrir"
                 ><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"></path><path d="m15.5 8.5-2 5-5 2 2-5z"></path></svg><span>Descobrir</span></a
               >
             </li>
             <li>
-              <a href="treinos.html" class="nav-link" data-pagina="treinos"
+              <a href="../treinos/treinos.html" class="nav-link" data-pagina="treinos"
                 ><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5h11"></path><path d="M6.5 17.5h11"></path><path d="M2 12h20"></path><path d="M2 9v6"></path><path d="M22 9v6"></path></svg><span>Treinos</span></a
               >
             </li>
             <li>
-              <a href="aulas.html" class="nav-link" data-pagina="aulas"><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><path d="M3 10h18"></path><path d="M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"></path></svg><span>Aulas</span></a>
+              <a href="../aulas/aulas.html" class="nav-link" data-pagina="aulas"><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><path d="M3 10h18"></path><path d="M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"></path></svg><span>Aulas</span></a>
             </li>
             <li>
-              <a href="alimentacao.html" class="nav-link" data-pagina="alimentacao"
+              <a href="../alimentacao/alimentacao.html" class="nav-link" data-pagina="alimentacao"
                 ><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7c-1.5-2-5-2.5-6.5 0S4 14 6 18s4 3.5 6 2.5c2 1 4 1.5 6-2.5s2-8.5.5-11S13.5 5 12 7z"></path><path d="M12 7c0-2 1-3.5 3-4"></path></svg><span>Alimentação</span></a
               >
             </li>
             <li>
-              <a href="evolucao.html" class="nav-link" data-pagina="evolucao"
+              <a href="../evolucao/evolucao.html" class="nav-link" data-pagina="evolucao"
                 ><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"></path><path d="m7 15 4-4 3 3 6-6"></path></svg><span>Evolução</span></a
               >
             </li>
             <li>
               <a
-                href="profissionais.html"
+                href="../profissionais/profissionais.html"
                 class="nav-link"
                 data-pagina="profissionais"
                 ><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span>Profissionais</span></a
               >
             </li>
             <li>
-              <a href="planos.html" class="nav-link" data-pagina="planos"><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><path d="M7.5 7.5h.01"></path></svg><span>Planos</span></a>
+              <a href="../planos/planos.html" class="nav-link" data-pagina="planos"><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><path d="M7.5 7.5h.01"></path></svg><span>Planos</span></a>
             </li>
             <li>
-              <a href="salvos.html" class="nav-link" data-pagina="salvos"><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg><span>Salvos</span></a>
+              <a href="../salvos/salvos.html" class="nav-link" data-pagina="salvos"><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg><span>Salvos</span></a>
             </li>
             <li>
-              <a href="academia.html" class="nav-link" data-pagina="academia"
+              <a href="../academia/academia.html" class="nav-link" data-pagina="academia"
                 ><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18"></path><path d="M5 21V7l7-4 7 4v14"></path><path d="M9 21v-6h6v6"></path><path d="M9 10h.01"></path><path d="M15 10h.01"></path></svg><span>Academia</span></a
               >
             </li>
             <li>
-              <a href="perfil.html" class="nav-link" data-pagina="perfil"><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"></path></svg><span>Perfil</span></a>
+              <a href="../perfil/perfil.html" class="nav-link" data-pagina="perfil"><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"></path></svg><span>Perfil</span></a>
             </li>
           </ul>
         </nav>
 
         <div class="sidebar-footer">
-          <a href="perfil.html" class="user-profile-summary">
+          <a href="../perfil/perfil.html" class="user-profile-summary">
             <span
               class="user-avatar avatar-initials"
               data-user-initials
@@ -244,7 +244,7 @@
               <span class="badge" aria-hidden="true">1</span>
             </button>
             <a
-              href="perfil.html"
+              href="../perfil/perfil.html"
               class="user-menu-trigger"
               aria-label="Abrir meu perfil"
             >
@@ -262,92 +262,32 @@
         <!-- VIEWS CONTAINER -->
         <main class="app-views-container" id="conteudo" tabindex="-1">
           <section
-            id="view-inicio"
+            id="view-treinos"
             class="view-section active"
-            aria-labelledby="heading-inicio"
+            aria-labelledby="heading-treinos"
           >
             <header class="page-header">
               <div>
-                <p class="page-kicker" data-hoje></p>
-                <h1 id="heading-inicio">
-                  <span data-saudacao>Olá</span>,
-                  <span data-user-first-name>Biel</span>
-                </h1>
-                <p class="page-lead" data-render="frase-semana">
-                  Pronto para treinar hoje?
+                <h1 id="heading-treinos">Meus treinos</h1>
+                <p class="page-lead">
+                  Monte suas fichas e registre cada série durante o treino.
                 </p>
               </div>
-              <a href="treinos.html" class="btn-secondary">Meus treinos</a>
+              <button class="btn-primary btn-with-icon" data-action="create-workout">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
+                Novo treino
+              </button>
             </header>
-
-            <section aria-labelledby="heading-semana">
-              <h2 id="heading-semana" class="sr-only">Resumo da sua semana</h2>
-              <div class="stats-grid stats-grid-4" data-render="resumo"></div>
-            </section>
-
-            <div class="home-grid">
-              <section aria-labelledby="heading-continue">
-                <h2 id="heading-continue" data-render="titulo-continue">
-                  Continue seu treino
-                </h2>
-                <div data-render="continue"></div>
-              </section>
-
-              <section aria-labelledby="heading-desafio">
-                <h2 id="heading-desafio">Desafio ativo</h2>
-                <article class="challenge-card challenge-hero">
-                  <div class="challenge-top">
-                    <span class="icon-tile icon-tile-emerald" aria-hidden="true">
-                      <svg class="icon" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
-                    </span>
-                    <div>
-                      <h3>Desafio 30 Dias Abdominais</h3>
-                      <p class="meta">Definição e resistência do core</p>
-                    </div>
-                  </div>
-                  <div class="challenge-progress">
-                    <span><strong>Dia 6</strong> de 30</span>
-                    <span class="meta">450 participantes</span>
-                  </div>
-                  <div
-                    class="progress-bar-sm progress-emerald"
-                    role="progressbar"
-                    aria-label="Progresso do desafio"
-                    aria-valuenow="20"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  >
-                    <div class="fill" data-progress="20"></div>
-                  </div>
-                  <button class="btn-primary" data-action="join-challenge">
-                    Participar do desafio
-                  </button>
-                </article>
-              </section>
+            <div class="workouts-list-container cards-grid">
+              <!-- Lista de treinos gerenciados pelo usuário (via JS) -->
             </div>
-
-            <section aria-labelledby="heading-recomendados">
-              <div class="section-head">
-                <h2 id="heading-recomendados">Recomendados para você</h2>
-                <a href="descobrir.html" class="section-link">Ver todos</a>
-              </div>
-              <div class="horizontal-scroll" data-render="recomendados"></div>
-            </section>
-
-            <section aria-labelledby="heading-pros">
-              <div class="section-head">
-                <h2 id="heading-pros">Profissionais em destaque</h2>
-                <a href="profissionais.html" class="section-link">Ver todos</a>
-              </div>
-              <div class="cards-grid pros-row" data-render="pros-destaque"></div>
-            </section>
           </section>
         </main>
         <footer class="app-footer">
           <p>&copy; 2026 Saúde Life</p>
           <nav aria-label="Links legais">
-            <a href="../termos/termos.html">Termos de Uso</a>
-            <a href="../politica/politica.html">Política de Privacidade</a>
+            <a href="../../termos/termos.html">Termos de Uso</a>
+            <a href="../../politica/politica.html">Política de Privacidade</a>
           </nav>
         </footer>
       </div>
@@ -355,11 +295,11 @@
 
     <!-- Navegação inferior (só no celular) -->
     <nav class="bottom-nav" aria-label="Navegação rápida">
-      <a href="inicio.html" class="bottom-nav-link" data-pagina="inicio"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 9v11h14V9"></path><path d="M10 20v-6h4v6"></path></svg><span>Início</span></a>
-      <a href="descobrir.html" class="bottom-nav-link" data-pagina="descobrir"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"></path><path d="m15.5 8.5-2 5-5 2 2-5z"></path></svg><span>Descobrir</span></a>
-      <a href="treinos.html" class="bottom-nav-link" data-pagina="treinos"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5h11"></path><path d="M6.5 17.5h11"></path><path d="M2 12h20"></path><path d="M2 9v6"></path><path d="M22 9v6"></path></svg><span>Treinos</span></a>
-      <a href="evolucao.html" class="bottom-nav-link" data-pagina="evolucao"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"></path><path d="m7 15 4-4 3 3 6-6"></path></svg><span>Evolução</span></a>
-      <a href="perfil.html" class="bottom-nav-link" data-pagina="perfil"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"></path></svg><span>Perfil</span></a>
+      <a href="../inicio/inicio.html" class="bottom-nav-link" data-pagina="inicio"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 9v11h14V9"></path><path d="M10 20v-6h4v6"></path></svg><span>Início</span></a>
+      <a href="../descobrir/descobrir.html" class="bottom-nav-link" data-pagina="descobrir"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"></path><path d="m15.5 8.5-2 5-5 2 2-5z"></path></svg><span>Descobrir</span></a>
+      <a href="../treinos/treinos.html" class="bottom-nav-link" data-pagina="treinos"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5h11"></path><path d="M6.5 17.5h11"></path><path d="M2 12h20"></path><path d="M2 9v6"></path><path d="M22 9v6"></path></svg><span>Treinos</span></a>
+      <a href="../evolucao/evolucao.html" class="bottom-nav-link" data-pagina="evolucao"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"></path><path d="m7 15 4-4 3 3 6-6"></path></svg><span>Evolução</span></a>
+      <a href="../perfil/perfil.html" class="bottom-nav-link" data-pagina="perfil"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"></path></svg><span>Perfil</span></a>
     </nav>
 
     <!-- ==================== MODAIS REUTILIZÁVEIS ==================== -->
@@ -390,8 +330,8 @@
     <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
 
-    <script src="dados.js"></script>
-    <script src="app.js"></script>
-    <script src="paginas/inicio.js"></script>
+    <script src="../comum/dados.js"></script>
+    <script src="../comum/app.js"></script>
+    <script src="treinos.js"></script>
   </body>
 </html>

@@ -61,7 +61,7 @@ window.SL &&
         SL.estadoVazio(
           "Nenhum treino ainda",
           "Crie seu primeiro treino ou escolha um pronto.",
-          el("a", { href: "descobrir.html", class: "btn-primary", text: "Descobrir treinos" }),
+          el("a", { href: "../descobrir/descobrir.html", class: "btn-primary", text: "Descobrir treinos" }),
         ),
       );
     } else {

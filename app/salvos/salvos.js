@@ -14,7 +14,7 @@ window.SL &&
           SL.estadoVazio(
             "Nada salvo por aqui",
             "Toque no marcador de um treino para guardar e encontrar depois.",
-            el("a", { href: "descobrir.html", class: "btn-primary", text: "Descobrir treinos" }),
+            el("a", { href: "../descobrir/descobrir.html", class: "btn-primary", text: "Descobrir treinos" }),
           ),
         );
       }

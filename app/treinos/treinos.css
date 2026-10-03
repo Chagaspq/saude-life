@@ -37,3 +37,10 @@
 .workout-facts strong {
   color: var(--ink);
 }
+
+/* No celular o card vira coluna: as informações ocupam a largura toda */
+@media (max-width: 640px) {
+  .workout-card-col {
+    align-items: stretch;
+  }
+}

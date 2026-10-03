@@ -42,7 +42,7 @@ window.SL &&
 
     function concluir(respostas) {
       SL.storage.set("sl-onboarding", { ...respostas, rotulo: ROTULOS[respostas.objetivo], data: new Date().toISOString() });
-      window.location.href = "inicio.html";
+      window.location.href = "../inicio/inicio.html";
     }
 
     function lerRespostas() {

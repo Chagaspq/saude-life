@@ -3,8 +3,9 @@
  * helpers, sessão do usuário, sidebar, menu mobile, modal, toast,
  * busca e as ações que aparecem em mais de uma página.
  *
- * Cada página carrega, nesta ordem:
- *   ../shared/planos.js (só planos.html) → dados.js → app.js → paginas/<nome>.js
+ * Cada página fica na própria pasta (app/<nome>/<nome>.html, .css e .js)
+ * e carrega, nesta ordem:
+ *   ../../shared/planos.js (só Planos) → ../comum/dados.js → ../comum/app.js → <nome>.js
  * e se registra com SL.pagina(function () { ... }).
  */
 (function () {
@@ -31,7 +32,7 @@
 
   // Sem login, volta para o login e lembra qual página a pessoa queria abrir
   if (!lerSessao()) {
-    window.location.replace("../login/login.html?voltar=" + encodeURIComponent(paginaAtual));
+    window.location.replace("../../login/login.html?voltar=" + encodeURIComponent(paginaAtual));
     return;
   }
 
@@ -43,7 +44,7 @@
     onboardingFeito = true; // sem armazenamento, não prende a pessoa no questionário
   }
   if (!onboardingFeito && paginaAtual !== "comecar") {
-    window.location.replace("comecar.html");
+    window.location.replace("../comecar/comecar.html");
     return;
   }
 
@@ -601,9 +602,9 @@
     }
 
     const resultados = [
-      ...CATALOGO.filter((t) => t.nome.toLowerCase().includes(termo) || t.objetivo.toLowerCase().includes(termo)).map((t) => ({ titulo: t.nome, tipo: "Treino", href: "descobrir.html" })),
-      ...PROFISSIONAIS.filter((p) => p.nome.toLowerCase().includes(termo) || p.especialidade.toLowerCase().includes(termo)).map((p) => ({ titulo: p.nome, tipo: p.especialidade, href: "profissionais.html" })),
-      ...AULAS.filter((a) => a.nome.toLowerCase().includes(termo)).map((a) => ({ titulo: a.nome, tipo: "Aula", href: "aulas.html" })),
+      ...CATALOGO.filter((t) => t.nome.toLowerCase().includes(termo) || t.objetivo.toLowerCase().includes(termo)).map((t) => ({ titulo: t.nome, tipo: "Treino", href: "../descobrir/descobrir.html" })),
+      ...PROFISSIONAIS.filter((p) => p.nome.toLowerCase().includes(termo) || p.especialidade.toLowerCase().includes(termo)).map((p) => ({ titulo: p.nome, tipo: p.especialidade, href: "../profissionais/profissionais.html" })),
+      ...AULAS.filter((a) => a.nome.toLowerCase().includes(termo)).map((a) => ({ titulo: a.nome, tipo: "Aula", href: "../aulas/aulas.html" })),
     ].slice(0, 6);
 
     if (!resultados.length) {
@@ -660,7 +661,7 @@
     openModal("Configurações", [
       el("p", { text: "Opções de configuração da conta e preferências do sistema." }),
       lembrar,
-      el("a", { href: "comecar.html", class: "btn-secondary btn-block", text: "Refazer questionário inicial" }),
+      el("a", { href: "../comecar/comecar.html", class: "btn-secondary btn-block", text: "Refazer questionário inicial" }),
       el("button", { class: "btn-secondary btn-block", "data-action": "reset-data", text: "Restaurar dados de exemplo" }),
     ]);
   });
@@ -684,7 +685,7 @@
   acao("logout", (alvo, e) => {
     e.preventDefault();
     storage.remove("sl-sessao");
-    window.location.href = "../login/login.html";
+    window.location.href = "../../login/login.html";
   });
 
   function itemLista(titulo, texto) {
@@ -727,7 +728,7 @@
   );
 
   function linkTreino(id) {
-    return "treino.html?id=" + encodeURIComponent(id);
+    return "../treino/treino.html?id=" + encodeURIComponent(id);
   }
 
   // Detalhe do treino: lista de exercícios + botão para começar
@@ -912,7 +913,7 @@
 
   // App instalável no celular (só funciona em http/https, não em file://)
   if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
-    window.addEventListener("load", () => navigator.serviceWorker.register("../sw.js").catch(() => {}));
+    window.addEventListener("load", () => navigator.serviceWorker.register("../../sw.js").catch(() => {}));
   }
 
   document.addEventListener("DOMContentLoaded", () => {

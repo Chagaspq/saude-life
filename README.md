@@ -42,15 +42,18 @@ sw.js                 service worker (instalar e abrir offline)
 welcome/  planos/  termos/  politica/   site público
 login/  cadastro/  senha/               autenticação
 
-app/                  app logado, uma página por seção
-  inicio.html ... perfil.html
-  treino.html         tela de treino em andamento
-  comecar.html        questionário de primeiro acesso
-  app.css             layout e componentes comuns a todas as páginas
-  css/<pagina>.css    estilos só daquela página
-  app.js              núcleo: sessão, menu, modal, avisos, busca, histórico
-  dados.js            dados de exemplo (treinos, exercícios, profissionais...)
-  paginas/<pagina>.js código só daquela página
+app/                  app logado: uma pasta por página
+  inicio/             inicio.html, inicio.css, inicio.js
+  descobrir/  treinos/  aulas/  alimentacao/  evolucao/
+  profissionais/  planos/  salvos/  academia/  perfil/
+  treino/             tela de treino em andamento
+  comecar/            questionário de primeiro acesso
+  comum/              o que todas as páginas usam
+    app.css           layout e componentes (menu, cards, botões, modal)
+    app.js            núcleo: sessão, menu, modal, avisos, busca, histórico
+    dados.js          dados de exemplo (treinos, exercícios, profissionais...)
+
+docs/                 prompts com o planejamento das melhorias
 
 shared/
   tokens.css          design system: cores, fontes, espaços, raios, sombras
@@ -65,9 +68,9 @@ shared/
 
 ### Como adicionar uma página nova no app
 
-1. Copie uma página parecida (ex.: `app/salvos.html`) e troque o `data-pagina` do `<body>`.
-2. Crie `app/css/<pagina>.css` e `app/paginas/<pagina>.js`, e ligue os dois no HTML.
-3. Adicione o link na sidebar das páginas e o nome em `PAGINAS` (`app/app.js`) e em `PAGINAS_APP` (`login/login.js`).
+1. Copie a pasta de uma página parecida (ex.: `app/salvos/`) e renomeie a pasta e os 3 arquivos (ex.: `app/desafios/desafios.html`, `.css` e `.js`).
+2. No HTML, troque o `data-pagina` do `<body>` e os nomes do CSS e do JS no `<head>` e no fim da página.
+3. Adicione o link no menu de todas as páginas (`../desafios/desafios.html`) e o nome em `PAGINAS` (`app/comum/app.js`) e em `PAGINAS_APP` (`login/login.js`).
 
 ## Identidade visual
 
