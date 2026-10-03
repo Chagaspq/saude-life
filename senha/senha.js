@@ -119,7 +119,6 @@ form.addEventListener("submit", async (event) => {
       // Modo demonstração: guarda o token e simula o tempo de envio
       sessionStorage.setItem("sl-reset-token", token);
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.info("[Modo demonstração] Link de redefinição:", resetLink);
     }
 
     // Mensagem genérica de propósito: não confirma se o e-mail

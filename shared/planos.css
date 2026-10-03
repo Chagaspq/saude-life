@@ -1,13 +1,12 @@
 /*
  * Visual dos planos, usado em planos.html e na view Planos do app.
- * As cores vêm dos tokens de cada página (welcome.css usa --coral,
- * index.css usa --red), com fallback entre eles.
+ * As cores vêm de shared/tokens.css.
  */
 
 [data-planos] {
-  --pl-accent: var(--coral, var(--red, #ff7a45));
-  --pl-accent-light: var(--coral-light, var(--red-light, #ffa06b));
-  --pl-check: var(--emerald, var(--success, #34d399));
+  --pl-accent: var(--coral);
+  --pl-accent-light: var(--coral-light);
+  --pl-check: var(--emerald);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,7 +18,7 @@
   padding: 4px;
   gap: 4px;
   background: var(--surface);
-  border: 1px solid var(--surface-border);
+  border: 1px solid var(--border);
   border-radius: 999px;
 }
 
@@ -66,8 +65,8 @@
 .plan-card {
   position: relative;
   background: var(--surface);
-  border: 1px solid var(--surface-border);
-  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
   padding: 28px 24px;
   display: flex;
   flex-direction: column;
@@ -79,7 +78,7 @@
 
 .plan-card:hover {
   transform: translateY(-2px);
-  border-color: #35503f;
+  border-color: var(--border-strong);
 }
 
 .plan-card-highlight,
@@ -107,7 +106,7 @@
   font-family: "Space Grotesk", sans-serif;
   font-size: 26px;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--ink-strong);
 }
 
 .plan-price-period {
@@ -157,7 +156,7 @@
   top: -11px;
   left: 22px;
   background: var(--pl-accent);
-  color: #14100c;
+  color: var(--on-coral);
   font-size: 11px;
   font-weight: 700;
   padding: 3px 10px;
@@ -183,7 +182,7 @@
 }
 
 .plan-btn-primary {
-  color: #14100c;
+  color: var(--on-coral);
   border: none;
   background: linear-gradient(180deg, var(--pl-accent-light), var(--pl-accent) 70%);
 }
@@ -195,7 +194,7 @@
 .plan-btn-secondary {
   color: var(--ink);
   background: transparent;
-  border: 1px solid var(--surface-border);
+  border: 1px solid var(--border);
 }
 
 .plan-btn-secondary:hover {
@@ -216,4 +215,18 @@
   .plan-card:hover {
     transform: none;
   }
+}
+
+/* Plano atual da pessoa (só no app) */
+.plan-card-current {
+  border-color: rgba(52, 211, 153, 0.45);
+}
+
+.plan-tag-current {
+  background: var(--emerald);
+}
+
+.plan-btn:disabled {
+  opacity: 0.65;
+  cursor: default;
 }

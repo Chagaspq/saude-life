@@ -5,12 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0e1512" />
     <link rel="icon" href="../shared/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="../shared/icon-192.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Saúde Life" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content="Início — Saúde Life" />
+    <meta property="og:description" content="Seu resumo do dia: treino em andamento, recomendações e progresso." />
+    <meta property="og:image" content="../shared/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
     <title>Início — Saúde Life</title>
     <meta
       name="description"
       content="Seu resumo do dia: treino em andamento, recomendações e progresso."
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../shared/tokens.css" />
+    <link rel="stylesheet" href="../shared/base.css" />
     <link rel="stylesheet" href="app.css" />
+    <link rel="stylesheet" href="css/inicio.css" />
   </head>
 
   <body data-pagina="inicio">
@@ -166,6 +181,19 @@
             </svg>
           </button>
 
+          <button
+            class="btn-icon btn-search-toggle"
+            data-action="toggle-search"
+            aria-label="Abrir busca"
+            aria-expanded="false"
+            aria-controls="global-search"
+          >
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m20 20-3.5-3.5"></path>
+            </svg>
+          </button>
+
           <div class="search-box">
             <svg class="icon search-icon" viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="11" cy="11" r="7"></circle>
@@ -190,6 +218,9 @@
               class="btn-icon"
               aria-label="Notificações (3 novas)"
               data-action="open-notifications"
+              data-badge="notificacoes"
+              data-rotulo="Notificações"
+              data-rotulo-novas="Notificações (3 novas)"
             >
               <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
@@ -201,6 +232,9 @@
               class="btn-icon"
               aria-label="Mensagens (1 nova)"
               data-action="open-messages"
+              data-badge="mensagens"
+              data-rotulo="Mensagens"
+              data-rotulo-novas="Mensagens (1 nova)"
             >
               <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
                 <path
@@ -232,91 +266,51 @@
             class="view-section active"
             aria-labelledby="heading-inicio"
           >
-            <div class="welcome-banner">
-              <h1 id="heading-inicio">
-                Olá, <span data-user-first-name>Biel</span>
-              </h1>
-              <p>Pronto para treinar hoje?</p>
-            </div>
+            <header class="page-header">
+              <div>
+                <p class="page-kicker" data-hoje></p>
+                <h1 id="heading-inicio">
+                  <span data-saudacao>Olá</span>,
+                  <span data-user-first-name>Biel</span>
+                </h1>
+                <p class="page-lead" data-render="frase-semana">
+                  Pronto para treinar hoje?
+                </p>
+              </div>
+              <a href="treinos.html" class="btn-secondary">Meus treinos</a>
+            </header>
 
-            <section class="continue-training-section">
-              <h2>Continue seu treino</h2>
-              <div class="cards-grid">
-                <article class="workout-card" data-workout-id="1">
-                  <div class="card-info">
-                    <h3>Super Inferiores A</h3>
-                    <p class="muscle-group">Quadríceps e Panturrilhas</p>
-                    <p class="duration">45 min • 6 exercícios</p>
-                    <div
-                      class="progress-bar-sm"
-                      role="progressbar"
-                      aria-label="Progresso do treino"
-                      aria-valuenow="60"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                    >
-                      <div class="fill" data-progress="60"></div>
+            <section aria-labelledby="heading-semana">
+              <h2 id="heading-semana" class="sr-only">Resumo da sua semana</h2>
+              <div class="stats-grid stats-grid-4" data-render="resumo"></div>
+            </section>
+
+            <div class="home-grid">
+              <section aria-labelledby="heading-continue">
+                <h2 id="heading-continue" data-render="titulo-continue">
+                  Continue seu treino
+                </h2>
+                <div data-render="continue"></div>
+              </section>
+
+              <section aria-labelledby="heading-desafio">
+                <h2 id="heading-desafio">Desafio ativo</h2>
+                <article class="challenge-card challenge-hero">
+                  <div class="challenge-top">
+                    <span class="icon-tile icon-tile-emerald" aria-hidden="true">
+                      <svg class="icon" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
+                    </span>
+                    <div>
+                      <h3>Desafio 30 Dias Abdominais</h3>
+                      <p class="meta">Definição e resistência do core</p>
                     </div>
                   </div>
-                  <button class="btn-primary" data-action="continue-workout">
-                    Continuar
-                  </button>
-                </article>
-              </div>
-            </section>
-
-            <section class="recommended-section">
-              <h2>Recomendados para você</h2>
-              <div class="horizontal-scroll" data-render="recomendados">
-                <article class="rec-card">
-                  <div class="card-img-placeholder" data-objetivo="hipertrofia">
-                    <span class="card-tag">Hipertrofia</span>
+                  <div class="challenge-progress">
+                    <span><strong>Dia 6</strong> de 30</span>
+                    <span class="meta">450 participantes</span>
                   </div>
-                  <div class="card-details">
-                    <h3>Fullbody Explosivo</h3>
-                    <p class="category">Força • Intermediário</p>
-                    <p class="meta">30 min • <span class="sr-only">Nota</span><svg class="icon-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> 4.9</p>
-                    <button
-                      class="btn-secondary"
-                      data-action="open-workout-modal"
-                    >
-                      Abrir
-                    </button>
-                  </div>
-                </article>
-              </div>
-            </section>
-
-            <section class="featured-pros-section">
-              <h2>Profissionais em destaque</h2>
-              <div class="cards-grid">
-                <article class="pro-card">
-                  <span class="pro-avatar avatar-initials" aria-hidden="true"
-                    >AS</span
-                  >
-                  <h3>Ana Souza</h3>
-                  <p class="specialty">Personal Trainer & Nutricionista</p>
-                  <p class="stats"><span class="sr-only">Nota</span><svg class="icon-star" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> 5.0 • 1.2k seguidores</p>
-                  <button
-                    class="btn-secondary"
-                    data-action="follow-pro"
-                    aria-pressed="false"
-                  >
-                    Seguir
-                  </button>
-                </article>
-              </div>
-            </section>
-
-            <section class="challenges-section">
-              <h2>Desafios</h2>
-              <div class="cards-grid">
-                <article class="challenge-card">
-                  <h3>Desafio 30 Dias Abdominais</h3>
-                  <p>Definição e resistência do core</p>
-                  <p class="meta">Duração: 30 dias • 450 participantes</p>
                   <div
-                    class="progress-bar-sm"
+                    class="progress-bar-sm progress-emerald"
                     role="progressbar"
                     aria-label="Progresso do desafio"
                     aria-valuenow="20"
@@ -326,33 +320,47 @@
                     <div class="fill" data-progress="20"></div>
                   </div>
                   <button class="btn-primary" data-action="join-challenge">
-                    Participar
+                    Participar do desafio
                   </button>
                 </article>
+              </section>
+            </div>
+
+            <section aria-labelledby="heading-recomendados">
+              <div class="section-head">
+                <h2 id="heading-recomendados">Recomendados para você</h2>
+                <a href="descobrir.html" class="section-link">Ver todos</a>
               </div>
+              <div class="horizontal-scroll" data-render="recomendados"></div>
             </section>
 
-            <section class="user-progress-summary">
-              <h2>Seu progresso</h2>
-              <div class="stats-grid">
-                <div class="stat-box">
-                  <span>Treinos realizados</span><strong>14</strong>
-                </div>
-                <div class="stat-box">
-                  <span>Sequência atual</span><strong>5 dias</strong>
-                </div>
-                <div class="stat-box">
-                  <span>Tempo treinado</span><strong>8h 30m</strong>
-                </div>
-                <div class="stat-box">
-                  <span>Meta semanal</span><strong>3 / 4 treinos</strong>
-                </div>
+            <section aria-labelledby="heading-pros">
+              <div class="section-head">
+                <h2 id="heading-pros">Profissionais em destaque</h2>
+                <a href="profissionais.html" class="section-link">Ver todos</a>
               </div>
+              <div class="cards-grid pros-row" data-render="pros-destaque"></div>
             </section>
           </section>
         </main>
+        <footer class="app-footer">
+          <p>&copy; 2026 Saúde Life</p>
+          <nav aria-label="Links legais">
+            <a href="../termos/termos.html">Termos de Uso</a>
+            <a href="../politica/politica.html">Política de Privacidade</a>
+          </nav>
+        </footer>
       </div>
     </div>
+
+    <!-- Navegação inferior (só no celular) -->
+    <nav class="bottom-nav" aria-label="Navegação rápida">
+      <a href="inicio.html" class="bottom-nav-link" data-pagina="inicio"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 9v11h14V9"></path><path d="M10 20v-6h4v6"></path></svg><span>Início</span></a>
+      <a href="descobrir.html" class="bottom-nav-link" data-pagina="descobrir"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"></path><path d="m15.5 8.5-2 5-5 2 2-5z"></path></svg><span>Descobrir</span></a>
+      <a href="treinos.html" class="bottom-nav-link" data-pagina="treinos"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5h11"></path><path d="M6.5 17.5h11"></path><path d="M2 12h20"></path><path d="M2 9v6"></path><path d="M22 9v6"></path></svg><span>Treinos</span></a>
+      <a href="evolucao.html" class="bottom-nav-link" data-pagina="evolucao"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"></path><path d="m7 15 4-4 3 3 6-6"></path></svg><span>Evolução</span></a>
+      <a href="perfil.html" class="bottom-nav-link" data-pagina="perfil"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"></path></svg><span>Perfil</span></a>
+    </nav>
 
     <!-- ==================== MODAIS REUTILIZÁVEIS ==================== -->
     <div id="modal-overlay" class="modal-overlay hidden" aria-hidden="true">
@@ -381,40 +389,6 @@
     <!-- Aviso rápido (toast) -->
     <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
-    <!-- ==================== FOOTER GERAL ==================== -->
-    <footer class="site-footer">
-      <div class="footer-content">
-        <div class="footer-col">
-          <h3>Sobre a Saúde Life</h3>
-          <p>
-            A plataforma fitness definitiva integrando treino, comunidade e alta
-            performance.
-          </p>
-        </div>
-        <div class="footer-col">
-          <h4>Links Úteis</h4>
-          <ul>
-            <li><a href="../termos/termos.html">Termos de Uso</a></li>
-            <li>
-              <a href="../politica/politica.html">Política de Privacidade</a>
-            </li>
-            <li><a href="#contato">Contato</a></li>
-            <li><a href="#ajuda">Ajuda</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Redes Sociais</h4>
-          <div class="social-links">
-            <a href="#" aria-label="Instagram">Instagram</a>
-            <a href="#" aria-label="Twitter">Twitter</a>
-            <a href="#" aria-label="YouTube">YouTube</a>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 Saúde Life. Todos os direitos reservados.</p>
-      </div>
-    </footer>
 
     <script src="dados.js"></script>
     <script src="app.js"></script>

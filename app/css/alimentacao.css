@@ -1,0 +1,172 @@
+/*
+ * Estilos só da página Alimentação (app/alimentacao.html).
+ * O que é comum a todas as páginas fica em ../app.css.
+ */
+
+/* ============================================
+   ALIMENTAÇÃO
+   ============================================ */
+
+.nutrition-overview {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.macro-card {
+  border-radius: var(--radius-md);
+  padding: 18px;
+}
+
+.macro-card .macro-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.macro-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--macro-cor);
+}
+
+.macro-card strong {
+  font-size: 22px;
+}
+
+.macro-card strong small {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.macro-coral {
+  --macro-cor: var(--coral);
+}
+
+.macro-emerald {
+  --macro-cor: var(--emerald);
+}
+
+.macro-warning {
+  --macro-cor: var(--warning);
+}
+
+.macro-info {
+  --macro-cor: var(--info);
+}
+
+.nutrition-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(260px, 1fr);
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.meal-item {
+  justify-content: flex-start !important;
+}
+
+.meal-time {
+  width: 48px;
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--coral-light) !important;
+  font-size: 13.5px !important;
+}
+
+.list-panel .meal-info {
+  flex: 1;
+}
+
+.meal-macros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.list-panel .macro-chip {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  color: var(--macro-cor);
+  background: color-mix(in srgb, var(--macro-cor) 12%, transparent);
+}
+
+.meal-empty {
+  justify-content: center !important;
+  padding: 28px 16px !important;
+}
+
+.water-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(124, 196, 240, 0.12), transparent 60%),
+    var(--surface);
+}
+
+.water-card h2 {
+  margin-bottom: 0;
+}
+
+.water-value {
+  margin: 0;
+  color: var(--muted);
+}
+
+.water-value strong {
+  font-family: var(--font-display);
+  font-size: 30px;
+  color: var(--ink-strong);
+}
+
+.water-glasses {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+}
+
+.water-glass {
+  width: 100%;
+  height: 28px;
+  color: var(--border-strong);
+}
+
+.water-glass.is-full {
+  color: var(--info);
+  fill: rgba(124, 196, 240, 0.25);
+}
+
+.water-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+  .nutrition-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nutrition-overview {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .meal-item {
+    flex-wrap: wrap;
+  }
+
+  .meal-time {
+    width: auto;
+  }
+}

@@ -1,0 +1,39 @@
+/*
+ * Estilos só da página Meus treinos (app/treinos.html).
+ * O que é comum a todas as páginas fica em ../app.css.
+ */
+
+/* ============================================
+   MEUS TREINOS
+   ============================================ */
+
+.workout-card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.workout-card-head .card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.workout-card-head .tag {
+  align-self: flex-start;
+}
+
+.workout-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  padding: 10px 0;
+  margin: 4px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.workout-facts strong {
+  color: var(--ink);
+}

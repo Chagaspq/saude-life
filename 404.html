@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0e1512" />
     <link rel="icon" href="shared/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="shared/icon-192.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Saúde Life" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content="Página não encontrada — Saúde Life" />
+    <meta property="og:description" content="A página que você procurou não existe ou mudou de endereço." />
+    <meta property="og:image" content="shared/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
     <title>Página não encontrada — Saúde Life</title>
     <meta name="description" content="A página que você procurou não existe ou mudou de endereço." />
     <meta name="robots" content="noindex" />
@@ -14,6 +23,8 @@
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="shared/tokens.css" />
+    <link rel="stylesheet" href="shared/base.css" />
     <style>
       body {
         margin: 0;
@@ -23,9 +34,9 @@
         justify-content: center;
         padding: 24px;
         box-sizing: border-box;
-        background: #0e1512;
+        background: var(--bg);
         background-image: radial-gradient(circle at 85% -10%, rgba(255, 122, 69, 0.14), transparent 45%);
-        color: #f4f1ea;
+        color: var(--ink);
         font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
         text-align: center;
       }
@@ -44,7 +55,7 @@
         font-size: 72px;
         font-weight: 700;
         line-height: 1;
-        background: linear-gradient(135deg, #ff7a45, #34d399);
+        background: linear-gradient(135deg, var(--coral), var(--emerald));
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
@@ -54,12 +65,12 @@
         margin: 0;
         font-family: "Space Grotesk", sans-serif;
         font-size: 26px;
-        color: #ffffff;
+        color: var(--ink-strong);
       }
 
       p {
         margin: 0;
-        color: #a3b0a8;
+        color: var(--muted);
         line-height: 1.6;
       }
 
@@ -82,21 +93,21 @@
       }
 
       .btn-primario {
-        color: #14100c;
-        background: linear-gradient(180deg, #ffa06b, #ff7a45 70%);
+        color: var(--on-coral);
+        background: linear-gradient(180deg, var(--coral-light), var(--coral) 70%);
       }
 
       .btn-secundario {
-        color: #f4f1ea;
-        border: 1px solid #263832;
+        color: var(--ink);
+        border: 1px solid var(--border);
       }
 
       .btn-secundario:hover {
-        border-color: #ff7a45;
+        border-color: var(--coral);
       }
 
       a:focus-visible {
-        outline: 2px solid #ff7a45;
+        outline: 2px solid var(--coral);
         outline-offset: 3px;
       }
     </style>

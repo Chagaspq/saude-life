@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0e1512" />
+    <link rel="icon" href="../shared/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="../shared/icon-192.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Saúde Life" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content="Treino em andamento — Saúde Life" />
+    <meta property="og:description" content="Séries, cargas e descanso do seu treino, passo a passo." />
+    <meta property="og:image" content="../shared/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>Treino em andamento — Saúde Life</title>
+    <meta
+      name="description"
+      content="Séries, cargas e descanso do seu treino, passo a passo."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../shared/tokens.css" />
+    <link rel="stylesheet" href="../shared/base.css" />
+    <link rel="stylesheet" href="app.css" />
+    <link rel="stylesheet" href="css/treino.css" />
+  </head>
+
+  <body data-pagina="treino" class="focus-page">
+    <a class="skip-link" href="#conteudo">Pular para o exercício</a>
+
+    <div class="player">
+      <header class="player-topbar">
+        <button
+          class="btn-icon btn-icon-lg"
+          data-action="sair-treino"
+          aria-label="Sair do treino"
+        >
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 6 6 18"></path>
+            <path d="m6 6 12 12"></path>
+          </svg>
+        </button>
+        <div class="player-title">
+          <h1 data-render="nome">Treino</h1>
+          <p class="meta" data-render="grupo"></p>
+        </div>
+        <div class="player-clock" aria-label="Tempo de treino">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 6v6l4 2"></path>
+          </svg>
+          <span data-render="cronometro" role="timer" aria-live="off">00:00</span>
+        </div>
+      </header>
+
+      <div class="player-progress">
+        <div
+          class="progress-bar-sm progress-emerald"
+          role="progressbar"
+          aria-label="Séries concluídas"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="0"
+          data-render="barra"
+        >
+          <div class="fill" data-progress="0"></div>
+        </div>
+        <span class="meta" data-render="contador">0 de 0 séries</span>
+      </div>
+
+      <main id="conteudo" class="player-main" tabindex="-1">
+        <section class="player-current" data-render="atual" aria-live="polite"></section>
+
+        <aside class="player-list" aria-labelledby="heading-lista">
+          <h2 id="heading-lista">Exercícios</h2>
+          <ol data-render="lista"></ol>
+        </aside>
+      </main>
+
+      <footer class="player-footer">
+        <button class="btn-secondary" data-action="exercicio-anterior">
+          Anterior
+        </button>
+        <button class="btn-primary" data-action="exercicio-proximo">
+          Próximo exercício
+        </button>
+      </footer>
+    </div>
+
+    <!-- Descanso entre séries -->
+    <div class="rest-panel" data-render="descanso" hidden>
+      <div class="rest-ring" aria-hidden="true">
+        <svg viewBox="0 0 120 120">
+          <circle class="rest-ring-bg" cx="60" cy="60" r="52"></circle>
+          <circle class="rest-ring-fill" cx="60" cy="60" r="52" data-render="anel"></circle>
+        </svg>
+        <span class="rest-time" data-render="descanso-tempo">01:00</span>
+      </div>
+      <div class="rest-info">
+        <p class="rest-title">Descanso</p>
+        <p class="meta" data-render="descanso-proximo"></p>
+        <p class="sr-only" role="status" data-render="descanso-aviso"></p>
+        <div class="rest-actions">
+          <button class="btn-secondary" data-action="descanso-mais">+15 s</button>
+          <button class="btn-primary" data-action="descanso-pular">Pular descanso</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== MODAIS REUTILIZÁVEIS ==================== -->
+    <div id="modal-overlay" class="modal-overlay hidden" aria-hidden="true">
+      <div
+        class="modal-window"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+      >
+        <header class="modal-header">
+          <h2 id="modal-title">Título do Modal</h2>
+          <button
+            class="btn-close-modal"
+            aria-label="Fechar modal"
+            data-action="close-modal"
+          >
+            &times;
+          </button>
+        </header>
+        <div class="modal-body">
+          <!-- Conteúdo dinâmico via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Aviso rápido (toast) -->
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+
+    <script src="dados.js"></script>
+    <script src="app.js"></script>
+    <script src="paginas/treino.js"></script>
+  </body>
+</html>

@@ -1,0 +1,150 @@
+/*
+ * Estilos só da página Evolução (app/evolucao.html).
+ * O que é comum a todas as páginas fica em ../app.css.
+ */
+
+/* ============================================
+   GRÁFICOS (Evolução)
+   ============================================ */
+
+.evolution-dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.chart-container {
+  margin: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.chart-container figcaption h2 {
+  margin-bottom: 2px;
+}
+
+.chart-meta {
+  color: var(--muted);
+  font-size: 12.5px;
+}
+
+.chart-summary {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 4px 0 0;
+  flex-wrap: wrap;
+}
+
+.chart-summary strong {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 24px;
+}
+
+.trend-good,
+.trend-bad {
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+/* Verde quando a variação é boa (peso caindo, carga subindo) */
+.trend-good {
+  color: var(--emerald);
+}
+
+.trend-bad {
+  color: var(--coral-light);
+}
+
+.chart-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.chart-grid {
+  stroke: var(--border);
+  stroke-dasharray: 3 4;
+}
+
+.chart-label {
+  fill: var(--muted-2);
+  font-size: 11px;
+  font-family: "Inter", sans-serif;
+}
+
+.chart-line {
+  fill: none;
+  stroke: var(--coral);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.chart-area {
+  fill: var(--coral-soft);
+}
+
+.chart-dot {
+  fill: var(--bg);
+  stroke: var(--coral-light);
+  stroke-width: 2;
+}
+
+/* ============================================
+   EVOLUÇÃO
+   ============================================ */
+
+.segmented {
+  display: inline-flex;
+  padding: 4px;
+  gap: 4px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.segmented button {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 7px 14px;
+  cursor: pointer;
+}
+
+.segmented button:hover {
+  color: var(--ink);
+}
+
+.segmented button.is-active {
+  background: var(--surface-3);
+  color: var(--ink-strong);
+}
+
+.chart-dot.is-last {
+  fill: var(--coral);
+}
+
+.chart-bar {
+  fill: var(--surface-3);
+}
+
+.chart-bar.is-goal {
+  fill: var(--emerald-dark);
+}
+
+.chart-goal {
+  stroke: var(--coral-light);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 5;
+}

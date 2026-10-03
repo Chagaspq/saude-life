@@ -1,0 +1,212 @@
+/*
+ * Estilos só da página Questionário inicial (app/comecar.html).
+ * O que é comum a todas as páginas fica em ../app.css.
+ */
+
+/* ============================================
+   QUESTIONÁRIO INICIAL
+   ============================================ */
+
+.onboarding-page {
+  background:
+    radial-gradient(circle at 15% 0%, rgba(255, 122, 69, 0.12), transparent 45%),
+    radial-gradient(circle at 90% 100%, rgba(52, 211, 153, 0.1), transparent 45%),
+    var(--bg);
+}
+
+.onboarding {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+.onboarding:focus {
+  outline: none;
+}
+
+.onboarding-card {
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 32px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--surface-glass);
+  box-shadow: var(--shadow-lg);
+}
+
+.onboarding-title {
+  font-size: 26px;
+  letter-spacing: -0.01em;
+}
+
+.onboarding-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.onboarding-step {
+  border: none;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.onboarding-step legend {
+  padding: 0;
+  margin-bottom: 14px;
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--ink-strong);
+}
+
+.onboarding-step > .meta {
+  margin: -6px 0 14px;
+}
+
+.choice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.choice-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border);
+  background: var(--surface-2);
+  cursor: pointer;
+  transition: border-color var(--dur-fast) ease, background var(--dur-fast) ease;
+}
+
+.choice-card input,
+.day-chip input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.choice-card:hover {
+  border-color: var(--border-strong);
+}
+
+.choice-card:has(input:checked) {
+  border-color: var(--coral);
+  background: var(--coral-soft);
+}
+
+.choice-card:has(input:focus-visible),
+.day-chip:has(input:focus-visible) {
+  outline: 2px solid var(--coral);
+  outline-offset: 3px;
+}
+
+.choice-icon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-3);
+  color: var(--muted);
+}
+
+.choice-card:has(input:checked) .choice-icon {
+  background: var(--coral);
+  color: var(--on-coral);
+}
+
+.choice-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.choice-text strong {
+  font-size: 15px;
+}
+
+.choice-text small {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.day-chips {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.day-chip {
+  position: relative;
+  cursor: pointer;
+}
+
+.day-chip span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border);
+  background: var(--surface-2);
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  transition: border-color var(--dur-fast) ease, background var(--dur-fast) ease;
+}
+
+.day-chip input:checked + span {
+  border-color: var(--coral);
+  background: var(--coral-soft);
+  color: var(--coral-light);
+}
+
+.onboarding-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.onboarding-actions .btn-primary {
+  min-width: 160px;
+  padding: 12px 22px;
+}
+
+.onboarding-skip {
+  align-self: center;
+  color: var(--muted);
+}
+
+@media (max-width: 480px) {
+  .onboarding-card {
+    padding: 24px 18px;
+  }
+
+  .onboarding-title {
+    font-size: 22px;
+  }
+
+  .day-chip span {
+    height: 54px;
+    font-size: 20px;
+  }
+
+  .onboarding-actions .btn-primary {
+    flex: 1;
+    min-width: 0;
+  }
+}
