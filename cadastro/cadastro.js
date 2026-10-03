@@ -64,6 +64,7 @@
     cadastroForm.setAttribute("novalidate", "");
 
     F.initPasswordToggle(cadastroForm);
+    F.initSocialButtons();
     // O medidor de força só faz sentido no cadastro
     F.initPasswordStrength(cadastroForm);
     F.clearErrorOnInput(cadastroForm);

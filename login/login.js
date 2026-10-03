@@ -21,6 +21,7 @@
     loginForm.setAttribute("novalidate", "");
 
     F.initPasswordToggle(loginForm);
+    F.initSocialButtons();
     F.checkCadastroSuccess(loginForm);
     F.clearErrorOnInput(loginForm);
 

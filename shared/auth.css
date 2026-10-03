@@ -50,3 +50,20 @@ input:-webkit-autofill:active {
 [hidden] {
   display: none !important;
 }
+
+/* Aviso rápido (ex.: login social ainda indisponível) */
+.auth-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  max-width: calc(100% - 32px);
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: #1e2b25;
+  border: 1px solid #263832;
+  color: #f4f1ea;
+  font-size: 14px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  z-index: 100;
+}

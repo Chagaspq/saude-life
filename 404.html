@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0e1512" />
+    <link rel="icon" href="shared/favicon.svg" type="image/svg+xml" />
+    <title>Página não encontrada — Saúde Life</title>
+    <meta name="description" content="A página que você procurou não existe ou mudou de endereço." />
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        box-sizing: border-box;
+        background: #0e1512;
+        background-image: radial-gradient(circle at 85% -10%, rgba(255, 122, 69, 0.14), transparent 45%);
+        color: #f4f1ea;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        text-align: center;
+      }
+
+      main {
+        max-width: 440px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .codigo {
+        margin: 8px 0 0;
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 72px;
+        font-weight: 700;
+        line-height: 1;
+        background: linear-gradient(135deg, #ff7a45, #34d399);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      h1 {
+        margin: 0;
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 26px;
+        color: #ffffff;
+      }
+
+      p {
+        margin: 0;
+        color: #a3b0a8;
+        line-height: 1.6;
+      }
+
+      .acoes {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 8px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 12px 22px;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 14.5px;
+        text-decoration: none;
+      }
+
+      .btn-primario {
+        color: #14100c;
+        background: linear-gradient(180deg, #ffa06b, #ff7a45 70%);
+      }
+
+      .btn-secundario {
+        color: #f4f1ea;
+        border: 1px solid #263832;
+      }
+
+      .btn-secundario:hover {
+        border-color: #ff7a45;
+      }
+
+      a:focus-visible {
+        outline: 2px solid #ff7a45;
+        outline-offset: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <svg aria-hidden="true" width="48" height="48" viewBox="0 0 48 48" fill="none">
+        <defs>
+          <linearGradient id="logo-gradient" x1="2" y1="40" x2="46" y2="6" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#ff7a45" />
+            <stop offset="100%" stop-color="#34d399" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M4 31 L9 31 L12 19 L15 37 L18 27 C23 13 30 9 35 16 Q40 21 44 8"
+          stroke="url(#logo-gradient)"
+          stroke-width="4.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      <p class="codigo">404</p>
+      <h1>Página não encontrada</h1>
+      <p>O endereço pode ter mudado ou a página não existe mais. Que tal voltar pro começo?</p>
+      <div class="acoes">
+        <a href="welcome/welcome.html" class="btn btn-primario">Voltar ao início</a>
+        <a href="app/inicio.html" class="btn btn-secundario">Abrir o app</a>
+      </div>
+    </main>
+  </body>
+</html>
