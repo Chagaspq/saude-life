@@ -164,8 +164,9 @@ window.SL &&
         }),
       );
 
-      const anterior = document.querySelector('[data-action="exercicio-anterior"]');
-      const proximo = document.querySelector('[data-action="exercicio-proximo"]');
+      // O botão da direita alterna entre "Próximo" e "Finalizar", então é buscado pela posição
+      const anterior = document.querySelector(".player-footer .btn-secondary");
+      const proximo = document.querySelector(".player-footer .btn-primary");
       anterior.disabled = i === 0;
       const ultimo = i === exercicios.length - 1;
       proximo.textContent = ultimo ? "Finalizar treino" : "Próximo exercício";
@@ -187,6 +188,7 @@ window.SL &&
     });
 
     function irPara(indice) {
+      avancarDepois = null;
       estado.indice = Math.max(0, Math.min(exercicios.length - 1, indice));
       salvar();
       pararDescanso();
@@ -204,6 +206,8 @@ window.SL &&
     let descansoTimer = null;
     let restante = 0;
     let duracaoDescanso = 0;
+    // Exercício terminado: só avança quando o descanso acaba (evita pular dois de uma vez)
+    let avancarDepois = null;
 
     function desenharDescanso() {
       $("descanso-tempo").textContent = mmss(restante);
@@ -223,7 +227,7 @@ window.SL &&
         restante -= 1;
         desenharDescanso();
         if (restante <= 0) {
-          pararDescanso();
+          fimDoDescanso();
           $("descanso-aviso").textContent = "Descanso concluído";
           SL.toast("Descanso concluído. Bora para a próxima!");
           if (navigator.vibrate && storage.get("sl-pref-vibrar", true)) navigator.vibrate([120, 60, 120]);
@@ -242,7 +246,12 @@ window.SL &&
       duracaoDescanso = Math.max(duracaoDescanso, restante);
       desenharDescanso();
     });
-    SL.acao("descanso-pular", pararDescanso);
+    function fimDoDescanso() {
+      pararDescanso();
+      if (avancarDepois !== null) irPara(avancarDepois);
+    }
+
+    SL.acao("descanso-pular", fimDoDescanso);
 
     /* ---------- Ações ---------- */
 
@@ -268,16 +277,13 @@ window.SL &&
       const texto = exercicioCompleto
         ? `A seguir: ${exercicios[i + 1].nome}`
         : `A seguir: série ${proximaSerie + 1} de ${series.length}`;
+      if (exercicioCompleto && !exercicios[i].descanso) {
+        irPara(i + 1);
+        return;
+      }
       iniciarDescanso(exercicios[i].descanso, texto);
-      if (exercicioCompleto) setTimeout(() => irParaSemParar(i + 1), 400);
+      if (exercicioCompleto) avancarDepois = i + 1;
     });
-
-    // Avança de exercício sem cancelar o descanso que acabou de começar
-    function irParaSemParar(indice) {
-      estado.indice = indice;
-      salvar();
-      render();
-    }
 
     SL.acao("ir-exercicio", (alvo) => irPara(Number(alvo.dataset.indice)));
     SL.acao("exercicio-anterior", () => irPara(estado.indice - 1));
