@@ -90,7 +90,7 @@
           </div>
         </div>
         <div class="hero-visual" aria-hidden="true">
-          <svg viewBox="0 0 320 320" fill="none" width="100%" height="100%">
+          <svg class="hero-pulse" viewBox="0 0 320 320" fill="none">
             <circle cx="160" cy="160" r="150" class="pulse-ring pulse-ring-1" />
             <circle cx="160" cy="160" r="110" class="pulse-ring pulse-ring-2" />
             <path
@@ -102,6 +102,37 @@
               stroke-linejoin="round"
             />
           </svg>
+          <div class="hero-stack">
+            <div class="mock-card hero-card-workout">
+              <p class="mock-label">Treino de hoje</p>
+              <p class="mock-title">Super Inferiores A</p>
+              <p class="mock-meta">Agachamento livre • série 3 de 4</p>
+              <ul class="mock-sets">
+                <li class="is-done"><span>Série 1</span><span>10 × 60 kg</span><i><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></i></li>
+                <li class="is-done"><span>Série 2</span><span>10 × 60 kg</span><i><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></i></li>
+                <li><span>Série 3</span><span>10 × 62,5 kg</span><i></i></li>
+              </ul>
+            </div>
+            <div class="hero-card-row">
+              <div class="mock-card mock-goal hero-card-goal">
+                <p class="mock-label">Meta semanal</p>
+                <svg viewBox="0 0 120 120" class="mock-ring">
+                  <circle cx="60" cy="60" r="48" class="mock-ring-track"></circle>
+                  <circle cx="60" cy="60" r="48" class="mock-ring-fill"></circle>
+                </svg>
+                <p class="mock-ring-text"><strong>3</strong> de 4</p>
+              </div>
+              <div class="mock-card hero-card-chart">
+                <p class="mock-label">Peso</p>
+                <p class="mock-title">79,6 kg</p>
+                <p class="mock-up">−4,0 kg em 12 semanas</p>
+                <svg viewBox="0 0 300 110" class="mock-line" preserveAspectRatio="none">
+                  <polygon points="0,110 0,24 43,30 86,38 129,36 172,58 215,66 258,78 300,88 300,110" class="mock-line-area"></polygon>
+                  <polyline points="0,24 43,30 86,38 129,36 172,58 215,66 258,78 300,88" class="mock-line-stroke"></polyline>
+                </svg>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -196,38 +227,43 @@
       <section class="app-preview" aria-labelledby="preview-heading">
         <div class="section-head">
           <p class="section-kicker">Por dentro do app</p>
-          <h2 id="preview-heading">Seu dia de treino, num painel só</h2>
+          <h2 id="preview-heading">Cada série registrada, sem caderninho</h2>
           <p class="section-lead">
-            Treino de hoje, metas da semana e evolução lado a lado. Sem planilha, sem caderninho.
+            Marque as séries, ajuste a carga na hora e deixe o cronômetro de descanso avisar quando voltar.
           </p>
         </div>
         <div class="mockup" aria-hidden="true">
           <div class="mockup-bar">
             <span></span><span></span><span></span>
           </div>
-          <div class="mockup-body">
-            <div class="mock-card mock-workout">
-              <p class="mock-label">Treino de hoje</p>
-              <p class="mock-title">Super Inferiores A</p>
-              <p class="mock-meta">45 min • 6 exercícios</p>
-              <div class="mock-progress"><span></span></div>
-              <p class="mock-meta">4 de 6 exercícios feitos</p>
+          <div class="mockup-body mockup-player">
+            <div class="mock-card">
+              <p class="mock-label">Exercício 2 de 6</p>
+              <p class="mock-title">Leg press 45°</p>
+              <p class="mock-meta">4 séries × 12 reps • descanso de 90 s</p>
+              <ul class="mock-sets">
+                <li class="is-done"><span>Série 1</span><span>12 × 140 kg</span><i><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></i></li>
+                <li class="is-done"><span>Série 2</span><span>12 × 140 kg</span><i><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></i></li>
+                <li><span>Série 3</span><span>12 × 150 kg</span><i></i></li>
+                <li><span>Série 4</span><span>12 × 150 kg</span><i></i></li>
+              </ul>
             </div>
             <div class="mock-card mock-goal">
-              <p class="mock-label">Meta semanal</p>
-              <svg viewBox="0 0 120 120" class="mock-ring">
+              <p class="mock-label">Descanso</p>
+              <svg viewBox="0 0 120 120" class="mock-ring mock-ring-rest">
                 <circle cx="60" cy="60" r="48" class="mock-ring-track"></circle>
                 <circle cx="60" cy="60" r="48" class="mock-ring-fill"></circle>
               </svg>
-              <p class="mock-ring-text"><strong>3</strong> de 4 treinos</p>
+              <p class="mock-ring-text"><strong>0:58</strong> para a série 3</p>
             </div>
-            <div class="mock-card mock-chart">
-              <p class="mock-label">Carga no agachamento</p>
-              <p class="mock-title">80 kg <span class="mock-up">+20 kg</span></p>
-              <svg viewBox="0 0 300 110" class="mock-line" preserveAspectRatio="none">
-                <polygon points="0,110 0,90 43,84 86,78 129,78 172,62 215,56 258,48 300,30 300,110" class="mock-line-area"></polygon>
-                <polyline points="0,90 43,84 86,78 129,78 172,62 215,56 258,48 300,30" class="mock-line-stroke"></polyline>
-              </svg>
+            <div class="mock-card">
+              <p class="mock-label">Treino concluído</p>
+              <p class="mock-title">52 min</p>
+              <ul class="mock-summary">
+                <li><span>Séries</span><strong>22</strong></li>
+                <li><span>Volume</span><strong>5.940 kg</strong></li>
+                <li><span>Meta da semana</span><strong>3 de 4</strong></li>
+              </ul>
             </div>
           </div>
         </div>
@@ -240,22 +276,7 @@
         </div>
         <div class="pros-list">
           <article class="pro-card">
-            <div class="pro-avatar" aria-hidden="true">
-              <svg
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path
-                  d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
-                ></path>
-              </svg>
-            </div>
+            <div class="pro-avatar" aria-hidden="true">AC</div>
             <h3>Dra. Ana Costa</h3>
             <p class="pro-specialty">Nutricionista</p>
             <p class="pro-rating">
@@ -270,25 +291,12 @@
                   points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
                 ></polygon>
               </svg>
-              4.9
+              4,9
             </p>
           </article>
 
           <article class="pro-card">
-            <div class="pro-avatar" aria-hidden="true">
-              <svg
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M6.5 6.5h11M6.5 17.5h11M2 12h20M2 9v6M22 9v6"></path>
-              </svg>
-            </div>
+            <div class="pro-avatar" aria-hidden="true">RS</div>
             <h3>Rafael Souza</h3>
             <p class="pro-specialty">Personal Trainer</p>
             <p class="pro-rating">
@@ -303,27 +311,12 @@
                   points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
                 ></polygon>
               </svg>
-              5.0
+              5,0
             </p>
           </article>
 
           <article class="pro-card">
-            <div class="pro-avatar" aria-hidden="true">
-              <svg
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="12" cy="5" r="2"></circle>
-                <path d="m9 20 3-6 3 6"></path>
-                <path d="M6 12h12"></path>
-              </svg>
-            </div>
+            <div class="pro-avatar" aria-hidden="true">ML</div>
             <h3>Marina Lima</h3>
             <p class="pro-specialty">Instrutora de Yoga</p>
             <p class="pro-rating">
@@ -338,27 +331,11 @@
                   points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
                 ></polygon>
               </svg>
-              4.8
+              4,8
             </p>
           </article>
           <article class="pro-card">
-            <div class="pro-avatar" aria-hidden="true">
-              <svg
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M20.4 14.5 16 10 4 20"></path>
-                <path d="m5 4 12.9 5.4"></path>
-                <path d="M9.6 8.4 4 10"></path>
-                <path d="m10 20 4.5-4.5"></path>
-              </svg>
-            </div>
+            <div class="pro-avatar" aria-hidden="true">GT</div>
             <h3>Gabriel Torres</h3>
             <p class="pro-specialty">Fisioterapeuta</p>
             <p class="pro-rating">
@@ -373,7 +350,7 @@
                   points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
                 ></polygon>
               </svg>
-              4.7
+              4,7
             </p>
           </article>
         </div>
@@ -386,15 +363,15 @@
         </div>
         <div class="testimonials-grid">
           <figure class="testimonial">
-            <blockquote>"Perdi 6 kg em 3 meses e, pela primeira vez, entendi o meu progresso."</blockquote>
+            <blockquote>“Perdi 6 kg em 3 meses e, pela primeira vez, entendi o meu progresso.”</blockquote>
             <figcaption><span class="t-avatar" aria-hidden="true">CA</span><span><strong>Camila</strong> 27 anos, emagrecimento</span></figcaption>
           </figure>
           <figure class="testimonial">
-            <blockquote>"Os treinos se encaixam na minha rotina de trabalho. Treino 4 vezes por semana sem pular."</blockquote>
+            <blockquote>“Os treinos se encaixam na minha rotina de trabalho. Treino 4 vezes por semana sem pular.”</blockquote>
             <figcaption><span class="t-avatar" aria-hidden="true">DI</span><span><strong>Diego</strong> 34 anos, hipertrofia</span></figcaption>
           </figure>
           <figure class="testimonial">
-            <blockquote>"Minha nutricionista acompanha tudo pelo app. Ficou muito mais fácil seguir o plano."</blockquote>
+            <blockquote>“Minha nutricionista acompanha tudo pelo app. Ficou muito mais fácil seguir o plano.”</blockquote>
             <figcaption><span class="t-avatar" aria-hidden="true">LA</span><span><strong>Larissa</strong> 22 anos, saúde</span></figcaption>
           </figure>
         </div>
