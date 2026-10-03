@@ -4,7 +4,7 @@
   --surface-border: #263832;
   --ink: #f4f1ea;
   --muted: #a3b0a8;
-  --muted-2: #6d7a73;
+  --muted-2: #8a968f;
 
   --red: #ff7a45;
   --red-light: #ffa06b;
@@ -221,7 +221,7 @@ p.field-success {
   font-family: inherit;
   font-size: 15px;
   font-weight: 600;
-  color: #fff;
+  color: #14100c;
   background: linear-gradient(180deg, var(--red-light), var(--red) 70%);
   cursor: pointer;
   transition:
@@ -260,7 +260,7 @@ p.field-success {
   width: 16px;
   height: 16px;
   border: 2px solid rgba(255, 255, 255, 0.4);
-  border-top-color: #fff;
+  border-top-color: #14100c;
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
 }
@@ -371,4 +371,21 @@ a:visited {
 .btn-comecar:hover {
   text-decoration: underline;
   opacity: 0.8;
+}
+
+/* Link exibido no modo demonstração */
+.demo-link {
+  display: inline-block;
+  margin-top: 6px;
+  color: var(--coral-light);
+  font-weight: 600;
+}
+
+/* Foco visível para quem navega pelo teclado */
+a:focus-visible,
+button:focus-visible,
+input[type="checkbox"]:focus-visible {
+  outline: 2px solid #ff7a45;
+  outline-offset: 3px;
+  border-radius: 6px;
 }

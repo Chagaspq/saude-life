@@ -2,10 +2,14 @@ const EMAILJS_PUBLIC_KEY = "SUA_PUBLIC_KEY";
 const EMAILJS_SERVICE_ID = "SEU_SERVICE_ID";
 const EMAILJS_TEMPLATE_ID = "SEU_TEMPLATE_ID";
 
-const RESET_PAGE_URL = "https://seusite.com/redefinir-senha.html";
+// Página de redefinição (fica na mesma pasta, então o link funciona local ou publicado)
+const RESET_PAGE_URL = new URL("redefinir.html", window.location.href).href;
 
-// Inicializa o EmailJS assim que o script carrega
-if (window.emailjs) {
+// Sem as chaves do EmailJS configuradas, o envio é simulado
+const EMAILJS_CONFIGURADO =
+  Boolean(window.emailjs) && !EMAILJS_PUBLIC_KEY.startsWith("SUA_");
+
+if (EMAILJS_CONFIGURADO) {
   emailjs.init(EMAILJS_PUBLIC_KEY);
 }
 
@@ -106,16 +110,30 @@ form.addEventListener("submit", async (event) => {
   const resetLink = `${RESET_PAGE_URL}?token=${token}`;
 
   try {
-    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-      to_email: email,
-      reset_link: resetLink,
-    });
+    if (EMAILJS_CONFIGURADO) {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        to_email: email,
+        reset_link: resetLink,
+      });
+    } else {
+      // Modo demonstração: guarda o token e simula o tempo de envio
+      sessionStorage.setItem("sl-reset-token", token);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      console.info("[Modo demonstração] Link de redefinição:", resetLink);
+    }
 
     // Mensagem genérica de propósito: não confirma se o e-mail
     // existe cadastrado ou não (evita vazar quais e-mails têm conta)
     showGlobalSuccess(
       "Se esse e-mail estiver cadastrado, você vai receber as instruções em instantes.",
     );
+    if (!EMAILJS_CONFIGURADO) {
+      const demoLink = document.createElement("a");
+      demoLink.href = resetLink;
+      demoLink.className = "demo-link";
+      demoLink.textContent = "Modo demonstração: abrir link de redefinição →";
+      globalSuccess.append(document.createElement("br"), demoLink);
+    }
     form.reset();
   } catch (err) {
     console.error("Erro ao enviar e-mail:", err);

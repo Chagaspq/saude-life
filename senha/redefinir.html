@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0e1512" />
+    <link rel="icon" href="../shared/favicon.svg" type="image/svg+xml" />
+    <title>Saúde Life - Redefinir Senha</title>
+    <meta
+      name="description"
+      content="Crie uma nova senha para sua conta no Saúde Life."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="senha.css" />
+  </head>
+  <body>
+    <main class="auth-container">
+      <header class="auth-header">
+        <div class="logo-compact" aria-hidden="true">
+          <svg width="34" height="34" viewBox="0 0 48 48" fill="none">
+            <defs>
+              <linearGradient
+                id="logo-gradient"
+                x1="2"
+                y1="40"
+                x2="46"
+                y2="6"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop offset="0%" stop-color="#ff7a45" />
+                <stop offset="100%" stop-color="#34d399" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M4 31 L9 31 L12 19 L15 37 L18 27 C23 13 30 9 35 16 Q40 21 44 8"
+              stroke="url(#logo-gradient)"
+              stroke-width="4.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <h1>Redefinir senha</h1>
+        <p class="auth-subtitle">
+          Escolha uma nova senha para acessar sua conta.
+        </p>
+      </header>
+
+      <form id="reset-form" class="auth-form" novalidate>
+        <div class="form-group">
+          <label for="new-password">Nova senha</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="4" y="11" width="16" height="10" rx="2"></rect>
+              <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+            </svg>
+            <input
+              type="password"
+              id="new-password"
+              name="new-password"
+              autocomplete="new-password"
+              required
+              autofocus
+              minlength="8"
+              placeholder="Mínimo de 8 caracteres"
+              aria-describedby="new-password-error"
+            />
+          </div>
+          <span id="new-password-error" class="field-error" role="alert" aria-live="polite"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="confirm-new-password">Confirmar nova senha</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="4" y="11" width="16" height="10" rx="2"></rect>
+              <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
+            </svg>
+            <input
+              type="password"
+              id="confirm-new-password"
+              name="confirm-new-password"
+              autocomplete="new-password"
+              required
+              placeholder="Repita a nova senha"
+              aria-describedby="confirm-new-password-error"
+            />
+          </div>
+          <span id="confirm-new-password-error" class="field-error" role="alert" aria-live="polite"></span>
+        </div>
+
+        <p id="form-global-error" class="field-error" role="alert" aria-live="assertive" hidden></p>
+        <p id="form-global-success" class="field-success" role="status" aria-live="polite" hidden></p>
+
+        <button type="submit" class="btn-submit">
+          <span class="btn-text">Salvar nova senha</span>
+          <span class="spinner" aria-hidden="true" hidden></span>
+          <span aria-hidden="true" class="arrow">→</span>
+        </button>
+      </form>
+
+      <footer class="auth-footer">
+        <p>
+          Lembrou a senha?
+          <a href="../login/login.html">Voltar ao login</a>
+        </p>
+      </footer>
+    </main>
+
+    <script src="redefinir.js"></script>
+  </body>
+</html>
