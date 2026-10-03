@@ -58,11 +58,9 @@ body {
 
 .auth-container {
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
   background: var(--surface);
   border: 1px solid var(--surface-border);
-  border-top: 3px solid transparent;
-  border-image: linear-gradient(90deg, var(--red), var(--success)) 1;
   border-radius: var(--radius);
   padding: 40px 32px 32px;
 }
@@ -75,10 +73,18 @@ body {
   margin-bottom: 32px;
 }
 
+/* Mesmo selo de logo do login e do cadastro */
 .logo-compact {
-  color: var(--red);
+  width: 52px;
+  height: 52px;
   margin-bottom: 16px;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  border: 1px solid rgba(255, 160, 107, 0.4);
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
 }
 
 .auth-header h1 {
