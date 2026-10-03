@@ -6,7 +6,13 @@ Feito só com **HTML, CSS e JavaScript puros**, sem frameworks e sem bibliotecas
 
 ![Saúde Life](shared/og-image.png)
 
-## Como abrir
+## Ver online
+
+**https://chagaspq.github.io/saude-life/**
+
+O site fica publicado pelo GitHub Pages: cada atualização na `main` aparece nesse link em 1 ou 2 minutos.
+
+## Como abrir no computador
 
 1. Abra a pasta do projeto no VS Code.
 2. Clique com o botão direito em `index.html` e escolha **Open with Live Server**.
@@ -36,7 +42,6 @@ Feito só com **HTML, CSS e JavaScript puros**, sem frameworks e sem bibliotecas
 ```
 index.html            entrada: redireciona para welcome/
 404.html              página não encontrada
-manifest.webmanifest  configuração do app instalável
 sw.js                 service worker (instalar e abrir offline)
 
 welcome/  planos/  termos/  politica/   site público
@@ -53,8 +58,6 @@ app/                  app logado: uma pasta por página
     app.js            núcleo: sessão, menu, modal, avisos, busca, histórico
     dados.js          dados de exemplo (treinos, exercícios, profissionais...)
 
-docs/                 prompts com o planejamento das melhorias
-
 shared/
   tokens.css          design system: cores, fontes, espaços, raios, sombras
   base.css            base comum (reset, foco visível, movimento reduzido)
@@ -63,6 +66,7 @@ shared/
   legal.css/js        termos e política
   planos.css/js       cards de planos (site e app)
   form-utils.js       validação dos formulários
+  manifest.webmanifest  configuração do app instalável
   favicon.svg, icon-*.png, og-image.png
 ```
 
