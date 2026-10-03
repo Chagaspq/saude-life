@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0e1512" />
+    <link rel="icon" href="../shared/favicon.svg" type="image/svg+xml" />
+    <title>Evolução — Saúde Life</title>
+    <meta
+      name="description"
+      content="Gráficos de peso e carga semana a semana."
+    />
+    <link rel="stylesheet" href="app.css" />
+  </head>
+
+  <body data-pagina="evolucao">
+    <!-- ==================== APLICAÇÃO PRINCIPAL (APP) ==================== -->
+    <div id="app-container" class="app-layout">
+      <!-- Overlay escuro atrás da sidebar quando aberta no mobile -->
+      <div id="sidebar-overlay" class="sidebar-overlay hidden"></div>
+
+      <!-- SIDEBAR -->
+      <aside
+        id="app-sidebar"
+        class="app-sidebar"
+        aria-label="Navegação lateral principal"
+      >
+        <div class="sidebar-brand">
+          <a href="inicio.html" class="brand" aria-label="Saúde Life — Início">
+            <svg
+              aria-hidden="true"
+              width="28"
+              height="28"
+              viewBox="0 0 48 48"
+              fill="none"
+            >
+              <defs>
+                <linearGradient
+                  id="logo-gradient"
+                  x1="2"
+                  y1="40"
+                  x2="46"
+                  y2="6"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop offset="0%" stop-color="#ff7a45" />
+                  <stop offset="100%" stop-color="#34d399" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M4 31 L9 31 L12 19 L15 37 L18 27 C23 13 30 9 35 16 Q40 21 44 8"
+                stroke="url(#logo-gradient)"
+                stroke-width="4.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span>Saúde Life</span>
+          </a>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Seções do app">
+          <ul>
+            <li>
+              <a href="inicio.html" class="nav-link" data-pagina="inicio"
+                >Início</a
+              >
+            </li>
+            <li>
+              <a href="descobrir.html" class="nav-link" data-pagina="descobrir"
+                >Descobrir</a
+              >
+            </li>
+            <li>
+              <a href="treinos.html" class="nav-link" data-pagina="treinos"
+                >Treinos</a
+              >
+            </li>
+            <li>
+              <a href="aulas.html" class="nav-link" data-pagina="aulas">Aulas</a>
+            </li>
+            <li>
+              <a href="alimentacao.html" class="nav-link" data-pagina="alimentacao"
+                >Alimentação</a
+              >
+            </li>
+            <li>
+              <a href="evolucao.html" class="nav-link" data-pagina="evolucao"
+                >Evolução</a
+              >
+            </li>
+            <li>
+              <a
+                href="profissionais.html"
+                class="nav-link"
+                data-pagina="profissionais"
+                >Profissionais</a
+              >
+            </li>
+            <li>
+              <a href="planos.html" class="nav-link" data-pagina="planos">Planos</a>
+            </li>
+            <li>
+              <a href="salvos.html" class="nav-link" data-pagina="salvos">Salvos</a>
+            </li>
+            <li>
+              <a href="academia.html" class="nav-link" data-pagina="academia"
+                >Academia</a
+              >
+            </li>
+            <li>
+              <a href="perfil.html" class="nav-link" data-pagina="perfil">Perfil</a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+          <a href="perfil.html" class="user-profile-summary">
+            <span
+              class="user-avatar avatar-initials"
+              data-user-initials
+              aria-hidden="true"
+              >BS</span
+            >
+            <span class="user-name" data-user-name>Nome do Usuário</span>
+          </a>
+          <button
+            class="btn-icon"
+            data-action="open-settings"
+            aria-label="Configurações"
+          >
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"
+              ></path>
+            </svg>
+          </button>
+          <button
+            class="btn-icon"
+            data-action="logout"
+            aria-label="Sair da conta"
+          >
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <path d="m16 17 5-5-5-5"></path>
+              <path d="M21 12H9"></path>
+            </svg>
+          </button>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT WRAPPER -->
+      <div class="app-main-wrapper">
+        <!-- HEADER / TOPBAR -->
+        <header class="app-topbar">
+          <button
+            id="sidebar-toggle"
+            class="btn-icon btn-menu-toggle"
+            aria-label="Abrir menu"
+            aria-expanded="false"
+            aria-controls="app-sidebar"
+          >
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+
+          <div class="search-box">
+            <svg class="icon search-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m20 20-3.5-3.5"></path>
+            </svg>
+            <input
+              type="search"
+              id="global-search"
+              placeholder="Pesquisar treinos, profissionais, conteúdos..."
+              aria-label="Pesquisar"
+              autocomplete="off"
+            />
+            <div
+              id="search-results-dropdown"
+              class="search-dropdown hidden"
+              aria-live="polite"
+            ></div>
+          </div>
+
+          <div class="topbar-actions">
+            <button
+              class="btn-icon"
+              aria-label="Notificações (3 novas)"
+              data-action="open-notifications"
+            >
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+                <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+              </svg>
+              <span class="badge" aria-hidden="true">3</span>
+            </button>
+            <button
+              class="btn-icon"
+              aria-label="Mensagens (1 nova)"
+              data-action="open-messages"
+            >
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                ></path>
+              </svg>
+              <span class="badge" aria-hidden="true">1</span>
+            </button>
+            <a
+              href="perfil.html"
+              class="user-menu-trigger"
+              aria-label="Abrir meu perfil"
+            >
+              <span
+                class="avatar-small avatar-initials"
+                data-user-initials
+                aria-hidden="true"
+                >BS</span
+              >
+              <span class="username-top" data-user-first-name>Biel</span>
+            </a>
+          </div>
+        </header>
+
+        <!-- VIEWS CONTAINER -->
+        <main class="app-views-container" id="conteudo" tabindex="-1">
+          <section
+            id="view-evolucao"
+            class="view-section active"
+            aria-labelledby="heading-evolucao"
+          >
+            <h1 id="heading-evolucao">Evolução & Métricas</h1>
+            <div class="evolution-dashboard">
+              <figure class="chart-container" data-chart="peso">
+                <figcaption>
+                  <h2>Peso corporal</h2>
+                  <span class="chart-meta">Últimas 8 semanas (kg)</span>
+                </figcaption>
+              </figure>
+              <figure class="chart-container" data-chart="cargas">
+                <figcaption>
+                  <h2>Carga no agachamento</h2>
+                  <span class="chart-meta">Últimas 8 semanas (kg)</span>
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <!-- ==================== MODAIS REUTILIZÁVEIS ==================== -->
+    <div id="modal-overlay" class="modal-overlay hidden" aria-hidden="true">
+      <div
+        class="modal-window"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+      >
+        <header class="modal-header">
+          <h2 id="modal-title">Título do Modal</h2>
+          <button
+            class="btn-close-modal"
+            aria-label="Fechar modal"
+            data-action="close-modal"
+          >
+            &times;
+          </button>
+        </header>
+        <div class="modal-body">
+          <!-- Conteúdo dinâmico via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Aviso rápido (toast) -->
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+    <!-- ==================== FOOTER GERAL ==================== -->
+    <footer class="site-footer">
+      <div class="footer-content">
+        <div class="footer-col">
+          <h3>Sobre a Saúde Life</h3>
+          <p>
+            A plataforma fitness definitiva integrando treino, comunidade e alta
+            performance.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Links Úteis</h4>
+          <ul>
+            <li><a href="../termos/termos.html">Termos de Uso</a></li>
+            <li>
+              <a href="../politica/politica.html">Política de Privacidade</a>
+            </li>
+            <li><a href="#contato">Contato</a></li>
+            <li><a href="#ajuda">Ajuda</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Redes Sociais</h4>
+          <div class="social-links">
+            <a href="#" aria-label="Instagram">Instagram</a>
+            <a href="#" aria-label="Twitter">Twitter</a>
+            <a href="#" aria-label="YouTube">YouTube</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Saúde Life. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <script src="dados.js"></script>
+    <script src="app.js"></script>
+    <script src="paginas/evolucao.js"></script>
+  </body>
+</html>
