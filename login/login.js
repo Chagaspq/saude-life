@@ -6,7 +6,7 @@
   // Páginas do app que podem ser pedidas em ?voltar= (evita redirecionar para fora)
   const PAGINAS_APP = [
     "inicio", "descobrir", "treinos", "aulas", "alimentacao", "evolucao",
-    "profissionais", "planos", "salvos", "academia", "perfil",
+    "profissionais", "planos", "salvos", "academia", "perfil", "treino",
   ];
 
   function destinoDepoisDoLogin() {

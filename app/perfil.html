@@ -180,6 +180,19 @@
             </svg>
           </button>
 
+          <button
+            class="btn-icon btn-search-toggle"
+            data-action="toggle-search"
+            aria-label="Abrir busca"
+            aria-expanded="false"
+            aria-controls="global-search"
+          >
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m20 20-3.5-3.5"></path>
+            </svg>
+          </button>
+
           <div class="search-box">
             <svg class="icon search-icon" viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="11" cy="11" r="7"></circle>
@@ -204,6 +217,9 @@
               class="btn-icon"
               aria-label="Notificações (3 novas)"
               data-action="open-notifications"
+              data-badge="notificacoes"
+              data-rotulo="Notificações"
+              data-rotulo-novas="Notificações (3 novas)"
             >
               <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
@@ -215,6 +231,9 @@
               class="btn-icon"
               aria-label="Mensagens (1 nova)"
               data-action="open-messages"
+              data-badge="mensagens"
+              data-rotulo="Mensagens"
+              data-rotulo-novas="Mensagens (1 nova)"
             >
               <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
                 <path
@@ -260,19 +279,105 @@
                   Foco em hipertrofia e consistência diária.
                 </p>
                 <div class="profile-stats-bar">
-                  <span><strong data-render="treinos-count">14</strong> Treinos</span>
-                  <span><strong>120</strong> Seguidores</span>
-                  <span><strong>85</strong> Seguindo</span>
+                  <span><strong data-render="treinos-count">0</strong> treinos feitos</span>
+                  <span><strong data-render="sequencia">0</strong> semanas seguidas</span>
+                  <span><strong data-render="seguindo-count">0</strong> profissionais seguidos</span>
                 </div>
               </div>
-              <button class="btn-secondary" data-action="edit-profile">
+              <button class="btn-secondary btn-with-icon" data-action="edit-profile">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path></svg>
                 Editar perfil
               </button>
             </div>
+
+            <div class="profile-grid">
+              <section class="panel" aria-labelledby="heading-objetivos">
+                <div class="section-head">
+                  <h2 id="heading-objetivos">Meus objetivos</h2>
+                  <a href="comecar.html" class="section-link">Alterar</a>
+                </div>
+                <dl class="facts-list" data-render="objetivos"></dl>
+              </section>
+
+              <section class="panel" aria-labelledby="heading-conquistas">
+                <div class="section-head">
+                  <h2 id="heading-conquistas">Conquistas</h2>
+                  <span class="meta" data-render="conquistas-total"></span>
+                </div>
+                <ul class="badges-grid" data-render="conquistas"></ul>
+              </section>
+
+              <section class="panel" aria-labelledby="heading-atividade">
+                <div class="section-head">
+                  <h2 id="heading-atividade">Atividade recente</h2>
+                  <a href="evolucao.html" class="section-link">Ver evolução</a>
+                </div>
+                <ul class="history-list" data-render="atividade"></ul>
+              </section>
+
+              <section class="panel" aria-labelledby="heading-preferencias">
+                <h2 id="heading-preferencias">Preferências</h2>
+                <div class="switch-list">
+                  <label class="switch-row">
+                    <span>
+                      <strong>Lembretes de treino</strong>
+                      <small>Aviso nos dias combinados da sua meta</small>
+                    </span>
+                    <input type="checkbox" class="switch" role="switch" data-pref="sl-pref-notif" />
+                  </label>
+                  <label class="switch-row">
+                    <span>
+                      <strong>Vibrar no fim do descanso</strong>
+                      <small>No celular, durante o treino</small>
+                    </span>
+                    <input type="checkbox" class="switch" role="switch" data-pref="sl-pref-vibrar" />
+                  </label>
+                </div>
+              </section>
+
+              <section class="panel panel-wide" aria-labelledby="heading-conta">
+                <h2 id="heading-conta">Conta</h2>
+                <dl class="facts-list">
+                  <div>
+                    <dt>E-mail</dt>
+                    <dd data-user-email></dd>
+                  </div>
+                  <div>
+                    <dt>Plano</dt>
+                    <dd>Free <a href="planos.html" class="section-link">Ver planos</a></dd>
+                  </div>
+                </dl>
+                <div class="account-actions">
+                  <button class="btn-secondary" data-action="reset-data">
+                    Restaurar dados de exemplo
+                  </button>
+                  <button class="btn-danger-outline btn-with-icon" data-action="logout">
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><path d="m16 17 5-5-5-5"></path><path d="M21 12H9"></path></svg>
+                    Sair da conta
+                  </button>
+                </div>
+              </section>
+            </div>
           </section>
         </main>
+        <footer class="app-footer">
+          <p>&copy; 2026 Saúde Life</p>
+          <nav aria-label="Links legais">
+            <a href="../termos/termos.html">Termos de Uso</a>
+            <a href="../politica/politica.html">Política de Privacidade</a>
+          </nav>
+        </footer>
       </div>
     </div>
+
+    <!-- Navegação inferior (só no celular) -->
+    <nav class="bottom-nav" aria-label="Navegação rápida">
+      <a href="inicio.html" class="bottom-nav-link" data-pagina="inicio"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 9v11h14V9"></path><path d="M10 20v-6h4v6"></path></svg><span>Início</span></a>
+      <a href="descobrir.html" class="bottom-nav-link" data-pagina="descobrir"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"></path><path d="m15.5 8.5-2 5-5 2 2-5z"></path></svg><span>Descobrir</span></a>
+      <a href="treinos.html" class="bottom-nav-link" data-pagina="treinos"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5h11"></path><path d="M6.5 17.5h11"></path><path d="M2 12h20"></path><path d="M2 9v6"></path><path d="M22 9v6"></path></svg><span>Treinos</span></a>
+      <a href="evolucao.html" class="bottom-nav-link" data-pagina="evolucao"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"></path><path d="m7 15 4-4 3 3 6-6"></path></svg><span>Evolução</span></a>
+      <a href="perfil.html" class="bottom-nav-link" data-pagina="perfil"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"></path></svg><span>Perfil</span></a>
+    </nav>
 
     <!-- ==================== MODAIS REUTILIZÁVEIS ==================== -->
     <div id="modal-overlay" class="modal-overlay hidden" aria-hidden="true">
@@ -301,40 +406,6 @@
     <!-- Aviso rápido (toast) -->
     <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
-    <!-- ==================== FOOTER GERAL ==================== -->
-    <footer class="site-footer">
-      <div class="footer-content">
-        <div class="footer-col">
-          <h3>Sobre a Saúde Life</h3>
-          <p>
-            A plataforma fitness definitiva integrando treino, comunidade e alta
-            performance.
-          </p>
-        </div>
-        <div class="footer-col">
-          <h4>Links Úteis</h4>
-          <ul>
-            <li><a href="../termos/termos.html">Termos de Uso</a></li>
-            <li>
-              <a href="../politica/politica.html">Política de Privacidade</a>
-            </li>
-            <li><a href="#contato">Contato</a></li>
-            <li><a href="#ajuda">Ajuda</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Redes Sociais</h4>
-          <div class="social-links">
-            <a href="#" aria-label="Instagram">Instagram</a>
-            <a href="#" aria-label="Twitter">Twitter</a>
-            <a href="#" aria-label="YouTube">YouTube</a>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 Saúde Life. Todos os direitos reservados.</p>
-      </div>
-    </footer>
 
     <script src="dados.js"></script>
     <script src="app.js"></script>

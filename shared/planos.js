@@ -1,8 +1,9 @@
 /*
  * Planos da Saúde Life: mesmo conteúdo na página pública (planos.html)
- * e na view "Planos" do app (index.html).
+ * e na página Planos do app (app/planos.html).
  *
  * Uso: <div data-planos data-cta="../cadastro/cadastro.html"></div>
+ *      data-plano-atual="Free" marca o plano atual (usado no app).
  *      Sem data-cta, os botões ficam como <button data-action="select-plan">.
  */
 (function () {
@@ -95,6 +96,8 @@
 
   function render(container) {
     const ctaHref = container.dataset.cta;
+    // No app, o plano da pessoa aparece marcado (data-plano-atual="Free")
+    const planoAtual = container.dataset.planoAtual;
     let anual = false;
 
     const toggle = el("div", { class: "billing-toggle", role: "group", "aria-label": "Período de cobrança" }, [
@@ -112,12 +115,20 @@
         grid,
         PLANOS.map(function (plano) {
           const botaoClasse = plano.destaque ? "plan-btn plan-btn-primary" : "plan-btn plan-btn-secondary";
-          const botao = ctaHref
-            ? el("a", { href: ctaHref, class: botaoClasse, text: plano.cta })
-            : el("button", { type: "button", class: botaoClasse, "data-action": "select-plan", text: plano.cta });
+          const ehAtual = plano.nome === planoAtual;
+          let botao;
+          if (ehAtual) {
+            botao = el("button", { type: "button", class: "plan-btn plan-btn-secondary", disabled: true, text: "Seu plano atual" });
+          } else if (ctaHref) {
+            botao = el("a", { href: ctaHref, class: botaoClasse, text: plano.cta });
+          } else {
+            botao = el("button", { type: "button", class: botaoClasse, "data-action": "select-plan", text: plano.cta });
+          }
 
-          return el("article", { class: "plan-card" + (plano.destaque ? " plan-card-highlight" : "") }, [
+          const classes = "plan-card" + (plano.destaque ? " plan-card-highlight" : "") + (ehAtual ? " plan-card-current" : "");
+          return el("article", { class: classes }, [
             plano.destaque ? el("span", { class: "plan-tag", text: "Mais escolhido" }) : "",
+            ehAtual ? el("span", { class: "plan-tag plan-tag-current", text: "Seu plano" }) : "",
             el("h2", { class: "plan-name", text: plano.nome }),
             el("p", { class: "plan-price" }, preco(plano, anual)),
             el(

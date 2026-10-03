@@ -216,3 +216,17 @@
     transform: none;
   }
 }
+
+/* Plano atual da pessoa (só no app) */
+.plan-card-current {
+  border-color: rgba(52, 211, 153, 0.45);
+}
+
+.plan-tag-current {
+  background: var(--emerald);
+}
+
+.plan-btn:disabled {
+  opacity: 0.65;
+  cursor: default;
+}

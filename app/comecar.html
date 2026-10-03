@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0e1512" />
+    <link rel="icon" href="../shared/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="../manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="../shared/icon-192.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Saúde Life" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content="Personalize seu Saúde Life" />
+    <meta property="og:description" content="Três perguntas rápidas para montar seu Início." />
+    <meta property="og:image" content="../shared/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>Personalize seu Saúde Life</title>
+    <meta
+      name="description"
+      content="Três perguntas rápidas para montar seu Início."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../shared/tokens.css" />
+    <link rel="stylesheet" href="../shared/base.css" />
+    <link rel="stylesheet" href="app.css" />
+  </head>
+
+  <body data-pagina="comecar" class="focus-page onboarding-page">
+    <main id="conteudo" class="onboarding" tabindex="-1">
+      <div class="onboarding-card">
+        <a href="inicio.html" class="brand" aria-label="Saúde Life">
+            <svg
+              aria-hidden="true"
+              width="28"
+              height="28"
+              viewBox="0 0 48 48"
+              fill="none"
+            >
+              <defs>
+                <linearGradient
+                  id="logo-gradient-onb"
+                  x1="2"
+                  y1="40"
+                  x2="46"
+                  y2="6"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop offset="0%" stop-color="#ff7a45" />
+                  <stop offset="100%" stop-color="#34d399" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M4 31 L9 31 L12 19 L15 37 L18 27 C23 13 30 9 35 16 Q40 21 44 8"
+                stroke="url(#logo-gradient-onb)"
+                stroke-width="4.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span>Saúde Life</span>
+        </a>
+
+        <h1 class="onboarding-title">Vamos personalizar seu Saúde Life</h1>
+
+        <div class="onboarding-progress">
+          <span class="meta" data-render="passo-texto">Passo 1 de 3</span>
+          <div
+            class="progress-bar-sm"
+            role="progressbar"
+            aria-label="Progresso do questionário"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="33"
+            data-render="passo-barra"
+          >
+            <div class="fill" data-progress="33"></div>
+          </div>
+        </div>
+
+        <form id="onboarding-form" novalidate>
+          <fieldset class="onboarding-step" data-step="1">
+            <legend>Qual é o seu objetivo principal?</legend>
+            <div class="choice-list">
+              <label class="choice-card">
+                <input type="radio" name="objetivo" value="Hipertrofia" checked />
+                <span class="choice-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M6 5v14"></path><path d="M18 5v14"></path><path d="M3 8v8"></path><path d="M21 8v8"></path><path d="M6 12h12"></path></svg></span>
+                <span class="choice-text">
+                  <strong>Ganhar massa muscular</strong>
+                  <small>Treinos de força com progressão de carga</small>
+                </span>
+              </label>
+              <label class="choice-card">
+                <input type="radio" name="objetivo" value="HIIT" />
+                <span class="choice-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"></path></svg></span>
+                <span class="choice-text">
+                  <strong>Emagrecer</strong>
+                  <small>Treinos intensos e curtos que queimam mais</small>
+                </span>
+              </label>
+              <label class="choice-card">
+                <input type="radio" name="objetivo" value="Resistência" />
+                <span class="choice-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"></path></svg></span>
+                <span class="choice-text">
+                  <strong>Melhorar o condicionamento</strong>
+                  <small>Mais fôlego no dia a dia e nos esportes</small>
+                </span>
+              </label>
+              <label class="choice-card">
+                <input type="radio" name="objetivo" value="Yoga & Mobilidade" />
+                <span class="choice-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg></span>
+                <span class="choice-text">
+                  <strong>Flexibilidade e bem-estar</strong>
+                  <small>Mobilidade, alongamento e menos dores</small>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="onboarding-step" data-step="2" hidden>
+            <legend>Como está seu nível hoje?</legend>
+            <div class="choice-list">
+              <label class="choice-card">
+                <input type="radio" name="nivel" value="Iniciante" />
+                <span class="choice-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20h4v-6H4z"></path></svg></span>
+                <span class="choice-text">
+                  <strong>Iniciante</strong>
+                  <small>Estou começando ou voltando depois de um tempo</small>
+                </span>
+              </label>
+              <label class="choice-card">
+                <input type="radio" name="nivel" value="Intermediário" checked />
+                <span class="choice-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20h4v-6H4z"></path><path d="M10 20h4V9h-4z"></path></svg></span>
+                <span class="choice-text">
+                  <strong>Intermediário</strong>
+                  <small>Treino há alguns meses com regularidade</small>
+                </span>
+              </label>
+              <label class="choice-card">
+                <input type="radio" name="nivel" value="Avançado" />
+                <span class="choice-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20h4v-6H4z"></path><path d="M10 20h4V9h-4z"></path><path d="M16 20h4V4h-4z"></path></svg></span>
+                <span class="choice-text">
+                  <strong>Avançado</strong>
+                  <small>Treino há anos e conheço bem os exercícios</small>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="onboarding-step" data-step="3" hidden>
+            <legend>Quantos dias por semana você quer treinar?</legend>
+            <p class="meta">Essa vai ser sua meta semanal. Dá para mudar depois no Perfil.</p>
+            <div class="day-chips">
+                <label class="day-chip"><input type="radio" name="dias" value="2" /><span>2</span></label>
+                <label class="day-chip"><input type="radio" name="dias" value="3" /><span>3</span></label>
+                <label class="day-chip"><input type="radio" name="dias" value="4" checked /><span>4</span></label>
+                <label class="day-chip"><input type="radio" name="dias" value="5" /><span>5</span></label>
+                <label class="day-chip"><input type="radio" name="dias" value="6" /><span>6</span></label>
+            </div>
+          </fieldset>
+
+          <div class="onboarding-actions">
+            <button type="button" class="btn-secondary" data-action="passo-voltar" hidden>
+              Voltar
+            </button>
+            <button type="submit" class="btn-primary" data-render="passo-botao">
+              Continuar
+            </button>
+          </div>
+        </form>
+
+        <button type="button" class="btn-link onboarding-skip" data-action="pular-onboarding">
+          Pular por enquanto
+        </button>
+      </div>
+    </main>
+
+    <!-- ==================== MODAIS REUTILIZÁVEIS ==================== -->
+    <div id="modal-overlay" class="modal-overlay hidden" aria-hidden="true">
+      <div
+        class="modal-window"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+      >
+        <header class="modal-header">
+          <h2 id="modal-title">Título do Modal</h2>
+          <button
+            class="btn-close-modal"
+            aria-label="Fechar modal"
+            data-action="close-modal"
+          >
+            &times;
+          </button>
+        </header>
+        <div class="modal-body">
+          <!-- Conteúdo dinâmico via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Aviso rápido (toast) -->
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+
+    <script src="dados.js"></script>
+    <script src="app.js"></script>
+    <script src="paginas/comecar.js"></script>
+  </body>
+</html>
