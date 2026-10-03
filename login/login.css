@@ -1,29 +1,3 @@
-:root {
-  --color-bg: #0e1512;
-  --color-primary: #ff7a45;
-  --color-primary-light: #ffa06b;
-  --color-primary-dim: rgba(255, 122, 69, 0.16);
-  --color-primary-glow: rgba(255, 122, 69, 0.4);
-  --color-text: #f4f1ea;
-  --color-text-secondary: #a3b0a8;
-  --color-card-glass: rgba(22, 33, 29, 0.92);
-  --color-border-subtle: rgba(244, 241, 234, 0.08);
-  --color-border-primary: rgba(255, 160, 107, 0.4);
-
-  --color-error: #e09f3e;
-  --color-error-dim: rgba(224, 159, 62, 0.12);
-  --color-success: #34d399;
-
-  --font-display: "Space Grotesk", "Helvetica Neue", sans-serif;
-  --font-body: "Inter", "Helvetica Neue", sans-serif;
-
-  --radius-sm: 14px;
-  --radius-md: 20px;
-  --radius-lg: 28px;
-
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-}
-
 *,
 *::before,
 *::after {
@@ -33,8 +7,8 @@
 }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
+  background-color: var(--bg);
+  color: var(--ink);
   font-family: var(--font-body);
   min-height: 100vh;
   margin: 0;
@@ -52,7 +26,7 @@ body {
   display: flex;
   align-items: center;
   padding: clamp(32px, 5vw, 72px);
-  background: linear-gradient(160deg, #101a16 0%, #0e1512 60%);
+  background: linear-gradient(160deg, #101a16 0%, var(--bg) 60%);
   overflow: hidden;
 }
 
@@ -80,7 +54,7 @@ body {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 19px;
-  color: var(--color-text);
+  color: var(--ink);
   margin-bottom: 56px;
 }
 
@@ -97,11 +71,11 @@ body {
   line-height: 1.15;
   letter-spacing: -0.01em;
   margin: 0 0 20px;
-  color: #ffffff;
+  color: var(--ink-strong);
 }
 
 .auth-visual p {
-  color: var(--color-text-secondary);
+  color: var(--muted);
   font-size: 17px;
   line-height: 1.65;
   margin: 0;
@@ -124,13 +98,13 @@ body {
   font-family: var(--font-display);
   font-size: 22px;
   font-weight: 700;
-  color: var(--color-primary-light);
+  color: var(--coral-light);
 }
 
 .auth-stat dd {
   margin: 2px 0 0;
   font-size: 12.5px;
-  color: var(--color-text-secondary);
+  color: var(--muted);
 }
 
 .pulse-ring {
@@ -144,7 +118,7 @@ body {
 }
 
 .pulse-line {
-  stroke: var(--color-primary-light);
+  stroke: var(--coral-light);
   filter: drop-shadow(0 0 8px rgba(255, 122, 69, 0.45));
 }
 
@@ -158,11 +132,11 @@ body {
 .auth-container {
   width: 100%;
   max-width: 420px;
-  background: var(--color-card-glass);
+  background: var(--surface-glass);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
   padding: 32px 24px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
   display: flex;
@@ -172,13 +146,13 @@ body {
 
 .input-icon {
   flex-shrink: 0;
-  color: var(--color-text-secondary);
+  color: var(--muted);
   margin-left: 14px;
   transition: color 150ms var(--ease-out);
 }
 
 .input-wrapper:focus-within .input-icon {
-  color: var(--color-primary-light);
+  color: var(--coral-light);
 }
 
 .input-wrapper input {
@@ -196,13 +170,13 @@ body {
 .logo-compact {
   width: 52px;
   height: 52px;
-  background: var(--color-card-glass);
-  border: 1px solid var(--color-border-primary);
-  border-radius: var(--radius-sm);
+  background: var(--surface-glass);
+  border: 1px solid var(--border-coral);
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-primary-light);
+  color: var(--coral-light);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
   margin-bottom: 4px;
 }
@@ -211,12 +185,12 @@ body {
   font-family: var(--font-display);
   font-size: 26px;
   font-weight: 700;
-  color: var(--color-text);
+  color: var(--ink);
   letter-spacing: -0.5px;
 }
 
 .auth-subtitle {
-  color: var(--color-text-secondary);
+  color: var(--muted);
   font-size: 13px;
   line-height: 1.5;
 }
@@ -228,11 +202,11 @@ body {
 }
 
 #form-global-error {
-  background: var(--color-error-dim);
-  border: 1px solid var(--color-error);
-  color: var(--color-error);
+  background: var(--warning-soft);
+  border: 1px solid var(--warning);
+  color: var(--warning);
   padding: 12px 14px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   font-size: 13px;
   line-height: 1.4;
   font-weight: 500;
@@ -244,8 +218,8 @@ body {
 
 #form-global-error.is-success {
   background: rgba(42, 157, 143, 0.12);
-  border-color: var(--color-success);
-  color: var(--color-success);
+  border-color: var(--emerald);
+  color: var(--emerald);
 }
 
 .form-group {
@@ -263,12 +237,12 @@ body {
 .form-group label {
   font-size: 13px;
   font-weight: 600;
-  color: var(--color-text);
+  color: var(--ink);
 }
 
 .forgot-password {
   font-size: 12px;
-  color: var(--color-primary-light);
+  color: var(--coral-light);
   text-decoration: none;
   transition: opacity 150ms var(--ease-out);
 }
@@ -282,14 +256,14 @@ body {
   display: flex;
   align-items: center;
   background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
   transition: all 150ms var(--ease-out);
 }
 
 .input-wrapper:focus-within {
-  border-color: var(--color-primary-light);
-  box-shadow: 0 0 0 2px var(--color-primary-dim);
+  border-color: var(--coral-light);
+  box-shadow: 0 0 0 2px var(--coral-dim);
   background: rgba(255, 255, 255, 0.04);
 }
 
@@ -299,7 +273,7 @@ body {
   border: none;
   outline: none;
   padding: 14px 16px;
-  color: var(--color-text);
+  color: var(--ink);
   font-size: 14px;
   font-family: var(--font-body);
 }
@@ -309,13 +283,13 @@ body {
 }
 
 .form-group.has-error .input-wrapper {
-  border-color: var(--color-error);
-  background: var(--color-error-dim);
+  border-color: var(--warning);
+  background: var(--warning-soft);
 }
 
 .field-error {
   font-size: 12px;
-  color: var(--color-error);
+  color: var(--warning);
   min-height: 16px;
   display: flex;
   align-items: center;
@@ -329,7 +303,7 @@ body {
 .toggle-password {
   background: transparent;
   border: none;
-  color: var(--color-text-secondary);
+  color: var(--muted);
   cursor: pointer;
   padding: 6px;
   display: flex;
@@ -340,7 +314,7 @@ body {
 }
 
 .toggle-password:hover {
-  color: var(--color-text);
+  color: var(--ink);
 }
 
 .password-strength {
@@ -361,20 +335,20 @@ body {
 }
 
 .strength-bar[data-level="fraca"] {
-  background: var(--color-error);
+  background: var(--warning);
 }
 
 .strength-bar[data-level="média"] {
-  background: var(--color-error);
+  background: var(--warning);
 }
 
 .strength-bar[data-level="forte"] {
-  background: var(--color-success);
+  background: var(--emerald);
 }
 
 .strength-label {
   font-size: 11px;
-  color: var(--color-text-secondary);
+  color: var(--muted);
   margin-top: 2px;
 }
 
@@ -386,7 +360,7 @@ body {
 }
 
 .checkbox-group input[type="checkbox"] {
-  accent-color: var(--color-primary-light);
+  accent-color: var(--coral-light);
   width: 16px;
   height: 16px;
   margin-top: 2px;
@@ -395,27 +369,27 @@ body {
 
 .checkbox-group label {
   font-size: 12px;
-  color: var(--color-text-secondary);
+  color: var(--muted);
   font-weight: 400;
   line-height: 1.4;
   cursor: pointer;
 }
 
 .checkbox-group label a {
-  color: var(--color-primary-light);
+  color: var(--coral-light);
   text-decoration: underline;
 }
 .btn-submit {
   width: 100%;
   background: linear-gradient(
     135deg,
-    var(--color-primary) 0%,
-    var(--color-primary-light) 100%
+    var(--coral) 0%,
+    var(--coral-light) 100%
   );
-  color: #14100c;
+  color: var(--on-coral);
   border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 16px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   font-family: var(--font-display);
   font-size: 15px;
   font-weight: 700;
@@ -424,7 +398,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  box-shadow: 0 10px 25px var(--color-primary-glow);
+  box-shadow: 0 10px 25px var(--coral-glow);
   transition:
     all 200ms var(--ease-out),
     transform 200ms var(--ease-out);
@@ -450,7 +424,7 @@ body {
 }
 
 .btn-submit:focus-visible {
-  outline: 2px solid var(--color-primary-light);
+  outline: 2px solid var(--coral-light);
   outline-offset: 3px;
 }
 
@@ -464,7 +438,7 @@ body {
   width: 18px;
   height: 18px;
   border: 2px solid rgba(20, 16, 12, 0.25);
-  border-top-color: #14100c;
+  border-top-color: var(--on-coral);
   border-radius: 50%;
   animation: spin 0.6s linear infinite;
 }
@@ -479,7 +453,7 @@ body {
   display: flex;
   align-items: center;
   text-align: center;
-  color: var(--color-text-secondary);
+  color: var(--muted);
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -490,7 +464,7 @@ body {
 .auth-divider::after {
   content: "";
   flex: 1;
-  border-bottom: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .auth-divider span {
@@ -505,10 +479,10 @@ body {
 
 .btn-social {
   background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--color-border-subtle);
-  color: var(--color-text);
+  border: 1px solid var(--border-subtle);
+  color: var(--ink);
   padding: 12px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -525,19 +499,19 @@ body {
 }
 
 .btn-social:focus-visible {
-  outline: 2px solid var(--color-primary-light);
+  outline: 2px solid var(--coral-light);
   outline-offset: 2px;
 }
 
 .auth-footer {
   text-align: center;
   font-size: 13px;
-  color: var(--color-text-secondary);
+  color: var(--muted);
   margin-top: 4px;
 }
 
 .auth-footer a {
-  color: var(--color-primary-light);
+  color: var(--coral-light);
   text-decoration: none;
   font-weight: 600;
   transition: opacity 150ms var(--ease-out);
@@ -589,7 +563,7 @@ a:visited {
 
 .forgot-password,
 .forgot-password:visited {
-  color: #ffa06b;
+  color: var(--coral-light);
   text-decoration: none;
   font-size: 0.875rem;
   transition: opacity 0.2s ease;
@@ -604,7 +578,7 @@ a:visited {
 .auth-footer a:visited,
 .btn-comecar,
 .btn-comecar:visited {
-  color: #ffa06b;
+  color: var(--coral-light);
   font-weight: 600;
   text-decoration: none;
   transition: opacity 0.2s ease;
@@ -620,7 +594,7 @@ a:visited {
 a:focus-visible,
 button:focus-visible,
 input[type="checkbox"]:focus-visible {
-  outline: 2px solid #ff7a45;
+  outline: 2px solid var(--coral);
   outline-offset: 3px;
   border-radius: 6px;
 }

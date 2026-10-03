@@ -1,0 +1,85 @@
+/*
+ * Design system do Saúde Life: todas as cores, fontes, espaços,
+ * raios, sombras e tempos de animação do projeto ficam aqui.
+ * Cada página carrega: Google Fonts → tokens.css → base.css → CSS da página.
+ */
+:root {
+  /* Cores */
+  --bg: #0e1512;
+  --surface: #16211d;
+  --surface-2: #1e2b25;
+  --surface-3: #24352e;
+  --surface-glass: rgba(22, 33, 29, 0.92);
+  --border: #263832;
+  --border-strong: #35503f;
+  --border-subtle: rgba(244, 241, 234, 0.08);
+  --border-coral: rgba(255, 160, 107, 0.4);
+  --ink: #f4f1ea;
+  --ink-strong: #ffffff;
+  --muted: #a3b0a8;
+  --muted-2: #8a968f;
+
+  --coral: #ff7a45;
+  --coral-light: #ffa06b;
+  --coral-dark: #d85f2e;
+  --coral-soft: rgba(255, 122, 69, 0.1);
+  --coral-dim: rgba(255, 122, 69, 0.16);
+  --coral-ring: rgba(255, 122, 69, 0.35);
+  --coral-glow: rgba(255, 122, 69, 0.4);
+
+  --emerald: #34d399;
+  --emerald-dark: #1f9c6f;
+  --emerald-soft: rgba(52, 211, 153, 0.12);
+
+  --warning: #e09f3e;
+  --warning-soft: rgba(224, 159, 62, 0.12);
+  --star: #f5b544;
+  --info: #7cc4f0;
+  --on-coral: #14100c;
+
+  --gradient-brand: linear-gradient(135deg, var(--coral), var(--emerald));
+  --gradient-button: linear-gradient(180deg, var(--coral-light), var(--coral) 70%);
+
+  /* Tipografia */
+  --font-display: "Space Grotesk", "Inter", sans-serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --text-xs: 12px;
+  --text-sm: 13.5px;
+  --text-base: 15px;
+  --text-lg: 17px;
+  --text-xl: 20px;
+  --text-2xl: 26px;
+  --text-3xl: clamp(30px, 4.5vw, 44px);
+  --text-hero: clamp(36px, 5.5vw, 58px);
+
+  /* Espaçamento (escala de 4px) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+
+  /* Raios */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 999px;
+
+  /* Sombras */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 12px 28px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.5);
+  --shadow-coral: 0 12px 28px rgba(255, 122, 69, 0.28);
+
+  /* Movimento */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 150ms;
+  --dur-base: 200ms;
+}

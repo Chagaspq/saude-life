@@ -18,10 +18,10 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-text-fill-color: #f4f1ea !important;
+  -webkit-text-fill-color: var(--ink) !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
-  caret-color: #f4f1ea;
+  caret-color: var(--ink);
   transition:
     background-color 600000s 0s,
     color 600000s 0s;
@@ -41,7 +41,7 @@ input:-webkit-autofill:active {
   position: absolute;
   inset: 0 0 auto 0;
   height: 3px;
-  background: linear-gradient(90deg, #ff7a45, #34d399);
+  background: linear-gradient(90deg, var(--coral), var(--emerald));
   pointer-events: none;
 }
 
@@ -60,9 +60,9 @@ input:-webkit-autofill:active {
   max-width: calc(100% - 32px);
   padding: 12px 18px;
   border-radius: 999px;
-  background: #1e2b25;
-  border: 1px solid #263832;
-  color: #f4f1ea;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--ink);
   font-size: 14px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
   z-index: 100;
