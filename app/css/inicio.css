@@ -1,0 +1,122 @@
+/*
+ * Estilos só da página Início (app/inicio.html).
+ * O que é comum a todas as páginas fica em ../app.css.
+ */
+
+/* ============================================
+   INÍCIO
+   ============================================ */
+
+.home-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: var(--space-4);
+}
+
+.home-grid > section {
+  display: flex;
+  flex-direction: column;
+}
+
+.home-grid > section > :last-child {
+  flex: 1;
+}
+
+.workout-hero {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(255, 122, 69, 0.14), transparent 55%),
+    var(--surface);
+}
+
+.workout-hero-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.workout-hero-info h3 {
+  font-size: 20px;
+  margin-bottom: 2px;
+}
+
+.workout-hero-next {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: rgba(14, 21, 18, 0.55);
+  border: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.workout-hero-next strong {
+  color: var(--ink);
+  font-size: 14.5px;
+}
+
+.workout-hero .btn-primary {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+.challenge-hero {
+  gap: 12px;
+  padding: 22px;
+}
+
+.challenge-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.challenge-progress {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+.challenge-progress strong {
+  color: var(--ink);
+}
+
+.challenge-hero .btn-primary {
+  margin-top: auto;
+}
+
+/* Profissionais do Início: 4 por linha no computador, rolagem lateral no celular */
+.pros-row {
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+
+@media (max-width: 640px) {
+  .pros-row {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scroll-snap-type: x mandatory;
+  }
+
+  .pros-row .pro-card {
+    flex: 0 0 72%;
+    scroll-snap-align: start;
+  }
+}
+
+@media (max-width: 900px) {
+  .home-grid {
+    grid-template-columns: 1fr;
+  }
+}

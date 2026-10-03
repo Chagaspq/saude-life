@@ -910,6 +910,11 @@
     },
   };
 
+  // App instalável no celular (só funciona em http/https, não em file://)
+  if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+    window.addEventListener("load", () => navigator.serviceWorker.register("../sw.js").catch(() => {}));
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     renderUsuario();
     renderSaudacao();
