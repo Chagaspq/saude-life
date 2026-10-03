@@ -10,7 +10,7 @@ window.SL &&
     const treino = SL.acharTreino(idPedido);
 
     if (!treino) {
-      window.location.replace("treinos.html");
+      window.location.replace("../treinos/treinos.html");
       return;
     }
 
@@ -293,14 +293,14 @@ window.SL &&
       const { feitas } = totais();
       if (!feitas) {
         storage.remove("sl-treino-atual");
-        window.location.href = "inicio.html";
+        window.location.href = "../inicio/inicio.html";
         return;
       }
       SL.confirmar({
         titulo: "Sair do treino?",
         texto: "Seu progresso fica salvo. Você pode continuar depois pelo Início.",
         rotulo: "Sair e continuar depois",
-        fn: () => (window.location.href = "inicio.html"),
+        fn: () => (window.location.href = "../inicio/inicio.html"),
       });
     });
 
@@ -314,7 +314,7 @@ window.SL &&
           perigo: true,
           fn: () => {
             storage.remove("sl-treino-atual");
-            window.location.href = "inicio.html";
+            window.location.href = "../inicio/inicio.html";
           },
         });
         return;
@@ -373,8 +373,8 @@ window.SL &&
             SL.statTile({ rotulo: "Volume total", valor: `${SL.num(volume)} kg`, iconePaths: ICONES.haltere }),
           ]),
           el("div", { class: "finish-actions" }, [
-            el("a", { href: "inicio.html", class: "btn-primary", text: "Voltar ao início" }),
-            el("a", { href: "evolucao.html", class: "btn-secondary", text: "Ver minha evolução" }),
+            el("a", { href: "../inicio/inicio.html", class: "btn-primary", text: "Voltar ao início" }),
+            el("a", { href: "../evolucao/evolucao.html", class: "btn-secondary", text: "Ver minha evolução" }),
           ]),
         ]),
       );

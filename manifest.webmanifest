@@ -3,7 +3,7 @@
   "short_name": "Saúde Life",
   "description": "Treinos guiados, profissionais verificados e sua evolução em um só lugar.",
   "lang": "pt-BR",
-  "start_url": "app/inicio.html",
+  "start_url": "app/inicio/inicio.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
@@ -15,7 +15,7 @@
     { "src": "shared/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
   ],
   "shortcuts": [
-    { "name": "Meus treinos", "url": "app/treinos.html", "icons": [{ "src": "shared/icon-192.png", "sizes": "192x192" }] },
-    { "name": "Evolução", "url": "app/evolucao.html", "icons": [{ "src": "shared/icon-192.png", "sizes": "192x192" }] }
+    { "name": "Meus treinos", "url": "app/treinos/treinos.html", "icons": [{ "src": "shared/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Evolução", "url": "app/evolucao/evolucao.html", "icons": [{ "src": "shared/icon-192.png", "sizes": "192x192" }] }
   ]
 }

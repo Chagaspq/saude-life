@@ -1,6 +1,6 @@
 /*
  * Planos da Saúde Life: mesmo conteúdo na página pública (planos.html)
- * e na página Planos do app (app/planos.html).
+ * e na página Planos do app (app/planos/planos.html).
  *
  * Uso: <div data-planos data-cta="../cadastro/cadastro.html"></div>
  *      data-plano-atual="Free" marca o plano atual (usado no app).
