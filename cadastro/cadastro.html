@@ -31,6 +31,49 @@
     <link rel="stylesheet" href="../shared/auth.css" />
   </head>
   <body>
+    <div class="auth-split">
+      <aside class="auth-visual" aria-hidden="true">
+        <div class="auth-visual-content">
+          <div class="auth-visual-brand">
+            <svg width="30" height="30" viewBox="0 0 48 48" fill="none">
+              <defs>
+                <linearGradient
+                  id="visual-logo-gradient"
+                  x1="2"
+                  y1="40"
+                  x2="46"
+                  y2="6"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop offset="0%" stop-color="#ff7a45" />
+                  <stop offset="100%" stop-color="#34d399" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M4 31 L9 31 L12 19 L15 37 L18 27 C23 13 30 9 35 16 Q40 21 44 8"
+                stroke="url(#visual-logo-gradient)"
+                stroke-width="4.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            Saúde Life
+          </div>
+          <p class="visual-heading">Seu primeiro treino começa hoje.</p>
+          <p>
+            Crie sua conta grátis em menos de um minuto e receba um plano que
+            cabe na sua rotina.
+          </p>
+          <ul class="auth-visual-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>Treinos guiados com séries, cargas e descanso</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>Gráficos da sua evolução semana a semana</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>Profissionais com registro verificado</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>Grátis para sempre no plano Free, sem cartão</li>
+          </ul>
+        </div>
+      </aside>
+
+      <div class="auth-form-panel">
     <main class="auth-container">
       <header class="auth-header">
         <div class="logo-compact" aria-hidden="true">
@@ -347,6 +390,8 @@
         </p>
       </footer>
     </main>
+      </div>
+    </div>
 
     <script src="../shared/form-utils.js"></script>
     <script src="cadastro.js"></script>

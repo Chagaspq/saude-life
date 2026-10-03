@@ -15,120 +15,6 @@ body {
   overflow-x: hidden;
 }
 
-.auth-split {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  min-height: 100vh;
-}
-
-.auth-visual {
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding: clamp(32px, 5vw, 72px);
-  background: linear-gradient(160deg, #101a16 0%, var(--bg) 60%);
-  overflow: hidden;
-}
-
-.auth-visual::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle at 20% 15%,
-    rgba(255, 122, 69, 0.16),
-    transparent 45%
-  );
-}
-
-.auth-visual-content {
-  position: relative;
-  z-index: 1;
-  max-width: 38ch;
-}
-
-.auth-visual-brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 19px;
-  color: var(--ink);
-  margin-bottom: 56px;
-}
-
-.auth-visual-brand svg {
-  width: 36px;
-  height: 36px;
-}
-
-.auth-visual .visual-heading {
-  display: block;
-  font-weight: 700;
-  font-family: var(--font-display);
-  font-size: clamp(32px, 3.4vw, 46px);
-  line-height: 1.15;
-  letter-spacing: -0.01em;
-  margin: 0 0 20px;
-  color: var(--ink-strong);
-}
-
-.auth-visual p {
-  color: var(--muted);
-  font-size: 17px;
-  line-height: 1.65;
-  margin: 0;
-}
-
-.auth-visual-graphic {
-  width: 260px;
-  margin-top: 64px;
-}
-
-.auth-visual-stats {
-  display: flex;
-  gap: 32px;
-  margin: 40px 0 0;
-  padding-top: 24px;
-  border-top: 1px solid rgba(244, 241, 234, 0.1);
-}
-
-.auth-stat dt {
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--coral-light);
-}
-
-.auth-stat dd {
-  margin: 2px 0 0;
-  font-size: 12.5px;
-  color: var(--muted);
-}
-
-.pulse-ring {
-  fill: none;
-  stroke: rgba(244, 241, 234, 0.12);
-  stroke-width: 1.5;
-}
-
-.pulse-ring-2 {
-  stroke: rgba(52, 211, 153, 0.4);
-}
-
-.pulse-line {
-  stroke: var(--coral-light);
-  filter: drop-shadow(0 0 8px rgba(255, 122, 69, 0.45));
-}
-
-.auth-form-panel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px 16px;
-}
-
 .auth-container {
   width: 100%;
   max-width: 420px;
@@ -521,31 +407,6 @@ body {
   opacity: 0.8;
 }
 
-@media (max-width: 900px) {
-  .auth-split {
-    grid-template-columns: 1fr;
-  }
-
-  .auth-visual {
-    padding: 28px clamp(20px, 6vw, 40px);
-  }
-
-  .auth-visual-brand {
-    margin-bottom: 20px;
-  }
-
-  .auth-visual .visual-heading {
-    display: block;
-    font-size: 22px;
-  }
-
-  .auth-visual p,
-  .auth-visual-graphic,
-  .auth-visual-stats {
-    display: none;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   ::before,
@@ -597,4 +458,17 @@ input[type="checkbox"]:focus-visible {
   outline: 2px solid var(--coral);
   outline-offset: 3px;
   border-radius: 6px;
+}
+
+/* "Esqueci minha senha" discreto: não pode chamar mais atenção que o campo */
+.label-row .forgot-password,
+.label-row .forgot-password:visited {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.label-row .forgot-password:hover {
+  color: var(--coral-light);
+  opacity: 1;
 }
