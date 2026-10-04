@@ -40,6 +40,11 @@ h3 {
   border: 0;
 }
 
+/* Logotipo: "Saúde" na cor do texto e "Life" em coral */
+.brand-life {
+  color: var(--coral-light);
+}
+
 /* Edge mostra um "olho" nativo além do nosso botão de mostrar senha */
 input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear {
