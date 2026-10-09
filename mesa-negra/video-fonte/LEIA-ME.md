@@ -18,3 +18,11 @@ Voz: "pf_dora" (feminina, português do Brasil), do modelo aberto Kokoro.
 ## Voz gravada pelo grupo
 As falas gravadas (já tratadas: sem ruído, volume uniforme) ficam em `voz/cena1.wav` … `voz/cena10.wav`.
 Quando existe o arquivo de uma cena, o `narrar.py` usa a gravação no lugar da voz do computador.
+
+## Edição completa (versão final)
+- `trilha.py` gera a trilha original (acordes + percussão) em `trilha.wav`.
+- Mistura com a voz, abaixando a música quando alguém fala:
+  `ffmpeg -i narracao.wav -i trilha.wav -filter_complex "[0]aresample=44100,aformat=channel_layouts=stereo,asplit=2[voz][sc];[1]volume=0.32,lowpass=f=9000[mus];[mus][sc]sidechaincompress=threshold=0.03:ratio=6:attack=40:release=600[musd];[voz][musd]amix=inputs=2:duration=longest:normalize=0,loudnorm=I=-16:TP=-1.5" mix_final.wav`
+- O `video.html` tem transições kente, números contando, legenda karaokê, ondas de voz,
+  capítulos, "Você sabia?" e QR Code do site no final. As ondas usam `niveis.json`
+  (volume da voz por quadro) embutido no próprio HTML.
