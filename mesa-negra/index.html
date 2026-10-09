@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesa Negra — Comida é direito, cultura e memória</title>
+  <meta name="description" content="Mesa Negra: ONG fictícia (projeto escolar) que combate a insegurança alimentar da população negra no Brasil e valoriza a culinária afro-brasileira.">
+
+  <!-- Fontes: Poppins (títulos) e Inter (texto) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ========================================================
+       CABEÇALHO FIXO + MENU
+       O botão hambúrguer só aparece no celular (ver style.css)
+       ======================================================== -->
+  <header class="topo" id="topo">
+    <div class="container topo__inner">
+      <a href="#inicio" class="logo" aria-label="Mesa Negra — voltar ao início">
+        <span class="logo__marca" aria-hidden="true"></span>
+        <span class="logo__texto">Mesa <strong>Negra</strong></span>
+      </a>
+
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="menu" id="menu" aria-label="Navegação principal">
+        <ul>
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#problema">O problema</a></li>
+          <li><a href="#quem-somos">Quem somos</a></li>
+          <li><a href="#o-que-fazemos">O que fazemos</a></li>
+          <li><a href="#cultura">Cultura na mesa</a></li>
+          <li><a href="#como-funciona">Como funciona</a></li>
+          <li><a href="#ajudar" class="menu__cta">Como ajudar</a></li>
+          <li><a href="#equipe">Equipe</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ========================================================
+         1. INÍCIO (HERO)
+         Logo grande, slogan e botão que leva para "O problema"
+         ======================================================== -->
+    <section class="hero" id="inicio">
+      <div class="container hero__inner">
+        <div class="hero__texto revelar">
+          <p class="selo">ONG · Projeto escolar</p>
+          <h1 class="hero__titulo">Mesa <span>Negra</span></h1>
+          <p class="hero__slogan">Comida é direito, cultura e memória.</p>
+          <p class="hero__desc">
+            Combatemos a insegurança alimentar da população negra no Brasil e
+            celebramos a culinária afro-brasileira — porque ninguém deveria ter
+            fome, e toda mesa carrega uma história.
+          </p>
+          <div class="hero__acoes">
+            <a href="#problema" class="btn btn--primario">Conheça o projeto</a>
+            <a href="#ajudar" class="btn btn--contorno">Quero ajudar</a>
+          </div>
+        </div>
+
+        <!-- Imagem placeholder: troque o <div> por <img src="..." alt="..."> -->
+        <figure class="hero__imagem revelar">
+          <div class="placeholder placeholder--hero" role="img"
+               aria-label="Foto: família negra reunida em volta de uma mesa farta, sorrindo e compartilhando uma refeição">
+            <span>Foto: família reunida à mesa</span>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Faixa decorativa inspirada em tecido kente -->
+    <div class="faixa-kente" aria-hidden="true"></div>
+
+    <!-- ========================================================
+         2. O PROBLEMA
+         3 cards com dados — preencha os campos [DADO + FONTE]
+         ======================================================== -->
+    <section class="secao" id="problema">
+      <div class="container">
+        <header class="secao__cabecalho revelar">
+          <p class="secao__rotulo">O problema</p>
+          <h2>A fome no Brasil tem cor</h2>
+          <p class="secao__intro">
+            No Brasil, as famílias negras são as que mais sofrem com a fome e com a
+            insegurança alimentar — ou seja, não ter certeza se vai ter comida
+            suficiente e de qualidade todos os dias. Isso é resultado de
+            desigualdades históricas de renda, emprego e acesso a direitos.
+          </p>
+        </header>
+
+        <div class="grade grade--3">
+          <!-- Card de dado 1 -->
+          <article class="card card--dado revelar">
+            <p class="dado__numero">[DADO]</p>
+            <p class="dado__texto">dos lares chefiados por pessoas negras vivem algum nível de insegurança alimentar.</p>
+            <p class="dado__fonte">Fonte: [FONTE]</p>
+          </article>
+
+          <!-- Card de dado 2 -->
+          <article class="card card--dado revelar">
+            <p class="dado__numero">[DADO]</p>
+            <p class="dado__texto">das pessoas em situação de fome no Brasil são negras (pretas e pardas).</p>
+            <p class="dado__fonte">Fonte: [FONTE]</p>
+          </article>
+
+          <!-- Card de dado 3 -->
+          <article class="card card--dado revelar">
+            <p class="dado__numero">[DADO]</p>
+            <p class="dado__texto">é a diferença de insegurança alimentar grave entre lares chefiados por mulheres negras e por homens brancos.</p>
+            <p class="dado__fonte">Fonte: [FONTE]</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         3. QUEM SOMOS
+         Missão, visão e valores
+         ======================================================== -->
+    <section class="secao secao--escura" id="quem-somos">
+      <div class="container">
+        <header class="secao__cabecalho revelar">
+          <p class="secao__rotulo">Quem somos</p>
+          <h2>Alimentar com dignidade e orgulho</h2>
+        </header>
+
+        <div class="grade grade--3">
+          <article class="card card--escuro revelar">
+            <h3>Missão</h3>
+            <p>Garantir o acesso a alimentação adequada para famílias negras em situação de vulnerabilidade, valorizando os saberes da culinária afro-brasileira.</p>
+          </article>
+
+          <article class="card card--escuro revelar">
+            <h3>Visão</h3>
+            <p>Um Brasil onde nenhuma família passe fome e onde a cultura alimentar negra seja reconhecida como patrimônio de todos.</p>
+          </article>
+
+          <article class="card card--escuro revelar">
+            <h3>Valores</h3>
+            <ul class="lista-valores">
+              <li>Dignidade e respeito</li>
+              <li>Ancestralidade e memória</li>
+              <li>Solidariedade e coletividade</li>
+              <li>Transparência</li>
+              <li>Alimentação saudável e sustentável</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         4. O QUE FAZEMOS
+         4 ações com ícones em SVG (desenhados no próprio HTML)
+         ======================================================== -->
+    <section class="secao" id="o-que-fazemos">
+      <div class="container">
+        <header class="secao__cabecalho revelar">
+          <p class="secao__rotulo">O que fazemos</p>
+          <h2>Nossas frentes de ação</h2>
+        </header>
+
+        <div class="grade grade--4">
+          <!-- Ação 1: cestas e refeições -->
+          <article class="card card--acao revelar">
+            <div class="icone icone--terracota" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 10h18l-2 10H5L3 10Z"/><path d="M8 10 12 4l4 6"/><path d="M9 14v3M12 14v3M15 14v3"/></svg>
+            </div>
+            <h3>Cestas e refeições</h3>
+            <p>Distribuição de cestas básicas e refeições em comunidades, priorizando famílias em maior vulnerabilidade.</p>
+          </article>
+
+          <!-- Ação 2: hortas comunitárias -->
+          <article class="card card--acao revelar">
+            <div class="icone icone--verde" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 21V11"/><path d="M12 11c0-4 3-7 8-7 0 5-3 7-8 7Z"/><path d="M12 14c0-3-2.5-5.5-7-5.5 0 4 2.5 5.5 7 5.5Z"/><path d="M4 21h16"/></svg>
+            </div>
+            <h3>Hortas e agricultura</h3>
+            <p>Hortas comunitárias e apoio a agricultores negros e quilombolas, comprando direto de quem planta.</p>
+          </article>
+
+          <!-- Ação 3: oficinas de culinária -->
+          <article class="card card--acao revelar">
+            <div class="icone icone--dourado" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M6 13a6 6 0 1 1 12 0v1H6v-1Z"/><path d="M4 17h16"/><path d="M12 4v3"/><path d="M8 20h8"/></svg>
+            </div>
+            <h3>Oficinas de culinária</h3>
+            <p>Oficinas de culinária afro-brasileira e nutrição: cozinhar bem, com pouco, e com muito sabor.</p>
+          </article>
+
+          <!-- Ação 4: resgate de receitas -->
+          <article class="card card--acao revelar">
+            <div class="icone icone--cafe" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2V5Z"/><path d="M4 19a2 2 0 0 1 2-2h12"/><path d="M9 8h5M9 11h4"/></svg>
+            </div>
+            <h3>Receitas e saberes</h3>
+            <p>Resgate de receitas e saberes tradicionais com mais velhos, terreiros e comunidades, registrando nossa memória.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="faixa-adinkra" aria-hidden="true"></div>
+
+    <!-- ========================================================
+         5. CULTURA NA MESA
+         Pratos afro-brasileiros: nome, origem e curiosidade
+         ======================================================== -->
+    <section class="secao secao--creme" id="cultura">
+      <div class="container">
+        <header class="secao__cabecalho revelar">
+          <p class="secao__rotulo">Cultura na mesa</p>
+          <h2>Sabores que contam a nossa história</h2>
+          <p class="secao__intro">
+            A culinária afro-brasileira nasceu da criatividade, da resistência e
+            da fé de povos africanos e seus descendentes. Ela está em todo o país —
+            e na mesa de todo mundo.
+          </p>
+        </header>
+
+        <div class="grade grade--4">
+          <!-- Prato 1 -->
+          <article class="card card--prato revelar">
+            <div class="placeholder placeholder--prato" role="img"
+                 aria-label="Foto: acarajés dourados abertos e recheados com vatapá, camarão seco e vinagrete, servidos em um tabuleiro">
+              <span>Foto: acarajé</span>
+            </div>
+            <div class="prato__corpo">
+              <h3>Acarajé</h3>
+              <p class="prato__origem">Origem: Bahia, com raízes iorubás (África Ocidental)</p>
+              <p><strong>Curiosidade:</strong> o ofício das baianas de acarajé é reconhecido como Patrimônio Cultural Imaterial do Brasil pelo IPHAN.</p>
+            </div>
+          </article>
+
+          <!-- Prato 2 -->
+          <article class="card card--prato revelar">
+            <div class="placeholder placeholder--prato" role="img"
+                 aria-label="Foto: tigela de vatapá cremoso e alaranjado, feito com pão, leite de coco, amendoim e azeite de dendê">
+              <span>Foto: vatapá</span>
+            </div>
+            <div class="prato__corpo">
+              <h3>Vatapá</h3>
+              <p class="prato__origem">Origem: Bahia e Pará, influência africana</p>
+              <p><strong>Curiosidade:</strong> na Bahia é feito com pão; no Pará, costuma levar farinha de trigo e é servido com arroz.</p>
+            </div>
+          </article>
+
+          <!-- Prato 3 -->
+          <article class="card card--prato revelar">
+            <div class="placeholder placeholder--prato" role="img"
+                 aria-label="Foto: panela de barro com feijoada, acompanhada de arroz, couve refogada, farofa e laranja">
+              <span>Foto: feijoada</span>
+            </div>
+            <div class="prato__corpo">
+              <h3>Feijoada</h3>
+              <p class="prato__origem">Origem: Brasil, com saberes africanos e europeus</p>
+              <p><strong>Curiosidade:</strong> é tema de debate entre historiadores — mas é certo que a cozinha negra ajudou a transformá-la em prato nacional.</p>
+            </div>
+          </article>
+
+          <!-- Prato 4 -->
+          <article class="card card--prato revelar">
+            <div class="placeholder placeholder--prato" role="img"
+                 aria-label="Foto: tigela de mungunzá doce, com grãos de milho branco, leite de coco, canela e cravo">
+              <span>Foto: mungunzá</span>
+            </div>
+            <div class="prato__corpo">
+              <h3>Mungunzá</h3>
+              <p class="prato__origem">Origem: Nordeste, nome de origem quimbundo (Angola)</p>
+              <p><strong>Curiosidade:</strong> no Sul e Sudeste é chamado de canjica — e é estrela das festas juninas.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         6. COMO FUNCIONA
+         Linha do tempo em 4 passos
+         ======================================================== -->
+    <section class="secao" id="como-funciona">
+      <div class="container">
+        <header class="secao__cabecalho revelar">
+          <p class="secao__rotulo">Como funciona</p>
+          <h2>Do mapeamento à mesa</h2>
+        </header>
+
+        <ol class="linha-tempo">
+          <li class="passo revelar">
+            <span class="passo__num">1</span>
+            <div class="passo__conteudo">
+              <h3>Identificação das famílias</h3>
+              <p>Junto com lideranças comunitárias, escolas e postos de saúde, mapeamos as famílias que mais precisam.</p>
+            </div>
+          </li>
+          <li class="passo revelar">
+            <span class="passo__num">2</span>
+            <div class="passo__conteudo">
+              <h3>Arrecadação</h3>
+              <p>Recebemos doações de alimentos e recursos, e compramos de agricultores negros e quilombolas.</p>
+            </div>
+          </li>
+          <li class="passo revelar">
+            <span class="passo__num">3</span>
+            <div class="passo__conteudo">
+              <h3>Distribuição e oficinas</h3>
+              <p>Entregamos cestas e refeições e realizamos oficinas de culinária e nutrição nas comunidades.</p>
+            </div>
+          </li>
+          <li class="passo revelar">
+            <span class="passo__num">4</span>
+            <div class="passo__conteudo">
+              <h3>Acompanhamento</h3>
+              <p>Visitamos as famílias regularmente para entender o que mudou e o que ainda falta.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <div class="faixa-kente" aria-hidden="true"></div>
+
+    <!-- ========================================================
+         7. COMO AJUDAR
+         3 cards + formulário (apenas visual, não envia nada)
+         ======================================================== -->
+    <section class="secao secao--creme" id="ajudar">
+      <div class="container">
+        <header class="secao__cabecalho revelar">
+          <p class="secao__rotulo">Como ajudar</p>
+          <h2>Puxe uma cadeira e venha com a gente</h2>
+        </header>
+
+        <div class="grade grade--3">
+          <article class="card card--ajuda revelar">
+            <div class="icone icone--terracota" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z"/></svg>
+            </div>
+            <h3>Doe alimentos</h3>
+            <p>Arroz, feijão, fubá, óleo, leite e itens de higiene. Toda doação faz diferença.</p>
+          </article>
+
+          <article class="card card--ajuda revelar">
+            <div class="icone icone--verde" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M15 14.5c3 0 6 1.8 6 5.5"/></svg>
+            </div>
+            <h3>Seja voluntário</h3>
+            <p>Ajude na arrecadação, na distribuição, nas oficinas ou no registro de receitas.</p>
+          </article>
+
+          <article class="card card--ajuda revelar">
+            <div class="icone icone--dourado" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 11v2a1 1 0 0 0 1 1h2l5 4V6L7 10H5a1 1 0 0 0-1 1Z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+            </div>
+            <h3>Divulgue</h3>
+            <p>Compartilhe nosso trabalho nas redes e converse sobre o tema na escola e em casa.</p>
+          </article>
+        </div>
+
+        <!-- Formulário apenas visual: o script.js impede o envio real -->
+        <form class="formulario revelar" id="formAjuda" novalidate>
+          <h3>Quero participar</h3>
+          <div class="formulario__campos">
+            <div class="campo">
+              <label for="nome">Nome</label>
+              <input type="text" id="nome" name="nome" placeholder="Seu nome" autocomplete="name" required>
+            </div>
+            <div class="campo">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" placeholder="voce@exemplo.com" autocomplete="email" required>
+            </div>
+            <div class="campo campo--inteiro">
+              <label for="ajuda">Como quer ajudar?</label>
+              <select id="ajuda" name="ajuda" required>
+                <option value="" disabled selected>Escolha uma opção</option>
+                <option>Doar alimentos</option>
+                <option>Ser voluntário</option>
+                <option>Divulgar o projeto</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn btn--primario">Enviar</button>
+          <p class="formulario__aviso" id="formAviso" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         8. EQUIPE
+         Troque os nomes, turmas, funções e fotos do grupo
+         ======================================================== -->
+    <section class="secao" id="equipe">
+      <div class="container">
+        <header class="secao__cabecalho revelar">
+          <p class="secao__rotulo">Equipe</p>
+          <h2>Quem está por trás da Mesa Negra</h2>
+        </header>
+
+        <div class="grade grade--4">
+          <article class="card card--membro revelar">
+            <div class="placeholder placeholder--avatar" role="img" aria-label="Foto do(a) integrante 1 do grupo"><span>Foto</span></div>
+            <h3>[Nome do integrante]</h3>
+            <p class="membro__turma">Turma [___]</p>
+            <p class="membro__funcao">[Função no projeto]</p>
+          </article>
+          <article class="card card--membro revelar">
+            <div class="placeholder placeholder--avatar" role="img" aria-label="Foto do(a) integrante 2 do grupo"><span>Foto</span></div>
+            <h3>[Nome do integrante]</h3>
+            <p class="membro__turma">Turma [___]</p>
+            <p class="membro__funcao">[Função no projeto]</p>
+          </article>
+          <article class="card card--membro revelar">
+            <div class="placeholder placeholder--avatar" role="img" aria-label="Foto do(a) integrante 3 do grupo"><span>Foto</span></div>
+            <h3>[Nome do integrante]</h3>
+            <p class="membro__turma">Turma [___]</p>
+            <p class="membro__funcao">[Função no projeto]</p>
+          </article>
+          <article class="card card--membro revelar">
+            <div class="placeholder placeholder--avatar" role="img" aria-label="Foto do(a) integrante 4 do grupo"><span>Foto</span></div>
+            <h3>[Nome do integrante]</h3>
+            <p class="membro__turma">Turma [___]</p>
+            <p class="membro__funcao">[Função no projeto]</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================
+       9. RODAPÉ
+       ======================================================== -->
+  <footer class="rodape">
+    <div class="faixa-kente" aria-hidden="true"></div>
+    <div class="container rodape__inner">
+      <div>
+        <a href="#inicio" class="logo logo--claro">
+          <span class="logo__marca" aria-hidden="true"></span>
+          <span class="logo__texto">Mesa <strong>Negra</strong></span>
+        </a>
+        <p class="rodape__slogan">Comida é direito, cultura e memória.</p>
+      </div>
+
+      <!-- Redes sociais fictícias -->
+      <ul class="redes" aria-label="Redes sociais (fictícias)">
+        <li><a href="#" aria-label="Instagram @mesanegra">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8"/></svg>
+        </a></li>
+        <li><a href="#" aria-label="YouTube Mesa Negra">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="4"/><path d="m10 9 5 3-5 3V9Z"/></svg>
+        </a></li>
+        <li><a href="#" aria-label="TikTok @mesanegra">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 2.5 2.5 4.5 5 4.5"/></svg>
+        </a></li>
+      </ul>
+    </div>
+    <p class="rodape__credito">Projeto escolar – [nome da escola], 2026 · ONG fictícia</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

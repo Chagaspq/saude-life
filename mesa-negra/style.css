@@ -1,0 +1,665 @@
+/* ==========================================================
+   MESA NEGRA — Folha de estilos
+   Paleta: cores da terra e da cultura africana
+   ========================================================== */
+
+/* ---------- 1. Variáveis (cores, fontes, medidas) ---------- */
+:root {
+  --cafe: #3b2416;          /* marrom-café (texto e fundos escuros) */
+  --cafe-escuro: #2a190f;
+  --terracota: #c0582f;     /* cor de destaque principal */
+  --terracota-escuro: #9e4422;
+  --dourado: #e0a526;       /* amarelo-dourado */
+  --verde: #3f7d3a;         /* verde-folha */
+  --creme: #faf3e6;         /* fundo claro */
+  --creme-2: #f2e6d1;
+  --branco: #fffdf8;
+  --texto: #3b2416;
+  --texto-suave: #6b5242;
+
+  --fonte-titulo: "Poppins", system-ui, sans-serif;
+  --fonte-texto: "Inter", system-ui, sans-serif;
+
+  --raio: 18px;
+  --sombra: 0 6px 20px rgba(59, 36, 22, 0.08), 0 1px 3px rgba(59, 36, 22, 0.06);
+  --sombra-forte: 0 14px 34px rgba(59, 36, 22, 0.14);
+  --altura-topo: 72px;
+}
+
+/* ---------- 2. Base ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--altura-topo); /* compensa o menu fixo */
+}
+
+body {
+  margin: 0;
+  font-family: var(--fonte-texto);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--texto);
+  background: var(--creme);
+}
+
+img { max-width: 100%; display: block; }
+
+h1, h2, h3 {
+  font-family: var(--fonte-titulo);
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+}
+
+h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
+h3 { font-size: 1.15rem; }
+p  { margin: 0 0 1em; }
+
+a { color: var(--terracota); }
+
+:focus-visible {
+  outline: 3px solid var(--dourado);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.container {
+  width: min(1140px, 100% - 32px);
+  margin-inline: auto;
+}
+
+/* ---------- 3. Botões ---------- */
+.btn {
+  display: inline-block;
+  padding: 0.85em 1.6em;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s, color 0.2s;
+}
+
+.btn--primario {
+  background: var(--terracota);
+  color: var(--branco);
+  box-shadow: 0 6px 16px rgba(192, 88, 47, 0.3);
+}
+.btn--primario:hover { background: var(--terracota-escuro); transform: translateY(-2px); }
+
+.btn--contorno {
+  border-color: var(--cafe);
+  color: var(--cafe);
+}
+.btn--contorno:hover { background: var(--cafe); color: var(--creme); transform: translateY(-2px); }
+
+/* ---------- 4. Cabeçalho fixo e menu ---------- */
+.topo {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  height: var(--altura-topo);
+  background: rgba(250, 243, 230, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: box-shadow 0.25s;
+}
+.topo.com-sombra { box-shadow: 0 4px 18px rgba(59, 36, 22, 0.1); }
+
+.topo__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* Logo: marca geométrica (losango em 4 cores) + nome */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--cafe);
+  font-family: var(--fonte-titulo);
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+.logo strong { font-weight: 800; color: var(--terracota); }
+
+.logo__marca {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  transform: rotate(45deg);
+  background: conic-gradient(var(--terracota) 0 25%, var(--dourado) 0 50%, var(--verde) 0 75%, var(--cafe) 0);
+  box-shadow: inset 0 0 0 4px var(--creme);
+}
+
+.logo--claro { color: var(--creme); }
+.logo--claro strong { color: var(--dourado); }
+.logo--claro .logo__marca { box-shadow: inset 0 0 0 4px var(--cafe-escuro); }
+
+.menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.menu a {
+  display: block;
+  padding: 8px 12px;
+  border-radius: 999px;
+  color: var(--cafe);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.92rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+.menu a:hover,
+.menu a.ativo { background: var(--creme-2); }
+
+.menu a.menu__cta { background: var(--terracota); color: var(--branco); }
+.menu a.menu__cta:hover { background: var(--terracota-escuro); }
+
+/* Botão hambúrguer (escondido no desktop) */
+.menu-btn {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--creme-2);
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.menu-btn span {
+  width: 22px;
+  height: 2.5px;
+  border-radius: 2px;
+  background: var(--cafe);
+  transition: transform 0.25s, opacity 0.25s;
+}
+/* Vira um "X" quando o menu está aberto */
+.menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+/* ---------- 5. Hero (início) ---------- */
+.hero {
+  padding: calc(var(--altura-topo) + 48px) 0 72px;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(224, 165, 38, 0.22), transparent 45%),
+    radial-gradient(circle at 10% 90%, rgba(192, 88, 47, 0.14), transparent 40%),
+    var(--creme);
+}
+
+.hero__inner {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: 48px;
+}
+
+.selo {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--creme-2);
+  color: var(--verde);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hero__titulo {
+  font-size: clamp(3rem, 9vw, 5.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--cafe);
+  margin: 0.15em 0 0.1em;
+}
+.hero__titulo span { color: var(--terracota); }
+
+.hero__slogan {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.2rem, 2.6vw, 1.6rem);
+  font-weight: 600;
+  color: var(--verde);
+}
+
+.hero__desc { max-width: 52ch; color: var(--texto-suave); font-size: 1.05rem; }
+
+.hero__acoes { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+
+.hero__imagem { margin: 0; }
+
+/* ---------- 6. Placeholders de imagem ---------- */
+/* Troque pelos <img> reais depois; mantenha um alt descritivo */
+.placeholder {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 16px;
+  color: var(--cafe);
+  font-weight: 600;
+  font-size: 0.9rem;
+  background:
+    repeating-linear-gradient(45deg, rgba(59, 36, 22, 0.05) 0 12px, transparent 12px 24px),
+    var(--creme-2);
+  border: 2px dashed rgba(59, 36, 22, 0.25);
+}
+.placeholder span {
+  background: var(--branco);
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+
+.placeholder--hero {
+  aspect-ratio: 4 / 3.4;
+  border-radius: 28px 28px 28px 120px;
+  box-shadow: var(--sombra-forte);
+  position: relative;
+}
+/* Moldura geométrica atrás da foto do hero */
+.placeholder--hero::after {
+  content: "";
+  position: absolute;
+  inset: auto -14px -14px auto;
+  width: 45%;
+  height: 45%;
+  z-index: -1;
+  border-radius: 20px;
+  background: repeating-linear-gradient(90deg, var(--dourado) 0 10px, var(--terracota) 10px 20px, var(--verde) 20px 30px);
+}
+
+.placeholder--prato  { aspect-ratio: 4 / 3; border-radius: var(--raio) var(--raio) 0 0; border-width: 0 0 2px; }
+.placeholder--avatar { width: 112px; height: 112px; margin: 0 auto 16px; border-radius: 50%; }
+.placeholder--avatar span { font-size: 0.8rem; }
+
+/* ---------- 7. Faixas decorativas (kente / adinkra) ---------- */
+/* Faixa inspirada no tecido kente: blocos de listras coloridas */
+.faixa-kente {
+  height: 14px;
+  background:
+    repeating-linear-gradient(90deg,
+      var(--dourado) 0 28px,
+      var(--cafe) 28px 34px,
+      var(--verde) 34px 62px,
+      var(--cafe) 62px 68px,
+      var(--terracota) 68px 96px,
+      var(--cafe) 96px 102px);
+}
+
+/* Faixa inspirada em símbolos adinkra: losangos repetidos */
+.faixa-adinkra {
+  height: 28px;
+  background-color: var(--cafe);
+  background-image:
+    linear-gradient(45deg, transparent 40%, var(--dourado) 40% 60%, transparent 60%),
+    linear-gradient(-45deg, transparent 40%, var(--dourado) 40% 60%, transparent 60%);
+  background-size: 28px 28px;
+  background-position: center;
+  opacity: 0.95;
+}
+
+/* ---------- 8. Seções e cabeçalhos ---------- */
+.secao { padding: 88px 0; }
+.secao--creme { background: var(--creme-2); }
+.secao--escura {
+  background: var(--cafe);
+  color: var(--creme);
+}
+.secao--escura h2 { color: var(--creme); }
+
+.secao__cabecalho {
+  max-width: 720px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+.secao__rotulo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  color: var(--terracota);
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+/* Pequeno losango antes e depois do rótulo */
+.secao__rotulo::before,
+.secao__rotulo::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background: var(--dourado);
+  transform: rotate(45deg);
+}
+.secao--escura .secao__rotulo { color: var(--dourado); }
+
+.secao__intro { color: var(--texto-suave); font-size: 1.05rem; }
+
+/* ---------- 9. Grades e cards ---------- */
+.grade { display: grid; gap: 24px; }
+.grade--3 { grid-template-columns: repeat(3, 1fr); }
+.grade--4 { grid-template-columns: repeat(4, 1fr); }
+
+.card {
+  background: var(--branco);
+  border-radius: var(--raio);
+  padding: 28px;
+  box-shadow: var(--sombra);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.card:hover { transform: translateY(-4px); box-shadow: var(--sombra-forte); }
+.card p:last-child { margin-bottom: 0; }
+
+/* Cards de dados (O problema) */
+.card--dado { border-top: 6px solid var(--terracota); }
+.card--dado:nth-child(2) { border-top-color: var(--dourado); }
+.card--dado:nth-child(3) { border-top-color: var(--verde); }
+
+.dado__numero {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(2.2rem, 5vw, 3rem);
+  font-weight: 800;
+  color: var(--terracota);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.dado__fonte { font-size: 0.85rem; color: var(--texto-suave); font-style: italic; }
+
+/* Cards escuros (Quem somos) */
+.card--escuro {
+  background: rgba(255, 253, 248, 0.06);
+  border: 1px solid rgba(255, 253, 248, 0.12);
+  box-shadow: none;
+}
+.card--escuro h3 { color: var(--dourado); font-size: 1.4rem; }
+.card--escuro:hover { box-shadow: none; background: rgba(255, 253, 248, 0.1); }
+
+.lista-valores { margin: 0; padding: 0; list-style: none; }
+.lista-valores li { position: relative; padding-left: 20px; margin-bottom: 6px; }
+.lista-valores li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: 8px;
+  background: var(--terracota);
+  transform: rotate(45deg);
+}
+
+/* Ícones redondos */
+.icone {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 18px;
+}
+.icone svg {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.icone--terracota { background: rgba(192, 88, 47, 0.12); color: var(--terracota); }
+.icone--verde     { background: rgba(63, 125, 58, 0.12);  color: var(--verde); }
+.icone--dourado   { background: rgba(224, 165, 38, 0.18); color: #a56f00; }
+.icone--cafe      { background: rgba(59, 36, 22, 0.1);    color: var(--cafe); }
+
+.card--acao p,
+.card--ajuda p { color: var(--texto-suave); }
+
+/* Cards de pratos (Cultura na mesa) */
+.card--prato { padding: 0; overflow: hidden; }
+.prato__corpo { padding: 22px; }
+.prato__corpo h3 { font-size: 1.35rem; color: var(--terracota); margin-bottom: 4px; }
+.prato__origem { font-size: 0.85rem; font-weight: 600; color: var(--verde); }
+.prato__corpo p { font-size: 0.95rem; }
+
+/* Cards da equipe */
+.card--membro { text-align: center; }
+.membro__turma { color: var(--texto-suave); font-size: 0.9rem; margin-bottom: 8px; }
+.membro__funcao {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(63, 125, 58, 0.12);
+  color: var(--verde);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+/* ---------- 10. Linha do tempo (Como funciona) ---------- */
+.linha-tempo {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  position: relative;
+}
+/* Linha que liga os passos (desktop: horizontal) */
+.linha-tempo::before {
+  content: "";
+  position: absolute;
+  top: 28px;
+  left: 12%;
+  right: 12%;
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--terracota), var(--dourado), var(--verde));
+}
+
+.passo { position: relative; text-align: center; }
+
+.passo__num {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: var(--cafe);
+  color: var(--dourado);
+  font-family: var(--fonte-titulo);
+  font-weight: 800;
+  font-size: 1.4rem;
+  box-shadow: 0 0 0 6px var(--creme);
+}
+
+.passo__conteudo {
+  background: var(--branco);
+  border-radius: var(--raio);
+  padding: 22px;
+  box-shadow: var(--sombra);
+}
+.passo__conteudo p { color: var(--texto-suave); font-size: 0.95rem; margin: 0; }
+
+/* ---------- 11. Formulário (Como ajudar) ---------- */
+.formulario {
+  max-width: 760px;
+  margin: 48px auto 0;
+  padding: 32px;
+  background: var(--branco);
+  border-radius: 24px;
+  box-shadow: var(--sombra-forte);
+  border-top: 6px solid var(--verde);
+}
+.formulario h3 { font-size: 1.4rem; }
+
+.formulario__campos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.campo--inteiro { grid-column: 1 / -1; }
+
+.campo label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.campo input,
+.campo select {
+  width: 100%;
+  padding: 12px 14px;
+  font: inherit;
+  color: var(--texto);
+  background: var(--creme);
+  border: 2px solid var(--creme-2);
+  border-radius: 12px;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+.campo input:focus,
+.campo select:focus {
+  outline: none;
+  border-color: var(--terracota);
+  background: var(--branco);
+}
+.campo .invalido { border-color: #b3261e; }
+
+.formulario__aviso { margin: 14px 0 0; font-weight: 600; color: var(--verde); }
+.formulario__aviso.erro { color: #b3261e; }
+
+/* ---------- 12. Rodapé ---------- */
+.rodape { background: var(--cafe-escuro); color: var(--creme); }
+
+.rodape__inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 40px 0 24px;
+}
+.rodape__slogan { margin: 8px 0 0; color: rgba(250, 243, 230, 0.7); }
+
+.redes { list-style: none; margin: 0; padding: 0; display: flex; gap: 12px; }
+.redes a {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(250, 243, 230, 0.08);
+  color: var(--creme);
+  transition: background-color 0.2s, color 0.2s;
+}
+.redes a:hover { background: var(--dourado); color: var(--cafe); }
+.redes svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.rodape__credito {
+  margin: 0;
+  padding: 16px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: rgba(250, 243, 230, 0.6);
+  border-top: 1px solid rgba(250, 243, 230, 0.1);
+}
+
+/* ---------- 13. Animação ao rolar ---------- */
+/* Só esconde os elementos se o JS estiver ativo (classe .js no <html>) */
+.js .revelar {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.js .revelar.visivel { opacity: 1; transform: none; }
+
+/* ---------- 14. Responsivo ---------- */
+/* Tablet */
+@media (max-width: 1024px) {
+  .grade--4 { grid-template-columns: repeat(2, 1fr); }
+  .linha-tempo { grid-template-columns: repeat(2, 1fr); }
+  .linha-tempo::before { display: none; }
+}
+
+/* Menu vira hambúrguer */
+@media (max-width: 960px) {
+  .menu-btn { display: flex; }
+
+  .menu {
+    position: fixed;
+    top: var(--altura-topo);
+    left: 0;
+    right: 0;
+    background: var(--creme);
+    box-shadow: 0 12px 24px rgba(59, 36, 22, 0.12);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+  .menu.aberto { max-height: calc(100vh - var(--altura-topo)); overflow-y: auto; }
+
+  .menu ul { flex-direction: column; align-items: stretch; padding: 12px 16px 20px; }
+  .menu a { padding: 12px 16px; font-size: 1rem; }
+  .menu a.menu__cta { text-align: center; margin-top: 6px; }
+}
+
+@media (max-width: 860px) {
+  .hero__inner { grid-template-columns: 1fr; gap: 40px; }
+  .grade--3 { grid-template-columns: 1fr; }
+}
+
+/* Celular */
+@media (max-width: 560px) {
+  .secao { padding: 64px 0; }
+  .grade--4,
+  .linha-tempo { grid-template-columns: 1fr; }
+  .formulario { padding: 24px 20px; }
+  .formulario__campos { grid-template-columns: 1fr; }
+  .card { padding: 22px; }
+  .card--prato { padding: 0; }
+  .rodape__inner { flex-direction: column; text-align: center; }
+}
+
+/* ---------- 15. Acessibilidade: menos movimento ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+  .js .revelar { opacity: 1; transform: none; }
+  .card:hover,
+  .btn:hover { transform: none; }
+}
