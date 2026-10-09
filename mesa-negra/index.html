@@ -34,12 +34,13 @@
         <ul>
           <li><a href="#problema">O problema</a></li>
           <li><a href="#quem-somos">Quem somos</a></li>
-          <li><a href="#o-que-fazemos">O que fazemos</a></li>
+          <li><a href="#o-que-fazemos">Ações</a></li>
           <li><a href="#cultura">Cultura</a></li>
           <li><a href="#do-zero">Do zero</a></li>
           <li><a href="#dinheiro">Transparência</a></li>
           <li><a href="#ajudar">Como ajudar</a></li>
           <li><a href="#equipe">Equipe</a></li>
+          <li><a href="#contato">Contato</a></li>
           <li><a href="#doar" class="menu__cta">Doar</a></li>
         </ul>
       </nav>
@@ -686,10 +687,156 @@
       </div>
     </section>
 
+
+    <div class="faixa-adinkra" aria-hidden="true"></div>
+
+    <!-- ========================================================
+         12. CONTATO E AJUDA
+         Canais, formulário de contato e perguntas frequentes
+         ======================================================== -->
+    <section class="secao secao--creme" id="contato">
+      <div class="container">
+        <header class="secao__cabecalho revelar">
+          <p class="secao__rotulo">Contato</p>
+          <h2>Fale com a gente</h2>
+          <p class="secao__intro">
+            Dúvidas, parcerias, sugestões ou se você ou alguém que você conhece
+            está passando por dificuldade: escreva pra gente. Toda mensagem é lida
+            por uma pessoa da equipe.
+          </p>
+        </header>
+
+        <!-- Destaque para quem precisa de comida -->
+        <div class="precisa revelar">
+          <div class="icone icone--terracota" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z"/></svg>
+          </div>
+          <div>
+            <h3>Está precisando de ajuda com alimentação?</h3>
+            <p>
+              Não precisa ter vergonha. Escolha <strong>"Preciso de ajuda com alimentação"</strong>
+              no formulário abaixo. Suas informações ficam só com a equipe e nunca
+              serão divulgadas.
+            </p>
+          </div>
+        </div>
+
+        <div class="contato">
+          <!-- Canais de contato (troque pelos dados reais quando existirem) -->
+          <ul class="canais revelar">
+            <li class="canal">
+              <div class="icone icone--verde" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-13.5 7.8L3 21l1.2-4.5A9 9 0 1 1 21 12Z"/><path d="M9 9.5c.5 2 2.5 4 4.5 4.5l1-1.2 2 1-.4 1.6c-3.5 0-7.6-4.1-7.6-7.6l1.6-.4 1 2Z"/></svg>
+              </div>
+              <div>
+                <h4>WhatsApp</h4>
+                <p>Em breve — número oficial da ONG</p>
+              </div>
+            </li>
+            <li class="canal">
+              <div class="icone icone--dourado" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+              </div>
+              <div>
+                <h4>E-mail</h4>
+                <p>Em breve — e-mail oficial da ONG</p>
+              </div>
+            </li>
+            <li class="canal">
+              <div class="icone icone--terracota" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8"/></svg>
+              </div>
+              <div>
+                <h4>Instagram</h4>
+                <p>@mesanegra</p>
+              </div>
+            </li>
+            <li class="canal">
+              <div class="icone icone--cafe" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              </div>
+              <div>
+                <h4>Tempo de resposta</h4>
+                <p>Respondemos em até 3 dias úteis.</p>
+              </div>
+            </li>
+          </ul>
+
+          <!-- Formulário de contato (sem envio real por enquanto) -->
+          <form class="formulario formulario--contato revelar" id="formContato" novalidate>
+            <h3>Envie uma mensagem</h3>
+            <div class="formulario__campos">
+              <div class="campo">
+                <label for="contatoNome">Nome</label>
+                <input type="text" id="contatoNome" name="nome" placeholder="Seu nome" autocomplete="name" required>
+              </div>
+              <div class="campo">
+                <label for="contatoEmail">E-mail ou WhatsApp</label>
+                <input type="text" id="contatoEmail" name="contato" placeholder="Como podemos responder?" required>
+              </div>
+              <div class="campo campo--inteiro">
+                <label for="assunto">Assunto</label>
+                <select id="assunto" name="assunto" required>
+                  <option value="" disabled selected>Escolha um assunto</option>
+                  <option>Preciso de ajuda com alimentação</option>
+                  <option>Tenho uma dúvida</option>
+                  <option>Quero ser parceiro(a) / empresa</option>
+                  <option>Quero doar alimentos</option>
+                  <option>Sugestão ou reclamação</option>
+                  <option>Outro assunto</option>
+                </select>
+              </div>
+              <div class="campo campo--inteiro">
+                <label for="mensagem">Mensagem</label>
+                <textarea id="mensagem" name="mensagem" rows="5" placeholder="Escreva aqui..." required></textarea>
+              </div>
+            </div>
+            <button type="submit" class="btn btn--primario">Enviar mensagem</button>
+            <p class="formulario__aviso" id="contatoAviso" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <!-- Perguntas frequentes: <details> abre e fecha sem JavaScript -->
+        <div class="faq">
+          <h3 class="subtitulo revelar">Perguntas frequentes</h3>
+
+          <details class="faq__item revelar">
+            <summary>Só pessoas negras podem receber ajuda?</summary>
+            <p>Não. Nosso foco é a população negra, porque é a mais atingida pela fome, mas ninguém que chegar com fome vai sair sem comer.</p>
+          </details>
+
+          <details class="faq__item revelar">
+            <summary>Como faço para receber refeições ou cestas?</summary>
+            <p>Envie uma mensagem com o assunto "Preciso de ajuda com alimentação" ou procure a liderança comunitária do seu bairro. Vamos conversar com você com respeito e sigilo.</p>
+          </details>
+
+          <details class="faq__item revelar">
+            <summary>Já posso doar dinheiro?</summary>
+            <p>Ainda não. Só vamos receber dinheiro quando a ONG tiver CNPJ e conta bancária própria, para que tudo seja transparente. Doações de alimentos e trabalho voluntário já são bem-vindos.</p>
+          </details>
+
+          <details class="faq__item revelar">
+            <summary>Como sei que meu dinheiro vai ser bem usado?</summary>
+            <p>Todo mês vamos publicar a prestação de contas aqui no site, com o que entrou, o que saiu e as notas fiscais. Veja nossos <a href="#dinheiro">compromissos de transparência</a>.</p>
+          </details>
+
+          <details class="faq__item revelar">
+            <summary>Minha empresa pode ser parceira?</summary>
+            <p>Sim! Mercados, restaurantes, padarias e outras empresas podem doar alimentos, espaço, transporte ou patrocinar um dia de cozinha. Fale com a gente pelo formulário.</p>
+          </details>
+
+          <details class="faq__item revelar">
+            <summary>Preciso ter experiência para ser voluntário?</summary>
+            <p>Não. Tem tarefa para todo mundo: cozinha, organização, transporte, redes sociais e registro de receitas. A gente ensina.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- ========================================================
-       12. RODAPÉ
+       13. RODAPÉ
        ======================================================== -->
   <footer class="rodape">
     <div class="faixa-kente" aria-hidden="true"></div>

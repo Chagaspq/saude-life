@@ -141,3 +141,30 @@ formDoar.addEventListener("submit", (e) => {
   doarAviso.textContent = `Obrigado por querer doar R$ ${valor.value}${quando}! Nenhum valor foi cobrado: avisaremos aqui quando as doações estiverem abertas.`;
   doarAviso.classList.remove("erro");
 });
+
+// Formulário de contato
+const formContato = document.getElementById("formContato");
+const contatoAviso = document.getElementById("contatoAviso");
+
+formContato.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const campos = formContato.querySelectorAll("input, select, textarea");
+  let valido = true;
+  campos.forEach((campo) => {
+    const ok = campo.checkValidity();
+    campo.classList.toggle("invalido", !ok);
+    if (!ok) valido = false;
+  });
+
+  if (!valido) {
+    contatoAviso.textContent = "Preencha todos os campos para enviar.";
+    contatoAviso.classList.add("erro");
+    return;
+  }
+
+  const nome = formContato.nome.value.trim().split(" ")[0];
+  contatoAviso.textContent = `Obrigado, ${nome}! Nossos canais oficiais ainda estão sendo montados, então esta mensagem não foi enviada. Em breve você poderá falar com a gente por aqui.`;
+  contatoAviso.classList.remove("erro");
+  formContato.reset();
+});
