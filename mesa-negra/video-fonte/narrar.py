@@ -29,7 +29,16 @@ cenas=[
 PAUSA_ANTES, PAUSA_DEPOIS = 0.6, 0.9
 audio=[]; info=[]; t=0.0; sr=24000
 for i,(fala,leg) in enumerate(cenas):
-    s,sr=k.create(fala,voice="pf_dora",speed=1.0,lang="pt-br")
+    import os
+    gravado=f"voz/cena{i+1}.wav"
+    if os.path.exists(gravado):          # voz gravada pelo grupo tem prioridade
+        s,sr=sf.read(gravado,dtype="float32")
+    else:
+        s,sr=k.create(fala,voice="pf_dora",speed=1.0,lang="pt-br")
+        # iguala o volume da voz sintética ao das gravações (-17 LUFS)
+        import pyloudnorm as pyln
+        s=pyln.normalize.loudness(s,pyln.Meter(sr).integrated_loudness(s),-17.0)
+        s=0.89*np.tanh(s/0.89)  # limitador suave, sem estalos
     dur=PAUSA_ANTES+len(s)/sr+PAUSA_DEPOIS
     audio += [np.zeros(int(PAUSA_ANTES*sr)), s, np.zeros(int(PAUSA_DEPOIS*sr))]
     info.append({"inicio":round(t,3),"dur":round(dur,3),"legenda":leg})
