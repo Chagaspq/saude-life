@@ -14,3 +14,7 @@ Para editar:
    - `ffmpeg -framerate 30 -i q/%05d.jpg -i narracao.wav -c:v libx264 -crf 20 -pix_fmt yuv420p -c:a aac -shortest video.mp4`
 
 Voz: "pf_dora" (feminina, português do Brasil), do modelo aberto Kokoro.
+
+## Voz gravada pelo grupo
+As falas gravadas (já tratadas: sem ruído, volume uniforme) ficam em `voz/cena1.wav` … `voz/cena10.wav`.
+Quando existe o arquivo de uma cena, o `narrar.py` usa a gravação no lugar da voz do computador.
