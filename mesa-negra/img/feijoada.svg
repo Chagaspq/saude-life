@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Ilustração: feijoada com acompanhamentos -->
+  <rect width="400" height="300" fill="#e0a526"/>
+  <rect y="250" width="400" height="12" fill="#c0582f"/><rect y="262" width="400" height="6" fill="#3b2416"/><rect y="268" width="400" height="12" fill="#3f7d3a"/>
+  <!-- panela de barro -->
+  <circle cx="150" cy="140" r="98" fill="#8a3d1c"/>
+  <circle cx="150" cy="140" r="84" fill="#2e1a12"/>
+  <g fill="#1d0f09"><circle cx="120" cy="120" r="6"/><circle cx="170" cy="170" r="6"/><circle cx="110" cy="170" r="5"/><circle cx="190" cy="115" r="5"/><circle cx="150" cy="95" r="5"/></g>
+  <!-- linguiça -->
+  <g fill="#a33a2a" stroke="#d98a6a" stroke-width="3"><circle cx="130" cy="140" r="14"/><circle cx="175" cy="135" r="13"/><circle cx="150" cy="180" r="12"/></g>
+  <rect x="110" y="95" width="30" height="18" rx="6" fill="#6b3a24" transform="rotate(-15 125 104)"/>
+  <!-- arroz -->
+  <circle cx="300" cy="90" r="52" fill="#fffdf8"/>
+  <circle cx="300" cy="90" r="40" fill="#f6f1e6"/>
+  <g fill="#e9e2d2"><circle cx="290" cy="80" r="4"/><circle cx="310" cy="95" r="4"/><circle cx="296" cy="102" r="4"/><circle cx="316" cy="78" r="4"/></g>
+  <!-- couve -->
+  <circle cx="290" cy="200" r="44" fill="#fffdf8"/>
+  <g stroke="#2f6b2c" stroke-width="6" stroke-linecap="round"><path d="M262 190h52"/><path d="M268 202h46"/><path d="M262 214h40"/></g>
+  <g stroke="#5a9b4f" stroke-width="5" stroke-linecap="round"><path d="M270 196h40"/><path d="M272 208h36"/></g>
+  <!-- laranja -->
+  <path d="M352 170a26 26 0 0 1 0 52z" fill="#f08a1c"/>
+  <path d="M352 176a20 20 0 0 1 0 40z" fill="#f8b04a"/>
+</svg>

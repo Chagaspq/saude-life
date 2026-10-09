@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 510">
+  <!-- Ilustração: mesa farta vista de cima -->
+  <rect width="600" height="510" fill="#3b2416"/>
+  <!-- toalha com listras kente -->
+  <rect x="40" y="40" width="520" height="430" rx="28" fill="#c0582f"/>
+  <g opacity=".9">
+    <rect x="40" y="70" width="520" height="14" fill="#e0a526"/><rect x="40" y="84" width="520" height="5" fill="#3b2416"/><rect x="40" y="89" width="520" height="14" fill="#3f7d3a"/>
+    <rect x="40" y="407" width="520" height="14" fill="#3f7d3a"/><rect x="40" y="421" width="520" height="5" fill="#3b2416"/><rect x="40" y="426" width="520" height="14" fill="#e0a526"/>
+  </g>
+  <!-- panela de feijoada (centro) -->
+  <circle cx="300" cy="255" r="92" fill="#8a3d1c"/>
+  <circle cx="300" cy="255" r="78" fill="#2e1a12"/>
+  <g fill="#a33a2a" stroke="#d98a6a" stroke-width="3"><circle cx="280" cy="250" r="13"/><circle cx="322" cy="242" r="12"/><circle cx="300" cy="288" r="11"/><circle cx="268" cy="284" r="9"/></g>
+  <g fill="#1d0f09"><circle cx="330" cy="280" r="5"/><circle cx="296" cy="220" r="5"/><circle cx="262" cy="230" r="4"/><circle cx="340" cy="260" r="4"/></g>
+  <!-- arroz -->
+  <circle cx="140" cy="175" r="58" fill="#fffdf8"/><circle cx="140" cy="175" r="45" fill="#f6f1e6"/>
+  <!-- couve -->
+  <circle cx="460" cy="175" r="58" fill="#fffdf8"/>
+  <g stroke="#2f6b2c" stroke-width="7" stroke-linecap="round"><path d="M428 162h60"/><path d="M432 178h54"/><path d="M430 194h46"/></g>
+  <!-- vatapá -->
+  <circle cx="140" cy="335" r="58" fill="#9a6038"/><circle cx="140" cy="335" r="46" fill="#efb04a"/>
+  <path d="M120 330c8-12 26-12 30 0" stroke="#e8673b" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <!-- mungunzá -->
+  <circle cx="460" cy="335" r="58" fill="#e07a4f"/><circle cx="460" cy="335" r="46" fill="#fbf3e2"/>
+  <g fill="#fffaf0" stroke="#e8dcc0" stroke-width="2"><ellipse cx="445" cy="325" rx="7" ry="5"/><ellipse cx="468" cy="318" rx="7" ry="5"/><ellipse cx="475" cy="342" rx="7" ry="5"/><ellipse cx="450" cy="348" rx="7" ry="5"/></g>
+  <g fill="#8a4a1c"><circle cx="460" cy="333" r="2.5"/><circle cx="452" cy="338" r="2"/></g>
+  <!-- acarajés -->
+  <ellipse cx="300" cy="125" rx="46" ry="24" fill="#d07a2a"/><ellipse cx="300" cy="123" rx="34" ry="9" fill="#e9a23b"/>
+  <ellipse cx="300" cy="385" rx="46" ry="24" fill="#d07a2a"/><ellipse cx="300" cy="383" rx="34" ry="9" fill="#e9a23b"/>
+  <!-- laranjas -->
+  <circle cx="215" cy="400" r="16" fill="#f08a1c"/><circle cx="385" cy="110" r="16" fill="#f08a1c"/>
+  <!-- copos -->
+  <circle cx="215" cy="110" r="18" fill="#f6c868" stroke="#fffdf8" stroke-width="5"/>
+  <circle cx="385" cy="400" r="18" fill="#f6c868" stroke="#fffdf8" stroke-width="5"/>
+</svg>

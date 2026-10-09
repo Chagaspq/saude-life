@@ -1,7 +1,7 @@
 /* ==========================================================
    MESA NEGRA — Script
    Funções: menu mobile, rolagem suave, animações ao rolar
-   (o formulário é só visual: não envia nada)
+   e formulários (sem envio real por enquanto)
    ========================================================== */
 
 // Avisa o CSS que o JavaScript está ativo (ativa as animações)
@@ -38,7 +38,7 @@ document.addEventListener("keydown", (e) => {
 document.querySelectorAll('a[href^="#"]').forEach((link) => {
   link.addEventListener("click", (e) => {
     const id = link.getAttribute("href");
-    if (id === "#") return; // links das redes sociais fictícias
+    if (id === "#") return; // links das redes sociais ainda sem endereço
 
     const alvo = document.querySelector(id);
     if (!alvo) return;
@@ -90,12 +90,14 @@ if (menosMovimento || !("IntersectionObserver" in window)) {
   elementosRevelar.forEach((el) => observadorRevelar.observe(el));
 }
 
-/* ---------- 5. Formulário só visual ---------- */
+/* ---------- 5. Formulários ---------- */
+// Ainda não há servidor nem conta da ONG: os formulários só confirmam
+// o interesse na tela, sem enviar dados nem cobrar nada.
 const form = document.getElementById("formAjuda");
 const aviso = document.getElementById("formAviso");
 
 form.addEventListener("submit", (e) => {
-  e.preventDefault(); // não envia para lugar nenhum
+  e.preventDefault();
 
   const campos = form.querySelectorAll("input, select");
   let valido = true;
@@ -112,7 +114,30 @@ form.addEventListener("submit", (e) => {
   }
 
   const nome = form.nome.value.trim().split(" ")[0];
-  aviso.textContent = `Obrigado, ${nome}! Este é um projeto escolar, então nada foi enviado — mas a intenção conta muito.`;
+  aviso.textContent = `Obrigado, ${nome}! Assim que abrirmos as inscrições, entraremos em contato.`;
   aviso.classList.remove("erro");
   form.reset();
+});
+
+// Formulário de doação
+const formDoar = document.getElementById("formDoar");
+const doarAviso = document.getElementById("doarAviso");
+
+formDoar.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const valor = formDoar.querySelector('input[name="valor"]:checked');
+  const grupoValores = formDoar.querySelector(".opcoes--valores");
+  grupoValores.classList.toggle("invalido", !valor);
+
+  if (!valor) {
+    doarAviso.textContent = "Escolha um valor para continuar.";
+    doarAviso.classList.add("erro");
+    return;
+  }
+
+  const tipo = formDoar.querySelector('input[name="tipo"]:checked').value;
+  const quando = tipo === "mensal" ? " por mês" : "";
+  doarAviso.textContent = `Obrigado por querer doar R$ ${valor.value}${quando}! Nenhum valor foi cobrado: avisaremos aqui quando as doações estiverem abertas.`;
+  doarAviso.classList.remove("erro");
 });

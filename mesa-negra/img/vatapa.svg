@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <!-- Ilustração: tigela de vatapá -->
+  <rect width="400" height="300" fill="#3f7d3a"/>
+  <rect y="250" width="400" height="12" fill="#e0a526"/><rect y="262" width="400" height="6" fill="#3b2416"/><rect y="268" width="400" height="12" fill="#c0582f"/>
+  <circle cx="200" cy="145" r="112" fill="#7a4a2a"/>
+  <circle cx="200" cy="145" r="100" fill="#9a6038"/>
+  <circle cx="200" cy="145" r="88" fill="#efb04a"/>
+  <!-- redemoinho cremoso -->
+  <path d="M200 145m-60 0a60 60 0 1 0 60-60a45 45 0 1 1-45 45a30 30 0 1 0 30-30" stroke="#f6c868" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <!-- camarões -->
+  <path d="M150 110c10-16 32-16 38 0" stroke="#e8673b" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <path d="M212 180c10-16 32-16 38 0" stroke="#e8673b" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <!-- coentro -->
+  <g fill="#3f7d3a"><ellipse cx="240" cy="110" rx="9" ry="5" transform="rotate(-30 240 110)"/><ellipse cx="252" cy="118" rx="8" ry="4.5" transform="rotate(20 252 118)"/><ellipse cx="160" cy="176" rx="9" ry="5" transform="rotate(30 160 176)"/></g>
+  <!-- fio de dendê -->
+  <path d="M175 140c10 6 30 6 40-2" stroke="#d24a12" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/>
+</svg>

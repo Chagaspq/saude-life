@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesa Negra — Comida é direito, cultura e memória</title>
-  <meta name="description" content="Mesa Negra: ONG fictícia (projeto escolar) que combate a insegurança alimentar da população negra no Brasil e valoriza a culinária afro-brasileira.">
+  <meta name="description" content="Mesa Negra: organização da sociedade civil que combate a insegurança alimentar da população negra no Brasil e valoriza a culinária afro-brasileira.">
 
   <!-- Fontes: Poppins (títulos) e Inter (texto) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,14 +32,15 @@
 
       <nav class="menu" id="menu" aria-label="Navegação principal">
         <ul>
-          <li><a href="#inicio">Início</a></li>
           <li><a href="#problema">O problema</a></li>
           <li><a href="#quem-somos">Quem somos</a></li>
           <li><a href="#o-que-fazemos">O que fazemos</a></li>
-          <li><a href="#cultura">Cultura na mesa</a></li>
-          <li><a href="#como-funciona">Como funciona</a></li>
-          <li><a href="#ajudar" class="menu__cta">Como ajudar</a></li>
+          <li><a href="#cultura">Cultura</a></li>
+          <li><a href="#do-zero">Do zero</a></li>
+          <li><a href="#dinheiro">Transparência</a></li>
+          <li><a href="#ajudar">Como ajudar</a></li>
           <li><a href="#equipe">Equipe</a></li>
+          <li><a href="#doar" class="menu__cta">Doar</a></li>
         </ul>
       </nav>
     </div>
@@ -54,26 +55,24 @@
     <section class="hero" id="inicio">
       <div class="container hero__inner">
         <div class="hero__texto revelar">
-          <p class="selo">ONG · Projeto escolar</p>
+          <p class="selo">Organização sem fins lucrativos</p>
           <h1 class="hero__titulo">Mesa <span>Negra</span></h1>
           <p class="hero__slogan">Comida é direito, cultura e memória.</p>
           <p class="hero__desc">
-            Combatemos a insegurança alimentar da população negra no Brasil e
-            celebramos a culinária afro-brasileira — porque ninguém deveria ter
-            fome, e toda mesa carrega uma história.
+            Servimos um prato bom de verdade — saboroso, nutritivo e cheio de
+            história — para quem mais sofre com a fome no Brasil: a população negra.
+            Nosso foco é ela, mas nossa mesa nunca vai fechar a porta para ninguém.
           </p>
           <div class="hero__acoes">
             <a href="#problema" class="btn btn--primario">Conheça o projeto</a>
-            <a href="#ajudar" class="btn btn--contorno">Quero ajudar</a>
+            <a href="#doar" class="btn btn--contorno">Quero doar</a>
           </div>
         </div>
 
-        <!-- Imagem placeholder: troque o <div> por <img src="..." alt="..."> -->
+        <!-- Ilustração da mesa: para usar uma foto, troque o src e o alt -->
         <figure class="hero__imagem revelar">
-          <div class="placeholder placeholder--hero" role="img"
-               aria-label="Foto: família negra reunida em volta de uma mesa farta, sorrindo e compartilhando uma refeição">
-            <span>Foto: família reunida à mesa</span>
-          </div>
+          <img class="hero__foto" src="img/mesa.svg" width="600" height="510"
+               alt="Ilustração de uma mesa farta vista de cima, com feijoada, arroz, couve, acarajé, vatapá e mungunzá servidos para várias pessoas">
         </figure>
       </div>
     </section>
@@ -83,7 +82,7 @@
 
     <!-- ========================================================
          2. O PROBLEMA
-         3 cards com dados — preencha os campos [DADO + FONTE]
+         3 cards com dados do II VIGISAN (Rede PENSSAN, 2022)
          ======================================================== -->
     <section class="secao" id="problema">
       <div class="container">
@@ -101,23 +100,23 @@
         <div class="grade grade--3">
           <!-- Card de dado 1 -->
           <article class="card card--dado revelar">
-            <p class="dado__numero">[DADO]</p>
-            <p class="dado__texto">dos lares chefiados por pessoas negras vivem algum nível de insegurança alimentar.</p>
-            <p class="dado__fonte">Fonte: [FONTE]</p>
+            <p class="dado__numero">65%</p>
+            <p class="dado__texto">dos lares chefiados por pessoas pretas ou pardas convivem com algum nível de insegurança alimentar.</p>
+            <p class="dado__fonte">Fonte: II VIGISAN – Rede PENSSAN, 2022</p>
           </article>
 
           <!-- Card de dado 2 -->
           <article class="card card--dado revelar">
-            <p class="dado__numero">[DADO]</p>
-            <p class="dado__texto">das pessoas em situação de fome no Brasil são negras (pretas e pardas).</p>
-            <p class="dado__fonte">Fonte: [FONTE]</p>
+            <p class="dado__numero">18,1%</p>
+            <p class="dado__texto">dos lares chefiados por pessoas pretas ou pardas passam fome — contra 10,6% dos lares chefiados por pessoas brancas.</p>
+            <p class="dado__fonte">Fonte: II VIGISAN – Rede PENSSAN, 2022</p>
           </article>
 
           <!-- Card de dado 3 -->
           <article class="card card--dado revelar">
-            <p class="dado__numero">[DADO]</p>
-            <p class="dado__texto">é a diferença de insegurança alimentar grave entre lares chefiados por mulheres negras e por homens brancos.</p>
-            <p class="dado__fonte">Fonte: [FONTE]</p>
+            <p class="dado__numero">33 milhões</p>
+            <p class="dado__texto">de brasileiros passavam fome em 2022 — e a maioria vive em lares chefiados por pessoas negras.</p>
+            <p class="dado__fonte">Fonte: II VIGISAN – Rede PENSSAN, 2022</p>
           </article>
         </div>
       </div>
@@ -155,6 +154,28 @@
               <li>Alimentação saudável e sustentável</li>
             </ul>
           </article>
+        </div>
+
+        <!-- Nossa ideia e público: explica o foco sem excluir ninguém -->
+        <div class="ideia revelar">
+          <div class="ideia__bloco">
+            <h3>Nossa ideia, em uma frase</h3>
+            <p>
+              Não queremos só "dar comida": queremos servir <strong>um prato bom e
+              melhorado</strong> — com ingredientes frescos, equilíbrio nutricional
+              e o sabor da culinária afro-brasileira — o mesmo prato que a gente
+              serviria para a nossa própria família.
+            </p>
+          </div>
+          <div class="ideia__bloco">
+            <h3>Para quem é?</h3>
+            <p>
+              Nosso <strong>foco é a população negra</strong>, porque os dados
+              mostram que ela é a mais atingida pela fome no país. Isso não
+              significa excluir ninguém: <strong>quem chegar com fome vai comer</strong>.
+              Focar é escolher onde começar, não fechar a porta.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -231,10 +252,8 @@
         <div class="grade grade--4">
           <!-- Prato 1 -->
           <article class="card card--prato revelar">
-            <div class="placeholder placeholder--prato" role="img"
-                 aria-label="Foto: acarajés dourados abertos e recheados com vatapá, camarão seco e vinagrete, servidos em um tabuleiro">
-              <span>Foto: acarajé</span>
-            </div>
+            <img class="prato__foto" src="img/acaraje.svg" width="400" height="300" loading="lazy"
+                 alt="Ilustração: acarajés dourados abertos e recheados com vatapá, camarão seco e vinagrete, servidos em um tabuleiro">
             <div class="prato__corpo">
               <h3>Acarajé</h3>
               <p class="prato__origem">Origem: Bahia, com raízes iorubás (África Ocidental)</p>
@@ -244,10 +263,8 @@
 
           <!-- Prato 2 -->
           <article class="card card--prato revelar">
-            <div class="placeholder placeholder--prato" role="img"
-                 aria-label="Foto: tigela de vatapá cremoso e alaranjado, feito com pão, leite de coco, amendoim e azeite de dendê">
-              <span>Foto: vatapá</span>
-            </div>
+            <img class="prato__foto" src="img/vatapa.svg" width="400" height="300" loading="lazy"
+                 alt="Ilustração: tigela de vatapá cremoso e alaranjado, feito com pão, leite de coco, amendoim e azeite de dendê">
             <div class="prato__corpo">
               <h3>Vatapá</h3>
               <p class="prato__origem">Origem: Bahia e Pará, influência africana</p>
@@ -257,10 +274,8 @@
 
           <!-- Prato 3 -->
           <article class="card card--prato revelar">
-            <div class="placeholder placeholder--prato" role="img"
-                 aria-label="Foto: panela de barro com feijoada, acompanhada de arroz, couve refogada, farofa e laranja">
-              <span>Foto: feijoada</span>
-            </div>
+            <img class="prato__foto" src="img/feijoada.svg" width="400" height="300" loading="lazy"
+                 alt="Ilustração: panela de barro com feijoada, acompanhada de arroz, couve refogada, farofa e laranja">
             <div class="prato__corpo">
               <h3>Feijoada</h3>
               <p class="prato__origem">Origem: Brasil, com saberes africanos e europeus</p>
@@ -270,10 +285,8 @@
 
           <!-- Prato 4 -->
           <article class="card card--prato revelar">
-            <div class="placeholder placeholder--prato" role="img"
-                 aria-label="Foto: tigela de mungunzá doce, com grãos de milho branco, leite de coco, canela e cravo">
-              <span>Foto: mungunzá</span>
-            </div>
+            <img class="prato__foto" src="img/mungunza.svg" width="400" height="300" loading="lazy"
+                 alt="Ilustração: tigela de mungunzá doce, com grãos de milho branco, leite de coco, canela e cravo">
             <div class="prato__corpo">
               <h3>Mungunzá</h3>
               <p class="prato__origem">Origem: Nordeste, nome de origem quimbundo (Angola)</p>
@@ -328,10 +341,233 @@
       </div>
     </section>
 
+    <!-- ========================================================
+         7. DO ZERO: COMO O PROJETO VAI ACONTECER
+         Plano em fases, do planejamento até crescer
+         ======================================================== -->
+    <section class="secao secao--creme" id="do-zero">
+      <div class="container">
+        <header class="secao__cabecalho revelar">
+          <p class="secao__rotulo">Do zero</p>
+          <h2>Como vamos tirar a Mesa Negra do papel</h2>
+          <p class="secao__intro">
+            Hoje a Mesa Negra ainda é uma ideia. Este é o nosso plano, passo a passo,
+            para transformar ela em realidade. Os prazos são estimativas — vamos
+            atualizar aqui conforme cada etapa for acontecendo.
+          </p>
+        </header>
+
+        <ol class="fases">
+          <li class="fase revelar">
+            <div class="fase__topo">
+              <span class="fase__num">Fase 1</span>
+              <span class="fase__prazo">Meses 1 e 2</span>
+            </div>
+            <h3>Planejar e escutar</h3>
+            <p>Pesquisar os bairros onde a fome é maior, conversar com lideranças comunitárias, terreiros, igrejas e escolas, e entender o que as famílias realmente precisam.</p>
+            <p class="fase__precisa"><strong>Do que precisamos:</strong> tempo, conversa e organização. Custo quase zero.</p>
+          </li>
+
+          <li class="fase revelar">
+            <div class="fase__topo">
+              <span class="fase__num">Fase 2</span>
+              <span class="fase__prazo">Meses 2 a 4</span>
+            </div>
+            <h3>Formalizar a ONG</h3>
+            <p>Registrar a Mesa Negra como associação sem fins lucrativos (estatuto, ata e CNPJ) e abrir uma conta bancária só da ONG, para que nenhum real se misture com dinheiro pessoal.</p>
+            <p class="fase__precisa"><strong>Do que precisamos:</strong> taxas de cartório e ajuda de um(a) contador(a) ou advogado(a) voluntário(a).</p>
+          </li>
+
+          <li class="fase revelar">
+            <div class="fase__topo">
+              <span class="fase__num">Fase 3</span>
+              <span class="fase__prazo">Meses 4 a 6</span>
+            </div>
+            <h3>Cozinha piloto</h3>
+            <p>Começar pequeno: usar uma cozinha emprestada (de associação de bairro, igreja, terreiro ou escola), 1 dia por semana, servindo cerca de 100 pratos. Montar o cardápio com ajuda de nutricionista.</p>
+            <p class="fase__precisa"><strong>Do que precisamos:</strong> alimentos, gás, embalagens, voluntários na cozinha.</p>
+          </li>
+
+          <li class="fase revelar">
+            <div class="fase__topo">
+              <span class="fase__num">Fase 4</span>
+              <span class="fase__prazo">A partir do mês 6</span>
+            </div>
+            <h3>Crescer com responsabilidade</h3>
+            <p>Mais dias de cozinha, horta comunitária, oficinas de culinária e compra direta de agricultores negros e quilombolas. Só damos o próximo passo quando o anterior estiver funcionando bem.</p>
+            <p class="fase__precisa"><strong>Do que precisamos:</strong> doações mensais, parcerias fixas e um espaço próprio no futuro.</p>
+          </li>
+        </ol>
+
+        <!-- Sinceridade: o que ainda falta -->
+        <div class="aviso-sincero revelar">
+          <h3>O que a gente ainda não tem (e está buscando)</h3>
+          <ul>
+            <li>Cozinha própria — por enquanto, vamos pedir uma emprestada.</li>
+            <li>CNPJ — está na Fase 2 do plano.</li>
+            <li>Nutricionista, contador(a) e cozinheiros(as) voluntários.</li>
+            <li>Parceiros fixos que doem alimentos todo mês.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         8. DINHEIRO E TRANSPARÊNCIA
+         De onde vem, para onde vai e nossos compromissos
+         ======================================================== -->
+    <section class="secao" id="dinheiro">
+      <div class="container">
+        <header class="secao__cabecalho revelar">
+          <p class="secao__rotulo">Transparência</p>
+          <h2>Dinheiro: de onde vem e para onde vai</h2>
+          <p class="secao__intro">
+            Quem doa merece saber exatamente o que acontece com cada real.
+            Aqui está, sem rodeios.
+          </p>
+        </header>
+
+        <h3 class="subtitulo revelar">De onde vem o dinheiro</h3>
+        <div class="grade grade--3 grade--fontes">
+          <article class="card card--fonte revelar">
+            <h4>Doações de pessoas</h4>
+            <p>Pix e doação mensal. A doação mensal é a mais importante, porque deixa a gente planejar as compras do mês.</p>
+          </article>
+          <article class="card card--fonte revelar">
+            <h4>Feijoadas solidárias</h4>
+            <p>Vendemos pratos em eventos: quem pode pagar compra o seu e ajuda a pagar o prato de quem não pode.</p>
+          </article>
+          <article class="card card--fonte revelar">
+            <h4>Comércio do bairro</h4>
+            <p>Mercados, padarias e feirantes doando alimentos ou dando desconto nas compras da ONG.</p>
+          </article>
+          <article class="card card--fonte revelar">
+            <h4>Editais e prêmios</h4>
+            <p>Inscrever o projeto em editais públicos e de empresas voltados a segurança alimentar e cultura negra.</p>
+          </article>
+          <article class="card card--fonte revelar">
+            <h4>Bazares e rifas</h4>
+            <p>Com roupas e prêmios doados. Todo o valor arrecadado vai para a cozinha.</p>
+          </article>
+          <article class="card card--fonte revelar">
+            <h4>Doação de alimentos</h4>
+            <p>Alimento doado vira prato. Nunca vendemos o que recebemos como doação.</p>
+          </article>
+        </div>
+
+        <!-- Gráfico de barras feito só com CSS (valores estimados) -->
+        <div class="destino revelar">
+          <h3>Para onde vai cada R$ 100 doados</h3>
+          <ul class="barras">
+            <li>
+              <span class="barras__rotulo">Alimentos</span>
+              <span class="barras__trilho"><span class="barras__valor" style="--v: 65%"></span></span>
+              <span class="barras__num">R$ 65</span>
+            </li>
+            <li>
+              <span class="barras__rotulo">Gás, cozinha e transporte</span>
+              <span class="barras__trilho"><span class="barras__valor barras__valor--dourado" style="--v: 15%"></span></span>
+              <span class="barras__num">R$ 15</span>
+            </li>
+            <li>
+              <span class="barras__rotulo">Hortas e oficinas</span>
+              <span class="barras__trilho"><span class="barras__valor barras__valor--verde" style="--v: 10%"></span></span>
+              <span class="barras__num">R$ 10</span>
+            </li>
+            <li>
+              <span class="barras__rotulo">Organização (taxas, contador, materiais)</span>
+              <span class="barras__trilho"><span class="barras__valor barras__valor--cafe" style="--v: 10%"></span></span>
+              <span class="barras__num">R$ 10</span>
+            </li>
+          </ul>
+          <p class="destino__nota">
+            * Isto é uma <strong>meta</strong>, não um resultado. Quando a cozinha
+            começar, vamos trocar por números reais e explicar qualquer diferença.
+          </p>
+        </div>
+
+        <h3 class="subtitulo revelar">Nossos compromissos com quem doa</h3>
+        <div class="grade grade--3">
+          <article class="card card--compromisso revelar">
+            <h4>Prestação de contas todo mês</h4>
+            <p>Publicamos quanto entrou, quanto saiu e com o quê — com as notas fiscais.</p>
+          </article>
+          <article class="card card--compromisso revelar">
+            <h4>Ninguém do grupo recebe salário</h4>
+            <p>Somos voluntários. O dinheiro doado é para o projeto, não para nós.</p>
+          </article>
+          <article class="card card--compromisso revelar">
+            <h4>Sem promessas que não podemos cumprir</h4>
+            <p>Estamos começando. Vamos mostrar o que já fizemos, não o que gostaríamos de ter feito.</p>
+          </article>
+          <article class="card card--compromisso revelar">
+            <h4>Dignidade acima de tudo</h4>
+            <p>Não publicamos fotos de quem recebe comida sem autorização e não usamos a fome como espetáculo.</p>
+          </article>
+          <article class="card card--compromisso revelar">
+            <h4>Se der errado, a gente conta</h4>
+            <p>Atrasos, mudanças de plano ou erros serão explicados aqui, com clareza.</p>
+          </article>
+          <article class="card card--compromisso revelar">
+            <h4>Doação no lugar certo</h4>
+            <p>Se você doar para algo específico (ex.: horta), o valor vai para isso.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         9. DOAR
+         Formulário de doação (doações online ainda não ativas)
+         ======================================================== -->
+    <section class="secao secao--escura" id="doar">
+      <div class="container doar">
+        <div class="doar__texto revelar">
+          <p class="secao__rotulo">Doar</p>
+          <h2>Ajude a encher um prato</h2>
+          <p>
+            Cada doação vira comida de verdade na mesa de uma família.
+            Estimamos que um prato completo custe cerca de <strong>R$ 8</strong>
+            — vamos confirmar esse número na cozinha piloto.
+          </p>
+          <ul class="doar__lista">
+            <li><strong>R$ 10</strong> · ajuda a comprar os ingredientes de um prato</li>
+            <li><strong>R$ 25</strong> · cerca de 3 pratos</li>
+            <li><strong>R$ 50</strong> · cerca de 6 pratos</li>
+            <li><strong>R$ 100</strong> · um dia de gás e transporte da cozinha</li>
+          </ul>
+        </div>
+
+        <form class="form-doar revelar" id="formDoar" novalidate>
+          <fieldset class="opcoes">
+            <legend>Tipo de doação</legend>
+            <label class="opcao"><input type="radio" name="tipo" value="única" checked><span>Uma vez</span></label>
+            <label class="opcao"><input type="radio" name="tipo" value="mensal"><span>Todo mês</span></label>
+          </fieldset>
+
+          <fieldset class="opcoes opcoes--valores">
+            <legend>Valor</legend>
+            <label class="opcao"><input type="radio" name="valor" value="10" required><span>R$ 10</span></label>
+            <label class="opcao"><input type="radio" name="valor" value="25"><span>R$ 25</span></label>
+            <label class="opcao"><input type="radio" name="valor" value="50"><span>R$ 50</span></label>
+            <label class="opcao"><input type="radio" name="valor" value="100"><span>R$ 100</span></label>
+          </fieldset>
+
+          <button type="submit" class="btn btn--primario btn--largo">Doar agora</button>
+
+          <p class="form-doar__pix">Chave Pix: <strong>será publicada aqui assim que a conta da ONG for aberta</strong></p>
+          <p class="form-doar__aviso">
+            <strong>As doações online ainda não estão abertas.</strong> Só vamos receber dinheiro quando a ONG tiver CNPJ e conta bancária própria. Deixe seu interesse e avisamos você.
+          </p>
+          <p class="formulario__aviso" id="doarAviso" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
     <div class="faixa-kente" aria-hidden="true"></div>
 
     <!-- ========================================================
-         7. COMO AJUDAR
+         10. COMO AJUDAR
          3 cards + formulário (apenas visual, não envia nada)
          ======================================================== -->
     <section class="secao secao--creme" id="ajudar">
@@ -347,7 +583,7 @@
               <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z"/></svg>
             </div>
             <h3>Doe alimentos</h3>
-            <p>Arroz, feijão, fubá, óleo, leite e itens de higiene. Toda doação faz diferença.</p>
+            <p>Arroz, feijão, fubá, óleo, leite e itens de higiene. Prefere doar dinheiro? <a href="#doar">Veja como doar</a>.</p>
           </article>
 
           <article class="card card--ajuda revelar">
@@ -396,49 +632,64 @@
     </section>
 
     <!-- ========================================================
-         8. EQUIPE
-         Troque os nomes, turmas, funções e fotos do grupo
+         11. EQUIPE
+         Áreas de trabalho da ONG. Para mostrar pessoas, coloque o
+         nome de quem cuida de cada área no <p class="membro__funcao">
          ======================================================== -->
     <section class="secao" id="equipe">
       <div class="container">
         <header class="secao__cabecalho revelar">
           <p class="secao__rotulo">Equipe</p>
-          <h2>Quem está por trás da Mesa Negra</h2>
+          <h2>Quem faz a Mesa Negra acontecer</h2>
+          <p class="secao__intro">
+            Somos uma equipe voluntária dividida em quatro frentes. Cada uma tem
+            responsáveis, metas e presta contas para as outras.
+          </p>
         </header>
 
         <div class="grade grade--4">
           <article class="card card--membro revelar">
-            <div class="placeholder placeholder--avatar" role="img" aria-label="Foto do(a) integrante 1 do grupo"><span>Foto</span></div>
-            <h3>[Nome do integrante]</h3>
-            <p class="membro__turma">Turma [___]</p>
-            <p class="membro__funcao">[Função no projeto]</p>
+            <div class="avatar avatar--terracota" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/><path d="m9 14 3 3 3-3"/></svg>
+            </div>
+            <h3>Coordenação</h3>
+            <p>Organiza o plano, as parcerias e garante que cada fase saia do papel.</p>
+            <p class="membro__funcao">Gestão e parcerias</p>
           </article>
           <article class="card card--membro revelar">
-            <div class="placeholder placeholder--avatar" role="img" aria-label="Foto do(a) integrante 2 do grupo"><span>Foto</span></div>
-            <h3>[Nome do integrante]</h3>
-            <p class="membro__turma">Turma [___]</p>
-            <p class="membro__funcao">[Função no projeto]</p>
+            <div class="avatar avatar--dourado" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M6 13a6 6 0 1 1 12 0v1H6v-1Z"/><path d="M4 17h16"/><path d="M12 4v3"/><path d="M8 20h8"/></svg>
+            </div>
+            <h3>Cozinha</h3>
+            <p>Monta o cardápio, prepara os pratos e cuida da qualidade e da higiene.</p>
+            <p class="membro__funcao">Cardápio e preparo</p>
           </article>
           <article class="card card--membro revelar">
-            <div class="placeholder placeholder--avatar" role="img" aria-label="Foto do(a) integrante 3 do grupo"><span>Foto</span></div>
-            <h3>[Nome do integrante]</h3>
-            <p class="membro__turma">Turma [___]</p>
-            <p class="membro__funcao">[Função no projeto]</p>
+            <div class="avatar avatar--verde" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/></svg>
+            </div>
+            <h3>Finanças</h3>
+            <p>Cuida das doações, das compras e publica a prestação de contas todo mês.</p>
+            <p class="membro__funcao">Arrecadação e contas</p>
           </article>
           <article class="card card--membro revelar">
-            <div class="placeholder placeholder--avatar" role="img" aria-label="Foto do(a) integrante 4 do grupo"><span>Foto</span></div>
-            <h3>[Nome do integrante]</h3>
-            <p class="membro__turma">Turma [___]</p>
-            <p class="membro__funcao">[Função no projeto]</p>
+            <div class="avatar avatar--cafe" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 11v2a1 1 0 0 0 1 1h2l5 4V6L7 10H5a1 1 0 0 0-1 1Z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+            </div>
+            <h3>Comunicação</h3>
+            <p>Conta nossa história nas redes, com respeito e sem expor quem atendemos.</p>
+            <p class="membro__funcao">Redes e relacionamento</p>
           </article>
         </div>
+
+        <p class="equipe__convite revelar">Quer fazer parte de uma dessas frentes? <a href="#ajudar">Seja voluntário</a>.</p>
       </div>
     </section>
 
   </main>
 
   <!-- ========================================================
-       9. RODAPÉ
+       12. RODAPÉ
        ======================================================== -->
   <footer class="rodape">
     <div class="faixa-kente" aria-hidden="true"></div>
@@ -451,8 +702,8 @@
         <p class="rodape__slogan">Comida é direito, cultura e memória.</p>
       </div>
 
-      <!-- Redes sociais fictícias -->
-      <ul class="redes" aria-label="Redes sociais (fictícias)">
+      <!-- Redes sociais (troque o "#" pelos links reais) -->
+      <ul class="redes" aria-label="Redes sociais">
         <li><a href="#" aria-label="Instagram @mesanegra">
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8"/></svg>
         </a></li>
@@ -464,7 +715,7 @@
         </a></li>
       </ul>
     </div>
-    <p class="rodape__credito">Projeto escolar – [nome da escola], 2026 · ONG fictícia</p>
+    <p class="rodape__credito">© 2026 Mesa Negra · Organização sem fins lucrativos em formação</p>
   </footer>
 
   <script src="script.js"></script>
