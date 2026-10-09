@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--cafe:#3b2416;--terracota:#c0582f;--dourado:#e0a526;--verde:#3f7d3a;--creme:#faf3e6;--creme2:#f2e6d1;--branco:#fffdf8}
+*{box-sizing:border-box;margin:0}
+html,body{width:1280px;height:720px;overflow:hidden;background:var(--creme);font-family:Inter,sans-serif;color:var(--cafe)}
+h1,h2,h3,.p{font-family:Poppins,sans-serif}
+.cena{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 90px 150px;opacity:0;text-align:center}
+.escura{background:var(--cafe);color:var(--creme)}
+.creme2{background:var(--creme2)}
+.kente{position:absolute;left:0;right:0;height:16px;background:repeating-linear-gradient(90deg,var(--dourado) 0 32px,var(--cafe) 32px 38px,var(--verde) 38px 70px,var(--cafe) 70px 76px,var(--terracota) 76px 108px,var(--cafe) 108px 114px)}
+.topo{top:0}.base{bottom:0}
+.rot{color:var(--terracota);font:700 18px Poppins;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
+.escura .rot{color:var(--dourado)}
+h2{font-size:54px;line-height:1.1;margin-bottom:28px}
+.marca{width:90px;height:90px;border-radius:22px;transform:rotate(45deg);background:conic-gradient(var(--terracota) 0 25%,var(--dourado) 0 50%,var(--verde) 0 75%,var(--cafe) 0);box-shadow:inset 0 0 0 10px var(--creme);margin-bottom:40px}
+.escura .marca{box-shadow:inset 0 0 0 10px var(--cafe)}
+.logo{font:800 120px/1 Poppins;letter-spacing:-.02em}.logo span{color:var(--terracota)}
+.escura .logo span{color:var(--dourado)}
+.slogan{font:600 34px Poppins;color:var(--verde);margin-top:18px}
+.escura .slogan{color:var(--dourado)}
+.linha{display:flex;gap:28px;justify-content:center;width:100%}
+.card{background:var(--branco);border-radius:22px;padding:28px;box-shadow:0 14px 34px rgba(59,36,22,.14);flex:1;text-align:left}
+.num{font:800 64px/1 Poppins;color:var(--terracota);margin-bottom:12px}
+.card p{font-size:20px;line-height:1.45;color:#6b5242}
+.card h3{font-size:26px;margin:12px 0 6px}
+.c2{border-top:8px solid var(--dourado)}.c1{border-top:8px solid var(--terracota)}.c3{border-top:8px solid var(--verde)}
+.fonte{font-size:16px!important;font-style:italic;margin-top:10px}
+.grande{font:700 44px/1.25 Poppins;max-width:1000px}
+.grande b{color:var(--terracota)}
+.escura .grande b{color:var(--dourado)}
+.selo{display:inline-block;margin-top:30px;padding:14px 28px;border-radius:999px;background:var(--verde);color:#fff;font:600 24px Poppins}
+.ic{width:84px;height:84px;border-radius:22px;display:grid;place-items:center}
+.ic svg{width:44px;height:44px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.t{background:rgba(192,88,47,.14);color:var(--terracota)}.v{background:rgba(63,125,58,.14);color:var(--verde)}.d{background:rgba(224,165,38,.2);color:#a56f00}.k{background:rgba(59,36,22,.1);color:var(--cafe)}
+.prato{flex:1;border-radius:22px;overflow:hidden;background:var(--branco);box-shadow:0 14px 34px rgba(59,36,22,.14)}
+.prato img{width:100%;display:block}.prato h3{font-size:28px;color:var(--terracota);padding:16px}
+.fase{flex:1;background:var(--branco);border-radius:22px;padding:24px;text-align:left;box-shadow:0 14px 34px rgba(59,36,22,.14);border-bottom:8px solid var(--terracota)}
+.fase:nth-child(2){border-color:var(--dourado)}.fase:nth-child(3){border-color:var(--verde)}.fase:nth-child(4){border-color:var(--cafe)}
+.fase .p{font-weight:800;color:var(--terracota);letter-spacing:.08em;font-size:16px}
+.fase h3{font-size:26px;margin-top:8px}
+.barras{width:900px;display:grid;gap:22px;text-align:left}
+.barra{display:grid;grid-template-columns:300px 1fr 90px;align-items:center;gap:18px;font:600 22px Inter}
+.trilho{height:22px;border-radius:99px;background:var(--creme2);overflow:hidden}
+.val{height:100%;border-radius:99px;width:0}
+.barra b{font:700 26px Poppins;text-align:right}
+.lista{display:grid;gap:18px;text-align:left}
+.item{display:flex;align-items:center;gap:20px;font:600 32px Poppins;background:rgba(255,253,248,.07);border:1px solid rgba(255,253,248,.15);padding:20px 30px;border-radius:18px}
+.item i{width:18px;height:30px;border:solid var(--dourado);border-width:0 5px 5px 0;transform:rotate(45deg);margin:0 10px -6px 6px}
+.legenda{position:absolute;left:50%;bottom:44px;transform:translateX(-50%);width:1100px;text-align:center;font:500 25px/1.4 Inter;color:#fff;background:rgba(42,25,15,.86);padding:14px 26px;border-radius:14px;opacity:0}
+</style></head><body>
+
+<!-- 1 Abertura -->
+<section class="cena escura"><div class="kente topo"></div>
+ <div class="marca a"></div><div class="logo a">Mesa <span>Negra</span></div>
+ <div class="slogan a">Comida é direito, cultura e memória.</div><div class="kente base"></div></section>
+
+<!-- 2 Problema -->
+<section class="cena"><p class="rot a">O problema</p><h2 class="a">A fome no Brasil tem cor</h2>
+ <div class="linha">
+  <div class="card c1 a"><div class="num">65%</div><p>dos lares chefiados por pessoas negras convivem com insegurança alimentar</p></div>
+  <div class="card c2 a"><div class="num">18,1%</div><p>desses lares passam fome — contra 10,6% dos lares chefiados por pessoas brancas</p></div>
+  <div class="card c3 a"><div class="num">33 mi</div><p>de brasileiros passavam fome em 2022</p></div>
+ </div><p class="a" style="margin-top:22px;font-style:italic;color:#6b5242">Fonte: II VIGISAN – Rede PENSSAN, 2022</p></section>
+
+<!-- 3 Ideia -->
+<section class="cena escura"><p class="rot a">Nossa ideia</p>
+ <p class="grande a">Servir um <b>prato bom de verdade</b>: saboroso, nutritivo e cheio de história.</p>
+ <div class="selo a">Foco na população negra · portas abertas para todos</div></section>
+
+<!-- 4 O que fazemos -->
+<section class="cena"><p class="rot a">O que fazemos</p><h2 class="a">Nossas frentes de ação</h2>
+ <div class="linha">
+  <div class="card a"><div class="ic t"><svg viewBox="0 0 24 24"><path d="M3 10h18l-2 10H5L3 10Z"/><path d="M8 10 12 4l4 6"/><path d="M9 14v3M12 14v3M15 14v3"/></svg></div><h3>Refeições e cestas</h3><p>nas comunidades</p></div>
+  <div class="card a"><div class="ic v"><svg viewBox="0 0 24 24"><path d="M12 21V11"/><path d="M12 11c0-4 3-7 8-7 0 5-3 7-8 7Z"/><path d="M12 14c0-3-2.5-5.5-7-5.5 0 4 2.5 5.5 7 5.5Z"/><path d="M4 21h16"/></svg></div><h3>Hortas</h3><p>e agricultores quilombolas</p></div>
+  <div class="card a"><div class="ic d"><svg viewBox="0 0 24 24"><path d="M6 13a6 6 0 1 1 12 0v1H6v-1Z"/><path d="M4 17h16"/><path d="M12 4v3"/><path d="M8 20h8"/></svg></div><h3>Oficinas</h3><p>de culinária e nutrição</p></div>
+  <div class="card a"><div class="ic k"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2V5Z"/><path d="M4 19a2 2 0 0 1 2-2h12"/><path d="M9 8h5M9 11h4"/></svg></div><h3>Receitas</h3><p>e saberes tradicionais</p></div>
+ </div></section>
+
+<!-- 5 Cultura -->
+<section class="cena creme2"><p class="rot a">Cultura na mesa</p><h2 class="a">Sabores que contam a nossa história</h2>
+ <div class="linha">
+  <div class="prato a"><img src="../img/acaraje.svg"><h3>Acarajé</h3></div>
+  <div class="prato a"><img src="../img/vatapa.svg"><h3>Vatapá</h3></div>
+  <div class="prato a"><img src="../img/feijoada.svg"><h3>Feijoada</h3></div>
+  <div class="prato a"><img src="../img/mungunza.svg"><h3>Mungunzá</h3></div>
+ </div></section>
+
+<!-- 6 Do zero -->
+<section class="cena"><p class="rot a">Do zero</p><h2 class="a">Como vamos tirar a ideia do papel</h2>
+ <div class="linha">
+  <div class="fase a"><div class="p">FASE 1</div><h3>Planejar e escutar</h3></div>
+  <div class="fase a"><div class="p">FASE 2</div><h3>Registrar a ONG</h3></div>
+  <div class="fase a"><div class="p">FASE 3</div><h3>Cozinha piloto</h3></div>
+  <div class="fase a"><div class="p">FASE 4</div><h3>Crescer com responsabilidade</h3></div>
+ </div></section>
+
+<!-- 7 Dinheiro -->
+<section class="cena"><p class="rot a">Transparência</p><h2 class="a">Para onde vai cada R$ 100</h2>
+ <div class="barras">
+  <div class="barra a"><span>Alimentos</span><div class="trilho"><div class="val" data-v="65" style="background:var(--terracota)"></div></div><b>R$ 65</b></div>
+  <div class="barra a"><span>Gás, cozinha e transporte</span><div class="trilho"><div class="val" data-v="15" style="background:var(--dourado)"></div></div><b>R$ 15</b></div>
+  <div class="barra a"><span>Hortas e oficinas</span><div class="trilho"><div class="val" data-v="10" style="background:var(--verde)"></div></div><b>R$ 10</b></div>
+  <div class="barra a"><span>Organização</span><div class="trilho"><div class="val" data-v="10" style="background:var(--cafe)"></div></div><b>R$ 10</b></div>
+ </div><p class="a" style="margin-top:22px;color:#6b5242;font-size:18px">* Meta estimada — será trocada por números reais</p></section>
+
+<!-- 8 Compromissos -->
+<section class="cena escura"><p class="rot a">Nosso compromisso</p>
+ <div class="lista">
+  <div class="item a"><i></i>Prestação de contas todo mês</div>
+  <div class="item a"><i></i>Nenhum salário para a equipe</div>
+  <div class="item a"><i></i>Dignidade de quem atendemos</div>
+ </div></section>
+
+<!-- 9 Como ajudar -->
+<section class="cena creme2"><p class="rot a">Como ajudar</p><h2 class="a">Puxe uma cadeira</h2>
+ <div class="linha">
+  <div class="card a"><div class="ic t"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z"/></svg></div><h3>Doe alimentos</h3></div>
+  <div class="card a"><div class="ic v"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M15 14.5c3 0 6 1.8 6 5.5"/></svg></div><h3>Seja voluntário</h3></div>
+  <div class="card a"><div class="ic d"><svg viewBox="0 0 24 24"><path d="M4 11v2a1 1 0 0 0 1 1h2l5 4V6L7 10H5a1 1 0 0 0-1 1Z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg></div><h3>Divulgue</h3></div>
+ </div></section>
+
+<!-- 10 Final -->
+<section class="cena escura"><div class="kente topo"></div>
+ <div class="marca a"></div><div class="logo a">Mesa <span>Negra</span></div>
+ <div class="slogan a">Puxe uma cadeira e venha com a gente.</div><div class="kente base"></div></section>
+
+<div class="legenda" id="leg"></div>
+
+<script>
+const CENAS = [
+ {
+  "inicio": 0.0,
+  "dur": 11.313,
+  "legenda": "Olá! Esta é a Mesa Negra, uma organização que combate a fome da população negra no Brasil e valoriza a culinária afro-brasileira."
+ },
+ {
+  "inicio": 11.313,
+  "dur": 17.585,
+  "legenda": "No Brasil, a fome tem cor: 65% dos lares chefiados por pessoas negras convivem com insegurança alimentar, e 18,1% passam fome — quase o dobro dos lares brancos."
+ },
+ {
+  "inicio": 28.899,
+  "dur": 11.484,
+  "legenda": "Nossa ideia: servir um prato bom de verdade. O foco é a população negra, mas a nossa mesa não fecha a porta para ninguém."
+ },
+ {
+  "inicio": 40.383,
+  "dur": 11.953,
+  "legenda": "Distribuímos refeições, apoiamos hortas e agricultores quilombolas, fazemos oficinas e resgatamos receitas tradicionais."
+ },
+ {
+  "inicio": 52.336,
+  "dur": 8.924,
+  "legenda": "Acarajé, vatapá, feijoada, mungunzá: a culinária afro-brasileira está na mesa de todo o país."
+ },
+ {
+  "inicio": 61.26,
+  "dur": 13.148,
+  "legenda": "Nosso plano do zero: planejar e escutar, registrar a ONG, abrir uma cozinha piloto e só depois crescer com responsabilidade."
+ },
+ {
+  "inicio": 74.408,
+  "dur": 11.548,
+  "legenda": "O dinheiro vem de doações, feijoadas solidárias, comércio do bairro e editais. Meta: de cada R$ 100, R$ 65 viram comida."
+ },
+ {
+  "inicio": 85.956,
+  "dur": 10.119,
+  "legenda": "Nosso compromisso: prestação de contas todo mês, nenhum salário para a equipe e respeito à dignidade de quem atendemos."
+ },
+ {
+  "inicio": 96.075,
+  "dur": 11.697,
+  "legenda": "Ajude doando alimentos, sendo voluntário ou divulgando. Doações em dinheiro abrem quando a ONG tiver CNPJ e conta própria."
+ },
+ {
+  "inicio": 107.772,
+  "dur": 6.471,
+  "legenda": "Mesa Negra. Comida é direito, cultura e memória. Puxe uma cadeira e venha com a gente."
+ }
+];
+const FADE = 500;
+const secs = document.querySelectorAll('.cena');
+const leg = document.getElementById('leg');
+window.TOTAL = CENAS.reduce((a,c)=>Math.max(a,c.inicio+c.dur),0)*1000;
+secs.forEach((s,i)=>{
+  const c = CENAS[i], ini = c.inicio*1000, dur = c.dur*1000;
+  // cena entra e sai com fade (a primeira já começa visível)
+  s.animate([{opacity:0},{opacity:1,offset:FADE/dur},{opacity:1,offset:1-FADE/dur},{opacity:i===secs.length-1?1:0}],
+    {duration:dur,delay:ini,fill:'both'}).pause();
+  // elementos aparecem um após o outro
+  s.querySelectorAll('.a').forEach((el,j)=>{
+    el.animate([{opacity:0,transform:(el.style.transform||'')+' translateY(30px)'},{opacity:1,transform:(el.style.transform||'')+' translateY(0)'}],
+      {duration:700,delay:ini+300+j*350,easing:'cubic-bezier(.2,.8,.2,1)',fill:'both'}).pause();
+  });
+  // marca da logo gira
+  s.querySelectorAll('.marca').forEach(el=>el.animate([{transform:'rotate(-135deg) scale(.4)'},{transform:'rotate(45deg) scale(1)'}],
+    {duration:1200,delay:ini+200,easing:'cubic-bezier(.2,.8,.2,1)',fill:'both'}).pause());
+  // barras crescem
+  s.querySelectorAll('.val').forEach((el,j)=>el.animate([{width:'0%'},{width:el.dataset.v+'%'}],
+    {duration:1200,delay:ini+1500+j*500,easing:'ease-out',fill:'both'}).pause());
+});
+window.setTempo = (ms)=>{
+  document.getAnimations().forEach(a=>{a.currentTime=ms});
+  const c = CENAS.find(c=>ms>=c.inicio*1000 && ms<(c.inicio+c.dur)*1000) || CENAS[CENAS.length-1];
+  leg.textContent = c.legenda;
+  const t = ms - c.inicio*1000, d = c.dur*1000;
+  leg.style.opacity = Math.max(0, Math.min(1, (t-400)/300, (d-t-300)/300));
+};
+setTempo(0);
+</script></body></html>
