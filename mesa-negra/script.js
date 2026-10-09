@@ -45,7 +45,7 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
 
     e.preventDefault();
     alvo.scrollIntoView({ behavior: menosMovimento ? "auto" : "smooth" });
-    history.replaceState(null, "", id);
+    try { history.replaceState(null, "", id); } catch (erro) { /* alguns navegadores bloqueiam */ }
     fecharMenu();
   });
 });
