@@ -7,93 +7,151 @@
    GRÁFICOS (Evolução)
    ============================================ */
 
+/* Grade com dois gráficos lado a lado */
 .evolution-dashboard {
+  /* Organiza os itens em grade */
   display: grid;
+  /* Quantas colunas couberem, cada uma com no mínimo 300 pixels */
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* Espaço entre os itens: 16 pixels */
   gap: 16px;
 }
 
+/* Caixa de cada gráfico */
 .chart-container {
+  /* Sem margem */
   margin: 0;
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cantos arredondados: 14 pixels */
   border-radius: var(--radius-md);
+  /* Espaço interno: 18 pixels */
   padding: 18px;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
+  /* Deixa encolher sem estourar a caixa */
   min-width: 0;
 }
 
+/* Título dentro da legenda do gráfico */
 .chart-container figcaption h2 {
+  /* Margem embaixo: 2 pixels */
   margin-bottom: 2px;
 }
 
+/* Texto pequeno do período do gráfico */
 .chart-meta {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 12,5 pixels */
   font-size: 12.5px;
 }
 
+/* Linha de resumo embaixo do gráfico */
 .chart-summary {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens alinhados pela base do texto */
   align-items: baseline;
+  /* Espaço entre os itens: 10 pixels */
   gap: 10px;
+  /* Margem (espaço por fora) */
   margin: 4px 0 0;
+  /* Quebra para a linha de baixo se não couber */
   flex-wrap: wrap;
 }
 
+/* Números em destaque do resumo */
 .chart-summary strong {
+  /* Fonte da letra */
   font-family: "Space Grotesk", sans-serif;
+  /* Tamanho da letra: 24 pixels */
   font-size: 24px;
 }
 
+/* Setinhas de tendência (boa ou ruim) */
 .trend-good,
 .trend-bad {
+  /* Tamanho da letra: 12,5 pixels */
   font-size: 12.5px;
+  /* Letra seminegrito */
   font-weight: 600;
 }
 
 /* Verde quando a variação é boa (peso caindo, carga subindo) */
+/* Tendência boa */
 .trend-good {
+  /* Cor do texto: esmeralda */
   color: var(--emerald);
 }
 
+/* Tendência ruim */
 .trend-bad {
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
 }
 
+/* O desenho do gráfico (SVG) */
 .chart-svg {
+  /* Largura: a toda */
   width: 100%;
+  /* Altura automática */
   height: auto;
+  /* Vira um bloco (ocupa a linha toda) */
   display: block;
 }
 
+/* Linhas de fundo do gráfico (grade) */
 .chart-grid {
+  /* Cor do traço do desenho: cor das bordas */
   stroke: var(--border);
+  /* Tamanho do tracejado (usado para animar o desenho do traço) */
   stroke-dasharray: 3 4;
 }
 
+/* Textos dos eixos do gráfico */
 .chart-label {
+  /* Cor de preenchimento do desenho: cinza mais apagado */
   fill: var(--muted-2);
+  /* Tamanho da letra: 11 pixels */
   font-size: 11px;
+  /* Fonte da letra */
   font-family: "Inter", sans-serif;
 }
 
+/* Linha do gráfico */
 .chart-line {
+  /* Sem preenchimento no desenho */
   fill: none;
+  /* Cor do traço do desenho: coral */
   stroke: var(--coral);
+  /* Grossura do traço: 2.5 */
   stroke-width: 2.5;
+  /* Cantos do traço arredondados */
   stroke-linejoin: round;
+  /* Pontas do traço arredondadas */
   stroke-linecap: round;
 }
 
+/* Área pintada embaixo da linha */
 .chart-area {
+  /* Cor de preenchimento do desenho: coral bem fraquinho */
   fill: var(--coral-soft);
 }
 
+/* Bolinhas dos pontos do gráfico */
 .chart-dot {
+  /* Cor de preenchimento do desenho: verde-carvão do fundo */
   fill: var(--bg);
+  /* Cor do traço do desenho: coral claro */
   stroke: var(--coral-light);
+  /* Grossura do traço: 2 */
   stroke-width: 2;
 }
 
@@ -101,50 +159,82 @@
    EVOLUÇÃO
    ============================================ */
 
+/* Grupo de botões de período (4, 8, 12 semanas) */
 .segmented {
+  /* Flexbox, mas sem ocupar a linha toda */
   display: inline-flex;
+  /* Espaço interno: 4 pixels */
   padding: 4px;
+  /* Espaço entre os itens: 4 pixels */
   gap: 4px;
+  /* Cantos arredondados: total (formato pílula) */
   border-radius: var(--radius-full);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Fundo: cor dos cards */
   background: var(--surface);
 }
 
+/* Cada botão do grupo */
 .segmented button {
+  /* Usa a mesma fonte do elemento pai */
   font: inherit;
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Sem fundo (transparente) */
   background: transparent;
+  /* Sem borda */
   border: none;
+  /* Cantos arredondados: total (formato pílula) */
   border-radius: var(--radius-full);
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 7px 14px;
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
 }
 
+/* Botão com o mouse em cima */
 .segmented button:hover {
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
 }
 
+/* Botão escolhido */
 .segmented button.is-active {
+  /* Fundo: cor de destaque mais clara */
   background: var(--surface-3);
+  /* Cor do texto: branco */
   color: var(--ink-strong);
 }
 
+/* Último ponto do gráfico (o mais recente) */
 .chart-dot.is-last {
+  /* Cor de preenchimento do desenho: coral */
   fill: var(--coral);
 }
 
+/* Barras do gráfico de frequência */
 .chart-bar {
+  /* Cor de preenchimento do desenho: cor de destaque mais clara */
   fill: var(--surface-3);
 }
 
+/* Barra da semana que bateu a meta */
 .chart-bar.is-goal {
+  /* Cor de preenchimento do desenho: esmeralda escura */
   fill: var(--emerald-dark);
 }
 
+/* Linha tracejada da meta */
 .chart-goal {
+  /* Cor do traço do desenho: coral claro */
   stroke: var(--coral-light);
+  /* Grossura do traço: 1.5 */
   stroke-width: 1.5;
+  /* Tamanho do tracejado (usado para animar o desenho do traço) */
   stroke-dasharray: 6 5;
 }

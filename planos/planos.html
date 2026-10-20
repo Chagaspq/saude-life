@@ -1,40 +1,71 @@
 <!doctype html>
+<!-- A linha acima avisa o navegador que este arquivo é uma página HTML5 -->
+<!-- Começo da página, em português do Brasil -->
 <html lang="pt-BR">
+  <!-- Cabeçalho: informações da página que não aparecem na tela -->
   <head>
+    <!-- Usa UTF-8 para mostrar os acentos (á, ç, ã) do jeito certo -->
     <meta charset="UTF-8" />
+    <!-- Faz a página se ajustar à largura da tela do celular -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Cor da barra do navegador no celular (verde-carvão) -->
     <meta name="theme-color" content="#0e1512" />
+    <!-- Ícone da aba do navegador (a logo) -->
     <link rel="icon" href="../shared/favicon.svg" type="image/svg+xml" />
+    <!-- Arquivo que permite instalar o site como app no celular -->
     <link rel="manifest" href="../shared/manifest.webmanifest" />
+    <!-- Ícone usado quando o site é salvo na tela inicial do iPhone -->
     <link rel="apple-touch-icon" href="../shared/icon-192.png" />
+    <!-- Para redes sociais: diz que isto é um site -->
     <meta property="og:type" content="website" />
+    <!-- Para redes sociais: nome do site -->
     <meta property="og:site_name" content="Saúde Life" />
+    <!-- Para redes sociais: idioma português do Brasil -->
     <meta property="og:locale" content="pt_BR" />
+    <!-- Para redes sociais: título que aparece quando o link é compartilhado -->
     <meta property="og:title" content="Saúde Life - Planos" />
+    <!-- Para redes sociais: texto que aparece quando o link é compartilhado -->
     <meta property="og:description" content="Conheça os planos da Saúde Life e escolha o ideal pra sua jornada." />
+    <!-- Para redes sociais: imagem que aparece quando o link é compartilhado -->
     <meta property="og:image" content="https://chagaspq.github.io/saude-life/shared/og-image.png" />
+    <!-- No X (Twitter), mostra o link com imagem grande -->
     <meta name="twitter:card" content="summary_large_image" />
+    <!-- Nome que aparece na aba do navegador -->
     <title>Saúde Life - Planos</title>
+    <!-- Descrição da página que aparece no Google -->
     <meta
       name="description"
       content="Conheça os planos da Saúde Life e escolha o ideal pra sua jornada."
     />
+    <!-- Já começa a conectar no Google Fonts para as fontes carregarem mais rápido -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!-- Mesma coisa para o servidor onde ficam os arquivos das fontes -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Carrega as fontes Space Grotesk (títulos) e Inter (texto) -->
     <link
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+    <!-- Carrega as variáveis do site: cores, fontes e espaços (design system) -->
     <link rel="stylesheet" href="../shared/tokens.css" />
+    <!-- Carrega o estilo base comum a todas as páginas -->
     <link rel="stylesheet" href="../shared/base.css" />
+    <!-- Carrega o estilo próprio desta página (welcome.css) -->
     <link rel="stylesheet" href="../welcome/welcome.css" />
+    <!-- Carrega o estilo comum do site público (topo e rodapé) -->
     <link rel="stylesheet" href="../shared/site.css" />
+    <!-- Carrega o estilo dos cards de planos (usado também no app) -->
     <link rel="stylesheet" href="../shared/planos.css" />
+    <!-- Carrega o estilo próprio desta página (planos.css) -->
     <link rel="stylesheet" href="planos.css" />
   </head>
+  <!-- Corpo: tudo o que aparece na tela -->
   <body>
+    <!-- Barra do topo do site -->
     <header class="top-bar">
+      <!-- Link que leva para a página de boas-vindas -->
       <a href="../welcome/welcome.html" class="brand">
+        <!-- Desenho da logo em SVG: anel de progresso com batimento -->
         <svg
           aria-hidden="true"
           width="30"
@@ -42,7 +73,9 @@
           viewBox="0 0 64 64"
           fill="none"
         >
+          <!-- Definições usadas pelo desenho (como o degradê) -->
           <defs>
+            <!-- Item da lista -->
             <linearGradient
               id="logo-gradient"
               x1="8"
@@ -51,16 +84,20 @@
               y2="8"
               gradientUnits="userSpaceOnUse"
             >
+              <!-- Começo do degradê, na cor coral -->
               <stop offset="0%" stop-color="#ff7a45" />
+              <!-- Fim do degradê, na cor esmeralda -->
               <stop offset="100%" stop-color="#34d399" />
             </linearGradient>
           </defs>
+          <!-- Anel de progresso da logo -->
           <path
             d="M32 9.5A22.5 22.5 0 1 1 12.51 20.75"
             stroke="url(#logo-gradient)"
             stroke-width="6.5"
             stroke-linecap="round"
           />
+          <!-- Linha de batimento cardíaco da logo -->
           <path
             d="M19.5 33H24.5L28.5 25L33.5 41L37 33H44.5"
             stroke="url(#logo-gradient)"
@@ -69,49 +106,72 @@
             stroke-linejoin="round"
           />
         </svg>
+        <!-- Nome da marca: Saúde Life (o "Life" fica em coral) -->
         <span>Saúde <span class="brand-life">Life</span></span>
       </a>
+      <!-- Links do lado direito do topo -->
       <nav class="top-bar-actions" aria-label="Navegação principal">
+        <!-- Link que leva para a página de planos -->
         <a href="../planos/planos.html" class="link-entrar" aria-current="page">Planos</a>
+        <!-- Link que leva para a tela de login -->
         <a href="../login/login.html" class="link-entrar">Entrar</a>
+        <!-- Link que leva para a tela de cadastro -->
         <a href="../cadastro/cadastro.html" class="btn-criar-conta">Começar</a>
       </nav>
     </header>
 
+    <!-- Conteúdo principal da página -->
     <main>
+      <!-- Topo da página de planos -->
       <section class="plans-hero">
+        <!-- Textinho acima do título -->
         <p class="hero-kicker">Planos Saúde Life</p>
+        <!-- Título principal da página -->
         <h1>Escolha o plano ideal pra sua jornada</h1>
+        <!-- Texto de apoio -->
         <p class="plans-hero-lead">
           Comece de graça e evolua pra um plano maior quando fizer sentido pra
           você. Sem contrato de fidelidade, cancele quando quiser.
         </p>
       </section>
 
+      <!-- Área com os planos lado a lado -->
       <section class="plans-full-grid" aria-label="Comparativo de planos">
+        <!-- Lugar dos cards de planos (desenhados pelo shared/planos.js); os botões levam ao cadastro -->
         <div data-planos data-cta="../cadastro/cadastro.html"></div>
       </section>
 
+      <!-- Chamada final -->
       <section class="plans-cta">
+        <!-- Título da seção -->
         <h2>Pronto pra dar o primeiro passo?</h2>
+        <!-- Parágrafo de texto -->
         <p>Leva menos de um minuto pra criar sua conta.</p>
+        <!-- Link que leva para a tela de cadastro -->
         <a href="../cadastro/cadastro.html" class="btn-hero-primary"
           >Criar conta grátis</a
         >
       </section>
     </main>
 
+    <!-- Rodapé do site -->
     <footer class="site-footer-public">
+      <!-- Grade do rodapé -->
       <div class="footer-grid">
+        <!-- Coluna sobre o Saúde Life -->
         <div class="footer-about">
+          <!-- Link que leva para a página de boas-vindas -->
           <a href="../welcome/welcome.html" class="brand">
+            <!-- Desenho da logo em SVG: anel de progresso com batimento -->
             <svg aria-hidden="true" width="24" height="24" viewBox="0 0 64 64" fill="none">
+              <!-- Anel de progresso da logo -->
               <path
                 d="M32 9.5A22.5 22.5 0 1 1 12.51 20.75"
                 stroke="url(#logo-gradient)"
                 stroke-width="6.5"
                 stroke-linecap="round"
               />
+              <!-- Linha de batimento cardíaco da logo -->
               <path
                 d="M19.5 33H24.5L28.5 25L33.5 41L37 33H44.5"
                 stroke="url(#logo-gradient)"
@@ -120,31 +180,46 @@
                 stroke-linejoin="round"
               />
             </svg>
+            <!-- Nome da marca: Saúde Life (o "Life" fica em coral) -->
             <span>Saúde <span class="brand-life">Life</span></span>
           </a>
+          <!-- Parágrafo de texto -->
           <p>
             Treinos guiados, profissionais de confiança e o acompanhamento da
             sua evolução em um só lugar.
           </p>
         </div>
+        <!-- Coluna de links do produto -->
         <nav aria-labelledby="footer-produto">
+          <!-- Título da seção -->
           <h2 id="footer-produto">Produto</h2>
+          <!-- Lista de itens -->
           <ul>
+            <!-- Link que leva para a página de planos -->
             <li><a href="../planos/planos.html">Planos</a></li>
+            <!-- Link que leva para a tela de cadastro -->
             <li><a href="../cadastro/cadastro.html">Criar conta</a></li>
+            <!-- Link que leva para a tela de login -->
             <li><a href="../login/login.html">Entrar</a></li>
           </ul>
         </nav>
+        <!-- Coluna de links legais -->
         <nav aria-labelledby="footer-legal">
+          <!-- Título da seção -->
           <h2 id="footer-legal">Legal</h2>
+          <!-- Lista de itens -->
           <ul>
+            <!-- Link que leva para os Termos de Uso -->
             <li><a href="../termos/termos.html">Termos de Uso</a></li>
+            <!-- Link que leva para a Política de Privacidade -->
             <li><a href="../politica/politica.html">Política de Privacidade</a></li>
           </ul>
         </nav>
       </div>
+      <!-- Texto de direitos autorais -->
       <p class="footer-copy">&copy; 2026 Saúde Life. Todos os direitos reservados.</p>
     </footer>
+    <!-- Carrega os dados e o desenho dos cards de planos -->
     <script src="../shared/planos.js"></script>
   </body>
 </html>

@@ -1,41 +1,73 @@
 <!doctype html>
+<!-- A linha acima avisa o navegador que este arquivo é uma página HTML5 -->
+<!-- Começo da página, em português do Brasil -->
 <html lang="pt-BR">
+  <!-- Cabeçalho: informações da página que não aparecem na tela -->
   <head>
+    <!-- Usa UTF-8 para mostrar os acentos (á, ç, ã) do jeito certo -->
     <meta charset="UTF-8" />
+    <!-- Faz a página se ajustar à largura da tela do celular -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Cor da barra do navegador no celular (verde-carvão) -->
     <meta name="theme-color" content="#0e1512" />
+    <!-- Ícone da aba do navegador (a logo) -->
     <link rel="icon" href="../shared/favicon.svg" type="image/svg+xml" />
+    <!-- Arquivo que permite instalar o site como app no celular -->
     <link rel="manifest" href="../shared/manifest.webmanifest" />
+    <!-- Ícone usado quando o site é salvo na tela inicial do iPhone -->
     <link rel="apple-touch-icon" href="../shared/icon-192.png" />
+    <!-- Para redes sociais: diz que isto é um site -->
     <meta property="og:type" content="website" />
+    <!-- Para redes sociais: nome do site -->
     <meta property="og:site_name" content="Saúde Life" />
+    <!-- Para redes sociais: idioma português do Brasil -->
     <meta property="og:locale" content="pt_BR" />
+    <!-- Para redes sociais: título que aparece quando o link é compartilhado -->
     <meta property="og:title" content="Saúde Life - Redefinir Senha" />
+    <!-- Para redes sociais: texto que aparece quando o link é compartilhado -->
     <meta property="og:description" content="Crie uma nova senha para sua conta no Saúde Life." />
+    <!-- Para redes sociais: imagem que aparece quando o link é compartilhado -->
     <meta property="og:image" content="https://chagaspq.github.io/saude-life/shared/og-image.png" />
+    <!-- No X (Twitter), mostra o link com imagem grande -->
     <meta name="twitter:card" content="summary_large_image" />
+    <!-- Nome que aparece na aba do navegador -->
     <title>Saúde Life - Redefinir Senha</title>
+    <!-- Descrição da página que aparece no Google -->
     <meta
       name="description"
       content="Crie uma nova senha para sua conta no Saúde Life."
     />
+    <!-- Já começa a conectar no Google Fonts para as fontes carregarem mais rápido -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!-- Mesma coisa para o servidor onde ficam os arquivos das fontes -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Carrega as fontes Space Grotesk (títulos) e Inter (texto) -->
     <link
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+    <!-- Carrega as variáveis do site: cores, fontes e espaços (design system) -->
     <link rel="stylesheet" href="../shared/tokens.css" />
+    <!-- Carrega o estilo base comum a todas as páginas -->
     <link rel="stylesheet" href="../shared/base.css" />
+    <!-- Carrega o estilo próprio desta página (senha.css) -->
     <link rel="stylesheet" href="senha.css" />
+    <!-- Carrega o estilo comum de login, cadastro e senha -->
     <link rel="stylesheet" href="../shared/auth.css" />
   </head>
+  <!-- Corpo: tudo o que aparece na tela -->
   <body>
+    <!-- Conteúdo principal: o cartão de redefinir senha -->
     <main class="auth-container">
+      <!-- Topo do cartão -->
       <header class="auth-header">
+        <!-- Logo pequena (escondida dos leitores de tela) -->
         <div class="logo-compact" aria-hidden="true">
+          <!-- Desenho da logo em SVG: anel de progresso com batimento -->
           <svg width="28" height="28" viewBox="0 0 64 64" fill="none">
+            <!-- Definições usadas pelo desenho (como o degradê) -->
             <defs>
+              <!-- Item da lista -->
               <linearGradient
                 id="logo-gradient"
                 x1="8"
@@ -44,16 +76,20 @@
                 y2="8"
                 gradientUnits="userSpaceOnUse"
               >
+                <!-- Começo do degradê, na cor coral -->
                 <stop offset="0%" stop-color="#ff7a45" />
+                <!-- Fim do degradê, na cor esmeralda -->
                 <stop offset="100%" stop-color="#34d399" />
               </linearGradient>
             </defs>
+            <!-- Anel de progresso da logo -->
             <path
               d="M32 9.5A22.5 22.5 0 1 1 12.51 20.75"
               stroke="url(#logo-gradient)"
               stroke-width="6.5"
               stroke-linecap="round"
             />
+            <!-- Linha de batimento cardíaco da logo -->
             <path
               d="M19.5 33H24.5L28.5 25L33.5 41L37 33H44.5"
               stroke="url(#logo-gradient)"
@@ -63,20 +99,30 @@
             />
           </svg>
         </div>
+        <!-- Título da tela -->
         <h1>Redefinir senha</h1>
+        <!-- Texto de apoio abaixo do título -->
         <p class="auth-subtitle">
           Escolha uma nova senha para acessar sua conta.
         </p>
       </header>
 
+      <!-- Formulário da nova senha (novalidate: quem valida é o nosso JavaScript) -->
       <form id="reset-form" class="auth-form" novalidate>
+        <!-- Grupo do campo "Nova senha" -->
         <div class="form-group">
+          <!-- Nome do campo; o for liga ele ao campo -->
           <label for="new-password">Nova senha</label>
+          <!-- Caixa que junta o ícone e o campo -->
           <div class="input-wrapper">
+            <!-- Ícone dentro do campo -->
             <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <!-- Retângulo do desenho -->
               <rect x="4" y="11" width="16" height="10" rx="2"></rect>
+              <!-- Traço do desenho -->
               <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
             </svg>
+            <!-- Campo da nova senha (escondida, mínimo 8 caracteres) -->
             <input
               type="password"
               id="new-password"
@@ -89,16 +135,24 @@
               aria-describedby="new-password-error"
             />
           </div>
+          <!-- Lugar onde aparece o erro deste campo -->
           <span id="new-password-error" class="field-error" role="alert" aria-live="polite"></span>
         </div>
 
+        <!-- Grupo do campo "Confirmar nova senha" -->
         <div class="form-group">
+          <!-- Nome do campo -->
           <label for="confirm-new-password">Confirmar nova senha</label>
+          <!-- Caixa que junta o ícone e o campo -->
           <div class="input-wrapper">
+            <!-- Ícone dentro do campo -->
             <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <!-- Retângulo do desenho -->
               <rect x="4" y="11" width="16" height="10" rx="2"></rect>
+              <!-- Traço do desenho -->
               <path d="M8 11V7a4 4 0 0 1 8 0v4"></path>
             </svg>
+            <!-- Campo para repetir a nova senha -->
             <input
               type="password"
               id="confirm-new-password"
@@ -109,27 +163,38 @@
               aria-describedby="confirm-new-password-error"
             />
           </div>
+          <!-- Lugar onde aparece o erro deste campo -->
           <span id="confirm-new-password-error" class="field-error" role="alert" aria-live="polite"></span>
         </div>
 
+        <!-- Caixa de erro geral (escondida até ter erro) -->
         <p id="form-global-error" class="field-error" role="alert" aria-live="assertive" hidden></p>
+        <!-- Caixa de sucesso (escondida até dar certo) -->
         <p id="form-global-success" class="field-success" role="status" aria-live="polite" hidden></p>
 
+        <!-- Botão de salvar a senha -->
         <button type="submit" class="btn-submit">
+          <!-- Texto do botão -->
           <span class="btn-text">Salvar nova senha</span>
+          <!-- Rodinha de carregando (aparece ao enviar) -->
           <span class="spinner" aria-hidden="true" hidden></span>
+          <!-- Setinha do botão -->
           <span aria-hidden="true" class="arrow">→</span>
         </button>
       </form>
 
+      <!-- Rodapé do cartão -->
       <footer class="auth-footer">
+        <!-- Frase com link para voltar ao login -->
         <p>
           Lembrou a senha?
+          <!-- Link que leva para a tela de login -->
           <a href="../login/login.html">Voltar ao login</a>
         </p>
       </footer>
     </main>
 
+    <!-- Carrega o JavaScript desta página (redefinir.js) -->
     <script src="redefinir.js"></script>
   </body>
 </html>

@@ -3,172 +3,287 @@
  */
 
 /* Escala de espaçamento e de texto para as páginas públicas */
+/* Barra do topo do site público */
 .top-bar {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Joga os itens para as pontas */
   justify-content: space-between;
+  /* Espaço entre os itens: 16 pixels */
   gap: var(--space-4);
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 18px clamp(16px, 5vw, var(--space-16));
+  /* Gruda na tela ao rolar */
   position: sticky;
+  /* Encostado em cima */
   top: 0;
+  /* Camada 20 (número maior fica por cima) */
   z-index: 20;
+  /* Fundo: cor meio transparente */
   background: rgba(14, 21, 18, 0.78);
+  /* Desfoca o que está atrás (efeito vidro) */
   backdrop-filter: blur(10px);
+  /* Mesmo ajuste para o Safari e navegadores antigos */
   -webkit-backdrop-filter: blur(10px);
+  /* Borda embaixo de 1 pixel, cor das bordas */
   border-bottom: 1px solid var(--border);
 }
 
+/* Logo com o nome */
 .brand {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
+  /* Fonte da letra */
   font-family: "Space Grotesk", sans-serif;
+  /* Letra negrito */
   font-weight: 700;
+  /* Tamanho da letra: 16 pixels */
   font-size: 16px;
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Cantos arredondados: 8 pixels */
   border-radius: 8px;
 }
 
+/* Links do lado direito do topo */
 .top-bar-actions {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 24 pixels */
   gap: var(--space-6);
 }
 
+/* Links de texto (Planos, Entrar) */
 .link-entrar {
+  /* Tamanho da letra: 14 pixels */
   font-size: 14px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Cantos arredondados: 6 pixels */
   border-radius: 6px;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: color 0.15s ease;
 }
 
+/* Link com o mouse em cima ou da página atual */
 .link-entrar:hover,
 .link-entrar[aria-current="page"] {
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
 }
 
+/* Botão "Começar" */
 .btn-criar-conta {
+  /* Flexbox, mas sem ocupar a linha toda */
   display: inline-flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Fonte: a mesma do elemento pai */
   font-family: inherit;
+  /* Tamanho da letra: 13,5 pixels */
   font-size: 13.5px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 9px 20px;
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Cor do texto: quase preto (texto em cima do coral) */
   color: var(--on-coral);
+  /* Fundo em degradê */
   background: linear-gradient(180deg, var(--coral-light), var(--coral) 70%);
+  /* Cantos totalmente redondos */
   border-radius: 999px;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     filter 0.15s ease,
     transform 0.1s ease;
 }
 
+/* Botão com o mouse em cima */
 .btn-criar-conta:hover {
+  /* Efeito de filtro (brilho, desfoque...) */
   filter: brightness(1.08);
 }
 
+/* Botão sendo clicado */
 .btn-criar-conta:active {
+  /* Desce 1 pixel */
   transform: translateY(1px);
 }
 
 /* ---------- Footer ---------- */
 
+/* Rodapé do site */
 .site-footer-public {
+  /* Borda em cima de 1 pixel, cor das bordas */
   border-top: 1px solid var(--border);
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: var(--space-12) clamp(16px, 5vw, var(--space-16)) var(--space-6);
+  /* Fonte da letra */
   font-family: "Inter", sans-serif;
 }
 
+/* Grade do rodapé */
 .site-footer-public .footer-grid {
+  /* Largura máxima: 1200 pixels */
   max-width: 1200px;
+  /* Centraliza na horizontal (margem automática) */
   margin: 0 auto;
+  /* Organiza os itens em grade */
   display: grid;
+  /* Tamanho das colunas da grade: 2fr repeat(2, 1fr) */
   grid-template-columns: 2fr repeat(2, 1fr);
+  /* Espaço entre os itens: 32 pixels */
   gap: var(--space-8);
 }
 
+/* Frase sobre o site */
 .site-footer-public .footer-about p {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 13,5 pixels */
   font-size: 13.5px;
+  /* Altura da linha: 1,6 */
   line-height: 1.6;
+  /* Margem (espaço por fora) */
   margin: 12px 0 0;
+  /* Largura máxima */
   max-width: 36ch;
 }
 
+/* Títulos das colunas */
 .site-footer-public h2 {
+  /* Fonte da letra */
   font-family: "Space Grotesk", sans-serif;
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Espaço entre as letras */
   letter-spacing: 0.04em;
+  /* Letras maiúsculas */
   text-transform: uppercase;
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Margem (espaço por fora) */
   margin: 0 0 12px;
 }
 
+/* Listas de links */
 .site-footer-public ul {
+  /* Tira as bolinhas/números da lista */
   list-style: none;
+  /* Sem margem */
   margin: 0;
+  /* Sem espaço interno */
   padding: 0;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
 }
 
+/* Links do rodapé */
 .site-footer-public ul a {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 13,5 pixels */
   font-size: 13.5px;
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Cantos arredondados: 4 pixels */
   border-radius: 4px;
 }
 
+/* Link com o mouse em cima */
 .site-footer-public ul a:hover {
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
 }
 
+/* Texto de direitos autorais */
 .site-footer-public .footer-copy {
+  /* Largura máxima: 1200 pixels */
   max-width: 1200px;
+  /* Margem (espaço por fora) */
   margin: 32px auto 0;
+  /* Espaço interno em cima: 16 pixels */
   padding-top: 16px;
+  /* Borda em cima de 1 pixel, cor das bordas */
   border-top: 1px solid var(--border);
+  /* Cor do texto: cinza mais apagado */
   color: var(--muted-2);
+  /* Tamanho da letra: 12 pixels */
   font-size: 12px;
 }
 
 /* Foco visível para teclado */
+/* Links focados pelo teclado */
 .top-bar a:focus-visible,
 .site-footer-public a:focus-visible {
+  /* Contorno em volta (aparece no foco) */
   outline: 2px solid var(--coral);
+  /* Distância do contorno até o elemento */
   outline-offset: 3px;
 }
 
+/* Em telas de até 640 pixels */
 @media (max-width: 640px) {
+  /* Links do topo */
   .top-bar-actions {
+    /* Espaço entre os itens: 14 pixels */
     gap: 14px;
   }
 
+  /* Grade do rodapé */
   .site-footer-public .footer-grid {
+    /* Tamanho das colunas da grade: 1fr 1fr */
     grid-template-columns: 1fr 1fr;
   }
 
+  /* Coluna sobre o site */
   .site-footer-public .footer-about {
+    /* Ocupa a largura toda da grade */
     grid-column: 1 / -1;
   }
 }
 
+/* Em telas de até 420 pixels */
 @media (max-width: 420px) {
+  /* Nome da marca ao lado da logo */
   .brand span {
+    /* Esconde o elemento */
     display: none;
   }
 }
 
+/* Se a pessoa pediu ao sistema para reduzir as animações */
 @media (prefers-reduced-motion: reduce) {
+  /* Links e botão do topo */
   .link-entrar,
   .btn-criar-conta {
+    /* Sem animação de transição */
     transition: none;
   }
 }

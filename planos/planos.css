@@ -1,26 +1,44 @@
+/* Topo da página de planos */
 .plans-hero {
+  /* No máximo 720 pixels de largura */
   max-width: 720px;
+  /* Centralizado na tela */
   margin: 0 auto;
+  /* Espaço interno que cresce com a tela (clamp = mínimo, ideal, máximo) */
   padding: clamp(48px, 8vw, 80px) clamp(20px, 5vw, 64px) 24px;
+  /* Texto centralizado */
   text-align: center;
 }
 
+/* Título principal do topo */
 .plans-hero h1 {
+  /* Tamanho que se ajusta à tela, entre 30 e 44 pixels */
   font-size: clamp(30px, 4.5vw, 44px);
+  /* Altura da linha mais justa */
   line-height: 1.12;
+  /* Espaço em cima e embaixo */
   margin: 14px 0;
 }
 
+/* Texto de apoio abaixo do título */
 .plans-hero-lead {
+  /* Cor mais apagada */
   color: var(--muted);
+  /* Letra de 15,5 pixels */
   font-size: 15.5px;
+  /* Linhas mais espaçadas para ler melhor */
   line-height: 1.6;
+  /* Sem margem */
   margin: 0;
 }
 
+/* Área com os cards dos planos */
 .plans-full-grid {
+  /* No máximo 1200 pixels de largura */
   max-width: 1200px;
+  /* Centralizada */
   margin: 0 auto;
+  /* Espaço interno, com bastante sobra embaixo */
   padding: 32px clamp(20px, 5vw, 64px) 96px;
 }
 
@@ -28,25 +46,40 @@
    CTA FINAL
    ============================================ */
 
+/* Bloco final com chamada para ação */
 .plans-cta {
+  /* No máximo 640 pixels de largura */
   max-width: 640px;
+  /* Centralizado */
   margin: 0 auto;
+  /* Espaço interno */
   padding: 32px clamp(20px, 5vw, 64px) 96px;
+  /* Texto centralizado */
   text-align: center;
 }
 
+/* Título do bloco final */
 .plans-cta h2 {
+  /* Tamanho entre 26 e 36 pixels, conforme a tela */
   font-size: clamp(26px, 4vw, 36px);
+  /* Espaço abaixo do título */
   margin-bottom: 12px;
 }
 
+/* Texto do bloco final */
 .plans-cta p {
+  /* Cor mais apagada */
   color: var(--muted);
+  /* Letra de 15 pixels */
   font-size: 15px;
+  /* Espaço de 32 pixels embaixo */
   margin: 0 0 32px;
 }
 
+/* Botão do bloco final */
 .plans-cta .btn-hero-primary {
+  /* Letra de 15 pixels */
   font-size: 15px;
+  /* Espaço interno do botão */
   padding: 14px 28px;
 }

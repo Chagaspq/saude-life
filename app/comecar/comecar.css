@@ -7,206 +7,342 @@
    QUESTIONÁRIO INICIAL
    ============================================ */
 
+/* Fundo da página do questionário */
 .onboarding-page {
+  /* Fundo com várias camadas (veja as linhas abaixo) */
   background:
     radial-gradient(circle at 15% 0%, rgba(255, 122, 69, 0.12), transparent 45%),
     radial-gradient(circle at 90% 100%, rgba(52, 211, 153, 0.1), transparent 45%),
     var(--bg);
 }
 
+/* Área que centraliza o cartão */
 .onboarding {
+  /* Altura mínima: a tela toda */
   min-height: 100vh;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 32px 16px;
 }
 
+/* Quando o conteúdo recebe foco pelo código */
 .onboarding:focus {
+  /* Tira o contorno padrão */
   outline: none;
 }
 
+/* Cartão do questionário */
 .onboarding-card {
+  /* Largura: a toda */
   width: 100%;
+  /* Largura máxima: 560 pixels */
   max-width: 560px;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 20 pixels */
   gap: 20px;
+  /* Espaço interno: 32 pixels */
   padding: 32px;
+  /* Cantos arredondados: 20 pixels */
   border-radius: var(--radius-lg);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Fundo: vidro meio transparente */
   background: var(--surface-glass);
+  /* Sombra: sombra grande */
   box-shadow: var(--shadow-lg);
 }
 
+/* Título do questionário */
 .onboarding-title {
+  /* Tamanho da letra: 26 pixels */
   font-size: 26px;
+  /* Espaço entre as letras */
   letter-spacing: -0.01em;
 }
 
+/* Área do progresso (texto e barra) */
 .onboarding-progress {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 4 pixels */
   gap: 4px;
 }
 
+/* Cada passo (pergunta) */
 .onboarding-step {
+  /* Sem borda */
   border: none;
+  /* Sem margem */
   margin: 0;
+  /* Sem espaço interno */
   padding: 0;
+  /* Deixa encolher sem estourar a caixa */
   min-width: 0;
 }
 
+/* Texto da pergunta */
 .onboarding-step legend {
+  /* Sem espaço interno */
   padding: 0;
+  /* Margem embaixo: 14 pixels */
   margin-bottom: 14px;
+  /* Fonte: fonte de títulos (Space Grotesk) */
   font-family: var(--font-display);
+  /* Tamanho da letra: 19 pixels */
   font-size: 19px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Cor do texto: branco */
   color: var(--ink-strong);
 }
 
+/* Explicação embaixo da pergunta */
 .onboarding-step > .meta {
+  /* Margem (espaço por fora) */
   margin: -6px 0 14px;
 }
 
+/* Lista de opções */
 .choice-list {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 10 pixels */
   gap: 10px;
 }
 
+/* Card de cada opção */
 .choice-card {
+  /* Posição relativa (serve de base para filhos soltos) */
   position: relative;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 14 pixels */
   gap: 14px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 14px 16px;
+  /* Cantos arredondados: 14 pixels */
   border-radius: var(--radius-md);
+  /* Borda de 1,5 pixels, cor das bordas */
   border: 1.5px solid var(--border);
+  /* Fundo: cor de card mais clara */
   background: var(--surface-2);
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: border-color var(--dur-fast) ease, background var(--dur-fast) ease;
 }
 
+/* Bolinha de marcar escondida (o card inteiro é clicável) */
 .choice-card input,
 .day-chip input {
+  /* Posição solta, presa ao pai */
   position: absolute;
+  /* Invisível (opacidade 0) */
   opacity: 0;
+  /* Ignora cliques (eles passam direto) */
   pointer-events: none;
 }
 
+/* Card com o mouse em cima */
 .choice-card:hover {
+  /* Cor da borda: borda mais forte */
   border-color: var(--border-strong);
 }
 
+/* Card da opção escolhida (:has = "que tem dentro") */
 .choice-card:has(input:checked) {
+  /* Cor da borda: coral */
   border-color: var(--coral);
+  /* Fundo: coral bem fraquinho */
   background: var(--coral-soft);
 }
 
+/* Card focado pelo teclado */
 .choice-card:has(input:focus-visible),
 .day-chip:has(input:focus-visible) {
+  /* Contorno em volta (aparece no foco) */
   outline: 2px solid var(--coral);
+  /* Distância do contorno até o elemento */
   outline-offset: 3px;
 }
 
+/* Ícone da opção */
 .choice-icon {
+  /* Largura: 42 pixels */
   width: 42px;
+  /* Altura: 42 pixels */
   height: 42px;
+  /* Não deixa encolher */
   flex-shrink: 0;
+  /* Cantos arredondados: 12 pixels */
   border-radius: 12px;
+  /* Flexbox, mas sem ocupar a linha toda */
   display: inline-flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Fundo: cor de destaque mais clara */
   background: var(--surface-3);
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
 }
 
+/* Ícone da opção escolhida */
 .choice-card:has(input:checked) .choice-icon {
+  /* Fundo: coral */
   background: var(--coral);
+  /* Cor do texto: quase preto (texto em cima do coral) */
   color: var(--on-coral);
 }
 
+/* Textos da opção */
 .choice-text {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 2 pixels */
   gap: 2px;
 }
 
+/* Nome da opção */
 .choice-text strong {
+  /* Tamanho da letra: 15 pixels */
   font-size: 15px;
 }
 
+/* Explicação da opção */
 .choice-text small {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
 }
 
+/* Fileira dos números de dias */
 .day-chips {
+  /* Organiza os itens em grade */
   display: grid;
+  /* 5 colunas iguais */
   grid-template-columns: repeat(5, 1fr);
+  /* Espaço entre os itens: 10 pixels */
   gap: 10px;
 }
 
+/* Cada número de dias */
 .day-chip {
+  /* Posição relativa (serve de base para filhos soltos) */
   position: relative;
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
 }
 
+/* Bolinha com o número */
 .day-chip span {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Altura: 64 pixels */
   height: 64px;
+  /* Cantos arredondados: 14 pixels */
   border-radius: var(--radius-md);
+  /* Borda de 1,5 pixels, cor das bordas */
   border: 1.5px solid var(--border);
+  /* Fundo: cor de card mais clara */
   background: var(--surface-2);
+  /* Fonte: fonte de títulos (Space Grotesk) */
   font-family: var(--font-display);
+  /* Tamanho da letra: 24 pixels */
   font-size: 24px;
+  /* Letra negrito */
   font-weight: 700;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: border-color var(--dur-fast) ease, background var(--dur-fast) ease;
 }
 
+/* Número escolhido */
 .day-chip input:checked + span {
+  /* Cor da borda: coral */
   border-color: var(--coral);
+  /* Fundo: coral bem fraquinho */
   background: var(--coral-soft);
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
 }
 
+/* Botões de voltar e continuar */
 .onboarding-actions {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Empurra os itens para o fim */
   justify-content: flex-end;
+  /* Espaço entre os itens: 10 pixels */
   gap: 10px;
+  /* Margem em cima: 22 pixels */
   margin-top: 22px;
 }
 
+/* Botão de continuar */
 .onboarding-actions .btn-primary {
+  /* Largura mínima: 160 pixels */
   min-width: 160px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 12px 22px;
 }
 
+/* Botão de pular */
 .onboarding-skip {
+  /* Este item centralizados na altura */
   align-self: center;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
 }
 
+/* Em telas de até 480 pixels */
 @media (max-width: 480px) {
+  /* Cartão do questionário */
   .onboarding-card {
+    /* Espaço interno (em cima, lados e embaixo) */
     padding: 24px 18px;
   }
 
+  /* Título */
   .onboarding-title {
+    /* Tamanho da letra: 22 pixels */
     font-size: 22px;
   }
 
+  /* Bolinhas dos números */
   .day-chip span {
+    /* Altura: 54 pixels */
     height: 54px;
+    /* Tamanho da letra: 20 pixels */
     font-size: 20px;
   }
 
+  /* Botão de continuar */
   .onboarding-actions .btn-primary {
+    /* Ocupa todo o espaço que sobra */
     flex: 1;
+    /* Deixa encolher sem estourar a caixa */
     min-width: 0;
   }
 }

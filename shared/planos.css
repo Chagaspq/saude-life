@@ -3,230 +3,383 @@
  * As cores vêm de shared/tokens.css.
  */
 
+/* Caixa onde o planos.js desenha os planos */
 [data-planos] {
+  /* Define a variável --pl-accent para este bloco: coral */
   --pl-accent: var(--coral);
+  /* Define a variável --pl-accent-light para este bloco: coral claro */
   --pl-accent-light: var(--coral-light);
+  /* Define a variável --pl-check para este bloco: esmeralda */
   --pl-check: var(--emerald);
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 28 pixels */
   gap: 28px;
 }
 
+/* Chave de mensal/anual */
 .billing-toggle {
+  /* Flexbox, mas sem ocupar a linha toda */
   display: inline-flex;
+  /* Espaço interno: 4 pixels */
   padding: 4px;
+  /* Espaço entre os itens: 4 pixels */
   gap: 4px;
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cantos totalmente redondos */
   border-radius: 999px;
 }
 
+/* Cada opção da chave */
 .billing-option {
+  /* Usa a mesma fonte do elemento pai */
   font: inherit;
+  /* Tamanho da letra: 13,5 pixels */
   font-size: 13.5px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Sem fundo (transparente) */
   background: transparent;
+  /* Sem borda */
   border: none;
+  /* Cantos totalmente redondos */
   border-radius: 999px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 8px 18px;
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
+  /* Flexbox, mas sem ocupar a linha toda */
   display: inline-flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 6 pixels */
   gap: 6px;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     background 0.15s ease,
     color 0.15s ease;
 }
 
+/* Opção com o mouse em cima */
 .billing-option:hover {
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
 }
 
+/* Opção escolhida */
 .billing-option.is-active {
+  /* Fundo: cor de card mais clara */
   background: var(--surface-2);
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
 }
 
+/* Selo de desconto do anual */
 .billing-badge {
+  /* Tamanho da letra: 11 pixels */
   font-size: 11px;
+  /* Letra negrito */
   font-weight: 700;
+  /* Cor do texto: a variável --pl-check */
   color: var(--pl-check);
 }
 
+/* Grade dos cards de planos */
 .plans-grid {
+  /* Largura: a toda */
   width: 100%;
+  /* Organiza os itens em grade */
   display: grid;
+  /* Quantas colunas couberem, cada uma com no mínimo 220 pixels */
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  /* Espaço entre os itens: 20 pixels */
   gap: 20px;
 }
 
+/* Card de cada plano */
 .plan-card {
+  /* Posição relativa (serve de base para filhos soltos) */
   position: relative;
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cantos arredondados: 20 pixels */
   border-radius: var(--radius-lg);
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 28px 24px;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 16 pixels */
   gap: 16px;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     transform 0.2s ease,
     border-color 0.2s ease;
 }
 
+/* Card com o mouse em cima */
 .plan-card:hover {
+  /* Sobe 2 pixels */
   transform: translateY(-2px);
+  /* Cor da borda: borda mais forte */
   border-color: var(--border-strong);
 }
 
+/* Card do plano em destaque (fica sempre com a borda colorida) */
 .plan-card-highlight,
 .plan-card-highlight:hover {
+  /* Cor da borda: a variável --pl-accent */
   border-color: var(--pl-accent);
+  /* Sombra em volta da caixa */
   box-shadow:
     0 0 0 1px var(--pl-accent),
     0 18px 40px rgba(255, 122, 69, 0.12);
 }
 
+/* Nome do plano */
 .plan-name {
+  /* Tamanho da letra: 18 pixels */
   font-size: 18px;
 }
 
+/* Linha do preço */
 .plan-price {
+  /* Sem margem */
   margin: 0;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Quebra para a linha de baixo se não couber */
   flex-wrap: wrap;
+  /* Itens alinhados pela base do texto */
   align-items: baseline;
+  /* Espaço entre os itens (linhas e colunas) */
   gap: 2px 4px;
+  /* Altura mínima: 52 pixels */
   min-height: 52px;
 }
 
+/* Valor do preço */
 .plan-price-value {
+  /* Fonte da letra */
   font-family: "Space Grotesk", sans-serif;
+  /* Tamanho da letra: 26 pixels */
   font-size: 26px;
+  /* Letra negrito */
   font-weight: 700;
+  /* Cor do texto: branco */
   color: var(--ink-strong);
 }
 
+/* Texto "/mês" */
 .plan-price-period {
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
 }
 
+/* Observação embaixo do preço */
 .plan-price-note {
+  /* Tamanho inicial do item */
   flex-basis: 100%;
+  /* Tamanho da letra: 12 pixels */
   font-size: 12px;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
 }
 
+/* Lista do que o plano tem */
 .plan-features {
+  /* Tira as bolinhas/números da lista */
   list-style: none;
+  /* Sem margem */
   margin: 0;
+  /* Sem espaço interno */
   padding: 0;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
+  /* Ocupa todo o espaço que sobra */
   flex: 1;
 }
 
+/* Cada item da lista */
 .plan-features li {
+  /* Posição relativa (serve de base para filhos soltos) */
   position: relative;
+  /* Espaço interno à esquerda: 20 pixels */
   padding-left: 20px;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 13,5 pixels */
   font-size: 13.5px;
+  /* Altura da linha: 1,5 */
   line-height: 1.5;
 }
 
 /* Marca de "check" desenhada em CSS */
+/* Check desenhado antes de cada item */
 .plan-features li::before {
+  /* Cria um pedacinho vazio, só para enfeite */
   content: "";
+  /* Posição solta, presa ao pai */
   position: absolute;
+  /* Distância da esquerda: 3 pixels */
   left: 3px;
+  /* Distância de cima: 4 pixels */
   top: 4px;
+  /* Largura: 5 pixels */
   width: 5px;
+  /* Altura: 10 pixels */
   height: 10px;
+  /* Borda: solid var(--pl-check) */
   border: solid var(--pl-check);
+  /* Grossura da borda */
   border-width: 0 2px 2px 0;
+  /* Gira o elemento */
   transform: rotate(45deg);
 }
 
+/* Etiqueta "Mais popular" */
 .plan-tag {
+  /* Posição solta, presa ao pai */
   position: absolute;
+  /* Distância de cima: -11 pixels */
   top: -11px;
+  /* Distância da esquerda: 22 pixels */
   left: 22px;
+  /* Fundo: a variável --pl-accent */
   background: var(--pl-accent);
+  /* Cor do texto: quase preto (texto em cima do coral) */
   color: var(--on-coral);
+  /* Tamanho da letra: 11 pixels */
   font-size: 11px;
+  /* Letra negrito */
   font-weight: 700;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 3px 10px;
+  /* Cantos totalmente redondos */
   border-radius: 999px;
 }
 
+/* Botão do plano */
 .plan-btn {
+  /* Flexbox, mas sem ocupar a linha toda */
   display: inline-flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Largura: a toda */
   width: 100%;
+  /* Usa a mesma fonte do elemento pai */
   font: inherit;
+  /* Tamanho da letra: 14 pixels */
   font-size: 14px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 12px 18px;
+  /* Cantos totalmente redondos */
   border-radius: 999px;
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     filter 0.15s ease,
     border-color 0.15s ease,
     transform 0.1s ease;
 }
 
+/* Botão principal (coral) */
 .plan-btn-primary {
+  /* Cor do texto: quase preto (texto em cima do coral) */
   color: var(--on-coral);
+  /* Sem borda */
   border: none;
+  /* Fundo em degradê */
   background: linear-gradient(180deg, var(--pl-accent-light), var(--pl-accent) 70%);
 }
 
+/* Botão principal com o mouse em cima */
 .plan-btn-primary:hover {
+  /* Efeito de filtro (brilho, desfoque...) */
   filter: brightness(1.08);
 }
 
+/* Botão secundário (contorno) */
 .plan-btn-secondary {
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Sem fundo (transparente) */
   background: transparent;
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
 }
 
+/* Botão secundário com o mouse em cima */
 .plan-btn-secondary:hover {
+  /* Cor da borda: a variável --pl-accent */
   border-color: var(--pl-accent);
 }
 
+/* Botão sendo clicado */
 .plan-btn:active {
+  /* Desce 1 pixel */
   transform: translateY(1px);
 }
 
+/* Se a pessoa pediu ao sistema para reduzir as animações */
 @media (prefers-reduced-motion: reduce) {
+  /* Cards e botões (quando a pessoa pediu menos animação) */
   .plan-card,
   .plan-btn,
   .billing-option {
+    /* Sem animação de transição */
     transition: none;
   }
 
+  /* Card com o mouse em cima */
   .plan-card:hover {
+    /* Sem mover nem girar */
     transform: none;
   }
 }
 
 /* Plano atual da pessoa (só no app) */
+/* Card do plano que a pessoa já tem */
 .plan-card-current {
+  /* Cor da borda: cor meio transparente */
   border-color: rgba(52, 211, 153, 0.45);
 }
 
+/* Etiqueta "Plano atual" */
 .plan-tag-current {
+  /* Fundo: esmeralda */
   background: var(--emerald);
 }
 
+/* Botão desativado (plano atual) */
 .plan-btn:disabled {
+  /* Meio transparente (65% visível) */
   opacity: 0.65;
+  /* Seta normal do mouse */
   cursor: default;
 }

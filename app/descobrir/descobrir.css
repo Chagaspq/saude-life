@@ -7,31 +7,51 @@
    DESCOBRIR: selects no visual do site
    ============================================ */
 
+/* Caixas de seleção (select) da barra de filtros */
 .filters-bar select {
+  /* Tira o visual padrão do navegador */
   appearance: none;
+  /* Mesmo ajuste para Safari e navegadores antigos */
   -webkit-appearance: none;
+  /* Largura mínima de 150 pixels */
   min-width: 150px;
+  /* Espaço interno (à direita sobra lugar para a setinha) */
   padding: 10px 36px 10px 14px;
+  /* Cantos totalmente arredondados (formato pílula) */
   border-radius: var(--radius-full);
+  /* Desenho da setinha para baixo, feito em SVG dentro do CSS */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a3b0a8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  /* A setinha aparece uma vez só, sem repetir */
   background-repeat: no-repeat;
+  /* Setinha a 12 pixels da direita, no meio da altura */
   background-position: right 12px center;
+  /* Tamanho da setinha: 16 pixels */
   background-size: 16px;
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
 }
 
+/* Quando o select é focado pelo teclado */
 .filters-bar select:focus-visible {
+  /* A borda fica coral */
   border-color: var(--coral);
 }
 
+/* Opções que aparecem ao abrir o select */
 .filters-bar select option {
+  /* Fundo escuro igual aos cards */
   background: var(--surface);
+  /* Texto na cor principal */
   color: var(--ink);
 }
 
+/* Em telas de até 640 pixels (celular) */
 @media (max-width: 640px) {
+  /* Os selects... */
   .filters-bar select {
+    /* ...dividem a linha em duas colunas */
     flex: 1 1 calc(50% - 10px);
+    /* ...e podem ficar mais estreitos que 150 pixels */
     min-width: 0;
   }
 }

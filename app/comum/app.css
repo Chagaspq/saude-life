@@ -1,47 +1,66 @@
+/* Variáveis do app */
 :root {
+  /* Define a variável --sidebar-w para este bloco: 240 pixels */
   --sidebar-w: 240px;
 }
 
+/* Todos os elementos */
 * {
+  /* A largura inclui a borda e o espaço interno */
   box-sizing: border-box;
 }
 
 html,
 body {
+  /* Altura: a toda */
   height: 100%;
 }
 
 body {
+  /* Sem margem */
   margin: 0;
+  /* Fundo: verde-carvão do fundo */
   background: var(--bg);
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Fonte da letra */
   font-family:
     "Inter",
     -apple-system,
     BlinkMacSystemFont,
     sans-serif;
+  /* Deixa a letra mais lisinha no Mac */
   -webkit-font-smoothing: antialiased;
 }
 
 h1,
 h2,
 h3 {
+  /* Fonte da letra */
   font-family: "Space Grotesk", "Inter", sans-serif;
+  /* Sem margem */
   margin: 0;
+  /* Cor do texto: branco */
   color: var(--ink-strong);
 }
 
 ul {
+  /* Tira as bolinhas/números da lista */
   list-style: none;
+  /* Sem margem */
   margin: 0;
+  /* Sem espaço interno */
   padding: 0;
 }
 
 a {
+  /* Cor do texto: a mesma do elemento pai */
   color: inherit;
 }
 
+/* Qualquer elemento com a classe hidden fica escondido */
 .hidden {
+  /* Esconde o elemento (!important: vence outras regras) */
   display: none !important;
 }
 
@@ -49,15 +68,23 @@ a {
    LAYOUT GERAL
    ============================================ */
 
+/* Layout do app: menu lateral + conteúdo */
 .app-layout {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Altura mínima: a tela toda */
   min-height: 100vh;
 }
 
+/* Coluna da direita (topo, conteúdo e rodapé) */
 .app-main-wrapper {
+  /* Ocupa todo o espaço que sobra */
   flex: 1;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Deixa encolher sem estourar a caixa */
   min-width: 0;
 }
 
@@ -65,165 +92,283 @@ a {
    SIDEBAR
    ============================================ */
 
+/* Menu lateral (fixo na esquerda) */
 .app-sidebar {
+  /* Barra de rolagem para baixo só se precisar */
   overflow-y: auto;
+  /* Largura: largura do menu lateral */
   width: var(--sidebar-w);
+  /* Não deixa encolher */
   flex-shrink: 0;
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Borda à direita de 1 pixel, cor das bordas */
   border-right: 1px solid var(--border);
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 24px 16px;
+  /* Gruda na tela ao rolar */
   position: sticky;
+  /* Encostado em cima */
   top: 0;
+  /* Altura: a tela toda */
   height: 100vh;
 }
 
+/* Área da logo no menu */
 .sidebar-brand {
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 0 8px;
+  /* Margem embaixo: 32 pixels */
   margin-bottom: 32px;
 }
 
+/* Logo com o nome */
 .brand {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
+  /* Fonte da letra */
   font-family: "Space Grotesk", sans-serif;
+  /* Letra negrito */
   font-weight: 700;
+  /* Tamanho da letra: 17 pixels */
   font-size: 17px;
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Tira o sublinhado */
   text-decoration: none;
 }
 
+/* Lista de links do menu */
 .sidebar-nav {
+  /* Ocupa todo o espaço que sobra */
   flex: 1;
 }
 
+/* Lista sem bolinhas */
 .sidebar-nav ul {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 2 pixels */
   gap: 2px;
 }
 
+/* Cada link do menu */
 .nav-link {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 12 pixels */
   gap: 12px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 10px 12px;
+  /* Cantos arredondados: 10 pixels */
   border-radius: var(--radius-sm);
+  /* Tamanho da letra: 14 pixels */
   font-size: 14px;
+  /* Letra um pouco mais grossa (médio) */
   font-weight: 500;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     background 0.15s ease,
     color 0.15s ease;
 }
 
+/* Link com o mouse em cima */
 .nav-link:hover {
+  /* Fundo: cor de card mais clara */
   background: var(--surface-2);
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
 }
 
+/* Ícone do link */
 .nav-icon {
+  /* Não deixa encolher */
   flex-shrink: 0;
+  /* Meio transparente (85% visível) */
   opacity: 0.85;
 }
 
+/* Ícone do link da página atual */
 .nav-link.active .nav-icon {
+  /* Totalmente visível */
   opacity: 1;
 }
 
+/* Link da página atual (destacado) */
 .nav-link.active {
+  /* Fundo: coral bem fraquinho */
   background: var(--coral-soft);
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
 }
 
+/* Parte de baixo do menu */
 .sidebar-footer {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
+  /* Espaço interno em cima: 16 pixels */
   padding-top: 16px;
+  /* Borda em cima de 1 pixel, cor das bordas */
   border-top: 1px solid var(--border);
 }
 
+/* Link do perfil no menu */
 .user-profile-summary {
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Cantos arredondados: 10 pixels */
   border-radius: var(--radius-sm);
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
+  /* Ocupa todo o espaço que sobra */
   flex: 1;
+  /* Deixa encolher sem estourar a caixa */
   min-width: 0;
 }
 
+/* Bolinhas de foto (iniciais) de todos os tamanhos */
 .user-avatar,
 .avatar-small,
 .profile-avatar-lg {
+  /* Cantos totalmente redondos */
   border-radius: 50%;
+  /* A imagem preenche a caixa sem distorcer */
   object-fit: cover;
+  /* Fundo: cor de card mais clara */
   background: var(--surface-2);
+  /* Não deixa encolher */
   flex-shrink: 0;
 }
 
+/* Bolinha do menu lateral */
 .user-avatar {
+  /* Largura: 32 pixels */
   width: 32px;
+  /* Altura: 32 pixels */
   height: 32px;
 }
 
+/* Bolinha pequena do topo */
 .avatar-small {
+  /* Largura: 28 pixels */
   width: 28px;
+  /* Altura: 28 pixels */
   height: 28px;
 }
 
+/* Bolinha grande do perfil */
 .profile-avatar-lg {
+  /* Largura: 88 pixels */
   width: 88px;
+  /* Altura: 88 pixels */
   height: 88px;
 }
 
+/* Nome da pessoa no menu */
 .user-name {
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Não deixa quebrar linha */
   white-space: nowrap;
+  /* Esconde o que passar da caixa */
   overflow: hidden;
+  /* Corta o texto com reticências (...) */
   text-overflow: ellipsis;
 }
 
+/* Botões só com ícone */
 .btn-icon {
+  /* Sem fundo (transparente) */
   background: transparent;
+  /* Sem borda */
   border: none;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 16 pixels */
   font-size: 16px;
+  /* Largura: 32 pixels */
   width: 32px;
+  /* Altura: 32 pixels */
   height: 32px;
+  /* Cantos arredondados: 10 pixels */
   border-radius: var(--radius-sm);
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
+  /* Posição relativa (serve de base para filhos soltos) */
   position: relative;
+  /* Flexbox, mas sem ocupar a linha toda */
   display: inline-flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: background 0.15s ease;
 }
 
+/* Botão de ícone com o mouse em cima */
 .btn-icon:hover {
+  /* Fundo: cor de card mais clara */
   background: var(--surface-2);
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
 }
 
+/* Bolinha de número de novidades */
 .badge {
+  /* Posição solta, presa ao pai */
   position: absolute;
+  /* Distância de cima: -2 pixels */
   top: -2px;
+  /* Distância da direita: -2 pixels */
   right: -2px;
+  /* Fundo: coral */
   background: var(--coral);
+  /* Cor do texto: quase preto (texto em cima do coral) */
   color: var(--on-coral);
+  /* Tamanho da letra: 10 pixels */
   font-size: 10px;
+  /* Letra negrito */
   font-weight: 700;
+  /* Largura mínima: 16 pixels */
   min-width: 16px;
+  /* Altura: 16 pixels */
   height: 16px;
+  /* Cantos totalmente redondos */
   border-radius: 999px;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 0 3px;
 }
 
@@ -231,95 +376,163 @@ a {
    TOPBAR
    ============================================ */
 
+/* Barra do topo */
 .app-topbar {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Joga os itens para as pontas */
   justify-content: space-between;
+  /* Espaço entre os itens: 16 pixels */
   gap: 16px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 16px 32px;
+  /* Borda embaixo de 1 pixel, cor das bordas */
   border-bottom: 1px solid var(--border);
+  /* Fundo: verde-carvão do fundo */
   background: var(--bg);
+  /* Gruda na tela ao rolar */
   position: sticky;
+  /* Encostado em cima */
   top: 0;
+  /* Camada 10 (número maior fica por cima) */
   z-index: 10;
 }
 
+/* Caixa de busca */
 .search-box {
+  /* Posição relativa (serve de base para filhos soltos) */
   position: relative;
+  /* Ocupa todo o espaço que sobra */
   flex: 1;
+  /* Largura máxima: 420 pixels */
   max-width: 420px;
 }
 
+/* Ícone de lupa */
 .search-icon {
+  /* Posição solta, presa ao pai */
   position: absolute;
+  /* Distância da esquerda: 12 pixels */
   left: 12px;
+  /* Distância de cima: 50% */
   top: 50%;
+  /* Move o elemento */
   transform: translateY(-50%);
+  /* Cor do texto: cinza mais apagado */
   color: var(--muted-2);
+  /* Ignora cliques (eles passam direto) */
   pointer-events: none;
 }
 
+/* Campo de busca */
 .search-box input {
+  /* Espaço interno à esquerda: 38 pixels (!important: vence outras regras) */
   padding-left: 38px !important;
+  /* Largura: a toda */
   width: 100%;
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Borda de 1,5 pixels, cor das bordas */
   border: 1.5px solid var(--border);
+  /* Cantos arredondados: 10 pixels */
   border-radius: var(--radius-sm);
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 10px 14px;
+  /* Tamanho da letra: 14 pixels */
   font-size: 14px;
+  /* Fonte: a mesma do elemento pai */
   font-family: inherit;
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Tira o contorno padrão */
   outline: none;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     border-color 0.15s ease,
     box-shadow 0.15s ease;
 }
 
+/* Texto de exemplo da busca */
 .search-box input::placeholder {
+  /* Cor do texto: cinza mais apagado */
   color: var(--muted-2);
 }
 
+/* Campo de busca focado */
 .search-box input:focus {
+  /* Cor da borda: coral */
   border-color: var(--coral);
+  /* Anel em volta da caixa (feito com sombra) */
   box-shadow: 0 0 0 4px var(--coral-ring);
 }
 
+/* Lista de resultados da busca */
 .search-dropdown {
+  /* Posição solta, presa ao pai */
   position: absolute;
+  /* Distância de cima */
   top: calc(100% + 6px);
+  /* Encostado na esquerda */
   left: 0;
+  /* Encostado na direita */
   right: 0;
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cantos arredondados: 10 pixels */
   border-radius: var(--radius-sm);
+  /* Espaço interno: 8 pixels */
   padding: 8px;
+  /* Sombra em volta da caixa */
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
+/* Botões do lado direito do topo */
 .topbar-actions {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
 }
 
+/* Link do perfil no topo */
 .user-menu-trigger {
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 4px 10px 4px 4px;
+  /* Cantos totalmente redondos */
   border-radius: 999px;
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: background 0.15s ease;
 }
 
+/* Link do perfil com o mouse em cima */
 .user-menu-trigger:hover {
+  /* Fundo: cor dos cards */
   background: var(--surface);
 }
 
+/* Primeiro nome no topo */
 .username-top {
+  /* Tamanho da letra: 13,5 pixels */
   font-size: 13.5px;
+  /* Letra seminegrito */
   font-weight: 600;
 }
 
@@ -327,42 +540,66 @@ a {
    VIEWS / CONTEÚDO PRINCIPAL
    ============================================ */
 
+/* Área do conteúdo da página */
 .app-views-container {
+  /* Espaço interno: 32 pixels */
   padding: 32px;
+  /* Ocupa todo o espaço que sobra */
   flex: 1;
 }
 
+/* Cada seção de página */
 .view-section {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 32 pixels */
   gap: 32px;
 }
 
 /* Hierarquia: título da página > título da seção > título do card */
+/* Título principal da página */
 .view-section h1 {
+  /* Tamanho da letra: 28 pixels */
   font-size: 28px;
+  /* Espaço entre as letras */
   letter-spacing: -0.01em;
 }
 
+/* Títulos das seções */
 .view-section h2 {
+  /* Tamanho da letra: 20 pixels */
   font-size: 20px;
+  /* Espaço entre as letras */
   letter-spacing: -0.01em;
+  /* Margem embaixo: 16 pixels */
   margin-bottom: 16px;
 }
 
+/* Subtítulos */
 .view-section h3 {
+  /* Tamanho da letra: 16 pixels */
   font-size: 16px;
 }
 
+/* Texto do banner de boas-vindas */
 .welcome-banner p {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Margem (espaço por fora) */
   margin: 6px 0 0;
+  /* Tamanho da letra: 14,5 pixels */
   font-size: 14.5px;
 }
 
+/* Linha com título e botão lado a lado */
 .section-top-flex {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Joga os itens para as pontas */
   justify-content: space-between;
 }
 
@@ -370,41 +607,63 @@ a {
    BOTÕES
    ============================================ */
 
+/* Botões principal e secundário (base comum) */
 .btn-primary,
 .btn-secondary {
+  /* Fonte: a mesma do elemento pai */
   font-family: inherit;
+  /* Tamanho da letra: 13,5 pixels */
   font-size: 13.5px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Cantos arredondados: 10 pixels */
   border-radius: var(--radius-sm);
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 10px 18px;
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
+  /* Sem borda */
   border: none;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     filter 0.15s ease,
     transform 0.1s ease;
 }
 
+/* Botão principal (coral) */
 .btn-primary {
+  /* Cor do texto: quase preto (texto em cima do coral) */
   color: var(--on-coral);
+  /* Fundo em degradê */
   background: linear-gradient(180deg, var(--coral-light), var(--coral) 70%);
 }
 
+/* Botão principal com o mouse em cima */
 .btn-primary:hover {
+  /* Efeito de filtro (brilho, desfoque...) */
   filter: brightness(1.08);
 }
 
+/* Botão secundário (contorno) */
 .btn-secondary {
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Fundo: cor de card mais clara */
   background: var(--surface-2);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
 }
 
+/* Botão secundário com o mouse em cima */
 .btn-secondary:hover {
+  /* Fundo: cor de destaque mais clara */
   background: var(--surface-3);
 }
 
+/* Botões sendo clicados */
 .btn-primary:active,
 .btn-secondary:active {
+  /* Desce 1 pixel */
   transform: translateY(1px);
 }
 
@@ -412,123 +671,201 @@ a {
    CARDS — grid & scroll horizontal
    ============================================ */
 
+/* Grade de cards */
 .cards-grid {
+  /* Organiza os itens em grade */
   display: grid;
+  /* Quantas colunas couberem, cada uma com no mínimo 240 pixels */
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  /* Espaço entre os itens: 16 pixels */
   gap: 16px;
 }
 
+/* Fileira que rola para o lado */
 .horizontal-scroll {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Espaço entre os itens: 16 pixels */
   gap: 16px;
+  /* Barra de rolagem para o lado só se precisar */
   overflow-x: auto;
+  /* Espaço interno embaixo: 8 pixels */
   padding-bottom: 8px;
 }
 
+/* Barra de rolagem da fileira (Chrome/Safari) */
 .horizontal-scroll::-webkit-scrollbar {
+  /* Altura: 6 pixels */
   height: 6px;
 }
 
+/* Parte que arrasta da barra de rolagem */
 .horizontal-scroll::-webkit-scrollbar-thumb {
+  /* Fundo: cor das bordas */
   background: var(--border);
+  /* Cantos totalmente redondos */
   border-radius: 999px;
 }
 
 /* Base compartilhada de todos os cartões */
+/* Todos os tipos de card (base comum) */
 .workout-card,
 .rec-card,
 .pro-card,
 .challenge-card {
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cantos arredondados: 14 pixels */
   border-radius: var(--radius-md);
+  /* Espaço interno: 18 pixels */
   padding: 18px;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
 }
 
+/* Card de treino */
 .workout-card {
+  /* Itens em linha (lado a lado) */
   flex-direction: row;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Joga os itens para as pontas */
   justify-content: space-between;
+  /* Espaço entre os itens: 16 pixels */
   gap: 16px;
 }
 
+/* Card de recomendado */
 .rec-card {
+  /* Não deixa encolher */
   flex-shrink: 0;
+  /* Largura: 240 pixels */
   width: 240px;
 }
 
+/* Capa do card */
 .card-img-placeholder {
+  /* Largura: a toda */
   width: 100%;
+  /* Altura: 110 pixels */
   height: 110px;
+  /* Cantos arredondados: 10 pixels */
   border-radius: var(--radius-sm);
+  /* Fundo em degradê */
   background: linear-gradient(135deg, var(--surface-2), var(--bg));
+  /* Margem embaixo: 8 pixels */
   margin-bottom: 8px;
 }
 
+/* Card de profissional */
 .pro-card {
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Texto centralizado */
   text-align: center;
 }
 
+/* Foto (iniciais) do profissional */
 .pro-card .pro-avatar {
+  /* Largura: 64 pixels */
   width: 64px;
+  /* Altura: 64 pixels */
   height: 64px;
+  /* Cantos totalmente redondos */
   border-radius: 50%;
+  /* Margem embaixo: 4 pixels */
   margin-bottom: 4px;
+  /* Tamanho da letra: 20 pixels */
   font-size: 20px;
 }
 
 /* Avatar com iniciais (substitui as imagens que não existiam) */
+/* Bolinhas com iniciais */
 .avatar-initials {
+  /* Flexbox, mas sem ocupar a linha toda */
   display: inline-flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Cantos totalmente redondos */
   border-radius: 50%;
+  /* Não deixa encolher */
   flex-shrink: 0;
+  /* Fundo em degradê */
   background: linear-gradient(135deg, var(--coral), var(--emerald));
+  /* Cor do texto: verde-carvão do fundo */
   color: var(--bg);
+  /* Fonte da letra */
   font-family: "Space Grotesk", sans-serif;
+  /* Letra negrito */
   font-weight: 700;
+  /* Tamanho da letra: 12 pixels */
   font-size: 12px;
+  /* Letras maiúsculas */
   text-transform: uppercase;
 }
 
+/* Iniciais da bolinha grande do perfil */
 .profile-avatar-lg.avatar-initials {
+  /* Tamanho da letra: 30 pixels */
   font-size: 30px;
 }
 
+/* Texto de status da busca */
 .search-status {
+  /* Espaço interno: 10 pixels */
   padding: 10px;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra */
   font-size: 0.85rem;
 }
 
+/* Textos pequenos de detalhe dos cards */
 .muscle-group,
 .duration,
 .category,
 .meta,
 .specialty,
 .stats {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 12,5 pixels */
   font-size: 12.5px;
+  /* Sem margem */
   margin: 0;
 }
 
+/* Barra de progresso pequena */
 .progress-bar-sm {
+  /* Largura: a toda */
   width: 100%;
+  /* Altura: 6 pixels */
   height: 6px;
+  /* Fundo: cor de card mais clara */
   background: var(--surface-2);
+  /* Cantos totalmente redondos */
   border-radius: 999px;
+  /* Esconde o que passar da caixa */
   overflow: hidden;
+  /* Margem em cima: 6 pixels */
   margin-top: 6px;
 }
 
+/* Parte pintada da barra */
 .progress-bar-sm .fill {
+  /* Altura: a toda */
   height: 100%;
+  /* Fundo em degradê */
   background: linear-gradient(90deg, var(--coral-dark), var(--coral-light));
+  /* Cantos totalmente redondos */
   border-radius: 999px;
 }
 
@@ -536,50 +873,82 @@ a {
    FILTROS / CATEGORIAS (Descobrir)
    ============================================ */
 
+/* Barra de filtros */
 .filters-bar {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Espaço entre os itens: 10 pixels */
   gap: 10px;
+  /* Quebra para a linha de baixo se não couber */
   flex-wrap: wrap;
 }
 
+/* Caixas de seleção dos filtros */
 .filters-bar select {
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Fonte: a mesma do elemento pai */
   font-family: inherit;
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 8px 12px;
+  /* Cantos arredondados: 10 pixels */
   border-radius: var(--radius-sm);
 }
 
+/* Grade dos chips de categoria */
 .categories-grid {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Espaço entre os itens: 10 pixels */
   gap: 10px;
+  /* Quebra para a linha de baixo se não couber */
   flex-wrap: wrap;
+  /* Margem em cima: 12 pixels */
   margin-top: 12px;
 }
 
+/* Chip de categoria */
 .category-pill {
+  /* Fonte: a mesma do elemento pai */
   font-family: inherit;
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 8px 16px;
+  /* Cantos totalmente redondos */
   border-radius: 999px;
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     border-color 0.15s ease,
     color 0.15s ease;
 }
 
+/* Chip com o mouse em cima ou ativo */
 .category-pill:hover,
 .category-pill.active {
+  /* Cor da borda: coral */
   border-color: var(--coral);
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
 }
 
+/* Chip ativo */
 .category-pill.active {
+  /* Fundo: coral bem fraquinho */
   background: var(--coral-soft);
 }
 
@@ -587,34 +956,52 @@ a {
    STATS / MACROS (progresso, alimentação)
    ============================================ */
 
+/* Grades de números (resumo, macros, academia) */
 .stats-grid,
 .nutrition-overview,
 .gym-admin-dashboard {
+  /* Organiza os itens em grade */
   display: grid;
+  /* Quantas colunas couberem, cada uma com no mínimo 160 pixels */
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  /* Espaço entre os itens: 14 pixels */
   gap: 14px;
 }
 
+/* Quadrados de número */
 .stat-box,
 .macro-card {
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cantos arredondados: 10 pixels */
   border-radius: var(--radius-sm);
+  /* Espaço interno: 16 pixels */
   padding: 16px;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 6 pixels */
   gap: 6px;
 }
 
+/* Nome do número */
 .stat-box span,
 .macro-card span {
+  /* Tamanho da letra: 12,5 pixels */
   font-size: 12.5px;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
 }
 
+/* Valor do número */
 .stat-box strong,
 .macro-card strong {
+  /* Tamanho da letra: 18 pixels */
   font-size: 18px;
+  /* Fonte da letra */
   font-family: "Space Grotesk", sans-serif;
 }
 
@@ -622,13 +1009,19 @@ a {
    PLANOS (visual em ../shared/planos.css)
    ============================================ */
 
+/* Texto de apoio da página */
 .view-lead {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 14,5 pixels */
   font-size: 14.5px;
+  /* Margem (espaço por fora) */
   margin: -20px 0 0;
 }
 
+/* Planos dentro do app */
 #view-planos [data-planos] {
+  /* Itens alinhados no começo */
   align-items: flex-start;
 }
 
@@ -636,56 +1029,95 @@ a {
    MODAL
    ============================================ */
 
+/* Fundo escuro do modal */
 .modal-overlay {
+  /* Fixo na tela, mesmo rolando */
   position: fixed;
+  /* Ocupa a área toda do pai */
   inset: 0;
+  /* Fundo: cor meio transparente */
   background: rgba(0, 0, 0, 0.6);
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Camada 100 (número maior fica por cima) */
   z-index: 100;
+  /* Espaço interno: 24 pixels */
   padding: 24px;
 }
 
+/* Janela do modal */
 .modal-window {
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cantos arredondados: 14 pixels */
   border-radius: var(--radius-md);
+  /* Largura: a toda */
   width: 100%;
+  /* Largura máxima: 480 pixels */
   max-width: 480px;
+  /* Altura máxima */
   max-height: 85vh;
+  /* Barra de rolagem para baixo só se precisar */
   overflow-y: auto;
 }
 
+/* Topo do modal */
 .modal-header {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Joga os itens para as pontas */
   justify-content: space-between;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 18px 20px;
+  /* Borda embaixo de 1 pixel, cor das bordas */
   border-bottom: 1px solid var(--border);
 }
 
+/* Título do modal */
 .modal-header h2 {
+  /* Tamanho da letra: 16 pixels */
   font-size: 16px;
 }
 
+/* Botão X de fechar */
 .btn-close-modal {
+  /* Sem fundo (transparente) */
   background: transparent;
+  /* Sem borda */
   border: none;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 22 pixels */
   font-size: 22px;
+  /* Altura da linha justa */
   line-height: 1;
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
+  /* Espaço interno: 4 pixels */
   padding: 4px;
 }
 
+/* Botão X com o mouse em cima */
 .btn-close-modal:hover {
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
 }
 
+/* Miolo do modal */
 .modal-body {
+  /* Espaço interno: 20 pixels */
   padding: 20px;
+  /* Tamanho da letra: 14 pixels */
   font-size: 14px;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
 }
 
@@ -693,48 +1125,80 @@ a {
    ÍCONES, OVERLAY E TOAST
    ============================================ */
 
+/* Ícones em SVG */
 .icon {
+  /* Largura: 18 pixels */
   width: 18px;
+  /* Altura: 18 pixels */
   height: 18px;
+  /* Sem preenchimento no desenho */
   fill: none;
+  /* Cor do traço do desenho: a mesma cor do texto */
   stroke: currentColor;
+  /* Grossura do traço: 2 */
   stroke-width: 2;
+  /* Pontas do traço arredondadas */
   stroke-linecap: round;
+  /* Cantos do traço arredondados */
   stroke-linejoin: round;
 }
 
+/* Fundo escuro atrás do menu no celular */
 .sidebar-overlay {
+  /* Fixo na tela, mesmo rolando */
   position: fixed;
+  /* Ocupa a área toda do pai */
   inset: 0;
+  /* Fundo: cor meio transparente */
   background: rgba(0, 0, 0, 0.55);
+  /* Camada 40 (número maior fica por cima) */
   z-index: 40;
 }
 
 body.modal-aberto {
+  /* Esconde o que passar da caixa */
   overflow: hidden;
 }
 
+/* Aviso rápido (toast) */
 .toast {
+  /* Fixo na tela, mesmo rolando */
   position: fixed;
+  /* Distância da esquerda: 50% */
   left: 50%;
+  /* Distância de baixo: 24 pixels */
   bottom: 24px;
+  /* Move o elemento */
   transform: translate(-50%, 12px);
+  /* Fundo: cor de card mais clara */
   background: var(--surface-2);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 12px 18px;
+  /* Cantos totalmente redondos */
   border-radius: 999px;
+  /* Tamanho da letra: 14 pixels */
   font-size: 14px;
+  /* Sombra em volta da caixa */
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  /* Camada 120 (número maior fica por cima) */
   z-index: 120;
+  /* Invisível (opacidade 0) */
   opacity: 0;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     opacity 0.2s ease,
     transform 0.2s ease;
 }
 
+/* Toast aparecendo */
 .toast.is-visible {
+  /* Totalmente visível */
   opacity: 1;
+  /* Move o elemento */
   transform: translate(-50%, 0);
 }
 
@@ -742,230 +1206,375 @@ body.modal-aberto {
    CARDS DINÂMICOS (treinos, descobrir, salvos)
    ============================================ */
 
+/* Card em coluna */
 .workout-card-col {
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Itens esticados */
   align-items: stretch;
 }
 
+/* Botões do card */
 .card-actions {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
+  /* Margem em cima: 4 pixels */
   margin-top: 4px;
 }
 
+/* Botões dentro do card */
 .card-actions .btn-primary,
 .card-actions .btn-secondary {
+  /* Ocupa todo o espaço que sobra */
   flex: 1;
 }
 
+/* Botão de perigo com o mouse em cima */
 .btn-danger:hover {
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
+  /* Fundo: coral bem fraquinho */
   background: var(--coral-soft);
 }
 
+/* Botão de salvar treino (marcador) */
 .btn-save {
+  /* Tamanho da letra: 18 pixels */
   font-size: 18px;
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
 }
 
+/* Botão de salvar já salvo */
 .btn-save.is-saved {
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
+  /* Cor da borda: coral */
   border-color: var(--coral);
 }
 
+/* Ícone do botão já salvo (preenchido) */
 .btn-save.is-saved .icon {
+  /* Cor de preenchimento do desenho: a mesma cor do texto */
   fill: currentColor;
 }
 
+/* Estrelinha da nota */
 .icon-star {
+  /* Largura: 12 pixels */
   width: 12px;
+  /* Altura: 12 pixels */
   height: 12px;
+  /* Cor de preenchimento do desenho: amarelo das estrelas */
   fill: var(--star);
+  /* Alinhamento na linha do texto */
   vertical-align: -1px;
 }
 
 /* Mantém o texto oculto preso ao card (evita scroll horizontal) */
+/* Textos de detalhe e nota */
 .meta,
 .stats,
 .rating {
+  /* Posição relativa (serve de base para filhos soltos) */
   position: relative;
 }
 
+/* Texto só para leitores de tela */
 .sr-only {
+  /* Posição solta, presa ao pai */
   position: absolute;
+  /* Largura: 1 pixel */
   width: 1px;
+  /* Altura: 1 pixel */
   height: 1px;
+  /* Sem espaço interno */
   padding: 0;
+  /* Margem (espaço por fora): -1 pixel */
   margin: -1px;
+  /* Esconde o que passar da caixa */
   overflow: hidden;
+  /* Recorta o elemento */
   clip: rect(0, 0, 0, 0);
+  /* Não deixa quebrar linha */
   white-space: nowrap;
+  /* Sem borda */
   border: 0;
 }
 
+/* Card de recomendado dentro da grade */
 .cards-grid .rec-card-grid {
+  /* Largura automática */
   width: auto;
 }
 
+/* Detalhes do card */
 .card-details {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 6 pixels */
   gap: 6px;
 }
 
+/* Capa do card */
 .card-img-placeholder {
+  /* Posição relativa (serve de base para filhos soltos) */
   position: relative;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens alinhados no fim */
   align-items: flex-end;
+  /* Espaço interno: 10 pixels */
   padding: 10px;
 }
 
+/* Capa de hipertrofia */
 .card-img-placeholder[data-objetivo="hipertrofia"] {
+  /* Fundo em degradê */
   background: linear-gradient(135deg, rgba(255, 122, 69, 0.35), var(--bg));
 }
 
+/* Capa de HIIT */
 .card-img-placeholder[data-objetivo="hiit"] {
+  /* Fundo em degradê */
   background: linear-gradient(135deg, rgba(255, 160, 107, 0.4), var(--surface-2));
 }
 
+/* Capa de yoga e mobilidade */
 .card-img-placeholder[data-objetivo="yoga_mobilidade"] {
+  /* Fundo em degradê */
   background: linear-gradient(135deg, rgba(52, 211, 153, 0.35), var(--bg));
 }
 
+/* Capa de resistência */
 .card-img-placeholder[data-objetivo="resistencia"] {
+  /* Fundo em degradê */
   background: linear-gradient(135deg, rgba(52, 211, 153, 0.2), rgba(255, 122, 69, 0.2));
 }
 
+/* Etiquetas */
 .card-tag,
 .tag {
+  /* Fica na linha do texto, mas aceita largura e altura */
   display: inline-block;
+  /* Tamanho da letra: 11 pixels */
   font-size: 11px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 3px 9px;
+  /* Cantos totalmente redondos */
   border-radius: 999px;
+  /* Fundo: cor meio transparente */
   background: rgba(14, 21, 18, 0.7);
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Não deixa quebrar linha */
   white-space: nowrap;
 }
 
+/* Etiqueta verde */
 .tag-success {
+  /* Cor do texto: esmeralda */
   color: var(--emerald);
 }
 
+/* Texto em coral */
 .text-coral {
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
 }
 
+/* Número de contagem ao lado do título */
 .count {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Letra um pouco mais grossa (médio) */
   font-weight: 500;
+  /* Tamanho da letra */
   font-size: 0.9em;
 }
 
+/* Botão com cara de link */
 .btn-link {
+  /* Sem fundo (transparente) */
   background: none;
+  /* Sem borda */
   border: none;
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
+  /* Usa a mesma fonte do elemento pai */
   font: inherit;
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 8px 4px;
 }
 
+/* Fileira de chips de filtro */
 .chips-bar {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Quebra para a linha de baixo se não couber */
   flex-wrap: wrap;
+  /* Espaço entre os itens: 10 pixels */
   gap: 10px;
 }
 
+/* Botão que ocupa a largura toda */
 .btn-block {
+  /* Largura: a toda */
   width: 100%;
+  /* Margem em cima: 16 pixels */
   margin-top: 16px;
 }
 
 a.btn-primary {
+  /* Flexbox, mas sem ocupar a linha toda */
   display: inline-flex;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Tira o sublinhado */
   text-decoration: none;
 }
 
 /* Listas (refeições, avisos, notificações) */
+/* Painel em lista */
 .list-panel {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cantos arredondados: 14 pixels */
   border-radius: var(--radius-md);
+  /* Esconde o que passar da caixa */
   overflow: hidden;
 }
 
+/* Cada item do painel */
 .list-panel li {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Joga os itens para as pontas */
   justify-content: space-between;
+  /* Espaço entre os itens: 12 pixels */
   gap: 12px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 14px 16px;
 }
 
+/* Item que vem depois de outro (ganha divisória) */
 .list-panel li + li {
+  /* Borda em cima de 1 pixel, cor das bordas */
   border-top: 1px solid var(--border);
 }
 
+/* Textos do item */
 .list-panel li div {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 2 pixels */
   gap: 2px;
+  /* Deixa encolher sem estourar a caixa */
   min-width: 0;
 }
 
+/* Título do item */
 .list-panel strong {
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Tamanho da letra: 14 pixels */
   font-size: 14px;
 }
 
+/* Detalhes do item (menos as etiquetas) */
 .list-panel span:not(.tag) {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
 }
 
+/* Lista dentro do modal */
 .modal-body .list-panel {
+  /* Margem em cima: 12 pixels */
   margin-top: 12px;
 }
 
 /* Barras de ocupação (academia) */
+/* Lista de barras (ocupação da academia) */
 .bars-list {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 12 pixels */
   gap: 12px;
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cantos arredondados: 14 pixels */
   border-radius: var(--radius-md);
+  /* Espaço interno: 16 pixels */
   padding: 16px;
 }
 
+/* Cada linha de barra */
 .bars-list li {
+  /* Organiza os itens em grade */
   display: grid;
+  /* Tamanho das colunas da grade: 72px 1fr 44px */
   grid-template-columns: 72px 1fr 44px;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 12 pixels */
   gap: 12px;
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
 }
 
+/* Barra da linha */
 .bars-list .progress-bar-sm {
+  /* Sem margem */
   margin: 0;
 }
 
+/* Porcentagem */
 .bars-list strong {
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Texto à direita */
   text-align: right;
 }
 
+/* Porcentagem dos macros */
 .macro-pct {
+  /* Cor do texto: cinza mais apagado */
   color: var(--muted-2);
+  /* Tamanho da letra: 11,5 pixels */
   font-size: 11.5px;
 }
 
@@ -973,60 +1582,100 @@ a.btn-primary {
    BUSCA E ESTADO VAZIO
    ============================================ */
 
+/* Cada resultado da busca */
 .search-result {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Joga os itens para as pontas */
   justify-content: space-between;
+  /* Espaço entre os itens: 12 pixels */
   gap: 12px;
+  /* Espaço interno: 10 pixels */
   padding: 10px;
+  /* Cantos arredondados: 8 pixels */
   border-radius: 8px;
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Tamanho da letra: 13,5 pixels */
   font-size: 13.5px;
 }
 
+/* Resultado com o mouse em cima ou focado */
 .search-result:hover,
 .search-result:focus-visible {
+  /* Fundo: cor de card mais clara */
   background: var(--surface-2);
 }
 
+/* Detalhe do resultado */
 .search-result span {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 12 pixels */
   font-size: 12px;
 }
 
+/* Estado vazio (quando não tem nada para mostrar) */
 .empty-state {
+  /* Ocupa a largura toda da grade */
   grid-column: 1 / -1;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Texto centralizado */
   text-align: center;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 40px 20px;
+  /* Borda tracejada de 1 pixel, cor das bordas */
   border: 1px dashed var(--border);
+  /* Cantos arredondados: 14 pixels */
   border-radius: var(--radius-md);
 }
 
+/* Texto do estado vazio */
 .empty-state p {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 14 pixels */
   font-size: 14px;
+  /* Margem (espaço por fora) */
   margin: 0 0 8px;
 }
 
+/* Desenho do estado vazio */
 .empty-illustration {
+  /* Largura: 64 pixels */
   width: 64px;
+  /* Altura: 64 pixels */
   height: 64px;
+  /* Margem embaixo: 4 pixels */
   margin-bottom: 4px;
 }
 
+/* Anel do desenho */
 .empty-ring {
+  /* Cor de preenchimento do desenho: coral bem fraquinho */
   fill: var(--coral-soft);
+  /* Cor do traço do desenho: cor das bordas */
   stroke: var(--border);
 }
 
+/* Batimento do desenho */
 .empty-pulse {
+  /* Sem preenchimento no desenho */
   fill: none;
+  /* Cor do traço do desenho: esmeralda */
   stroke: var(--emerald);
+  /* Grossura do traço: 3 */
   stroke-width: 3;
+  /* Pontas do traço arredondadas */
   stroke-linecap: round;
+  /* Cantos do traço arredondados */
   stroke-linejoin: round;
 }
 
@@ -1034,55 +1683,91 @@ a.btn-primary {
    FORMULÁRIOS DOS MODAIS
    ============================================ */
 
+/* Formulário dentro do modal */
 .modal-form {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 12 pixels */
   gap: 12px;
 }
 
+/* Grupo de um campo */
 .form-group {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 6 pixels */
   gap: 6px;
 }
 
+/* Nome do campo */
 .form-group label {
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
+  /* Letra um pouco mais grossa (médio) */
   font-weight: 500;
 }
 
+/* Campos de texto e caixas de texto grandes */
 .form-group input,
 .form-group textarea {
+  /* Fundo: verde-carvão do fundo */
   background: var(--bg);
+  /* Borda de 1,5 pixels, cor das bordas */
   border: 1.5px solid var(--border);
+  /* Cantos arredondados: 10 pixels */
   border-radius: var(--radius-sm);
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 10px 12px;
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Usa a mesma fonte do elemento pai */
   font: inherit;
+  /* Tamanho da letra: 14 pixels */
   font-size: 14px;
+  /* Deixa a pessoa redimensionar */
   resize: vertical;
 }
 
+/* Campos focados */
 .form-group input:focus,
 .form-group textarea:focus {
+  /* Tira o contorno padrão */
   outline: none;
+  /* Cor da borda: coral */
   border-color: var(--coral);
+  /* Anel em volta da caixa (feito com sombra) */
   box-shadow: 0 0 0 4px var(--coral-ring);
 }
 
+/* Linha com caixinha de marcar */
 .check-row {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
+  /* Margem em cima: 14 pixels */
   margin-top: 14px;
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
 }
 
+/* Caixinha de marcar */
 .check-row input {
+  /* Cor das caixinhas e opções nativas: coral */
   accent-color: var(--coral);
+  /* Largura: 16 pixels */
   width: 16px;
+  /* Altura: 16 pixels */
   height: 16px;
 }
 
@@ -1094,19 +1779,26 @@ a:focus-visible,
 button:focus-visible,
 select:focus-visible,
 [tabindex]:focus-visible {
+  /* Contorno em volta (aparece no foco) */
   outline: 2px solid var(--coral);
+  /* Distância do contorno até o elemento */
   outline-offset: 2px;
 }
 
+/* Botões focados pelo teclado */
 .btn-primary:focus-visible,
 .btn-secondary:focus-visible {
+  /* Distância do contorno até o elemento */
   outline-offset: 3px;
 }
 
+/* Conteúdo focado pelo código (sem contorno) */
 #conteudo:focus {
+  /* Tira o contorno padrão */
   outline: none;
 }
 
+/* Cards e quadrados (transição suave) */
 .workout-card,
 .rec-card,
 .pro-card,
@@ -1114,109 +1806,167 @@ select:focus-visible,
 .stat-box,
 .macro-card,
 .chart-container {
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     transform 0.2s ease,
     border-color 0.2s ease,
     box-shadow 0.2s ease;
 }
 
+/* Cards com o mouse em cima (sobem um pouquinho) */
 .workout-card:hover,
 .rec-card:hover,
 .pro-card:hover,
 .challenge-card:hover {
+  /* Sobe 2 pixels */
   transform: translateY(-2px);
+  /* Cor da borda: borda mais forte */
   border-color: var(--border-strong);
+  /* Sombra em volta da caixa */
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
 }
 
+/* Quadrados com o mouse em cima */
 .stat-box:hover,
 .macro-card:hover {
+  /* Cor da borda: borda mais forte */
   border-color: var(--border-strong);
 }
 
+/* Botões desativados */
 .btn-primary:disabled,
 .btn-secondary:disabled {
+  /* Meio transparente (55% visível) */
   opacity: 0.55;
+  /* Mostra o sinal de proibido */
   cursor: not-allowed;
+  /* Sem filtro */
   filter: none;
+  /* Sem mover nem girar */
   transform: none;
 }
 
+/* Filtros com o mouse em cima */
 .filters-bar select:hover {
+  /* Cor da borda: borda mais forte */
   border-color: var(--border-strong);
 }
 
+/* Seção da página (entra com animação) */
 .view-section.active {
+  /* Roda a animação "view-in" */
   animation: view-in 0.2s ease-out both;
 }
 
+/* Animação chamada "view-in" (passo a passo abaixo) */
 @keyframes view-in {
+  /* Começo da animação */
   from {
+    /* Invisível (opacidade 0) */
     opacity: 0;
+    /* Desce 6 pixels */
     transform: translateY(6px);
   }
+  /* Fim da animação */
   to {
+    /* Totalmente visível */
     opacity: 1;
+    /* Sem mover nem girar */
     transform: none;
   }
 }
 
+/* Janela do modal aparecendo (animação) */
 .modal-overlay:not(.hidden) .modal-window {
+  /* Roda a animação "view-in" */
   animation: view-in 0.18s ease-out both;
 }
 
 /* Skeletons de carregamento */
+/* Card de carregando (esqueleto) */
 .skeleton-card {
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cantos arredondados: 14 pixels */
   border-radius: var(--radius-md);
+  /* Espaço interno: 18 pixels */
   padding: 18px;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 10 pixels */
   gap: 10px;
+  /* Altura mínima: 150 pixels */
   min-height: 150px;
 }
 
+/* Linha cinza do esqueleto */
 .skeleton-line {
+  /* Altura: 12 pixels */
   height: 12px;
+  /* Cantos arredondados: 6 pixels */
   border-radius: 6px;
+  /* Fundo em degradê */
   background: linear-gradient(90deg, var(--surface-2) 25%, var(--surface-3) 50%, var(--surface-2) 75%);
+  /* Tamanho da imagem de fundo */
   background-size: 200% 100%;
+  /* Roda a animação "shimmer" */
   animation: shimmer 1.2s linear infinite;
 }
 
+/* Bloco grande do esqueleto */
 .skeleton-line.is-block {
+  /* Altura: 80 pixels */
   height: 80px;
+  /* Cantos arredondados: 10 pixels */
   border-radius: var(--radius-sm);
 }
 
+/* Linha curta do esqueleto */
 .skeleton-line.is-short {
+  /* Largura: 55% */
   width: 55%;
 }
 
+/* Animação chamada "shimmer" (passo a passo abaixo) */
 @keyframes shimmer {
+  /* Começo da animação */
   from {
+    /* Posição da imagem de fundo */
     background-position: 200% 0;
   }
+  /* Fim da animação */
   to {
+    /* Posição da imagem de fundo */
     background-position: -200% 0;
   }
 }
 
+/* Se a pessoa pediu ao sistema para reduzir as animações */
 @media (prefers-reduced-motion: reduce) {
+  /* Todos os elementos */
   *,
   *::before,
   *::after {
+    /* Duração da animação (!important: vence outras regras) */
     animation-duration: 0.01ms !important;
+    /* Quantas vezes a animação roda (!important: vence outras regras) */
     animation-iteration-count: 1 !important;
+    /* Duração da transição (!important: vence outras regras) */
     transition-duration: 0.01ms !important;
+    /* Rolagem sem efeito (!important: vence outras regras) */
     scroll-behavior: auto !important;
   }
 
+  /* Cards com o mouse em cima (sem mover) */
   .workout-card:hover,
   .rec-card:hover,
   .pro-card:hover,
   .challenge-card:hover {
+    /* Sem mover nem girar */
     transform: none;
   }
 }
@@ -1225,48 +1975,73 @@ select:focus-visible,
    RESPONSIVO
    ============================================ */
 
+/* Botão de menu (escondido no computador) */
 .btn-menu-toggle {
+  /* Esconde o elemento */
   display: none;
 }
 
+/* Em telas de até 900 pixels */
 @media (max-width: 900px) {
+  /* Botão de menu aparece */
   .btn-menu-toggle {
+    /* Flexbox, mas sem ocupar a linha toda */
     display: inline-flex;
   }
 
+  /* Menu lateral vira gaveta escondida */
   .app-sidebar {
+    /* Fixo na tela, mesmo rolando */
     position: fixed;
+    /* Distância da esquerda */
     left: -100%;
+    /* Camada 50 (número maior fica por cima) */
     z-index: 50;
+    /* Faz as mudanças acontecerem de forma suave (transição) */
     transition: left 0.2s ease;
   }
 
+  /* Menu aberto (desliza para dentro) */
   .app-sidebar.is-open {
+    /* Encostado na esquerda */
     left: 0;
   }
 
 }
 
+/* Em telas de até 640 pixels */
 @media (max-width: 640px) {
+  /* Barra do topo */
   .app-topbar {
+    /* Espaço interno (em cima, lados e embaixo) */
     padding: 14px 16px;
+    /* Espaço entre os itens: 8 pixels */
     gap: 8px;
   }
 
+  /* Primeiro nome do topo (escondido) */
   .username-top {
+    /* Esconde o elemento */
     display: none;
   }
 
+  /* Link do perfil no topo */
   .user-menu-trigger {
+    /* Espaço interno: 4 pixels */
     padding: 4px;
   }
 
+  /* Área do conteúdo */
   .app-views-container {
+    /* Espaço interno (em cima, lados e embaixo) */
     padding: 20px 16px;
   }
 
+  /* Card de treino */
   .workout-card {
+    /* Itens em coluna (um embaixo do outro) */
     flex-direction: column;
+    /* Itens alinhados no começo */
     align-items: flex-start;
   }
 }
@@ -1275,59 +2050,99 @@ select:focus-visible,
    CABEÇALHO DAS PÁGINAS E SEÇÕES
    ============================================ */
 
+/* Topo da página */
 .page-header {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens alinhados no fim */
   align-items: flex-end;
+  /* Joga os itens para as pontas */
   justify-content: space-between;
+  /* Espaço entre os itens: 16 pixels */
   gap: var(--space-4);
+  /* Quebra para a linha de baixo se não couber */
   flex-wrap: wrap;
 }
 
+/* Textinho acima do título */
 .page-kicker {
+  /* Margem (espaço por fora) */
   margin: 0 0 6px;
+  /* Cor do texto: esmeralda */
   color: var(--emerald);
+  /* Tamanho da letra: 12 pixels */
   font-size: var(--text-xs);
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Espaço entre as letras */
   letter-spacing: 0.08em;
+  /* Letras maiúsculas */
   text-transform: uppercase;
 }
 
+/* Texto de apoio abaixo do título */
 .page-lead {
+  /* Margem (espaço por fora) */
   margin: 6px 0 0;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 14,5 pixels */
   font-size: 14.5px;
+  /* Altura da linha: 1,5 */
   line-height: 1.5;
 }
 
+/* Botões do lado do título */
 .page-header-actions {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 12 pixels */
   gap: var(--space-3);
+  /* Quebra para a linha de baixo se não couber */
   flex-wrap: wrap;
 }
 
+/* Topo de uma seção */
 .section-head {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens alinhados pela base do texto */
   align-items: baseline;
+  /* Joga os itens para as pontas */
   justify-content: space-between;
+  /* Espaço entre os itens: 12 pixels */
   gap: var(--space-3);
+  /* Margem embaixo: 16 pixels */
   margin-bottom: var(--space-4);
 }
 
+/* Título da seção */
 .section-head h2 {
+  /* Margem embaixo: zero */
   margin-bottom: 0;
 }
 
+/* Link "ver mais" da seção */
 .section-link {
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
+  /* Tamanho da letra: 13,5 pixels */
   font-size: var(--text-sm);
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Não deixa quebrar linha */
   white-space: nowrap;
 }
 
+/* Link com o mouse em cima */
 .section-link:hover {
+  /* Sublinhado no texto */
   text-decoration: underline;
+  /* Distância do sublinhado até o texto */
   text-underline-offset: 3px;
 }
 
@@ -1335,60 +2150,97 @@ select:focus-visible,
    BOTÕES EXTRAS
    ============================================ */
 
+/* Botão com ícone e texto */
 .btn-with-icon {
+  /* Flexbox, mas sem ocupar a linha toda */
   display: inline-flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
+  /* Tira o sublinhado */
   text-decoration: none;
 }
 
 a.btn-secondary {
+  /* Flexbox, mas sem ocupar a linha toda */
   display: inline-flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Tira o sublinhado */
   text-decoration: none;
 }
 
+/* Botão de contorno */
 .btn-outline {
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Largura: 38 pixels */
   width: 38px;
+  /* Altura: 38 pixels */
   height: 38px;
 }
 
+/* Botão de ícone grande */
 .btn-icon-lg {
+  /* Largura: 40 pixels */
   width: 40px;
+  /* Altura: 40 pixels */
   height: 40px;
 }
 
+/* Botões de perigo (base comum) */
 .btn-danger-solid,
 .btn-danger-outline {
+  /* Fonte: a mesma do elemento pai */
   font-family: inherit;
+  /* Tamanho da letra: 13,5 pixels */
   font-size: 13.5px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Cantos arredondados: 10 pixels */
   border-radius: var(--radius-sm);
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 10px 18px;
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: filter var(--dur-fast) ease, background var(--dur-fast) ease;
 }
 
+/* Botão de perigo cheio (vermelho) */
 .btn-danger-solid {
+  /* Sem borda */
   border: none;
+  /* Cor do texto: quase preto (texto em cima do coral) */
   color: var(--on-coral);
+  /* Fundo: amarelo de alerta */
   background: var(--warning);
 }
 
+/* Botão de perigo com o mouse em cima */
 .btn-danger-solid:hover {
+  /* Efeito de filtro (brilho, desfoque...) */
   filter: brightness(1.08);
 }
 
+/* Botão de perigo de contorno */
 .btn-danger-outline {
+  /* Cor do texto: amarelo de alerta */
   color: var(--warning);
+  /* Sem fundo (transparente) */
   background: transparent;
+  /* Borda de 1 pixel, cor meio transparente */
   border: 1px solid rgba(224, 159, 62, 0.45);
 }
 
+/* Botão de contorno com o mouse em cima */
 .btn-danger-outline:hover {
+  /* Fundo: amarelo fraquinho */
   background: var(--warning-soft);
 }
 
@@ -1396,101 +2248,167 @@ a.btn-secondary {
    NÚMEROS (resumo da semana, evolução, perfil)
    ============================================ */
 
+/* Grade de 4 números */
 .stats-grid-4 {
+  /* 4 colunas iguais */
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+/* Grade de 3 números */
 .stats-grid-3 {
+  /* 3 colunas iguais */
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+/* Quadrado de número com ícone */
 .stat-tile {
+  /* Espaço interno: 18 pixels */
   padding: 18px;
+  /* Espaço entre os itens: 4 pixels */
   gap: 4px;
+  /* Cantos arredondados: 14 pixels */
   border-radius: var(--radius-md);
 }
 
+/* Topo do quadrado */
 .stat-tile-top {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Joga os itens para as pontas */
   justify-content: space-between;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
+  /* Margem embaixo: 6 pixels */
   margin-bottom: 6px;
 }
 
+/* Nome do número */
 .stat-box .stat-label {
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
 }
 
+/* Valor do número */
 .stat-box .stat-value {
+  /* Tamanho da letra: 24 pixels */
   font-size: 24px;
+  /* Espaço entre as letras */
   letter-spacing: -0.01em;
+  /* Cor do texto: branco */
   color: var(--ink-strong);
 }
 
+/* Detalhe embaixo do número */
 .stat-detail {
+  /* Cor do texto: cinza mais apagado */
   color: var(--muted-2);
+  /* Tamanho da letra: 12 pixels */
   font-size: var(--text-xs);
 }
 
+/* Quadradinho do ícone */
 .icon-tile {
+  /* Flexbox, mas sem ocupar a linha toda */
   display: inline-flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Largura: 32 pixels */
   width: 32px;
+  /* Altura: 32 pixels */
   height: 32px;
+  /* Cantos arredondados: 10 pixels */
   border-radius: var(--radius-sm);
+  /* Não deixa encolher */
   flex-shrink: 0;
 }
 
+/* Quadradinho grande */
 .icon-tile-lg {
+  /* Largura: 44 pixels */
   width: 44px;
+  /* Altura: 44 pixels */
   height: 44px;
+  /* Cantos arredondados: 12 pixels */
   border-radius: 12px;
 }
 
+/* Ícone do quadradinho grande */
 .icon-tile-lg .icon {
+  /* Largura: 22 pixels */
   width: 22px;
+  /* Altura: 22 pixels */
   height: 22px;
 }
 
+/* Quadradinho coral */
 .icon-tile-coral {
+  /* Fundo: coral bem fraquinho */
   background: var(--coral-soft);
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
 }
 
+/* Quadradinho verde */
 .icon-tile-emerald {
+  /* Fundo: esmeralda fraquinha */
   background: var(--emerald-soft);
+  /* Cor do texto: esmeralda */
   color: var(--emerald);
 }
 
+/* Bolinhas dos dias da semana */
 .week-dots {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Espaço entre os itens: 4 pixels */
   gap: 4px;
+  /* Margem em cima: 8 pixels */
   margin-top: 8px;
 }
 
+/* Cada bolinha */
 .week-dot {
+  /* Ocupa todo o espaço que sobra */
   flex: 1;
+  /* Altura: 22 pixels */
   height: 22px;
+  /* Cantos arredondados: 6 pixels */
   border-radius: 6px;
+  /* Flexbox, mas sem ocupar a linha toda */
   display: inline-flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Tamanho da letra: 10,5 pixels */
   font-size: 10.5px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Cor do texto: cinza mais apagado */
   color: var(--muted-2);
+  /* Fundo: cor de card mais clara */
   background: var(--surface-2);
 }
 
+/* Dia em que treinou */
 .week-dot.is-done {
+  /* Fundo: esmeralda fraquinha */
   background: var(--emerald-soft);
+  /* Cor do texto: esmeralda */
   color: var(--emerald);
 }
 
+/* Dia de hoje */
 .week-dot.is-today {
+  /* Sombra/brilho por dentro da caixa */
   box-shadow: inset 0 0 0 1px var(--coral);
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
 }
 
@@ -1499,51 +2417,81 @@ a.btn-secondary {
    ============================================ */
 
 /* Cores das barras de progresso */
+/* Barra verde */
 .progress-emerald .fill {
+  /* Fundo em degradê */
   background: linear-gradient(90deg, var(--emerald-dark), var(--emerald));
 }
 
+/* Barra amarela */
 .progress-warning .fill {
+  /* Fundo em degradê */
   background: linear-gradient(90deg, #b9802c, var(--warning));
 }
 
+/* Barra azul */
 .progress-info .fill {
+  /* Fundo em degradê */
   background: linear-gradient(90deg, #4d97c4, var(--info));
 }
 
 /* Capa dos cards de treino: ícone da categoria em vez de "imagem vazia" */
+/* Capa do card de treino */
 .card-img-placeholder {
+  /* Esconde o que passar da caixa */
   overflow: hidden;
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
 }
 
+/* Brilho decorativo da capa */
 .card-img-placeholder::after {
+  /* Cria um pedacinho vazio, só para enfeite */
   content: "";
+  /* Posição solta, presa ao pai */
   position: absolute;
+  /* Ocupa a área toda do pai */
   inset: 0;
+  /* Fundo em degradê */
   background-image: radial-gradient(rgba(244, 241, 234, 0.07) 1px, transparent 1px);
+  /* Tamanho da imagem de fundo */
   background-size: 12px 12px;
+  /* Ignora cliques (eles passam direto) */
   pointer-events: none;
 }
 
+/* Ícone no meio da capa */
 .card-cover-icon {
+  /* Posição solta, presa ao pai */
   position: absolute;
+  /* Distância da direita: 12 pixels */
   right: 12px;
+  /* Distância de cima: 12 pixels */
   top: 12px;
+  /* Largura: 44 pixels */
   width: 44px;
+  /* Altura: 44 pixels */
   height: 44px;
+  /* Grossura do traço: 1.6 */
   stroke-width: 1.6;
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
+  /* Meio transparente (90% visível) */
   opacity: 0.9;
 }
 
+/* Ícone das capas de yoga e resistência (outra cor) */
 .card-img-placeholder[data-objetivo="yoga_mobilidade"] .card-cover-icon,
 .card-img-placeholder[data-objetivo="resistencia"] .card-cover-icon {
+  /* Cor do texto: esmeralda */
   color: var(--emerald);
 }
 
+/* Etiqueta em cima da capa */
 .card-tag {
+  /* Posição relativa (serve de base para filhos soltos) */
   position: relative;
+  /* Camada 1 (número maior fica por cima) */
   z-index: 1;
 }
 
@@ -1551,81 +2499,135 @@ a.btn-secondary {
    AVISO COM AÇÃO, CONFIRMAÇÃO E FORMULÁRIOS
    ============================================ */
 
+/* Aviso rápido (toast) */
 .toast {
+  /* Flexbox, mas sem ocupar a linha toda */
   display: inline-flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 14 pixels */
   gap: 14px;
+  /* Largura máxima */
   max-width: calc(100% - 32px);
 }
 
+/* Botão dentro do toast (ex.: Desfazer) */
 .toast-action {
+  /* Sem fundo (transparente) */
   background: none;
+  /* Sem borda */
   border: none;
+  /* Sem espaço interno */
   padding: 0;
+  /* Usa a mesma fonte do elemento pai */
   font: inherit;
+  /* Letra negrito */
   font-weight: 700;
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
 }
 
+/* Botão do toast com o mouse em cima */
 .toast-action:hover {
+  /* Sublinhado no texto */
   text-decoration: underline;
 }
 
+/* Texto do modal */
 .modal-text {
+  /* Sem margem */
   margin: 0;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Altura da linha: 1,5 */
   line-height: 1.5;
 }
 
+/* Botões do modal */
 .modal-actions {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Empurra os itens para o fim */
   justify-content: flex-end;
+  /* Espaço entre os itens: 10 pixels */
   gap: 10px;
+  /* Margem em cima: 20 pixels */
   margin-top: 20px;
+  /* Quebra para a linha de baixo se não couber */
   flex-wrap: wrap;
 }
 
+/* Dica embaixo do campo */
 .form-hint {
+  /* Margem (espaço por fora) */
   margin: -4px 0 4px;
+  /* Tamanho da letra: 12,5 pixels */
   font-size: 12.5px;
+  /* Cor do texto: cinza mais apagado */
   color: var(--muted-2);
 }
 
+/* Linha com campos lado a lado */
 .form-row {
+  /* Organiza os itens em grade */
   display: grid;
+  /* Tamanho das colunas da grade: minmax(0, 1fr) 120px */
   grid-template-columns: minmax(0, 1fr) 120px;
+  /* Espaço entre os itens: 12 pixels */
   gap: 12px;
 }
 
+/* Linha com 4 campos */
 .form-row-4 {
+  /* 4 colunas iguais */
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+/* Caixa de texto grande */
 .form-group textarea {
+  /* Altura mínima: 96 pixels */
   min-height: 96px;
 }
 
+/* Exercícios da prévia */
 .exercise-preview li {
+  /* Junta os itens no começo */
   justify-content: flex-start;
 }
 
+/* Número do exercício */
 .exercise-index {
+  /* Largura: 28 pixels */
   width: 28px;
+  /* Altura: 28 pixels */
   height: 28px;
+  /* Não deixa encolher */
   flex-shrink: 0;
+  /* Flexbox, mas sem ocupar a linha toda */
   display: inline-flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Cantos totalmente redondos */
   border-radius: 50%;
+  /* Fundo: cor de card mais clara */
   background: var(--surface-2);
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 12 pixels */
   font-size: 12px;
+  /* Letra negrito */
   font-weight: 700;
 }
 
+/* Ícone no lugar do número */
 .exercise-index .icon {
+  /* Largura: 14 pixels */
   width: 14px;
+  /* Altura: 14 pixels */
   height: 14px;
 }
 
@@ -1633,36 +2635,57 @@ a.btn-secondary {
    HISTÓRICO DE TREINOS (Evolução e Perfil)
    ============================================ */
 
+/* Lista do histórico */
 .history-list {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
 }
 
+/* Item do histórico */
 .history-item {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 12 pixels */
   gap: 12px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 12px 0;
 }
 
+/* Item que vem depois de outro (ganha divisória) */
 .history-item + .history-item {
+  /* Borda em cima de 1 pixel, cor das bordas */
   border-top: 1px solid var(--border);
 }
 
+/* Textos do item */
 .history-item > div {
+  /* Ocupa todo o espaço que sobra */
   flex: 1;
+  /* Deixa encolher sem estourar a caixa */
   min-width: 0;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 2 pixels */
   gap: 2px;
 }
 
+/* Nome do treino */
 .history-item strong {
+  /* Tamanho da letra: 14 pixels */
   font-size: 14px;
 }
 
+/* Detalhes do treino */
 .history-item div span {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 12,5 pixels */
   font-size: 12.5px;
 }
 
@@ -1670,33 +2693,53 @@ a.btn-secondary {
    RODAPÉ DISCRETO DO APP
    ============================================ */
 
+/* Rodapé do app */
 .app-footer {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Joga os itens para as pontas */
   justify-content: space-between;
+  /* Espaço entre os itens: 12 pixels */
   gap: 12px;
+  /* Quebra para a linha de baixo se não couber */
   flex-wrap: wrap;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 20px 32px;
+  /* Borda em cima de 1 pixel, cor das bordas */
   border-top: 1px solid var(--border);
+  /* Cor do texto: cinza mais apagado */
   color: var(--muted-2);
+  /* Tamanho da letra: 12,5 pixels */
   font-size: 12.5px;
 }
 
+/* Texto do rodapé */
 .app-footer p {
+  /* Sem margem */
   margin: 0;
 }
 
+/* Links do rodapé */
 .app-footer nav {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Espaço entre os itens: 16 pixels */
   gap: 16px;
 }
 
+/* Cada link */
 .app-footer a {
+  /* Cor do texto: cinza mais apagado */
   color: var(--muted-2);
+  /* Tira o sublinhado */
   text-decoration: none;
 }
 
+/* Link com o mouse em cima */
 .app-footer a:hover {
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
 }
 
@@ -1704,128 +2747,200 @@ a.btn-secondary {
    BUSCA E NAVEGAÇÃO NO CELULAR
    ============================================ */
 
+/* Lupa e barra de baixo (escondidas no computador) */
 .btn-search-toggle,
 .bottom-nav {
+  /* Esconde o elemento */
   display: none;
 }
 
+/* Barra de navegação de baixo */
 .bottom-nav {
+  /* Fixo na tela, mesmo rolando */
   position: fixed;
+  /* Encostado na esquerda */
   left: 0;
+  /* Encostado na direita */
   right: 0;
+  /* Encostado embaixo */
   bottom: 0;
+  /* Camada 30 (número maior fica por cima) */
   z-index: 30;
+  /* 5 colunas iguais */
   grid-template-columns: repeat(5, 1fr);
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+  /* Fundo: cor meio transparente */
   background: rgba(14, 21, 18, 0.94);
+  /* Desfoca o que está atrás (efeito vidro) */
   backdrop-filter: blur(12px);
+  /* Borda em cima de 1 pixel, cor das bordas */
   border-top: 1px solid var(--border);
 }
 
+/* Cada link da barra de baixo */
 .bottom-nav-link {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 3 pixels */
   gap: 3px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 6px 0;
+  /* Cantos arredondados: 10 pixels */
   border-radius: var(--radius-sm);
+  /* Cor do texto: cinza mais apagado */
   color: var(--muted-2);
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Tamanho da letra: 11 pixels */
   font-size: 11px;
+  /* Letra seminegrito */
   font-weight: 600;
 }
 
+/* Ícone do link */
 .bottom-nav-link .icon {
+  /* Largura: 22 pixels */
   width: 22px;
+  /* Altura: 22 pixels */
   height: 22px;
 }
 
+/* Link da página atual */
 .bottom-nav-link.active {
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
 }
 
+/* Em telas de até 900 pixels */
 @media (max-width: 900px) {
+  /* Barra de baixo aparece */
   .bottom-nav {
+    /* Organiza os itens em grade */
     display: grid;
   }
 
   body:not(.focus-page) {
+    /* Espaço interno embaixo */
     padding-bottom: calc(68px + env(safe-area-inset-bottom));
   }
 
+  /* Toast sobe para não ficar atrás da barra */
   .toast {
+    /* Distância de baixo */
     bottom: calc(84px + env(safe-area-inset-bottom));
   }
 
+  /* Grade de 4 números vira 2 colunas */
   .stats-grid-4 {
+    /* 2 colunas iguais */
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
+/* Em telas de até 640 pixels */
 @media (max-width: 640px) {
+  /* Lupa aparece */
   .btn-search-toggle {
+    /* Flexbox, mas sem ocupar a linha toda */
     display: inline-flex;
   }
 
+  /* Busca escondida até tocar na lupa */
   .app-topbar .search-box {
+    /* Esconde o elemento */
     display: none;
   }
 
   /* Lupa aberta: o campo ocupa a barra inteira */
+  /* Busca aberta */
   .app-topbar.search-aberta .search-box {
+    /* Vira um bloco (ocupa a linha toda) */
     display: block;
+    /* Posição solta, presa ao pai */
     position: absolute;
+    /* Distância da esquerda: 56 pixels */
     left: 56px;
+    /* Distância da direita: 16 pixels */
     right: 16px;
+    /* Largura máxima: sem limite */
     max-width: none;
   }
 
+  /* Botões que somem enquanto a busca está aberta */
   .app-topbar.search-aberta .topbar-actions,
   .app-topbar.search-aberta .btn-menu-toggle {
+    /* Fica invisível, mas ocupa o lugar */
     visibility: hidden;
   }
 
+  /* Barra do topo */
   .app-topbar {
+    /* Junta os itens no começo */
     justify-content: flex-start;
   }
 
+  /* Botões do topo */
   .topbar-actions {
+    /* Empurra o item para a direita (margem automática) */
     margin-left: auto;
   }
 
+  /* Título da página */
   .view-section h1 {
+    /* Tamanho da letra: 24 pixels */
     font-size: 24px;
   }
 
+  /* Títulos das seções */
   .view-section h2 {
+    /* Tamanho da letra: 18 pixels */
     font-size: 18px;
   }
 
+  /* Botões do topo da página */
   .page-header > .btn-primary,
   .page-header > .btn-secondary,
   .page-header-actions {
+    /* Largura: a toda */
     width: 100%;
   }
 
+  /* Botão principal do topo */
   .page-header-actions .btn-primary {
+    /* Ocupa todo o espaço que sobra */
     flex: 1;
   }
 
+  /* Grade de 3 números */
   .stats-grid-3 {
+    /* Uma coluna só */
     grid-template-columns: 1fr;
   }
 
+  /* Valor do número */
   .stat-box .stat-value {
+    /* Tamanho da letra: 20 pixels */
     font-size: 20px;
   }
 
+  /* Linha de 4 campos */
   .form-row-4 {
+    /* 2 colunas iguais */
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  /* Rodapé do app */
   .app-footer {
+    /* Espaço interno: 16 pixels */
     padding: 16px;
+    /* Centraliza no sentido principal */
     justify-content: center;
+    /* Texto centralizado */
     text-align: center;
   }
 }

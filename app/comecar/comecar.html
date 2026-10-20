@@ -1,37 +1,67 @@
 <!doctype html>
+<!-- A linha acima avisa o navegador que este arquivo é uma página HTML5 -->
+<!-- Começo da página, em português do Brasil -->
 <html lang="pt-BR">
+  <!-- Cabeçalho: informações da página que não aparecem na tela -->
   <head>
+    <!-- Usa UTF-8 para mostrar os acentos (á, ç, ã) do jeito certo -->
     <meta charset="UTF-8" />
+    <!-- Faz a página se ajustar à largura da tela do celular -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Cor da barra do navegador no celular (verde-carvão) -->
     <meta name="theme-color" content="#0e1512" />
+    <!-- Ícone da aba do navegador (a logo) -->
     <link rel="icon" href="../../shared/favicon.svg" type="image/svg+xml" />
+    <!-- Arquivo que permite instalar o site como app no celular -->
     <link rel="manifest" href="../../shared/manifest.webmanifest" />
+    <!-- Ícone usado quando o site é salvo na tela inicial do iPhone -->
     <link rel="apple-touch-icon" href="../../shared/icon-192.png" />
+    <!-- Para redes sociais: diz que isto é um site -->
     <meta property="og:type" content="website" />
+    <!-- Para redes sociais: nome do site -->
     <meta property="og:site_name" content="Saúde Life" />
+    <!-- Para redes sociais: idioma português do Brasil -->
     <meta property="og:locale" content="pt_BR" />
+    <!-- Para redes sociais: título que aparece quando o link é compartilhado -->
     <meta property="og:title" content="Personalize seu Saúde Life" />
+    <!-- Para redes sociais: texto que aparece quando o link é compartilhado -->
     <meta property="og:description" content="Três perguntas rápidas para montar seu Início." />
+    <!-- Para redes sociais: imagem que aparece quando o link é compartilhado -->
     <meta property="og:image" content="https://chagaspq.github.io/saude-life/shared/og-image.png" />
+    <!-- No X (Twitter), mostra o link com imagem grande -->
     <meta name="twitter:card" content="summary_large_image" />
+    <!-- Nome que aparece na aba do navegador -->
     <title>Personalize seu Saúde Life</title>
+    <!-- Descrição da página que aparece no Google -->
     <meta
       name="description"
       content="Três perguntas rápidas para montar seu Início."
     />
+    <!-- Já começa a conectar no Google Fonts para as fontes carregarem mais rápido -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!-- Mesma coisa para o servidor onde ficam os arquivos das fontes -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Carrega as fontes Space Grotesk (títulos) e Inter (texto) -->
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <!-- Carrega as variáveis do site: cores, fontes e espaços (design system) -->
     <link rel="stylesheet" href="../../shared/tokens.css" />
+    <!-- Carrega o estilo base comum a todas as páginas -->
     <link rel="stylesheet" href="../../shared/base.css" />
+    <!-- Carrega o estilo comum do app (menu, cards, botões, modal) -->
     <link rel="stylesheet" href="../comum/app.css" />
+    <!-- Carrega o estilo próprio desta página (comecar.css) -->
     <link rel="stylesheet" href="comecar.css" />
   </head>
 
+  <!-- Corpo: tudo o que aparece na tela -->
   <body data-pagina="comecar" class="focus-page onboarding-page">
+    <!-- Conteúdo principal: o questionário -->
     <main id="conteudo" class="onboarding" tabindex="-1">
+      <!-- Cartão do questionário -->
       <div class="onboarding-card">
+        <!-- Link que leva para o Início do app -->
         <a href="../inicio/inicio.html" class="brand" aria-label="Saúde Life">
+            <!-- Desenho da logo em SVG: anel de progresso com batimento -->
             <svg
               aria-hidden="true"
               width="28"
@@ -39,7 +69,9 @@
               viewBox="0 0 64 64"
               fill="none"
             >
+              <!-- Definições usadas pelo desenho (como o degradê) -->
               <defs>
+                <!-- Item da lista -->
                 <linearGradient
                   id="logo-gradient-onb"
                   x1="8"
@@ -48,16 +80,20 @@
                   y2="8"
                   gradientUnits="userSpaceOnUse"
                 >
+                  <!-- Começo do degradê, na cor coral -->
                   <stop offset="0%" stop-color="#ff7a45" />
+                  <!-- Fim do degradê, na cor esmeralda -->
                   <stop offset="100%" stop-color="#34d399" />
                 </linearGradient>
               </defs>
+              <!-- Anel de progresso da logo -->
               <path
                 d="M32 9.5A22.5 22.5 0 1 1 12.51 20.75"
                 stroke="url(#logo-gradient-onb)"
                 stroke-width="6.5"
                 stroke-linecap="round"
               />
+              <!-- Linha de batimento cardíaco da logo -->
               <path
                 d="M19.5 33H24.5L28.5 25L33.5 41L37 33H44.5"
                 stroke="url(#logo-gradient-onb)"
@@ -66,13 +102,18 @@
                 stroke-linejoin="round"
               />
             </svg>
+            <!-- Nome da marca: Saúde Life (o "Life" fica em coral) -->
             <span>Saúde <span class="brand-life">Life</span></span>
         </a>
 
+        <!-- Título principal da página -->
         <h1 class="onboarding-title">Vamos personalizar seu Saúde Life</h1>
 
+        <!-- Progresso do questionário -->
         <div class="onboarding-progress">
+          <!-- Texto "Passo X de 3" -->
           <span class="meta" data-render="passo-texto">Passo 1 de 3</span>
+          <!-- Barra de progresso (o role avisa os leitores de tela) -->
           <div
             class="progress-bar-sm"
             role="progressbar"
@@ -82,101 +123,164 @@
             aria-valuenow="33"
             data-render="passo-barra"
           >
+            <!-- Parte pintada da barra de progresso -->
             <div class="fill" data-progress="33"></div>
           </div>
         </div>
 
+        <!-- Formulário com as perguntas (cada fieldset é um passo) -->
         <form id="onboarding-form" novalidate>
+          <!-- Passo 1: objetivo -->
           <fieldset class="onboarding-step" data-step="1">
+            <!-- Pergunta do passo -->
             <legend>Qual é o seu objetivo principal?</legend>
+            <!-- Lista de opções -->
             <div class="choice-list">
+              <!-- Opção: ganhar massa (clicar no card marca a opção) -->
               <label class="choice-card">
+                <!-- Opção de escolha (só uma do grupo fica marcada) -->
                 <input type="radio" name="objetivo" value="Hipertrofia" checked />
+                <!-- Ícone da opção -->
                 <span class="choice-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M6 5v14"></path><path d="M18 5v14"></path><path d="M3 8v8"></path><path d="M21 8v8"></path><path d="M6 12h12"></path></svg></span>
+                <!-- Textos da opção -->
                 <span class="choice-text">
+                  <!-- Nome da opção -->
                   <strong>Ganhar massa muscular</strong>
+                  <!-- Explicação da opção -->
                   <small>Treinos de força com progressão de carga</small>
                 </span>
               </label>
+              <!-- Opção: emagrecer -->
               <label class="choice-card">
+                <!-- Opção de escolha (só uma do grupo fica marcada) -->
                 <input type="radio" name="objetivo" value="HIIT" />
+                <!-- Ícone da opção -->
                 <span class="choice-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"></path></svg></span>
+                <!-- Textos da opção -->
                 <span class="choice-text">
+                  <!-- Nome da opção -->
                   <strong>Emagrecer</strong>
+                  <!-- Explicação da opção -->
                   <small>Treinos intensos e curtos que queimam mais</small>
                 </span>
               </label>
+              <!-- Opção: condicionamento -->
               <label class="choice-card">
+                <!-- Opção de escolha (só uma do grupo fica marcada) -->
                 <input type="radio" name="objetivo" value="Resistência" />
+                <!-- Ícone da opção -->
                 <span class="choice-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"></path></svg></span>
+                <!-- Textos da opção -->
                 <span class="choice-text">
+                  <!-- Nome da opção -->
                   <strong>Melhorar o condicionamento</strong>
+                  <!-- Explicação da opção -->
                   <small>Mais fôlego no dia a dia e nos esportes</small>
                 </span>
               </label>
+              <!-- Opção: flexibilidade -->
               <label class="choice-card">
+                <!-- Opção de escolha (só uma do grupo fica marcada) -->
                 <input type="radio" name="objetivo" value="Yoga & Mobilidade" />
+                <!-- Ícone da opção -->
                 <span class="choice-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg></span>
+                <!-- Textos da opção -->
                 <span class="choice-text">
+                  <!-- Nome da opção -->
                   <strong>Flexibilidade e bem-estar</strong>
+                  <!-- Explicação da opção -->
                   <small>Mobilidade, alongamento e menos dores</small>
                 </span>
               </label>
             </div>
           </fieldset>
 
+          <!-- Passo 2: nível (escondido até chegar nele) -->
           <fieldset class="onboarding-step" data-step="2" hidden>
+            <!-- Pergunta do passo -->
             <legend>Como está seu nível hoje?</legend>
+            <!-- Lista de opções -->
             <div class="choice-list">
+              <!-- Opção: iniciante -->
               <label class="choice-card">
+                <!-- Opção de escolha (só uma do grupo fica marcada) -->
                 <input type="radio" name="nivel" value="Iniciante" />
+                <!-- Ícone de uma barrinha -->
                 <span class="choice-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20h4v-6H4z"></path></svg></span>
+                <!-- Textos da opção -->
                 <span class="choice-text">
+                  <!-- Nome da opção -->
                   <strong>Iniciante</strong>
+                  <!-- Explicação da opção -->
                   <small>Estou começando ou voltando depois de um tempo</small>
                 </span>
               </label>
+              <!-- Opção: intermediário -->
               <label class="choice-card">
+                <!-- Opção de escolha (só uma do grupo fica marcada) -->
                 <input type="radio" name="nivel" value="Intermediário" checked />
+                <!-- Ícone de duas barrinhas -->
                 <span class="choice-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20h4v-6H4z"></path><path d="M10 20h4V9h-4z"></path></svg></span>
+                <!-- Textos da opção -->
                 <span class="choice-text">
+                  <!-- Nome da opção -->
                   <strong>Intermediário</strong>
+                  <!-- Explicação da opção -->
                   <small>Treino há alguns meses com regularidade</small>
                 </span>
               </label>
+              <!-- Opção: avançado -->
               <label class="choice-card">
+                <!-- Opção de escolha (só uma do grupo fica marcada) -->
                 <input type="radio" name="nivel" value="Avançado" />
+                <!-- Ícone de três barrinhas -->
                 <span class="choice-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M4 20h4v-6H4z"></path><path d="M10 20h4V9h-4z"></path><path d="M16 20h4V4h-4z"></path></svg></span>
+                <!-- Textos da opção -->
                 <span class="choice-text">
+                  <!-- Nome da opção -->
                   <strong>Avançado</strong>
+                  <!-- Explicação da opção -->
                   <small>Treino há anos e conheço bem os exercícios</small>
                 </span>
               </label>
             </div>
           </fieldset>
 
+          <!-- Passo 3: dias por semana (escondido até chegar nele) -->
           <fieldset class="onboarding-step" data-step="3" hidden>
+            <!-- Pergunta do passo -->
             <legend>Quantos dias por semana você quer treinar?</legend>
+            <!-- Explicação -->
             <p class="meta">Essa vai ser sua meta semanal. Dá para mudar depois no Perfil.</p>
+            <!-- Botões de número de dias -->
             <div class="day-chips">
+                <!-- 2 dias -->
                 <label class="day-chip"><input type="radio" name="dias" value="2" /><span>2</span></label>
+                <!-- 3 dias -->
                 <label class="day-chip"><input type="radio" name="dias" value="3" /><span>3</span></label>
+                <!-- 4 dias (já vem marcado) -->
                 <label class="day-chip"><input type="radio" name="dias" value="4" checked /><span>4</span></label>
+                <!-- 5 dias -->
                 <label class="day-chip"><input type="radio" name="dias" value="5" /><span>5</span></label>
+                <!-- 6 dias -->
                 <label class="day-chip"><input type="radio" name="dias" value="6" /><span>6</span></label>
             </div>
           </fieldset>
 
+          <!-- Botões de voltar e continuar -->
           <div class="onboarding-actions">
+            <!-- Botão voltar (escondido no primeiro passo) -->
             <button type="button" class="btn-secondary" data-action="passo-voltar" hidden>
               Voltar
             </button>
+            <!-- Botão continuar (no último passo vira "Começar a treinar") -->
             <button type="submit" class="btn-primary" data-render="passo-botao">
               Continuar
             </button>
           </div>
         </form>
 
+        <!-- Botão de pular o questionário -->
         <button type="button" class="btn-link onboarding-skip" data-action="pular-onboarding">
           Pular por enquanto
         </button>
@@ -184,15 +288,20 @@
     </main>
 
     <!-- ==================== MODAIS REUTILIZÁVEIS ==================== -->
+    <!-- Fundo escuro da janela (modal) que abre por cima da página -->
     <div id="modal-overlay" class="modal-overlay hidden" aria-hidden="true">
+      <!-- Janela do modal -->
       <div
         class="modal-window"
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
       >
+        <!-- Topo do modal: título e botão de fechar -->
         <header class="modal-header">
+          <!-- Título do modal (o JavaScript troca o texto) -->
           <h2 id="modal-title">Título do Modal</h2>
+          <!-- Botão X que fecha o modal -->
           <button
             class="btn-close-modal"
             aria-label="Fechar modal"
@@ -201,6 +310,7 @@
             &times;
           </button>
         </header>
+        <!-- Miolo do modal, preenchido pelo JavaScript -->
         <div class="modal-body">
           <!-- Conteúdo dinâmico via JS -->
         </div>
@@ -208,11 +318,15 @@
     </div>
 
     <!-- Aviso rápido (toast) -->
+    <!-- Aviso rápido (toast) que aparece embaixo e some sozinho -->
     <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
 
+    <!-- Carrega os dados de exemplo (treinos, profissionais, aulas...) -->
     <script src="../comum/dados.js"></script>
+    <!-- Carrega o núcleo do app (sessão, menu, modal, avisos) -->
     <script src="../comum/app.js"></script>
+    <!-- Carrega o JavaScript desta página (comecar.js) -->
     <script src="comecar.js"></script>
   </body>
 </html>

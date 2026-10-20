@@ -7,40 +7,64 @@
    MEUS TREINOS
    ============================================ */
 
+/* Topo do card de treino */
 .workout-card-head {
+  /* Coloca os itens lado a lado */
   display: flex;
+  /* Centraliza na altura */
   align-items: center;
+  /* Espaço de 12 pixels entre eles */
   gap: 12px;
 }
 
+/* Bloco com nome e informações do treino */
 .workout-card-head .card-info {
+  /* Ocupa todo o espaço que sobra */
   flex: 1;
+  /* Deixa o texto encolher sem estourar o card */
   min-width: 0;
 }
 
+/* Etiqueta do card */
 .workout-card-head .tag {
+  /* Fica presa no topo */
   align-self: flex-start;
 }
 
+/* Linha de detalhes do treino (exercícios, tempo...) */
 .workout-facts {
+  /* Itens lado a lado */
   display: flex;
+  /* Quebra linha se não couber */
   flex-wrap: wrap;
+  /* Espaço de 6 px entre linhas e 16 px entre itens */
   gap: 6px 16px;
+  /* Espaço interno em cima e embaixo */
   padding: 10px 0;
+  /* Margem pequena por fora */
   margin: 4px 0;
+  /* Linha fininha em cima */
   border-top: 1px solid var(--border);
+  /* Linha fininha embaixo */
   border-bottom: 1px solid var(--border);
+  /* Texto mais apagado */
   color: var(--muted);
+  /* Letra de 13 pixels */
   font-size: 13px;
 }
 
+/* Números em destaque dentro dos detalhes */
 .workout-facts strong {
+  /* Na cor principal do texto */
   color: var(--ink);
 }
 
 /* No celular o card vira coluna: as informações ocupam a largura toda */
+/* Em telas de até 640 pixels (celular) */
 @media (max-width: 640px) {
+  /* Card em coluna */
   .workout-card-col {
+    /* Itens esticam na largura toda */
     align-items: stretch;
   }
 }

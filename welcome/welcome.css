@@ -1,470 +1,781 @@
+/* Todos os elementos */
 * {
+  /* A largura inclui a borda e o espaço interno */
   box-sizing: border-box;
 }
 
 html {
+  /* Rolagem suave */
   scroll-behavior: smooth;
 }
 
 body {
+  /* Sem margem */
   margin: 0;
+  /* Fundo: verde-carvão do fundo */
   background: var(--bg);
+  /* Fundo em degradê */
   background-image: radial-gradient(
     circle at 85% -10%,
     rgba(255, 122, 69, 0.14),
     transparent 45%
   );
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Fonte da letra */
   font-family:
     "Inter",
     -apple-system,
     BlinkMacSystemFont,
     sans-serif;
+  /* Deixa a letra mais lisinha no Mac */
   -webkit-font-smoothing: antialiased;
 }
 
 h1,
 h2,
 h3 {
+  /* Fonte da letra */
   font-family: "Space Grotesk", "Inter", sans-serif;
+  /* Sem margem */
   margin: 0;
+  /* Cor do texto: branco */
   color: var(--ink-strong);
 }
 
 a {
+  /* Cor do texto: a mesma do elemento pai */
   color: inherit;
 }
 
 ol {
+  /* Sem margem */
   margin: 0;
+  /* Sem espaço interno */
   padding: 0;
+  /* Tira as bolinhas/números da lista */
   list-style: none;
 }
 
 /* Header e footer públicos: ver ../shared/site.css */
 
+/* Botões coral: "Começar" do topo e o principal do hero */
 .btn-criar-conta,
 .btn-hero-primary {
+  /* Flexbox, mas sem ocupar a linha toda */
   display: inline-flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Fonte: a mesma do elemento pai */
   font-family: inherit;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Cor do texto: quase preto (texto em cima do coral) */
   color: var(--on-coral);
+  /* Fundo em degradê */
   background: linear-gradient(180deg, var(--coral-light), var(--coral) 70%);
+  /* Cantos totalmente redondos */
   border-radius: 999px;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     filter 0.15s ease,
     transform 0.1s ease;
 }
 
+/* Botões coral com o mouse em cima */
 .btn-criar-conta:hover,
 .btn-hero-primary:hover {
+  /* Efeito de filtro (brilho, desfoque...) */
   filter: brightness(1.08);
 }
 
+/* Botões coral sendo clicados */
 .btn-criar-conta:active,
 .btn-hero-primary:active {
+  /* Desce 1 pixel */
   transform: translateY(1px);
 }
 
+/* Primeira seção (hero) */
 .hero {
+  /* Organiza os itens em grade */
   display: grid;
+  /* Tamanho das colunas da grade: minmax(0, 1fr) minmax(0, 460px) */
   grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 48 pixels */
   gap: 48px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: clamp(48px, 8vw, 96px) clamp(20px, 5vw, 64px);
+  /* Largura máxima: 1280 pixels */
   max-width: 1280px;
+  /* Centraliza na horizontal (margem automática) */
   margin: 0 auto;
 }
 
+/* Lado do texto do hero */
 .hero-content {
+  /* Largura máxima */
   max-width: 46ch;
+  /* Roda a animação "hero-rise" */
   animation: hero-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+/* Textinho acima do título */
 .hero-kicker {
+  /* Cor do texto: esmeralda */
   color: var(--emerald);
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Tamanho da letra: 14 pixels */
   font-size: 14px;
+  /* Margem (espaço por fora) */
   margin: 0 0 14px;
 }
 
+/* Título principal */
 .hero h1 {
+  /* Tamanho da letra: entre 34 pixels e 56 pixels, conforme a tela */
   font-size: clamp(34px, 5.5vw, 56px);
+  /* Altura da linha: 1,08 */
   line-height: 1.08;
+  /* Espaço entre as letras */
   letter-spacing: -0.01em;
 }
 
+/* Texto de apoio */
 .hero-lead {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 16 pixels */
   font-size: 16px;
+  /* Altura da linha: 1,6 */
   line-height: 1.6;
+  /* Margem (espaço por fora) */
   margin: 20px 0 32px;
 }
 
+/* Fileira de botões do hero */
 .hero-actions {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 20 pixels */
   gap: 20px;
+  /* Quebra para a linha de baixo se não couber */
   flex-wrap: wrap;
 }
 
+/* Botão principal do hero */
 .btn-hero-primary {
+  /* Tamanho da letra: 15 pixels */
   font-size: 15px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 14px 28px;
+  /* Sombra em volta da caixa */
   box-shadow: 0 12px 28px rgba(255, 122, 69, 0.28);
 }
 
+/* Botão secundário do hero (contorno) */
 .btn-hero-secondary {
+  /* Tamanho da letra: 14,5 pixels */
   font-size: 14.5px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 13px 22px;
+  /* Cantos totalmente redondos */
   border-radius: 999px;
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     border-color 0.15s ease,
     background 0.15s ease;
 }
 
+/* Botão secundário com o mouse em cima */
 .btn-hero-secondary:hover {
+  /* Cor da borda: coral */
   border-color: var(--coral);
+  /* Fundo: coral bem fraquinho */
   background: var(--coral-soft);
 }
 
 /* Prévia do app no topo, com o pulso da marca como decoração atrás */
+/* Lado do desenho do hero */
 .hero-visual {
+  /* Posição relativa (serve de base para filhos soltos) */
   position: relative;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
 }
 
+/* Desenho de fundo (anéis e batimento) */
 .hero-pulse {
+  /* Posição solta, presa ao pai */
   position: absolute;
+  /* Distância de todos os lados: -12% -12% */
   inset: -12% -12%;
+  /* Largura: 124% */
   width: 124%;
+  /* Altura: 124% */
   height: 124%;
+  /* Meio transparente (45% visível) */
   opacity: 0.45;
 }
 
+/* Pilha de cards de exemplo */
 .hero-stack {
+  /* Posição relativa (serve de base para filhos soltos) */
   position: relative;
+  /* Camada 1 (número maior fica por cima) */
   z-index: 1;
+  /* Largura: a toda */
   width: 100%;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 14 pixels */
   gap: 14px;
+  /* Roda a animação "hero-rise" */
   animation: hero-rise 0.7s 0.1s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+/* Cards de exemplo dentro da pilha */
 .hero-stack .mock-card {
+  /* Fundo: cor meio transparente */
   background: rgba(14, 21, 18, 0.88);
+  /* Desfoca o que está atrás (efeito vidro) */
   backdrop-filter: blur(6px);
+  /* Sombra em volta da caixa */
   box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
 }
 
+/* Card do treino de hoje */
 .hero-card-workout {
+  /* Margem à direita: 28 pixels */
   margin-right: 28px;
 }
 
+/* Fileira com dois cards */
 .hero-card-row {
+  /* Organiza os itens em grade */
   display: grid;
+  /* Tamanho das colunas da grade: 0.8fr 1.2fr */
   grid-template-columns: 0.8fr 1.2fr;
+  /* Espaço entre os itens: 14 pixels */
   gap: 14px;
+  /* Margem à esquerda: 28 pixels */
   margin-left: 28px;
 }
 
+/* Anel da meta semanal */
 .hero-card-goal .mock-ring {
+  /* Largura: 92 pixels */
   width: 92px;
+  /* Altura: 92 pixels */
   height: 92px;
 }
 
+/* Mini gráfico de peso */
 .hero-card-chart .mock-line {
+  /* Altura: 64 pixels */
   height: 64px;
+  /* Margem em cima: 4 pixels */
   margin-top: 4px;
 }
 
+/* Lista de séries de exemplo */
 .mock-sets {
+  /* Tira as bolinhas/números da lista */
   list-style: none;
+  /* Margem (espaço por fora) */
   margin: 12px 0 0;
+  /* Sem espaço interno */
   padding: 0;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 6 pixels */
   gap: 6px;
 }
 
+/* Cada série */
 .mock-sets li {
+  /* Organiza os itens em grade */
   display: grid;
+  /* Tamanho das colunas da grade: 64px 1fr 26px */
   grid-template-columns: 64px 1fr 26px;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 8px 10px;
+  /* Cantos arredondados: 10 pixels */
   border-radius: 10px;
+  /* Fundo: cor de card mais clara */
   background: var(--surface-2);
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
 }
 
+/* Nome da série */
 .mock-sets li span:first-child {
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Letra seminegrito */
   font-weight: 600;
 }
 
+/* Bolinha do check */
 .mock-sets i {
+  /* Largura: 24 pixels */
   width: 24px;
+  /* Altura: 24 pixels */
   height: 24px;
+  /* Cantos totalmente redondos */
   border-radius: 50%;
+  /* Borda de 2 pixels, borda mais forte */
   border: 2px solid var(--border-strong);
+  /* Flexbox, mas sem ocupar a linha toda */
   display: inline-flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
 }
 
+/* Série feita */
 .mock-sets li.is-done {
+  /* Fundo: esmeralda fraquinha */
   background: var(--emerald-soft);
 }
 
+/* Bolinha do check da série feita */
 .mock-sets li.is-done i {
+  /* Fundo: esmeralda */
   background: var(--emerald);
+  /* Cor da borda: esmeralda */
   border-color: var(--emerald);
 }
 
+/* Ícone de check */
 .mock-sets svg {
+  /* Largura: 13 pixels */
   width: 13px;
+  /* Altura: 13 pixels */
   height: 13px;
+  /* Sem preenchimento no desenho */
   fill: none;
+  /* Cor do traço do desenho: verde-carvão do fundo */
   stroke: var(--bg);
+  /* Grossura do traço: 3.5 */
   stroke-width: 3.5;
+  /* Pontas do traço arredondadas */
   stroke-linecap: round;
+  /* Cantos do traço arredondados */
   stroke-linejoin: round;
 }
 
+/* Anel do descanso (outra cor) */
 .mock-ring-rest .mock-ring-fill {
+  /* Quanto do traço está escondido (anima o anel) */
   stroke-dashoffset: 120;
 }
 
+/* Resumo do treino */
 .mock-summary {
+  /* Tira as bolinhas/números da lista */
   list-style: none;
+  /* Margem (espaço por fora) */
   margin: 10px 0 0;
+  /* Sem espaço interno */
   padding: 0;
 }
 
+/* Cada linha do resumo */
 .mock-summary li {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Joga os itens para as pontas */
   justify-content: space-between;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 10px 0;
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
 }
 
+/* Linha que vem depois de outra (ganha divisória) */
 .mock-summary li + li {
+  /* Borda em cima de 1 pixel, cor das bordas */
   border-top: 1px solid var(--border);
 }
 
+/* Valor de cada linha */
 .mock-summary strong {
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
 }
 
+/* Anéis do desenho de fundo */
 .pulse-ring {
+  /* Sem preenchimento no desenho */
   fill: none;
+  /* Cor do traço do desenho: cor das bordas */
   stroke: var(--border);
+  /* Grossura do traço: 1.5 */
   stroke-width: 1.5;
 }
 
+/* Primeiro anel */
 .pulse-ring-1 {
+  /* Roda a animação "pulse-fade" */
   animation: pulse-fade 3.4s ease-in-out infinite;
 }
 
+/* Segundo anel */
 .pulse-ring-2 {
+  /* Cor do traço do desenho: esmeralda escura */
   stroke: var(--emerald-dark);
+  /* Meio transparente (50% visível) */
   opacity: 0.5;
+  /* Roda a animação "pulse-fade" */
   animation: pulse-fade 3.4s ease-in-out infinite 0.6s;
 }
 
+/* Linha de batimento */
 .pulse-line {
+  /* Cor do traço do desenho: coral claro */
   stroke: var(--coral-light);
+  /* Sombra que segue o formato do desenho */
   filter: drop-shadow(0 0 8px rgba(255, 122, 69, 0.5));
 }
 
+/* Animação chamada "pulse-fade" (passo a passo abaixo) */
 @keyframes pulse-fade {
   0%,
+  /* Em 100% da animação */
   100% {
+    /* Meio transparente (25% visível) */
     opacity: 0.25;
+    /* Muda o tamanho (escala) */
     transform: scale(0.96);
+    /* Ponto de onde o movimento/giro parte */
     transform-origin: center;
   }
+  /* Em 50% da animação */
   50% {
+    /* Meio transparente (60% visível) */
     opacity: 0.6;
+    /* Muda o tamanho (escala) */
     transform: scale(1);
+    /* Ponto de onde o movimento/giro parte */
     transform-origin: center;
   }
 }
 
+/* Animação chamada "hero-rise" (passo a passo abaixo) */
 @keyframes hero-rise {
+  /* Começo da animação */
   from {
+    /* Invisível (opacidade 0) */
     opacity: 0;
+    /* Desce 14 pixels */
     transform: translateY(14px);
   }
+  /* Fim da animação */
   to {
+    /* Totalmente visível */
     opacity: 1;
+    /* Move o elemento */
     transform: translateY(0);
   }
 }
 
+/* Seção "como funciona" */
 .journey {
+  /* Largura máxima: 1200 pixels */
   max-width: 1200px;
+  /* Centraliza na horizontal (margem automática) */
   margin: 0 auto;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 0 clamp(20px, 5vw, 64px) 96px;
 }
 
+/* Topo da seção */
 .journey .section-head {
+  /* Margem embaixo: 40 pixels */
   margin-bottom: 40px;
 }
 
+/* Os 3 passos */
 .journey-steps {
+  /* Organiza os itens em grade */
   display: grid;
+  /* 3 colunas iguais */
   grid-template-columns: repeat(3, 1fr);
+  /* Espaço entre os itens: 32 pixels */
   gap: 32px;
+  /* Posição relativa (serve de base para filhos soltos) */
   position: relative;
 }
 
+/* Linha que liga os passos */
 .journey-steps::before {
+  /* Cria um pedacinho vazio, só para enfeite */
   content: "";
+  /* Posição solta, presa ao pai */
   position: absolute;
+  /* Distância de cima: 22 pixels */
   top: 22px;
+  /* Distância da esquerda */
   left: calc(100% / 6);
+  /* Distância da direita */
   right: calc(100% / 6);
+  /* Altura: 1 pixel */
   height: 1px;
+  /* Fundo: cor das bordas */
   background: var(--border);
+  /* Camada 0 (número maior fica por cima) */
   z-index: 0;
 }
 
+/* Cada passo */
 .journey-step {
+  /* Posição relativa (serve de base para filhos soltos) */
   position: relative;
+  /* Camada 1 (número maior fica por cima) */
   z-index: 1;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
 }
 
+/* Número e título do passo */
 .journey-step-header {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 14 pixels */
   gap: 14px;
+  /* Margem embaixo: 12 pixels */
   margin-bottom: 12px;
 }
 
+/* Bolinha com o número do passo */
 .step-num {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Não deixa encolher */
   flex-shrink: 0;
+  /* Largura: 44 pixels */
   width: 44px;
+  /* Altura: 44 pixels */
   height: 44px;
+  /* Cantos totalmente redondos */
   border-radius: 50%;
+  /* Fundo: verde-carvão do fundo */
   background: var(--bg);
+  /* Borda de 1,5 pixels, coral */
   border: 1.5px solid var(--coral);
+  /* Fonte da letra */
   font-family: "Space Grotesk", sans-serif;
+  /* Tamanho da letra: 18 pixels */
   font-size: 18px;
+  /* Letra negrito */
   font-weight: 700;
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
 }
 
+/* Título do passo */
 .journey-step h3 {
+  /* Tamanho da letra: 18 pixels */
   font-size: 18px;
+  /* Altura da linha: 1,3 */
   line-height: 1.3;
+  /* Sem margem */
   margin: 0;
 }
 
+/* Explicação do passo */
 .journey-step p {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 14 pixels */
   font-size: 14px;
+  /* Altura da linha: 1,6 */
   line-height: 1.6;
+  /* Sem margem */
   margin: 0;
 }
 
+/* Card de profissional */
 .pro-card {
+  /* Como o item cresce ou encolhe */
   flex: 1 1 200px;
+  /* Fundo: verde-carvão do fundo */
   background: var(--bg);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cantos arredondados: 20 pixels */
   border-radius: var(--radius-lg);
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 24px 20px;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     transform 0.15s ease,
     border-color 0.15s ease;
 }
 
+/* Card com o mouse em cima */
 .pro-card:hover {
+  /* Sobe 4 pixels */
   transform: translateY(-4px);
+  /* Cor da borda: coral */
   border-color: var(--coral);
 }
 
 /* Avatar com iniciais, igual ao app */
+/* Bolinha com as iniciais */
 .pro-avatar {
+  /* Largura: 56 pixels */
   width: 56px;
+  /* Altura: 56 pixels */
   height: 56px;
+  /* Cantos totalmente redondos */
   border-radius: 50%;
+  /* Fundo: degradê coral → esmeralda */
   background: var(--gradient-brand);
+  /* Cor do texto: verde-carvão do fundo */
   color: var(--bg);
+  /* Fonte: fonte de títulos (Space Grotesk) */
   font-family: var(--font-display);
+  /* Letra negrito */
   font-weight: 700;
+  /* Tamanho da letra: 17 pixels */
   font-size: 17px;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Margem embaixo: 14 pixels */
   margin-bottom: 14px;
 }
 
+/* Nome do profissional */
 .pro-card h3 {
+  /* Tamanho da letra: 15 pixels */
   font-size: 15px;
+  /* Altura da linha: 1,3 */
   line-height: 1.3;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Margem (espaço por fora) */
   margin: 0 0 4px;
+  /* Altura mínima */
   min-height: calc(15px * 1.3);
 }
 
+/* Especialidade */
 .pro-specialty {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
+  /* Margem (espaço por fora) */
   margin: 0 0 10px;
 }
 
+/* Nota com estrelinha */
 .pro-rating {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 4 pixels */
   gap: 4px;
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
+  /* Tamanho da letra: 12,5 pixels */
   font-size: 12.5px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Margem (espaço por fora) */
   margin: 10px 0 0;
+  /* Empurra o item para baixo (margem automática) */
   margin-top: auto;
 }
 
+/* Chamada final */
 .plans-cta {
+  /* Largura máxima: 640 pixels */
   max-width: 640px;
+  /* Centraliza na horizontal (margem automática) */
   margin: 0 auto;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 96px clamp(20px, 5vw, 64px);
+  /* Texto centralizado */
   text-align: center;
 }
 
+/* Título da chamada */
 .plans-cta h2 {
+  /* Tamanho da letra: entre 26 pixels e 36 pixels, conforme a tela */
   font-size: clamp(26px, 4vw, 36px);
+  /* Margem embaixo: 12 pixels */
   margin-bottom: 12px;
 }
 
+/* Texto da chamada */
 .plans-cta p {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 15 pixels */
   font-size: 15px;
+  /* Margem (espaço por fora) */
   margin: 0 0 32px;
 }
 
+/* Botão da chamada */
 .plans-cta .btn-hero-primary {
+  /* Tamanho da letra: 15 pixels */
   font-size: 15px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 14px 28px;
 }
 
@@ -473,594 +784,965 @@ ol {
    depoimentos, perguntas frequentes)
    ============================================ */
 
+/* Topo das seções */
 .section-head {
+  /* Largura máxima: 640 pixels */
   max-width: 640px;
+  /* Margem embaixo: 40 pixels */
   margin-bottom: 40px;
 }
 
+/* Textinho acima do título */
 .section-kicker {
+  /* Margem (espaço por fora) */
   margin: 0 0 10px;
+  /* Tamanho da letra: 12,5 pixels */
   font-size: 12.5px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Espaço entre as letras */
   letter-spacing: 0.12em;
+  /* Letras maiúsculas */
   text-transform: uppercase;
+  /* Cor do texto: esmeralda */
   color: var(--emerald);
 }
 
+/* Título das seções */
 .section-head h2 {
+  /* Tamanho da letra: entre 26 pixels e 36 pixels, conforme a tela */
   font-size: clamp(26px, 3.4vw, 36px);
+  /* Altura da linha: 1,15 */
   line-height: 1.15;
+  /* Espaço entre as letras */
   letter-spacing: -0.01em;
 }
 
+/* Texto de apoio das seções */
 .section-lead {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 16 pixels */
   font-size: 16px;
+  /* Altura da linha: 1,6 */
   line-height: 1.6;
+  /* Margem (espaço por fora) */
   margin: 14px 0 0;
 }
 
 /* Faixa de números */
+/* Faixa de números */
 .stats-band {
+  /* Borda em cima de 1 pixel, cor das bordas */
   border-top: 1px solid var(--border);
+  /* Borda embaixo de 1 pixel, cor das bordas */
   border-bottom: 1px solid var(--border);
+  /* Fundo: cor meio transparente */
   background: rgba(22, 33, 29, 0.6);
 }
 
+/* Lista de números */
 .stats-list {
+  /* Largura máxima: 1200 pixels */
   max-width: 1200px;
+  /* Centraliza na horizontal (margem automática) */
   margin: 0 auto;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 32px clamp(20px, 5vw, 64px);
+  /* Organiza os itens em grade */
   display: grid;
+  /* 3 colunas iguais */
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+/* Cada número */
 .stat {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna, de baixo para cima */
   flex-direction: column-reverse;
+  /* Espaço entre os itens: 4 pixels */
   gap: 4px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 0 24px;
 }
 
+/* Número que vem depois de outro (ganha divisória) */
 .stat + .stat {
+  /* Borda à esquerda de 1 pixel, cor das bordas */
   border-left: 1px solid var(--border);
 }
 
+/* Nome do número */
 .stat dt {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 14 pixels */
   font-size: 14px;
 }
 
+/* Valor do número */
 .stat dd {
+  /* Sem margem */
   margin: 0;
+  /* Fonte da letra */
   font-family: "Space Grotesk", sans-serif;
+  /* Tamanho da letra: entre 30 pixels e 42 pixels, conforme a tela */
   font-size: clamp(30px, 4vw, 42px);
+  /* Letra negrito */
   font-weight: 700;
+  /* Cor do texto: branco */
   color: var(--ink-strong);
+  /* Espaço entre as letras */
   letter-spacing: -0.02em;
 }
 
 /* Recursos */
+/* Seções principais da página */
 .features,
 .app-preview,
 .pros-compact,
 .testimonials,
 .faq {
+  /* Largura máxima: 1200 pixels */
   max-width: 1200px;
+  /* Centraliza na horizontal (margem automática) */
   margin: 0 auto;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 96px clamp(20px, 5vw, 64px);
 }
 
+/* Grade dos recursos */
 .features-grid {
+  /* Organiza os itens em grade */
   display: grid;
+  /* 4 colunas iguais */
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  /* Espaço entre os itens: 20 pixels */
   gap: 20px;
 }
 
+/* Card de recurso */
 .feature {
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cantos arredondados: 20 pixels */
   border-radius: var(--radius-lg);
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 28px 24px;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     border-color 0.2s ease,
     transform 0.2s ease;
 }
 
+/* Card com o mouse em cima */
 .feature:hover {
+  /* Cor da borda: borda mais forte */
   border-color: var(--border-strong);
+  /* Sobe 3 pixels */
   transform: translateY(-3px);
 }
 
+/* Ícone do recurso */
 .feature-icon {
+  /* Largura: 44 pixels */
   width: 44px;
+  /* Altura: 44 pixels */
   height: 44px;
+  /* Espaço interno: 10 pixels */
   padding: 10px;
+  /* Cantos arredondados: 12 pixels */
   border-radius: 12px;
+  /* Fundo: coral bem fraquinho */
   background: var(--coral-soft);
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
+  /* Sem preenchimento no desenho */
   fill: none;
+  /* Cor do traço do desenho: a mesma cor do texto */
   stroke: currentColor;
+  /* Grossura do traço: 2 */
   stroke-width: 2;
+  /* Pontas do traço arredondadas */
   stroke-linecap: round;
+  /* Cantos do traço arredondados */
   stroke-linejoin: round;
+  /* Margem embaixo: 18 pixels */
   margin-bottom: 18px;
 }
 
+/* Ícone dos cards pares (2º e 4º) em outra cor */
 .feature:nth-child(even) .feature-icon {
+  /* Fundo: cor meio transparente */
   background: rgba(52, 211, 153, 0.1);
+  /* Cor do texto: esmeralda */
   color: var(--emerald);
 }
 
+/* Nome do recurso */
 .feature h3 {
+  /* Tamanho da letra: 17 pixels */
   font-size: 17px;
+  /* Margem embaixo: 8 pixels */
   margin-bottom: 8px;
 }
 
+/* Explicação do recurso */
 .feature p {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 14 pixels */
   font-size: 14px;
+  /* Altura da linha: 1,6 */
   line-height: 1.6;
+  /* Sem margem */
   margin: 0;
 }
 
 /* Prévia do app (mockup em HTML/CSS) */
+/* Seção da prévia do app */
 .app-preview {
+  /* Espaço interno em cima: zero */
   padding-top: 0;
 }
 
+/* Janela de exemplo do app */
 .mockup {
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cantos arredondados: 24 pixels */
   border-radius: 24px;
+  /* Fundo em degradê */
   background: linear-gradient(180deg, var(--surface), #111a16);
+  /* Sombra em volta da caixa */
   box-shadow: 0 40px 80px rgba(0, 0, 0, 0.45);
+  /* Esconde o que passar da caixa */
   overflow: hidden;
 }
 
+/* Barra da janela */
 .mockup-bar {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 14px 18px;
+  /* Borda embaixo de 1 pixel, cor das bordas */
   border-bottom: 1px solid var(--border);
 }
 
+/* Bolinhas da barra */
 .mockup-bar span {
+  /* Largura: 10 pixels */
   width: 10px;
+  /* Altura: 10 pixels */
   height: 10px;
+  /* Cantos totalmente redondos */
   border-radius: 50%;
+  /* Fundo: cor das bordas */
   background: var(--border);
 }
 
+/* Miolo da janela */
 .mockup-body {
+  /* Organiza os itens em grade */
   display: grid;
+  /* Tamanho das colunas da grade: 1.3fr 1fr 1.3fr */
   grid-template-columns: 1.3fr 1fr 1.3fr;
+  /* Espaço entre os itens: 16 pixels */
   gap: 16px;
+  /* Espaço interno: 24 pixels */
   padding: 24px;
 }
 
+/* Card de exemplo */
 .mock-card {
+  /* Fundo: verde-carvão do fundo */
   background: var(--bg);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cantos arredondados: 16 pixels */
   border-radius: 16px;
+  /* Espaço interno: 20 pixels */
   padding: 20px;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 6 pixels */
   gap: 6px;
+  /* Deixa encolher sem estourar a caixa */
   min-width: 0;
 }
 
+/* Rótulo do card */
 .mock-label {
+  /* Sem margem */
   margin: 0;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 12,5 pixels */
   font-size: 12.5px;
+  /* Letra seminegrito */
   font-weight: 600;
 }
 
+/* Título do card */
 .mock-title {
+  /* Sem margem */
   margin: 0;
+  /* Fonte da letra */
   font-family: "Space Grotesk", sans-serif;
+  /* Tamanho da letra: 22 pixels */
   font-size: 22px;
+  /* Letra negrito */
   font-weight: 700;
+  /* Cor do texto: branco */
   color: var(--ink-strong);
 }
 
+/* Detalhe do card */
 .mock-meta {
+  /* Sem margem */
   margin: 0;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
 }
 
+/* Barrinha de progresso de exemplo */
 .mock-progress {
+  /* Altura: 8 pixels */
   height: 8px;
+  /* Cantos totalmente redondos */
   border-radius: 999px;
+  /* Fundo: cor de card mais clara */
   background: var(--surface-2);
+  /* Margem (espaço por fora) */
   margin: 14px 0 4px;
+  /* Esconde o que passar da caixa */
   overflow: hidden;
 }
 
+/* Parte pintada da barrinha */
 .mock-progress span {
+  /* Vira um bloco (ocupa a linha toda) */
   display: block;
+  /* Largura: 66% */
   width: 66%;
+  /* Altura: a toda */
   height: 100%;
+  /* Cantos arredondados: a mesma do elemento pai */
   border-radius: inherit;
+  /* Fundo em degradê */
   background: linear-gradient(90deg, var(--coral-dark), var(--coral-light));
 }
 
+/* Card com anel */
 .mock-goal {
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Texto centralizado */
   text-align: center;
 }
 
+/* Rótulo do card com anel */
 .mock-goal .mock-label {
+  /* Este item alinhados no começo */
   align-self: flex-start;
 }
 
+/* Anel de exemplo */
 .mock-ring {
+  /* Largura: 120 pixels */
   width: 120px;
+  /* Altura: 120 pixels */
   height: 120px;
+  /* Gira o elemento */
   transform: rotate(-90deg);
+  /* Margem (espaço por fora) */
   margin: 6px 0;
 }
 
+/* Círculos do anel */
 .mock-ring circle {
+  /* Sem preenchimento no desenho */
   fill: none;
+  /* Grossura do traço: 10 */
   stroke-width: 10;
 }
 
+/* Trilho do anel (fundo) */
 .mock-ring-track {
+  /* Cor do traço do desenho: cor de card mais clara */
   stroke: var(--surface-2);
 }
 
+/* Parte pintada do anel */
 .mock-ring-fill {
+  /* Cor do traço do desenho: esmeralda */
   stroke: var(--emerald);
+  /* Pontas do traço arredondadas */
   stroke-linecap: round;
+  /* Tamanho do tracejado (usado para animar o desenho do traço) */
   stroke-dasharray: 301.6;
+  /* Quanto do traço está escondido (anima o anel) */
   stroke-dashoffset: 75.4;
 }
 
+/* Texto no meio do anel */
 .mock-ring-text {
+  /* Sem margem */
   margin: 0;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
 }
 
+/* Número em destaque */
 .mock-ring-text strong {
+  /* Cor do texto: branco */
   color: var(--ink-strong);
+  /* Tamanho da letra: 16 pixels */
   font-size: 16px;
 }
 
+/* Texto de melhora (verde) */
 .mock-up {
+  /* Fonte da letra */
   font-family: "Inter", sans-serif;
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Cor do texto: esmeralda */
   color: var(--emerald);
 }
 
+/* Mini gráfico de linha */
 .mock-line {
+  /* Largura: a toda */
   width: 100%;
+  /* Altura: 110 pixels */
   height: 110px;
+  /* Margem em cima: 10 pixels */
   margin-top: 10px;
 }
 
+/* Área pintada do gráfico */
 .mock-line-area {
+  /* Cor de preenchimento do desenho: coral bem fraquinho */
   fill: var(--coral-soft);
 }
 
+/* Linha do gráfico */
 .mock-line-stroke {
+  /* Sem preenchimento no desenho */
   fill: none;
+  /* Cor do traço do desenho: coral */
   stroke: var(--coral);
+  /* Grossura do traço: 3 */
   stroke-width: 3;
+  /* Cantos do traço arredondados */
   stroke-linejoin: round;
+  /* Pontas do traço arredondadas */
   stroke-linecap: round;
+  /* O traço não engrossa quando o desenho estica */
   vector-effect: non-scaling-stroke;
 }
 
 /* Profissionais (faixa compacta) */
+/* Seção de profissionais */
 .pros-compact {
+  /* Espaço interno em cima: zero */
   padding-top: 0;
 }
 
+/* Lista de profissionais */
 .pros-compact .pros-list {
+  /* Organiza os itens em grade */
   display: grid;
+  /* 4 colunas iguais */
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  /* Espaço entre os itens: 16 pixels */
   gap: 16px;
 }
 
+/* Card de profissional */
 .pros-compact .pro-card {
+  /* Fundo: cor dos cards */
   background: var(--surface);
 }
 
 /* Depoimentos */
+/* Seção de depoimentos */
 .testimonials {
+  /* Espaço interno em cima: zero */
   padding-top: 0;
 }
 
+/* Grade de depoimentos */
 .testimonials-grid {
+  /* Organiza os itens em grade */
   display: grid;
+  /* 3 colunas iguais */
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* Espaço entre os itens: 20 pixels */
   gap: 20px;
 }
 
+/* Card de depoimento */
 .testimonial {
+  /* Sem margem */
   margin: 0;
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cantos arredondados: 20 pixels */
   border-radius: var(--radius-lg);
+  /* Espaço interno: 28 pixels */
   padding: 28px;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Joga os itens para as pontas */
   justify-content: space-between;
+  /* Espaço entre os itens: 24 pixels */
   gap: 24px;
 }
 
+/* Frase do depoimento */
 .testimonial blockquote {
+  /* Sem margem */
   margin: 0;
+  /* Tamanho da letra: 16 pixels */
   font-size: 16px;
+  /* Altura da linha: 1,6 */
   line-height: 1.6;
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
 }
 
+/* Autor do depoimento */
 .testimonial figcaption {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 12 pixels */
   gap: 12px;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
 }
 
+/* Nome do autor */
 .testimonial figcaption strong {
+  /* Vira um bloco (ocupa a linha toda) */
   display: block;
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Tamanho da letra: 14 pixels */
   font-size: 14px;
 }
 
+/* Bolinha com as iniciais */
 .t-avatar {
+  /* Largura: 40 pixels */
   width: 40px;
+  /* Altura: 40 pixels */
   height: 40px;
+  /* Cantos totalmente redondos */
   border-radius: 50%;
+  /* Não deixa encolher */
   flex-shrink: 0;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Fundo em degradê */
   background: linear-gradient(135deg, var(--coral), var(--emerald));
+  /* Cor do texto: verde-carvão do fundo */
   color: var(--bg);
+  /* Fonte da letra */
   font-family: "Space Grotesk", sans-serif;
+  /* Letra negrito */
   font-weight: 700;
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
 }
 
 /* Perguntas frequentes (sem JS) */
+/* Seção de perguntas */
 .faq {
+  /* Espaço interno em cima: zero */
   padding-top: 0;
+  /* Largura máxima: 820 pixels */
   max-width: 820px;
 }
 
+/* Topo da seção */
 .faq .section-head {
+  /* Texto centralizado */
   text-align: center;
+  /* Empurra o item para a direita (margem automática) */
   margin-left: auto;
+  /* Empurra o item para a esquerda (margem automática) */
   margin-right: auto;
 }
 
+/* Lista de perguntas */
 .faq-list {
+  /* Borda em cima de 1 pixel, cor das bordas */
   border-top: 1px solid var(--border);
 }
 
+/* Cada pergunta */
 .faq details {
+  /* Borda embaixo de 1 pixel, cor das bordas */
   border-bottom: 1px solid var(--border);
 }
 
+/* Texto da pergunta (clicável) */
 .faq summary {
+  /* Tira as bolinhas/números da lista */
   list-style: none;
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Joga os itens para as pontas */
   justify-content: space-between;
+  /* Espaço entre os itens: 16 pixels */
   gap: 16px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 20px 4px;
+  /* Fonte da letra */
   font-family: "Space Grotesk", sans-serif;
+  /* Tamanho da letra: 17 pixels */
   font-size: 17px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Cor do texto: branco */
   color: var(--ink-strong);
+  /* Cantos arredondados: 8 pixels */
   border-radius: 8px;
 }
 
+/* Esconde a setinha padrão do Safari */
 .faq summary::-webkit-details-marker {
+  /* Esconde o elemento */
   display: none;
 }
 
 /* Sinal de + que vira - (desenhado em CSS) */
+/* Sinal de + desenhado */
 .faq summary::after {
+  /* Cria um pedacinho vazio, só para enfeite */
   content: "";
+  /* Não deixa encolher */
   flex-shrink: 0;
+  /* Largura: 14 pixels */
   width: 14px;
+  /* Altura: 14 pixels */
   height: 14px;
+  /* Fundo com várias camadas (veja as linhas abaixo) */
   background:
     linear-gradient(var(--coral-light), var(--coral-light)) center / 14px 2px no-repeat,
     linear-gradient(var(--coral-light), var(--coral-light)) center / 2px 14px no-repeat;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: transform 0.2s ease;
 }
 
+/* Pergunta aberta: o + gira e vira - */
 .faq details[open] summary::after {
+  /* Gira o elemento */
   transform: rotate(45deg);
 }
 
+/* Resposta */
 .faq details p {
+  /* Sem margem */
   margin: 0;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 0 4px 22px;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 15 pixels */
   font-size: 15px;
+  /* Altura da linha: 1,65 */
   line-height: 1.65;
+  /* Largura máxima */
   max-width: 64ch;
 }
 
+/* Link dentro da resposta */
 .faq details a {
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
 }
 
 /* CTA final */
+/* Botões da chamada final */
 .cta-actions {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 16 pixels */
   gap: 16px;
+  /* Quebra para a linha de baixo se não couber */
   flex-wrap: wrap;
 }
 
 /* Entrada suave das seções ao rolar (welcome.js adiciona as classes) */
+/* Seção escondida esperando aparecer */
 .reveal {
+  /* Invisível (opacidade 0) */
   opacity: 0;
+  /* Desce 16 pixels */
   transform: translateY(16px);
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     opacity 0.25s ease-out,
     transform 0.25s ease-out;
 }
 
+/* Seção que já apareceu */
 .reveal.is-visible {
+  /* Totalmente visível */
   opacity: 1;
+  /* Sem mover nem girar */
   transform: none;
 }
 
+/* Em telas de até 1024 pixels */
 @media (max-width: 1024px) {
+  /* Grades de recursos e profissionais */
   .features-grid,
   .pros-compact .pros-list {
+    /* 2 colunas iguais */
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  /* Miolo da janela */
   .mockup-body {
+    /* Tamanho das colunas da grade: 1fr 1fr */
     grid-template-columns: 1fr 1fr;
   }
 
+  /* Gráfico de exemplo */
   .mock-chart {
+    /* Ocupa a largura toda da grade */
     grid-column: 1 / -1;
   }
 
+  /* Grade de depoimentos */
   .testimonials-grid {
+    /* Uma coluna só */
     grid-template-columns: 1fr;
   }
 }
 
+/* Em telas de até 880 pixels */
 @media (max-width: 880px) {
+  /* Hero */
   .hero {
+    /* Uma coluna só */
     grid-template-columns: 1fr;
   }
 
+  /* Lado do desenho */
   .hero-visual {
+    /* Largura: a toda */
     width: 100%;
+    /* Largura máxima: 460 pixels */
     max-width: 460px;
+    /* Margem (espaço por fora) */
     margin: 8px auto 0;
   }
 
+  /* Desenho de fundo */
   .hero-pulse {
+    /* Ocupa a área toda do pai */
     inset: 0;
+    /* Largura: a toda */
     width: 100%;
+    /* Altura: a toda */
     height: 100%;
   }
 
+  /* Passos */
   .journey-steps {
+    /* Uma coluna só */
     grid-template-columns: 1fr;
+    /* Espaço entre os itens: 24 pixels */
     gap: 24px;
   }
 
+  /* Linha que liga os passos */
   .journey-steps::before {
+    /* Esconde o elemento */
     display: none;
   }
 
+  /* Cards de profissional */
   .pro-card,
   .pro-card:nth-child(2) {
+    /* Sem mover nem girar */
     transform: none;
+    /* Largura máxima: sem limite */
     max-width: none;
+    /* Como o item cresce ou encolhe */
     flex: 1 1 100%;
   }
 }
 
+/* Em telas de até 560 pixels */
 @media (max-width: 560px) {
+  /* Seções principais */
   .features,
   .app-preview,
   .pros-compact,
   .testimonials,
   .faq {
+    /* Espaço interno em cima: 64 pixels */
     padding-top: 64px;
+    /* Espaço interno embaixo: 64 pixels */
     padding-bottom: 64px;
   }
 
+  /* Seções com fundo */
   .app-preview,
   .pros-compact,
   .testimonials,
   .faq {
+    /* Espaço interno em cima: zero */
     padding-top: 0;
   }
 
+  /* Lista de números */
   .stats-list {
+    /* Uma coluna só */
     grid-template-columns: 1fr;
+    /* Espaço entre os itens: 20 pixels */
     gap: 20px;
   }
 
+  /* Cada número */
   .stat {
+    /* Sem espaço interno */
     padding: 0;
   }
 
+  /* Divisória entre números */
   .stat + .stat {
+    /* Sem borda à esquerda */
     border-left: none;
+    /* Borda em cima de 1 pixel, cor das bordas */
     border-top: 1px solid var(--border);
+    /* Espaço interno em cima: 20 pixels */
     padding-top: 20px;
   }
 
+  /* Grades de recursos e da janela */
   .features-grid,
   .mockup-body {
+    /* Uma coluna só */
     grid-template-columns: 1fr;
   }
 
+  /* Cards do hero */
   .hero-card-workout,
   .hero-card-row {
+    /* Sem margem */
     margin: 0;
   }
 
   /* Profissionais viram uma linha com rolagem lateral */
+  /* Lista de profissionais */
   .pros-compact .pros-list {
+    /* Organiza os itens com flexbox */
     display: flex;
+    /* Barra de rolagem para o lado só se precisar */
     overflow-x: auto;
+    /* A rolagem gruda em cada item */
     scroll-snap-type: x mandatory;
+    /* Espaço interno embaixo: 8 pixels */
     padding-bottom: 8px;
   }
 
+  /* Card de profissional */
   .pros-compact .pro-card {
+    /* Tamanho fixo, sem crescer nem encolher */
     flex: 0 0 72%;
+    /* Ponto do item onde a rolagem gruda */
     scroll-snap-align: start;
   }
 
+  /* Fileiras de botões */
   .hero-actions,
   .closing-actions {
+    /* Itens em coluna (um embaixo do outro) */
     flex-direction: column;
+    /* Itens esticados */
     align-items: stretch;
   }
 
+  /* Botões e links */
   .btn-hero-primary,
   .btn-hero-secondary,
   .link-entrar {
+    /* Texto centralizado */
     text-align: center;
   }
 }
 
+/* Se a pessoa pediu ao sistema para reduzir as animações */
 @media (prefers-reduced-motion: reduce) {
   html {
+    /* Rolagem sem efeito */
     scroll-behavior: auto;
   }
 
+  /* Partes animadas do hero */
   .hero-content,
   .hero-stack,
   .pulse-ring-1,
   .pulse-ring-2 {
+    /* Sem animação */
     animation: none;
   }
 
+  /* Seções que aparecem ao rolar */
   .reveal {
+    /* Totalmente visível */
     opacity: 1;
+    /* Sem mover nem girar */
     transform: none;
+    /* Sem animação de transição */
     transition: none;
   }
 
+  /* Cards e sinal de + */
   .feature,
   .faq summary::after {
+    /* Sem animação de transição */
     transition: none;
   }
 }
@@ -1069,12 +1751,17 @@ ol {
 a:focus-visible,
 button:focus-visible,
 input[type="checkbox"]:focus-visible {
+  /* Contorno em volta (aparece no foco) */
   outline: 2px solid var(--coral);
+  /* Distância do contorno até o elemento */
   outline-offset: 3px;
+  /* Cantos arredondados: 6 pixels */
   border-radius: 6px;
 }
 
+/* Botões do hero focados pelo teclado */
 .btn-hero-primary:focus-visible,
 .btn-hero-secondary:focus-visible {
+  /* Cantos totalmente redondos */
   border-radius: 999px;
 }

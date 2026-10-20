@@ -1,214 +1,357 @@
 /* Estilo compartilhado por Termos de Uso e Política de Privacidade */
 
+/* A página inteira */
 html {
+  /* Rolagem suave */
   scroll-behavior: smooth;
 }
 
+/* Corpo da página */
 body {
+  /* Fundo: verde-carvão do fundo */
   background-color: var(--bg);
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Fonte da letra */
   font-family: "Inter", sans-serif;
+  /* Sem margem */
   margin: 0;
 }
 
+/* Caixa do documento */
 .auth-container {
+  /* Largura máxima: 800 pixels */
   max-width: 800px;
+  /* Largura */
   width: calc(100% - 32px);
+  /* Margem (espaço por fora) */
   margin: 40px auto;
+  /* Espaço interno: entre 24 pixels e 40 pixels, conforme a tela */
   padding: clamp(24px, 5vw, 40px);
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cantos arredondados: 16 pixels */
   border-radius: 16px;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Itens alinhados no começo */
   align-items: flex-start;
+  /* Texto à esquerda */
   text-align: left;
+  /* A largura inclui a borda e o espaço interno */
   box-sizing: border-box;
 }
 
+/* Topo do documento */
 .auth-header {
+  /* Itens alinhados no começo */
   align-items: flex-start;
+  /* Texto à esquerda */
   text-align: left;
+  /* Largura: a toda */
   width: 100%;
+  /* Margem embaixo: 24 pixels */
   margin-bottom: 24px;
 }
 
+/* Título do documento */
 .auth-header h1 {
+  /* Fonte da letra */
   font-family: "Space Grotesk", sans-serif;
+  /* Tamanho da letra */
   font-size: 2rem;
+  /* Cor do texto: branco */
   color: var(--ink-strong);
+  /* Margem (espaço por fora) */
   margin: 0 0 8px 0;
 }
 
+/* Data da última atualização */
 .auth-subtitle {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra */
   font-size: 0.875rem;
+  /* Sem margem */
   margin: 0;
 }
 
+/* Texto do documento */
 .terms-content {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 16 pixels */
   gap: 16px;
+  /* Largura: a toda */
   width: 100%;
+  /* Cor do texto: a cor #d7ddd9 */
   color: #d7ddd9;
+  /* Tamanho da letra */
   font-size: 0.95rem;
+  /* Altura da linha: 1,6 */
   line-height: 1.6;
 }
 
+/* Cada seção do texto */
 .terms-content section {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
+  /* Margem em cima: 12 pixels */
   margin-top: 12px;
 }
 
+/* Títulos das seções */
 .terms-content h2 {
+  /* Fonte da letra */
   font-family: "Space Grotesk", sans-serif;
+  /* Tamanho da letra */
   font-size: 1.15rem;
+  /* Cor do texto: branco */
   color: var(--ink-strong);
+  /* Margem (espaço por fora) */
   margin: 16px 0 4px 0;
 }
 
+/* Parágrafos */
 .terms-content p {
+  /* Margem (espaço por fora) */
   margin: 0 0 8px 0;
 }
 
+/* Listas */
 .terms-content ul {
+  /* Margem (espaço por fora) */
   margin: 0 0 12px 0;
+  /* Espaço interno à esquerda: 20 pixels */
   padding-left: 20px;
 }
 
+/* Itens das listas */
 .terms-content li {
+  /* Margem embaixo: 4 pixels */
   margin-bottom: 4px;
 }
 
+/* Rodapé do documento */
 .auth-footer {
+  /* Largura: a toda */
   width: 100%;
+  /* Borda em cima de 1 pixel, cor das bordas */
   border-top: 1px solid var(--border);
+  /* Margem em cima: 32 pixels */
   margin-top: 32px;
+  /* Espaço interno em cima: 20 pixels */
   padding-top: 20px;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Junta os itens no começo */
   justify-content: flex-start;
 }
 
+/* Link de voltar */
 .btn-comecar,
 .btn-comecar:visited {
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: opacity 0.2s ease;
 }
 
+/* Link com o mouse em cima */
 .btn-comecar:hover {
+  /* Sublinhado no texto */
   text-decoration: underline;
+  /* Meio transparente (80% visível) */
   opacity: 0.8;
 }
 
+/* Links focados pelo teclado */
 .btn-comecar:focus-visible,
 .toc a:focus-visible,
 .back-to-top:focus-visible {
+  /* Contorno em volta (aparece no foco) */
   outline: 2px solid var(--coral);
+  /* Distância do contorno até o elemento */
   outline-offset: 3px;
 }
 
 /* ---------- Sumário ---------- */
 
+/* Índice do documento */
 .toc {
+  /* A largura inclui a borda e o espaço interno */
   box-sizing: border-box;
+  /* Largura: a toda */
   width: 100%;
+  /* Fundo: verde-carvão do fundo */
   background: var(--bg);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cantos arredondados: 12 pixels */
   border-radius: 12px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 18px 20px;
+  /* Margem embaixo: 8 pixels */
   margin-bottom: 8px;
 }
 
+/* Título do índice */
 .toc h2 {
+  /* Fonte da letra */
   font-family: "Space Grotesk", sans-serif;
+  /* Tamanho da letra */
   font-size: 0.95rem;
+  /* Cor do texto: branco */
   color: var(--ink-strong);
+  /* Margem (espaço por fora) */
   margin: 0 0 10px;
 }
 
+/* Lista numerada do índice */
 .toc ol {
+  /* Sem margem */
   margin: 0;
+  /* Sem espaço interno */
   padding: 0;
+  /* Tira as bolinhas/números da lista */
   list-style: none;
+  /* Divide o conteúdo em colunas */
   columns: 2 240px;
+  /* Espaço entre as colunas: 24 pixels */
   column-gap: 24px;
 }
 
+/* Itens do índice */
 .toc li {
+  /* Não deixa o item ser cortado entre colunas */
   break-inside: avoid;
+  /* Margem embaixo: 6 pixels */
   margin-bottom: 6px;
 }
 
+/* Links do índice */
 .toc a {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra */
   font-size: 0.875rem;
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Cantos arredondados: 4 pixels */
   border-radius: 4px;
 }
 
+/* Link com o mouse em cima */
 .toc a:hover {
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
 }
 
 /* Compensa o header fixo ao pular para uma seção */
+/* Seções (ao pular para elas) */
 .terms-content section {
+  /* Espaço em cima ao pular para cá por um link */
   scroll-margin-top: 90px;
 }
 
 /* ---------- Voltar ao topo ---------- */
 
+/* Botão redondo de voltar ao topo */
 .back-to-top {
+  /* Fixo na tela, mesmo rolando */
   position: fixed;
+  /* Distância da direita: 20 pixels */
   right: 20px;
+  /* Distância de baixo: 20 pixels */
   bottom: 20px;
+  /* Largura: 44 pixels */
   width: 44px;
+  /* Altura: 44 pixels */
   height: 44px;
+  /* Cantos totalmente redondos */
   border-radius: 50%;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
+  /* Sombra em volta da caixa */
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     opacity 0.2s ease,
     transform 0.2s ease,
     border-color 0.15s ease;
 }
 
+/* Botão com o mouse em cima */
 .back-to-top:hover {
+  /* Cor da borda: coral */
   border-color: var(--coral);
 }
 
+/* Botão escondido (antes de rolar) */
 .back-to-top.is-hidden {
+  /* Invisível (opacidade 0) */
   opacity: 0;
+  /* Desce 8 pixels */
   transform: translateY(8px);
+  /* Ignora cliques (eles passam direto) */
   pointer-events: none;
 }
 
+/* Setinha dentro do botão */
 .back-to-top svg {
+  /* Largura: 20 pixels */
   width: 20px;
+  /* Altura: 20 pixels */
   height: 20px;
+  /* Sem preenchimento no desenho */
   fill: none;
+  /* Cor do traço do desenho: a mesma cor do texto */
   stroke: currentColor;
+  /* Grossura do traço: 2 */
   stroke-width: 2;
+  /* Pontas do traço arredondadas */
   stroke-linecap: round;
+  /* Cantos do traço arredondados */
   stroke-linejoin: round;
 }
 
+/* Se a pessoa pediu ao sistema para reduzir as animações */
 @media (prefers-reduced-motion: reduce) {
+  /* A página inteira */
   html {
+    /* Rolagem sem efeito */
     scroll-behavior: auto;
   }
 
+  /* Botão de voltar ao topo */
   .back-to-top {
+    /* Sem animação de transição */
     transition: none;
   }
 }

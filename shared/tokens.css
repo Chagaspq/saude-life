@@ -3,83 +3,147 @@
  * raios, sombras e tempos de animação do projeto ficam aqui.
  * Cada página carrega: Google Fonts → tokens.css → base.css → CSS da página.
  */
+/* :root guarda variáveis que valem para o site inteiro */
 :root {
   /* Cores */
+  /* Fundo da página (verde-carvão) */
   --bg: #0e1512;
+  /* Fundo dos cards */
   --surface: #16211d;
+  /* Fundo um pouco mais claro */
   --surface-2: #1e2b25;
+  /* Fundo ainda mais claro (destaques) */
   --surface-3: #24352e;
+  /* Fundo meio transparente (efeito vidro) */
   --surface-glass: rgba(22, 33, 29, 0.92);
+  /* Cor das bordas */
   --border: #263832;
+  /* Borda mais forte */
   --border-strong: #35503f;
+  /* Borda bem suave */
   --border-subtle: rgba(244, 241, 234, 0.08);
+  /* Borda coral transparente */
   --border-coral: rgba(255, 160, 107, 0.4);
+  /* Cor principal do texto (bege claro) */
   --ink: #f4f1ea;
+  /* Branco puro, para destaque */
   --ink-strong: #ffffff;
+  /* Texto apagado (legendas) */
   --muted: #a3b0a8;
+  /* Texto mais apagado ainda */
   --muted-2: #8a968f;
 
+  /* Coral: a cor principal da marca */
   --coral: #ff7a45;
+  /* Coral clarinho */
   --coral-light: #ffa06b;
+  /* Coral escuro */
   --coral-dark: #d85f2e;
+  /* Coral bem fraquinho, para fundos */
   --coral-soft: rgba(255, 122, 69, 0.1);
+  /* Coral fraco */
   --coral-dim: rgba(255, 122, 69, 0.16);
+  /* Coral para anéis de foco */
   --coral-ring: rgba(255, 122, 69, 0.35);
+  /* Coral para brilhos */
   --coral-glow: rgba(255, 122, 69, 0.4);
 
+  /* Esmeralda: a segunda cor da marca */
   --emerald: #34d399;
+  /* Esmeralda escura */
   --emerald-dark: #1f9c6f;
+  /* Esmeralda fraquinha, para fundos */
   --emerald-soft: rgba(52, 211, 153, 0.12);
 
+  /* Amarelo de alerta */
   --warning: #e09f3e;
+  /* Amarelo fraquinho, para fundos */
   --warning-soft: rgba(224, 159, 62, 0.12);
+  /* Amarelo das estrelas de avaliação */
   --star: #f5b544;
+  /* Azul de informação */
   --info: #7cc4f0;
+  /* Cor do texto em cima do coral (quase preto) */
   --on-coral: #14100c;
 
+  /* Degradê da marca: coral para esmeralda */
   --gradient-brand: linear-gradient(135deg, var(--coral), var(--emerald));
+  /* Degradê dos botões: coral claro para coral */
   --gradient-button: linear-gradient(180deg, var(--coral-light), var(--coral) 70%);
 
   /* Tipografia */
+  /* Fonte dos títulos */
   --font-display: "Space Grotesk", "Inter", sans-serif;
+  /* Fonte do texto */
   --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Letra extra pequena */
   --text-xs: 12px;
+  /* Letra pequena */
   --text-sm: 13.5px;
+  /* Letra normal */
   --text-base: 15px;
+  /* Letra grande */
   --text-lg: 17px;
+  /* Letra extra grande */
   --text-xl: 20px;
+  /* Letra 2x grande */
   --text-2xl: 26px;
+  /* Letra 3x grande (cresce com a tela) */
   --text-3xl: clamp(30px, 4.5vw, 44px);
+  /* Letra do título principal (cresce com a tela) */
   --text-hero: clamp(36px, 5.5vw, 58px);
 
   /* Espaçamento (escala de 4px) */
+  /* 4 pixels */
   --space-1: 4px;
+  /* 8 pixels */
   --space-2: 8px;
+  /* 12 pixels */
   --space-3: 12px;
+  /* 16 pixels */
   --space-4: 16px;
+  /* 20 pixels */
   --space-5: 20px;
+  /* 24 pixels */
   --space-6: 24px;
+  /* 32 pixels */
   --space-8: 32px;
+  /* 40 pixels */
   --space-10: 40px;
+  /* 48 pixels */
   --space-12: 48px;
+  /* 64 pixels */
   --space-16: 64px;
+  /* 96 pixels */
   --space-24: 96px;
 
   /* Raios */
+  /* Arredondado pequeno */
   --radius-sm: 10px;
+  /* Arredondado médio */
   --radius-md: 14px;
+  /* Arredondado grande */
   --radius-lg: 20px;
+  /* Arredondado extra grande */
   --radius-xl: 28px;
+  /* Totalmente redondo (pílula) */
   --radius-full: 999px;
 
   /* Sombras */
+  /* Sombra pequena */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+  /* Sombra média */
   --shadow-md: 0 12px 28px rgba(0, 0, 0, 0.35);
+  /* Sombra grande */
   --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.5);
+  /* Sombra coral (brilho dos botões) */
   --shadow-coral: 0 12px 28px rgba(255, 122, 69, 0.28);
 
   /* Movimento */
+  /* Curva de animação: começa rápido e termina suave */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Animação rápida (0,15 segundo) */
   --dur-fast: 150ms;
+  /* Animação normal (0,2 segundo) */
   --dur-base: 200ms;
 }

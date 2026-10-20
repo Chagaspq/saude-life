@@ -1,25 +1,42 @@
 <!doctype html>
+<!-- A linha acima avisa o navegador que este arquivo é uma página HTML5 -->
+<!-- Começo da página, em português do Brasil -->
 <html lang="pt-BR">
+  <!-- Cabeçalho: informações que não aparecem na tela -->
   <head>
+    <!-- Usa UTF-8 para mostrar os acentos certinho -->
     <meta charset="UTF-8" />
+    <!-- Faz a página se ajustar à tela do celular -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Nome que aparece na aba do navegador -->
     <title>Saúde Life</title>
+    <!-- Pede para o Google não mostrar esta página nas buscas (ela só redireciona) -->
     <meta name="robots" content="noindex" />
+    <!-- Ícone da aba (a logo), buscado na pasta shared -->
     <link rel="icon" href="../shared/favicon.svg" type="image/svg+xml" />
     <!-- O app agora tem uma página por seção, em ../app/. Este arquivo só
          redireciona links antigos (ex.: index.html#treinos → app/treinos/treinos.html). -->
+    <!-- Começo do código JavaScript que faz o redirecionamento -->
     <script>
+      // Função que roda sozinha na hora
       (function () {
+        // Lista das páginas do app que existem
         var paginas = ["inicio", "descobrir", "treinos", "aulas", "alimentacao", "evolucao",
           "profissionais", "planos", "salvos", "academia", "perfil"];
+        // Pega o que vem depois do # no endereço (ex.: #treinos vira treinos)
         var hash = window.location.hash.replace("#", "");
+        // Se for uma página da lista, usa ela; se não, vai para o Início
         var pagina = paginas.indexOf(hash) >= 0 ? hash : "inicio";
+        // Leva a pessoa para a página certa dentro da pasta app
         window.location.replace("../app/" + pagina + "/" + pagina + ".html");
       })();
     </script>
+    <!-- Reserva: se o JavaScript estiver desligado, vai para o Início em 0 segundos -->
     <meta http-equiv="refresh" content="0; url=../app/inicio/inicio.html" />
   </head>
+  <!-- Corpo: o que aparece na tela -->
   <body>
+    <!-- Link manual para o Início, caso nada funcione -->
     <p><a href="../app/inicio/inicio.html">Abrir o Saúde Life</a></p>
   </body>
 </html>

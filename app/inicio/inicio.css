@@ -7,116 +7,191 @@
    INÍCIO
    ============================================ */
 
+/* Grade principal do Início */
 .home-grid {
+  /* Usa o modo grade */
   display: grid;
+  /* Duas colunas: a da esquerda um pouco maior */
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  /* Espaço entre as colunas */
   gap: var(--space-4);
 }
 
+/* Cada seção dentro da grade */
 .home-grid > section {
+  /* Organiza o conteúdo em coluna */
   display: flex;
+  /* Um embaixo do outro */
   flex-direction: column;
 }
 
+/* Último item de cada seção */
 .home-grid > section > :last-child {
+  /* Estica para ocupar a altura que sobra */
   flex: 1;
 }
 
+/* Card grande do treino sugerido */
 .workout-hero {
+  /* Ocupa a altura toda */
   height: 100%;
+  /* Itens organizados... */
   display: flex;
+  /* ...em coluna */
   flex-direction: column;
+  /* Espaço de 14 pixels entre eles */
   gap: 14px;
+  /* Espaço interno */
   padding: 22px;
+  /* Cantos arredondados */
   border-radius: var(--radius-md);
+  /* Borda fininha */
   border: 1px solid var(--border);
+  /* Fundo com duas camadas: */
   background:
+    /* um brilho coral no canto de cima à direita */
     radial-gradient(circle at 100% 0%, rgba(255, 122, 69, 0.14), transparent 55%),
+    /* em cima da cor dos cards */
     var(--surface);
 }
 
+/* Parte de cima do card */
 .workout-hero-top {
+  /* Itens lado a lado */
   display: flex;
+  /* Centralizados na altura */
   align-items: center;
+  /* Espaço entre eles */
   gap: 14px;
 }
 
+/* Nome do treino no card */
 .workout-hero-info h3 {
+  /* Letra de 20 pixels */
   font-size: 20px;
+  /* Pequeno espaço embaixo */
   margin-bottom: 2px;
 }
 
+/* Caixinha do próximo exercício */
 .workout-hero-next {
+  /* Itens... */
   display: flex;
+  /* ...em coluna */
   flex-direction: column;
+  /* Espaço pequenino entre eles */
   gap: 2px;
+  /* Sem margem */
   margin: 0;
+  /* Espaço interno */
   padding: 12px 14px;
+  /* Cantos arredondados */
   border-radius: var(--radius-sm);
+  /* Fundo escuro meio transparente */
   background: rgba(14, 21, 18, 0.55);
+  /* Borda fininha */
   border: 1px solid var(--border);
+  /* Letra de 13 pixels */
   font-size: 13px;
+  /* Cor apagada */
   color: var(--muted);
 }
 
+/* Nome do próximo exercício */
 .workout-hero-next strong {
+  /* Cor principal do texto */
   color: var(--ink);
+  /* Letra de 14,5 pixels */
   font-size: 14.5px;
 }
 
+/* Botão do card */
 .workout-hero .btn-primary {
+  /* Fica à esquerda, sem esticar */
   align-self: flex-start;
+  /* Empurrado para o fim do card */
   margin-top: auto;
 }
 
+/* Card do desafio */
 .challenge-hero {
+  /* Espaço entre os itens */
   gap: 12px;
+  /* Espaço interno */
   padding: 22px;
 }
 
+/* Topo do card do desafio */
 .challenge-top {
+  /* Itens lado a lado */
   display: flex;
+  /* Centralizados na altura */
   align-items: center;
+  /* Espaço entre eles */
   gap: 12px;
 }
 
+/* Linha do progresso do desafio */
 .challenge-progress {
+  /* Itens lado a lado */
   display: flex;
+  /* Um em cada ponta */
   justify-content: space-between;
+  /* Alinhados pela base do texto */
   align-items: baseline;
+  /* Letra de 13,5 pixels */
   font-size: 13.5px;
+  /* Cor apagada */
   color: var(--muted);
 }
 
+/* Números em destaque */
 .challenge-progress strong {
+  /* Cor principal do texto */
   color: var(--ink);
 }
 
+/* Botão do desafio */
 .challenge-hero .btn-primary {
+  /* Empurrado para o fim do card */
   margin-top: auto;
 }
 
 /* Profissionais do Início: 4 por linha no computador, rolagem lateral no celular */
+/* Linha de profissionais */
 .pros-row {
+  /* Quantas colunas couberem, cada uma com no mínimo 190 pixels */
   grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
 }
 
+/* Em telas de até 640 pixels (celular) */
 @media (max-width: 640px) {
+  /* Linha de profissionais */
   .pros-row {
+    /* Vira uma fileira só */
     display: flex;
+    /* Que rola para o lado */
     overflow-x: auto;
+    /* Espaço embaixo para a barra de rolagem */
     padding-bottom: 8px;
+    /* A rolagem "gruda" em cada card */
     scroll-snap-type: x mandatory;
   }
 
+  /* Cada card de profissional */
   .pros-row .pro-card {
+    /* Ocupa 72% da largura, sem encolher */
     flex: 0 0 72%;
+    /* Gruda pelo começo do card */
     scroll-snap-align: start;
   }
 }
 
+/* Em telas de até 900 pixels (tablet) */
 @media (max-width: 900px) {
+  /* Grade principal */
   .home-grid {
+    /* Vira uma coluna só */
     grid-template-columns: 1fr;
   }
 }

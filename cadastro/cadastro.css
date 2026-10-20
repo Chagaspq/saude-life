@@ -1,17 +1,26 @@
+/* Todos os elementos e os pedacinhos antes/depois deles */
 *,
 *::before,
 *::after {
+  /* Sem margem */
   margin: 0;
+  /* Sem espaço interno */
   padding: 0;
+  /* A largura inclui a borda e o espaço interno */
   box-sizing: border-box;
 }
 
+/* A página inteira */
 html {
+  /* Não deixa o celular aumentar a letra sozinho */
   -webkit-text-size-adjust: 100%;
 }
 
+/* Corpo da página */
 body {
+  /* Fundo: verde-carvão do fundo */
   background-color: var(--bg);
+  /* Sem imagem de fundo */
   background-image:
     radial-gradient(
       circle at 15% 15%,
@@ -23,476 +32,789 @@ body {
       rgba(52, 211, 153, 0.06) 0%,
       transparent 50%
     );
+  /* Fundo parado enquanto a página rola */
   background-attachment: fixed;
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Fonte: fonte de texto (Inter) */
   font-family: var(--font-body);
+  /* Deixa a letra mais lisinha no Mac */
   -webkit-font-smoothing: antialiased;
+  /* Deixa a letra mais lisinha no Mac */
   -moz-osx-font-smoothing: grayscale;
+  /* Altura mínima: a tela toda */
   min-height: 100vh;
+  /* Esconde o que passar da caixa */
   overflow-x: hidden;
 }
 
+/* Cartão do formulário */
 .auth-container {
+  /* Largura: a toda */
   width: 100%;
+  /* Largura máxima: 420 pixels */
   max-width: 420px;
+  /* Fundo: vidro meio transparente */
   background: var(--surface-glass);
+  /* Desfoca o que está atrás (efeito vidro) */
   backdrop-filter: blur(16px);
+  /* Mesmo ajuste para o Safari e navegadores antigos */
   -webkit-backdrop-filter: blur(16px);
+  /* Borda de 1 pixel, borda bem suave */
   border: 1px solid var(--border-subtle);
+  /* Cantos arredondados: 28 pixels */
   border-radius: var(--radius-xl);
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 32px 24px;
+  /* Sombra em volta da caixa */
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 24 pixels */
   gap: 24px;
 }
 
+/* Topo do cartão */
 .auth-header {
+  /* Texto centralizado */
   text-align: center;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
 }
 
+/* Logo pequena */
 .logo-compact {
+  /* Largura: 52 pixels */
   width: 52px;
+  /* Altura: 52 pixels */
   height: 52px;
+  /* Fundo: vidro meio transparente */
   background: var(--surface-glass);
+  /* Borda de 1 pixel, coral transparente */
   border: 1px solid var(--border-coral);
+  /* Cantos arredondados: 14 pixels */
   border-radius: var(--radius-md);
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
+  /* Sombra em volta da caixa */
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  /* Margem embaixo: 4 pixels */
   margin-bottom: 4px;
 }
 
+/* Título */
 .auth-header h1 {
+  /* Fonte: fonte de títulos (Space Grotesk) */
   font-family: var(--font-display);
+  /* Tamanho da letra: 26 pixels */
   font-size: 26px;
+  /* Letra negrito */
   font-weight: 700;
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Espaço entre as letras */
   letter-spacing: -0.5px;
 }
 
+/* Texto de apoio */
 .auth-subtitle {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
+  /* Altura da linha: 1,5 */
   line-height: 1.5;
 }
 
+/* Formulário */
 .auth-form {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 16 pixels */
   gap: 16px;
 }
 
+/* Caixa de erro geral */
 #form-global-error {
+  /* Fundo: amarelo fraquinho */
   background: var(--warning-soft);
+  /* Borda de 1 pixel, amarelo de alerta */
   border: 1px solid var(--warning);
+  /* Cor do texto: amarelo de alerta */
   color: var(--warning);
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 12px 14px;
+  /* Cantos arredondados: 14 pixels */
   border-radius: var(--radius-md);
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
+  /* Altura da linha: 1,4 */
   line-height: 1.4;
+  /* Letra um pouco mais grossa (médio) */
   font-weight: 500;
 }
 
+/* Caixa de erro escondida */
 #form-global-error[hidden] {
+  /* Esconde o elemento */
   display: none;
 }
 
+/* Grupo de um campo */
 .form-group {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 6 pixels */
   gap: 6px;
 }
 
+/* Linha com o nome do campo e o link */
 .label-row {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Joga os itens para as pontas */
   justify-content: space-between;
+  /* Itens centralizados na altura */
   align-items: center;
 }
 
+/* Nome do campo */
 .form-group label {
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
 }
 
+/* Link "Esqueci minha senha" */
 .forgot-password {
+  /* Tamanho da letra: 12 pixels */
   font-size: 12px;
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: opacity 150ms var(--ease-out);
 }
 
+/* Link com o mouse em cima */
 .forgot-password:hover {
+  /* Meio transparente (80% visível) */
   opacity: 0.8;
 }
 
+/* Caixa do ícone e do campo */
 .input-wrapper {
+  /* Posição relativa (serve de base para filhos soltos) */
   position: relative;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Fundo: cor meio transparente */
   background: rgba(255, 255, 255, 0.02);
+  /* Borda de 1 pixel, borda bem suave */
   border: 1px solid var(--border-subtle);
+  /* Cantos arredondados: 14 pixels */
   border-radius: var(--radius-md);
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     border-color 150ms var(--ease-out),
     box-shadow 150ms var(--ease-out),
     background 150ms var(--ease-out);
 }
 
+/* Ícone dentro do campo */
 .input-icon {
+  /* Não deixa encolher */
   flex-shrink: 0;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Margem à esquerda: 14 pixels */
   margin-left: 14px;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: color 150ms var(--ease-out);
 }
 
+/* Ícone quando o campo está focado (fica coral) */
 .input-wrapper:focus-within .input-icon {
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
 }
 
+/* Caixa quando o campo de dentro está focado */
 .input-wrapper:focus-within {
+  /* Cor da borda: coral claro */
   border-color: var(--coral-light);
+  /* Anel em volta da caixa (feito com sombra) */
   box-shadow: 0 0 0 2px var(--coral-dim);
+  /* Fundo: cor meio transparente */
   background: rgba(255, 255, 255, 0.04);
 }
 
+/* Campo de digitar */
 .input-wrapper input {
+  /* Largura: a toda */
   width: 100%;
+  /* Sem fundo (transparente) */
   background: transparent;
+  /* Sem borda */
   border: none;
+  /* Tira o contorno padrão */
   outline: none;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 14px 16px 14px 10px;
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Tamanho da letra: 14 pixels */
   font-size: 14px;
+  /* Fonte: fonte de texto (Inter) */
   font-family: var(--font-body);
 }
 
+/* Texto de exemplo dentro do campo */
 .input-wrapper input::placeholder {
+  /* Cor do texto: cor meio transparente */
   color: rgba(194, 181, 183, 0.4);
 }
 
+/* Caixa do campo com erro (borda vermelha) */
 .form-group.has-error .input-wrapper {
+  /* Cor da borda: amarelo de alerta */
   border-color: var(--warning);
+  /* Fundo: amarelo fraquinho */
   background: var(--warning-soft);
 }
 
+/* Mensagem de erro do campo */
 .field-error {
+  /* Tamanho da letra: 12 pixels */
   font-size: 12px;
+  /* Cor do texto: amarelo de alerta */
   color: var(--warning);
+  /* Altura mínima: 16 pixels */
   min-height: 16px;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 4 pixels */
   gap: 4px;
 }
 
+/* Caixa do campo de senha (tem o botão de olho) */
 .password-wrapper {
+  /* Espaço interno à direita: 8 pixels */
   padding-right: 8px;
 }
 
+/* Botão de olho de mostrar a senha */
 .toggle-password {
+  /* Sem fundo (transparente) */
   background: transparent;
+  /* Sem borda */
   border: none;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
+  /* Espaço interno: 6 pixels */
   padding: 6px;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Cantos arredondados: 8 pixels */
   border-radius: 8px;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     color 150ms var(--ease-out),
     background-color 150ms var(--ease-out);
 }
 
+/* Botão de olho com o mouse em cima */
 .toggle-password:hover {
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Fundo: cor meio transparente */
   background: rgba(255, 255, 255, 0.04);
 }
 
+/* Medidor de força da senha */
 .password-strength {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 4 pixels */
   gap: 4px;
+  /* Margem em cima: 4 pixels */
   margin-top: 4px;
 }
 
+/* Barrinha da força */
 .strength-bar {
+  /* Largura: a toda */
   width: 100%;
+  /* Altura: 3 pixels */
   height: 3px;
+  /* Fundo: cor meio transparente */
   background: rgba(255, 255, 255, 0.08);
+  /* Cantos arredondados: 2 pixels */
   border-radius: 2px;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     background 200ms var(--ease-out),
     width 200ms var(--ease-out);
 }
 
+/* Senha fraca: barra curta e vermelha */
 .strength-bar[data-level="fraca"] {
+  /* Fundo: amarelo de alerta */
   background: var(--warning);
 }
 
+/* Senha média: barra pela metade e amarela */
 .strength-bar[data-level="média"] {
+  /* Fundo: amarelo de alerta */
   background: var(--warning);
 }
 
+/* Senha forte: barra cheia e verde */
 .strength-bar[data-level="forte"] {
+  /* Fundo: esmeralda */
   background: var(--emerald);
 }
 
+/* Texto da força */
 .strength-label {
+  /* Tamanho da letra: 11 pixels */
   font-size: 11px;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Margem em cima: 2 pixels */
   margin-top: 2px;
 }
 
+/* Linha da caixinha dos termos */
 .checkbox-group {
+  /* Itens em linha (lado a lado) */
   flex-direction: row;
+  /* Itens alinhados no começo */
   align-items: flex-start;
+  /* Espaço entre os itens: 10 pixels */
   gap: 10px;
+  /* Margem (espaço por fora) */
   margin: 4px 0;
 }
 
+/* Caixinha de marcar */
 .checkbox-group input[type="checkbox"] {
+  /* Cor das caixinhas e opções nativas: coral claro */
   accent-color: var(--coral-light);
+  /* Largura: 16 pixels */
   width: 16px;
+  /* Altura: 16 pixels */
   height: 16px;
+  /* Margem em cima: 2 pixels */
   margin-top: 2px;
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
+  /* Não deixa encolher */
   flex-shrink: 0;
 }
 
+/* Texto da caixinha */
 .checkbox-group label {
+  /* Tamanho da letra: 12 pixels */
   font-size: 12px;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Letra normal */
   font-weight: 400;
+  /* Altura da linha: 1,4 */
   line-height: 1.4;
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
 }
 
+/* Links dentro do texto da caixinha */
 .checkbox-group label a {
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
+  /* Sublinhado no texto */
   text-decoration: underline;
+  /* Distância do sublinhado até o texto */
   text-underline-offset: 2px;
 }
 
+/* Botão de enviar */
 .btn-submit {
+  /* Largura: a toda */
   width: 100%;
+  /* Fundo em degradê */
   background: linear-gradient(
     135deg,
     var(--coral) 0%,
     var(--coral-light) 100%
   );
+  /* Cor do texto: quase preto (texto em cima do coral) */
   color: var(--on-coral);
+  /* Borda de 1 pixel, cor meio transparente */
   border: 1px solid rgba(255, 255, 255, 0.2);
+  /* Espaço interno: 16 pixels */
   padding: 16px;
+  /* Cantos arredondados: 14 pixels */
   border-radius: var(--radius-md);
+  /* Fonte: fonte de títulos (Space Grotesk) */
   font-family: var(--font-display);
+  /* Tamanho da letra: 15 pixels */
   font-size: 15px;
+  /* Letra negrito */
   font-weight: 700;
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Espaço entre os itens: 10 pixels */
   gap: 10px;
+  /* Sombra em volta da caixa */
   box-shadow: 0 10px 25px var(--coral-glow);
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     transform 200ms var(--ease-out),
     box-shadow 200ms var(--ease-out),
     opacity 200ms var(--ease-out);
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Margem em cima: 4 pixels */
   margin-top: 4px;
 }
 
+/* Setinha do botão */
 .btn-submit .arrow {
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: transform 200ms var(--ease-out);
 }
 
+/* Setinha anda para a direita com o mouse em cima */
 .btn-submit:hover .arrow {
+  /* Move o elemento */
   transform: translateX(4px);
 }
 
+/* Botão com o mouse em cima */
 .btn-submit:hover {
+  /* Meio transparente (95% visível) */
   opacity: 0.95;
+  /* Sombra em volta da caixa */
   box-shadow: 0 14px 30px rgba(179, 18, 46, 0.6);
 }
 
+/* Botão sendo clicado */
 .btn-submit:active {
+  /* Muda o tamanho (escala) */
   transform: scale(0.98);
 }
 
+/* Botão focado pelo teclado */
 .btn-submit:focus-visible {
+  /* Contorno em volta (aparece no foco) */
   outline: 2px solid var(--coral-light);
+  /* Distância do contorno até o elemento */
   outline-offset: 3px;
 }
 
+/* Botão desativado (enquanto carrega) */
 .btn-submit:disabled {
+  /* Meio transparente (60% visível) */
   opacity: 0.6;
+  /* Mostra o sinal de proibido */
   cursor: not-allowed;
+  /* Sem sombra */
   box-shadow: none;
+  /* Sem mover nem girar */
   transform: none;
 }
 
+/* Rodinha de carregando */
 .spinner {
+  /* Largura: 18 pixels */
   width: 18px;
+  /* Altura: 18 pixels */
   height: 18px;
+  /* Borda de 2 pixels, cor meio transparente */
   border: 2px solid rgba(20, 16, 12, 0.25);
+  /* Cor da borda: quase preto (texto em cima do coral) */
   border-top-color: var(--on-coral);
+  /* Cantos totalmente redondos */
   border-radius: 50%;
+  /* Roda a animação "spin" */
   animation: spin 0.6s linear infinite;
 }
 
+/* Animação chamada "spin" (passo a passo abaixo) */
 @keyframes spin {
+  /* Fim da animação */
   to {
+    /* Gira o elemento */
     transform: rotate(360deg);
   }
 }
 
+/* Linha "ou continue com" */
 .auth-divider {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Texto centralizado */
   text-align: center;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 11 pixels */
   font-size: 11px;
+  /* Letras maiúsculas */
   text-transform: uppercase;
+  /* Espaço entre as letras */
   letter-spacing: 1px;
+  /* Margem (espaço por fora) */
   margin: 4px 0;
 }
 
+/* Os dois risquinhos dos lados do texto */
 .auth-divider::before,
 .auth-divider::after {
+  /* Cria um pedacinho vazio, só para enfeite */
   content: "";
+  /* Ocupa todo o espaço que sobra */
   flex: 1;
+  /* Borda embaixo de 1 pixel, borda bem suave */
   border-bottom: 1px solid var(--border-subtle);
 }
 
+/* Texto do meio */
 .auth-divider span {
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 0 12px;
 }
 
+/* Botões do Google e da Apple */
 .social-login {
+  /* Organiza os itens em grade */
   display: grid;
+  /* Tamanho das colunas da grade: 1fr 1fr */
   grid-template-columns: 1fr 1fr;
+  /* Espaço entre os itens: 12 pixels */
   gap: 12px;
 }
 
+/* Botão social */
 .btn-social {
+  /* Fundo: cor meio transparente */
   background: rgba(255, 255, 255, 0.02);
+  /* Borda de 1 pixel, borda bem suave */
   border: 1px solid var(--border-subtle);
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Espaço interno: 12 pixels */
   padding: 12px;
+  /* Cantos arredondados: 14 pixels */
   border-radius: var(--radius-md);
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     background 150ms var(--ease-out),
     border-color 150ms var(--ease-out),
     transform 150ms var(--ease-out);
 }
 
+/* Botão social com o mouse em cima */
 .btn-social:hover {
+  /* Fundo: cor meio transparente */
   background: rgba(255, 255, 255, 0.05);
+  /* Cor da borda: cor meio transparente */
   border-color: rgba(241, 242, 246, 0.15);
 }
 
+/* Botão social sendo clicado */
 .btn-social:active {
+  /* Muda o tamanho (escala) */
   transform: scale(0.98);
 }
 
+/* Botão social focado pelo teclado */
 .btn-social:focus-visible {
+  /* Contorno em volta (aparece no foco) */
   outline: 2px solid var(--coral-light);
+  /* Distância do contorno até o elemento */
   outline-offset: 2px;
 }
 
+/* Rodapé do cartão */
 .auth-footer {
+  /* Texto centralizado */
   text-align: center;
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Margem em cima: 4 pixels */
   margin-top: 4px;
 }
 
+/* Link do rodapé */
 .auth-footer a {
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: opacity 150ms var(--ease-out);
 }
 
+/* Link com o mouse em cima */
 .auth-footer a:hover {
+  /* Meio transparente (80% visível) */
   opacity: 0.8;
 }
 
+/* Em telas de até 380 pixels */
 @media (max-width: 380px) {
+  /* Cartão do formulário */
   .auth-container {
+    /* Espaço interno (em cima, lados e embaixo) */
     padding: 24px 16px;
   }
+  /* Botões do Google e da Apple */
   .social-login {
+    /* Uma coluna só */
     grid-template-columns: 1fr;
   }
 }
 
+/* Se a pessoa pediu ao sistema para reduzir as animações */
 @media (prefers-reduced-motion: reduce) {
+  /* Todos os elementos */
   *,
   ::before,
   ::after {
+    /* Duração da animação (!important: vence outras regras) */
     animation-duration: 0.01ms !important;
+    /* Quantas vezes a animação roda (!important: vence outras regras) */
     animation-iteration-count: 1 !important;
+    /* Duração da transição (!important: vence outras regras) */
     transition-duration: 0.01ms !important;
+    /* Rolagem sem efeito (!important: vence outras regras) */
     scroll-behavior: auto !important;
   }
 }
 
 /* Trava todos os links visitados para manterem a cor original sem ficar roxo */
+/* Links já visitados */
 a:visited {
+  /* Cor do texto: a mesma do elemento pai */
   color: inherit;
 }
 
 /* Link 'Esqueci minha senha' em coral */
+/* Link "Esqueci minha senha" */
 .forgot-password,
 .forgot-password:visited {
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Tamanho da letra */
   font-size: 0.875rem;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: opacity 0.2s ease;
 }
 
+/* Link com o mouse em cima */
 .forgot-password:hover {
+  /* Sublinhado no texto */
   text-decoration: underline;
+  /* Meio transparente (80% visível) */
   opacity: 0.8;
 }
 
 /* Links de destaque do rodapé ('Criar conta' / 'Entrar') em coral */
+/* Links do rodapé */
 .auth-footer a,
 .auth-footer a:visited,
 .btn-comecar,
 .btn-comecar:visited {
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: opacity 0.2s ease;
 }
 
+/* Links com o mouse em cima */
 .auth-footer a:hover,
 .btn-comecar:hover {
+  /* Sublinhado no texto */
   text-decoration: underline;
+  /* Meio transparente (80% visível) */
   opacity: 0.8;
 }
 
 /* Foco visível para quem navega pelo teclado */
+/* Links, botões e caixinhas focados pelo teclado */
 a:focus-visible,
 button:focus-visible,
 input[type="checkbox"]:focus-visible {
+  /* Contorno em volta (aparece no foco) */
   outline: 2px solid var(--coral);
+  /* Distância do contorno até o elemento */
   outline-offset: 3px;
+  /* Cantos arredondados: 6 pixels */
   border-radius: 6px;
 }
