@@ -1196,26 +1196,74 @@
     openModal(titulo, el("ul", { class: "list-panel" }, itens));
   }
 
-  // Botão de notificações...
-  acao("open-notifications", () => {
-    // ...pega os números da semana
+  // Avisos do dia: meta da semana, ranking, fim de semana e amigos
+  function avisos() {
+    // Lista de avisos [título, texto]
+    const lista = [];
+    // Números da semana
     const { nestaSemana, meta } = estatisticas();
-    // ...quantos treinos faltam
+    // Quantos treinos faltam
     const faltam = Math.max(0, meta - nestaSemana);
-    // ...abre a caixa com:
-    abrirCaixa("notificacoes", "Notificações", [
-      // aviso da meta
-      itemLista(
-        // (título conforme falta ou não)
-        faltam ? "Meta semanal em andamento" : "Meta semanal batida!",
-        // (texto conforme falta ou não)
-        faltam ? `Faltam ${faltam} treino${faltam > 1 ? "s" : ""} para completar ${meta}/${meta}.` : `Você completou ${nestaSemana} treinos nesta semana.`,
-      ),
-      // aviso de nova publicação
-      itemLista("Ana Souza publicou um novo plano", "Cardápio de alta proteína"),
-      // aviso do desafio
-      itemLista("Desafio 30 Dias", "Você está no dia 6. Continue!"),
-    ]);
+    // Aviso da meta
+    lista.push(faltam ? ["Meta semanal em andamento", `Faltam ${faltam} treino${faltam > 1 ? "s" : ""} para completar ${meta}/${meta}.`] : ["Meta semanal batida!", `Você completou ${nestaSemana} treinos nesta semana.`]);
+    // Motor de pontos
+    const P = window.SL.pontos;
+    // Sem motor de pontos, só a meta
+    if (!P) return lista;
+    // Ranking da semana entre os amigos
+    const ranking = P.ranking("amigos", "semana");
+    // Minha posição na lista
+    const i = ranking.findIndex((r) => r.eu);
+    // Primeiro nome
+    const primeiro = (nome) => nome.split(" ")[0];
+    // Se estou no ranking...
+    if (i > 0) {
+      // ...quem está logo acima
+      const acima = ranking[i - 1];
+      // Aviso de quem está na frente
+      lista.push([`Ranking: você está em ${i + 1}º`, `${primeiro(acima.nome)} está ${acima.pts - ranking[i].pts} pontos na sua frente. Bora passar?`]);
+    } else if (i === 0 && ranking[1]) {
+      // Aviso de liderança
+      lista.push(["Você lidera o ranking! 🏆", `${primeiro(ranking[1].nome)} está ${ranking[0].pts - ranking[1].pts} pontos atrás. Não deixa chegar!`]);
+    }
+    // Situação da liga
+    const s = P.situacaoDaLiga();
+    // Sexta, sábado ou domingo: aviso de fim de semana
+    if ([5, 6, 0].includes(new Date().getDay()))
+      // Aviso
+      lista.push(["Fim de semana chegando", s.faltaSubir ? `O ranking zera em ${s.diasParaZerar} dia${s.diasParaZerar > 1 ? "s" : ""}. Faltam ${s.faltaSubir} pontos para subir de liga.` : "Sua subida de liga já está garantida. Aproveita o descanso!"]);
+    // Amigo do dia (sorteado pelo dia, sempre o mesmo no mesmo dia)
+    const amigos = window.SL_DADOS.AMIGOS;
+    // Amigo sorteado
+    const amigo = amigos[Math.floor(P.sorteio(new Date().toDateString()) * amigos.length)];
+    // Aviso do amigo
+    if (amigo) lista.push([`${primeiro(amigo.nome)} treinou hoje 💪`, "Manda um cutucão na Galera ou treina também para não ficar para trás."]);
+    // Devolve
+    return lista;
+  }
+
+  // Atualiza o número do sino com a quantidade de avisos do dia
+  function prepararAvisos() {
+    // Botão do sino
+    const sino = document.querySelector('[data-badge^="notificacoes"]');
+    // Se não tem, para
+    if (!sino) return;
+    // Quantidade de avisos
+    const qtd = avisos().length;
+    // A marca de "lido" vale por dia (amanhã o número volta)
+    sino.dataset.badge = "notificacoes-" + new Date().toDateString();
+    // Número na bolinha
+    const badge = sino.querySelector(".badge");
+    // Escreve o número
+    if (badge) badge.textContent = qtd;
+    // Nome para leitores de tela
+    sino.dataset.rotuloNovas = `Notificações (${qtd} nova${qtd > 1 ? "s" : ""})`;
+  }
+
+  // Botão de notificações...
+  acao("open-notifications", (alvo) => {
+    // ...abre a caixa com os avisos do dia
+    abrirCaixa(alvo.dataset.badge, "Notificações", avisos().map(([titulo, texto]) => itemLista(titulo, texto)));
   });
 
   // Botão de mensagens...
@@ -2162,6 +2210,8 @@
     aplicarProgresso();
     // ...atualiza os botões de seguir
     marcarSeguindo();
+    // ...conta os avisos do dia no sino
+    prepararAvisos();
     // ...esconde os números já lidos
     marcarLidas();
     // ...se a pessoa já entrou no desafio...

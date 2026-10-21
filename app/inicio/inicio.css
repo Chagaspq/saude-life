@@ -310,3 +310,106 @@
   /* Altura de 105 pixels */
   height: 105px;
 }
+
+/* ---------- Card do momento do dia e passos ---------- */
+
+/* Card do momento */
+.momento-card {
+  /* Grade: emoji, textos e passos */
+  display: grid;
+  /* Emoji pequeno, textos grandes, passos médios */
+  grid-template-columns: auto 1fr minmax(180px, 240px);
+  /* Centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 18px;
+  /* Espaço interno */
+  padding: 18px 22px;
+  /* Espaço embaixo */
+  margin-bottom: var(--space-4);
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Borda discreta */
+  border: 1px solid var(--border);
+  /* Fundo com brilho esmeralda à direita */
+  background:
+    radial-gradient(circle at 100% 50%, rgba(52, 211, 153, 0.12), transparent 45%),
+    var(--surface);
+}
+
+/* Emoji do momento */
+.momento-emoji {
+  /* Tamanho */
+  font-size: 34px;
+}
+
+/* Título do momento */
+.momento-info strong {
+  /* Fonte de título */
+  font-family: var(--font-display);
+  /* Tamanho */
+  font-size: var(--text-lg);
+}
+
+/* Texto do momento */
+.momento-info p {
+  /* Cor apagada */
+  color: var(--muted);
+  /* Espaço */
+  margin: 4px 0 10px;
+  /* Letra um pouco menor */
+  font-size: var(--text-sm);
+}
+
+/* Bloco dos passos */
+.momento-passos {
+  /* Itens em coluna */
+  display: grid;
+  /* Espaço entre eles */
+  gap: 6px;
+  /* Linha separando dos textos */
+  border-left: 1px solid var(--border);
+  /* Espaço depois da linha */
+  padding-left: 18px;
+}
+
+/* Número de passos */
+.momento-passos-num {
+  /* Fonte de placar */
+  font-family: var(--font-placar, monospace);
+  /* Tamanho */
+  font-size: var(--text-2xl);
+  /* Cor esmeralda */
+  color: var(--emerald);
+}
+
+/* Legenda dos passos */
+.momento-passos span {
+  /* Letra pequena */
+  font-size: var(--text-xs);
+  /* Cor apagada */
+  color: var(--muted);
+}
+
+/* No celular: passos embaixo, ocupando a largura */
+@media (max-width: 640px) {
+  /* Card */
+  .momento-card {
+    /* Emoji e textos em cima */
+    grid-template-columns: auto 1fr;
+  }
+
+  /* Passos */
+  .momento-passos {
+    /* Linha toda */
+    grid-column: 1 / -1;
+    /* Sem linha do lado */
+    border-left: 0;
+    /* Linha em cima */
+    border-top: 1px solid var(--border);
+    /* Sem espaço do lado */
+    padding-left: 0;
+    /* Espaço em cima */
+    padding-top: 12px;
+  }
+}

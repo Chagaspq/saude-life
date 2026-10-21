@@ -234,6 +234,70 @@ window.SL &&
     }
     // Desenha o card
     renderPontos();
+
+    /* Card do momento: sugestão conforme o horário e passos de hoje (simulados) */
+    function renderMomento() {
+      // Lugar do card
+      const alvo = document.querySelector('[data-render="momento"]');
+      // Agora
+      const agora = new Date();
+      // Hora (com os minutos como fração)
+      const hora = agora.getHours() + agora.getMinutes() / 60;
+      // Já treinou hoje?
+      const treinouHoje = SL.historico().some((h) => new Date(h.data).toDateString() === agora.toDateString());
+      // Sugestão do horário: [emoji, título, texto, botão, link]
+      const m =
+        // Manhã
+        hora >= 5 && hora < 10
+          ? ["☀️", "Bom dia! Começa com proteína", "Ovo, iogurte ou queijo no café ajudam a bater a meta de proteína.", "Registrar café", "../alimentacao/alimentacao.html"]
+          : // Almoço
+            hora >= 10 && hora < 14
+            ? ["🍽️", "Hora do almoço", "Metade do prato com salada e legumes. Registra e ganha 5 pontos.", "Registrar almoço", "../alimentacao/alimentacao.html"]
+            : // Tarde
+              hora >= 14 && hora < 18
+              ? ["⚡", "Tarde de energia", "Um lanche com carboidrato e um copo d'água antes do treino.", "Ver treinos", "../treinos/treinos.html"]
+              : // Noite, já treinou
+                hora >= 18 && hora < 22 && treinouHoje
+                ? ["🌙", "Treino feito hoje!", "Agora é recuperar: janta com proteína e uma boa noite de sono.", "Ver evolução", "../evolucao/evolucao.html"]
+                : // Noite, ainda não treinou
+                  hora >= 18 && hora < 22
+                  ? ["🔥", "Ainda dá tempo de treinar", "20 minutos já valem pontos e mantêm sua sequência.", "Começar treino", "../treinos/treinos.html"]
+                  : // Madrugada
+                    ["😴", "Hora de descansar", "Sono também é treino: 7 a 9 horas ajudam o músculo a crescer.", "Ver resumo", "../evolucao/evolucao.html"];
+      // Meta de passos
+      const META = 8000;
+      // Passos do dia inteiro (sorteado pelo dia, entre 5 e 12 mil)
+      const doDia = 5000 + Math.round((SL.pontos ? SL.pontos.sorteio("passos" + agora.toDateString()) : 0.5) * 7000);
+      // Parte do dia que já passou (das 6h às 22h)
+      const parte = Math.max(0, Math.min(1, (hora - 6) / 16));
+      // Passos até agora
+      const passos = Math.round(doDia * parte);
+      // Troca o conteúdo
+      alvo.replaceChildren(
+        // Emoji grande
+        el("span", { class: "momento-emoji", "aria-hidden": "true", text: m[0] }),
+        // Textos e botão
+        el("div", { class: "momento-info" }, [el("strong", { text: m[1] }), el("p", { text: m[2] }), el("a", { href: m[4], class: "btn-secondary", text: m[3] })]),
+        // Passos de hoje
+        el("div", { class: "momento-passos" }, [
+          // Número
+          el("strong", { class: "momento-passos-num", text: SL.num(passos) }),
+          // Legenda
+          el("span", { text: `passos hoje • meta ${SL.num(META)}` }),
+          // Barra de progresso
+          el("div", { class: "progress-bar-sm progress-emerald", role: "progressbar", "aria-label": "Passos de hoje", "aria-valuemin": 0, "aria-valuemax": 100, "aria-valuenow": Math.min(100, Math.round((passos / META) * 100)) }, [
+            // Parte cheia
+            el("div", { class: "fill", "data-progress": Math.min(100, Math.round((passos / META) * 100)) }),
+          ]),
+          // Aviso de simulação
+          el("small", { class: "meta", text: "Simulado (sem pulseira conectada)" }),
+        ]),
+      );
+      // Pinta a barra
+      SL.aplicarProgresso();
+    }
+    // Desenha o card do momento
+    renderMomento();
     // Desenha o Pulso com a frase do dia (se o personagem carregou)
     if (SL.personagem) document.querySelector('[data-render="pulso"]').replaceChildren(SL.personagem.card());
     // Atualiza quando os pontos mudam
