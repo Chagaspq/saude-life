@@ -55,3 +55,21 @@
     min-width: 0;
   }
 }
+
+/* Coleções em faixas */
+.colecoes {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre as coleções */
+  gap: var(--space-6);
+  /* Espaço embaixo */
+  margin-bottom: var(--space-8);
+}
+
+/* Título "Procurar com filtros" */
+.colecoes-titulo {
+  /* Espaço embaixo */
+  margin-bottom: var(--space-3);
+}

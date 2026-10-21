@@ -1109,6 +1109,7 @@
           "sl-refeicoes", "sl-historico", "sl-treino-atual", "sl-desafio", "sl-lidas",
           "sl-pontos", "sl-pontos-inicio", "sl-liga", "sl-liga-vistas", "sl-academia",
           "sl-amigos", "sl-reacoes", "sl-comentarios", "sl-cutucadas", "sl-desafios", "sl-mensagens", "sl-privacidade",
+          "sl-plano", "sl-auto-usos", "sl-lugar", "sl-ultimas", "sl-recordes",
         // ...apaga cada uma
         ].forEach(storage.remove);
         // ...e recarrega a página

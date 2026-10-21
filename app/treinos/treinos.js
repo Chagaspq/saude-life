@@ -113,8 +113,10 @@ window.SL &&
         SL.campo("treino-nome", "Nome do treino", { placeholder: "Ex: Membros Superiores B", required: true, maxlength: 60 }),
         // Campo do grupo muscular
         SL.campo("treino-grupo", "Grupo muscular", { placeholder: "Ex: Peito e Tríceps", maxlength: 60 }),
-        // Caixa de texto dos exercícios, um por linha
-        SL.campo("treino-itens", "Exercícios (um por linha)", { multiline: true, placeholder: "Supino reto\nCrucifixo\nTríceps na corda" }),
+        // Escolher exercícios da biblioteca (marcar = entra na lista abaixo)
+        escolherDaLista(),
+        // Caixa de texto dos exercícios, um por linha (dá para digitar exercícios novos)
+        SL.campo("treino-itens", "Exercícios (um por linha — marque acima ou digite)", { multiline: true, placeholder: "Supino reto\nCrucifixo\nTríceps na corda" }),
         // Dica embaixo dos campos
         el("p", { class: "form-hint", text: "Cada exercício começa com 3 séries de 12. Você ajusta reps e carga durante o treino." }),
         // Botão de salvar
@@ -124,6 +126,25 @@ window.SL &&
       const campoItens = form.querySelector("#treino-itens");
       // Deixa ela com 6 linhas de altura
       campoItens.rows = 6;
+
+      // Quando marca/desmarca um exercício da lista, atualiza a caixa de texto
+      form.addEventListener("change", (ev) => {
+        // Só as caixinhas da lista
+        if (!ev.target.matches(".escolha-lista input")) return;
+        // Nomes que já estão na caixa
+        const nomes = campoItens.value.split("\n").map((l) => l.trim()).filter(Boolean);
+        // Nome do exercício marcado
+        const nome = ev.target.value;
+        // Marcou: coloca no fim; desmarcou: tira
+        campoItens.value = (ev.target.checked ? nomes.concat(nomes.includes(nome) ? [] : [nome]) : nomes.filter((n) => n !== nome)).join("\n");
+      });
+      // Quando digita na caixa, marca/desmarca as caixinhas que batem
+      campoItens.addEventListener("input", () => {
+        // Nomes digitados
+        const nomes = campoItens.value.split("\n").map((l) => l.trim());
+        // Para cada caixinha, marca se o nome está na lista
+        form.querySelectorAll(".escolha-lista input").forEach((c) => (c.checked = nomes.includes(c.value)));
+      });
 
       // Se está editando...
       if (editando) {
@@ -168,7 +189,7 @@ window.SL &&
         // Para cada nome (ou "Exercício 1" se vazio)...
         const itens = (nomes.length ? nomes : ["Exercício 1"]).map(
           // ...usa o exercício antigo com o mesmo nome ou cria um novo com 3x12
-          (n) => anteriores.find((a) => a.nome.toLowerCase() === n.toLowerCase()) || { nome: n, series: 3, reps: 12, carga: 0, descanso: 60 },
+          (n) => anteriores.find((a) => a.nome.toLowerCase() === n.toLowerCase()) || novoExercicio(n),
         );
         // Junta os dados do treino
         const dados = {
@@ -204,6 +225,221 @@ window.SL &&
       // Abre o modal com o formulário
       SL.openModal(editando ? "Editar treino" : "Criar novo treino", form);
     }
+
+    /* ---------- Biblioteca, treino automático e plano da semana ---------- */
+
+    // Biblioteca de exercícios
+    const BIBLIOTECA = window.SL_EXERCICIOS || {};
+    // Grupos da biblioteca, na ordem dos filtros
+    const GRUPOS = ["Peito", "Costas", "Pernas", "Ombros", "Braços", "Core", "Cardio", "Mobilidade"];
+
+    // Cria um exercício novo com valores padrão (usa a carga e o tipo da biblioteca, se tiver)
+    function novoExercicio(nome) {
+      // Informações da biblioteca
+      const info = BIBLIOTECA[nome];
+      // Core, cardio e mobilidade são por tempo; o resto, 3 x 12
+      const porTempo = info && ["core", "cardio", "alongar"].includes(info.mov) && info.carga === 0 && info.grupo !== "Pernas";
+      // Devolve o exercício
+      return { nome, series: 3, reps: porTempo ? "40 s" : 12, carga: info ? info.carga : 0, descanso: porTempo ? 30 : 60 };
+    }
+
+    // Lista para escolher exercícios da biblioteca, com busca e filtro por grupo
+    function escolherDaLista() {
+      // Caixa
+      const caixa = el("details", { class: "escolha" }, [
+        // Título clicável
+        el("summary", { text: `Escolher da lista (${Object.keys(BIBLIOTECA).length} exercícios com dicas)` }),
+      ]);
+      // Campo de busca
+      const busca = el("input", { type: "search", class: "escolha-busca", placeholder: "Buscar exercício…", "aria-label": "Buscar exercício" });
+      // Filtro de grupo
+      const grupo = el("select", { class: "escolha-grupo", "aria-label": "Filtrar por grupo" }, [el("option", { value: "", text: "Todos os grupos" }), ...GRUPOS.map((g) => el("option", { value: g, text: g }))]);
+      // Lista de caixinhas
+      const lista = el("div", { class: "escolha-lista" });
+      // Desenha a lista com a busca e o filtro
+      function desenhar() {
+        // Texto buscado
+        const t = busca.value.trim().toLowerCase();
+        // Caixinhas marcadas agora (para não perder ao filtrar)
+        const marcados = [...lista.querySelectorAll("input:checked")].map((c) => c.value);
+        // Troca a lista
+        lista.replaceChildren(
+          // Exercícios que passam no filtro
+          ...Object.entries(BIBLIOTECA)
+            .filter(([nome, info]) => (!grupo.value || info.grupo === grupo.value) && (!t || nome.toLowerCase().includes(t)))
+            .map(([nome, info]) =>
+              // Linha com caixinha
+              el("label", { class: "check-row" }, [
+                // Caixinha
+                el("input", { type: "checkbox", value: nome, checked: marcados.includes(nome) }),
+                // Nome e detalhes
+                el("span", {}, [el("strong", { text: nome }), el("small", { class: "meta", text: ` ${info.grupo} • ${info.lugar === "casa" ? "casa" : info.lugar === "academia" ? "academia" : "casa ou academia"}` })]),
+              ]),
+            ),
+        );
+      }
+      // Busca e filtro redesenham
+      busca.addEventListener("input", desenhar);
+      // (filtro também)
+      grupo.addEventListener("change", desenhar);
+      // Monta a caixa
+      caixa.append(el("div", { class: "escolha-filtros" }, [busca, grupo]), lista);
+      // Desenha a primeira vez
+      desenhar();
+      // Devolve
+      return caixa;
+    }
+
+    // Embaralha uma lista (para o treino automático não sair sempre igual)
+    const embaralhar = (lista) => lista.map((v) => [Math.random(), v]).sort((a, b) => a[0] - b[0]).map((p) => p[1]);
+
+    // Monta uma lista de exercícios para grupos e um lugar
+    function sortear(grupos, lugar, quantidade) {
+      // Exercícios que servem: do grupo certo e possíveis no lugar
+      const pool = Object.entries(BIBLIOTECA).filter(([, info]) => grupos.includes(info.grupo) && (lugar === "academia" || info.lugar !== "academia"));
+      // Pega um de cada grupo primeiro (para variar) e depois completa
+      const porGrupo = grupos.map((g) => embaralhar(pool.filter(([, i]) => i.grupo === g))).filter((l) => l.length);
+      // Lista final
+      const escolhidos = [];
+      // Vai pegando um de cada grupo, em rodízio, até completar
+      for (let r = 0; escolhidos.length < quantidade && porGrupo.some((l) => l.length); r++) {
+        // Grupo da vez
+        const l = porGrupo[r % porGrupo.length];
+        // Se ainda tem exercício nele, pega
+        if (l.length) escolhidos.push(l.shift()[0]);
+      }
+      // Transforma os nomes em exercícios
+      return escolhidos.map(novoExercicio);
+    }
+
+    // Confere se pode usar o treino automático (Premium; no Free, 1 vez de presente)
+    function podeUsarAutomatico() {
+      // Plano da pessoa
+      const plano = storage.get("sl-plano", "Free");
+      // Quantas vezes já usou
+      const usos = storage.get("sl-auto-usos", 0);
+      // Premium e Profissional podem sempre; Free pode 1 vez
+      if (plano !== "Free" || usos < 1) {
+        // Conta o uso
+        storage.set("sl-auto-usos", usos + 1);
+        // Pode
+        return true;
+      }
+      // Não pode: oferece o Premium
+      SL.confirmar({
+        // Título
+        titulo: "Treino automático é Premium",
+        // Texto
+        texto: "Você já usou o teste grátis. No Premium o app monta treinos e planos da semana sem limite.",
+        // Botão
+        rotulo: "Ver planos",
+        // Leva aos planos
+        fn: () => (window.location.href = "../planos/planos.html"),
+      });
+      // Não pode
+      return false;
+    }
+
+    // Salva treinos novos no começo da lista e avisa
+    function adicionarTreinos(novos, aviso) {
+      // Coloca os novos no começo
+      treinos = novos.concat(treinos);
+      // Salva
+      guardar();
+      // Desenha de novo
+      render();
+      // Fecha o modal
+      SL.closeModal();
+      // Avisa
+      SL.toast(aviso);
+    }
+
+    // Botão "Montar automático": abre o formulário do treino automático
+    SL.acao("treino-automatico", () => {
+      // Lugar padrão (o da última vez, ou academia)
+      const lugarSalvo = storage.get("sl-lugar", "academia");
+      // Formulário
+      const form = el("form", { class: "modal-form" }, [
+        // Texto de apoio
+        el("p", { class: "modal-text", text: "Diga quanto tempo você tem, o foco e onde vai treinar. O app monta o treino com dicas em cada exercício." }),
+        // Tempo
+        el("fieldset", { class: "auto-opcoes" }, [el("legend", { text: "Quanto tempo você tem?" }), ...[15, 30, 45, 60].map((m) => el("label", { class: "auto-chip" }, [el("input", { type: "radio", name: "auto-tempo", value: m, checked: m === 30 }), el("span", { text: `${m} min` })]))]),
+        // Foco
+        el("fieldset", { class: "auto-opcoes" }, [el("legend", { text: "Qual o foco?" }), ...["Corpo inteiro", "Peito", "Costas", "Pernas", "Ombros", "Braços", "Core", "Cardio"].map((g, i) => el("label", { class: "auto-chip" }, [el("input", { type: "radio", name: "auto-foco", value: g, checked: i === 0 }), el("span", { text: g })]))]),
+        // Lugar
+        el("fieldset", { class: "auto-opcoes" }, [el("legend", { text: "Onde?" }), ...[["academia", "Academia"], ["casa", "Em casa"]].map(([v, t]) => el("label", { class: "auto-chip" }, [el("input", { type: "radio", name: "auto-lugar", value: v, checked: v === lugarSalvo }), el("span", { text: t })]))]),
+        // Botões
+        el("div", { class: "modal-actions" }, [
+          // Plano da semana
+          el("button", { type: "button", class: "btn-secondary", "data-action": "plano-semanal", text: "Montar plano da semana" }),
+          // Treino de hoje
+          el("button", { type: "submit", class: "btn-primary", text: "Montar treino de hoje" }),
+        ]),
+      ]);
+      // Quando envia: monta o treino de hoje
+      form.addEventListener("submit", (e) => {
+        // Impede a página de recarregar
+        e.preventDefault();
+        // Confere o Premium
+        if (!podeUsarAutomatico()) return;
+        // Respostas
+        const tempo = Number(form.querySelector('[name="auto-tempo"]:checked').value);
+        // Foco
+        const foco = form.querySelector('[name="auto-foco"]:checked').value;
+        // Lugar
+        const lugar = form.querySelector('[name="auto-lugar"]:checked').value;
+        // Lembra o lugar para a próxima vez
+        storage.set("sl-lugar", lugar);
+        // Grupos do foco ("Corpo inteiro" mistura vários)
+        const grupos = foco === "Corpo inteiro" ? ["Pernas", "Peito", "Costas", "Core", "Ombros"] : foco === "Cardio" ? ["Cardio", "Core"] : [foco, foco === "Pernas" ? "Core" : foco];
+        // Quantos exercícios cabem no tempo (uns 8 minutos cada)
+        const itens = sortear(grupos, lugar, Math.max(3, Math.round(tempo / 8)));
+        // Salva o treino novo
+        adicionarTreinos([{ id: "t" + Date.now(), nome: `${foco} em ${tempo} min`, grupo: `${foco} • ${lugar === "casa" ? "em casa" : "academia"}`, itens, exercicios: itens.length }], "Treino montado! Ele está no topo da lista.");
+      });
+      // Abre o modal
+      SL.openModal("Montar treino automático", form);
+    });
+
+    // Botão "Montar plano da semana": divide a semana em treinos A, B, C...
+    SL.acao("plano-semanal", () => {
+      // Confere o Premium
+      if (!podeUsarAutomatico()) return;
+      // Lugar escolhido no formulário (ou o salvo)
+      const marcado = document.querySelector('[name="auto-lugar"]:checked');
+      // Lugar
+      const lugar = marcado ? marcado.value : storage.get("sl-lugar", "academia");
+      // Dias por semana da meta (entre 2 e 6)
+      const dias = Math.min(6, Math.max(2, Number(SL.onboarding().dias) || 4));
+      // Divisões possíveis
+      const DIVISOES = [
+        // A
+        ["Peito, ombros e tríceps", ["Peito", "Ombros", "Braços"]],
+        // B
+        ["Costas e bíceps", ["Costas", "Braços"]],
+        // C
+        ["Pernas e core", ["Pernas", "Core"]],
+        // D
+        ["Corpo inteiro e cardio", ["Cardio", "Pernas", "Peito", "Costas"]],
+        // E
+        ["Ombros, braços e core", ["Ombros", "Braços", "Core"]],
+        // F
+        ["Mobilidade e recuperação", ["Mobilidade", "Core"]],
+      ];
+      // Com 2 dias: superiores e inferiores; com mais, pega as primeiras divisões
+      const escolha = dias === 2 ? [["Superiores", ["Peito", "Costas", "Ombros", "Braços"]], ["Inferiores e core", ["Pernas", "Core"]]] : DIVISOES.slice(0, dias);
+      // Agora (para os ids)
+      const agora = Date.now();
+      // Monta um treino para cada divisão
+      const novos = escolha.map(([nome, grupos], i) => {
+        // Exercícios do treino
+        const itens = sortear(grupos, lugar, 6);
+        // Treino "Plano A — ..."
+        return { id: `t${agora}${i}`, nome: `Plano ${"ABCDEF"[i]} — ${nome}`, grupo: nome, itens, exercicios: itens.length };
+      });
+      // Salva todos
+      adicionarTreinos(novos, `Plano da semana pronto: ${novos.length} treinos (${dias} dias, como a sua meta).`);
+    });
 
     // Botão "criar treino": abre o formulário vazio
     SL.acao("create-workout", () => abrirFormulario(null));

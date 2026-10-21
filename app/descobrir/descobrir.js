@@ -100,4 +100,38 @@ window.SL &&
 
     // Mostra 6 cards de carregando e depois desenha a página
     SL.carregar(grid, render, 6);
+
+    /* Coleções em faixas que rolam para o lado */
+    // Biblioteca de exercícios (para saber o que dá para fazer em casa)
+    const BIBLIOTECA = window.SL_EXERCICIOS || {};
+    // Diz se todos os exercícios de um treino dão para fazer em casa
+    const emCasa = (t) => SL.exerciciosDe(t).every((e) => (BIBLIOTECA[e.nome] || {}).lugar !== "academia");
+    // Lista das coleções: título, texto e quais treinos entram
+    const COLECOES = [
+      // Iniciantes
+      ["Para começar com o pé direito", "Treinos para iniciantes", (t) => t.nivel === "Iniciante"],
+      // Em casa
+      ["Dá pra fazer em casa", "Sem aparelho de academia", emCasa],
+      // Em alta
+      ["Em alta na galera", "Os mais bem avaliados", (t) => t.nota >= 4.8],
+      // Rápidos
+      ["Rapidinhos", "Até 20 minutos", (t) => t.duracao <= 20],
+    ];
+    // Desenha as coleções
+    document.querySelector('[data-render="colecoes"]').replaceChildren(
+      // Uma seção para cada coleção que tem treino
+      ...COLECOES.map(([titulo, texto, filtro], i) => {
+        // Treinos da coleção (os mais bem avaliados primeiro)
+        const lista = CATALOGO.filter(filtro).sort((a, b) => b.nota - a.nota);
+        // Se não tem nenhum, não mostra
+        if (!lista.length) return null;
+        // Seção da coleção
+        return SL.el("section", { class: "colecao", "aria-labelledby": "colecao-" + i }, [
+          // Topo: título e texto
+          SL.el("div", { class: "section-head" }, [SL.el("h2", { id: "colecao-" + i, text: titulo }), SL.el("span", { class: "meta", text: `${texto} • ${lista.length}` })]),
+          // Faixa que rola para o lado
+          SL.el("div", { class: "horizontal-scroll" }, lista.map(SL.cardTreinoCatalogo)),
+        ]);
+      }).filter(Boolean),
+    );
   });

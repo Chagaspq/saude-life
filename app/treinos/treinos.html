@@ -387,12 +387,21 @@
                   Monte suas fichas e registre cada série durante o treino.
                 </p>
               </div>
-              <!-- Botão de criar um treino novo -->
-              <button class="btn-primary btn-with-icon" data-action="create-workout">
-                <!-- Ícone de mais (+) -->
-                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
-                Novo treino
-              </button>
+              <!-- Botões do topo -->
+              <div class="page-header-actions">
+                <!-- Botão de montar treino automático (Premium; 1 vez grátis) -->
+                <button class="btn-secondary btn-with-icon" data-action="treino-automatico">
+                  <!-- Ícone de faísca (mágica) -->
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"></path><path d="M19 17l.8 2.2L22 20l-2.2.8L19 23l-.8-2.2L16 20l2.2-.8z"></path></svg>
+                  Montar automático
+                </button>
+                <!-- Botão de criar um treino novo -->
+                <button class="btn-primary btn-with-icon" data-action="create-workout">
+                  <!-- Ícone de mais (+) -->
+                  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
+                  Novo treino
+                </button>
+              </div>
             </header>
             <!-- Lista dos treinos da pessoa (preenchida pelo treinos.js) -->
             <div class="workouts-list-container cards-grid">
@@ -467,6 +476,8 @@
 
     <!-- Carrega os dados de exemplo (treinos, profissionais, aulas...) -->
     <script src="../comum/dados.js"></script>
+    <!-- Carrega a biblioteca de exercícios (dicas, músculos, onde fazer) -->
+    <script src="../comum/exercicios.js"></script>
     <!-- Carrega o núcleo do app (sessão, menu, modal, avisos) -->
     <script src="../comum/app.js"></script>
     <!-- Carrega os pontos, o ranking, as ligas e os selos -->

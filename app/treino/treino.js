@@ -243,6 +243,10 @@ window.SL &&
         ]),
         // Lista das séries
         el("ol", { class: "set-list" }, linhas),
+        // Sugestão de carga (se tiver)
+        sugestaoDeCarga(e, series),
+        // Como fazer: Pulso mostrando o movimento + dicas
+        comoFazer(e),
       );
 
       // Troca a lista lateral de exercícios:
@@ -293,6 +297,126 @@ window.SL &&
       proximo.textContent = ultimo ? "Finalizar treino" : "Próximo exercício";
       // E muda a ação do clique
       proximo.dataset.action = ultimo ? "finalizar-treino" : "exercicio-proximo";
+    }
+
+    /* ---------- Como fazer, sugestão de carga e recordes ---------- */
+
+    // Biblioteca de exercícios (dicas, movimento, músculos)
+    const BIBLIOTECA = window.SL_EXERCICIOS || {};
+
+    // Bloco "Como fazer": o Pulso fazendo o movimento + 2 dicas + o erro comum
+    function comoFazer(e) {
+      // Informações do exercício na biblioteca
+      const info = BIBLIOTECA[e.nome];
+      // Se o exercício não está na biblioteca (foi digitado pela pessoa), não mostra
+      if (!info) return null;
+      // Caixa que abre e fecha (começa aberta para iniciantes)
+      return el("details", { class: "como-fazer", open: SL.onboarding().nivel === "Iniciante" }, [
+        // Título clicável
+        el("summary", { text: "Como fazer" }),
+        // Miolo
+        el("div", { class: "como-fazer-miolo" }, [
+          // Pulso fazendo o movimento
+          SL.personagem ? SL.personagem.exercicio(info.mov) : null,
+          // Dicas
+          el("div", { class: "como-fazer-dicas" }, [
+            // Lista das dicas
+            el("ul", {}, info.dicas.map((d) => el("li", { text: d }))),
+            // Erro comum
+            el("p", { class: "como-fazer-erro" }, [el("strong", { text: "Cuidado: " }), info.erro]),
+            // Músculos trabalhados
+            el("p", { class: "meta", text: `Trabalha: ${info.grupo.toLowerCase()} • ${info.lugar === "casa" ? "dá para fazer em casa" : info.lugar === "academia" ? "na academia" : "em casa ou na academia"}` }),
+          ]),
+        ]),
+      ]);
+    }
+
+    // Resultado da última vez de cada exercício: { nome: { carga, todas, esforco, data } }
+    const ultimas = () => storage.get("sl-ultimas", {});
+    // Maior carga de cada exercício: { nome: kg }
+    const recordes = () => storage.get("sl-recordes", {});
+
+    // Sugestão de carga para hoje, a partir da última vez
+    function sugestaoDeCarga(e, series) {
+      // Exercícios por tempo ou sem carga não têm sugestão
+      if (ehTempo(e)) return null;
+      // Última vez deste exercício
+      const ult = ultimas()[e.nome];
+      // Se nunca fez, não tem sugestão
+      if (!ult || !ult.carga) return null;
+      // Carga sugerida e o motivo
+      let carga = ult.carga;
+      // Motivo da sugestão
+      let motivo = "mesma carga da última vez";
+      // Foi fácil (ou fez todas as séries sem dizer que foi pesado): sobe 2,5 kg
+      if (ult.esforco === "facil" || (ult.todas && !ult.esforco)) {
+        // Sobe
+        carga = ult.carga + 2.5;
+        // Motivo
+        motivo = ult.esforco === "facil" ? "da última vez foi fácil" : "você fez todas as séries da última vez";
+      } else if (ult.esforco === "muito") {
+        // Foi muito pesado: desce 2,5 kg
+        carga = Math.max(0, ult.carga - 2.5);
+        // Motivo
+        motivo = "da última vez foi muito pesado";
+      }
+      // Primeira série ainda não feita
+      const proxima = series.find((x) => !x.feito);
+      // Se já fez tudo ou a carga já é a sugerida, não mostra
+      if (!proxima || proxima.carga === carga) return null;
+      // Botão de usar a sugestão
+      const usar = el("button", { type: "button", class: "btn-secondary", text: "Usar" });
+      // Ao clicar...
+      usar.addEventListener("click", () => {
+        // ...troca a carga das séries que faltam
+        series.forEach((x) => !x.feito && (x.carga = carga));
+        // ...salva
+        salvar();
+        // ...desenha de novo
+        render();
+        // ...e avisa
+        SL.toast(`Carga ajustada para ${SL.num(carga, carga % 1 ? 1 : 0)} kg`);
+      });
+      // Caixa da sugestão
+      return el("div", { class: "sugestao-carga" }, [
+        // Ícone de seta para cima/baixo
+        el("span", { class: "icon-tile icon-tile-emerald", "aria-hidden": "true" }, [icone(carga > ult.carga ? ["M12 19V5", "m5 12 7-7 7 7"] : ["M12 5v14", "m19 12-7 7-7-7"])]),
+        // Texto
+        el("p", {}, [el("strong", { text: `Sugestão: ${SL.num(carga, carga % 1 ? 1 : 0)} kg` }), el("span", { class: "meta", text: ` (${motivo})` })]),
+        // Botão
+        usar,
+      ]);
+    }
+
+    // Confere se a série marcada bateu o recorde de carga do exercício
+    function conferirRecorde(i, serie, origem) {
+      // Exercício
+      const e = exercicios[i];
+      // Por tempo ou sem carga: não tem recorde
+      if (ehTempo(e) || !serie.carga) return;
+      // Recordes salvos
+      const lista = recordes();
+      // Recorde atual deste exercício (ou a carga da última vez)
+      const atual = lista[e.nome] != null ? lista[e.nome] : (ultimas()[e.nome] || {}).carga;
+      // Primeira vez com esse exercício: só guarda, sem comemorar
+      if (atual == null) {
+        // Guarda a carga como recorde
+        lista[e.nome] = serie.carga;
+        // Salva
+        storage.set("sl-recordes", lista);
+        // Para
+        return;
+      }
+      // Não passou do recorde: nada a fazer
+      if (serie.carga <= atual) return;
+      // Novo recorde! Guarda
+      lista[e.nome] = serie.carga;
+      // Salva
+      storage.set("sl-recordes", lista);
+      // Ganha os pontos de recorde (uma vez por exercício neste treino; já solta confete)
+      if (SL.pontos) SL.pontos.ganhar("recorde", `recorde:${estado.inicio}:${i}`, { origem });
+      // Avisa
+      SL.toast(`Novo recorde no ${e.nome}: ${SL.num(serie.carga, serie.carga % 1 ? 1 : 0)} kg! 🏆`);
     }
 
     // Edição de reps e carga: vale para a série e para as próximas ainda não feitas
@@ -449,6 +573,8 @@ window.SL &&
       const refSerie = `serie:${estado.inicio}:${i}:${n}`;
       // ...se marcou, ganha os pontos (o "+10" sai do botão); se desmarcou, perde
       if (SL.pontos) serie.feito ? SL.pontos.ganhar("serie", refSerie, { origem: alvo }) : SL.pontos.perder(refSerie);
+      // ...se marcou, confere se bateu recorde de carga
+      if (serie.feito) conferirRecorde(i, serie, alvo);
       // ...salva
       salvar();
       // ...desenha de novo
@@ -611,6 +737,19 @@ window.SL &&
           storage.get("sl-historico", []),
         ),
       );
+      // Guarda como foi cada exercício (para sugerir a carga da próxima vez)
+      const ult = ultimas();
+      // Para cada exercício do treino...
+      exercicios.forEach((ex, k) => {
+        // ...séries feitas dele
+        const feitasEx = estado.series[k].filter((x) => x.feito);
+        // ...se não fez nenhuma ou é por tempo, pula
+        if (!feitasEx.length || ehTempo(ex)) return;
+        // ...guarda a maior carga, se fez todas e a data
+        ult[ex.nome] = { carga: Math.max(...feitasEx.map((x) => x.carga)), todas: feitasEx.length === estado.series[k].length, data: new Date().toISOString() };
+      });
+      // Salva
+      storage.set("sl-ultimas", ult);
       // Apaga o treino em andamento
       storage.remove("sl-treino-atual");
       // Se o motor de pontos carregou...
@@ -653,6 +792,8 @@ window.SL &&
             // volume
             SL.statTile({ rotulo: "Volume total", valor: `${SL.num(volume)} kg`, iconePaths: ICONES.haltere }),
           ]),
+          // Como foi o treino? (esforço com emoji)
+          perguntaEsforco(),
           // botões
           el("div", { class: "finish-actions" }, [
             // voltar ao Início
@@ -664,6 +805,53 @@ window.SL &&
       );
       // Coloca o foco no resumo
       document.getElementById("conteudo").focus();
+    }
+
+    // Pergunta "Como foi o treino?" com 4 emojis; a resposta ajusta a sugestão de carga da próxima vez
+    function perguntaEsforco() {
+      // Opções
+      const opcoes = [
+        // Fácil
+        { id: "facil", emoji: "😎", nome: "Fácil" },
+        // Ok
+        { id: "ok", emoji: "🙂", nome: "Na medida" },
+        // Pesado
+        { id: "pesado", emoji: "😤", nome: "Pesado" },
+        // Muito pesado
+        { id: "muito", emoji: "🥵", nome: "Muito pesado" },
+      ];
+      // Caixa da pergunta
+      const caixa = el("fieldset", { class: "esforco" }, [
+        // Pergunta
+        el("legend", { text: "Como foi o treino?" }),
+        // Um botão para cada opção
+        ...opcoes.map((o) => el("button", { type: "button", "data-esforco": o.id, "aria-pressed": "false" }, [el("span", { class: "esforco-emoji", "aria-hidden": "true", text: o.emoji }), o.nome])),
+      ]);
+      // Quando escolhe...
+      caixa.addEventListener("click", (ev) => {
+        // ...botão clicado
+        const b = ev.target.closest("[data-esforco]");
+        // ...se não foi num botão, para
+        if (!b) return;
+        // ...marca só o escolhido
+        caixa.querySelectorAll("[data-esforco]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+        // ...guarda o esforço nos exercícios deste treino
+        const ult = ultimas();
+        // Para cada exercício do treino que foi guardado...
+        exercicios.forEach((ex) => ult[ex.nome] && (ult[ex.nome].esforco = b.dataset.esforco));
+        // ...salva
+        storage.set("sl-ultimas", ult);
+        // ...guarda também no histórico (o treino que acabou é o primeiro da lista)
+        const hist = storage.get("sl-historico", []);
+        // Se tem histórico, marca o esforço no primeiro
+        if (hist[0]) hist[0].esforco = b.dataset.esforco;
+        // Salva o histórico
+        storage.set("sl-historico", hist);
+        // ...e agradece
+        SL.toast(b.dataset.esforco === "facil" ? "Anotado! Na próxima a gente sobe a carga 💪" : b.dataset.esforco === "muito" ? "Anotado! Na próxima a gente alivia um pouco." : "Anotado! Valeu por contar.");
+      });
+      // Devolve a caixa
+      return caixa;
     }
 
     // Desenha o selo de conquista em SVG

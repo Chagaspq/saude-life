@@ -68,3 +68,164 @@
     align-items: stretch;
   }
 }
+
+/* Caixa "Escolher da lista" no formulário de treino */
+.escolha {
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Borda fininha */
+  border: 1px solid var(--border);
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+}
+
+/* Título clicável */
+.escolha summary {
+  /* Espaço interno */
+  padding: 10px 14px;
+  /* Letra seminegrito */
+  font-weight: 600;
+  /* Coral claro */
+  color: var(--coral-light);
+  /* Mãozinha do mouse */
+  cursor: pointer;
+}
+
+/* Busca e filtro lado a lado */
+.escolha-filtros {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Espaço entre eles */
+  gap: 8px;
+  /* Espaço interno */
+  padding: 0 14px 10px;
+}
+
+/* Campo de busca e filtro */
+.escolha-busca,
+.escolha-grupo {
+  /* Espaço interno */
+  padding: 8px 12px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-sm);
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Fundo dos cards */
+  background: var(--surface);
+  /* Cor principal do texto */
+  color: var(--ink);
+  /* Usa a mesma fonte do pai */
+  font: inherit;
+}
+
+/* Busca ocupa o espaço que sobra */
+.escolha-busca {
+  /* Ocupa o espaço que sobra */
+  flex: 1;
+  /* Deixa encolher */
+  min-width: 0;
+}
+
+/* Lista de caixinhas, com rolagem */
+.escolha-lista {
+  /* Altura máxima (depois rola) */
+  max-height: 220px;
+  /* Barra de rolagem se precisar */
+  overflow-y: auto;
+  /* Espaço interno */
+  padding: 0 14px 12px;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre eles */
+  gap: 4px;
+}
+
+/* Grupo de opções do treino automático (tempo, foco, lugar) */
+.auto-opcoes {
+  /* Sem borda */
+  border: 0;
+  /* Sem margem */
+  margin: 0;
+  /* Sem espaço interno */
+  padding: 0;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Quebra linha se não couber */
+  flex-wrap: wrap;
+  /* Espaço entre os chips */
+  gap: 8px;
+}
+
+/* Pergunta de cada grupo */
+.auto-opcoes legend {
+  /* Espaço embaixo */
+  margin-bottom: 8px;
+  /* Letra seminegrito */
+  font-weight: 600;
+  /* Tamanho da letra: 14 pixels */
+  font-size: 14px;
+}
+
+/* Cada chip de opção */
+.auto-chip {
+  /* Posição relativa (a bolinha escondida fica dentro) */
+  position: relative;
+}
+
+/* Bolinha de escolha escondida (o chip inteiro é clicável) */
+.auto-chip input {
+  /* Solta */
+  position: absolute;
+  /* Invisível */
+  opacity: 0;
+  /* Sem tamanho */
+  width: 1px;
+  /* (altura) */
+  height: 1px;
+}
+
+/* Visual do chip */
+.auto-chip span {
+  /* Fica na linha, aceita espaço interno */
+  display: inline-block;
+  /* Espaço interno */
+  padding: 8px 14px;
+  /* Formato pílula */
+  border-radius: var(--radius-full);
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+  /* Mãozinha do mouse */
+  cursor: pointer;
+  /* Tamanho da letra: 14 pixels */
+  font-size: 14px;
+}
+
+/* Chip escolhido */
+.auto-chip input:checked + span {
+  /* Fundo em degradê coral */
+  background: var(--gradient-button);
+  /* Texto escuro */
+  color: var(--on-coral);
+  /* Borda coral */
+  border-color: var(--coral);
+  /* Letra seminegrito */
+  font-weight: 600;
+}
+
+/* Chip focado pelo teclado */
+.auto-chip input:focus-visible + span {
+  /* Contorno coral */
+  outline: 2px solid var(--coral);
+  /* Afastado um pouco */
+  outline-offset: 2px;
+}
+
+/* Filtro de grupo não pode espremer a busca */
+.escolha-grupo {
+  /* No máximo 45% da linha */
+  max-width: 45%;
+}

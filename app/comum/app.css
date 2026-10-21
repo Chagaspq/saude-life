@@ -3806,3 +3806,220 @@ body[data-pagina]::before {
     animation: none;
   }
 }
+
+/* ============================================
+   PULSO FAZENDO O EXERCÍCIO (animações por tipo de movimento)
+   ============================================ */
+
+/* Haltere na mão */
+.pm-haltere {
+  /* Cinza metal */
+  fill: #5d6c63;
+}
+
+/* Pernas e parte de cima giram/encolhem a partir dos pés */
+.pm-pernas,
+.pm-cima,
+.pm-corpo {
+  /* Ponto de apoio: o chão, no meio */
+  transform-origin: 60px 136px;
+}
+
+/* Perna esquerda gira a partir do quadril */
+.pm-perna-esq {
+  /* Quadril esquerdo */
+  transform-origin: 52px 98px;
+}
+
+/* Perna direita gira a partir do quadril */
+.pm-perna-dir {
+  /* Quadril direito */
+  transform-origin: 68px 98px;
+}
+
+/* Agachar: a parte de cima desce e as pernas encolhem */
+.pm-agachar .pm-cima {
+  /* Animação de descer e subir */
+  animation: pm-descer 1.8s ease-in-out infinite;
+}
+
+/* Agachar: pernas encolhem */
+.pm-agachar .pm-pernas {
+  /* Animação de encolher */
+  animation: pm-encolher 1.8s ease-in-out infinite;
+}
+
+/* Empurrar: braços esticam para cima */
+.pm-empurrar .pm-braco {
+  /* Animação de esticar (começa dobrado) */
+  animation: pm-esticar 1.6s ease-in-out infinite alternate;
+}
+
+/* Puxar: braços puxam para baixo */
+.pm-puxar .pm-braco {
+  /* Mesma animação ao contrário (começa esticado) */
+  animation: pm-esticar 1.6s ease-in-out infinite alternate-reverse;
+}
+
+/* Core: a parte de cima "fecha" um pouco (abdominal) */
+.pm-core .pm-cima {
+  /* Animação de contrair */
+  animation: pm-contrair 1.6s ease-in-out infinite;
+}
+
+/* Cardio (polichinelo): pula */
+.pm-cardio .pm-corpo {
+  /* Animação de pular */
+  animation: pm-pular 0.8s ease-in-out infinite;
+}
+
+/* Polichinelo: braço esquerdo abre para cima */
+.pm-cardio .pm-braco-esq {
+  /* Animação do braço esquerdo */
+  animation: pm-braco-esq 0.8s ease-in-out infinite;
+}
+
+/* Polichinelo: braço direito abre para cima */
+.pm-cardio .pm-braco-dir {
+  /* Animação do braço direito */
+  animation: pm-braco-dir 0.8s ease-in-out infinite;
+}
+
+/* Polichinelo: perna esquerda abre */
+.pm-cardio .pm-perna-esq {
+  /* Animação da perna esquerda */
+  animation: pm-perna-esq 0.8s ease-in-out infinite;
+}
+
+/* Polichinelo: perna direita abre */
+.pm-cardio .pm-perna-dir {
+  /* Animação da perna direita */
+  animation: pm-perna-dir 0.8s ease-in-out infinite;
+}
+
+/* Alongar: balança devagar para os lados */
+.pm-alongar .pm-corpo {
+  /* Animação de balançar */
+  animation: pm-balancar 3.2s ease-in-out infinite;
+}
+
+/* Alongar: braços para cima */
+.pm-alongar .pm-braco-esq {
+  /* Braço esquerdo levantado */
+  transform: rotate(160deg);
+}
+
+/* Alongar: braço direito para cima */
+.pm-alongar .pm-braco-dir {
+  /* Braço direito levantado */
+  transform: rotate(-160deg);
+}
+
+/* Animação: descer (agachamento) */
+@keyframes pm-descer {
+  /* Embaixo */
+  50% {
+    /* Desce 14 pixels */
+    transform: translateY(14px);
+  }
+}
+
+/* Animação: pernas encolhem */
+@keyframes pm-encolher {
+  /* Embaixo */
+  50% {
+    /* Perna fica mais curta */
+    transform: scaleY(0.62);
+  }
+}
+
+/* Animação: esticar o braço (de dobrado a esticado) */
+@keyframes pm-esticar {
+  /* Começo: dobrado (mais curto) */
+  from {
+    /* Metade do tamanho */
+    transform: scaleY(0.5);
+  }
+  /* Fim: esticado */
+  to {
+    /* Tamanho todo */
+    transform: scaleY(1);
+  }
+}
+
+/* Animação: contrair o abdômen */
+@keyframes pm-contrair {
+  /* No meio: tronco mais baixo e inclinado */
+  50% {
+    /* Desce e encolhe um pouco */
+    transform: translateY(6px) scaleY(0.93);
+  }
+}
+
+/* Animação: pular */
+@keyframes pm-pular {
+  /* No meio: lá em cima */
+  50% {
+    /* Sobe 8 pixels */
+    transform: translateY(-8px);
+  }
+}
+
+/* Animação: braço esquerdo do polichinelo */
+@keyframes pm-braco-esq {
+  /* No meio: aberto para cima */
+  50% {
+    /* Gira para cima */
+    transform: rotate(150deg);
+  }
+}
+
+/* Animação: braço direito do polichinelo */
+@keyframes pm-braco-dir {
+  /* No meio: aberto para cima */
+  50% {
+    /* Gira para cima, do outro lado */
+    transform: rotate(-150deg);
+  }
+}
+
+/* Animação: perna esquerda do polichinelo */
+@keyframes pm-perna-esq {
+  /* No meio: aberta */
+  50% {
+    /* Abre para a esquerda */
+    transform: rotate(14deg);
+  }
+}
+
+/* Animação: perna direita do polichinelo */
+@keyframes pm-perna-dir {
+  /* No meio: aberta */
+  50% {
+    /* Abre para a direita */
+    transform: rotate(-14deg);
+  }
+}
+
+/* Animação: balançar (alongamento) */
+@keyframes pm-balancar {
+  /* Para a esquerda */
+  25% {
+    /* Inclina 7 graus */
+    transform: rotate(-7deg);
+  }
+  /* Para a direita */
+  75% {
+    /* Inclina para o outro lado */
+    transform: rotate(7deg);
+  }
+}
+
+/* Quem pediu menos movimento: o Pulso mostra a posição parada */
+@media (prefers-reduced-motion: reduce) {
+  /* Todas as partes do Pulso em movimento */
+  .pulso-mov * {
+    /* Sem animação */
+    animation: none !important;
+  }
+}
