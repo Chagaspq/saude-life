@@ -15,7 +15,7 @@
   // Pega do núcleo: ler/salvar dados, criar elementos e desenhos SVG
   const { storage, el, svg } = SL;
   // Pega os amigos e as academias de exemplo
-  const { AMIGOS, ACADEMIAS, HISTORICO_PADRAO } = window.SL_DADOS;
+  const { AMIGOS, SUGESTOES, ACADEMIAS, HISTORICO_PADRAO } = window.SL_DADOS;
   // Quantos milissegundos tem um dia
   const DIA = 86400000;
   // Quantos milissegundos tem uma semana
@@ -321,6 +321,39 @@
     return ritmo >= 700 ? 3 : ritmo >= 500 ? 2 : ritmo >= 300 ? 1 : 0;
   }
 
+  // Todas as pessoas que existem no app (amigos de exemplo + sugestões)
+  const PESSOAS = AMIGOS.concat(SUGESTOES);
+
+  // Amigos que a pessoa tem agora (no começo, os amigos de exemplo)
+  function amigos() {
+    // Lê os códigos dos amigos salvos (ou os de exemplo)
+    const codigos = storage.get("sl-amigos", AMIGOS.map((a) => a.codigo));
+    // Devolve as pessoas com esses códigos
+    return PESSOAS.filter((p) => codigos.includes(p.codigo));
+  }
+
+  // Adiciona um amigo pelo código
+  function adicionarAmigo(codigo) {
+    // Códigos atuais
+    const codigos = amigos().map((a) => a.codigo);
+    // Se já é amigo ou não existe, não faz nada
+    if (codigos.includes(codigo) || !PESSOAS.some((p) => p.codigo === codigo)) return false;
+    // Salva com o novo código
+    storage.set("sl-amigos", codigos.concat(codigo));
+    // Avisa a página
+    document.dispatchEvent(new CustomEvent("sl:pontos"));
+    // Deu certo
+    return true;
+  }
+
+  // Remove um amigo pelo código
+  function removerAmigo(codigo) {
+    // Salva a lista sem esse código
+    storage.set("sl-amigos", amigos().map((a) => a.codigo).filter((c) => c !== codigo));
+    // Avisa a página
+    document.dispatchEvent(new CustomEvent("sl:pontos"));
+  }
+
   // Academia escolhida pela pessoa (ou nenhuma)
   function minhaAcademia() {
     // Lê o id salvo
@@ -373,14 +406,14 @@
       // Sem academia, não tem ranking da academia
       if (!academia) return [];
       // Amigos que treinam nessa academia
-      const amigos = AMIGOS.filter((a) => a.academia === academia.id);
+      const daAcademia = PESSOAS.filter((a) => a.academia === academia.id);
       // Outros alunos da academia
-      const outros = academia.membros.map((nome) => ({ nome, ritmo: ritmoDe(nome) }));
+      const outros = academia.membros.filter((nome) => !daAcademia.some((a) => a.nome === nome)).map((nome) => ({ nome, ritmo: ritmoDe(nome) }));
       // Junta todos
-      pessoas = amigos.concat(outros);
+      pessoas = daAcademia.concat(outros);
     } else {
       // Ranking dos amigos
-      pessoas = AMIGOS;
+      pessoas = amigos();
     }
     // Calcula os pontos de cada pessoa simulada
     const lista = pessoas.map((p) => ({ nome: p.nome, pts: pontosSimulados(p, ini, fim), liga: ligaSimulada(p.ritmo), eu: false }));
@@ -538,6 +571,7 @@
     ganhar, perder, conferirTreino, eventos, somar, periodo,
     ranking, minhaPosicao, liga, situacaoDaLiga, selos,
     minhaAcademia, escolherAcademia, temBonus,
+    PESSOAS, amigos, adicionarAmigo, removerAmigo, pontosSimulados, sorteio, ligaSimulada,
     escudo, anel, semanaAtual, diaDe,
   };
 })();

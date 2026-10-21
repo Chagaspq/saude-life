@@ -16,7 +16,7 @@
   // Lista de todas as páginas do app
   const PAGINAS = [
     "inicio", "descobrir", "treinos", "aulas", "alimentacao", "evolucao",
-    "profissionais", "planos", "salvos", "academia", "perfil", "treino", "comecar", "ranking",
+    "profissionais", "planos", "salvos", "academia", "perfil", "treino", "comecar", "ranking", "comunidade",
   ];
 
   /* ============================================
@@ -1096,6 +1096,7 @@
           "sl-treinos", "sl-salvos", "sl-seguindo", "sl-reservas", "sl-perfil", "sl-pesos", "sl-agua",
           "sl-refeicoes", "sl-historico", "sl-treino-atual", "sl-desafio", "sl-lidas",
           "sl-pontos", "sl-pontos-inicio", "sl-liga", "sl-academia",
+          "sl-amigos", "sl-reacoes", "sl-comentarios", "sl-cutucadas", "sl-desafios", "sl-mensagens", "sl-privacidade",
         // ...apaga cada uma
         ].forEach(storage.remove);
         // ...e recarrega a página
@@ -1173,10 +1174,12 @@
   });
 
   // Botão de mensagens...
-  acao("open-messages", () =>
+  acao("open-messages", () => {
     // ...abre a caixa com uma mensagem de exemplo
-    abrirCaixa("mensagens", "Mensagens", [itemLista("Rafael Souza", "Bora ajustar sua carga no agachamento?")]),
-  );
+    abrirCaixa("mensagens", "Mensagens", [itemLista("Rafael Souza", "Bora ajustar sua carga no agachamento?")]);
+    // ...e coloca um link para todas as conversas, na Comunidade
+    modalBody.append(el("a", { href: "../comunidade/comunidade.html#mensagens", class: "btn-primary btn-block", text: "Abrir todas as mensagens" }));
+  });
 
   // Monta o link para a tela de treino de um treino
   function linkTreino(id) {

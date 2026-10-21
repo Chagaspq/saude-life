@@ -1,0 +1,777 @@
+/*
+ * Estilos só da página Comunidade (app/comunidade/comunidade.html).
+ * As bolinhas de iniciais (.rk-avatar) e os escudos das ligas vêm do ranking/app.css.
+ */
+
+/* Bolinha com as iniciais (igual à do Ranking) */
+.rk-avatar {
+  /* Organiza com grade (para centralizar) */
+  display: grid;
+  /* Centraliza as letras */
+  place-items: center;
+  /* Largura de 52 pixels */
+  width: 52px;
+  /* Altura de 52 pixels */
+  height: 52px;
+  /* Não deixa encolher */
+  flex-shrink: 0;
+  /* Redonda */
+  border-radius: 50%;
+  /* Fundo de card mais claro */
+  background: var(--surface-3);
+  /* Borda */
+  border: 2px solid var(--border-strong);
+  /* Fonte de títulos */
+  font-family: var(--font-display);
+  /* Letra negrito */
+  font-weight: 700;
+  /* Cor principal do texto */
+  color: var(--ink);
+}
+
+/* Bolinha pequena */
+.rk-avatar-sm {
+  /* Largura de 38 pixels */
+  width: 38px;
+  /* Altura de 38 pixels */
+  height: 38px;
+  /* Letra menor */
+  font-size: 13px;
+}
+
+/* Card do seu perfil na comunidade */
+.cm-perfil {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Quebra linha se não couber */
+  flex-wrap: wrap;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 18px 24px;
+  /* Espaço interno */
+  padding: 20px 24px;
+  /* Espaço embaixo */
+  margin-bottom: var(--space-6);
+  /* Cantos arredondados */
+  border-radius: var(--radius-lg);
+  /* Borda fininha */
+  border: 1px solid var(--border);
+  /* Fundo com brilho esmeralda */
+  background:
+    radial-gradient(circle at 100% 0%, rgba(52, 211, 153, 0.14), transparent 45%),
+    var(--surface);
+}
+
+/* Bolinha do perfil com borda em degradê */
+.cm-perfil .rk-avatar {
+  /* Borda transparente (o degradê aparece nela) */
+  border: 3px solid transparent;
+  /* Fundo duplo: miolo escuro + borda em degradê */
+  background:
+    linear-gradient(var(--surface-3), var(--surface-3)) padding-box,
+    var(--gradient-brand) border-box;
+}
+
+/* Código e ID */
+.cm-perfil-info {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço pequeno entre eles */
+  gap: 2px;
+}
+
+/* Código grande, com cara de placar */
+.cm-codigo {
+  /* Fonte monoespaçada (cada letra com a mesma largura) */
+  font-family: "Space Mono", ui-monospace, monospace;
+  /* Tamanho da letra: 22 pixels */
+  font-size: 22px;
+  /* Espaço entre as letras */
+  letter-spacing: 0.06em;
+  /* Coral claro */
+  color: var(--coral-light);
+}
+
+/* Bloco da privacidade */
+.cm-privacidade {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre eles */
+  gap: 4px;
+}
+
+/* Botões do perfil (empurrados para a direita) */
+.cm-perfil-botoes {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Quebra linha se não couber */
+  flex-wrap: wrap;
+  /* Espaço entre eles */
+  gap: 8px;
+  /* Empurra para a direita */
+  margin-left: auto;
+}
+
+/* Caixas de seleção da página */
+.cm-select {
+  /* Espaço interno */
+  padding: 9px 12px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-sm);
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+  /* Cor principal do texto */
+  color: var(--ink);
+  /* Usa a mesma fonte do pai */
+  font: inherit;
+  /* Largura: a toda */
+  width: 100%;
+}
+
+/* Abas da página */
+.cm-abas {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Espaço entre elas */
+  gap: 6px;
+  /* Espaço embaixo */
+  margin-bottom: var(--space-4);
+  /* Rolagem para o lado no celular, se não couber */
+  overflow-x: auto;
+  /* Linha embaixo das abas */
+  border-bottom: 1px solid var(--border);
+}
+
+/* Cada aba */
+.cm-abas button {
+  /* Espaço interno */
+  padding: 12px 18px;
+  /* Sem borda */
+  border: 0;
+  /* Linha embaixo (transparente até ficar ativa) */
+  border-bottom: 3px solid transparent;
+  /* Sem fundo */
+  background: none;
+  /* Cor apagada */
+  color: var(--muted);
+  /* Usa a mesma fonte do pai */
+  font: inherit;
+  /* Letra seminegrito */
+  font-weight: 600;
+  /* Mãozinha do mouse */
+  cursor: pointer;
+  /* Não deixa quebrar linha */
+  white-space: nowrap;
+  /* Mudança suave */
+  transition: color var(--dur-fast), border-color var(--dur-fast);
+}
+
+/* Aba com o mouse em cima */
+.cm-abas button:hover {
+  /* Cor principal do texto */
+  color: var(--ink);
+}
+
+/* Aba aberta: texto e linha coral */
+.cm-abas button[aria-selected="true"] {
+  /* Coral claro */
+  color: var(--coral-light);
+  /* Linha coral embaixo */
+  border-bottom-color: var(--coral);
+}
+
+/* Painel de cada aba */
+.cm-painel {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre eles */
+  gap: var(--space-4);
+}
+
+/* Lista do feed */
+.cm-feed {
+  /* Sem números */
+  list-style: none;
+  /* Sem margem */
+  margin: 0;
+  /* Sem espaço interno */
+  padding: 0;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre os posts */
+  gap: 14px;
+  /* Largura máxima (fica gostoso de ler) */
+  max-width: 720px;
+}
+
+/* Cada post do feed */
+.cm-post {
+  /* Espaço interno */
+  padding: 18px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-lg);
+  /* Borda fininha */
+  border: 1px solid var(--border);
+  /* Fundo dos cards */
+  background: var(--surface);
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre as partes */
+  gap: 14px;
+  /* Animação de entrada (cada post com um atrasinho) */
+  animation: cm-entrar 0.5s var(--ease-out) both;
+}
+
+/* Animação: o post sobe um pouco e aparece */
+@keyframes cm-entrar {
+  /* Começo: mais baixo e invisível */
+  from {
+    /* Invisível */
+    opacity: 0;
+    /* 16 pixels para baixo */
+    transform: translateY(16px);
+  }
+}
+
+/* Topo do post */
+.cm-post-topo {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 12px;
+}
+
+/* Nome e quando */
+.cm-post-quem {
+  /* Ocupa o espaço que sobra */
+  flex: 1;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Deixa encolher sem estourar */
+  min-width: 0;
+}
+
+/* Bloco do treino dentro do post */
+.cm-post-treino {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 12px;
+  /* Espaço interno */
+  padding: 12px 14px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Fundo escuro meio transparente */
+  background: rgba(14, 21, 18, 0.55);
+  /* Borda fininha */
+  border: 1px solid var(--border);
+}
+
+/* Textos do treino */
+.cm-post-treino > div {
+  /* Ocupa o espaço que sobra */
+  flex: 1;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Deixa encolher sem estourar */
+  min-width: 0;
+}
+
+/* Pontos do treino do amigo */
+.cm-post-pts {
+  /* Fonte monoespaçada (placar) */
+  font-family: "Space Mono", ui-monospace, monospace;
+  /* Letra negrito */
+  font-weight: 700;
+  /* Esmeralda */
+  color: var(--emerald);
+}
+
+/* Linha das reações */
+.cm-post-acoes {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Quebra linha se não couber */
+  flex-wrap: wrap;
+  /* Espaço entre eles */
+  gap: 8px;
+}
+
+/* Botão de reação */
+.cm-reacao {
+  /* Largura de 40 pixels */
+  width: 40px;
+  /* Altura de 40 pixels */
+  height: 40px;
+  /* Redondo */
+  border-radius: 50%;
+  /* Borda */
+  border: 1px solid var(--border);
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+  /* Tamanho do emoji */
+  font-size: 18px;
+  /* Mãozinha do mouse */
+  cursor: pointer;
+  /* Cresce suavemente */
+  transition: transform var(--dur-fast), border-color var(--dur-fast), background var(--dur-fast);
+}
+
+/* Reação com o mouse em cima: cresce um pouco */
+.cm-reacao:hover {
+  /* Cresce 12% */
+  transform: scale(1.12);
+}
+
+/* Reação escolhida: borda coral e um "pulo" */
+.cm-reacao.is-ativa {
+  /* Fundo coral fraquinho */
+  background: var(--coral-dim);
+  /* Borda coral */
+  border-color: var(--coral);
+  /* Animação de pulo */
+  animation: cm-pulo 0.4s var(--ease-out);
+}
+
+/* Animação: cresce e volta */
+@keyframes cm-pulo {
+  /* No meio: bem maior */
+  50% {
+    /* Cresce 35% */
+    transform: scale(1.35);
+  }
+}
+
+/* Botão "Copiar treino" vai para a direita */
+.cm-copiar {
+  /* Empurra para a direita */
+  margin-left: auto;
+}
+
+/* Lista dos seus comentários */
+.cm-comentarios {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Sem margem */
+  margin: 0;
+  /* Espaço à esquerda */
+  padding: 0 0 0 12px;
+  /* Linha à esquerda */
+  border-left: 2px solid var(--border-strong);
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre eles */
+  gap: 4px;
+  /* Tamanho da letra: 14 pixels */
+  font-size: 14px;
+}
+
+/* Formulário de comentar e de mandar mensagem */
+.cm-comentar,
+.cm-chat-form,
+.cm-adicionar {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Espaço entre o campo e o botão */
+  gap: 8px;
+}
+
+/* Campos de texto da página */
+.cm-comentar input,
+.cm-chat-form input,
+.cm-adicionar input {
+  /* Ocupa o espaço que sobra */
+  flex: 1;
+  /* Deixa encolher sem estourar */
+  min-width: 0;
+  /* Espaço interno */
+  padding: 10px 14px;
+  /* Formato pílula */
+  border-radius: var(--radius-full);
+  /* Borda */
+  border: 1px solid var(--border);
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+  /* Cor principal do texto */
+  color: var(--ink);
+  /* Usa a mesma fonte do pai */
+  font: inherit;
+}
+
+/* Campos focados */
+.cm-comentar input:focus,
+.cm-chat-form input:focus,
+.cm-adicionar input:focus {
+  /* Borda coral */
+  border-color: var(--coral);
+  /* Tira o contorno padrão (a borda já mostra o foco) */
+  outline: none;
+}
+
+/* Formulário de adicionar amigo: largura máxima */
+.cm-adicionar {
+  /* Largura máxima */
+  max-width: 560px;
+}
+
+/* Listas de amigos, resultados e conversas */
+.cm-amigos,
+.cm-resultados,
+.cm-conversas {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Sem margem */
+  margin: 0;
+  /* Sem espaço interno */
+  padding: 0;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre eles */
+  gap: 8px;
+  /* Largura máxima */
+  max-width: 720px;
+}
+
+/* Cada amigo (e cada conversa) */
+.cm-amigo,
+.cm-conversa {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 12px;
+  /* Espaço interno */
+  padding: 12px 14px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Borda fininha */
+  border: 1px solid var(--border);
+  /* Fundo dos cards */
+  background: var(--surface);
+}
+
+/* A conversa é um botão: tira o visual padrão */
+.cm-conversa {
+  /* Largura: a toda */
+  width: 100%;
+  /* Texto à esquerda */
+  text-align: left;
+  /* Cor principal do texto */
+  color: var(--ink);
+  /* Usa a mesma fonte do pai */
+  font: inherit;
+  /* Mãozinha do mouse */
+  cursor: pointer;
+}
+
+/* Conversa com o mouse em cima */
+.cm-conversa:hover {
+  /* Borda coral */
+  border-color: var(--border-coral);
+}
+
+/* Nome e detalhes do amigo */
+.cm-amigo-info {
+  /* Ocupa o espaço que sobra */
+  flex: 1;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Deixa encolher sem estourar */
+  min-width: 0;
+}
+
+/* Detalhe do amigo cortado com reticências se for grande */
+.cm-amigo-info .meta {
+  /* Não deixa quebrar linha */
+  white-space: nowrap;
+  /* Esconde o que passar */
+  overflow: hidden;
+  /* Reticências */
+  text-overflow: ellipsis;
+}
+
+/* Botões do amigo */
+.cm-amigo-botoes {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 6px;
+}
+
+/* Botão de criar desafio: não estica */
+#painel-desafios > .btn-primary {
+  /* Fica à esquerda, do tamanho do texto */
+  align-self: flex-start;
+}
+
+/* Grade dos desafios */
+.cm-desafios {
+  /* Organiza em grade */
+  display: grid;
+  /* Quantas colunas couberem, cada uma com no mínimo 320 pixels */
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  /* Espaço entre eles */
+  gap: var(--space-4);
+}
+
+/* Card do desafio */
+.cm-desafio {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre eles */
+  gap: 14px;
+  /* Espaço interno */
+  padding: 20px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-lg);
+  /* Borda fininha */
+  border: 1px solid var(--border);
+  /* Fundo dos cards */
+  background: var(--surface);
+}
+
+/* Desafio em que você está: borda e brilho coral */
+.cm-desafio.is-dentro {
+  /* Borda coral */
+  border-color: var(--border-coral);
+  /* Fundo com brilho coral */
+  background:
+    radial-gradient(circle at 100% 0%, rgba(255, 122, 69, 0.12), transparent 50%),
+    var(--surface);
+}
+
+/* Topo do desafio */
+.cm-desafio-topo {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Um em cada ponta */
+  justify-content: space-between;
+  /* Alinhados em cima */
+  align-items: flex-start;
+  /* Espaço entre eles */
+  gap: 12px;
+}
+
+/* Título do desafio */
+.cm-desafio h3 {
+  /* Sem margem */
+  margin: 0 0 4px;
+}
+
+/* Botão do desafio: não estica */
+.cm-desafio > button {
+  /* Fica à esquerda */
+  align-self: flex-start;
+}
+
+/* Lista de barras dos participantes */
+.cm-barras {
+  /* Sem números */
+  list-style: none;
+  /* Sem margem */
+  margin: 0;
+  /* Sem espaço interno */
+  padding: 0;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre as linhas */
+  gap: 8px;
+}
+
+/* Linha de cada participante: nome | barra | valor */
+.cm-barras li {
+  /* Organiza em grade */
+  display: grid;
+  /* Nome fixo, barra estica, valor do tamanho do texto */
+  grid-template-columns: 70px 1fr auto;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 10px;
+  /* Tamanho da letra: 13,5 pixels */
+  font-size: 13.5px;
+}
+
+/* Você na lista: nome em coral */
+.cm-barras li.is-eu .cm-barras-nome {
+  /* Coral claro */
+  color: var(--coral-light);
+  /* Letra negrito */
+  font-weight: 700;
+}
+
+/* Nome do participante cortado se for grande */
+.cm-barras-nome {
+  /* Não deixa quebrar linha */
+  white-space: nowrap;
+  /* Esconde o que passar */
+  overflow: hidden;
+  /* Reticências */
+  text-overflow: ellipsis;
+}
+
+/* Grupo de amigos convidados no formulário */
+.cm-convidar {
+  /* Sem borda */
+  border: 0;
+  /* Sem margem */
+  margin: 0;
+  /* Sem espaço interno */
+  padding: 0;
+  /* Organiza em grade */
+  display: grid;
+  /* Duas colunas */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* Espaço entre eles */
+  gap: 6px;
+}
+
+/* Título do grupo */
+.cm-convidar legend {
+  /* Espaço embaixo */
+  margin-bottom: 6px;
+  /* Letra seminegrito */
+  font-weight: 600;
+  /* Tamanho da letra: 13,5 pixels */
+  font-size: 13.5px;
+}
+
+/* Conversa no modal */
+.cm-chat {
+  /* Sem números */
+  list-style: none;
+  /* Margem embaixo */
+  margin: 0 0 12px;
+  /* Espaço interno */
+  padding: 4px;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre as bolhas */
+  gap: 8px;
+  /* Altura mínima */
+  min-height: 160px;
+  /* Altura máxima (depois rola) */
+  max-height: 46vh;
+  /* Barra de rolagem se precisar */
+  overflow-y: auto;
+}
+
+/* Bolha de mensagem do amigo (à esquerda) */
+.cm-bolha {
+  /* Fica à esquerda */
+  align-self: flex-start;
+  /* Largura máxima */
+  max-width: 80%;
+  /* Espaço interno */
+  padding: 9px 14px;
+  /* Cantos arredondados (menos no canto de baixo à esquerda) */
+  border-radius: 16px 16px 16px 4px;
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+  /* Animação de entrada */
+  animation: cm-entrar 0.3s var(--ease-out) both;
+}
+
+/* Sua bolha (à direita, coral) */
+.cm-bolha.is-eu {
+  /* Fica à direita */
+  align-self: flex-end;
+  /* Cantos (menos no canto de baixo à direita) */
+  border-radius: 16px 16px 4px 16px;
+  /* Fundo em degradê coral */
+  background: var(--gradient-button);
+  /* Texto escuro */
+  color: var(--on-coral);
+}
+
+/* Em telas de até 640 pixels (celular) */
+@media (max-width: 640px) {
+  /* Botões do perfil */
+  .cm-perfil-botoes {
+    /* Sem empurrar para a direita */
+    margin-left: 0;
+    /* Largura: a toda */
+    width: 100%;
+  }
+
+  /* Cada botão do perfil divide a linha */
+  .cm-perfil-botoes button {
+    /* Dividem igual */
+    flex: 1;
+  }
+
+  /* Bloco da privacidade */
+  .cm-privacidade {
+    /* Largura: a toda */
+    width: 100%;
+  }
+
+  /* Amigo: os botões descem para a linha de baixo */
+  .cm-amigo {
+    /* Quebra linha */
+    flex-wrap: wrap;
+  }
+
+  /* Botões do amigo */
+  .cm-amigo-botoes {
+    /* Largura: a toda */
+    width: 100%;
+    /* Alinhados à direita */
+    justify-content: flex-end;
+  }
+
+  /* Desafios: uma coluna */
+  .cm-desafios {
+    /* Uma coluna só */
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Se a pessoa pediu ao sistema para reduzir as animações */
+@media (prefers-reduced-motion: reduce) {
+  /* Posts, bolhas e reações */
+  .cm-post,
+  .cm-bolha,
+  .cm-reacao.is-ativa {
+    /* Sem animação */
+    animation: none;
+  }
+}

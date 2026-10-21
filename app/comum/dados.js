@@ -323,6 +323,21 @@
     { nome: "Júlia Costa", codigo: "JU-5520", academia: "centro", ritmo: 230 },
   ];
 
+  // Pessoas que ainda não são amigas (dá para achar pelo código, ID ou nome e adicionar)
+  // O ID é o número do código (ex.: MARCOS-8812 tem ID 8812)
+  const SUGESTOES = [
+    // Marcos: treina na unidade Centro
+    { nome: "Marcos Vieira", codigo: "MARCOS-8812", academia: "centro", ritmo: 540 },
+    // Beatriz: treina na unidade Centro
+    { nome: "Beatriz Nunes", codigo: "BIA-3341", academia: "centro", ritmo: 690 },
+    // Thiago: treina em casa
+    { nome: "Thiago Ramos", codigo: "THI-9090", academia: null, ritmo: 410 },
+    // Aline: treina na unidade Zona Norte
+    { nome: "Aline Moura", codigo: "ALINE-2025", academia: "norte", ritmo: 760 },
+    // Gustavo: está começando
+    { nome: "Gustavo Reis", codigo: "GUGA-1177", academia: null, ritmo: 260 },
+  ];
+
   // Academias de exemplo, com outros alunos além dos amigos
   const ACADEMIAS = [
     // Unidade do centro
@@ -335,6 +350,6 @@
   window.SL_DADOS = {
     CATALOGO, PROFISSIONAIS, AULAS, TREINOS_PADRAO, EVOLUCAO,
     EXERCICIOS, HISTORICO_PADRAO, REFEICOES_PADRAO, METAS_NUTRICAO,
-    AMIGOS, ACADEMIAS,
+    AMIGOS, SUGESTOES, ACADEMIAS,
   };
 })();
