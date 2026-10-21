@@ -360,10 +360,19 @@
     const primeiroNome = usuario.nome.split(/\s+/)[0];
     // Nome completo onde tiver data-user-name
     document.querySelectorAll("[data-user-name]").forEach((n) => (n.textContent = usuario.nome));
-    // Primeiro nome onde tiver data-user-first-name
-    document.querySelectorAll("[data-user-first-name]").forEach((n) => (n.textContent = primeiroNome));
-    // Iniciais onde tiver data-user-initials
-    document.querySelectorAll("[data-user-initials]").forEach((n) => (n.textContent = initials(usuario.nome)));
+    // Primeiro nome (ou o apelido escolhido no cadastro) onde tiver data-user-first-name
+    document.querySelectorAll("[data-user-first-name]").forEach((n) => (n.textContent = perfilSalvo.apelido || primeiroNome));
+    // Iniciais onde tiver data-user-initials (com foto de perfil, a foto aparece no lugar)
+    document.querySelectorAll("[data-user-initials]").forEach((n) => {
+      // Escreve as iniciais
+      n.textContent = initials(usuario.nome);
+      // Se não tem foto, para aqui
+      if (!perfilSalvo.foto) return;
+      // Coloca a foto de fundo
+      n.style.backgroundImage = `url(${perfilSalvo.foto})`;
+      // Marca que tem foto (o CSS esconde as letras)
+      n.classList.add("tem-foto");
+    });
     // @usuario onde tiver data-user-handle
     document.querySelectorAll("[data-user-handle]").forEach((n) => (n.textContent = "@" + slug(usuario.nome)));
     // Bio onde tiver data-user-bio
@@ -1125,7 +1134,7 @@
       fn: () => {
         // ...lista de todas as chaves salvas pelo app
         [
-          "sl-treinos", "sl-salvos", "sl-seguindo", "sl-reservas", "sl-perfil", "sl-pesos", "sl-agua",
+          "sl-tour", "sl-quiz", "sl-treinos", "sl-salvos", "sl-seguindo", "sl-reservas", "sl-perfil", "sl-pesos", "sl-agua",
           "sl-refeicoes", "sl-historico", "sl-treino-atual", "sl-desafio", "sl-lidas",
           "sl-pontos", "sl-pontos-inicio", "sl-liga", "sl-liga-vistas", "sl-academia",
           "sl-amigos", "sl-reacoes", "sl-comentarios", "sl-cutucadas", "sl-desafios", "sl-mensagens", "sl-privacidade",

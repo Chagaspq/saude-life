@@ -102,9 +102,24 @@ form.addEventListener("submit", (event) => {
   // Liga o carregando
   setLoading(true);
   // Espera um pouquinho (simula o servidor)
-  setTimeout(() => {
+  setTimeout(async () => {
     // Apaga o código usado (ele só vale uma vez)
     sessionStorage.removeItem("sl-reset-token");
+    // Tenta trocar a senha da conta ligada a esse código
+    try {
+      // Pedidos de redefinição guardados pela página "esqueci a senha"
+      const pedidos = JSON.parse(localStorage.getItem("sl-reset-pedidos") || "{}");
+      // E-mail desse código
+      const email = pedidos[token];
+      // Se achou o e-mail, guarda o hash da senha nova
+      if (email && window.SaudeLifeForm) await window.SaudeLifeForm.trocarSenha(email, passwordInput.value);
+      // O código não vale mais
+      delete pedidos[token];
+      // Salva os pedidos sem ele
+      localStorage.setItem("sl-reset-pedidos", JSON.stringify(pedidos));
+    } catch (erro) {
+      // Se o navegador bloquear, segue (a mensagem de sucesso aparece igual)
+    }
     // Mostra a mensagem de sucesso
     globalSuccess.textContent = "Senha alterada! Redirecionando para o login...";
     // Deixa a caixa de sucesso visível

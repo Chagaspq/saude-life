@@ -338,44 +338,160 @@
     }, 1200);
   }
 
-  // Sem backend: a conta e a sessão ficam salvas no navegador (localStorage)
-  // Salva a conta criada no cadastro
-  function saveAccount(form) {
-    // Dados da conta:
-    const conta = {
-      // nome
-      nome: qs("#name", form).value.trim(),
-      // e-mail em letras minúsculas
-      email: qs("#email", form).value.trim().toLowerCase(),
-    };
+  // Sem backend: as contas e a sessão ficam salvas no navegador (localStorage).
+  // A senha NUNCA é guardada como foi digitada: guardamos só o "hash" dela
+  // (um código que não dá para desfazer), igual sistemas de verdade fazem.
+
+  // Lê uma chave do navegador (devolve o padrão se não tiver ou der erro)
+  function ler(chave, padrao) {
     // Tenta...
     try {
-      // ...salvar no navegador na chave "sl-conta"
-      localStorage.setItem("sl-conta", JSON.stringify(conta));
+      // ...ler e transformar o texto em dados
+      const valor = JSON.parse(localStorage.getItem(chave));
+      // Se não tinha nada, devolve o padrão
+      return valor === null ? padrao : valor;
+    // Se der erro...
+    } catch (e) {
+      // ...devolve o padrão
+      return padrao;
+    }
+  }
+
+  // Salva uma chave no navegador
+  function gravar(chave, valor) {
+    // Tenta...
+    try {
+      // ...salvar como texto
+      localStorage.setItem(chave, JSON.stringify(valor));
     // Se o navegador não deixar salvar...
     } catch (e) {
       /* armazenamento indisponível: segue sem salvar */
     }
   }
 
-  // Começa a sessão (marca quem está logado)
-  function startSession(form) {
-    // Pega o e-mail digitado, em minúsculas
-    const email = qs("#email", form).value.trim().toLowerCase();
-    // Usa a parte antes do @ como nome provisório
-    let nome = email.split("@")[0];
-    // Tenta...
-    try {
-      // ...ler a conta salva no cadastro
-      const conta = JSON.parse(localStorage.getItem("sl-conta") || "null");
-      // ...se o e-mail é o mesmo, usa o nome do cadastro
-      if (conta && conta.email === email && conta.nome) nome = conta.nome;
-      // ...e salva a sessão no navegador
-      localStorage.setItem("sl-sessao", JSON.stringify({ nome, email }));
-    // Se o navegador não deixar salvar...
-    } catch (e) {
-      /* armazenamento indisponível: segue sem salvar */
+  // Gera o hash da senha (SHA-256), misturado com o e-mail para que senhas iguais tenham hashes diferentes
+  async function hashSenha(email, senha) {
+    // Texto que vai virar hash
+    const texto = "saude-life|" + email + "|" + senha;
+    // Se o navegador tem a criptografia moderna (sites com https e localhost têm)...
+    if (window.crypto && crypto.subtle) {
+      // ...transforma o texto em bytes
+      const bytes = new TextEncoder().encode(texto);
+      // ...calcula o SHA-256
+      const resumo = await crypto.subtle.digest("SHA-256", bytes);
+      // ...e escreve em hexadecimal (0-9 e a-f)
+      return Array.from(new Uint8Array(resumo), (b) => b.toString(16).padStart(2, "0")).join("");
     }
+    // Navegador sem criptografia moderna: usa um hash simples (FNV), só para não guardar a senha pura
+    let h = 2166136261;
+    // Para cada letra...
+    for (let i = 0; i < texto.length; i++) {
+      // ...mistura a letra no número
+      h = Math.imul(h ^ texto.charCodeAt(i), 16777619) >>> 0;
+    }
+    // Marca que é o hash simples
+    return "fnv-" + h.toString(16);
+  }
+
+  // Lista de contas criadas neste navegador (traz junto a conta antiga "sl-conta", se existir)
+  function lerContas() {
+    // Contas salvas
+    const contas = ler("sl-contas", []);
+    // Conta do jeito antigo (uma só)
+    const antiga = ler("sl-conta", null);
+    // Se a antiga não está na lista, coloca
+    if (antiga && antiga.email && !contas.some((c) => c.email === antiga.email)) contas.push(antiga);
+    // Devolve a lista
+    return contas;
+  }
+
+  // Procura a conta de um e-mail
+  function acharConta(email) {
+    // Primeira conta com esse e-mail (ou nada)
+    return lerContas().find((c) => c.email === email) || null;
+  }
+
+  // Salva (cria ou atualiza) uma conta
+  function gravarConta(conta) {
+    // Tira a versão antiga dessa conta e coloca a nova
+    const contas = lerContas().filter((c) => c.email !== conta.email).concat(conta);
+    // Salva a lista
+    gravar("sl-contas", contas);
+    // Mantém "sl-conta" com a última conta (o resto do site ainda lê ela)
+    gravar("sl-conta", { nome: conta.nome, email: conta.email });
+  }
+
+  // Cria a conta do cadastro (extra = dados do passo 2: apelido, nascimento, altura, peso, foto)
+  async function saveAccount(form, extra) {
+    // E-mail em letras minúsculas
+    const email = qs("#email", form).value.trim().toLowerCase();
+    // Dados da conta (sem a senha!)
+    const conta = {
+      // nome
+      nome: qs("#name", form).value.trim(),
+      // e-mail
+      email,
+      // hash da senha
+      hash: await hashSenha(email, qs("#password", form).value),
+      // quando foi criada
+      criada: new Date().toISOString(),
+    };
+    // Salva a conta
+    gravarConta(conta);
+    // Se veio o passo 2...
+    if (extra) {
+      // ...junta com o perfil que já existia (foto, peso, etc. ficam no perfil do app)
+      gravar("sl-perfil", Object.assign(ler("sl-perfil", {}), extra));
+    }
+  }
+
+  // Confere e-mail e senha. Devolve a conta, ou uma mensagem de erro
+  async function checkLogin(form) {
+    // E-mail digitado
+    const email = qs("#email", form).value.trim().toLowerCase();
+    // Senha digitada
+    const senha = qs("#password", form).value;
+    // Conta desse e-mail
+    const conta = acharConta(email);
+    // Não tem conta: avisa
+    if (!conta) return { erro: "Não encontramos uma conta com esse e-mail neste aparelho. Crie sua conta para começar." };
+    // Hash da senha digitada
+    const hash = await hashSenha(email, senha);
+    // Conta antiga sem hash (criada antes desta versão): aceita e já guarda o hash
+    if (!conta.hash) {
+      // Guarda o hash
+      conta.hash = hash;
+      // Salva
+      gravarConta(conta);
+    }
+    // Hash diferente: senha errada (mensagem genérica de propósito)
+    if (conta.hash !== hash) return { erro: "E-mail ou senha incorretos." };
+    // Deu certo
+    return { conta };
+  }
+
+  // Troca a senha de uma conta (usado na página de redefinir senha)
+  async function trocarSenha(email, senha) {
+    // Conta desse e-mail
+    const conta = acharConta(email);
+    // Se não tem, não faz nada
+    if (!conta) return false;
+    // Novo hash
+    conta.hash = await hashSenha(email, senha);
+    // Salva
+    gravarConta(conta);
+    // Deu certo
+    return true;
+  }
+
+  // Começa a sessão (marca quem está logado)
+  function startSession(form, conta) {
+    // E-mail digitado, em minúsculas
+    const email = qs("#email", form).value.trim().toLowerCase();
+    // Nome do cadastro (ou a parte antes do @)
+    const nome = (conta && conta.nome) || email.split("@")[0];
+    // Salva a sessão no navegador
+    gravar("sl-sessao", { nome, email });
   }
 
   // Mostra "conta criada" quando a pessoa vem do cadastro
@@ -468,6 +584,10 @@
     submitForm,
     saveAccount,
     startSession,
+    checkLogin,
+    trocarSenha,
+    hashSenha,
+    acharConta,
     checkCadastroSuccess,
     clearErrorOnInput,
   };

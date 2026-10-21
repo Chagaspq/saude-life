@@ -42,16 +42,26 @@
     F.clearErrorOnInput(loginForm);
 
     // Quando a pessoa clica em Entrar...
-    loginForm.addEventListener("submit", function (event) {
+    loginForm.addEventListener("submit", async function (event) {
       // ...impede a página de recarregar
       event.preventDefault();
-      // Se e-mail e senha estão válidos...
-      if (F.validateLoginForm(loginForm)) {
-        // ...guarda a sessão (quem está logado) no navegador
-        F.startSession(loginForm);
-        // ...mostra "Entrando..." e vai para a página do app
-        F.submitForm(loginForm, "Entrando...", destinoDepoisDoLogin());
+      // Se e-mail ou senha estão em branco ou com formato errado, para
+      if (!F.validateLoginForm(loginForm)) return;
+      // Confere se a conta existe e se a senha bate (pelo hash)
+      const resultado = await F.checkLogin(loginForm);
+      // Se deu erro...
+      if (resultado.erro) {
+        // ...mostra a mensagem
+        F.showGlobalError(loginForm, resultado.erro);
+        // ...coloca o foco na senha (para tentar de novo)
+        loginForm.querySelector("#password").focus();
+        // ...e para
+        return;
       }
+      // Guarda a sessão (quem está logado) no navegador
+      F.startSession(loginForm, resultado.conta);
+      // Mostra "Entrando..." e vai para a página do app
+      F.submitForm(loginForm, "Entrando...", destinoDepoisDoLogin());
     });
   });
 })();

@@ -28,7 +28,7 @@ window.SL &&
     // Lê as respostas salvas antes (se a pessoa já respondeu)
     // Refazendo o questionário: começa com as respostas anteriores
     // Se já respondeu antes...
-    const anterior = SL.storage.get("sl-onboarding", null);
+    const anterior = SL.storage.get("sl-onboarding", null) || SL.storage.get("sl-quiz", null);
     // ...para cada pergunta...
     if (anterior) {
       // ...acha a opção que foi escolhida

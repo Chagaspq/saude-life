@@ -173,6 +173,18 @@ form.addEventListener("submit", async (event) => {
   // Monta o link de redefinição com o código
   const resetLink = `${RESET_PAGE_URL}?token=${token}`;
 
+  // Guarda neste navegador de qual e-mail é esse código (a página de redefinir usa para trocar a senha certa)
+  try {
+    // Pedidos anteriores
+    const pedidos = JSON.parse(localStorage.getItem("sl-reset-pedidos") || "{}");
+    // Liga o código ao e-mail
+    pedidos[token] = email.toLowerCase();
+    // Salva
+    localStorage.setItem("sl-reset-pedidos", JSON.stringify(pedidos));
+  } catch (erro) {
+    // Se o navegador bloquear, segue sem guardar
+  }
+
   // Tenta enviar...
   try {
     // Se o EmailJS está configurado...

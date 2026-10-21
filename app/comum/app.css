@@ -813,6 +813,16 @@ a {
 }
 
 /* Iniciais da bolinha grande do perfil */
+/* Avatar com foto de perfil (escolhida no cadastro) */
+.avatar-initials.tem-foto {
+  /* Foto cobre o círculo todo */
+  background-size: cover;
+  /* Foto centralizada */
+  background-position: center;
+  /* Esconde as letras (a foto fica no lugar) */
+  color: transparent;
+}
+
 .profile-avatar-lg.avatar-initials {
   /* Tamanho da letra: 30 pixels */
   font-size: 30px;
@@ -4557,4 +4567,217 @@ body[data-pagina]::before {
   border-radius: 50%;
   /* Letra de 18 pixels */
   font-size: 18px;
+}
+
+/* ============================================
+   TOUR GUIADO PELO PULSO
+   ============================================ */
+
+/* Camada do tour (por cima de tudo) */
+.tour {
+  /* Presa na tela */
+  position: fixed;
+  /* Cobre a tela toda */
+  inset: 0;
+  /* Por cima de tudo */
+  z-index: 300;
+}
+
+/* Recorte que destaca o alvo: a sombra gigante escurece o resto da tela */
+.tour-destaque {
+  /* Preso na tela */
+  position: fixed;
+  /* Cantos arredondados */
+  border-radius: var(--radius-lg);
+  /* Escurece tudo em volta */
+  box-shadow: 0 0 0 9999px rgba(5, 9, 7, 0.72);
+  /* Borda coral no recorte */
+  outline: 2px solid var(--coral-light);
+  /* Afastada */
+  outline-offset: 2px;
+  /* Cliques passam (a pessoa não consegue clicar no recorte sem querer) */
+  pointer-events: none;
+  /* Anda suave de um alvo para outro */
+  transition: left 300ms var(--ease-out), top 300ms var(--ease-out), width 300ms var(--ease-out), height 300ms var(--ease-out);
+}
+
+/* Sem alvo: recorte de tamanho zero no meio (só escurece a tela) */
+.tour-destaque.is-vazio {
+  /* No meio */
+  left: 50% !important;
+  /* No meio */
+  top: 50% !important;
+  /* Sem largura */
+  width: 0 !important;
+  /* Sem altura */
+  height: 0 !important;
+  /* Sem borda coral */
+  outline: none;
+}
+
+/* Balão do Pulso */
+.tour-balao {
+  /* Preso na tela */
+  position: fixed;
+  /* Centralizado na largura */
+  left: 50%;
+  /* Puxa metade para a esquerda (centraliza) */
+  transform: translateX(-50%);
+  /* Largura: a tela menos 32 pixels, no máximo 440 */
+  width: min(440px, calc(100vw - 32px));
+  /* Pulso e textos lado a lado */
+  display: flex;
+  /* Alinhados no topo */
+  align-items: flex-start;
+  /* Espaço entre eles */
+  gap: 14px;
+  /* Fundo do card */
+  background: var(--surface);
+  /* Borda coral */
+  border: 1px solid var(--border-coral);
+  /* Cantos arredondados */
+  border-radius: var(--radius-xl);
+  /* Espaço interno */
+  padding: 18px;
+  /* Sombra grande */
+  box-shadow: var(--shadow-lg);
+  /* Entra suave */
+  animation: tour-entrar 300ms var(--ease-out);
+}
+
+/* Balão embaixo da tela (alvo em cima); sobe acima da barra do celular */
+.tour-balao[data-lugar="baixo"] {
+  /* Distância do fundo */
+  bottom: calc(24px + env(safe-area-inset-bottom));
+}
+
+/* Balão em cima (alvo embaixo) */
+.tour-balao[data-lugar="cima"] {
+  /* Distância do topo */
+  top: 24px;
+}
+
+/* Balão no meio (sem alvo) */
+.tour-balao[data-lugar="meio"] {
+  /* Metade da altura */
+  top: 50%;
+  /* Centraliza nas duas direções */
+  transform: translate(-50%, -50%);
+}
+
+/* Lugar do Pulso */
+.tour-pulso {
+  /* Largura do desenho */
+  width: 64px;
+  /* Não encolhe */
+  flex-shrink: 0;
+}
+
+/* Desenho do Pulso */
+.tour-pulso svg {
+  /* Largura toda do lugar */
+  width: 100%;
+  /* Altura proporcional */
+  height: auto;
+}
+
+/* Textos do balão */
+.tour-conteudo {
+  /* Ocupa o resto */
+  flex: 1;
+  /* Pode encolher */
+  min-width: 0;
+}
+
+/* Título do balão */
+.tour-titulo {
+  /* Fonte de título */
+  font-family: var(--font-display);
+  /* Tamanho */
+  font-size: var(--text-lg);
+  /* Espaço embaixo */
+  margin: 0 0 6px;
+}
+
+/* Texto do balão */
+.tour-texto {
+  /* Cor apagada */
+  color: var(--muted);
+  /* Linhas espaçadas */
+  line-height: 1.5;
+  /* Espaço embaixo */
+  margin: 0 0 14px;
+  /* Letra um pouco menor */
+  font-size: var(--text-sm);
+}
+
+/* Rodapé do balão: bolinhas e botões */
+.tour-rodape {
+  /* Lado a lado */
+  display: flex;
+  /* Centralizados na altura */
+  align-items: center;
+  /* Bolinhas à esquerda, botões à direita */
+  justify-content: space-between;
+  /* Espaço entre eles */
+  gap: 10px;
+  /* Quebra linha em telas bem estreitas */
+  flex-wrap: wrap;
+}
+
+/* Bolinhas dos passos */
+.tour-bolinhas {
+  /* Lado a lado */
+  display: flex;
+  /* Espaço entre elas */
+  gap: 5px;
+}
+
+/* Cada bolinha */
+.tour-bolinhas span {
+  /* Largura */
+  width: 6px;
+  /* Altura */
+  height: 6px;
+  /* Redonda */
+  border-radius: 50%;
+  /* Cor apagada */
+  background: var(--border-strong);
+  /* Troca de cor suave */
+  transition: background 200ms, width 200ms;
+}
+
+/* Bolinha de passo já visto */
+.tour-bolinhas span.is-ativa {
+  /* Cor coral */
+  background: var(--coral);
+}
+
+/* Botões do balão */
+.tour-botoes {
+  /* Lado a lado */
+  display: flex;
+  /* Espaço entre eles */
+  gap: 6px;
+}
+
+/* Animação de entrada do balão */
+@keyframes tour-entrar {
+  /* Começa transparente */
+  from {
+    /* Invisível */
+    opacity: 0;
+  }
+}
+
+/* Quem pediu menos movimento: sem animações no tour */
+@media (prefers-reduced-motion: reduce) {
+  /* Recorte e balão */
+  .tour-destaque,
+  .tour-balao {
+    /* Sem transição */
+    transition: none;
+    /* Sem animação */
+    animation: none;
+  }
 }

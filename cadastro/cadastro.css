@@ -818,3 +818,267 @@ input[type="checkbox"]:focus-visible {
   /* Cantos arredondados: 6 pixels */
   border-radius: 6px;
 }
+
+/* ---------- Cadastro em passos ---------- */
+
+/* Indicador de passos */
+.cad-progresso {
+  /* Itens em coluna */
+  display: grid;
+  /* Espaço entre texto e barra */
+  gap: 8px;
+}
+
+/* Texto "Passo 1 de 2" */
+.cad-progresso-texto {
+  /* Sem margem */
+  margin: 0;
+  /* Letra pequena */
+  font-size: 12.5px;
+  /* Negrito */
+  font-weight: 600;
+  /* Cor apagada */
+  color: var(--muted);
+}
+
+/* Trilho da barra */
+.cad-progresso-barra {
+  /* Altura */
+  height: 4px;
+  /* Fundo do trilho */
+  background: var(--border-subtle);
+  /* Pontas redondas */
+  border-radius: var(--radius-full);
+  /* Esconde o que passar */
+  overflow: hidden;
+}
+
+/* Parte cheia da barra */
+.cad-progresso-barra span {
+  /* Bloco */
+  display: block;
+  /* Altura toda */
+  height: 100%;
+  /* Começa na metade (passo 1) */
+  width: 50%;
+  /* Degradê da marca */
+  background: var(--gradient-brand);
+  /* Pontas redondas */
+  border-radius: inherit;
+  /* Enche devagar */
+  transition: width 300ms var(--ease-out);
+}
+
+/* Aviso do questionário da página inicial */
+.cad-quiz {
+  /* Sem margem */
+  margin: 0;
+  /* Espaço interno */
+  padding: 10px 12px;
+  /* Fundo esmeralda fraco */
+  background: var(--emerald-soft);
+  /* Texto esmeralda */
+  color: var(--emerald);
+  /* Cantos arredondados */
+  border-radius: var(--radius-sm);
+  /* Letra pequena */
+  font-size: 13px;
+}
+
+/* Cada passo (fieldset sem a borda padrão) */
+.cad-passo {
+  /* Sem borda */
+  border: 0;
+  /* Sem espaço padrão */
+  margin: 0;
+  /* Sem espaço padrão */
+  padding: 0;
+  /* Campos em coluna */
+  display: flex;
+  /* Coluna */
+  flex-direction: column;
+  /* Mesmo espaço do formulário */
+  gap: 16px;
+  /* Pode encolher no celular */
+  min-width: 0;
+}
+
+/* Passo escondido */
+.cad-passo[hidden] {
+  /* Some de verdade (o display:flex acima ganharia do hidden) */
+  display: none;
+}
+
+/* Texto explicando o passo 2 */
+.cad-explica {
+  /* Sem margem */
+  margin: 0;
+  /* Cor apagada */
+  color: var(--muted);
+  /* Letra pequena */
+  font-size: 13.5px;
+  /* Linhas espaçadas */
+  line-height: 1.5;
+}
+
+/* Linha da foto */
+.cad-foto {
+  /* Foto e botão lado a lado */
+  display: flex;
+  /* Centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 14px;
+}
+
+/* Círculo da prévia da foto */
+.cad-foto-previa {
+  /* Centraliza a letra */
+  display: grid;
+  /* No meio */
+  place-items: center;
+  /* Largura */
+  width: 64px;
+  /* Altura */
+  height: 64px;
+  /* Redondo */
+  border-radius: 50%;
+  /* Degradê da marca (aparece sem foto) */
+  background: var(--gradient-brand);
+  /* Foto cobre o círculo */
+  background-size: cover;
+  /* Foto centralizada */
+  background-position: center;
+  /* Cor da letra */
+  color: var(--on-coral);
+  /* Fonte de título */
+  font: 700 24px var(--font-display);
+  /* Não encolhe */
+  flex-shrink: 0;
+}
+
+/* Botão de escolher foto */
+.cad-foto-botao {
+  /* Mãozinha */
+  cursor: pointer;
+  /* Espaço interno */
+  padding: 10px 14px;
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Cantos arredondados */
+  border-radius: var(--radius-full);
+  /* Letra pequena */
+  font-size: 13.5px;
+  /* Negrito */
+  font-weight: 600;
+  /* Cor do texto */
+  color: var(--ink);
+  /* Troca de cor suave */
+  transition: border-color 150ms var(--ease-out);
+}
+
+/* Botão de foto com mouse */
+.cad-foto-botao:hover {
+  /* Borda coral */
+  border-color: var(--coral-light);
+}
+
+/* Botão de foto quando o campo escondido recebe o foco do teclado */
+.cad-foto:focus-within .cad-foto-botao {
+  /* Contorno coral */
+  outline: 2px solid var(--coral);
+  /* Afastado */
+  outline-offset: 2px;
+}
+
+/* Linha com nascimento, altura e peso */
+.cad-linha {
+  /* Grade */
+  display: grid;
+  /* Nascimento maior, altura e peso menores */
+  grid-template-columns: 1.4fr 1fr 1fr;
+  /* Espaço entre os campos */
+  gap: 10px;
+}
+
+/* No celular, nascimento ocupa a linha toda */
+@media (max-width: 480px) {
+  /* Linha */
+  .cad-linha {
+    /* Duas colunas */
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Primeiro campo (nascimento) */
+  .cad-linha > :first-child {
+    /* Ocupa as duas colunas */
+    grid-column: 1 / -1;
+  }
+}
+
+/* Nos campos pequenos, sem ícone para sobrar espaço */
+.cad-linha .input-icon {
+  /* Esconde */
+  display: none;
+}
+
+/* Campos pequenos com espaço igual dos dois lados */
+.cad-linha .input-wrapper input {
+  /* Espaço interno */
+  padding: 14px 12px;
+  /* Pode encolher */
+  min-width: 0;
+}
+
+/* Botões do fim */
+.cad-botoes {
+  /* Lado a lado */
+  display: flex;
+  /* Espaço entre eles */
+  gap: 10px;
+}
+
+/* Botão principal ocupa o resto */
+.cad-botoes .btn-submit {
+  /* Cresce */
+  flex: 1;
+}
+
+/* Botão voltar */
+.cad-voltar {
+  /* Sem fundo */
+  background: transparent;
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Cor do texto */
+  color: var(--ink);
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Espaço interno */
+  padding: 0 16px;
+  /* Fonte do site */
+  font: 600 14px var(--font-body);
+  /* Mãozinha */
+  cursor: pointer;
+}
+
+/* Voltar escondido */
+.cad-voltar[hidden] {
+  /* Some de verdade */
+  display: none;
+}
+
+/* Voltar com mouse */
+.cad-voltar:hover {
+  /* Borda coral */
+  border-color: var(--coral-light);
+}
+
+/* Quem pediu menos movimento: barra sem animação */
+@media (prefers-reduced-motion: reduce) {
+  /* Barra */
+  .cad-progresso-barra span {
+    /* Sem animação */
+    transition: none;
+  }
+}
