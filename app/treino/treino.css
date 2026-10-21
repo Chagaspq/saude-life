@@ -7,550 +7,1109 @@
    TELA DE TREINO (modo foco, sem sidebar)
    ============================================ */
 
+/* Link de pular para o exercício (escondido até receber foco) */
 .skip-link {
+  /* Posição solta, presa ao pai */
   position: absolute;
+  /* Distância da esquerda: 16 pixels */
   left: 16px;
+  /* Distância de cima: -60 pixels */
   top: -60px;
+  /* Camada 200 (número maior fica por cima) */
   z-index: 200;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 10px 16px;
+  /* Cantos arredondados: 10 pixels */
   border-radius: var(--radius-sm);
+  /* Fundo: coral */
   background: var(--coral);
+  /* Cor do texto: quase preto (texto em cima do coral) */
   color: var(--on-coral);
+  /* Letra negrito */
   font-weight: 700;
+  /* Tira o sublinhado */
   text-decoration: none;
 }
 
+/* Link de pular quando focado pelo Tab (aparece) */
 .skip-link:focus {
+  /* Distância de cima: 16 pixels */
   top: 16px;
 }
 
+/* Tela inteira do treino */
 .player {
+  /* Largura máxima: 1080 pixels */
   max-width: 1080px;
+  /* Centraliza na horizontal (margem automática) */
   margin: 0 auto;
+  /* Altura mínima: a tela toda */
   min-height: 100vh;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 0 24px;
 }
 
+/* Barra do topo */
 .player-topbar {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 14 pixels */
   gap: 14px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 18px 0 14px;
 }
 
+/* Nome e grupo do treino */
 .player-title {
+  /* Ocupa todo o espaço que sobra */
   flex: 1;
+  /* Deixa encolher sem estourar a caixa */
   min-width: 0;
 }
 
+/* Nome do treino */
 .player-title h1 {
+  /* Tamanho da letra: 20 pixels */
   font-size: 20px;
+  /* Não deixa quebrar linha */
   white-space: nowrap;
+  /* Esconde o que passar da caixa */
   overflow: hidden;
+  /* Corta o texto com reticências (...) */
   text-overflow: ellipsis;
 }
 
+/* Relógio do tempo de treino */
 .player-clock {
+  /* Flexbox, mas sem ocupar a linha toda */
   display: inline-flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 8px 14px;
+  /* Cantos arredondados: total (formato pílula) */
   border-radius: var(--radius-full);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Fonte: fonte de títulos (Space Grotesk) */
   font-family: var(--font-display);
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Números com a mesma largura (não tremem quando mudam) */
   font-variant-numeric: tabular-nums;
 }
 
+/* Ícone do relógio */
 .player-clock .icon {
+  /* Cor do texto: esmeralda */
   color: var(--emerald);
 }
 
+/* Área do progresso */
 .player-progress {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 12 pixels */
   gap: 12px;
+  /* Espaço interno embaixo: 20 pixels */
   padding-bottom: 20px;
 }
 
+/* Barra de progresso */
 .player-progress .progress-bar-sm {
+  /* Sem margem */
   margin: 0;
+  /* Altura: 8 pixels */
   height: 8px;
 }
 
+/* Texto de séries feitas */
 .player-progress .meta {
+  /* Não deixa quebrar linha */
   white-space: nowrap;
 }
 
+/* Conteúdo principal: exercício atual + lista */
 .player-main {
+  /* Ocupa todo o espaço que sobra */
   flex: 1;
+  /* Organiza os itens em grade */
   display: grid;
+  /* Tamanho das colunas da grade: minmax(0, 1.6fr) minmax(260px, 1fr) */
   grid-template-columns: minmax(0, 1.6fr) minmax(260px, 1fr);
+  /* Espaço entre os itens: 20 pixels */
   gap: 20px;
+  /* Itens alinhados no começo */
   align-items: start;
+  /* Espaço interno embaixo: 110 pixels */
   padding-bottom: 110px;
 }
 
+/* Conteúdo focado pelo código (sem contorno) */
 .player-main:focus {
+  /* Tira o contorno padrão */
   outline: none;
 }
 
+/* Caixa do exercício atual e caixa da lista */
 .player-current,
 .player-list {
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cantos arredondados: 20 pixels */
   border-radius: var(--radius-lg);
+  /* Espaço interno: 24 pixels */
   padding: 24px;
 }
 
+/* Bloco do exercício atual */
 .player-exercise {
+  /* Tamanho da letra: 28 pixels */
   font-size: 28px;
+  /* Espaço entre as letras */
   letter-spacing: -0.01em;
+  /* Margem (espaço por fora) */
   margin: 0 0 6px;
 }
 
+/* Cabeçalho e linhas da tabela de séries */
 .set-head,
 .set-row {
+  /* Organiza os itens em grade */
   display: grid;
+  /* Tamanho das colunas da grade: 76px minmax(0, 1fr) minmax(0, 1fr) 48px */
   grid-template-columns: 76px minmax(0, 1fr) minmax(0, 1fr) 48px;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 10 pixels */
   gap: 10px;
 }
 
+/* Cabeçalho da tabela (Série, Reps, Carga...) */
 .set-head {
+  /* Margem em cima: 22 pixels */
   margin-top: 22px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 0 12px 8px;
+  /* Tamanho da letra: 11,5 pixels */
   font-size: 11.5px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Espaço entre as letras */
   letter-spacing: 0.06em;
+  /* Letras maiúsculas */
   text-transform: uppercase;
+  /* Cor do texto: cinza mais apagado */
   color: var(--muted-2);
 }
 
+/* Última coluna do cabeçalho */
 .set-head span:last-child {
+  /* Texto centralizado */
   text-align: center;
 }
 
+/* Lista das séries */
 .set-list {
+  /* Tira as bolinhas/números da lista */
   list-style: none;
+  /* Sem margem */
   margin: 0;
+  /* Sem espaço interno */
   padding: 0;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
 }
 
+/* Linha de cada série */
 .set-row {
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 10px 12px;
+  /* Cantos arredondados: 14 pixels */
   border-radius: var(--radius-md);
+  /* Fundo: cor de card mais clara */
   background: var(--surface-2);
+  /* Borda de 1 pixel, transparente */
   border: 1px solid transparent;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: background var(--dur-base) ease, border-color var(--dur-base) ease;
 }
 
+/* Série já feita (fica verde) */
 .set-row.is-done {
+  /* Fundo: esmeralda fraquinha */
   background: var(--emerald-soft);
+  /* Cor da borda: cor meio transparente */
   border-color: rgba(52, 211, 153, 0.3);
 }
 
+/* Número da série */
 .set-number {
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Tamanho da letra: 14 pixels */
   font-size: 14px;
 }
 
+/* Caixa de cada valor (reps ou carga) */
 .set-field {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 6 pixels */
   gap: 6px;
 }
 
+/* Campo de digitar reps ou carga */
 .set-input {
+  /* Largura: a toda */
   width: 100%;
+  /* Largura máxima: 88 pixels */
   max-width: 88px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 9px 10px;
+  /* Cantos arredondados: 10 pixels */
   border-radius: var(--radius-sm);
+  /* Borda de 1,5 pixels, cor das bordas */
   border: 1.5px solid var(--border);
+  /* Fundo: verde-carvão do fundo */
   background: var(--bg);
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Usa a mesma fonte do elemento pai */
   font: inherit;
+  /* Fonte: fonte de títulos (Space Grotesk) */
   font-family: var(--font-display);
+  /* Tamanho da letra: 16 pixels */
   font-size: 16px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Texto centralizado */
   text-align: center;
 }
 
+/* Campo focado */
 .set-input:focus {
+  /* Tira o contorno padrão */
   outline: none;
+  /* Cor da borda: coral */
   border-color: var(--coral);
+  /* Anel em volta da caixa (feito com sombra) */
   box-shadow: 0 0 0 3px var(--coral-ring);
 }
 
+/* Valor fixo (quando não dá para editar) */
 .set-static {
+  /* Fonte: fonte de títulos (Space Grotesk) */
   font-family: var(--font-display);
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Tamanho da letra: 16 pixels */
   font-size: 16px;
 }
 
+/* Unidade (kg, reps) */
 .set-unit {
+  /* Cor do texto: cinza mais apagado */
   color: var(--muted-2);
+  /* Tamanho da letra: 12,5 pixels */
   font-size: 12.5px;
 }
 
+/* Botão de marcar a série como feita */
 .set-check {
+  /* Largura: 44 pixels */
   width: 44px;
+  /* Altura: 44 pixels */
   height: 44px;
+  /* Cantos totalmente redondos */
   border-radius: 50%;
+  /* Borda de 2 pixels, borda mais forte */
   border: 2px solid var(--border-strong);
+  /* Sem fundo (transparente) */
   background: transparent;
+  /* Cor do texto: transparente */
   color: transparent;
+  /* Flexbox, mas sem ocupar a linha toda */
   display: inline-flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: background var(--dur-fast) ease, border-color var(--dur-fast) ease, transform var(--dur-fast) ease;
 }
 
+/* Botão com o mouse em cima */
 .set-check:hover {
+  /* Cor da borda: esmeralda */
   border-color: var(--emerald);
+  /* Cor do texto: esmeralda */
   color: var(--emerald);
 }
 
+/* Botão marcado (série feita) */
 .set-check[aria-pressed="true"] {
+  /* Fundo: esmeralda */
   background: var(--emerald);
+  /* Cor da borda: esmeralda */
   border-color: var(--emerald);
+  /* Cor do texto: verde-carvão do fundo */
   color: var(--bg);
 }
 
+/* Botão sendo clicado */
 .set-check:active {
+  /* Muda o tamanho (escala) */
   transform: scale(0.94);
 }
 
+/* Ícone de check do botão */
 .set-check .icon {
+  /* Largura: 20 pixels */
   width: 20px;
+  /* Altura: 20 pixels */
   height: 20px;
+  /* Grossura do traço: 3 */
   stroke-width: 3;
 }
 
+/* Título da lista de exercícios */
 .player-list h2 {
+  /* Tamanho da letra: 16 pixels */
   font-size: 16px;
+  /* Margem (espaço por fora) */
   margin: 0 0 12px;
 }
 
+/* Lista numerada de exercícios */
 .player-list ol {
+  /* Tira as bolinhas/números da lista */
   list-style: none;
+  /* Sem margem */
   margin: 0;
+  /* Sem espaço interno */
   padding: 0;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 4 pixels */
   gap: 4px;
 }
 
+/* Cada exercício da lista */
 .player-list-item {
+  /* Largura: a toda */
   width: 100%;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 12 pixels */
   gap: 12px;
+  /* Espaço interno: 10 pixels */
   padding: 10px;
+  /* Cantos arredondados: 10 pixels */
   border-radius: var(--radius-sm);
+  /* Borda de 1 pixel, transparente */
   border: 1px solid transparent;
+  /* Sem fundo (transparente) */
   background: transparent;
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Usa a mesma fonte do elemento pai */
   font: inherit;
+  /* Texto à esquerda */
   text-align: left;
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
 }
 
+/* Exercício com o mouse em cima */
 .player-list-item:hover {
+  /* Fundo: cor de card mais clara */
   background: var(--surface-2);
 }
 
+/* Exercício atual */
 .player-list-item.is-current {
+  /* Fundo: coral bem fraquinho */
   background: var(--coral-soft);
+  /* Cor da borda: cor meio transparente */
   border-color: rgba(255, 122, 69, 0.35);
 }
 
+/* Número do exercício atual */
 .player-list-item.is-current .exercise-index {
+  /* Fundo: coral */
   background: var(--coral);
+  /* Cor do texto: quase preto (texto em cima do coral) */
   color: var(--on-coral);
 }
 
+/* Número do exercício já feito */
 .player-list-item.is-done .exercise-index {
+  /* Fundo: esmeralda */
   background: var(--emerald);
+  /* Cor do texto: verde-carvão do fundo */
   color: var(--bg);
 }
 
+/* Textos do exercício na lista */
 .player-list-text {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 1 pixel */
   gap: 1px;
+  /* Deixa encolher sem estourar a caixa */
   min-width: 0;
 }
 
+/* Nome do exercício */
 .player-list-text strong {
+  /* Tamanho da letra: 13,5 pixels */
   font-size: 13.5px;
 }
 
+/* Detalhe do exercício */
 .player-list-text span {
+  /* Tamanho da letra: 12 pixels */
   font-size: 12px;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
 }
 
+/* Barra de baixo com os botões */
 .player-footer {
+  /* Fixo na tela, mesmo rolando */
   position: fixed;
+  /* Encostado na esquerda */
   left: 0;
+  /* Encostado na direita */
   right: 0;
+  /* Encostado embaixo */
   bottom: 0;
+  /* Camada 20 (número maior fica por cima) */
   z-index: 20;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Espaço entre os itens: 12 pixels */
   gap: 12px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 14px 24px calc(14px + env(safe-area-inset-bottom));
-  background: rgba(14, 21, 18, 0.94);
+  /* Fundo da barra (escuro ou claro, conforme o tema) */
+  background: var(--barra-fundo);
+  /* Desfoca o que está atrás (efeito vidro) */
   backdrop-filter: blur(12px);
+  /* Borda em cima de 1 pixel, cor das bordas */
   border-top: 1px solid var(--border);
 }
 
+/* Botões da barra de baixo */
 .player-footer button {
+  /* Largura mínima: 180 pixels */
   min-width: 180px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 13px 22px;
+  /* Tamanho da letra: 14,5 pixels */
   font-size: 14.5px;
 }
 
 /* Painel de descanso entre séries */
+/* Painel do descanso (fica preso embaixo da tela) */
 .rest-panel {
+  /* Fixo na tela, mesmo rolando */
   position: fixed;
+  /* Distância da esquerda: 50% */
   left: 50%;
+  /* Distância de baixo */
   bottom: calc(92px + env(safe-area-inset-bottom));
+  /* Move o elemento */
   transform: translateX(-50%);
+  /* Camada 40 (número maior fica por cima) */
   z-index: 40;
+  /* Largura */
   width: min(460px, calc(100% - 32px));
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 18 pixels */
   gap: 18px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 16px 18px;
+  /* Cantos arredondados: 20 pixels */
   border-radius: var(--radius-lg);
+  /* Borda de 1 pixel, borda mais forte */
   border: 1px solid var(--border-strong);
+  /* Fundo: cor de card mais clara */
   background: var(--surface-2);
+  /* Sombra: sombra grande */
   box-shadow: var(--shadow-lg);
+  /* Roda a animação "view-in" */
   animation: view-in var(--dur-base) var(--ease-out) both;
 }
 
+/* Painel escondido */
 .rest-panel[hidden] {
+  /* Esconde o elemento */
   display: none;
 }
 
+/* Anel do descanso */
 .rest-ring {
+  /* Posição relativa (serve de base para filhos soltos) */
   position: relative;
+  /* Largura: 92 pixels */
   width: 92px;
+  /* Altura: 92 pixels */
   height: 92px;
+  /* Não deixa encolher */
   flex-shrink: 0;
 }
 
+/* Desenho do anel */
 .rest-ring svg {
+  /* Largura: a toda */
   width: 100%;
+  /* Altura: a toda */
   height: 100%;
+  /* Gira o elemento */
   transform: rotate(-90deg);
 }
 
+/* Círculos do anel */
 .rest-ring-bg,
 .rest-ring-fill {
+  /* Sem preenchimento no desenho */
   fill: none;
+  /* Grossura do traço: 9 */
   stroke-width: 9;
 }
 
+/* Círculo de fundo */
 .rest-ring-bg {
+  /* Cor do traço do desenho: cor de destaque mais clara */
   stroke: var(--surface-3);
 }
 
+/* Círculo colorido que vai esvaziando */
 .rest-ring-fill {
+  /* Cor do traço do desenho: esmeralda */
   stroke: var(--emerald);
+  /* Pontas do traço arredondadas */
   stroke-linecap: round;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: stroke-dashoffset 1s linear;
 }
 
+/* Tempo no meio do anel */
 .rest-time {
+  /* Posição solta, presa ao pai */
   position: absolute;
+  /* Ocupa a área toda do pai */
   inset: 0;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Fonte: fonte de títulos (Space Grotesk) */
   font-family: var(--font-display);
+  /* Tamanho da letra: 20 pixels */
   font-size: 20px;
+  /* Letra negrito */
   font-weight: 700;
+  /* Números com a mesma largura (não tremem quando mudam) */
   font-variant-numeric: tabular-nums;
 }
 
+/* Informações do descanso */
 .rest-info {
+  /* Ocupa todo o espaço que sobra */
   flex: 1;
+  /* Deixa encolher sem estourar a caixa */
   min-width: 0;
 }
 
+/* Título "Descanso" */
 .rest-title {
+  /* Sem margem */
   margin: 0;
+  /* Fonte: fonte de títulos (Space Grotesk) */
   font-family: var(--font-display);
+  /* Tamanho da letra: 18 pixels */
   font-size: 18px;
+  /* Letra negrito */
   font-weight: 700;
 }
 
+/* Próximo exercício */
 .rest-info .meta {
+  /* Margem (espaço por fora) */
   margin: 2px 0 12px;
 }
 
+/* Botões do descanso */
 .rest-actions {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
+  /* Quebra para a linha de baixo se não couber */
   flex-wrap: wrap;
 }
 
+/* Cada botão */
 .rest-actions button {
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 8px 14px;
 }
 
 /* Resumo no fim do treino */
+/* Treino terminado: esconde o conteúdo normal */
 .is-finished .player-main {
+  /* Vira um bloco (ocupa a linha toda) */
   display: block;
 }
 
+/* Card de resumo do fim do treino */
 .finish-card {
+  /* Largura máxima: 640 pixels */
   max-width: 640px;
+  /* Margem (espaço por fora) */
   margin: 24px auto 0;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Texto centralizado */
   text-align: center;
+  /* Espaço entre os itens: 14 pixels */
   gap: 14px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 36px 28px;
+  /* Cantos arredondados: 20 pixels */
   border-radius: var(--radius-lg);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Fundo com várias camadas (veja as linhas abaixo) */
   background:
     radial-gradient(circle at 50% 0%, rgba(52, 211, 153, 0.14), transparent 60%),
     var(--surface);
 }
 
+/* Título do resumo */
 .finish-card h2 {
+  /* Tamanho da letra: 30 pixels */
   font-size: 30px;
 }
 
+/* Texto do resumo */
 .finish-card .page-lead {
+  /* Margem (espaço por fora) */
   margin: 0 0 8px;
+  /* Largura máxima: 440 pixels */
   max-width: 440px;
 }
 
+/* Números do resumo */
 .finish-card .stats-grid {
+  /* Largura: a toda */
   width: 100%;
+  /* Texto à esquerda */
   text-align: left;
 }
 
+/* Selo de treino concluído */
 .finish-badge {
+  /* Largura: 96 pixels */
   width: 96px;
+  /* Altura: 96 pixels */
   height: 96px;
 }
 
+/* Anel do selo */
 .finish-badge-ring {
+  /* Cor de preenchimento do desenho: esmeralda fraquinha */
   fill: var(--emerald-soft);
+  /* Cor do traço do desenho: cor meio transparente */
   stroke: rgba(52, 211, 153, 0.35);
 }
 
+/* Miolo do selo */
 .finish-badge-core {
+  /* Cor de preenchimento do desenho: esmeralda */
   fill: var(--emerald);
 }
 
+/* Check do selo */
 .finish-badge-check {
+  /* Sem preenchimento no desenho */
   fill: none;
+  /* Cor do traço do desenho: verde-carvão do fundo */
   stroke: var(--bg);
+  /* Grossura do traço: 6 */
   stroke-width: 6;
+  /* Pontas do traço arredondadas */
   stroke-linecap: round;
+  /* Cantos do traço arredondados */
   stroke-linejoin: round;
+  /* Tamanho do tracejado (usado para animar o desenho do traço) */
   stroke-dasharray: 48;
+  /* Quanto do traço está escondido (anima o anel) */
   stroke-dashoffset: 48;
+  /* Roda a animação "desenhar-check" */
   animation: desenhar-check 0.5s 0.15s var(--ease-out) forwards;
 }
 
+/* Animação chamada "desenhar-check" (passo a passo abaixo) */
 @keyframes desenhar-check {
+  /* Fim da animação */
   to {
+    /* Quanto do traço está escondido (anima o anel) */
     stroke-dashoffset: 0;
   }
 }
 
+/* Botões do resumo */
 .finish-actions {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Espaço entre os itens: 10 pixels */
   gap: 10px;
+  /* Quebra para a linha de baixo se não couber */
   flex-wrap: wrap;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Margem em cima: 8 pixels */
   margin-top: 8px;
 }
 
+/* Em telas de até 760 pixels */
 @media (max-width: 760px) {
+  /* Tela do treino */
   .player {
+    /* Espaço interno (em cima, lados e embaixo) */
     padding: 0 16px;
   }
 
+  /* Conteúdo principal */
   .player-main {
+    /* Uma coluna só */
     grid-template-columns: 1fr;
   }
 
+  /* Caixas do exercício e da lista */
   .player-current,
   .player-list {
+    /* Espaço interno: 18 pixels */
     padding: 18px;
   }
 
+  /* Bloco do exercício atual */
   .player-exercise {
+    /* Tamanho da letra: 23 pixels */
     font-size: 23px;
   }
 
+  /* Relógio */
   .player-clock {
+    /* Espaço interno (em cima, lados e embaixo) */
     padding: 6px 10px;
+    /* Tamanho da letra: 14 pixels */
     font-size: 14px;
   }
 
+  /* Nome do treino */
   .player-title h1 {
+    /* Tamanho da letra: 17 pixels */
     font-size: 17px;
   }
 
+  /* Cabeçalho e linhas das séries */
   .set-head,
   .set-row {
+    /* Tamanho das colunas da grade: 54px minmax(0, 1fr) minmax(0, 1fr) 44px */
     grid-template-columns: 54px minmax(0, 1fr) minmax(0, 1fr) 44px;
+    /* Espaço entre os itens: 6 pixels */
     gap: 6px;
   }
 
+  /* Cabeçalho da tabela */
   .set-head {
+    /* Espaço interno (em cima, lados e embaixo) */
     padding: 0 10px 6px;
   }
 
+  /* Linha de cada série */
   .set-row {
+    /* Espaço interno (em cima, lados e embaixo) */
     padding: 8px 10px;
   }
 
+  /* Número da série */
   .set-number {
+    /* Tamanho da letra: 12,5 pixels */
     font-size: 12.5px;
   }
 
+  /* Unidade */
   .set-unit {
+    /* Esconde o elemento */
     display: none;
   }
 
+  /* Barra de baixo */
   .player-footer {
+    /* Espaço interno (em cima, lados e embaixo) */
     padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
   }
 
+  /* Botões da barra de baixo */
   .player-footer button {
+    /* Ocupa todo o espaço que sobra */
     flex: 1;
+    /* Deixa encolher sem estourar a caixa */
     min-width: 0;
   }
 
+  /* Anel do descanso */
   .rest-ring {
+    /* Largura: 76 pixels */
     width: 76px;
+    /* Altura: 76 pixels */
     height: 76px;
   }
 }
 
+/* Em telas de até 640 pixels */
 @media (max-width: 640px) {
+  /* Botões da barra de baixo */
   .player-footer button {
+    /* Espaço interno (em cima, lados e embaixo) */
     padding: 13px 12px;
+    /* Tamanho da letra: 14 pixels */
     font-size: 14px;
+    /* Não deixa quebrar linha */
     white-space: nowrap;
+  }
+}
+
+/* Sugestão de carga para hoje */
+.sugestao-carga {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 12px;
+  /* Margem em cima */
+  margin-top: 14px;
+  /* Espaço interno */
+  padding: 10px 12px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Fundo esmeralda fraquinho */
+  background: var(--emerald-soft);
+  /* Borda esmeralda */
+  border: 1px solid var(--emerald-dark);
+}
+
+/* Texto da sugestão */
+.sugestao-carga p {
+  /* Ocupa o espaço que sobra */
+  flex: 1;
+  /* Sem margem */
+  margin: 0;
+}
+
+/* Bloco "Como fazer" (abre e fecha) */
+.como-fazer {
+  /* Margem em cima */
+  margin-top: 16px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Borda fininha */
+  border: 1px solid var(--border);
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+}
+
+/* Título clicável do "Como fazer" */
+.como-fazer summary {
+  /* Espaço interno */
+  padding: 12px 16px;
+  /* Letra seminegrito */
+  font-weight: 600;
+  /* Mãozinha do mouse */
+  cursor: pointer;
+  /* Coral claro */
+  color: var(--coral-light);
+}
+
+/* Miolo: Pulso + dicas lado a lado */
+.como-fazer-miolo {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 16px;
+  /* Espaço interno */
+  padding: 0 16px 16px;
+}
+
+/* Pulso do "Como fazer" um pouco menor */
+.como-fazer .pulso {
+  /* Largura de 96 pixels */
+  width: 96px;
+  /* Altura de 120 pixels */
+  height: 120px;
+}
+
+/* Dicas */
+.como-fazer-dicas ul {
+  /* Margem embaixo */
+  margin: 0 0 8px;
+  /* Espaço à esquerda para as bolinhas */
+  padding-left: 18px;
+  /* Linhas mais espaçadas */
+  line-height: 1.5;
+}
+
+/* Erro comum */
+.como-fazer-erro {
+  /* Margem embaixo */
+  margin: 0 0 6px;
+  /* Tamanho da letra: 14 pixels */
+  font-size: 14px;
+}
+
+/* "Cuidado:" em amarelo de alerta */
+.como-fazer-erro strong {
+  /* Amarelo de alerta */
+  color: var(--warning);
+}
+
+/* Pergunta "Como foi o treino?" */
+.esforco {
+  /* Sem borda */
+  border: 0;
+  /* Margem em cima e embaixo */
+  margin: 8px 0;
+  /* Sem espaço interno */
+  padding: 0;
+  /* Organiza em grade */
+  display: grid;
+  /* 4 colunas iguais */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  /* Espaço entre os botões */
+  gap: 8px;
+}
+
+/* Pergunta */
+.esforco legend {
+  /* Ocupa a linha toda */
+  grid-column: 1 / -1;
+  /* Espaço embaixo */
+  margin-bottom: 8px;
+  /* Letra seminegrito */
+  font-weight: 600;
+}
+
+/* Cada botão de esforço */
+.esforco button {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Centralizados */
+  align-items: center;
+  /* Espaço entre o emoji e o texto */
+  gap: 4px;
+  /* Espaço interno */
+  padding: 10px 4px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Borda */
+  border: 1px solid var(--border);
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+  /* Cor principal do texto */
+  color: var(--ink);
+  /* Usa a mesma fonte do pai */
+  font: inherit;
+  /* Letra pequena */
+  font-size: 12.5px;
+  /* Mãozinha do mouse */
+  cursor: pointer;
+  /* Mudança suave */
+  transition: transform var(--dur-fast), border-color var(--dur-fast);
+}
+
+/* Botão de esforço com o mouse em cima */
+.esforco button:hover {
+  /* Sobe um pouquinho */
+  transform: translateY(-2px);
+}
+
+/* Botão de esforço escolhido */
+.esforco button[aria-pressed="true"] {
+  /* Borda coral */
+  border-color: var(--coral);
+  /* Fundo coral fraco */
+  background: var(--coral-dim);
+}
+
+/* Emoji grande */
+.esforco-emoji {
+  /* Tamanho do emoji */
+  font-size: 26px;
+}
+
+/* Em telas de até 640 pixels (celular) */
+@media (max-width: 640px) {
+  /* Pulso e dicas um embaixo do outro */
+  .como-fazer-miolo {
+    /* Itens em coluna */
+    flex-direction: column;
+    /* Alinhados à esquerda */
+    align-items: flex-start;
+  }
+
+  /* Sugestão de carga quebra linha */
+  .sugestao-carga {
+    /* Quebra linha */
+    flex-wrap: wrap;
   }
 }

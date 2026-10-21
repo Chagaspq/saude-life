@@ -4,8 +4,10 @@
  */
 
 /* Esconde o "olho" nativo do Edge: já temos o nosso botão de mostrar senha */
+/* Botões nativos de ver senha do Edge (temos o nosso) */
 input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear {
+  /* Esconde o elemento */
   display: none;
 }
 
@@ -14,14 +16,20 @@ input[type="password"]::-ms-clear {
  * (que deixava uma "caixa" visível dentro do campo), adia a troca de cor
  * para sempre, mantendo o fundo do próprio campo.
  */
+/* Campos preenchidos automaticamente pelo navegador */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
+  /* Cor da letra (ajuste para o Safari) */
   -webkit-text-fill-color: var(--ink) !important;
+  /* Mesmo ajuste para o Safari e navegadores antigos */
   -webkit-box-shadow: none !important;
+  /* Sem sombra (!important: vence outras regras) */
   box-shadow: none !important;
+  /* Cor do cursor de digitação: bege claro do texto */
   caret-color: var(--ink);
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     background-color 600000s 0s,
     color 600000s 0s;
@@ -31,40 +39,66 @@ input:-webkit-autofill:active {
  * Faixa colorida no topo do card. Antes era feita com border-image,
  * que ignora o border-radius e deixava os cantos retos.
  */
+/* Cartão do formulário */
 .auth-container {
+  /* Posição relativa (serve de base para filhos soltos) */
   position: relative;
+  /* Esconde o que passar da caixa */
   overflow: hidden;
 }
 
+/* Brilho decorativo atrás do cartão */
 .auth-container::before {
+  /* Cria um pedacinho vazio, só para enfeite */
   content: "";
+  /* Posição solta, presa ao pai */
   position: absolute;
+  /* Distância de todos os lados: 0 0 auto 0 */
   inset: 0 0 auto 0;
+  /* Altura: 3 pixels */
   height: 3px;
+  /* Fundo em degradê */
   background: linear-gradient(90deg, var(--coral), var(--emerald));
+  /* Ignora cliques (eles passam direto) */
   pointer-events: none;
 }
 
 /* Garante que elementos com o atributo hidden fiquem escondidos
    mesmo quando o CSS da página define display (ex.: medidor de senha) */
+/* Qualquer elemento com o atributo hidden */
 [hidden] {
+  /* Esconde o elemento (!important: vence outras regras) */
   display: none !important;
 }
 
 /* Aviso rápido (ex.: login social ainda indisponível) */
+/* Aviso rápido das telas de login/cadastro */
 .auth-toast {
+  /* Fixo na tela, mesmo rolando */
   position: fixed;
+  /* Distância da esquerda: 50% */
   left: 50%;
+  /* Distância de baixo: 24 pixels */
   bottom: 24px;
+  /* Move o elemento */
   transform: translateX(-50%);
+  /* Largura máxima */
   max-width: calc(100% - 32px);
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 12px 18px;
+  /* Cantos totalmente redondos */
   border-radius: 999px;
+  /* Fundo: cor de card mais clara */
   background: var(--surface-2);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Tamanho da letra: 14 pixels */
   font-size: 14px;
+  /* Sombra em volta da caixa */
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  /* Camada 100 (número maior fica por cima) */
   z-index: 100;
 }
 
@@ -73,26 +107,43 @@ input:-webkit-autofill:active {
    texto da marca à esquerda, formulário à direita
    ============================================ */
 
+/* Tela dividida em duas colunas */
 .auth-split {
+  /* Organiza os itens em grade */
   display: grid;
+  /* Tamanho das colunas da grade: minmax(0, 1fr) minmax(0, 1fr) */
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  /* Altura mínima: a tela toda */
   min-height: 100vh;
 }
 
+/* Lado do desenho */
 .auth-visual {
+  /* Posição relativa (serve de base para filhos soltos) */
   position: relative;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço interno: entre 32 pixels e 72 pixels, conforme a tela */
   padding: clamp(32px, 5vw, 72px);
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Fundo em degradê */
   background: linear-gradient(160deg, #101a16 0%, var(--bg) 60%);
+  /* Esconde o que passar da caixa */
   overflow: hidden;
 }
 
+/* Brilho de fundo do lado do desenho */
 .auth-visual::before {
+  /* Cria um pedacinho vazio, só para enfeite */
   content: "";
+  /* Posição solta, presa ao pai */
   position: absolute;
+  /* Ocupa a área toda do pai */
   inset: 0;
+  /* Fundo com um brilho circular */
   background: radial-gradient(
     circle at 20% 15%,
     rgba(255, 122, 69, 0.16),
@@ -100,185 +151,309 @@ input:-webkit-autofill:active {
   );
 }
 
+/* Conteúdo do lado do desenho */
 .auth-visual-content {
+  /* Posição relativa (serve de base para filhos soltos) */
   position: relative;
+  /* Camada 1 (número maior fica por cima) */
   z-index: 1;
+  /* Largura máxima */
   max-width: 38ch;
 }
 
+/* Logo e nome do lado do desenho */
 .auth-visual-brand {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 12 pixels */
   gap: 12px;
+  /* Fonte: fonte de títulos (Space Grotesk) */
   font-family: var(--font-display);
+  /* Letra negrito */
   font-weight: 700;
+  /* Tamanho da letra: 19 pixels */
   font-size: 19px;
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Margem embaixo: 56 pixels */
   margin-bottom: 56px;
 }
 
+/* Desenho da logo */
 .auth-visual-brand svg {
+  /* Largura: 36 pixels */
   width: 36px;
+  /* Altura: 36 pixels */
   height: 36px;
 }
 
+/* Frase grande */
 .auth-visual .visual-heading {
+  /* Vira um bloco (ocupa a linha toda) */
   display: block;
+  /* Letra negrito */
   font-weight: 700;
+  /* Fonte: fonte de títulos (Space Grotesk) */
   font-family: var(--font-display);
+  /* Tamanho da letra: entre 32 pixels e 46 pixels, conforme a tela */
   font-size: clamp(32px, 3.4vw, 46px);
+  /* Altura da linha: 1,15 */
   line-height: 1.15;
+  /* Espaço entre as letras */
   letter-spacing: -0.01em;
+  /* Margem (espaço por fora) */
   margin: 0 0 20px;
+  /* Cor do texto: branco */
   color: var(--ink-strong);
 }
 
+/* Texto de apoio */
 .auth-visual p {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 17 pixels */
   font-size: 17px;
+  /* Altura da linha: 1,65 */
   line-height: 1.65;
+  /* Sem margem */
   margin: 0;
 }
 
+/* Desenho de fundo (anéis e batimento) */
 .auth-visual-graphic {
+  /* Largura: 260 pixels */
   width: 260px;
+  /* Margem em cima: 64 pixels */
   margin-top: 64px;
 }
 
+/* Números do Saúde Life */
 .auth-visual-stats {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Espaço entre os itens: 32 pixels */
   gap: 32px;
+  /* Margem (espaço por fora) */
   margin: 40px 0 0;
+  /* Espaço interno em cima: 24 pixels */
   padding-top: 24px;
+  /* Borda em cima de 1 pixel, cor meio transparente */
   border-top: 1px solid rgba(244, 241, 234, 0.1);
 }
 
+/* Valor do número */
 .auth-stat dt {
+  /* Fonte: fonte de títulos (Space Grotesk) */
   font-family: var(--font-display);
+  /* Tamanho da letra: 22 pixels */
   font-size: 22px;
+  /* Letra negrito */
   font-weight: 700;
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
 }
 
+/* Nome do número */
 .auth-stat dd {
+  /* Margem (espaço por fora) */
   margin: 2px 0 0;
+  /* Tamanho da letra: 12,5 pixels */
   font-size: 12.5px;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
 }
 
+/* Anéis do desenho */
 .pulse-ring {
+  /* Sem preenchimento no desenho */
   fill: none;
+  /* Cor do traço do desenho: cor meio transparente */
   stroke: rgba(244, 241, 234, 0.12);
+  /* Grossura do traço: 1.5 */
   stroke-width: 1.5;
 }
 
+/* Segundo anel */
 .pulse-ring-2 {
+  /* Cor do traço do desenho: cor meio transparente */
   stroke: rgba(52, 211, 153, 0.4);
 }
 
+/* Linha de batimento */
 .pulse-line {
+  /* Cor do traço do desenho: coral claro */
   stroke: var(--coral-light);
+  /* Sombra que segue o formato do desenho */
   filter: drop-shadow(0 0 8px rgba(255, 122, 69, 0.45));
 }
 
+/* Lado do formulário */
 .auth-form-panel {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 24px 16px;
 }
 
+/* Em telas de até 900 pixels */
 @media (max-width: 900px) {
+  /* Tela dividida */
   .auth-split {
+    /* Uma coluna só */
     grid-template-columns: 1fr;
   }
 
+  /* Lado do desenho */
   .auth-visual {
+    /* Espaço interno (em cima, lados e embaixo) */
     padding: 28px clamp(20px, 6vw, 40px);
   }
 
+  /* Logo do lado do desenho */
   .auth-visual-brand {
+    /* Margem embaixo: 20 pixels */
     margin-bottom: 20px;
   }
 
+  /* Frase grande */
   .auth-visual .visual-heading {
+    /* Vira um bloco (ocupa a linha toda) */
     display: block;
+    /* Tamanho da letra: 22 pixels */
     font-size: 22px;
   }
 
+  /* Partes que somem no celular */
   .auth-visual p,
   .auth-visual-graphic,
   .auth-visual-stats {
+    /* Esconde o elemento */
     display: none;
   }
 }
 
 
+/* Lista de vantagens do cadastro */
 .auth-visual-list {
+  /* Tira as bolinhas/números da lista */
   list-style: none;
+  /* Margem (espaço por fora) */
   margin: 36px 0 0;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 24px 0 0;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 14 pixels */
   gap: 14px;
+  /* Borda em cima de 1 pixel, cor meio transparente */
   border-top: 1px solid rgba(244, 241, 234, 0.1);
 }
 
+/* Cada vantagem */
 .auth-visual-list li {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens alinhados no começo */
   align-items: flex-start;
+  /* Espaço entre os itens: 12 pixels */
   gap: 12px;
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Tamanho da letra: 15 pixels */
   font-size: 15px;
+  /* Altura da linha: 1,5 */
   line-height: 1.5;
 }
 
+/* Ícone de check */
 .auth-visual-list svg {
+  /* Não deixa encolher */
   flex-shrink: 0;
+  /* Largura: 22 pixels */
   width: 22px;
+  /* Altura: 22 pixels */
   height: 22px;
+  /* Espaço interno: 4 pixels */
   padding: 4px;
+  /* Margem em cima: 1 pixel */
   margin-top: 1px;
+  /* Cantos totalmente redondos */
   border-radius: 50%;
+  /* Fundo: esmeralda fraquinha */
   background: var(--emerald-soft);
+  /* Cor do texto: esmeralda */
   color: var(--emerald);
 }
 
+/* Em telas de até 900 pixels */
 @media (max-width: 900px) {
+  /* Lista de vantagens */
   .auth-visual-list {
+    /* Esconde o elemento */
     display: none;
   }
 }
 
 /* Mensagem de erro só ocupa espaço quando existe (antes deixava buracos entre os campos) */
+/* Lugar do erro quando está vazio */
 .field-error:empty {
+  /* Esconde o elemento */
   display: none;
 }
 
 /* Checkbox no visual do site */
+/* Caixinha de aceitar os termos */
 .checkbox-group input[type="checkbox"] {
+  /* Tira o visual padrão do navegador */
   appearance: none;
+  /* Mesmo ajuste para o Safari e navegadores antigos */
   -webkit-appearance: none;
+  /* Largura: 18 pixels */
   width: 18px;
+  /* Altura: 18 pixels */
   height: 18px;
+  /* Margem em cima: zero */
   margin-top: 0;
+  /* Cantos arredondados: 5 pixels */
   border-radius: 5px;
+  /* Borda de 1,5 pixels, borda mais forte */
   border: 1.5px solid var(--border-strong);
+  /* Fundo: cor meio transparente */
   background: rgba(255, 255, 255, 0.02);
+  /* Grade, mas sem ocupar a linha toda */
   display: inline-grid;
+  /* Centraliza tudo nos dois sentidos */
   place-content: center;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: background 150ms ease, border-color 150ms ease;
 }
 
+/* Caixinha com o mouse em cima */
 .checkbox-group input[type="checkbox"]:hover {
+  /* Cor da borda: coral claro */
   border-color: var(--coral-light);
 }
 
+/* Caixinha marcada */
 .checkbox-group input[type="checkbox"]:checked {
+  /* Fundo: coral */
   background: var(--coral);
+  /* Cor da borda: coral */
   border-color: var(--coral);
+  /* Imagem/desenho de fundo */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2314100c' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+  /* Tamanho da imagem de fundo */
   background-size: 12px;
+  /* Posição da imagem de fundo */
   background-position: center;
+  /* Imagem de fundo sem repetir */
   background-repeat: no-repeat;
 }

@@ -1,132 +1,233 @@
 <!doctype html>
+<!-- A linha acima avisa o navegador que este arquivo é uma página HTML5 -->
+<!-- Começo da página, em português do Brasil -->
 <html lang="pt-BR">
+  <!-- Cabeçalho: informações da página que não aparecem na tela -->
   <head>
+    <!-- Usa UTF-8 para mostrar os acentos (á, ç, ã) do jeito certo -->
     <meta charset="UTF-8" />
+    <!-- Faz a página se ajustar à largura da tela do celular -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Cor da barra do navegador no celular (verde-carvão) -->
     <meta name="theme-color" content="#0e1512" />
+    <!-- Ícone da aba do navegador (a logo) -->
     <link rel="icon" href="shared/favicon.svg" type="image/svg+xml" />
+    <!-- Arquivo que permite instalar o site como app no celular -->
     <link rel="manifest" href="shared/manifest.webmanifest" />
+    <!-- Ícone usado quando o site é salvo na tela inicial do iPhone -->
     <link rel="apple-touch-icon" href="shared/icon-192.png" />
+    <!-- Para redes sociais: diz que isto é um site -->
     <meta property="og:type" content="website" />
+    <!-- Para redes sociais: nome do site -->
     <meta property="og:site_name" content="Saúde Life" />
+    <!-- Para redes sociais: idioma português do Brasil -->
     <meta property="og:locale" content="pt_BR" />
+    <!-- Para redes sociais: título que aparece quando o link é compartilhado -->
     <meta property="og:title" content="Página não encontrada — Saúde Life" />
+    <!-- Para redes sociais: texto que aparece quando o link é compartilhado -->
     <meta property="og:description" content="A página que você procurou não existe ou mudou de endereço." />
+    <!-- Para redes sociais: imagem que aparece quando o link é compartilhado -->
     <meta property="og:image" content="https://chagaspq.github.io/saude-life/shared/og-image.png" />
+    <!-- No X (Twitter), mostra o link com imagem grande -->
     <meta name="twitter:card" content="summary_large_image" />
+    <!-- Nome que aparece na aba do navegador -->
     <title>Página não encontrada — Saúde Life</title>
+    <!-- Descrição da página que aparece no Google -->
     <meta name="description" content="A página que você procurou não existe ou mudou de endereço." />
+    <!-- Pede para o Google não mostrar esta página nas buscas -->
     <meta name="robots" content="noindex" />
+    <!-- Já começa a conectar no Google Fonts para as fontes carregarem mais rápido -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!-- Mesma coisa para o servidor onde ficam os arquivos das fontes -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Carrega as fontes Space Grotesk (títulos) e Inter (texto) -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap"
       rel="stylesheet"
     />
+    <!-- Carrega as variáveis do site: cores, fontes e espaços (design system) -->
     <link rel="stylesheet" href="shared/tokens.css" />
+    <!-- Aplica o tema claro ou escuro antes de desenhar a página (e cria o botão de trocar) -->
+    <script src="shared/tema.js"></script>
+    <!-- Carrega o botão de idioma (português / inglês) -->
+    <script src="shared/idioma.js" defer></script>
+    <!-- Carrega o estilo base comum a todas as páginas -->
     <link rel="stylesheet" href="shared/base.css" />
+    <!-- Estilos só desta página, escritos aqui mesmo -->
     <style>
+      /* Corpo da página */
       body {
+        /* Sem margem */
         margin: 0;
+        /* Ocupa pelo menos a altura da tela toda */
         min-height: 100vh;
+        /* Organiza o conteúdo com flexbox */
         display: flex;
+        /* Centraliza na altura */
         align-items: center;
+        /* Centraliza na largura */
         justify-content: center;
+        /* Espaço nas bordas */
         padding: 24px;
+        /* A largura inclui o espaço interno */
         box-sizing: border-box;
+        /* Fundo verde-carvão */
         background: var(--bg);
+        /* Brilho coral no canto de cima */
         background-image: radial-gradient(circle at 85% -10%, rgba(255, 122, 69, 0.14), transparent 45%);
+        /* Cor do texto */
         color: var(--ink);
+        /* Fonte Inter */
         font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        /* Texto centralizado */
         text-align: center;
       }
 
+      /* Bloco principal */
       main {
+        /* No máximo 440 pixels de largura */
         max-width: 440px;
+        /* Itens com flexbox... */
         display: flex;
+        /* ...em coluna */
         flex-direction: column;
+        /* ...centralizados */
         align-items: center;
+        /* ...com 16 pixels entre eles */
         gap: 16px;
       }
 
+      /* O número 404 grandão */
       .codigo {
+        /* Margem só em cima */
         margin: 8px 0 0;
+        /* Fonte de títulos */
         font-family: "Space Grotesk", sans-serif;
+        /* Tamanho 72 pixels */
         font-size: 72px;
+        /* Bem negrito */
         font-weight: 700;
+        /* Linha bem justa */
         line-height: 1;
+        /* Degradê coral para esmeralda */
         background: linear-gradient(135deg, var(--coral), var(--emerald));
+        /* Pinta só as letras com o degradê (Safari) */
         -webkit-background-clip: text;
+        /* Pinta só as letras com o degradê */
         background-clip: text;
+        /* A cor da letra fica transparente para o degradê aparecer */
         color: transparent;
       }
 
+      /* Título da página */
       h1 {
+        /* Sem margem */
         margin: 0;
+        /* Fonte de títulos */
         font-family: "Space Grotesk", sans-serif;
+        /* Tamanho 26 pixels */
         font-size: 26px;
+        /* Branco */
         color: var(--ink-strong);
       }
 
+      /* Parágrafos */
       p {
+        /* Sem margem */
         margin: 0;
+        /* Cor apagada */
         color: var(--muted);
+        /* Linhas mais espaçadas */
         line-height: 1.6;
       }
 
+      /* Caixa dos botões */
       .acoes {
+        /* Botões lado a lado */
         display: flex;
+        /* 12 pixels entre eles */
         gap: 12px;
+        /* Quebra linha se não couber */
         flex-wrap: wrap;
+        /* Centralizados */
         justify-content: center;
+        /* Espaço em cima */
         margin-top: 8px;
       }
 
+      /* Base dos dois botões */
       .btn {
+        /* Ficam em linha, com flexbox por dentro */
         display: inline-flex;
+        /* Conteúdo centralizado na altura */
         align-items: center;
+        /* Espaço interno */
         padding: 12px 22px;
+        /* Formato pílula */
         border-radius: 999px;
+        /* Letra seminegrito */
         font-weight: 600;
+        /* Tamanho 14,5 pixels */
         font-size: 14.5px;
+        /* Sem sublinhado */
         text-decoration: none;
       }
 
+      /* Botão principal (coral) */
       .btn-primario {
+        /* Texto escuro */
         color: var(--on-coral);
+        /* Degradê coral */
         background: linear-gradient(180deg, var(--coral-light), var(--coral) 70%);
       }
 
+      /* Botão secundário (contorno) */
       .btn-secundario {
+        /* Texto claro */
         color: var(--ink);
+        /* Borda fininha */
         border: 1px solid var(--border);
       }
 
+      /* Botão secundário com o mouse em cima */
       .btn-secundario:hover {
+        /* A borda fica coral */
         border-color: var(--coral);
       }
 
+      /* Link focado pelo teclado */
       a:focus-visible {
+        /* Contorno coral */
         outline: 2px solid var(--coral);
+        /* Contorno um pouco afastado */
         outline-offset: 3px;
       }
     </style>
   </head>
+  <!-- Corpo: tudo o que aparece na tela -->
   <body>
+    <!-- Conteúdo principal -->
     <main>
+      <!-- Desenho da logo em SVG -->
       <svg aria-hidden="true" width="48" height="48" viewBox="0 0 64 64" fill="none">
+        <!-- Definições usadas pelo desenho (como o degradê) -->
         <defs>
+          <!-- Item da lista -->
           <linearGradient id="logo-gradient" x1="8" y1="56" x2="56" y2="8" gradientUnits="userSpaceOnUse">
+            <!-- Começo do degradê, na cor coral -->
             <stop offset="0%" stop-color="#ff7a45" />
+            <!-- Fim do degradê, na cor esmeralda -->
             <stop offset="100%" stop-color="#34d399" />
           </linearGradient>
         </defs>
+        <!-- Anel de progresso da logo -->
         <path
           d="M32 9.5A22.5 22.5 0 1 1 12.51 20.75"
           stroke="url(#logo-gradient)"
           stroke-width="6"
           stroke-linecap="round"
         />
+        <!-- Linha de batimento cardíaco da logo -->
         <path
           d="M19.5 33H24.5L28.5 25L33.5 41L37 33H44.5"
           stroke="url(#logo-gradient)"
@@ -135,11 +236,17 @@
           stroke-linejoin="round"
         />
       </svg>
+      <!-- O número 404 com degradê -->
       <p class="codigo">404</p>
+      <!-- Título da página -->
       <h1>Página não encontrada</h1>
+      <!-- Explicação do erro -->
       <p>O endereço pode ter mudado ou a página não existe mais. Que tal voltar pro começo?</p>
+      <!-- Botões -->
       <div class="acoes">
+        <!-- Link que leva para a página de boas-vindas -->
         <a href="welcome/welcome.html" class="btn btn-primario">Voltar ao início</a>
+        <!-- Link que leva para o Início do app -->
         <a href="app/inicio/inicio.html" class="btn btn-secundario">Abrir o app</a>
       </div>
     </main>

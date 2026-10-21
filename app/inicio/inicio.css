@@ -7,116 +7,409 @@
    INÍCIO
    ============================================ */
 
+/* Grade principal do Início */
 .home-grid {
+  /* Usa o modo grade */
   display: grid;
+  /* Duas colunas: a da esquerda um pouco maior */
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  /* Espaço entre as colunas */
   gap: var(--space-4);
 }
 
+/* Cada seção dentro da grade */
 .home-grid > section {
+  /* Organiza o conteúdo em coluna */
   display: flex;
+  /* Um embaixo do outro */
   flex-direction: column;
 }
 
+/* Último item de cada seção */
 .home-grid > section > :last-child {
+  /* Estica para ocupar a altura que sobra */
   flex: 1;
 }
 
+/* Card grande do treino sugerido */
 .workout-hero {
+  /* Ocupa a altura toda */
   height: 100%;
+  /* Itens organizados... */
   display: flex;
+  /* ...em coluna */
   flex-direction: column;
+  /* Espaço de 14 pixels entre eles */
   gap: 14px;
+  /* Espaço interno */
   padding: 22px;
+  /* Cantos arredondados */
   border-radius: var(--radius-md);
+  /* Borda fininha */
   border: 1px solid var(--border);
+  /* Fundo com duas camadas: */
   background:
+    /* um brilho coral no canto de cima à direita */
     radial-gradient(circle at 100% 0%, rgba(255, 122, 69, 0.14), transparent 55%),
+    /* em cima da cor dos cards */
     var(--surface);
 }
 
+/* Parte de cima do card */
 .workout-hero-top {
+  /* Itens lado a lado */
   display: flex;
+  /* Centralizados na altura */
   align-items: center;
+  /* Espaço entre eles */
   gap: 14px;
 }
 
+/* Nome do treino no card */
 .workout-hero-info h3 {
+  /* Letra de 20 pixels */
   font-size: 20px;
+  /* Pequeno espaço embaixo */
   margin-bottom: 2px;
 }
 
+/* Caixinha do próximo exercício */
 .workout-hero-next {
+  /* Itens... */
   display: flex;
+  /* ...em coluna */
   flex-direction: column;
+  /* Espaço pequenino entre eles */
   gap: 2px;
+  /* Sem margem */
   margin: 0;
+  /* Espaço interno */
   padding: 12px 14px;
+  /* Cantos arredondados */
   border-radius: var(--radius-sm);
-  background: rgba(14, 21, 18, 0.55);
+  /* Fundo de vidro (escuro ou claro, conforme o tema) */
+  background: var(--vidro);
+  /* Borda fininha */
   border: 1px solid var(--border);
+  /* Letra de 13 pixels */
   font-size: 13px;
+  /* Cor apagada */
   color: var(--muted);
 }
 
+/* Nome do próximo exercício */
 .workout-hero-next strong {
+  /* Cor principal do texto */
   color: var(--ink);
+  /* Letra de 14,5 pixels */
   font-size: 14.5px;
 }
 
+/* Botão do card */
 .workout-hero .btn-primary {
+  /* Fica à esquerda, sem esticar */
   align-self: flex-start;
+  /* Empurrado para o fim do card */
   margin-top: auto;
 }
 
+/* Card do desafio */
 .challenge-hero {
+  /* Espaço entre os itens */
   gap: 12px;
+  /* Espaço interno */
   padding: 22px;
 }
 
+/* Topo do card do desafio */
 .challenge-top {
+  /* Itens lado a lado */
   display: flex;
+  /* Centralizados na altura */
   align-items: center;
+  /* Espaço entre eles */
   gap: 12px;
 }
 
+/* Linha do progresso do desafio */
 .challenge-progress {
+  /* Itens lado a lado */
   display: flex;
+  /* Um em cada ponta */
   justify-content: space-between;
+  /* Alinhados pela base do texto */
   align-items: baseline;
+  /* Letra de 13,5 pixels */
   font-size: 13.5px;
+  /* Cor apagada */
   color: var(--muted);
 }
 
+/* Números em destaque */
 .challenge-progress strong {
+  /* Cor principal do texto */
   color: var(--ink);
 }
 
+/* Botão do desafio */
 .challenge-hero .btn-primary {
+  /* Empurrado para o fim do card */
   margin-top: auto;
 }
 
 /* Profissionais do Início: 4 por linha no computador, rolagem lateral no celular */
+/* Linha de profissionais */
 .pros-row {
+  /* Quantas colunas couberem, cada uma com no mínimo 190 pixels */
   grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
 }
 
+/* Em telas de até 640 pixels (celular) */
 @media (max-width: 640px) {
+  /* Linha de profissionais */
   .pros-row {
+    /* Vira uma fileira só */
     display: flex;
+    /* Que rola para o lado */
     overflow-x: auto;
+    /* Espaço embaixo para a barra de rolagem */
     padding-bottom: 8px;
+    /* A rolagem "gruda" em cada card */
     scroll-snap-type: x mandatory;
   }
 
+  /* Cada card de profissional */
   .pros-row .pro-card {
+    /* Ocupa 72% da largura, sem encolher */
     flex: 0 0 72%;
+    /* Gruda pelo começo do card */
     scroll-snap-align: start;
   }
 }
 
+/* Em telas de até 900 pixels (tablet) */
 @media (max-width: 900px) {
+  /* Grade principal */
   .home-grid {
+    /* Vira uma coluna só */
     grid-template-columns: 1fr;
+  }
+}
+
+/* Card dos pontos da semana */
+.pontos-card {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 22px;
+  /* Espaço interno */
+  padding: 18px 22px;
+  /* Espaço embaixo */
+  margin-bottom: var(--space-4);
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Borda coral transparente */
+  border: 1px solid var(--border-coral);
+  /* Fundo com brilho coral à esquerda */
+  background:
+    radial-gradient(circle at 0% 50%, rgba(255, 122, 69, 0.16), transparent 40%),
+    var(--surface);
+}
+
+/* Anel do card, menor */
+.pontos-card .pontos-anel {
+  /* Largura de 104 pixels */
+  width: 104px;
+  /* Altura de 104 pixels */
+  height: 104px;
+}
+
+/* Número do anel menor */
+.pontos-card .pontos-anel-texto strong {
+  /* Tamanho da letra: 24 pixels */
+  font-size: 24px;
+}
+
+/* Textos do card */
+.pontos-card-info {
+  /* Ocupa o espaço que sobra */
+  flex: 1;
+  /* Deixa encolher sem estourar */
+  min-width: 0;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre eles */
+  gap: 4px;
+}
+
+/* Linha do escudo e da liga */
+.pontos-card-liga {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 10px;
+  /* Fonte de títulos */
+  font-family: var(--font-display);
+  /* Tamanho da letra: 18 pixels */
+  font-size: 18px;
+}
+
+/* Escudo do card, menor */
+.pontos-card-liga .liga-escudo {
+  /* Largura de 30 pixels */
+  width: 30px;
+  /* Altura de 34 pixels */
+  height: 34px;
+}
+
+/* Frase da posição */
+.pontos-card-pos {
+  /* Sem margem */
+  margin: 0;
+  /* Cor principal do texto */
+  color: var(--ink);
+}
+
+/* Em telas de até 640 pixels (celular) */
+@media (max-width: 640px) {
+  /* Card dos pontos */
+  .pontos-card {
+    /* Quebra linha se não couber */
+    flex-wrap: wrap;
+    /* Espaço menor */
+    gap: 14px;
+  }
+
+  /* Botão do card */
+  .pontos-card .btn-secondary {
+    /* Ocupa a largura toda */
+    width: 100%;
+    /* Texto centralizado */
+    text-align: center;
+  }
+}
+
+/* Recado do Pulso no Início */
+.pulso-inicio {
+  /* Espaço embaixo */
+  margin-bottom: var(--space-4);
+  /* Largura máxima (o balão não fica comprido demais) */
+  max-width: 720px;
+}
+
+/* Pulso menor no Início */
+.pulso-inicio .pulso {
+  /* Largura de 84 pixels */
+  width: 84px;
+  /* Altura de 105 pixels */
+  height: 105px;
+}
+
+/* ---------- Card do momento do dia e passos ---------- */
+
+/* Card do momento */
+.momento-card {
+  /* Grade: emoji, textos e passos */
+  display: grid;
+  /* Emoji pequeno, textos grandes, passos médios */
+  grid-template-columns: auto 1fr minmax(180px, 240px);
+  /* Centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 18px;
+  /* Espaço interno */
+  padding: 18px 22px;
+  /* Espaço embaixo */
+  margin-bottom: var(--space-4);
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Borda discreta */
+  border: 1px solid var(--border);
+  /* Fundo com brilho esmeralda à direita */
+  background:
+    radial-gradient(circle at 100% 50%, rgba(52, 211, 153, 0.12), transparent 45%),
+    var(--surface);
+}
+
+/* Emoji do momento */
+.momento-emoji {
+  /* Tamanho */
+  font-size: 34px;
+}
+
+/* Título do momento */
+.momento-info strong {
+  /* Fonte de título */
+  font-family: var(--font-display);
+  /* Tamanho */
+  font-size: var(--text-lg);
+}
+
+/* Texto do momento */
+.momento-info p {
+  /* Cor apagada */
+  color: var(--muted);
+  /* Espaço */
+  margin: 4px 0 10px;
+  /* Letra um pouco menor */
+  font-size: var(--text-sm);
+}
+
+/* Bloco dos passos */
+.momento-passos {
+  /* Itens em coluna */
+  display: grid;
+  /* Espaço entre eles */
+  gap: 6px;
+  /* Linha separando dos textos */
+  border-left: 1px solid var(--border);
+  /* Espaço depois da linha */
+  padding-left: 18px;
+}
+
+/* Número de passos */
+.momento-passos-num {
+  /* Fonte de placar */
+  font-family: var(--font-placar, monospace);
+  /* Tamanho */
+  font-size: var(--text-2xl);
+  /* Cor esmeralda */
+  color: var(--emerald);
+}
+
+/* Legenda dos passos */
+.momento-passos span {
+  /* Letra pequena */
+  font-size: var(--text-xs);
+  /* Cor apagada */
+  color: var(--muted);
+}
+
+/* No celular: passos embaixo, ocupando a largura */
+@media (max-width: 640px) {
+  /* Card */
+  .momento-card {
+    /* Emoji e textos em cima */
+    grid-template-columns: auto 1fr;
+  }
+
+  /* Passos */
+  .momento-passos {
+    /* Linha toda */
+    grid-column: 1 / -1;
+    /* Sem linha do lado */
+    border-left: 0;
+    /* Linha em cima */
+    border-top: 1px solid var(--border);
+    /* Sem espaço do lado */
+    padding-left: 0;
+    /* Espaço em cima */
+    padding-top: 12px;
   }
 }

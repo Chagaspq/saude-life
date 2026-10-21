@@ -2,67 +2,211 @@
  * Base comum a todas as páginas. Fica de propósito enxuta:
  * cada página ainda define o próprio layout no seu CSS.
  */
+/* Todos os elementos... */
 *,
+/* ...e os pedacinhos criados antes... */
 *::before,
+/* ...e depois deles */
 *::after {
+  /* A largura passa a contar a borda e o espaço interno (fica mais fácil de calcular) */
   box-sizing: border-box;
 }
 
+/* Corpo da página */
 body {
+  /* Tira a margem padrão do navegador */
   margin: 0;
+  /* Fundo verde-carvão do site */
   background-color: var(--bg);
+  /* Cor padrão do texto */
   color: var(--ink);
+  /* Fonte do texto (Inter) */
   font-family: var(--font-body);
+  /* Deixa a letra mais lisinha no Chrome/Safari do Mac */
   -webkit-font-smoothing: antialiased;
+  /* Deixa a letra mais lisinha no Firefox do Mac */
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Títulos grandes... */
 h1,
+/* ...médios... */
 h2,
+/* ...e pequenos */
 h3 {
+  /* Usam a fonte de destaque (Space Grotesk) */
   font-family: var(--font-display);
 }
 
+/* Quando algo é focado pelo teclado */
 :focus-visible {
+  /* Ganha um contorno coral de 2 pixels */
   outline: 2px solid var(--coral);
+  /* Contorno um pouco afastado do elemento */
   outline-offset: 3px;
 }
 
+/* Texto escondido na tela, mas lido por leitores de tela */
 .sr-only {
+  /* Sai do fluxo da página */
   position: absolute;
+  /* Largura de 1 pixel */
   width: 1px;
+  /* Altura de 1 pixel */
   height: 1px;
+  /* Sem espaço interno */
   padding: 0;
+  /* Margem negativa para não ocupar lugar */
   margin: -1px;
+  /* Esconde o que passar do tamanho */
   overflow: hidden;
+  /* Recorta tudo */
   clip: rect(0, 0, 0, 0);
+  /* Não quebra linha */
   white-space: nowrap;
+  /* Sem borda */
   border: 0;
 }
 
 /* Logotipo: "Saúde" na cor do texto e "Life" em coral */
+/* Palavra "Life" da logo */
 .brand-life {
+  /* Na cor coral clara */
   color: var(--coral-light);
 }
 
 /* Edge mostra um "olho" nativo além do nosso botão de mostrar senha */
+/* Botões nativos de "ver senha" e "limpar" do Edge... */
 input[type="password"]::-ms-reveal,
+/* ...e do Internet Explorer */
 input[type="password"]::-ms-clear {
+  /* Escondidos (já temos o nosso botão) */
   display: none;
 }
 
+/* Se a pessoa pediu ao sistema para reduzir animações */
 @media (prefers-reduced-motion: reduce) {
+  /* Para todos os elementos... */
   *,
+  /* ...e os pedacinhos antes... */
   *::before,
+  /* ...e depois deles */
   *::after {
+    /* Animações quase instantâneas */
     animation-duration: 0.01ms !important;
+    /* Animações rodam uma vez só */
     animation-iteration-count: 1 !important;
+    /* Transições quase instantâneas */
     transition-duration: 0.01ms !important;
+    /* Rolagem sem efeito suave */
     scroll-behavior: auto !important;
   }
 }
 
 /* O atributo hidden sempre esconde, mesmo quando o CSS da página define display */
+/* Elementos com o atributo hidden */
 [hidden] {
+  /* Sempre ficam escondidos */
   display: none !important;
+}
+
+/* Transição suave entre páginas (navegadores novos; nos outros, só troca normal) */
+@view-transition {
+  /* Liga a transição ao clicar em links do próprio site */
+  navigation: auto;
+}
+
+/* A página que sai: some e desce um pouquinho */
+::view-transition-old(root) {
+  /* Animação de sair */
+  animation: 0.22s ease-in both pagina-sair;
+}
+
+/* A página que entra: aparece subindo */
+::view-transition-new(root) {
+  /* Animação de entrar */
+  animation: 0.32s cubic-bezier(0.16, 1, 0.3, 1) both pagina-entrar;
+}
+
+/* Animação: sair */
+@keyframes pagina-sair {
+  /* Fim: transparente e um pouco mais baixa */
+  to {
+    /* Transparente */
+    opacity: 0;
+    /* 8 pixels para baixo */
+    transform: translateY(8px);
+  }
+}
+
+/* Animação: entrar */
+@keyframes pagina-entrar {
+  /* Começo: transparente e um pouco mais baixa */
+  from {
+    /* Transparente */
+    opacity: 0;
+    /* 12 pixels para baixo */
+    transform: translateY(12px);
+  }
+}
+
+/* Quem pediu menos movimento: sem transição entre páginas */
+@media (prefers-reduced-motion: reduce) {
+  /* Página que sai e que entra */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    /* Sem animação */
+    animation: none;
+  }
+}
+
+/* ---------- Botão de idioma (PT / EN) ---------- */
+
+/* Botão de idioma */
+.btn-idioma {
+  /* Tamanho mínimo bom para o dedo */
+  min-width: 40px;
+  /* Altura */
+  height: 36px;
+  /* Espaço dos lados */
+  padding: 0 10px;
+  /* Fundo transparente */
+  background: transparent;
+  /* Borda discreta */
+  border: 1px solid var(--border-strong);
+  /* Pílula */
+  border-radius: var(--radius-full);
+  /* Cor do texto */
+  color: var(--ink);
+  /* Fonte do site, pequena e em negrito */
+  font: 700 12px var(--font-body);
+  /* Letras afastadas */
+  letter-spacing: 0.06em;
+  /* Mãozinha */
+  cursor: pointer;
+  /* Não encolhe */
+  flex-shrink: 0;
+}
+
+/* Botão de idioma com mouse ou foco */
+.btn-idioma:hover,
+.btn-idioma:focus-visible {
+  /* Borda coral */
+  border-color: var(--coral-light);
+  /* Texto coral */
+  color: var(--coral-light);
+}
+
+/* Botão solto no canto (páginas sem topo, como o login) */
+.btn-idioma-solto {
+  /* Preso na tela */
+  position: fixed;
+  /* Distância do topo */
+  top: 14px;
+  /* Distância da direita */
+  right: 14px;
+  /* Por cima do conteúdo */
+  z-index: 50;
+  /* Fundo do card (para não sumir no fundo) */
+  background: var(--surface);
 }

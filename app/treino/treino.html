@@ -1,62 +1,109 @@
 <!doctype html>
+<!-- A linha acima avisa o navegador que este arquivo é uma página HTML5 -->
+<!-- Começo da página, em português do Brasil -->
 <html lang="pt-BR">
+  <!-- Cabeçalho: informações da página que não aparecem na tela -->
   <head>
+    <!-- Usa UTF-8 para mostrar os acentos (á, ç, ã) do jeito certo -->
     <meta charset="UTF-8" />
+    <!-- Faz a página se ajustar à largura da tela do celular -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Cor da barra do navegador no celular (verde-carvão) -->
     <meta name="theme-color" content="#0e1512" />
+    <!-- Ícone da aba do navegador (a logo) -->
     <link rel="icon" href="../../shared/favicon.svg" type="image/svg+xml" />
+    <!-- Arquivo que permite instalar o site como app no celular -->
     <link rel="manifest" href="../../shared/manifest.webmanifest" />
+    <!-- Ícone usado quando o site é salvo na tela inicial do iPhone -->
     <link rel="apple-touch-icon" href="../../shared/icon-192.png" />
+    <!-- Para redes sociais: diz que isto é um site -->
     <meta property="og:type" content="website" />
+    <!-- Para redes sociais: nome do site -->
     <meta property="og:site_name" content="Saúde Life" />
+    <!-- Para redes sociais: idioma português do Brasil -->
     <meta property="og:locale" content="pt_BR" />
+    <!-- Para redes sociais: título que aparece quando o link é compartilhado -->
     <meta property="og:title" content="Treino em andamento — Saúde Life" />
+    <!-- Para redes sociais: texto que aparece quando o link é compartilhado -->
     <meta property="og:description" content="Séries, cargas e descanso do seu treino, passo a passo." />
+    <!-- Para redes sociais: imagem que aparece quando o link é compartilhado -->
     <meta property="og:image" content="https://chagaspq.github.io/saude-life/shared/og-image.png" />
+    <!-- No X (Twitter), mostra o link com imagem grande -->
     <meta name="twitter:card" content="summary_large_image" />
+    <!-- Nome que aparece na aba do navegador -->
     <title>Treino em andamento — Saúde Life</title>
+    <!-- Descrição da página que aparece no Google -->
     <meta
       name="description"
       content="Séries, cargas e descanso do seu treino, passo a passo."
     />
+    <!-- Já começa a conectar no Google Fonts para as fontes carregarem mais rápido -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!-- Mesma coisa para o servidor onde ficam os arquivos das fontes -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <!-- Carrega as fontes Space Grotesk (títulos) e Inter (texto) -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <!-- Carrega as variáveis do site: cores, fontes e espaços (design system) -->
     <link rel="stylesheet" href="../../shared/tokens.css" />
+    <!-- Aplica o tema claro ou escuro antes de desenhar a página (e cria o botão de trocar) -->
+    <script src="../../shared/tema.js"></script>
+    <!-- Carrega o botão de idioma (português / inglês) -->
+    <script src="../../shared/idioma.js" defer></script>
+    <!-- Carrega o estilo base comum a todas as páginas -->
     <link rel="stylesheet" href="../../shared/base.css" />
+    <!-- Carrega o estilo comum do app (menu, cards, botões, modal) -->
     <link rel="stylesheet" href="../comum/app.css" />
+    <!-- Carrega o estilo próprio desta página (treino.css) -->
     <link rel="stylesheet" href="treino.css" />
   </head>
 
+  <!-- Corpo: tudo o que aparece na tela -->
   <body data-pagina="treino" class="focus-page">
+    <!-- Link escondido que aparece ao apertar Tab e pula direto para o conteúdo -->
     <a class="skip-link" href="#conteudo">Pular para o exercício</a>
 
+    <!-- Tela do treino em andamento (player) -->
     <div class="player">
+      <!-- Barra do topo do treino -->
       <header class="player-topbar">
+        <!-- Botão X de sair do treino -->
         <button
           class="btn-icon btn-icon-lg"
           data-action="sair-treino"
           aria-label="Sair do treino"
         >
+          <!-- Ícone de X -->
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <!-- Traço do desenho -->
             <path d="M18 6 6 18"></path>
+            <!-- Traço do desenho -->
             <path d="m6 6 12 12"></path>
           </svg>
         </button>
+        <!-- Nome e grupo do treino -->
         <div class="player-title">
+          <!-- Nome do treino (trocado pelo JavaScript) -->
           <h1 data-render="nome">Treino</h1>
+          <!-- Grupo muscular do treino -->
           <p class="meta" data-render="grupo"></p>
         </div>
+        <!-- Relógio do tempo de treino -->
         <div class="player-clock" aria-label="Tempo de treino">
+          <!-- Ícone de relógio -->
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <!-- Círculo do desenho -->
             <circle cx="12" cy="12" r="10"></circle>
+            <!-- Traço do desenho -->
             <path d="M12 6v6l4 2"></path>
           </svg>
+          <!-- Tempo de treino contando (00:00) -->
           <span data-render="cronometro" role="timer" aria-live="off">00:00</span>
         </div>
       </header>
 
+      <!-- Área do progresso -->
       <div class="player-progress">
+        <!-- Barra de séries feitas (verde) -->
         <div
           class="progress-bar-sm progress-emerald"
           role="progressbar"
@@ -66,24 +113,34 @@
           aria-valuenow="0"
           data-render="barra"
         >
+          <!-- Parte pintada da barra -->
           <div class="fill" data-progress="0"></div>
         </div>
+        <!-- Texto com quantas séries foram feitas -->
         <span class="meta" data-render="contador">0 de 0 séries</span>
       </div>
 
+      <!-- Conteúdo principal do treino -->
       <main id="conteudo" class="player-main" tabindex="-1">
+        <!-- Exercício atual (preenchido pelo JavaScript; lido quando muda) -->
         <section class="player-current" data-render="atual" aria-live="polite"></section>
 
+        <!-- Lista lateral com todos os exercícios -->
         <aside class="player-list" aria-labelledby="heading-lista">
+          <!-- Título da lista -->
           <h2 id="heading-lista">Exercícios</h2>
+          <!-- Lista numerada dos exercícios (preenchida pelo JavaScript) -->
           <ol data-render="lista"></ol>
         </aside>
       </main>
 
+      <!-- Barra de baixo com os botões -->
       <footer class="player-footer">
+        <!-- Botão de voltar ao exercício anterior -->
         <button class="btn-secondary" data-action="exercicio-anterior">
           Anterior
         </button>
+        <!-- Botão de ir para o próximo exercício -->
         <button class="btn-primary" data-action="exercicio-proximo">
           Próximo exercício
         </button>
@@ -91,35 +148,53 @@
     </div>
 
     <!-- Descanso entre séries -->
+    <!-- Painel do descanso entre séries (escondido até começar) -->
     <div class="rest-panel" data-render="descanso" hidden>
+      <!-- Anel que vai esvaziando durante o descanso -->
       <div class="rest-ring" aria-hidden="true">
+        <!-- Desenho do anel em SVG -->
         <svg viewBox="0 0 120 120">
+          <!-- Círculo de fundo do anel -->
           <circle class="rest-ring-bg" cx="60" cy="60" r="52"></circle>
+          <!-- Círculo colorido que vai diminuindo -->
           <circle class="rest-ring-fill" cx="60" cy="60" r="52" data-render="anel"></circle>
         </svg>
+        <!-- Tempo que falta de descanso -->
         <span class="rest-time" data-render="descanso-tempo">01:00</span>
       </div>
+      <!-- Informações do descanso -->
       <div class="rest-info">
+        <!-- Título do painel -->
         <p class="rest-title">Descanso</p>
+        <!-- Mostra qual é o próximo exercício -->
         <p class="meta" data-render="descanso-proximo"></p>
+        <!-- Aviso só para leitores de tela quando o descanso acaba -->
         <p class="sr-only" role="status" data-render="descanso-aviso"></p>
+        <!-- Botões do descanso -->
         <div class="rest-actions">
+          <!-- Botão de somar 15 segundos -->
           <button class="btn-secondary" data-action="descanso-mais">+15 s</button>
+          <!-- Botão de pular o descanso -->
           <button class="btn-primary" data-action="descanso-pular">Pular descanso</button>
         </div>
       </div>
     </div>
 
     <!-- ==================== MODAIS REUTILIZÁVEIS ==================== -->
+    <!-- Fundo escuro da janela (modal) que abre por cima da página -->
     <div id="modal-overlay" class="modal-overlay hidden" aria-hidden="true">
+      <!-- Janela do modal -->
       <div
         class="modal-window"
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
       >
+        <!-- Topo do modal: título e botão de fechar -->
         <header class="modal-header">
+          <!-- Título do modal (o JavaScript troca o texto) -->
           <h2 id="modal-title">Título do Modal</h2>
+          <!-- Botão X que fecha o modal -->
           <button
             class="btn-close-modal"
             aria-label="Fechar modal"
@@ -128,6 +203,7 @@
             &times;
           </button>
         </header>
+        <!-- Miolo do modal, preenchido pelo JavaScript -->
         <div class="modal-body">
           <!-- Conteúdo dinâmico via JS -->
         </div>
@@ -135,11 +211,27 @@
     </div>
 
     <!-- Aviso rápido (toast) -->
+    <!-- Aviso rápido (toast) que aparece embaixo e some sozinho -->
     <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
 
+    <!-- Carrega o relógio do modo demonstração (antes de tudo, para o app usar a data certa) -->
+    <script src="../comum/relogio.js"></script>
+    <!-- Carrega os dados de exemplo (treinos, profissionais, aulas...) -->
     <script src="../comum/dados.js"></script>
+    <!-- Carrega a biblioteca de exercícios (dicas, músculos, onde fazer) -->
+    <script src="../comum/exercicios.js"></script>
+    <!-- Carrega o núcleo do app (sessão, menu, modal, avisos) -->
     <script src="../comum/app.js"></script>
+    <!-- Carrega os pontos, o ranking, as ligas e os selos -->
+    <script src="../comum/pontos.js"></script>
+    <!-- Carrega o modo demonstração (dados de exemplo e avançar o tempo) -->
+    <script src="../comum/demo.js"></script>
+    <!-- Carrega o Pulso, o personagem que acompanha a pessoa -->
+    <script src="../comum/personagem.js"></script>
+    <!-- Carrega o resumo no estilo stories (cartão para compartilhar) -->
+    <script src="../comum/stories.js"></script>
+    <!-- Carrega o JavaScript desta página (treino.js) -->
     <script src="treino.js"></script>
   </body>
 </html>

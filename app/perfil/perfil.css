@@ -7,41 +7,67 @@
    PERFIL
    ============================================ */
 
+/* Card do topo do perfil */
 .profile-header-card {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 20 pixels */
   gap: 20px;
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cantos arredondados: 14 pixels */
   border-radius: var(--radius-md);
+  /* Espaço interno: 24 pixels */
   padding: 24px;
+  /* Quebra para a linha de baixo se não couber */
   flex-wrap: wrap;
 }
 
+/* Informações da pessoa */
 .profile-info {
+  /* Ocupa todo o espaço que sobra */
   flex: 1;
+  /* Largura mínima: 200 pixels */
   min-width: 200px;
 }
 
+/* Nome de usuário com @ */
 .username {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 13,5 pixels */
   font-size: 13.5px;
+  /* Margem (espaço por fora) */
   margin: 2px 0 8px;
 }
 
+/* Frase de apresentação */
 .bio {
+  /* Tamanho da letra: 13,5 pixels */
   font-size: 13.5px;
+  /* Margem (espaço por fora) */
   margin: 0 0 12px;
 }
 
+/* Barra com os números do perfil */
 .profile-stats-bar {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Espaço entre os itens: 20 pixels */
   gap: 20px;
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
 }
 
+/* Números em destaque */
 .profile-stats-bar strong {
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
 }
 
@@ -49,193 +75,323 @@
    PERFIL
    ============================================ */
 
+/* Grade dos painéis */
 .profile-grid {
+  /* Organiza os itens em grade */
   display: grid;
+  /* 2 colunas iguais */
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* Espaço entre os itens: 16 pixels */
   gap: var(--space-4);
 }
 
+/* Cada painel */
 .panel {
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cantos arredondados: 14 pixels */
   border-radius: var(--radius-md);
+  /* Espaço interno: 20 pixels */
   padding: 20px;
 }
 
+/* Painel que ocupa a largura toda */
 .panel-wide {
+  /* Ocupa a largura toda da grade */
   grid-column: 1 / -1;
 }
 
+/* Lista de dados (título e valor) */
 .facts-list {
+  /* Sem margem */
   margin: 0;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
 }
 
+/* Cada linha da lista */
 .facts-list > div {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Joga os itens para as pontas */
   justify-content: space-between;
+  /* Espaço entre os itens: 12 pixels */
   gap: 12px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 12px 0;
+  /* Tamanho da letra: 14 pixels */
   font-size: 14px;
 }
 
+/* Linha que vem depois de outra (ganha uma divisória) */
 .facts-list > div + div {
+  /* Borda em cima de 1 pixel, cor das bordas */
   border-top: 1px solid var(--border);
 }
 
+/* Nome do dado */
 .facts-list dt {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
 }
 
+/* Valor do dado */
 .facts-list dd {
+  /* Sem margem */
   margin: 0;
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Texto à direita */
   text-align: right;
 }
 
+/* Link ao lado do valor */
 .facts-list dd .section-link {
+  /* Margem à esquerda: 8 pixels */
   margin-left: 8px;
 }
 
+/* Grade das conquistas */
 .badges-grid {
+  /* Organiza os itens em grade */
   display: grid;
+  /* 3 colunas iguais */
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* Espaço entre os itens: 10 pixels */
   gap: 10px;
 }
 
+/* Cada conquista */
 .badge-item {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Texto centralizado */
   text-align: center;
+  /* Espaço entre os itens: 4 pixels */
   gap: 4px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 14px 8px;
+  /* Cantos arredondados: 10 pixels */
   border-radius: var(--radius-sm);
+  /* Borda tracejada de 1 pixel, cor das bordas */
   border: 1px dashed var(--border);
+  /* Cor do texto: cinza mais apagado */
   color: var(--muted-2);
+  /* Tamanho da letra: 12 pixels */
   font-size: 12px;
 }
 
+/* Nome da conquista */
 .badge-item strong {
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
 }
 
+/* Ícone da conquista */
 .badge-icon {
+  /* Largura: 40 pixels */
   width: 40px;
+  /* Altura: 40 pixels */
   height: 40px;
+  /* Cantos totalmente redondos */
   border-radius: 50%;
+  /* Flexbox, mas sem ocupar a linha toda */
   display: inline-flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Fundo: cor de card mais clara */
   background: var(--surface-2);
+  /* Margem embaixo: 4 pixels */
   margin-bottom: 4px;
 }
 
+/* Conquista já ganha */
 .badge-item.is-earned {
+  /* Estilo da borda: linha contínua */
   border-style: solid;
+  /* Cor da borda: cor meio transparente */
   border-color: rgba(52, 211, 153, 0.3);
+  /* Fundo: esmeralda fraquinha */
   background: var(--emerald-soft);
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
 }
 
+/* Nome da conquista ganha */
 .badge-item.is-earned strong {
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
 }
 
+/* Ícone da conquista ganha */
 .badge-item.is-earned .badge-icon {
+  /* Fundo: degradê coral → esmeralda */
   background: var(--gradient-brand);
+  /* Cor do texto: verde-carvão do fundo */
   color: var(--bg);
 }
 
+/* Lista de preferências */
 .switch-list {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
 }
 
+/* Cada linha de preferência */
 .switch-row {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Joga os itens para as pontas */
   justify-content: space-between;
+  /* Espaço entre os itens: 16 pixels */
   gap: 16px;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 12px 0;
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
 }
 
+/* Linha que vem depois de outra (ganha uma divisória) */
 .switch-row + .switch-row {
+  /* Borda em cima de 1 pixel, cor das bordas */
   border-top: 1px solid var(--border);
 }
 
+/* Textos da preferência */
 .switch-row span {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 2 pixels */
   gap: 2px;
 }
 
+/* Nome da preferência */
 .switch-row strong {
+  /* Tamanho da letra: 14 pixels */
   font-size: 14px;
 }
 
+/* Explicação da preferência */
 .switch-row small {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 12,5 pixels */
   font-size: 12.5px;
 }
 
 /* Interruptor feito só com CSS em cima do checkbox */
+/* Chave liga/desliga (feita a partir de uma caixinha) */
 .switch {
+  /* Tira o visual padrão do navegador */
   appearance: none;
+  /* Mesmo ajuste para o Safari e navegadores antigos */
   -webkit-appearance: none;
+  /* Não deixa encolher */
   flex-shrink: 0;
+  /* Largura: 42 pixels */
   width: 42px;
+  /* Altura: 24 pixels */
   height: 24px;
+  /* Sem margem */
   margin: 0;
+  /* Cantos arredondados: total (formato pílula) */
   border-radius: var(--radius-full);
+  /* Fundo: cor de destaque mais clara */
   background: var(--surface-3);
+  /* Borda de 1 pixel, borda mais forte */
   border: 1px solid var(--border-strong);
+  /* Posição relativa (serve de base para filhos soltos) */
   position: relative;
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: background var(--dur-base) ease;
 }
 
+/* Bolinha da chave */
 .switch::after {
+  /* Cria um pedacinho vazio, só para enfeite */
   content: "";
+  /* Posição solta, presa ao pai */
   position: absolute;
+  /* Distância de cima: 2 pixels */
   top: 2px;
+  /* Distância da esquerda: 2 pixels */
   left: 2px;
+  /* Largura: 18 pixels */
   width: 18px;
+  /* Altura: 18 pixels */
   height: 18px;
+  /* Cantos totalmente redondos */
   border-radius: 50%;
+  /* Fundo: cinza apagado */
   background: var(--muted);
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: transform var(--dur-base) var(--ease-out), background var(--dur-base) ease;
 }
 
+/* Chave ligada */
 .switch:checked {
+  /* Fundo: esmeralda escura */
   background: var(--emerald-dark);
+  /* Cor da borda: esmeralda escura */
   border-color: var(--emerald-dark);
 }
 
+/* Bolinha da chave ligada (vai para a direita) */
 .switch:checked::after {
+  /* Move o elemento */
   transform: translateX(18px);
+  /* Fundo: branco */
   background: var(--ink-strong);
 }
 
+/* Botões da conta */
 .account-actions {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Espaço entre os itens: 10 pixels */
   gap: 10px;
+  /* Quebra para a linha de baixo se não couber */
   flex-wrap: wrap;
+  /* Margem em cima: 16 pixels */
   margin-top: 16px;
 }
 
+/* Em telas de até 900 pixels */
 @media (max-width: 900px) {
+  /* Grade dos painéis */
   .profile-grid {
+    /* Uma coluna só */
     grid-template-columns: 1fr;
   }
 }
 
+/* Em telas de até 640 pixels */
 @media (max-width: 640px) {
+  /* Grade das conquistas */
   .badges-grid {
+    /* 2 colunas iguais */
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

@@ -1,0 +1,313 @@
+/* Página para donos de academia */
+
+/* Botão do topo */
+.plans-hero .btn-hero-primary {
+  /* Espaço em cima */
+  margin-top: var(--space-6);
+}
+
+/* Seções da página */
+.acad-beneficios,
+.acad-passos,
+.acad-simulador,
+.acad-demo {
+  /* No máximo 1100 pixels */
+  max-width: 1100px;
+  /* Centralizadas, com espaço embaixo */
+  margin: 0 auto var(--space-16);
+  /* Espaço dos lados */
+  padding: 0 16px;
+}
+
+/* Primeira seção: espaço depois do topo */
+.acad-beneficios {
+  /* Afasta do botão do topo */
+  padding-top: var(--space-12);
+}
+
+/* Títulos das seções */
+.acad-beneficios h2,
+.acad-passos h2,
+.acad-simulador h2,
+.acad-demo h2 {
+  /* Tamanho */
+  font-size: var(--text-2xl);
+  /* Centralizado */
+  text-align: center;
+  /* Espaço embaixo */
+  margin: 0 0 var(--space-6);
+}
+
+/* Grade de benefícios */
+.acad-grade {
+  /* Sem bolinhas da lista */
+  list-style: none;
+  /* Sem espaço padrão */
+  margin: 0;
+  /* Sem espaço padrão */
+  padding: 0;
+  /* Grade */
+  display: grid;
+  /* Colunas de no mínimo 240 pixels */
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  /* Espaço entre os cards */
+  gap: var(--space-5);
+}
+
+/* Card de benefício */
+.acad-card {
+  /* Fundo do card */
+  background: var(--surface);
+  /* Borda discreta */
+  border: 1px solid var(--border);
+  /* Cantos arredondados */
+  border-radius: var(--radius-lg);
+  /* Espaço interno */
+  padding: var(--space-6);
+}
+
+/* Ícone do benefício */
+.acad-icone {
+  /* Quadrado centralizado */
+  display: grid;
+  /* Emoji no meio */
+  place-items: center;
+  /* Largura */
+  width: 48px;
+  /* Altura */
+  height: 48px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Fundo com as cores da marca */
+  background: linear-gradient(135deg, var(--coral-dim), var(--emerald-soft));
+  /* Tamanho do emoji */
+  font-size: 24px;
+}
+
+/* Título do benefício */
+.acad-card h3 {
+  /* Tamanho */
+  font-size: var(--text-lg);
+  /* Espaço */
+  margin: var(--space-4) 0 var(--space-2);
+}
+
+/* Texto do benefício */
+.acad-card p {
+  /* Cor apagada */
+  color: var(--muted);
+  /* Linhas espaçadas */
+  line-height: 1.55;
+  /* Sem margem */
+  margin: 0;
+}
+
+/* Lista de passos */
+.acad-passos ol {
+  /* Sem números padrão (usamos o contador) */
+  list-style: none;
+  /* Contador dos passos */
+  counter-reset: passo;
+  /* Sem espaço padrão */
+  margin: 0;
+  /* Sem espaço padrão */
+  padding: 0;
+  /* Grade */
+  display: grid;
+  /* Colunas de no mínimo 220 pixels */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  /* Espaço entre os passos */
+  gap: var(--space-5);
+}
+
+/* Cada passo */
+.acad-passos li {
+  /* Soma 1 no contador */
+  counter-increment: passo;
+  /* Itens em coluna */
+  display: flex;
+  /* Coluna */
+  flex-direction: column;
+  /* Espaço entre os itens */
+  gap: var(--space-2);
+  /* Espaço interno */
+  padding: var(--space-5);
+  /* Faixa com degradê da marca em cima */
+  border-top: 3px solid var(--coral);
+  /* Fundo do card */
+  background: var(--surface);
+  /* Cantos de baixo arredondados */
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+/* Número do passo */
+.acad-passos li::before {
+  /* Mostra "01", "02"... */
+  content: "0" counter(passo);
+  /* Fonte de placar */
+  font-family: var(--font-placar, monospace);
+  /* Cor coral */
+  color: var(--coral-light);
+  /* Tamanho */
+  font-size: var(--text-2xl);
+  /* Negrito */
+  font-weight: 700;
+}
+
+/* Texto do passo */
+.acad-passos li span {
+  /* Cor apagada */
+  color: var(--muted);
+  /* Linhas espaçadas */
+  line-height: 1.55;
+}
+
+/* Simulador */
+.acad-simulador {
+  /* Mais estreito */
+  max-width: 640px;
+  /* Texto centralizado */
+  text-align: center;
+}
+
+/* Rótulo do controle deslizante */
+.acad-simulador label {
+  /* Bloco próprio */
+  display: block;
+  /* Espaço */
+  margin: var(--space-6) 0 var(--space-3);
+  /* Negrito */
+  font-weight: 600;
+}
+
+/* Controle deslizante */
+.acad-simulador input {
+  /* Largura toda */
+  width: 100%;
+  /* Cor coral */
+  accent-color: var(--coral);
+}
+
+/* Resultado do simulador */
+.acad-resultado {
+  /* Tamanho */
+  font-size: var(--text-lg);
+  /* Espaço em cima */
+  margin-top: var(--space-4);
+}
+
+/* Número do resultado */
+.acad-resultado strong {
+  /* Fonte de placar */
+  font-family: var(--font-placar, monospace);
+  /* Cor esmeralda */
+  color: var(--emerald);
+  /* Maior */
+  font-size: var(--text-2xl);
+}
+
+/* Seção do formulário */
+.acad-demo {
+  /* Mais estreita */
+  max-width: 560px;
+  /* Texto centralizado */
+  text-align: center;
+}
+
+/* Formulário */
+.acad-form {
+  /* Campos em coluna */
+  display: grid;
+  /* Espaço entre os campos */
+  gap: var(--space-4);
+  /* Texto alinhado à esquerda */
+  text-align: left;
+  /* Fundo do card */
+  background: var(--surface);
+  /* Borda discreta */
+  border: 1px solid var(--border);
+  /* Cantos arredondados */
+  border-radius: var(--radius-xl);
+  /* Espaço interno */
+  padding: var(--space-6);
+  /* Espaço em cima */
+  margin-top: var(--space-6);
+}
+
+/* Rótulos do formulário */
+.acad-form label {
+  /* Rótulo em cima do campo */
+  display: grid;
+  /* Espaço entre rótulo e campo */
+  gap: 6px;
+  /* Letra menor */
+  font-size: var(--text-sm);
+  /* Negrito */
+  font-weight: 600;
+}
+
+/* Campos do formulário */
+.acad-form input {
+  /* Fundo mais escuro */
+  background: var(--bg);
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Cantos arredondados */
+  border-radius: var(--radius-sm);
+  /* Espaço interno */
+  padding: 12px 14px;
+  /* Cor do texto */
+  color: var(--ink);
+  /* Fonte do site (16px evita zoom no celular) */
+  font: 400 16px var(--font-body);
+}
+
+/* Campo com foco */
+.acad-form input:focus-visible {
+  /* Contorno coral */
+  outline: 2px solid var(--coral);
+  /* Contorno colado */
+  outline-offset: 1px;
+}
+
+/* Mensagem do formulário (vazia não ocupa espaço) */
+.acad-msg:empty {
+  /* Some */
+  display: none;
+}
+
+/* Mensagem do formulário */
+.acad-msg {
+  /* Sem margem */
+  margin: 0;
+  /* Espaço interno */
+  padding: var(--space-3);
+  /* Cantos arredondados */
+  border-radius: var(--radius-sm);
+  /* Letra menor */
+  font-size: var(--text-sm);
+}
+
+/* Mensagem de erro */
+.acad-msg.is-erro {
+  /* Fundo coral fraco */
+  background: var(--coral-soft);
+  /* Texto coral */
+  color: var(--coral-light);
+}
+
+/* Mensagem de sucesso */
+.acad-msg.is-ok {
+  /* Fundo esmeralda fraco */
+  background: var(--emerald-soft);
+  /* Texto esmeralda */
+  color: var(--emerald);
+}
+
+/* Botão do formulário */
+.acad-form .btn-hero-primary {
+  /* Largura toda */
+  width: 100%;
+  /* Centraliza o texto */
+  justify-content: center;
+}

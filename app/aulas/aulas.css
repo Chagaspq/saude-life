@@ -3,3 +3,167 @@
  * O que é comum a todas as páginas fica em ../comum/app.css.
  * Ainda vazio: escreva aqui o que for só desta página.
  */
+
+/* Botões de visão (lista ou grade) */
+.aulas-visao {
+  /* Flexbox, mas sem ocupar a linha toda */
+  display: inline-flex;
+  /* Espaço interno */
+  padding: 4px;
+  /* Espaço entre os botões */
+  gap: 4px;
+  /* Formato pílula */
+  border-radius: var(--radius-full);
+  /* Fundo dos cards */
+  background: var(--surface);
+  /* Borda fininha */
+  border: 1px solid var(--border);
+}
+
+/* Cada botão de visão */
+.aulas-visao button {
+  /* Espaço interno */
+  padding: 8px 16px;
+  /* Sem borda */
+  border: 0;
+  /* Formato pílula */
+  border-radius: var(--radius-full);
+  /* Sem fundo */
+  background: transparent;
+  /* Cor apagada */
+  color: var(--muted);
+  /* Usa a mesma fonte do pai */
+  font: inherit;
+  /* Letra seminegrito */
+  font-weight: 600;
+  /* Mãozinha do mouse */
+  cursor: pointer;
+}
+
+/* Botão escolhido */
+.aulas-visao button.is-active {
+  /* Degradê coral */
+  background: var(--gradient-button);
+  /* Texto escuro */
+  color: var(--on-coral);
+}
+
+/* Topo do card: nome e nota */
+.aula-topo {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Um em cada ponta */
+  justify-content: space-between;
+  /* Itens alinhados pela base do texto */
+  align-items: baseline;
+  /* Espaço entre eles */
+  gap: 10px;
+}
+
+/* Nota da aula */
+.aula-nota {
+  /* Amarelo das estrelas */
+  color: var(--star);
+  /* Letra seminegrito */
+  font-weight: 600;
+  /* Não quebra linha */
+  white-space: nowrap;
+}
+
+/* Card de aula reservada: borda esmeralda */
+.aula-card.is-reservada {
+  /* Borda esmeralda */
+  border-color: var(--emerald-dark);
+}
+
+/* Grade da semana: 7 colunas */
+.aulas-grade {
+  /* Organiza em grade */
+  display: grid;
+  /* 7 colunas iguais, no mínimo 120 pixels (rola para o lado no celular) */
+  grid-template-columns: repeat(7, minmax(120px, 1fr));
+  /* Espaço entre elas */
+  gap: 8px;
+  /* Rolagem para o lado se não couber */
+  overflow-x: auto;
+  /* Espaço embaixo para a barra de rolagem */
+  padding-bottom: 8px;
+}
+
+/* Coluna de um dia */
+.aulas-dia {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre os blocos */
+  gap: 6px;
+  /* Espaço interno */
+  padding: 10px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Fundo dos cards */
+  background: var(--surface);
+  /* Borda fininha */
+  border: 1px solid var(--border);
+  /* Altura mínima */
+  min-height: 160px;
+}
+
+/* Hoje: borda coral */
+.aulas-dia.is-hoje {
+  /* Borda coral */
+  border-color: var(--coral);
+}
+
+/* Nome do dia */
+.aulas-dia h3 {
+  /* Sem margem */
+  margin: 0 0 4px;
+  /* Tamanho da letra: 14 pixels */
+  font-size: 14px;
+}
+
+/* Bloco de uma aula na grade */
+.aulas-bloco {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço interno */
+  padding: 8px 10px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-sm);
+  /* Fundo coral fraquinho */
+  background: var(--coral-soft);
+  /* Linha coral à esquerda */
+  border-left: 3px solid var(--coral);
+  /* Tamanho da letra: 13 pixels */
+  font-size: 13px;
+}
+
+/* Hora com fonte de placar */
+.aulas-bloco strong {
+  /* Fonte de placar */
+  font-family: var(--font-placar);
+}
+
+/* Vagas em letra pequena */
+.aulas-bloco small {
+  /* Cor apagada */
+  color: var(--muted);
+}
+
+/* Aula reservada na grade: esmeralda */
+.aulas-bloco.is-reservada {
+  /* Fundo esmeralda fraquinho */
+  background: var(--emerald-soft);
+  /* Linha esmeralda */
+  border-left-color: var(--emerald);
+}
+
+/* Aula lotada na grade: apagada */
+.aulas-bloco.is-lotada {
+  /* Meio transparente */
+  opacity: 0.6;
+}

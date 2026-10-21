@@ -1,0 +1,766 @@
+/*
+ * Estilos só da página Ranking (app/ranking/ranking.html).
+ * O que é comum a todas as páginas fica em ../comum/app.css
+ * (o anel de pontos e os escudos das ligas também estão lá).
+ */
+
+/* Card grande do topo: anel + liga */
+.rk-hero {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre o anel e as informações */
+  gap: 28px;
+  /* Espaço interno */
+  padding: 24px 28px;
+  /* Espaço embaixo */
+  margin-bottom: var(--space-6);
+  /* Cantos arredondados */
+  border-radius: var(--radius-lg);
+  /* Borda fininha */
+  border: 1px solid var(--border);
+  /* Fundo com dois brilhos (coral e esmeralda) em cima da cor dos cards */
+  background:
+    radial-gradient(circle at 0% 50%, rgba(255, 122, 69, 0.16), transparent 45%),
+    radial-gradient(circle at 100% 0%, rgba(52, 211, 153, 0.12), transparent 50%),
+    var(--surface);
+}
+
+/* Informações do lado do anel */
+.rk-hero-info {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre eles */
+  gap: 12px;
+  /* Deixa encolher sem estourar */
+  min-width: 0;
+}
+
+/* Linha da liga: escudo + nome */
+.rk-hero-liga {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre o escudo e o nome */
+  gap: 14px;
+}
+
+/* Textos da liga, um embaixo do outro */
+.rk-hero-liga div {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+}
+
+/* Nome da liga grande */
+.rk-hero-liga .rk-liga-nome {
+  /* Fonte de títulos */
+  font-family: var(--font-display);
+  /* Tamanho da letra: 28 pixels */
+  font-size: 28px;
+  /* Linha justa */
+  line-height: 1.1;
+}
+
+/* Frase do que falta */
+.rk-hero-frase {
+  /* Sem margem */
+  margin: 0;
+  /* Tamanho da letra: 16 pixels */
+  font-size: 16px;
+  /* Cor principal do texto */
+  color: var(--ink);
+}
+
+/* Etiquetas embaixo da frase */
+.rk-hero-tags {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Quebra linha se não couber */
+  flex-wrap: wrap;
+  /* Espaço entre elas */
+  gap: 8px;
+}
+
+/* Fileira com os dois grupos de botões */
+.rk-controles {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Quebra linha se não couber */
+  flex-wrap: wrap;
+  /* Espaço entre os grupos */
+  gap: 12px;
+  /* Espaço embaixo */
+  margin-bottom: var(--space-4);
+}
+
+/* Grupo de botões encostados (como um interruptor) */
+.rk-segmented {
+  /* Flexbox, mas sem ocupar a linha toda */
+  display: inline-flex;
+  /* Espaço interno */
+  padding: 4px;
+  /* Espaço entre os botões */
+  gap: 4px;
+  /* Formato pílula */
+  border-radius: var(--radius-full);
+  /* Fundo dos cards */
+  background: var(--surface);
+  /* Borda fininha */
+  border: 1px solid var(--border);
+}
+
+/* Cada botão do grupo */
+.rk-segmented button {
+  /* Espaço interno */
+  padding: 8px 16px;
+  /* Sem borda */
+  border: 0;
+  /* Formato pílula */
+  border-radius: var(--radius-full);
+  /* Sem fundo */
+  background: transparent;
+  /* Cor apagada */
+  color: var(--muted);
+  /* Usa a mesma fonte do pai */
+  font: inherit;
+  /* Letra seminegrito */
+  font-weight: 600;
+  /* Tamanho da letra: 13,5 pixels */
+  font-size: 13.5px;
+  /* Mãozinha do mouse */
+  cursor: pointer;
+  /* Mudança de cor suave */
+  transition: background var(--dur-fast), color var(--dur-fast);
+}
+
+/* Botão com o mouse em cima */
+.rk-segmented button:hover {
+  /* Cor principal do texto */
+  color: var(--ink);
+}
+
+/* Botão escolhido */
+.rk-segmented button.is-active {
+  /* Fundo em degradê coral */
+  background: var(--gradient-button);
+  /* Texto escuro */
+  color: var(--on-coral);
+}
+
+/* Caixa do pódio + lista */
+.rk-quadro {
+  /* Espaço interno */
+  padding: 24px;
+  /* Espaço embaixo */
+  margin-bottom: var(--space-6);
+  /* Cantos arredondados */
+  border-radius: var(--radius-lg);
+  /* Borda fininha */
+  border: 1px solid var(--border);
+  /* Fundo dos cards */
+  background: var(--surface);
+}
+
+/* Pódio: os 3 degraus lado a lado, alinhados por baixo */
+.rk-podio {
+  /* Organiza em grade */
+  display: grid;
+  /* 3 colunas iguais */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* Alinha tudo embaixo (os degraus têm alturas diferentes) */
+  align-items: end;
+  /* Espaço entre os degraus */
+  gap: 12px;
+  /* Largura máxima */
+  max-width: 520px;
+  /* Centralizado */
+  margin: 0 auto;
+}
+
+/* Quando o pódio mostra o estado vazio (escolher academia), ocupa a largura toda */
+.rk-podio > .empty-state {
+  /* Ocupa as 3 colunas */
+  grid-column: 1 / -1;
+}
+
+/* Cada degrau */
+.rk-degrau {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Centralizados */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 6px;
+  /* Texto centralizado */
+  text-align: center;
+  /* Deixa encolher sem estourar */
+  min-width: 0;
+  /* Animação de subir do chão */
+  animation: degrau-subir 0.7s var(--ease-out) both;
+}
+
+/* O 1º sobe por último (suspense!) */
+.rk-degrau-1 {
+  /* Espera um pouco */
+  animation-delay: 0.35s;
+}
+
+/* O 2º sobe logo depois do 3º */
+.rk-degrau-2 {
+  /* Espera um pouquinho */
+  animation-delay: 0.15s;
+}
+
+/* Animação: o degrau sobe do chão */
+@keyframes degrau-subir {
+  /* Começo: mais baixo e invisível */
+  from {
+    /* Invisível */
+    opacity: 0;
+    /* 30 pixels para baixo */
+    transform: translateY(30px);
+  }
+}
+
+/* Bolinha com as iniciais */
+.rk-avatar {
+  /* Organiza com grade (para centralizar) */
+  display: grid;
+  /* Centraliza as letras */
+  place-items: center;
+  /* Largura de 52 pixels */
+  width: 52px;
+  /* Altura de 52 pixels */
+  height: 52px;
+  /* Redonda */
+  border-radius: 50%;
+  /* Fundo de card mais claro */
+  background: var(--surface-3);
+  /* Borda grossa na cor do degrau */
+  border: 3px solid var(--rk-cor, var(--border-strong));
+  /* Fonte de títulos */
+  font-family: var(--font-display);
+  /* Letra negrito */
+  font-weight: 700;
+  /* Cor principal do texto */
+  color: var(--ink);
+}
+
+/* Bolinha pequena da lista */
+.rk-avatar-sm {
+  /* Largura de 34 pixels */
+  width: 34px;
+  /* Altura de 34 pixels */
+  height: 34px;
+  /* Borda mais fina */
+  border-width: 2px;
+  /* Letra menor */
+  font-size: 12px;
+}
+
+/* Nome no degrau */
+.rk-degrau-nome {
+  /* Tamanho da letra: 14 pixels */
+  font-size: 14px;
+  /* Não deixa quebrar linha */
+  white-space: nowrap;
+  /* Esconde o que passar */
+  overflow: hidden;
+  /* Corta com reticências */
+  text-overflow: ellipsis;
+  /* Largura máxima: a toda */
+  max-width: 100%;
+}
+
+/* Pontos no degrau */
+.rk-degrau-pts {
+  /* Tamanho da letra: 12,5 pixels */
+  font-size: 12.5px;
+  /* Cor apagada */
+  color: var(--muted);
+  /* Números com a mesma largura */
+  font-variant-numeric: tabular-nums;
+}
+
+/* Bloco do degrau (a "caixa" do pódio) */
+.rk-degrau-bloco {
+  /* Organiza com grade */
+  display: grid;
+  /* Número no topo, centralizado */
+  place-items: start center;
+  /* Largura: a toda */
+  width: 100%;
+  /* Espaço em cima do número */
+  padding-top: 10px;
+  /* Só os cantos de cima arredondados */
+  border-radius: 12px 12px 4px 4px;
+  /* Fundo: degradê da cor do degrau para transparente */
+  background: linear-gradient(180deg, color-mix(in srgb, var(--rk-cor) 45%, transparent), color-mix(in srgb, var(--rk-cor) 8%, transparent));
+  /* Borda de cima na cor do degrau */
+  border-top: 2px solid var(--rk-cor);
+  /* Fonte de títulos */
+  font-family: var(--font-display);
+  /* Letra negrito */
+  font-weight: 700;
+  /* Tamanho da letra: 22 pixels */
+  font-size: 22px;
+  /* Branco */
+  color: var(--ink-strong);
+}
+
+/* 1º lugar: ouro e o degrau mais alto */
+.rk-degrau-1 {
+  /* Cor do degrau: ouro */
+  --rk-cor: var(--star);
+}
+
+/* Altura do bloco do 1º lugar */
+.rk-degrau-1 .rk-degrau-bloco {
+  /* Mais alto */
+  height: 120px;
+}
+
+/* Bolinha do 1º lugar maior */
+.rk-degrau-1 .rk-avatar {
+  /* Largura de 64 pixels */
+  width: 64px;
+  /* Altura de 64 pixels */
+  height: 64px;
+  /* Brilho dourado em volta */
+  box-shadow: 0 0 0 6px rgba(245, 181, 68, 0.15);
+}
+
+/* 2º lugar: prata */
+.rk-degrau-2 {
+  /* Cor do degrau: prata */
+  --rk-cor: #c9d3cd;
+}
+
+/* Altura do bloco do 2º lugar */
+.rk-degrau-2 .rk-degrau-bloco {
+  /* Médio */
+  height: 88px;
+}
+
+/* 3º lugar: bronze */
+.rk-degrau-3 {
+  /* Cor do degrau: bronze */
+  --rk-cor: var(--coral-dark);
+}
+
+/* Altura do bloco do 3º lugar */
+.rk-degrau-3 .rk-degrau-bloco {
+  /* Mais baixo */
+  height: 64px;
+}
+
+/* A pessoa logada no pódio ganha o nome em coral */
+.rk-degrau.is-eu .rk-degrau-nome {
+  /* Coral claro */
+  color: var(--coral-light);
+}
+
+/* Lista do 4º lugar em diante */
+.rk-lista {
+  /* Sem números automáticos */
+  list-style: none;
+  /* Espaço em cima, sem margem nos lados */
+  margin: 20px 0 0;
+  /* Sem espaço interno */
+  padding: 0;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre as linhas */
+  gap: 6px;
+}
+
+/* Cada linha da lista */
+.rk-linha {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 12px;
+  /* Espaço interno */
+  padding: 10px 14px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+  /* Animação de entrada */
+  animation: degrau-subir 0.5s var(--ease-out) both;
+}
+
+/* Linha da pessoa logada: borda e brilho coral */
+.rk-linha.is-eu {
+  /* Fundo coral fraquinho */
+  background: var(--coral-soft);
+  /* Borda coral */
+  box-shadow: inset 0 0 0 1px var(--border-coral);
+}
+
+/* Número da posição */
+.rk-pos {
+  /* Largura fixa (alinha os nomes) */
+  width: 32px;
+  /* Fonte de títulos */
+  font-family: var(--font-display);
+  /* Letra negrito */
+  font-weight: 700;
+  /* Cor apagada */
+  color: var(--muted);
+}
+
+/* Nome e liga */
+.rk-linha-nome {
+  /* Ocupa o espaço que sobra */
+  flex: 1;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Deixa encolher sem estourar */
+  min-width: 0;
+}
+
+/* Nome da liga embaixo do nome */
+.rk-linha-nome small {
+  /* Tamanho da letra: 12 pixels */
+  font-size: 12px;
+  /* Cor apagada */
+  color: var(--muted);
+}
+
+/* Pontos da linha */
+.rk-linha-pts {
+  /* Letra negrito */
+  font-weight: 700;
+  /* Números com a mesma largura */
+  font-variant-numeric: tabular-nums;
+}
+
+/* Linha final com o nome da academia */
+.rk-academia {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Um em cada ponta */
+  justify-content: space-between;
+  /* Centralizados na altura */
+  align-items: center;
+  /* Espaço interno */
+  padding: 8px 4px 0;
+}
+
+/* Caixa de escolher a academia */
+.rk-select {
+  /* Espaço interno */
+  padding: 10px 14px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-full);
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+  /* Cor principal do texto */
+  color: var(--ink);
+  /* Usa a mesma fonte do pai */
+  font: inherit;
+}
+
+/* Grade com ligas e selos */
+.rk-grade {
+  /* Organiza em grade */
+  display: grid;
+  /* Duas colunas */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  /* Espaço entre elas */
+  gap: var(--space-4);
+  /* Espaço embaixo */
+  margin-bottom: var(--space-6);
+}
+
+/* Painel (ligas, selos, tabela) */
+.rk-painel {
+  /* Espaço interno */
+  padding: 22px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-lg);
+  /* Borda fininha */
+  border: 1px solid var(--border);
+  /* Fundo dos cards */
+  background: var(--surface);
+}
+
+/* Lista das 4 ligas */
+.rk-ligas {
+  /* Sem números automáticos */
+  list-style: none;
+  /* Margem em cima e embaixo */
+  margin: 16px 0;
+  /* Sem espaço interno */
+  padding: 0;
+  /* Organiza em grade */
+  display: grid;
+  /* 4 colunas iguais */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  /* Espaço entre elas */
+  gap: 8px;
+}
+
+/* Cada liga */
+.rk-liga {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Centralizados */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 6px;
+  /* Espaço interno */
+  padding: 12px 4px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Meio apagada (ainda não chegou) */
+  opacity: 0.45;
+  /* Texto centralizado */
+  text-align: center;
+  /* Tamanho da letra: 13 pixels */
+  font-size: 13px;
+}
+
+/* Ligas que a pessoa já passou */
+.rk-liga.is-passada {
+  /* Um pouco mais visível */
+  opacity: 0.75;
+}
+
+/* Liga atual: acesa, com fundo */
+.rk-liga.is-atual {
+  /* Totalmente visível */
+  opacity: 1;
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+  /* Borda esmeralda */
+  box-shadow: inset 0 0 0 1px var(--emerald-dark);
+}
+
+/* Etiqueta "Você está aqui" menor */
+.rk-liga .tag {
+  /* Tamanho da letra: 10,5 pixels */
+  font-size: 10.5px;
+}
+
+/* Lista das mudanças de liga */
+.rk-mudancas {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Sem margem */
+  margin: 0;
+  /* Sem espaço interno */
+  padding: 0;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre eles */
+  gap: 6px;
+  /* Tamanho da letra: 13,5 pixels */
+  font-size: 13.5px;
+}
+
+/* Grade de selos */
+.rk-selos {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Espaço em cima */
+  margin: 14px 0 0;
+  /* Sem espaço interno */
+  padding: 0;
+  /* Organiza em grade */
+  display: grid;
+  /* Quantas colunas couberem, cada uma com no mínimo 130 pixels */
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  /* Espaço entre eles */
+  gap: 10px;
+}
+
+/* Cada selo */
+.rk-selo {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Centralizados */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 6px;
+  /* Espaço interno */
+  padding: 14px 10px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+  /* Texto centralizado */
+  text-align: center;
+  /* Bloqueado: apagado e em preto e branco */
+  filter: grayscale(1);
+  /* Meio transparente */
+  opacity: 0.5;
+}
+
+/* Selo conquistado: colorido */
+.rk-selo.is-feito {
+  /* Tira o preto e branco */
+  filter: none;
+  /* Totalmente visível */
+  opacity: 1;
+}
+
+/* Medalha do selo: anel com o ícone */
+.rk-selo-medalha {
+  /* Organiza com grade */
+  display: grid;
+  /* Ícone no meio */
+  place-items: center;
+  /* Largura de 54 pixels */
+  width: 54px;
+  /* Altura de 54 pixels */
+  height: 54px;
+  /* Redonda */
+  border-radius: 50%;
+  /* Anel em degradê da marca (borda feita com fundo duplo) */
+  background:
+    linear-gradient(var(--surface-2), var(--surface-2)) padding-box,
+    var(--gradient-brand) border-box;
+  /* Borda transparente (o degradê aparece nela) */
+  border: 3px solid transparent;
+  /* Cor do ícone */
+  color: var(--coral-light);
+}
+
+/* Selo conquistado: medalha com brilho */
+.rk-selo.is-feito .rk-selo-medalha {
+  /* Brilho coral em volta */
+  box-shadow: 0 0 18px rgba(255, 122, 69, 0.35);
+}
+
+/* Nome do selo */
+.rk-selo strong {
+  /* Tamanho da letra: 13 pixels */
+  font-size: 13px;
+}
+
+/* Como ganhar o selo */
+.rk-selo small {
+  /* Tamanho da letra: 11,5 pixels */
+  font-size: 11.5px;
+  /* Cor apagada */
+  color: var(--muted);
+  /* Altura da linha */
+  line-height: 1.35;
+}
+
+/* Tabela de pontos */
+.rk-tabela {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Margem em cima e embaixo */
+  margin: 14px 0;
+  /* Sem espaço interno */
+  padding: 0;
+  /* Organiza em grade */
+  display: grid;
+  /* Quantas colunas couberem, cada uma com no mínimo 220 pixels */
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  /* Espaço entre as linhas e as colunas */
+  gap: 8px 16px;
+}
+
+/* Cada linha da tabela */
+.rk-tabela li {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Um em cada ponta */
+  justify-content: space-between;
+  /* Espaço interno */
+  padding: 10px 14px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-sm);
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+}
+
+/* Pontos da tabela */
+.rk-tabela strong {
+  /* Esmeralda */
+  color: var(--emerald);
+}
+
+/* Em telas de até 900 pixels (tablet) */
+@media (max-width: 900px) {
+  /* Grade de ligas e selos */
+  .rk-grade {
+    /* Uma coluna só */
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Em telas de até 640 pixels (celular) */
+@media (max-width: 640px) {
+  /* Card grande */
+  .rk-hero {
+    /* Itens em coluna */
+    flex-direction: column;
+    /* Texto centralizado */
+    text-align: center;
+    /* Espaço interno menor */
+    padding: 20px;
+  }
+
+  /* Linha da liga e etiquetas */
+  .rk-hero-liga,
+  .rk-hero-tags {
+    /* Centralizados */
+    justify-content: center;
+  }
+
+  /* Caixa do pódio */
+  .rk-quadro {
+    /* Espaço interno menor */
+    padding: 16px;
+  }
+
+  /* Ligas: 2 por linha */
+  .rk-ligas {
+    /* 2 colunas */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Se a pessoa pediu ao sistema para reduzir as animações */
+@media (prefers-reduced-motion: reduce) {
+  /* Degraus e linhas */
+  .rk-degrau,
+  .rk-linha {
+    /* Sem animação */
+    animation: none;
+  }
+}
+
+/* O Pulso no card grande, empurrado para a direita */
+.rk-hero > .pulso {
+  /* Empurra para a direita */
+  margin-left: auto;
+}

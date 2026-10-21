@@ -1,15 +1,23 @@
+/* Todos os elementos */
 * {
+  /* A largura inclui a borda e o espaço interno */
   box-sizing: border-box;
 }
 
+/* A página e o corpo */
 html,
 body {
+  /* Altura: a toda */
   height: 100%;
 }
 
+/* Corpo da página */
 body {
+  /* Sem margem */
   margin: 0;
+  /* Fundo: verde-carvão do fundo */
   background: var(--bg);
+  /* Sem imagem de fundo */
   background-image:
     radial-gradient(
       circle at 15% 10%,
@@ -21,135 +29,224 @@ body {
       rgba(52, 211, 153, 0.08),
       transparent 45%
     );
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Fonte da letra */
   font-family:
     "Inter",
     -apple-system,
     BlinkMacSystemFont,
     sans-serif;
+  /* Deixa a letra mais lisinha no Mac */
   -webkit-font-smoothing: antialiased;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Espaço interno: 24 pixels */
   padding: 24px;
 }
 
+/* Cartão do formulário */
 .auth-container {
+  /* Largura: a toda */
   width: 100%;
+  /* Largura máxima: 420 pixels */
   max-width: 420px;
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Cantos arredondados: 14 pixels */
   border-radius: var(--radius-md);
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 40px 32px 32px;
 }
 
+/* Topo do cartão */
 .auth-header {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Texto centralizado */
   text-align: center;
+  /* Margem embaixo: 32 pixels */
   margin-bottom: 32px;
 }
 
 /* Mesmo selo de logo do login e do cadastro */
+/* Logo pequena */
 .logo-compact {
+  /* Largura: 52 pixels */
   width: 52px;
+  /* Altura: 52 pixels */
   height: 52px;
+  /* Margem embaixo: 16 pixels */
   margin-bottom: 16px;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Fundo: cor dos cards */
   background: var(--surface);
+  /* Borda de 1 pixel, cor meio transparente */
   border: 1px solid rgba(255, 160, 107, 0.4);
+  /* Cantos arredondados: 14 pixels */
   border-radius: 14px;
+  /* Sombra em volta da caixa */
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
 }
 
+/* Título */
 .auth-header h1 {
+  /* Fonte da letra */
   font-family: "Space Grotesk", "Inter", sans-serif;
+  /* Tamanho da letra: 24 pixels */
   font-size: 24px;
+  /* Letra negrito */
   font-weight: 700;
+  /* Margem (espaço por fora) */
   margin: 0 0 8px;
+  /* Espaço entre as letras */
   letter-spacing: -0.01em;
 }
 
+/* Texto de apoio */
 .auth-subtitle {
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Tamanho da letra: 14 pixels */
   font-size: 14px;
+  /* Altura da linha: 1,5 */
   line-height: 1.5;
+  /* Sem margem */
   margin: 0;
+  /* Largura máxima */
   max-width: 30ch;
 }
 
+/* Formulário */
 .auth-form {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 20 pixels */
   gap: 20px;
 }
 
+/* Grupo de um campo */
 .form-group {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
 }
 
+/* Nome do campo */
 .form-group label {
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
 }
 
+/* Caixa do ícone e do campo */
 .input-wrapper {
+  /* Posição relativa (serve de base para filhos soltos) */
   position: relative;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
 }
 
+/* Ícone dentro do campo */
 .input-icon {
+  /* Posição solta, presa ao pai */
   position: absolute;
+  /* Distância da esquerda: 14 pixels */
   left: 14px;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Ignora cliques (eles passam direto) */
   pointer-events: none;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: color 0.15s ease;
 }
 
+/* Ícone quando o campo está focado (fica coral) */
 .input-wrapper:focus-within .input-icon {
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
 }
 
+/* Campo de digitar */
 .form-group input {
+  /* Largura: a toda */
   width: 100%;
+  /* Fundo: verde-carvão do fundo */
   background: var(--bg);
+  /* Borda de 1,5 pixels, cor das bordas */
   border: 1.5px solid var(--border);
+  /* Cantos arredondados: 10 pixels */
   border-radius: var(--radius-sm);
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 13px 14px 13px 42px;
+  /* Tamanho da letra: 15 pixels */
   font-size: 15px;
+  /* Fonte: a mesma do elemento pai */
   font-family: inherit;
+  /* Cor do texto: bege claro do texto */
   color: var(--ink);
+  /* Tira o contorno padrão */
   outline: none;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     border-color 0.15s ease,
     box-shadow 0.15s ease;
 }
 
+/* Texto de exemplo dentro do campo */
 .form-group input::placeholder {
+  /* Cor do texto: cinza mais apagado */
   color: var(--muted-2);
 }
 
+/* Campo com o mouse em cima */
 .form-group input:hover {
+  /* Cor da borda: a cor #3a3a3a */
   border-color: #3a3a3a;
 }
 
+/* Campo focado */
 .form-group input:focus {
+  /* Cor da borda: coral */
   border-color: var(--coral);
+  /* Anel em volta da caixa (feito com sombra) */
   box-shadow: 0 0 0 4px var(--coral-ring);
 }
 
+/* Campo com erro */
 .form-group input[aria-invalid="true"] {
+  /* Cor da borda: amarelo de alerta */
   border-color: var(--warning);
 }
 
+/* Campo com erro e focado */
 .form-group input[aria-invalid="true"]:focus {
+  /* Anel em volta da caixa (feito com sombra) */
   box-shadow: 0 0 0 4px var(--warning-soft);
 }
 
@@ -157,34 +254,54 @@ body {
    MENSAGENS DE ERRO / SUCESSO
    ============================================ */
 
+/* Mensagem de erro do campo */
 .field-error {
+  /* Tamanho da letra: 12,5 pixels */
   font-size: 12.5px;
+  /* Cor do texto: amarelo de alerta */
   color: var(--warning);
+  /* Altura mínima: 16 pixels */
   min-height: 16px;
+  /* Altura da linha: 1,4 */
   line-height: 1.4;
 }
 
+/* Mensagem de erro vazia (não ocupa espaço) */
 .field-error:empty {
+  /* Esconde o elemento */
   display: none;
 }
 
+/* Caixas de erro e sucesso gerais */
 p.field-error,
 p.field-success {
+  /* Sem margem */
   margin: 0;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 12px 14px;
+  /* Cantos arredondados: 10 pixels */
   border-radius: var(--radius-sm);
+  /* Tamanho da letra: 13,5 pixels */
   font-size: 13.5px;
+  /* Altura da linha: 1,5 */
   line-height: 1.5;
 }
 
+/* Caixa de erro geral */
 p.field-error {
+  /* Fundo: amarelo fraquinho */
   background: var(--warning-soft);
+  /* Borda de 1 pixel, cor meio transparente */
   border: 1px solid rgba(255, 71, 87, 0.25);
 }
 
+/* Caixa de sucesso geral */
 p.field-success {
+  /* Fundo: esmeralda fraquinha */
   background: var(--emerald-soft);
+  /* Borda de 1 pixel, cor meio transparente */
   border: 1px solid rgba(34, 197, 94, 0.25);
+  /* Cor do texto: esmeralda */
   color: var(--emerald);
 }
 
@@ -192,71 +309,115 @@ p.field-success {
    BOTÃO SUBMIT
    ============================================ */
 
+/* Botão de enviar */
 .btn-submit {
+  /* Posição relativa (serve de base para filhos soltos) */
   position: relative;
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Centraliza no sentido principal */
   justify-content: center;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
+  /* Largura: a toda */
   width: 100%;
+  /* Sem borda */
   border: none;
+  /* Cantos arredondados: 10 pixels */
   border-radius: var(--radius-sm);
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 14px 20px;
+  /* Fonte: a mesma do elemento pai */
   font-family: inherit;
+  /* Tamanho da letra: 15 pixels */
   font-size: 15px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Cor do texto: quase preto (texto em cima do coral) */
   color: var(--on-coral);
+  /* Fundo em degradê */
   background: linear-gradient(180deg, var(--coral-light), var(--coral) 70%);
+  /* Mostra a mãozinha ao passar o mouse */
   cursor: pointer;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition:
     filter 0.15s ease,
     transform 0.1s ease;
 }
 
+/* Botão com o mouse em cima (se não estiver desativado) */
 .btn-submit:hover:not(:disabled) {
+  /* Efeito de filtro (brilho, desfoque...) */
   filter: brightness(1.08);
 }
 
+/* Botão sendo clicado */
 .btn-submit:active:not(:disabled) {
+  /* Desce 1 pixel */
   transform: translateY(1px);
 }
 
+/* Botão focado pelo teclado */
 .btn-submit:focus-visible {
+  /* Contorno em volta (aparece no foco) */
   outline: 2px solid var(--coral-light);
+  /* Distância do contorno até o elemento */
   outline-offset: 2px;
 }
 
+/* Botão desativado */
 .btn-submit:disabled {
+  /* Mostra o sinal de proibido */
   cursor: not-allowed;
+  /* Efeito de filtro (brilho, desfoque...) */
   filter: brightness(0.85);
 }
 
+/* Setinha do botão */
 .btn-submit .arrow {
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: transform 0.15s ease;
 }
 
+/* Setinha anda para a direita com o mouse em cima */
 .btn-submit:hover:not(:disabled) .arrow {
+  /* Move o elemento */
   transform: translateX(2px);
 }
 
 /* Spinner */
+/* Rodinha de carregando */
 .spinner {
+  /* Largura: 16 pixels */
   width: 16px;
+  /* Altura: 16 pixels */
   height: 16px;
+  /* Borda de 2 pixels, cor meio transparente */
   border: 2px solid rgba(255, 255, 255, 0.4);
+  /* Cor da borda: quase preto (texto em cima do coral) */
   border-top-color: var(--on-coral);
+  /* Cantos totalmente redondos */
   border-radius: 50%;
+  /* Roda a animação "spin" */
   animation: spin 0.7s linear infinite;
 }
 
+/* Animação chamada "spin" (passo a passo abaixo) */
 @keyframes spin {
+  /* Fim da animação */
   to {
+    /* Gira o elemento */
     transform: rotate(360deg);
   }
 }
 
+/* Se a pessoa pediu ao sistema para reduzir as animações */
 @media (prefers-reduced-motion: reduce) {
+  /* Rodinha de carregando */
   .spinner {
+    /* Duração da animação */
     animation-duration: 1.4s;
   }
 }
@@ -265,30 +426,47 @@ p.field-success {
    FOOTER
    ============================================ */
 
+/* Rodapé do cartão */
 .auth-footer {
+  /* Margem em cima: 24 pixels */
   margin-top: 24px;
+  /* Texto centralizado */
   text-align: center;
 }
 
+/* Frase do rodapé */
 .auth-footer p {
+  /* Tamanho da letra: 13,5 pixels */
   font-size: 13.5px;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
+  /* Sem margem */
   margin: 0;
 }
 
+/* Link do rodapé */
 .btn-comecar {
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Tira o sublinhado */
   text-decoration: none;
 }
 
+/* Link com o mouse em cima */
 .btn-comecar:hover {
+  /* Sublinhado no texto */
   text-decoration: underline;
 }
 
+/* Link focado pelo teclado */
 .btn-comecar:focus-visible {
+  /* Contorno em volta (aparece no foco) */
   outline: 2px solid var(--coral-light);
+  /* Distância do contorno até o elemento */
   outline-offset: 2px;
+  /* Cantos arredondados: 3 pixels */
   border-radius: 3px;
 }
 
@@ -296,80 +474,121 @@ p.field-success {
    RESPONSIVO
    ============================================ */
 
+/* Em telas de até 420 pixels */
 @media (max-width: 420px) {
+  /* Cartão do formulário */
   .auth-container {
+    /* Espaço interno (em cima, lados e embaixo) */
     padding: 32px 22px 24px;
+    /* Cantos arredondados: 12 pixels */
     border-radius: 12px;
   }
 
+  /* Título */
   .auth-header h1 {
+    /* Tamanho da letra: 21 pixels */
     font-size: 21px;
   }
 }
 /* Força o link do rodapé a manter a cor correta mesmo depois de clicado */
+/* Links do rodapé */
 .auth-footer a,
 .auth-footer a:visited {
+  /* Cor do texto */
   color: var(--ink-strong); /* Deixa o texto branco */
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: color 0.2s ease;
 }
 
 /* Efeito ao passar o mouse por cima */
+/* Link com o mouse em cima */
 .auth-footer a:hover {
+  /* Cor do texto */
   color: var(--coral-light); /* Fica coral no hover */
+  /* Sublinhado no texto */
   text-decoration: underline;
 }
 
 /* Trava todos os links visitados para manterem a cor original sem ficar roxo */
+/* Links já visitados */
 a:visited {
+  /* Cor do texto: a mesma do elemento pai */
   color: inherit;
 }
 
 /* Link 'Esqueci minha senha' em coral */
+/* Link "Esqueci minha senha" */
 .forgot-password,
 .forgot-password:visited {
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Tamanho da letra */
   font-size: 0.875rem;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: opacity 0.2s ease;
 }
 
+/* Link com o mouse em cima */
 .forgot-password:hover {
+  /* Sublinhado no texto */
   text-decoration: underline;
+  /* Meio transparente (80% visível) */
   opacity: 0.8;
 }
 
 /* Links de destaque do rodapé ('Criar conta' / 'Entrar') em coral */
+/* Links do rodapé */
 .auth-footer a,
 .auth-footer a:visited,
 .btn-comecar,
 .btn-comecar:visited {
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Tira o sublinhado */
   text-decoration: none;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
   transition: opacity 0.2s ease;
 }
 
+/* Links com o mouse em cima */
 .auth-footer a:hover,
 .btn-comecar:hover {
+  /* Sublinhado no texto */
   text-decoration: underline;
+  /* Meio transparente (80% visível) */
   opacity: 0.8;
 }
 
 /* Link exibido no modo demonstração */
+/* Link do modo demonstração */
 .demo-link {
+  /* Fica na linha do texto, mas aceita largura e altura */
   display: inline-block;
+  /* Margem em cima: 6 pixels */
   margin-top: 6px;
+  /* Cor do texto: coral claro */
   color: var(--coral-light);
+  /* Letra seminegrito */
   font-weight: 600;
 }
 
 /* Foco visível para quem navega pelo teclado */
+/* Links, botões e caixinhas focados pelo teclado */
 a:focus-visible,
 button:focus-visible,
 input[type="checkbox"]:focus-visible {
+  /* Contorno em volta (aparece no foco) */
   outline: 2px solid var(--coral);
+  /* Distância do contorno até o elemento */
   outline-offset: 3px;
+  /* Cantos arredondados: 6 pixels */
   border-radius: 6px;
 }

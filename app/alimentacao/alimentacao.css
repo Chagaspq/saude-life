@@ -7,166 +7,583 @@
    ALIMENTAÇÃO
    ============================================ */
 
+/* Grade dos cards de calorias e macros */
 .nutrition-overview {
+  /* 4 colunas iguais */
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+/* Card de cada macro */
 .macro-card {
+  /* Cantos arredondados: 14 pixels */
   border-radius: var(--radius-md);
+  /* Espaço interno: 18 pixels */
   padding: 18px;
 }
 
+/* Nome do macro (com a bolinha colorida) */
 .macro-card .macro-name {
+  /* Flexbox, mas sem ocupar a linha toda */
   display: inline-flex;
+  /* Itens centralizados na altura */
   align-items: center;
+  /* Espaço entre os itens: 8 pixels */
   gap: 8px;
 }
 
+/* Bolinha colorida do macro */
 .macro-dot {
+  /* Largura: 8 pixels */
   width: 8px;
+  /* Altura: 8 pixels */
   height: 8px;
+  /* Cantos totalmente redondos */
   border-radius: 50%;
+  /* Fundo: a variável --macro-cor */
   background: var(--macro-cor);
 }
 
+/* Número grande do macro */
 .macro-card strong {
+  /* Tamanho da letra: 22 pixels */
   font-size: 22px;
 }
 
+/* Texto pequeno ao lado do número (ex.: de 150 g) */
 .macro-card strong small {
+  /* Fonte: fonte de texto (Inter) */
   font-family: var(--font-body);
+  /* Tamanho da letra: 13 pixels */
   font-size: 13px;
+  /* Letra um pouco mais grossa (médio) */
   font-weight: 500;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
 }
 
+/* Card de cor coral */
 .macro-coral {
+  /* Define a variável --macro-cor para este bloco: coral */
   --macro-cor: var(--coral);
 }
 
+/* Card de cor esmeralda */
 .macro-emerald {
+  /* Define a variável --macro-cor para este bloco: esmeralda */
   --macro-cor: var(--emerald);
 }
 
+/* Card de cor amarela */
 .macro-warning {
+  /* Define a variável --macro-cor para este bloco: amarelo de alerta */
   --macro-cor: var(--warning);
 }
 
+/* Card de cor azul */
 .macro-info {
+  /* Define a variável --macro-cor para este bloco: azul de informação */
   --macro-cor: var(--info);
 }
 
+/* Grade com refeições e água */
 .nutrition-grid {
+  /* Organiza os itens em grade */
   display: grid;
+  /* Tamanho das colunas da grade: minmax(0, 1.7fr) minmax(260px, 1fr) */
   grid-template-columns: minmax(0, 1.7fr) minmax(260px, 1fr);
+  /* Espaço entre os itens: 16 pixels */
   gap: var(--space-4);
+  /* Itens alinhados no começo */
   align-items: start;
 }
 
+/* Cada refeição da lista */
 .meal-item {
+  /* Junta os itens no começo (!important: vence outras regras) */
   justify-content: flex-start !important;
 }
 
+/* Horário da refeição */
 .meal-time {
+  /* Largura: 48 pixels */
   width: 48px;
+  /* Não deixa encolher */
   flex-shrink: 0;
+  /* Fonte: fonte de títulos (Space Grotesk) */
   font-family: var(--font-display);
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Cor do texto: coral claro (!important: vence outras regras) */
   color: var(--coral-light) !important;
+  /* Tamanho da letra: 13,5 pixels (!important: vence outras regras) */
   font-size: 13.5px !important;
 }
 
+/* Nome e detalhes da refeição */
 .list-panel .meal-info {
+  /* Ocupa todo o espaço que sobra */
   flex: 1;
 }
 
+/* Linha com os macros da refeição */
 .meal-macros {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Quebra para a linha de baixo se não couber */
   flex-wrap: wrap;
+  /* Espaço entre os itens: 6 pixels */
   gap: 6px;
+  /* Margem em cima: 4 pixels */
   margin-top: 4px;
 }
 
+/* Etiqueta de cada macro */
 .list-panel .macro-chip {
+  /* Tamanho da letra: 11 pixels */
   font-size: 11px;
+  /* Letra seminegrito */
   font-weight: 600;
+  /* Espaço interno (em cima, lados e embaixo) */
   padding: 2px 8px;
+  /* Cantos arredondados: total (formato pílula) */
   border-radius: var(--radius-full);
+  /* Cor do texto: a variável --macro-cor */
   color: var(--macro-cor);
+  /* Fundo */
   background: color-mix(in srgb, var(--macro-cor) 12%, transparent);
 }
 
+/* Mensagem quando não tem refeição */
 .meal-empty {
+  /* Centraliza no sentido principal (!important: vence outras regras) */
   justify-content: center !important;
+  /* Espaço interno (em cima, lados e embaixo) (!important: vence outras regras) */
   padding: 28px 16px !important;
 }
 
+/* Card da água */
 .water-card {
+  /* Organiza os itens com flexbox */
   display: flex;
+  /* Itens em coluna (um embaixo do outro) */
   flex-direction: column;
+  /* Espaço entre os itens: 12 pixels */
   gap: 12px;
+  /* Espaço interno: 20 pixels */
   padding: 20px;
+  /* Cantos arredondados: 14 pixels */
   border-radius: var(--radius-md);
+  /* Borda de 1 pixel, cor das bordas */
   border: 1px solid var(--border);
+  /* Fundo com várias camadas (veja as linhas abaixo) */
   background:
     radial-gradient(circle at 100% 0%, rgba(124, 196, 240, 0.12), transparent 60%),
     var(--surface);
 }
 
+/* Título do card da água */
 .water-card h2 {
+  /* Margem embaixo: zero */
   margin-bottom: 0;
 }
 
+/* Quantos ml foram bebidos */
 .water-value {
+  /* Sem margem */
   margin: 0;
+  /* Cor do texto: cinza apagado */
   color: var(--muted);
 }
 
+/* Número em destaque */
 .water-value strong {
+  /* Fonte: fonte de títulos (Space Grotesk) */
   font-family: var(--font-display);
+  /* Tamanho da letra: 30 pixels */
   font-size: 30px;
+  /* Cor do texto: branco */
   color: var(--ink-strong);
 }
 
+/* Fileira de copinhos */
 .water-glasses {
+  /* Organiza os itens em grade */
   display: grid;
+  /* 6 colunas iguais */
   grid-template-columns: repeat(6, 1fr);
+  /* Espaço entre os itens: 6 pixels */
   gap: 6px;
 }
 
+/* Cada copinho */
 .water-glass {
+  /* Largura: a toda */
   width: 100%;
+  /* Altura: 28 pixels */
   height: 28px;
+  /* Cor do texto: borda mais forte */
   color: var(--border-strong);
 }
 
+/* Copinho cheio */
 .water-glass.is-full {
+  /* Cor do texto: azul de informação */
   color: var(--info);
+  /* Cor de preenchimento do desenho: cor meio transparente */
   fill: rgba(124, 196, 240, 0.25);
 }
 
+/* Botões de mais e menos água */
 .water-actions {
+  /* Organiza os itens em grade */
   display: grid;
+  /* Tamanho das colunas da grade: 1fr 1fr */
   grid-template-columns: 1fr 1fr;
+  /* Espaço entre os itens: 10 pixels */
   gap: 10px;
 }
 
+/* Em telas de até 900 pixels */
 @media (max-width: 900px) {
+  /* Grade de refeições e água */
   .nutrition-grid {
+    /* Uma coluna só */
     grid-template-columns: 1fr;
   }
 
+  /* Grade dos macros */
   .nutrition-overview {
+    /* 2 colunas iguais */
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
+/* Em telas de até 640 pixels */
 @media (max-width: 640px) {
+  /* Cada refeição */
   .meal-item {
+    /* Quebra para a linha de baixo se não couber */
     flex-wrap: wrap;
   }
 
+  /* Horário da refeição */
   .meal-time {
+    /* Largura automática */
     width: auto;
+  }
+}
+
+/* De onde vêm as metas (embaixo dos macros) */
+.metas-info {
+  /* Margem em cima */
+  margin: 10px 0 0;
+  /* Cor apagada */
+  color: var(--muted);
+  /* Tamanho da letra: 13,5 pixels */
+  font-size: 13.5px;
+}
+
+/* Garrafa de água */
+.garrafa {
+  /* Organiza com grade (centraliza a garrafa) */
+  display: grid;
+  /* Centraliza */
+  place-items: center;
+  /* Espaço em cima e embaixo */
+  padding: 6px 0;
+}
+
+/* Desenho da garrafa */
+.garrafa svg {
+  /* Largura de 70 pixels */
+  width: 70px;
+  /* Altura de 140 pixels */
+  height: 140px;
+}
+
+/* Vidro (fundo da garrafa vazia) */
+.garrafa-vidro {
+  /* Azul bem clarinho e transparente */
+  fill: rgba(124, 196, 240, 0.08);
+}
+
+/* Água com onda */
+.garrafa-agua {
+  /* Azul de informação */
+  fill: var(--info);
+  /* Um pouco transparente */
+  opacity: 0.85;
+  /* Sobe/desce suave quando muda o nível */
+  transition: d 0.6s var(--ease-out);
+  /* Onda indo de um lado para o outro */
+  animation: garrafa-onda 2.4s linear infinite;
+}
+
+/* Animação: a onda anda para o lado (a forma se repete a cada 80 pixels) */
+@keyframes garrafa-onda {
+  /* Fim: andou 80 pixels */
+  to {
+    /* Move para a direita */
+    transform: translateX(80px);
+  }
+}
+
+/* Contorno da garrafa */
+.garrafa-contorno {
+  /* Sem preenchimento */
+  fill: none;
+  /* Azul de informação */
+  stroke: var(--info);
+  /* Grossura */
+  stroke-width: 3;
+  /* Cantos arredondados */
+  stroke-linejoin: round;
+}
+
+/* Brilho do vidro */
+.garrafa-brilho {
+  /* Sem preenchimento */
+  fill: none;
+  /* Branco transparente */
+  stroke: rgba(255, 255, 255, 0.35);
+  /* Grossura */
+  stroke-width: 3;
+  /* Pontas arredondadas */
+  stroke-linecap: round;
+}
+
+/* Lembrete de água */
+.lembrete-agua {
+  /* Margem em cima */
+  margin-top: 10px;
+  /* Tamanho da letra: 13,5 pixels */
+  font-size: 13.5px;
+}
+
+/* Foto do prato na lista */
+.meal-foto {
+  /* Largura de 48 pixels */
+  width: 48px;
+  /* Altura de 48 pixels */
+  height: 48px;
+  /* Cantos arredondados */
+  border-radius: 10px;
+  /* A foto preenche sem distorcer */
+  object-fit: cover;
+  /* Não deixa encolher */
+  flex-shrink: 0;
+}
+
+/* Miniatura no formulário */
+.meal-foto-previa {
+  /* Largura de 96 pixels */
+  width: 96px;
+  /* Altura de 96 pixels */
+  height: 96px;
+  /* Espaço em cima */
+  margin-top: 8px;
+}
+
+/* Bloco de busca de alimentos */
+.alim {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre eles */
+  gap: 6px;
+  /* Espaço interno */
+  padding: 12px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+  /* Borda fininha */
+  border: 1px solid var(--border);
+}
+
+/* Título do bloco */
+.alim-titulo {
+  /* Letra seminegrito */
+  font-weight: 600;
+  /* Tamanho da letra: 14 pixels */
+  font-size: 14px;
+}
+
+/* Campo de busca */
+.alim-busca {
+  /* Espaço interno */
+  padding: 10px 14px;
+  /* Formato pílula */
+  border-radius: var(--radius-full);
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Fundo dos cards */
+  background: var(--surface);
+  /* Cor principal do texto */
+  color: var(--ink);
+  /* Usa a mesma fonte do pai */
+  font: inherit;
+}
+
+/* Listas de resultados e de escolhidos */
+.alim-resultados,
+.alim-escolhidos {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Sem margem */
+  margin: 0;
+  /* Sem espaço interno */
+  padding: 0;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre eles */
+  gap: 4px;
+}
+
+/* Cada resultado é um botão do tamanho da linha */
+.alim-resultados button {
+  /* Largura: a toda */
+  width: 100%;
+  /* Texto à esquerda */
+  text-align: left;
+  /* Espaço interno */
+  padding: 8px 12px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-sm);
+  /* Borda */
+  border: 1px solid var(--border);
+  /* Fundo dos cards */
+  background: var(--surface);
+  /* Cor principal do texto */
+  color: var(--ink);
+  /* Usa a mesma fonte do pai */
+  font: inherit;
+  /* Mãozinha do mouse */
+  cursor: pointer;
+}
+
+/* Resultado com o mouse em cima */
+.alim-resultados button:hover {
+  /* Borda coral */
+  border-color: var(--coral);
+}
+
+/* Cada comida escolhida: nome | − | porções | + */
+.alim-escolhidos li {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 6px;
+}
+
+/* Nome da comida ocupa o espaço que sobra */
+.alim-escolhidos li > span {
+  /* Ocupa o espaço que sobra */
+  flex: 1;
+  /* Deixa encolher */
+  min-width: 0;
+}
+
+/* Quantidade de porções */
+.alim-qtd {
+  /* Largura mínima (não pula quando muda) */
+  min-width: 34px;
+  /* Texto centralizado */
+  text-align: center;
+  /* Fonte de placar */
+  font-family: var(--font-placar);
+}
+
+/* Seção do cardápio */
+.cardapios-secao {
+  /* Espaço em cima */
+  margin-top: var(--space-6);
+}
+
+/* Grade das refeições do cardápio */
+.cardapio {
+  /* Organiza em grade */
+  display: grid;
+  /* Quantas colunas couberem, no mínimo 220 pixels cada */
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  /* Espaço entre elas */
+  gap: 12px;
+}
+
+/* Cada refeição do cardápio */
+.cardapio-item {
+  /* Espaço interno */
+  padding: 16px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Borda fininha */
+  border: 1px solid var(--border);
+  /* Fundo dos cards */
+  background: var(--surface);
+}
+
+/* Texto do cardápio */
+.cardapio-item p {
+  /* Margem em cima e embaixo */
+  margin: 8px 0;
+  /* Linhas mais espaçadas */
+  line-height: 1.5;
+}
+
+/* Topo da refeição: hora e nome */
+.cardapio-topo {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 10px;
+}
+
+/* Rodapé do cardápio: total e botão */
+.cardapio-rodape {
+  /* Ocupa a largura toda da grade */
+  grid-column: 1 / -1;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Quebra linha se não couber */
+  flex-wrap: wrap;
+  /* Um em cada ponta */
+  justify-content: space-between;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 10px;
+}
+
+/* Escolha do modo das metas */
+.metas-modo {
+  /* Sem borda */
+  border: 0;
+  /* Sem margem */
+  margin: 0;
+  /* Sem espaço interno */
+  padding: 0;
+}
+
+/* Pergunta do modo */
+.metas-modo legend {
+  /* Espaço embaixo */
+  margin-bottom: 6px;
+  /* Letra seminegrito */
+  font-weight: 600;
+}
+
+/* Quem pediu menos movimento: água parada */
+@media (prefers-reduced-motion: reduce) {
+  /* Água da garrafa */
+  .garrafa-agua {
+    /* Sem animação */
+    animation: none;
   }
 }
