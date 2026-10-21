@@ -791,3 +791,28 @@ input[type="checkbox"]:focus-visible {
   /* Totalmente visível */
   opacity: 1;
 }
+
+/* Botão "Entrar na demonstração" (parece um link) */
+.link-demo {
+  /* Sem fundo */
+  background: none;
+  /* Sem borda */
+  border: 0;
+  /* Sem espaço interno */
+  padding: 0;
+  /* Mesma fonte do texto */
+  font: inherit;
+  /* Cor esmeralda (diferente do "Criar conta") */
+  color: var(--emerald);
+  /* Negrito */
+  font-weight: 600;
+  /* Mãozinha */
+  cursor: pointer;
+}
+
+/* Botão de demonstração com mouse ou foco */
+.link-demo:hover,
+.link-demo:focus-visible {
+  /* Sublinhado */
+  text-decoration: underline;
+}

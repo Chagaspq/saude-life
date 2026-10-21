@@ -41,6 +41,33 @@
     // Apaga a mensagem de erro quando a pessoa volta a digitar
     F.clearErrorOnInput(loginForm);
 
+    // Botão "Entrar na demonstração": cria a conta de exemplo e entra direto
+    const botaoDemo = document.querySelector("[data-demo-login]");
+    // Se o botão existe...
+    if (botaoDemo)
+      // ...quando clicam nele...
+      botaoDemo.addEventListener("click", async function () {
+        // ...preenche o formulário com a conta de exemplo
+        loginForm.querySelector("#email").value = "demo@saudelife.app";
+        // (senha de exemplo)
+        loginForm.querySelector("#password").value = "demo1234";
+        // ...cria a conta de exemplo se ainda não existe
+        if (!F.acharConta("demo@saudelife.app")) {
+          // Contas salvas
+          const contas = JSON.parse(localStorage.getItem("sl-contas") || "[]");
+          // Soma a conta de exemplo (com o hash da senha)
+          contas.push({ nome: "Biel Demonstração", email: "demo@saudelife.app", hash: await F.hashSenha("demo@saudelife.app", "demo1234"), criada: new Date().toISOString() });
+          // Salva
+          localStorage.setItem("sl-contas", JSON.stringify(contas));
+        }
+        // ...já marca o questionário como respondido (pula para o Início)
+        if (!localStorage.getItem("sl-onboarding")) localStorage.setItem("sl-onboarding", JSON.stringify({ objetivo: "Hipertrofia", nivel: "Intermediário", dias: 4, rotulo: "Ganhar massa muscular" }));
+        // ...pede para o app encher os dados de exemplo ao abrir
+        localStorage.setItem("sl-demo-preencher", "true");
+        // ...e entra como se tivesse clicado em Entrar
+        loginForm.requestSubmit();
+      });
+
     // Quando a pessoa clica em Entrar...
     loginForm.addEventListener("submit", async function (event) {
       // ...impede a página de recarregar

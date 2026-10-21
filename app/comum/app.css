@@ -4781,3 +4781,49 @@ body[data-pagina]::before {
     animation: none;
   }
 }
+
+/* ============================================
+   MODO DEMONSTRAÇÃO
+   ============================================ */
+
+/* Data simulada no painel */
+.demo-data {
+  /* Espaço */
+  margin: 12px 0;
+}
+
+/* Botões do painel */
+.demo-botoes {
+  /* Lado a lado */
+  display: flex;
+  /* Quebra linha se não couber */
+  flex-wrap: wrap;
+  /* Espaço entre eles */
+  gap: 8px;
+}
+
+/* Aviso fixo com a data simulada */
+.demo-pilula {
+  /* Preso na tela */
+  position: fixed;
+  /* Embaixo, acima da barra de navegação do celular */
+  bottom: calc(84px + env(safe-area-inset-bottom));
+  /* No canto direito */
+  right: 16px;
+  /* Por cima do conteúdo */
+  z-index: 60;
+  /* Fundo amarelo de aviso */
+  background: var(--warning);
+  /* Texto escuro */
+  color: var(--on-coral);
+  /* Letra pequena e negrito */
+  font: 700 12px var(--font-body);
+  /* Espaço interno */
+  padding: 4px 12px;
+  /* Pílula */
+  border-radius: var(--radius-full);
+  /* Sem sublinhado */
+  text-decoration: none;
+  /* Sombra */
+  box-shadow: var(--shadow-sm);
+}

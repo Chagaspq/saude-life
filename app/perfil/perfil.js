@@ -99,4 +99,12 @@ window.SL &&
         SL.toast("Preferência salva");
       });
     });
+
+    // Painel do modo demonstração (depois da seção Conta)
+    if (SL.demo) {
+      // Coloca o painel
+      document.querySelector('[aria-labelledby="heading-conta"]').after(SL.demo.painel());
+      // Se o endereço pede o painel (#heading-demo), rola até ele
+      if (location.hash === "#heading-demo") document.getElementById("heading-demo").scrollIntoView();
+    }
   });
