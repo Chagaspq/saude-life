@@ -2168,6 +2168,11 @@
     window.addEventListener("load", () => navigator.serviceWorker.register("../../sw.js").catch(() => {}));
   }
 
+  // Avisa quando a internet cai e quando volta (o app continua funcionando offline)
+  window.addEventListener("offline", () => toast("Sem internet. Tudo continua funcionando e fica salvo aqui 📴"));
+  // Quando a internet volta
+  window.addEventListener("online", () => toast("Internet de volta ✓"));
+
   // Quando o HTML terminar de carregar...
   // Lembrete de água: com o app aberto, avisa se passou 2 horas sem beber (entre 8h e 22h)
   function conferirAgua() {

@@ -94,4 +94,13 @@
     // (ou no começo)
     else lugar.prepend(botao);
   });
+
+  // Site inteiro offline: registra o service worker (sw.js fica na raiz, uma pasta acima de shared/)
+  // Endereço deste arquivo (tema.js), para achar o sw.js a partir dele
+  const esteArquivo = document.currentScript && document.currentScript.src;
+  // Se o navegador suporta, a página está num servidor e sabemos onde estamos...
+  if ("serviceWorker" in navigator && location.protocol.startsWith("http") && esteArquivo) {
+    // ...quando a página terminar de carregar, registra (erros são ignorados)
+    window.addEventListener("load", () => navigator.serviceWorker.register(new URL("../sw.js", esteArquivo)).catch(() => {}));
+  }
 })();
