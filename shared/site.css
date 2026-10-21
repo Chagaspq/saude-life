@@ -287,3 +287,12 @@
     transition: none;
   }
 }
+
+/* Links do topo que somem no celular (não cabem) */
+@media (max-width: 640px) {
+  /* Link "Para academias" */
+  .link-esconde-celular {
+    /* Esconde */
+    display: none;
+  }
+}

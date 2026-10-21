@@ -1,0 +1,332 @@
+<!doctype html>
+<!-- A linha acima avisa o navegador que este arquivo é uma página HTML5 -->
+<!-- Começo da página, em português do Brasil -->
+<html lang="pt-BR">
+  <!-- Cabeçalho: informações da página que não aparecem na tela -->
+  <head>
+    <!-- Usa UTF-8 para mostrar os acentos (á, ç, ã) do jeito certo -->
+    <meta charset="UTF-8" />
+    <!-- Faz a página se ajustar à largura da tela do celular -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Cor da barra do navegador no celular (verde-carvão) -->
+    <meta name="theme-color" content="#0e1512" />
+    <!-- Ícone da aba do navegador (a logo) -->
+    <link rel="icon" href="../shared/favicon.svg" type="image/svg+xml" />
+    <!-- Arquivo que permite instalar o site como app no celular -->
+    <link rel="manifest" href="../shared/manifest.webmanifest" />
+    <!-- Ícone usado quando o site é salvo na tela inicial do iPhone -->
+    <link rel="apple-touch-icon" href="../shared/icon-192.png" />
+    <!-- Para redes sociais: diz que isto é um site -->
+    <meta property="og:type" content="website" />
+    <!-- Para redes sociais: nome do site -->
+    <meta property="og:site_name" content="Saúde Life" />
+    <!-- Para redes sociais: idioma português do Brasil -->
+    <meta property="og:locale" content="pt_BR" />
+    <!-- Para redes sociais: título que aparece quando o link é compartilhado -->
+    <meta property="og:title" content="Saúde Life - Para academias" />
+    <!-- Para redes sociais: texto que aparece quando o link é compartilhado -->
+    <meta property="og:description" content="Ranking da unidade, check-in por QR code, lotação e aulas com fila de espera para a sua academia." />
+    <!-- Para redes sociais: imagem que aparece quando o link é compartilhado -->
+    <meta property="og:image" content="https://chagaspq.github.io/saude-life/shared/og-image.png" />
+    <!-- No X (Twitter), mostra o link com imagem grande -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- Nome que aparece na aba do navegador -->
+    <title>Saúde Life - Para academias</title>
+    <!-- Descrição da página que aparece no Google -->
+    <meta
+      name="description"
+      content="Ranking da unidade, check-in por QR code, lotação e aulas com fila de espera para a sua academia."
+    />
+    <!-- Já começa a conectar no Google Fonts para as fontes carregarem mais rápido -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!-- Mesma coisa para o servidor onde ficam os arquivos das fontes -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Carrega as fontes Space Grotesk (títulos) e Inter (texto) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Carrega as variáveis do site: cores, fontes e espaços (design system) -->
+    <link rel="stylesheet" href="../shared/tokens.css" />
+    <!-- Aplica o tema claro ou escuro antes de desenhar a página (e cria o botão de trocar) -->
+    <script src="../shared/tema.js"></script>
+    <!-- Carrega o estilo base comum a todas as páginas -->
+    <link rel="stylesheet" href="../shared/base.css" />
+    <!-- Carrega o estilo próprio desta página (welcome.css) -->
+    <link rel="stylesheet" href="../welcome/welcome.css" />
+    <!-- Carrega o estilo comum do site público (topo e rodapé) -->
+    <link rel="stylesheet" href="../shared/site.css" />
+    <!-- Carrega o estilo do topo das páginas (reaproveitado da página de planos) -->
+    <link rel="stylesheet" href="../planos/planos.css" />
+    <!-- Carrega o estilo próprio desta página (academias.css) -->
+    <link rel="stylesheet" href="academias.css" />
+  </head>
+  <!-- Corpo: tudo o que aparece na tela -->
+  <body>
+    <!-- Barra do topo do site -->
+    <header class="top-bar">
+      <!-- Link que leva para a página de boas-vindas -->
+      <a href="../welcome/welcome.html" class="brand">
+        <!-- Desenho da logo em SVG: anel de progresso com batimento -->
+        <svg
+          aria-hidden="true"
+          width="30"
+          height="30"
+          viewBox="0 0 64 64"
+          fill="none"
+        >
+          <!-- Definições usadas pelo desenho (como o degradê) -->
+          <defs>
+            <!-- Item da lista -->
+            <linearGradient
+              id="logo-gradient"
+              x1="8"
+              y1="56"
+              x2="56"
+              y2="8"
+              gradientUnits="userSpaceOnUse"
+            >
+              <!-- Começo do degradê, na cor coral -->
+              <stop offset="0%" stop-color="#ff7a45" />
+              <!-- Fim do degradê, na cor esmeralda -->
+              <stop offset="100%" stop-color="#34d399" />
+            </linearGradient>
+          </defs>
+          <!-- Anel de progresso da logo -->
+          <path
+            d="M32 9.5A22.5 22.5 0 1 1 12.51 20.75"
+            stroke="url(#logo-gradient)"
+            stroke-width="6.5"
+            stroke-linecap="round"
+          />
+          <!-- Linha de batimento cardíaco da logo -->
+          <path
+            d="M19.5 33H24.5L28.5 25L33.5 41L37 33H44.5"
+            stroke="url(#logo-gradient)"
+            stroke-width="6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <!-- Nome da marca: Saúde Life (o "Life" fica em coral) -->
+        <span>Saúde <span class="brand-life">Life</span></span>
+      </a>
+      <!-- Links do lado direito do topo -->
+      <nav class="top-bar-actions" aria-label="Navegação principal">
+        <!-- Link que leva para o blog de dicas -->
+        <a href="../blog/blog.html" class="link-entrar">Blog</a>
+        <!-- Link que leva para a página para donos de academia -->
+        <a href="../academias/academias.html" aria-current="page" class="link-entrar link-esconde-celular">Para academias</a>
+        <!-- Link que leva para a página de planos -->
+        <a href="../planos/planos.html" class="link-entrar">Planos</a>
+        <!-- Link que leva para a tela de login -->
+        <a href="../login/login.html" class="link-entrar">Entrar</a>
+        <!-- Link que leva para a tela de cadastro -->
+        <a href="../cadastro/cadastro.html" class="btn-criar-conta">Começar</a>
+      </nav>
+    </header>
+
+    <!-- Conteúdo principal da página -->
+    <!-- Conteúdo principal da página -->
+    <main id="conteudo">
+      <!-- Topo da página para donos de academia -->
+      <section class="plans-hero">
+        <!-- Textinho acima do título -->
+        <p class="hero-kicker">Para academias</p>
+        <!-- Título principal da página -->
+        <h1>Seus alunos treinando mais, e voltando sempre</h1>
+        <!-- Texto de apoio -->
+        <p class="plans-hero-lead">Ranking da unidade, check-in por QR code, lotação em tempo real e aulas com fila de espera. Tudo no app que o aluno já usa para treinar.</p>
+        <!-- Botão que desce até o formulário -->
+        <a href="#demo" class="btn-hero-primary">Quero uma demonstração</a>
+      </section>
+
+      <!-- Benefícios -->
+      <section class="acad-beneficios" aria-labelledby="titulo-beneficios">
+        <!-- Título da seção -->
+        <h2 id="titulo-beneficios">O que sua academia ganha</h2>
+        <!-- Lista de benefícios -->
+        <ul class="acad-grade">
+          <!-- Benefício: ranking -->
+          <li class="acad-card">
+            <!-- Ícone -->
+            <span class="acad-icone" aria-hidden="true">🏆</span>
+            <!-- Título -->
+            <h3>Ranking da unidade</h3>
+            <!-- Texto -->
+            <p>Os alunos somam pontos treinando e disputam a semana. Competição saudável faz a pessoa voltar.</p>
+          </li>
+          <!-- Benefício: check-in -->
+          <li class="acad-card">
+            <!-- Ícone -->
+            <span class="acad-icone" aria-hidden="true">📲</span>
+            <!-- Título -->
+            <h3>Check-in por QR code</h3>
+            <!-- Texto -->
+            <p>O aluno mostra o código do app na catraca. Você sabe quem veio e quem sumiu.</p>
+          </li>
+          <!-- Benefício: lotação -->
+          <li class="acad-card">
+            <!-- Ícone -->
+            <span class="acad-icone" aria-hidden="true">📊</span>
+            <!-- Título -->
+            <h3>Lotação em tempo real</h3>
+            <!-- Texto -->
+            <p>O app mostra se a academia está cheia e sugere o melhor horário. Menos fila nos aparelhos.</p>
+          </li>
+          <!-- Benefício: aulas -->
+          <li class="acad-card">
+            <!-- Ícone -->
+            <span class="acad-icone" aria-hidden="true">🧘</span>
+            <!-- Título -->
+            <h3>Aulas com fila de espera</h3>
+            <!-- Texto -->
+            <p>Grade de aulas, reserva de vaga e fila automática quando lota. Os alunos ainda avaliam cada aula.</p>
+          </li>
+          <!-- Benefício: avisos -->
+          <li class="acad-card">
+            <!-- Ícone -->
+            <span class="acad-icone" aria-hidden="true">📣</span>
+            <!-- Título -->
+            <h3>Avisos para os alunos</h3>
+            <!-- Texto -->
+            <p>Feriado, aula nova ou manutenção: publique no painel e todo mundo vê no app.</p>
+          </li>
+          <!-- Benefício: painel -->
+          <li class="acad-card">
+            <!-- Ícone -->
+            <span class="acad-icone" aria-hidden="true">📈</span>
+            <!-- Título -->
+            <h3>Painel do dono</h3>
+            <!-- Texto -->
+            <p>Alunos ativos, check-ins da semana e horários de pico em uma tela só.</p>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Como funciona -->
+      <section class="acad-passos" aria-labelledby="titulo-passos">
+        <!-- Título da seção -->
+        <h2 id="titulo-passos">Como funciona</h2>
+        <!-- Passos numerados -->
+        <ol>
+          <!-- Passo 1 -->
+          <li><strong>Cadastro da unidade</strong><span>A gente cria a sua academia no Saúde Life com horários e aulas.</span></li>
+          <!-- Passo 2 -->
+          <li><strong>Alunos entram</strong><span>Cada aluno escolhe a sua academia no app e já aparece no ranking da unidade.</span></li>
+          <!-- Passo 3 -->
+          <li><strong>Você acompanha</strong><span>Pelo painel do dono você vê os números e publica avisos.</span></li>
+        </ol>
+      </section>
+
+      <!-- Simulador de quanto o ranking ajuda -->
+      <section class="acad-simulador" aria-labelledby="titulo-simulador">
+        <!-- Título da seção -->
+        <h2 id="titulo-simulador">Faça a conta</h2>
+        <!-- Explicação -->
+        <p class="plans-hero-lead">Arraste para o número de alunos da sua academia. A estimativa usa uma melhora de 15% na frequência (exemplo ilustrativo).</p>
+        <!-- Rótulo do controle deslizante -->
+        <label for="acad-alunos">Alunos ativos: <strong data-acad="alunos">300</strong></label>
+        <!-- Controle deslizante -->
+        <input type="range" id="acad-alunos" min="50" max="2000" step="50" value="300" />
+        <!-- Resultado -->
+        <p class="acad-resultado" aria-live="polite">Cerca de <strong data-acad="treinos">0</strong> treinos a mais por mês na sua unidade.</p>
+      </section>
+
+      <!-- Formulário de pedir demonstração -->
+      <section class="acad-demo" id="demo" aria-labelledby="titulo-demo">
+        <!-- Título da seção -->
+        <h2 id="titulo-demo">Fale com um consultor</h2>
+        <!-- Explicação -->
+        <p class="plans-hero-lead">Plano Academia: preço por unidade, combinado com o consultor. Deixe seu contato.</p>
+        <!-- Formulário (simulado: nada é enviado a um servidor) -->
+        <form class="acad-form" data-acad-form novalidate>
+          <!-- Campo nome -->
+          <label>Seu nome<input name="nome" autocomplete="name" required /></label>
+          <!-- Campo academia -->
+          <label>Nome da academia<input name="academia" required /></label>
+          <!-- Campo e-mail -->
+          <label>E-mail<input name="email" type="email" autocomplete="email" required /></label>
+          <!-- Campo cidade -->
+          <label>Cidade<input name="cidade" autocomplete="address-level2" /></label>
+          <!-- Mensagem de erro ou de sucesso -->
+          <p class="acad-msg" role="status" data-acad="msg"></p>
+          <!-- Botão de enviar -->
+          <button type="submit" class="btn-hero-primary">Quero uma demonstração</button>
+        </form>
+      </section>
+    </main>
+
+    <!-- Rodapé do site -->
+    <footer class="site-footer-public">
+      <!-- Grade do rodapé -->
+      <div class="footer-grid">
+        <!-- Coluna sobre o Saúde Life -->
+        <div class="footer-about">
+          <!-- Link que leva para a página de boas-vindas -->
+          <a href="../welcome/welcome.html" class="brand">
+            <!-- Desenho da logo em SVG: anel de progresso com batimento -->
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 64 64" fill="none">
+              <!-- Anel de progresso da logo -->
+              <path
+                d="M32 9.5A22.5 22.5 0 1 1 12.51 20.75"
+                stroke="url(#logo-gradient)"
+                stroke-width="6.5"
+                stroke-linecap="round"
+              />
+              <!-- Linha de batimento cardíaco da logo -->
+              <path
+                d="M19.5 33H24.5L28.5 25L33.5 41L37 33H44.5"
+                stroke="url(#logo-gradient)"
+                stroke-width="6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <!-- Nome da marca: Saúde Life (o "Life" fica em coral) -->
+            <span>Saúde <span class="brand-life">Life</span></span>
+          </a>
+          <!-- Parágrafo de texto -->
+          <p>
+            Treinos guiados, profissionais de confiança e o acompanhamento da
+            sua evolução em um só lugar.
+          </p>
+        </div>
+        <!-- Coluna de links do produto -->
+        <nav aria-labelledby="footer-produto">
+          <!-- Título da seção -->
+          <h2 id="footer-produto">Produto</h2>
+          <!-- Lista de itens -->
+          <ul>
+            <!-- Link que leva para a página de planos -->
+            <li><a href="../planos/planos.html">Planos</a></li>
+            <!-- Link que leva para o blog de dicas -->
+            <li><a href="../blog/blog.html">Blog de dicas</a></li>
+            <!-- Link que leva para a página para academias -->
+            <li><a href="../academias/academias.html">Para academias</a></li>
+            <!-- Link que leva para a tela de cadastro -->
+            <li><a href="../cadastro/cadastro.html">Criar conta</a></li>
+            <!-- Link que leva para a tela de login -->
+            <li><a href="../login/login.html">Entrar</a></li>
+          </ul>
+        </nav>
+        <!-- Coluna de links legais -->
+        <nav aria-labelledby="footer-legal">
+          <!-- Título da seção -->
+          <h2 id="footer-legal">Legal</h2>
+          <!-- Lista de itens -->
+          <ul>
+            <!-- Link que leva para os Termos de Uso -->
+            <li><a href="../termos/termos.html">Termos de Uso</a></li>
+            <!-- Link que leva para a Política de Privacidade -->
+            <li><a href="../politica/politica.html">Política de Privacidade</a></li>
+          </ul>
+        </nav>
+      </div>
+      <!-- Texto de direitos autorais -->
+      <p class="footer-copy">&copy; 2026 Saúde Life. Todos os direitos reservados.</p>
+    </footer>
+    <!-- Carrega o JavaScript desta página (academias.js) -->
+    <script src="academias.js"></script>
+  </body>
+</html>

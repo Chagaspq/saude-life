@@ -1765,3 +1765,551 @@ input[type="checkbox"]:focus-visible {
   /* Cantos totalmente redondos */
   border-radius: 999px;
 }
+
+/* ============================================
+   DEMONSTRAÇÃO, TREINO EM 3 TOQUES E PRÉVIA DO RANKING
+   ============================================ */
+
+/* Botão de marcar série na demonstração (mesmo visual do círculo do app) */
+.demo-check {
+  /* Largura de 30 pixels (um pouco maior para o dedo) */
+  width: 30px;
+  /* Altura de 30 pixels */
+  height: 30px;
+  /* Redondo */
+  border-radius: 50%;
+  /* Borda */
+  border: 2px solid var(--coral);
+  /* Sem fundo */
+  background: transparent;
+  /* Flexbox, mas sem ocupar a linha toda */
+  display: inline-flex;
+  /* Centraliza na altura */
+  align-items: center;
+  /* Centraliza na largura */
+  justify-content: center;
+  /* Mãozinha do mouse */
+  cursor: pointer;
+  /* Sem espaço interno */
+  padding: 0;
+  /* Pulsa chamando o clique */
+  animation: demo-chamar 1.6s ease-in-out infinite;
+  /* Mudança suave */
+  transition: background var(--dur-fast), transform var(--dur-fast);
+}
+
+/* Check escondido até marcar */
+.demo-check svg {
+  /* Invisível */
+  opacity: 0;
+}
+
+/* Série marcada: esmeralda com o check */
+.demo-check[aria-pressed="true"] {
+  /* Esmeralda */
+  background: var(--emerald);
+  /* Borda esmeralda */
+  border-color: var(--emerald);
+  /* Para de pulsar */
+  animation: none;
+  /* Pulinho */
+  transform: scale(1.1);
+}
+
+/* Check aparece */
+.demo-check[aria-pressed="true"] svg {
+  /* Visível */
+  opacity: 1;
+}
+
+/* Animação: o círculo pulsa com um brilho coral */
+@keyframes demo-chamar {
+  /* No meio: brilho em volta */
+  50% {
+    /* Anel de brilho */
+    box-shadow: 0 0 0 6px rgba(255, 122, 69, 0.25);
+  }
+}
+
+/* Placar de pontos da demonstração */
+.demo-pontos {
+  /* Margem em cima */
+  margin: 12px 0 0;
+  /* Texto à direita */
+  text-align: right;
+  /* Cor apagada */
+  color: var(--muted);
+}
+
+/* Número de pontos */
+.demo-pontos strong {
+  /* Fonte de placar */
+  font-family: var(--font-placar);
+  /* Grande */
+  font-size: 24px;
+  /* Coral claro */
+  color: var(--coral-light);
+}
+
+/* "+10" voando */
+.demo-voando {
+  /* Fixo na tela */
+  position: fixed;
+  /* Por cima de tudo */
+  z-index: 3000;
+  /* Espaço interno */
+  padding: 4px 12px;
+  /* Formato pílula */
+  border-radius: var(--radius-full);
+  /* Degradê da marca */
+  background: var(--gradient-brand);
+  /* Texto escuro */
+  color: var(--on-coral);
+  /* Negrito */
+  font-weight: 700;
+  /* Ignora cliques */
+  pointer-events: none;
+  /* Não quebra linha */
+  white-space: nowrap;
+  /* Animação de subir e sumir */
+  animation: demo-subir 1.2s var(--ease-out) forwards;
+}
+
+/* Animação: sobe e some */
+@keyframes demo-subir {
+  /* Começo: no lugar */
+  from {
+    /* Centralizado no ponto */
+    transform: translate(-50%, 0);
+    /* Visível */
+    opacity: 1;
+  }
+  /* Fim: lá em cima */
+  to {
+    /* Sobe 70 pixels */
+    transform: translate(-50%, -70px);
+    /* Some */
+    opacity: 0;
+  }
+}
+
+/* Confete (igual ao do app) */
+.confete {
+  /* Fixo na tela */
+  position: fixed;
+  /* Cobre tudo */
+  inset: 0;
+  /* Por cima de tudo */
+  z-index: 4000;
+  /* Ignora cliques */
+  pointer-events: none;
+  /* Esconde o que sair */
+  overflow: hidden;
+}
+
+/* Cada pedacinho */
+.confete span {
+  /* Solto */
+  position: absolute;
+  /* Começa acima da tela */
+  top: -16px;
+  /* Largura de 8 pixels */
+  width: 8px;
+  /* Altura de 14 pixels */
+  height: 14px;
+  /* Cantinhos arredondados */
+  border-radius: 2px;
+  /* Animação de cair */
+  animation: confete-cair 1.6s cubic-bezier(0.25, 0.6, 0.4, 1) forwards;
+}
+
+/* Animação: cai girando */
+@keyframes confete-cair {
+  /* Fim: lá embaixo */
+  to {
+    /* Desce, vai para o lado e gira */
+    transform: translate(var(--lado), 105vh) rotate(var(--giro));
+    /* Some no final */
+    opacity: 0.2;
+  }
+}
+
+/* Aviso de "números de exemplo" */
+.exemplo-aviso {
+  /* Margem em cima */
+  margin: 18px 0 0;
+  /* Texto centralizado */
+  text-align: center;
+  /* Letra pequena */
+  font-size: 12px;
+  /* Cor mais apagada */
+  color: var(--muted-2);
+}
+
+/* Seções novas com o mesmo espaçamento das outras */
+.quiz,
+.ranking-previa {
+  /* Largura máxima */
+  max-width: 1100px;
+  /* Centralizado */
+  margin: 0 auto;
+  /* Espaço em cima e embaixo */
+  padding: clamp(56px, 8vw, 96px) clamp(20px, 5vw, 64px);
+}
+
+/* Cartão do questionário */
+.quiz-card {
+  /* Organiza em grade */
+  display: grid;
+  /* 3 perguntas lado a lado + prévia embaixo */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* Espaço entre elas */
+  gap: 18px;
+  /* Espaço interno */
+  padding: 26px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-xl);
+  /* Borda fininha */
+  border: 1px solid var(--border);
+  /* Fundo com brilho coral */
+  background:
+    radial-gradient(circle at 0% 0%, rgba(255, 122, 69, 0.14), transparent 40%),
+    var(--surface);
+}
+
+/* Cada pergunta */
+.quiz-card fieldset {
+  /* Sem borda */
+  border: 0;
+  /* Sem margem */
+  margin: 0;
+  /* Sem espaço interno */
+  padding: 0;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Quebra linha se não couber */
+  flex-wrap: wrap;
+  /* Espaço entre as opções */
+  gap: 8px;
+}
+
+/* Texto da pergunta */
+.quiz-card legend {
+  /* Espaço embaixo */
+  margin-bottom: 10px;
+  /* Letra seminegrito */
+  font-weight: 600;
+}
+
+/* Opção (chip) */
+.quiz-chip {
+  /* Posição relativa (a bolinha escondida fica dentro) */
+  position: relative;
+}
+
+/* Bolinha escondida (o chip inteiro é clicável) */
+.quiz-chip input {
+  /* Solta */
+  position: absolute;
+  /* Invisível */
+  opacity: 0;
+}
+
+/* Visual do chip */
+.quiz-chip span {
+  /* Fica na linha, aceita espaço interno */
+  display: inline-block;
+  /* Espaço interno */
+  padding: 9px 16px;
+  /* Formato pílula */
+  border-radius: var(--radius-full);
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+  /* Mãozinha do mouse */
+  cursor: pointer;
+  /* Mudança suave */
+  transition: background var(--dur-fast), transform var(--dur-fast);
+}
+
+/* Chip com o mouse em cima */
+.quiz-chip span:hover {
+  /* Sobe um pouquinho */
+  transform: translateY(-2px);
+}
+
+/* Chip escolhido */
+.quiz-chip input:checked + span {
+  /* Degradê coral */
+  background: var(--gradient-button);
+  /* Texto escuro */
+  color: var(--on-coral);
+  /* Borda coral */
+  border-color: var(--coral);
+  /* Letra seminegrito */
+  font-weight: 600;
+}
+
+/* Chip focado pelo teclado */
+.quiz-chip input:focus-visible + span {
+  /* Contorno coral */
+  outline: 2px solid var(--coral);
+  /* Afastado */
+  outline-offset: 2px;
+}
+
+/* Prévia do treino (ocupa a largura toda) */
+.quiz-previa {
+  /* Linha toda */
+  grid-column: 1 / -1;
+  /* Linha em cima */
+  border-top: 1px dashed var(--border-strong);
+  /* Espaço em cima */
+  padding-top: 18px;
+}
+
+/* Título da prévia */
+.quiz-previa h3 {
+  /* Sem margem em cima */
+  margin: 0 0 10px;
+}
+
+/* Lista de exercícios */
+.quiz-previa ol {
+  /* Margem embaixo */
+  margin: 0 0 18px;
+  /* Espaço à esquerda para os números */
+  padding-left: 20px;
+  /* Organiza em grade */
+  display: grid;
+  /* Duas colunas */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* Espaço entre os itens */
+  gap: 8px 24px;
+}
+
+/* Cada exercício */
+.quiz-previa li span {
+  /* Linha própria */
+  display: block;
+  /* Cor apagada */
+  color: var(--muted);
+  /* Letra pequena */
+  font-size: 13px;
+}
+
+/* Pódio de exemplo */
+.rp-podio {
+  /* Sem números automáticos */
+  list-style: none;
+  /* Centralizado, com espaço embaixo */
+  margin: 30px auto 36px;
+  /* Sem espaço interno */
+  padding: 0;
+  /* Organiza em grade */
+  display: grid;
+  /* 3 colunas */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* Alinhados embaixo */
+  align-items: end;
+  /* Espaço entre eles */
+  gap: 12px;
+  /* Largura máxima */
+  max-width: 480px;
+}
+
+/* Cada degrau */
+.rp-degrau {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Centralizados */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 4px;
+  /* Texto centralizado */
+  text-align: center;
+}
+
+/* Pontos do degrau */
+.rp-degrau > span:not(.rp-avatar) {
+  /* Fonte de placar */
+  font-family: var(--font-placar);
+  /* Letra pequena */
+  font-size: 13px;
+  /* Cor apagada */
+  color: var(--muted);
+}
+
+/* Bolinha com as iniciais */
+.rp-avatar {
+  /* Organiza com grade */
+  display: grid;
+  /* Centraliza */
+  place-items: center;
+  /* Largura de 52 pixels */
+  width: 52px;
+  /* Altura de 52 pixels */
+  height: 52px;
+  /* Redonda */
+  border-radius: 50%;
+  /* Fundo de card mais claro */
+  background: var(--surface-3);
+  /* Borda na cor do degrau */
+  border: 3px solid var(--rp-cor);
+  /* Fonte de títulos */
+  font-family: var(--font-display);
+  /* Negrito */
+  font-weight: 700;
+}
+
+/* Bloco do degrau */
+.rp-degrau b {
+  /* Vira bloco */
+  display: block;
+  /* Largura: a toda */
+  width: 100%;
+  /* Espaço em cima do número */
+  padding-top: 10px;
+  /* Cantos de cima arredondados */
+  border-radius: 12px 12px 4px 4px;
+  /* Degradê da cor do degrau */
+  background: linear-gradient(180deg, color-mix(in srgb, var(--rp-cor) 45%, transparent), transparent);
+  /* Linha de cima */
+  border-top: 2px solid var(--rp-cor);
+  /* Fonte de títulos */
+  font-family: var(--font-display);
+  /* Tamanho */
+  font-size: 22px;
+}
+
+/* 1º: ouro e mais alto */
+.rp-1 {
+  /* Cor */
+  --rp-cor: var(--star);
+}
+
+/* Altura do 1º */
+.rp-1 b {
+  /* Mais alto */
+  height: 110px;
+}
+
+/* 2º: prata */
+.rp-2 {
+  /* Cor */
+  --rp-cor: #c9d3cd;
+}
+
+/* Altura do 2º */
+.rp-2 b {
+  /* Médio */
+  height: 80px;
+}
+
+/* 3º: bronze */
+.rp-3 {
+  /* Cor */
+  --rp-cor: var(--coral-dark);
+}
+
+/* Altura do 3º */
+.rp-3 b {
+  /* Mais baixo */
+  height: 58px;
+}
+
+/* Fileira das ligas */
+.rp-ligas {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Sem margem */
+  margin: 0;
+  /* Sem espaço interno */
+  padding: 0;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Centralizados */
+  justify-content: center;
+  /* Quebra linha se não couber */
+  flex-wrap: wrap;
+  /* Espaço entre elas */
+  gap: 28px;
+}
+
+/* Cada liga */
+.rp-ligas li {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Centralizados */
+  align-items: center;
+  /* Espaço entre escudo e nome */
+  gap: 6px;
+  /* Letra seminegrito */
+  font-weight: 600;
+}
+
+/* Escudo da liga */
+.rp-ligas svg {
+  /* Largura de 44 pixels */
+  width: 44px;
+  /* Altura de 52 pixels */
+  height: 52px;
+  /* Cor da liga */
+  fill: var(--liga-cor);
+  /* Brilho */
+  filter: drop-shadow(0 4px 12px color-mix(in srgb, var(--liga-cor) 45%, transparent));
+}
+
+/* Cores das ligas (iguais às do app) */
+.rp-ligas .liga-bronze {
+  /* Bronze */
+  --liga-cor: var(--coral-dark);
+}
+
+/* Prata */
+.rp-ligas .liga-prata {
+  /* Prata */
+  --liga-cor: #c9d3cd;
+}
+
+/* Ouro */
+.rp-ligas .liga-ouro {
+  /* Ouro */
+  --liga-cor: var(--star);
+}
+
+/* Diamante */
+.rp-ligas .liga-diamante {
+  /* Diamante */
+  --liga-cor: var(--emerald);
+}
+
+/* Em telas de até 760 pixels */
+@media (max-width: 760px) {
+  /* Perguntas uma embaixo da outra */
+  .quiz-card {
+    /* Uma coluna */
+    grid-template-columns: 1fr;
+  }
+
+  /* Exercícios da prévia em uma coluna */
+  .quiz-previa ol {
+    /* Uma coluna */
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Se a pessoa pediu ao sistema para reduzir as animações */
+@media (prefers-reduced-motion: reduce) {
+  /* Botões da demo e "+10" */
+  .demo-check,
+  .demo-voando {
+    /* Sem animação */
+    animation: none;
+  }
+}

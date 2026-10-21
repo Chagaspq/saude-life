@@ -109,6 +109,10 @@
       </a>
       <!-- Links do lado direito do topo -->
       <nav class="top-bar-actions" aria-label="Navegação principal">
+        <!-- Link que leva para o blog de dicas -->
+        <a href="../blog/blog.html" class="link-entrar">Blog</a>
+        <!-- Link que leva para a página para donos de academia -->
+        <a href="../academias/academias.html" class="link-entrar link-esconde-celular">Para academias</a>
         <!-- Link que leva para a página de planos -->
         <a href="../planos/planos.html" class="link-entrar">Planos</a>
         <!-- Link que leva para a tela de login -->
@@ -125,14 +129,14 @@
         <!-- Lado do texto -->
         <div class="hero-content">
           <!-- Textinho acima do título -->
-          <p class="hero-kicker">Sua jornada de saúde começa aqui</p>
+          <p class="hero-kicker">Seu parceiro de treino</p>
           <!-- Título principal da página -->
           <h1>Progresso de verdade, no seu ritmo.</h1>
           <!-- Texto de apoio abaixo do título -->
           <p class="hero-lead">
-            Treinos guiados, profissionais de confiança e o acompanhamento da
-            sua evolução — tudo em um só lugar, pensado pra durar além da
-            motivação do primeiro dia.
+            Cada série vale ponto, cada semana vira disputa com a galera e o
+            Pulso te acompanha do primeiro treino até a liga Diamante.
+            Testa aí do lado: marca uma série. 👉
           </p>
           <!-- Botões principais -->
           <div class="hero-actions">
@@ -146,10 +150,10 @@
             >
           </div>
         </div>
-        <!-- Lado do desenho (só enfeite, escondido dos leitores de tela) -->
-        <div class="hero-visual" aria-hidden="true">
-          <!-- Desenho de fundo: anéis e linha de batimento -->
-          <svg class="hero-pulse" viewBox="0 0 320 320" fill="none">
+        <!-- Lado da demonstração: dá para marcar séries de verdade (welcome.js) -->
+        <div class="hero-visual">
+          <!-- Desenho de fundo: anéis e linha de batimento (só enfeite) -->
+          <svg class="hero-pulse" viewBox="0 0 320 320" fill="none" aria-hidden="true">
             <!-- Círculo do desenho -->
             <circle cx="160" cy="160" r="150" class="pulse-ring pulse-ring-1" />
             <!-- Círculo do desenho -->
@@ -166,39 +170,41 @@
           </svg>
           <!-- Pilha de cards de exemplo do app -->
           <div class="hero-stack">
-            <!-- Card de exemplo: treino de hoje -->
-            <div class="mock-card hero-card-workout">
+            <!-- Card da demonstração: marque as séries e ganhe pontos -->
+            <div class="mock-card hero-card-workout demo">
               <!-- Rótulo do card -->
-              <p class="mock-label">Treino de hoje</p>
-              <!-- Nome do treino -->
-              <p class="mock-title">Super Inferiores A</p>
-              <!-- Exercício e série atual -->
-              <p class="mock-meta">Agachamento livre • série 3 de 4</p>
-              <!-- Lista de séries de exemplo -->
+              <p class="mock-label">Experimente agora, sem criar conta</p>
+              <!-- Nome do exercício -->
+              <p class="mock-title">Agachamento livre</p>
+              <!-- Instrução (o welcome.js troca o texto conforme você marca) -->
+              <p class="mock-meta" data-demo="texto" aria-live="polite">Toque no círculo de cada série 👇</p>
+              <!-- Lista de séries com botões de marcar -->
               <ul class="mock-sets">
-                <!-- Série 1 feita (com o check) -->
-                <li class="is-done"><span>Série 1</span><span>10 × 60 kg</span><i><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></i></li>
-                <!-- Série 2 feita (com o check) -->
-                <li class="is-done"><span>Série 2</span><span>10 × 60 kg</span><i><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></i></li>
-                <!-- Série 3 ainda por fazer -->
-                <li><span>Série 3</span><span>10 × 62,5 kg</span><i></i></li>
+                <!-- Série 1 -->
+                <li><span>Série 1</span><span>10 × 60 kg</span><button type="button" class="demo-check" data-demo-serie="1" aria-pressed="false" aria-label="Marcar a série 1 como feita"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></button></li>
+                <!-- Série 2 -->
+                <li><span>Série 2</span><span>10 × 60 kg</span><button type="button" class="demo-check" data-demo-serie="2" aria-pressed="false" aria-label="Marcar a série 2 como feita"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></button></li>
+                <!-- Série 3 -->
+                <li><span>Série 3</span><span>10 × 62,5 kg</span><button type="button" class="demo-check" data-demo-serie="3" aria-pressed="false" aria-label="Marcar a série 3 como feita"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></button></li>
               </ul>
+              <!-- Placar de pontos da demonstração -->
+              <p class="demo-pontos"><strong data-demo="pontos">0</strong> pontos</p>
             </div>
             <!-- Fileira com mais dois cards -->
             <div class="hero-card-row">
               <!-- Card de exemplo: meta semanal -->
               <div class="mock-card mock-goal hero-card-goal">
                 <!-- Rótulo do card -->
-                <p class="mock-label">Meta semanal</p>
-                <!-- Anel de progresso da meta -->
-                <svg viewBox="0 0 120 120" class="mock-ring">
+                <p class="mock-label">Séries de hoje</p>
+                <!-- Anel de progresso (enche com as séries da demonstração) -->
+                <svg viewBox="0 0 120 120" class="mock-ring" aria-hidden="true">
                   <!-- Círculo do desenho -->
                   <circle cx="60" cy="60" r="48" class="mock-ring-track"></circle>
                   <!-- Círculo do desenho -->
-                  <circle cx="60" cy="60" r="48" class="mock-ring-fill"></circle>
+                  <circle cx="60" cy="60" r="48" class="mock-ring-fill" data-demo="anel"></circle>
                 </svg>
-                <!-- Texto no meio do anel: 3 de 4 -->
-                <p class="mock-ring-text"><strong>3</strong> de 4</p>
+                <!-- Texto no meio do anel: quantas séries de 3 -->
+                <p class="mock-ring-text"><strong data-demo="feitas">0</strong> de 3</p>
               </div>
               <!-- Card de exemplo: gráfico de peso -->
               <div class="mock-card hero-card-chart">
@@ -247,6 +253,95 @@
             <dd>4,9</dd>
           </div>
         </dl>
+        <!-- Aviso: os números são de exemplo -->
+        <p class="exemplo-aviso">Números de exemplo — o Saúde Life é um projeto de TCC.</p>
+      </section>
+
+      <!-- Seção do mini questionário: monte seu treino em 3 toques -->
+      <section class="quiz" aria-labelledby="quiz-heading">
+        <!-- Topo da seção -->
+        <div class="section-head">
+          <!-- Textinho acima do título -->
+          <p class="section-kicker">Em 3 toques</p>
+          <!-- Título da seção -->
+          <h2 id="quiz-heading">Bora ver como seria o seu treino?</h2>
+        </div>
+        <!-- Cartão do questionário (o welcome.js mostra a prévia do treino) -->
+        <form class="quiz-card" data-quiz>
+          <!-- Pergunta 1: objetivo -->
+          <fieldset>
+            <!-- Pergunta -->
+            <legend>1. O que você quer?</legend>
+            <!-- Opção: ganhar massa -->
+            <label class="quiz-chip"><input type="radio" name="objetivo" value="Hipertrofia" checked /><span>Ganhar massa</span></label>
+            <!-- Opção: emagrecer -->
+            <label class="quiz-chip"><input type="radio" name="objetivo" value="HIIT" /><span>Emagrecer</span></label>
+            <!-- Opção: condicionamento -->
+            <label class="quiz-chip"><input type="radio" name="objetivo" value="Resistência" /><span>Mais fôlego</span></label>
+            <!-- Opção: bem-estar -->
+            <label class="quiz-chip"><input type="radio" name="objetivo" value="Yoga & Mobilidade" /><span>Bem-estar</span></label>
+          </fieldset>
+          <!-- Pergunta 2: tempo -->
+          <fieldset>
+            <!-- Pergunta -->
+            <legend>2. Quanto tempo você tem?</legend>
+            <!-- 20 minutos -->
+            <label class="quiz-chip"><input type="radio" name="tempo" value="20" /><span>20 min</span></label>
+            <!-- 30 minutos -->
+            <label class="quiz-chip"><input type="radio" name="tempo" value="30" checked /><span>30 min</span></label>
+            <!-- 45 minutos -->
+            <label class="quiz-chip"><input type="radio" name="tempo" value="45" /><span>45 min</span></label>
+          </fieldset>
+          <!-- Pergunta 3: nível -->
+          <fieldset>
+            <!-- Pergunta -->
+            <legend>3. Como está seu nível?</legend>
+            <!-- Iniciante -->
+            <label class="quiz-chip"><input type="radio" name="nivel" value="Iniciante" checked /><span>Começando</span></label>
+            <!-- Intermediário -->
+            <label class="quiz-chip"><input type="radio" name="nivel" value="Intermediário" /><span>Já treino</span></label>
+            <!-- Avançado -->
+            <label class="quiz-chip"><input type="radio" name="nivel" value="Avançado" /><span>Treino há anos</span></label>
+          </fieldset>
+          <!-- Prévia do treino (preenchida pelo welcome.js) -->
+          <div class="quiz-previa" data-quiz-previa aria-live="polite"></div>
+        </form>
+      </section>
+
+      <!-- Seção da prévia do ranking -->
+      <section class="ranking-previa" aria-labelledby="ranking-heading">
+        <!-- Topo da seção -->
+        <div class="section-head">
+          <!-- Textinho acima do título -->
+          <p class="section-kicker">Treinar junto rende mais</p>
+          <!-- Título da seção -->
+          <h2 id="ranking-heading">Cada série vale ponto. A semana vira disputa.</h2>
+          <!-- Texto de apoio -->
+          <p class="section-lead">
+            Some pontos treinando, comendo bem e bebendo água. Suba de liga,
+            ganhe selos e passe a galera no ranking — que zera toda segunda.
+          </p>
+        </div>
+        <!-- Pódio de exemplo -->
+        <ol class="rp-podio" aria-label="Exemplo de pódio da semana">
+          <!-- 2º lugar -->
+          <li class="rp-degrau rp-2"><span class="rp-avatar" aria-hidden="true">RL</span><strong>Rafael</strong><span>890 pts</span><b aria-hidden="true">2º</b></li>
+          <!-- 1º lugar -->
+          <li class="rp-degrau rp-1"><span class="rp-avatar" aria-hidden="true">VC</span><strong>Você?</strong><span>1.020 pts</span><b aria-hidden="true">1º</b></li>
+          <!-- 3º lugar -->
+          <li class="rp-degrau rp-3"><span class="rp-avatar" aria-hidden="true">AS</span><strong>Ana</strong><span>760 pts</span><b aria-hidden="true">3º</b></li>
+        </ol>
+        <!-- As 4 ligas -->
+        <ul class="rp-ligas" aria-label="Ligas">
+          <!-- Bronze -->
+          <li class="liga-bronze"><svg viewBox="0 0 48 56" aria-hidden="true"><path d="M24 3 5 10v15c0 13 8.5 23.5 19 28 10.5-4.5 19-15 19-28V10Z"></path></svg>Bronze</li>
+          <!-- Prata -->
+          <li class="liga-prata"><svg viewBox="0 0 48 56" aria-hidden="true"><path d="M24 3 5 10v15c0 13 8.5 23.5 19 28 10.5-4.5 19-15 19-28V10Z"></path></svg>Prata</li>
+          <!-- Ouro -->
+          <li class="liga-ouro"><svg viewBox="0 0 48 56" aria-hidden="true"><path d="M24 3 5 10v15c0 13 8.5 23.5 19 28 10.5-4.5 19-15 19-28V10Z"></path></svg>Ouro</li>
+          <!-- Diamante -->
+          <li class="liga-diamante"><svg viewBox="0 0 48 56" aria-hidden="true"><path d="M24 3 5 10v15c0 13 8.5 23.5 19 28 10.5-4.5 19-15 19-28V10Z"></path></svg>Diamante</li>
+        </ul>
       </section>
 
       <!-- Seção de recursos -->
@@ -590,6 +685,8 @@
             <figcaption><span class="t-avatar" aria-hidden="true">LA</span><span><strong>Larissa</strong> 22 anos, saúde</span></figcaption>
           </figure>
         </div>
+        <!-- Aviso: depoimentos de exemplo -->
+        <p class="exemplo-aviso">Depoimentos de exemplo — o Saúde Life é um projeto de TCC.</p>
       </section>
 
       <!-- Seção de perguntas frequentes -->
@@ -712,6 +809,10 @@
           <ul>
             <!-- Link para planos -->
             <li><a href="../planos/planos.html">Planos</a></li>
+            <!-- Link que leva para o blog de dicas -->
+            <li><a href="../blog/blog.html">Blog de dicas</a></li>
+            <!-- Link que leva para a página para academias -->
+            <li><a href="../academias/academias.html">Para academias</a></li>
             <!-- Link para criar conta -->
             <li><a href="../cadastro/cadastro.html">Criar conta</a></li>
             <!-- Link para entrar -->
@@ -735,6 +836,8 @@
       <p class="footer-copy">&copy; 2026 Saúde Life. Todos os direitos reservados.</p>
     </footer>
     <!-- Carrega o JavaScript desta página (welcome.js) -->
+    <!-- Carrega a biblioteca de exercícios (para a prévia do treino) -->
+    <script src="../app/comum/exercicios.js"></script>
     <script src="welcome.js"></script>
   </body>
 </html>

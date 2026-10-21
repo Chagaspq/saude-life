@@ -1,0 +1,286 @@
+/* Blog de dicas: filtros, cards de artigo e leitura */
+
+/* Linha de filtros por assunto */
+.blog-filtros {
+  /* Botões lado a lado */
+  display: flex;
+  /* Quebra linha se não couber */
+  flex-wrap: wrap;
+  /* Centralizados */
+  justify-content: center;
+  /* Espaço entre os botões */
+  gap: var(--space-2);
+  /* Espaço em volta */
+  padding: 0 16px var(--space-8);
+}
+
+/* Botão de filtro */
+.blog-filtros .chip {
+  /* Fundo do card */
+  background: var(--surface);
+  /* Borda discreta */
+  border: 1px solid var(--border);
+  /* Cor do texto */
+  color: var(--muted);
+  /* Fonte do site */
+  font: 600 var(--text-sm) var(--font-body);
+  /* Espaço interno */
+  padding: 8px 16px;
+  /* Formato de pílula */
+  border-radius: var(--radius-full);
+  /* Mãozinha ao passar o mouse */
+  cursor: pointer;
+  /* Troca de cor suave */
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+/* Filtro ao passar o mouse */
+.blog-filtros .chip:hover {
+  /* Borda coral */
+  border-color: var(--border-coral);
+  /* Texto claro */
+  color: var(--ink);
+}
+
+/* Filtro ligado */
+.blog-filtros .chip.is-active {
+  /* Fundo coral */
+  background: var(--gradient-button);
+  /* Sem borda aparente */
+  border-color: transparent;
+  /* Texto escuro sobre o coral */
+  color: var(--on-coral);
+}
+
+/* Grade de cards */
+.blog-lista {
+  /* Grade */
+  display: grid;
+  /* Colunas de no mínimo 260 pixels, quantas couberem */
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  /* Espaço entre os cards */
+  gap: var(--space-5);
+  /* No máximo 1100 pixels */
+  max-width: 1100px;
+  /* Centralizada, com espaço embaixo */
+  margin: 0 auto var(--space-16);
+  /* Espaço dos lados */
+  padding: 0 16px;
+}
+
+/* Card de artigo */
+.blog-card {
+  /* Itens em coluna */
+  display: flex;
+  /* Coluna */
+  flex-direction: column;
+  /* Espaço entre os itens */
+  gap: var(--space-2);
+  /* Fundo do card */
+  background: var(--surface);
+  /* Borda discreta */
+  border: 1px solid var(--border);
+  /* Cantos arredondados */
+  border-radius: var(--radius-lg);
+  /* Espaço interno */
+  padding: var(--space-6);
+  /* Sem sublinhado */
+  text-decoration: none;
+  /* Cor do texto */
+  color: var(--ink);
+  /* Movimento suave */
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Card ao passar o mouse ou com foco do teclado */
+.blog-card:hover,
+.blog-card:focus-visible {
+  /* Sobe um pouquinho */
+  transform: translateY(-4px);
+  /* Borda coral */
+  border-color: var(--border-coral);
+  /* Sombra */
+  box-shadow: var(--shadow-md);
+}
+
+/* Capa com emoji */
+.blog-capa {
+  /* Quadrado centralizado */
+  display: grid;
+  /* Emoji no meio */
+  place-items: center;
+  /* Largura */
+  width: 56px;
+  /* Altura */
+  height: 56px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Fundo com as cores da marca bem fraquinhas */
+  background: linear-gradient(135deg, var(--coral-dim), var(--emerald-soft));
+  /* Tamanho do emoji */
+  font-size: 28px;
+}
+
+/* Capa grande (na leitura) */
+.blog-capa-grande {
+  /* Maior */
+  width: 84px;
+  /* Maior */
+  height: 84px;
+  /* Emoji maior */
+  font-size: 42px;
+}
+
+/* Etiqueta do assunto */
+.blog-tag {
+  /* Cor esmeralda */
+  color: var(--emerald);
+  /* Letra pequena */
+  font-size: var(--text-xs);
+  /* Negrito */
+  font-weight: 700;
+  /* Maiúsculas */
+  text-transform: uppercase;
+  /* Letras mais afastadas */
+  letter-spacing: 0.08em;
+  /* Espaço em cima */
+  margin-top: var(--space-2);
+}
+
+/* Título do card */
+.blog-card h2 {
+  /* Fonte de título */
+  font-family: var(--font-display);
+  /* Tamanho */
+  font-size: var(--text-xl);
+  /* Linha justa */
+  line-height: 1.25;
+  /* Sem margem */
+  margin: 0;
+}
+
+/* Resumo do card */
+.blog-card p {
+  /* Cor apagada */
+  color: var(--muted);
+  /* Linhas espaçadas */
+  line-height: 1.55;
+  /* Sem margem e ocupa o espaço que sobra */
+  margin: 0;
+  /* Empurra o autor para baixo */
+  flex: 1;
+}
+
+/* Autor e tempo de leitura */
+.blog-meta {
+  /* Cor mais apagada */
+  color: var(--muted-2);
+  /* Letra pequena */
+  font-size: var(--text-xs);
+}
+
+/* Área de leitura */
+.blog-artigo {
+  /* Largura boa para ler */
+  max-width: 680px;
+  /* Centralizada */
+  margin: 0 auto var(--space-16);
+  /* Espaço interno */
+  padding: var(--space-10) 16px 0;
+  /* Linhas espaçadas */
+  line-height: 1.7;
+}
+
+/* Título do artigo */
+.blog-artigo h1 {
+  /* Tamanho que se ajusta à tela */
+  font-size: var(--text-3xl);
+  /* Linha justa */
+  line-height: 1.15;
+  /* Espaço */
+  margin: var(--space-5) 0 var(--space-2);
+  /* Sem contorno ao receber o foco pelo script */
+  outline: none;
+}
+
+/* Subtítulos do artigo */
+.blog-artigo h2 {
+  /* Fonte de título */
+  font-family: var(--font-display);
+  /* Tamanho */
+  font-size: var(--text-xl);
+  /* Cor coral clara */
+  color: var(--coral-light);
+  /* Espaço */
+  margin: var(--space-8) 0 var(--space-2);
+}
+
+/* Parágrafos do artigo */
+.blog-artigo p {
+  /* Cor do texto */
+  color: var(--ink);
+  /* Espaço embaixo */
+  margin: 0 0 var(--space-4);
+}
+
+/* Autor na leitura */
+.blog-artigo .blog-meta {
+  /* Cor apagada */
+  color: var(--muted);
+  /* Mais espaço embaixo */
+  margin-bottom: var(--space-6);
+}
+
+/* Link de voltar */
+.blog-voltar {
+  /* Cor coral */
+  color: var(--coral-light);
+  /* Sem sublinhado */
+  text-decoration: none;
+  /* Negrito */
+  font-weight: 600;
+  /* Bloco próprio */
+  display: inline-block;
+  /* Espaço embaixo */
+  margin-bottom: var(--space-6);
+}
+
+/* Voltar ao passar o mouse */
+.blog-voltar:hover {
+  /* Sublinhado */
+  text-decoration: underline;
+}
+
+/* Aviso de conteúdo educativo */
+.blog-artigo .blog-aviso {
+  /* Fundo levemente amarelo */
+  background: var(--warning-soft);
+  /* Faixa amarela na esquerda */
+  border-left: 3px solid var(--warning);
+  /* Espaço interno */
+  padding: var(--space-3) var(--space-4);
+  /* Cantos arredondados */
+  border-radius: var(--radius-sm);
+  /* Cor apagada */
+  color: var(--muted);
+  /* Letra menor */
+  font-size: var(--text-sm);
+  /* Espaço em cima */
+  margin: var(--space-8) 0 var(--space-6);
+}
+
+/* Quem pediu menos movimento: cards sem subir */
+@media (prefers-reduced-motion: reduce) {
+  /* Card */
+  .blog-card {
+    /* Sem animação */
+    transition: none;
+  }
+
+  /* Card com mouse ou foco */
+  .blog-card:hover,
+  .blog-card:focus-visible {
+    /* Não sobe */
+    transform: none;
+  }
+}
