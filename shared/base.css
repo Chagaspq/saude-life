@@ -159,3 +159,54 @@ input[type="password"]::-ms-clear {
     animation: none;
   }
 }
+
+/* ---------- Botão de idioma (PT / EN) ---------- */
+
+/* Botão de idioma */
+.btn-idioma {
+  /* Tamanho mínimo bom para o dedo */
+  min-width: 40px;
+  /* Altura */
+  height: 36px;
+  /* Espaço dos lados */
+  padding: 0 10px;
+  /* Fundo transparente */
+  background: transparent;
+  /* Borda discreta */
+  border: 1px solid var(--border-strong);
+  /* Pílula */
+  border-radius: var(--radius-full);
+  /* Cor do texto */
+  color: var(--ink);
+  /* Fonte do site, pequena e em negrito */
+  font: 700 12px var(--font-body);
+  /* Letras afastadas */
+  letter-spacing: 0.06em;
+  /* Mãozinha */
+  cursor: pointer;
+  /* Não encolhe */
+  flex-shrink: 0;
+}
+
+/* Botão de idioma com mouse ou foco */
+.btn-idioma:hover,
+.btn-idioma:focus-visible {
+  /* Borda coral */
+  border-color: var(--coral-light);
+  /* Texto coral */
+  color: var(--coral-light);
+}
+
+/* Botão solto no canto (páginas sem topo, como o login) */
+.btn-idioma-solto {
+  /* Preso na tela */
+  position: fixed;
+  /* Distância do topo */
+  top: 14px;
+  /* Distância da direita */
+  right: 14px;
+  /* Por cima do conteúdo */
+  z-index: 50;
+  /* Fundo do card (para não sumir no fundo) */
+  background: var(--surface);
+}
