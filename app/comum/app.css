@@ -2944,3 +2944,261 @@ a.btn-secondary {
     text-align: center;
   }
 }
+
+/* ============================================
+   PONTOS, LIGAS E SELOS (usados em várias páginas)
+   ============================================ */
+
+/* Cores de cada liga: guardadas numa variável que o escudo usa */
+.liga-bronze {
+  /* Bronze: coral escuro */
+  --liga-cor: var(--coral-dark);
+}
+
+/* Prata */
+.liga-prata {
+  /* Prata: cinza claro */
+  --liga-cor: #c9d3cd;
+}
+
+/* Ouro */
+.liga-ouro {
+  /* Ouro: amarelo das estrelas */
+  --liga-cor: var(--star);
+}
+
+/* Diamante */
+.liga-diamante {
+  /* Diamante: esmeralda (é uma pedra preciosa!) */
+  --liga-cor: var(--emerald);
+}
+
+/* Escudo da liga */
+.liga-escudo {
+  /* Largura de 40 pixels */
+  width: 40px;
+  /* Altura de 46 pixels */
+  height: 46px;
+  /* Não deixa encolher */
+  flex-shrink: 0;
+  /* Sombra colorida que segue o formato do escudo */
+  filter: drop-shadow(0 4px 10px color-mix(in srgb, var(--liga-cor) 35%, transparent));
+}
+
+/* Escudo grande */
+.liga-escudo-lg {
+  /* Largura de 56 pixels */
+  width: 56px;
+  /* Altura de 64 pixels */
+  height: 64px;
+}
+
+/* Escudo pequeno */
+.liga-escudo-sm {
+  /* Largura de 22 pixels */
+  width: 22px;
+  /* Altura de 26 pixels */
+  height: 26px;
+  /* Sem sombra */
+  filter: none;
+}
+
+/* Parte de fora do escudo */
+.liga-escudo-fundo {
+  /* Pintado com a cor da liga */
+  fill: var(--liga-cor);
+}
+
+/* Parte de dentro do escudo */
+.liga-escudo-miolo {
+  /* Fundo escuro meio transparente */
+  fill: rgba(14, 21, 18, 0.55);
+}
+
+/* Estrelinhas do escudo */
+.liga-escudo-estrela {
+  /* Pintadas com a cor da liga */
+  fill: var(--liga-cor);
+}
+
+/* Nome da liga escrito na cor dela */
+.rk-liga-nome {
+  /* Cor da liga */
+  color: var(--liga-cor);
+}
+
+/* Anel de pontos (caixa) */
+.pontos-anel {
+  /* Posição relativa (o texto fica por cima do desenho) */
+  position: relative;
+  /* Largura de 150 pixels */
+  width: 150px;
+  /* Altura de 150 pixels */
+  height: 150px;
+  /* Não deixa encolher */
+  flex-shrink: 0;
+}
+
+/* Desenho do anel */
+.pontos-anel svg {
+  /* Largura: a toda */
+  width: 100%;
+  /* Altura: a toda */
+  height: 100%;
+  /* Gira para o anel começar em cima */
+  transform: rotate(-90deg);
+}
+
+/* Círculos do anel */
+.pontos-anel circle {
+  /* Sem preenchimento */
+  fill: none;
+  /* Grossura do traço */
+  stroke-width: 11;
+}
+
+/* Trilho do anel */
+.pontos-anel-fundo {
+  /* Cor de card mais clara */
+  stroke: var(--surface-3);
+}
+
+/* Parte colorida do anel */
+.pontos-anel-cor {
+  /* Degradê da marca não funciona em traço; usa coral */
+  stroke: var(--coral);
+  /* Pontas arredondadas */
+  stroke-linecap: round;
+  /* Enche devagar quando muda */
+  transition: stroke-dashoffset 0.8s var(--ease-out);
+  /* Animação de encher ao aparecer */
+  animation: anel-encher 1.2s var(--ease-out);
+}
+
+/* Animação: o anel começa vazio e enche */
+@keyframes anel-encher {
+  /* Começo: traço todo escondido */
+  from {
+    /* Esconde o traço inteiro */
+    stroke-dashoffset: 327;
+  }
+}
+
+/* Número e legenda no meio do anel */
+.pontos-anel-texto {
+  /* Ocupa a área toda do anel */
+  position: absolute;
+  /* Encostado em todos os lados */
+  inset: 0;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Centraliza na altura */
+  align-items: center;
+  /* Centraliza no sentido principal */
+  justify-content: center;
+  /* Texto centralizado */
+  text-align: center;
+}
+
+/* Número do anel */
+.pontos-anel-texto strong {
+  /* Fonte de títulos */
+  font-family: var(--font-display);
+  /* Tamanho da letra: 32 pixels */
+  font-size: 32px;
+  /* Linha justa */
+  line-height: 1;
+  /* Números com a mesma largura */
+  font-variant-numeric: tabular-nums;
+  /* Branco */
+  color: var(--ink-strong);
+}
+
+/* Legenda do anel */
+.pontos-anel-texto small {
+  /* Tamanho da letra: 12 pixels */
+  font-size: 12px;
+  /* Cor apagada */
+  color: var(--muted);
+  /* Largura máxima: 90 pixels (quebra em duas linhas) */
+  max-width: 90px;
+}
+
+/* "+10" que sobe quando ganha pontos */
+.pontos-voando {
+  /* Fixo na tela */
+  position: fixed;
+  /* Se não tiver origem: no meio da largura */
+  left: 50%;
+  /* ...e perto de baixo */
+  top: 80%;
+  /* Acima de tudo */
+  z-index: 3000;
+  /* Centraliza no ponto de origem */
+  transform: translate(-50%, -50%);
+  /* Espaço interno */
+  padding: 6px 14px;
+  /* Formato pílula */
+  border-radius: var(--radius-full);
+  /* Fundo em degradê da marca */
+  background: var(--gradient-brand);
+  /* Texto escuro */
+  color: var(--on-coral);
+  /* Fonte de títulos */
+  font-family: var(--font-display);
+  /* Negrito */
+  font-weight: 700;
+  /* Tamanho da letra: 16 pixels */
+  font-size: 16px;
+  /* Brilho coral */
+  box-shadow: var(--shadow-coral);
+  /* Ignora cliques */
+  pointer-events: none;
+  /* Roda a animação de subir */
+  animation: pontos-subir 1.2s var(--ease-out) forwards;
+}
+
+/* Animação: aparece, cresce um pouco, sobe e some */
+@keyframes pontos-subir {
+  /* Começo: pequeno e invisível */
+  0% {
+    /* Invisível */
+    opacity: 0;
+    /* Pequeno */
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+  /* Logo depois: aparece maior */
+  20% {
+    /* Visível */
+    opacity: 1;
+    /* Um pouco maior que o normal */
+    transform: translate(-50%, -80%) scale(1.15);
+  }
+  /* Fim: subiu bastante e sumiu */
+  100% {
+    /* Invisível */
+    opacity: 0;
+    /* Bem mais para cima */
+    transform: translate(-50%, -260%) scale(1);
+  }
+}
+
+/* Quem pediu menos movimento: o número só aparece e some, sem subir */
+@media (prefers-reduced-motion: reduce) {
+  /* "+10" */
+  .pontos-voando {
+    /* Animação simples de sumir */
+    animation: pontos-sumir 1.2s linear forwards;
+  }
+}
+
+/* Animação simples: some aos poucos */
+@keyframes pontos-sumir {
+  /* Fim: invisível */
+  to {
+    /* Invisível */
+    opacity: 0;
+  }
+}

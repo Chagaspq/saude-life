@@ -195,3 +195,102 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Card dos pontos da semana */
+.pontos-card {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 22px;
+  /* Espaço interno */
+  padding: 18px 22px;
+  /* Espaço embaixo */
+  margin-bottom: var(--space-4);
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Borda coral transparente */
+  border: 1px solid var(--border-coral);
+  /* Fundo com brilho coral à esquerda */
+  background:
+    radial-gradient(circle at 0% 50%, rgba(255, 122, 69, 0.16), transparent 40%),
+    var(--surface);
+}
+
+/* Anel do card, menor */
+.pontos-card .pontos-anel {
+  /* Largura de 104 pixels */
+  width: 104px;
+  /* Altura de 104 pixels */
+  height: 104px;
+}
+
+/* Número do anel menor */
+.pontos-card .pontos-anel-texto strong {
+  /* Tamanho da letra: 24 pixels */
+  font-size: 24px;
+}
+
+/* Textos do card */
+.pontos-card-info {
+  /* Ocupa o espaço que sobra */
+  flex: 1;
+  /* Deixa encolher sem estourar */
+  min-width: 0;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre eles */
+  gap: 4px;
+}
+
+/* Linha do escudo e da liga */
+.pontos-card-liga {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 10px;
+  /* Fonte de títulos */
+  font-family: var(--font-display);
+  /* Tamanho da letra: 18 pixels */
+  font-size: 18px;
+}
+
+/* Escudo do card, menor */
+.pontos-card-liga .liga-escudo {
+  /* Largura de 30 pixels */
+  width: 30px;
+  /* Altura de 34 pixels */
+  height: 34px;
+}
+
+/* Frase da posição */
+.pontos-card-pos {
+  /* Sem margem */
+  margin: 0;
+  /* Cor principal do texto */
+  color: var(--ink);
+}
+
+/* Em telas de até 640 pixels (celular) */
+@media (max-width: 640px) {
+  /* Card dos pontos */
+  .pontos-card {
+    /* Quebra linha se não couber */
+    flex-wrap: wrap;
+    /* Espaço menor */
+    gap: 14px;
+  }
+
+  /* Botão do card */
+  .pontos-card .btn-secondary {
+    /* Ocupa a largura toda */
+    width: 100%;
+    /* Texto centralizado */
+    text-align: center;
+  }
+}

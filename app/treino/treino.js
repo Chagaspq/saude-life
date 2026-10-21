@@ -445,6 +445,10 @@ window.SL &&
       const serie = estado.series[i][n];
       // ...troca entre feita e não feita
       serie.feito = !serie.feito;
+      // ...nome único desta série neste treino (para não pontuar duas vezes)
+      const refSerie = `serie:${estado.inicio}:${i}:${n}`;
+      // ...se marcou, ganha os pontos (o "+10" sai do botão); se desmarcou, perde
+      if (SL.pontos) serie.feito ? SL.pontos.ganhar("serie", refSerie, { origem: alvo }) : SL.pontos.perder(refSerie);
       // ...salva
       salvar();
       // ...desenha de novo
@@ -609,6 +613,13 @@ window.SL &&
       );
       // Apaga o treino em andamento
       storage.remove("sl-treino-atual");
+      // Se o motor de pontos carregou...
+      if (SL.pontos) {
+        // ...ganha os pontos do treino concluído
+        SL.pontos.ganhar("treino", "treino:" + estado.inicio);
+        // ...e confere sequência e meta da semana
+        SL.pontos.conferirTreino();
+      }
 
       // Calcula os números atualizados
       const stats = SL.estatisticas();

@@ -304,9 +304,37 @@
   // Metas do dia: calorias, proteína, carboidrato, gordura (g) e água (ml)
   const METAS_NUTRICAO = { kcal: 2500, proteina: 180, carbo: 300, gordura: 70, aguaMl: 3000 };
 
+  // Amigos de exemplo para o ranking (sem servidor, eles são simulados)
+  // ritmo = média de pontos que a pessoa faz por semana
+  const AMIGOS = [
+    // Ana: treina muito, é a rival mais forte
+    { nome: "Ana Souza", codigo: "ANA-3107", academia: "centro", ritmo: 820 },
+    // Rafael: treina bastante
+    { nome: "Rafael Lima", codigo: "RAFA-2290", academia: "centro", ritmo: 650 },
+    // Camila: ritmo médio
+    { nome: "Camila Rocha", codigo: "CAMI-4415", academia: "norte", ritmo: 560 },
+    // Diego: ritmo médio
+    { nome: "Diego Martins", codigo: "DIEGO-7781", academia: "centro", ritmo: 470 },
+    // Larissa: treina em casa, sem academia
+    { nome: "Larissa Alves", codigo: "LARI-1902", academia: null, ritmo: 380 },
+    // Pedro: está começando
+    { nome: "Pedro Henrique", codigo: "PH-6634", academia: "norte", ritmo: 300 },
+    // Júlia: treina pouco
+    { nome: "Júlia Costa", codigo: "JU-5520", academia: "centro", ritmo: 230 },
+  ];
+
+  // Academias de exemplo, com outros alunos além dos amigos
+  const ACADEMIAS = [
+    // Unidade do centro
+    { id: "centro", nome: "Saúde Life Centro", bairro: "Centro", membros: ["Marcos Vieira", "Beatriz Nunes", "Thiago Ramos", "Fernanda Dias", "Lucas Prado", "Carla Mendes"] },
+    // Unidade da zona norte
+    { id: "norte", nome: "Saúde Life Zona Norte", bairro: "Zona Norte", membros: ["Bruno Teixeira", "Aline Moura", "Rodrigo Pires", "Patrícia Gomes"] },
+  ];
+
   // Deixa todos esses dados disponíveis para as outras páginas em window.SL_DADOS
   window.SL_DADOS = {
     CATALOGO, PROFISSIONAIS, AULAS, TREINOS_PADRAO, EVOLUCAO,
     EXERCICIOS, HISTORICO_PADRAO, REFEICOES_PADRAO, METAS_NUTRICAO,
+    AMIGOS, ACADEMIAS,
   };
 })();

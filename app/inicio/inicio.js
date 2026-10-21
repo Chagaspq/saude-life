@@ -202,4 +202,38 @@ window.SL &&
 
     // Pinta todas as barras de progresso da página
     SL.aplicarProgresso();
+
+    /* Card dos pontos: anel da semana, liga e posição entre os amigos */
+    function renderPontos() {
+      // Lugar do card
+      const alvo = document.querySelector('[data-render="pontos"]');
+      // Se o motor de pontos não carregou, esconde o card
+      if (!SL.pontos) return (alvo.hidden = true);
+      // Atalho para o motor
+      const P = SL.pontos;
+      // Situação da semana
+      const s = P.situacaoDaLiga();
+      // Posição entre os amigos
+      const pos = P.minhaPosicao("amigos", "semana");
+      // Troca o conteúdo do card
+      alvo.replaceChildren(
+        // Anel menor com os pontos
+        P.anel(s.pts / P.SOBE, SL.num(s.pts), "pontos"),
+        // Textos
+        el("div", { class: "pontos-card-info" }, [
+          // Linha com o escudo e a liga
+          el("div", { class: "pontos-card-liga" }, [P.escudo(s.atual), el("strong", { class: `rk-liga-nome liga-${P.LIGAS[s.atual].id}`, text: `Liga ${P.LIGAS[s.atual].nome}` })]),
+          // Posição entre os amigos
+          el("p", { class: "pontos-card-pos", text: pos ? `Você está em ${pos.posicao}º de ${pos.total} entre os amigos` : "" }),
+          // O que falta
+          el("p", { class: "meta", text: s.faltaSubir ? `Faltam ${s.faltaSubir} pontos para ${s.noTopo ? "garantir o Diamante" : "subir de liga"} • zera em ${s.diasParaZerar} dia${s.diasParaZerar === 1 ? "" : "s"}` : "Subida garantida nesta semana!" }),
+        ]),
+        // Link para o ranking
+        el("a", { href: "../ranking/ranking.html", class: "btn-secondary", text: "Ver ranking" }),
+      );
+    }
+    // Desenha o card
+    renderPontos();
+    // Atualiza quando os pontos mudam
+    document.addEventListener("sl:pontos", renderPontos);
   });

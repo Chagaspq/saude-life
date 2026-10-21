@@ -16,7 +16,7 @@
   // Lista de todas as páginas do app
   const PAGINAS = [
     "inicio", "descobrir", "treinos", "aulas", "alimentacao", "evolucao",
-    "profissionais", "planos", "salvos", "academia", "perfil", "treino", "comecar",
+    "profissionais", "planos", "salvos", "academia", "perfil", "treino", "comecar", "ranking",
   ];
 
   /* ============================================
@@ -1095,6 +1095,7 @@
         [
           "sl-treinos", "sl-salvos", "sl-seguindo", "sl-reservas", "sl-perfil", "sl-pesos", "sl-agua",
           "sl-refeicoes", "sl-historico", "sl-treino-atual", "sl-desafio", "sl-lidas",
+          "sl-pontos", "sl-pontos-inicio", "sl-liga", "sl-academia",
         // ...apaga cada uma
         ].forEach(storage.remove);
         // ...e recarrega a página

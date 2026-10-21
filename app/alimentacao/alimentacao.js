@@ -78,6 +78,8 @@ window.SL &&
           const pct = Math.round((atual / meta) * 100);
           // Quanto falta para a meta
           const faltam = meta - atual;
+          // Bateu a meta de proteína hoje: ganha pontos (uma vez por dia)
+          if (m.chave === "proteina" && atual >= meta && SL.pontos) SL.pontos.ganhar("proteina", "proteina:" + hoje);
           // Card do macro com a cor dele
           return el("div", { class: `macro-card macro-${m.cor}` }, [
             // Nome com a bolinha colorida
@@ -193,7 +195,7 @@ window.SL &&
     }
 
     // Botão de mais água...
-    SL.acao("agua-mais", () => {
+    SL.acao("agua-mais", (alvo) => {
       // ...soma um copo
       const ml = agua() + COPO;
       // ...salva
@@ -204,6 +206,8 @@ window.SL &&
       SL.aplicarProgresso();
       // Se acabou de bater a meta, comemora
       if (ml >= META.aguaMl && ml - COPO < META.aguaMl) SL.toast("Meta de água batida!");
+      // Bateu a meta de água: ganha pontos (uma vez por dia; o "+10" sai do botão)
+      if (ml >= META.aguaMl && SL.pontos) SL.pontos.ganhar("agua", "agua:" + hoje, { origem: alvo });
     });
 
     // Botão de menos água...
@@ -224,6 +228,8 @@ window.SL &&
       const removida = itens.find((r) => r.id === alvo.dataset.id);
       // ...salva a lista sem ela
       guardarRefeicoes(itens.filter((r) => r.id !== alvo.dataset.id));
+      // ...e tira os pontos que ela tinha dado
+      if (SL.pontos) SL.pontos.perder("refeicao:" + alvo.dataset.id);
       // ...desenha de novo
       render();
       // ...e mostra o aviso com "Desfazer"
@@ -292,12 +298,14 @@ window.SL &&
         }
         // Atalho que lê um campo como número inteiro (nunca negativo)
         const n = (id) => Math.max(0, Math.round(Number(form.querySelector(id).value) || 0));
+        // id da refeição nova, baseado na hora
+        const idNova = "r" + Date.now();
         // Salva as refeições...
         guardarRefeicoes(
           // ...com a nova no final:
           refeicoes().concat({
-            // id baseado na hora
-            id: "r" + Date.now(),
+            // id
+            id: idNova,
             // nome
             nome,
             // horário
@@ -320,6 +328,8 @@ window.SL &&
         render();
         // Mostra o aviso
         SL.toast("Refeição adicionada");
+        // Ganha os pontos da refeição registrada
+        if (SL.pontos) SL.pontos.ganhar("refeicao", "refeicao:" + idNova);
       });
 
       // Abre o modal com o formulário

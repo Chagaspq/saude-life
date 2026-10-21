@@ -67,6 +67,13 @@ window.SL &&
       render();
       // Mostra um aviso rápido na tela
       SL.toast(reservas.includes(nome) ? "Vaga reservada!" : "Reserva cancelada");
+      // Se o motor de pontos carregou...
+      if (SL.pontos) {
+        // ...nome único da aula nesta semana
+        const ref = `aula:${nome}:${SL.pontos.semanaAtual()}`;
+        // ...reservou: ganha pontos; cancelou: perde
+        reservas.includes(nome) ? SL.pontos.ganhar("aula", ref, { origem: btn }) : SL.pontos.perder(ref);
+      }
     });
 
     // Mostra 4 cards de carregando e depois desenha a página
