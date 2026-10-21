@@ -18,6 +18,36 @@ window.SL &&
     // Mostra quantos profissionais a pessoa segue
     $("seguindo-count").textContent = SL.num(storage.get("sl-seguindo", []).length);
 
+    // Desenha o que a pessoa personalizou: capa, Pulso, plano e selos em destaque
+    function renderPersonalizado() {
+      // Perfil salvo
+      const perfil = storage.get("sl-perfil", {});
+      // Card do topo
+      const card = document.querySelector(".profile-header-card");
+      // Capa escolhida (padrão: brasa)
+      card.dataset.capa = perfil.capa || "brasa";
+      // Tira o que foi desenhado antes (para não repetir)
+      card.querySelectorAll(".perfil-extra").forEach((x) => x.remove());
+      // Pulso com a roupa escolhida, no canto do card
+      if (SL.personagem) card.append(el("div", { class: "perfil-extra perfil-pulso" }, [SL.personagem.desenhar()]));
+      // Selo do plano ao lado do nome
+      document.getElementById("heading-perfil").append(el("span", { class: `perfil-extra tag perfil-plano${SL.premium() ? " is-premium" : ""}`, text: SL.premium() ? "Premium ✦" : "Free" }));
+      // Selos conquistados
+      const selos = SL.pontos ? SL.pontos.selos().filter((x) => x.feito) : [];
+      // Os escolhidos para destaque (só os que ainda valem)
+      const escolhidos = (perfil.selos || []).map((id) => selos.find((x) => x.id === id)).filter(Boolean);
+      // Se tem selos em destaque, mostra embaixo da bio
+      if (escolhidos.length)
+        // Lista de selos
+        document.querySelector(".profile-info .bio").after(
+          el("ul", { class: "perfil-extra perfil-destaques", "aria-label": "Selos em destaque" }, escolhidos.map((x) => el("li", { title: x.texto, text: "🏅 " + x.nome }))),
+        );
+    }
+    // Desenha agora
+    renderPersonalizado();
+    // E de novo quando a pessoa salvar o perfil
+    document.addEventListener("sl:perfil", renderPersonalizado);
+
     // Lê as respostas do questionário inicial
     const obj = SL.onboarding();
     // Troca a lista de objetivos pelos dados novos

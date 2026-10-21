@@ -3265,6 +3265,46 @@ a.btn-secondary {
   fill: #34d399;
 }
 
+/* Capa do Pulso especial (Premium) */
+.pulso-capa {
+  /* Dourado */
+  fill: #f5b544;
+  /* Contorno um pouco mais escuro */
+  stroke: #c98a1e;
+  /* Grossura do contorno */
+  stroke-width: 1.5;
+}
+
+/* Cores da roupa escolhidas no perfil: coral */
+.pulso-cor-coral .pulso-regata {
+  /* Coral */
+  fill: #ff7a45;
+}
+
+/* Com regata coral, a faixa fica esmeralda (para não sumir) */
+.pulso-cor-coral .pulso-faixa {
+  /* Esmeralda */
+  fill: #34d399;
+}
+
+/* Roupa azul */
+.pulso-cor-azul .pulso-regata {
+  /* Azul */
+  fill: #7cc4f0;
+}
+
+/* Roupa roxa */
+.pulso-cor-roxo .pulso-regata {
+  /* Roxo */
+  fill: #b18cf2;
+}
+
+/* Roupa dourada (só Premium) */
+.pulso-cor-dourado .pulso-regata {
+  /* Dourado */
+  fill: #f5b544;
+}
+
 /* Cabelo */
 .pulso-cabelo {
   /* Castanho escuro */
@@ -4826,4 +4866,340 @@ body[data-pagina]::before {
   text-decoration: none;
   /* Sombra */
   box-shadow: var(--shadow-sm);
+}
+
+/* ============================================
+   PERFIL PERSONALIZÁVEL (modal de editar e card do topo)
+   ============================================ */
+
+/* Linha da foto no modal */
+.perfil-foto-linha {
+  /* Lado a lado */
+  display: flex;
+  /* Centralizados na altura */
+  align-items: center;
+  /* Quebra no celular */
+  flex-wrap: wrap;
+  /* Espaço entre eles */
+  gap: 10px;
+}
+
+/* Prévia da foto no modal */
+.perfil-foto-previa {
+  /* Tamanho */
+  width: 64px;
+  /* Tamanho */
+  height: 64px;
+  /* Letra */
+  font-size: 22px;
+}
+
+/* Rótulo "Trocar foto" com foco do teclado no campo escondido */
+.perfil-foto-linha:focus-within label {
+  /* Contorno coral */
+  outline: 2px solid var(--coral);
+  /* Afastado */
+  outline-offset: 2px;
+}
+
+/* Grupo de opções (fieldset sem borda) */
+.perfil-opcoes,
+.perfil-selos {
+  /* Sem borda */
+  border: 0;
+  /* Sem espaço padrão */
+  padding: 0;
+  /* Sem margem */
+  margin: 0;
+  /* Pode encolher */
+  min-width: 0;
+}
+
+/* Legendas dos grupos */
+.perfil-opcoes legend,
+.perfil-selos legend {
+  /* Letra do rótulo */
+  font-size: var(--text-sm);
+  /* Negrito */
+  font-weight: 600;
+  /* Espaço embaixo */
+  margin-bottom: 8px;
+}
+
+/* Lista de opções */
+.perfil-opcoes-lista,
+.perfil-selos-lista {
+  /* Lado a lado */
+  display: flex;
+  /* Quebra linha */
+  flex-wrap: wrap;
+  /* Espaço entre elas */
+  gap: 8px;
+}
+
+/* Cada opção de cor */
+.perfil-opcao {
+  /* Bolinha em cima do nome */
+  display: grid;
+  /* Centralizado */
+  justify-items: center;
+  /* Espaço */
+  gap: 4px;
+  /* Mãozinha */
+  cursor: pointer;
+  /* Letra pequena */
+  font-size: var(--text-xs);
+  /* Cor apagada */
+  color: var(--muted);
+}
+
+/* Bolinha de cor */
+.perfil-opcao-cor {
+  /* Tamanho */
+  width: 36px;
+  /* Tamanho */
+  height: 36px;
+  /* Redonda */
+  border-radius: 50%;
+  /* Borda transparente (vira coral quando marcada) */
+  border: 3px solid transparent;
+  /* Contorno fino para separar do fundo */
+  box-shadow: 0 0 0 1px var(--border-strong);
+}
+
+/* Opção marcada */
+.perfil-opcao input:checked + .perfil-opcao-cor {
+  /* Borda clara */
+  border-color: var(--ink);
+}
+
+/* Opção com foco do teclado */
+.perfil-opcao input:focus-visible + .perfil-opcao-cor {
+  /* Contorno coral */
+  outline: 2px solid var(--coral);
+  /* Afastado */
+  outline-offset: 2px;
+}
+
+/* Opção marcada: nome destacado */
+.perfil-opcao input:checked ~ .perfil-opcao-nome {
+  /* Cor do texto */
+  color: var(--ink);
+}
+
+/* Opção do Premium bloqueada */
+.perfil-opcao.is-bloqueada {
+  /* Apagada */
+  opacity: 0.5;
+  /* Sem mãozinha */
+  cursor: not-allowed;
+}
+
+/* Cores das capas (bolinhas e card) */
+.opcao-capa-brasa .perfil-opcao-cor,
+.profile-header-card[data-capa="brasa"] {
+  /* Degradê coral */
+  background: linear-gradient(135deg, rgba(255, 122, 69, 0.28), var(--surface) 60%);
+}
+
+/* Capa mata */
+.opcao-capa-mata .perfil-opcao-cor,
+.profile-header-card[data-capa="mata"] {
+  /* Degradê esmeralda */
+  background: linear-gradient(135deg, rgba(52, 211, 153, 0.28), var(--surface) 60%);
+}
+
+/* Capa noite */
+.opcao-capa-noite .perfil-opcao-cor,
+.profile-header-card[data-capa="noite"] {
+  /* Degradê azul */
+  background: linear-gradient(135deg, rgba(124, 196, 240, 0.28), var(--surface) 60%);
+}
+
+/* Capa pôr do sol */
+.opcao-capa-sol .perfil-opcao-cor,
+.profile-header-card[data-capa="sol"] {
+  /* Degradê coral para dourado */
+  background: linear-gradient(135deg, rgba(255, 122, 69, 0.3), rgba(245, 181, 68, 0.22) 45%, var(--surface) 75%);
+}
+
+/* Bolinhas das roupas do Pulso */
+.opcao-pulso-esmeralda .perfil-opcao-cor {
+  /* Esmeralda */
+  background: #34d399;
+}
+
+/* Coral */
+.opcao-pulso-coral .perfil-opcao-cor {
+  /* Coral */
+  background: #ff7a45;
+}
+
+/* Azul */
+.opcao-pulso-azul .perfil-opcao-cor {
+  /* Azul */
+  background: #7cc4f0;
+}
+
+/* Roxo */
+.opcao-pulso-roxo .perfil-opcao-cor {
+  /* Roxo */
+  background: #b18cf2;
+}
+
+/* Dourado */
+.opcao-pulso-dourado .perfil-opcao-cor {
+  /* Dourado */
+  background: #f5b544;
+}
+
+/* Linha com a prévia do Pulso e as cores */
+.perfil-pulso-linha {
+  /* Lado a lado */
+  display: flex;
+  /* Centralizados na altura */
+  align-items: center;
+  /* Espaço */
+  gap: 14px;
+}
+
+/* Prévia do Pulso no modal */
+.perfil-pulso-previa {
+  /* Largura */
+  width: 70px;
+  /* Não encolhe */
+  flex-shrink: 0;
+}
+
+/* Desenho do Pulso nas prévias e no card */
+.perfil-pulso-previa svg,
+.perfil-pulso svg {
+  /* Largura toda */
+  width: 100%;
+  /* Altura proporcional */
+  height: auto;
+}
+
+/* Cada selo para marcar */
+.perfil-selo {
+  /* Caixinha e texto lado a lado */
+  display: inline-flex;
+  /* Centralizados */
+  align-items: center;
+  /* Espaço */
+  gap: 6px;
+  /* Espaço interno */
+  padding: 6px 12px;
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Pílula */
+  border-radius: var(--radius-full);
+  /* Letra pequena */
+  font-size: var(--text-sm);
+  /* Mãozinha */
+  cursor: pointer;
+}
+
+/* Selo marcado */
+.perfil-selo:has(input:checked) {
+  /* Borda coral */
+  border-color: var(--coral-light);
+  /* Fundo coral fraco */
+  background: var(--coral-soft);
+}
+
+/* Caixinha do selo na cor da marca */
+.perfil-selo input {
+  /* Cor coral */
+  accent-color: var(--coral);
+}
+
+/* Card do topo do perfil: posição para o Pulso no canto */
+.profile-header-card {
+  /* Base para o Pulso solto */
+  position: relative;
+  /* Esconde o que passar da borda */
+  overflow: hidden;
+}
+
+/* Pulso no canto do card */
+.perfil-pulso {
+  /* Solto no canto */
+  position: absolute;
+  /* Direita */
+  right: 16px;
+  /* Embaixo */
+  bottom: -6px;
+  /* Tamanho */
+  width: 84px;
+  /* Atrás do texto */
+  opacity: 0.95;
+  /* Cliques passam */
+  pointer-events: none;
+}
+
+/* No computador e tablet, sobra espaço à direita para o Pulso */
+@media (min-width: 641px) {
+  /* Card do topo (com capa, para ganhar do perfil.css) */
+  .profile-header-card[data-capa] {
+    /* Espaço à direita */
+    padding-right: 116px;
+  }
+}
+
+/* No celular, o Pulso some do card (falta espaço) */
+@media (max-width: 640px) {
+  /* Pulso do card */
+  .perfil-pulso {
+    /* Some */
+    display: none;
+  }
+}
+
+/* Selo do plano ao lado do nome */
+.perfil-plano {
+  /* Espaço do nome */
+  margin-left: 10px;
+  /* Alinha com o texto */
+  vertical-align: middle;
+}
+
+/* Selo do Premium */
+.perfil-plano.is-premium {
+  /* Fundo dourado fraco */
+  background: rgba(245, 181, 68, 0.16);
+  /* Texto dourado */
+  color: var(--star);
+}
+
+/* Selos em destaque no perfil */
+.perfil-destaques {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Sem espaço padrão */
+  padding: 0;
+  /* Espaço em cima */
+  margin: 10px 0 0;
+  /* Lado a lado */
+  display: flex;
+  /* Quebra linha */
+  flex-wrap: wrap;
+  /* Espaço */
+  gap: 6px;
+}
+
+/* Cada selo em destaque */
+.perfil-destaques li {
+  /* Espaço interno */
+  padding: 4px 10px;
+  /* Pílula */
+  border-radius: var(--radius-full);
+  /* Fundo dourado fraco */
+  background: rgba(245, 181, 68, 0.14);
+  /* Texto dourado */
+  color: var(--star);
+  /* Letra pequena */
+  font-size: var(--text-xs);
+  /* Negrito */
+  font-weight: 600;
 }

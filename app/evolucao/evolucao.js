@@ -883,6 +883,19 @@ window.SL &&
       if (!SL.stories || !SL.pontos) return;
       // Semana ou mês
       const tipo = alvo.dataset.periodoResumo;
+      // O relatório do mês é do Premium: no Free, oferece o plano
+      if (tipo === "mes" && !SL.premium())
+        // Pergunta se quer conhecer o Premium
+        return SL.confirmar({
+          // Título
+          titulo: "Relatório do mês é Premium",
+          // Texto
+          texto: "O resumo da semana é grátis. O relatório do mês, com tudo o que você fez em 30 dias, faz parte do Premium.",
+          // Botão
+          rotulo: "Ver o Premium",
+          // Leva para os planos
+          fn: () => (window.location.href = "../planos/planos.html"),
+        });
       // Começo e fim do período
       const { ini, fim } = SL.pontos.periodo(tipo);
       // Treinos do período

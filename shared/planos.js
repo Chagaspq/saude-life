@@ -162,8 +162,19 @@
     // Link dos botões (se a caixa tiver data-cta)
     const ctaHref = container.dataset.cta;
     // No app, o plano da pessoa aparece marcado (data-plano-atual="Free")
-    // Plano que a pessoa já tem (se tiver)
-    const planoAtual = container.dataset.planoAtual;
+    // Plano que a pessoa já tem: o salvo no navegador (sl-plano) ou o da página
+    let planoAtual = container.dataset.planoAtual;
+    // Só no app (quando a caixa marca o plano atual)...
+    if (planoAtual) {
+      // ...tenta ler o plano salvo
+      try {
+        // Plano salvo (ex.: "Premium")
+        planoAtual = JSON.parse(localStorage.getItem("sl-plano")) || planoAtual;
+      // Se o navegador bloquear, fica o da página
+      } catch (e) {
+        /* armazenamento indisponível */
+      }
+    }
     // Começa mostrando os preços mensais
     let anual = false;
 
@@ -208,7 +219,7 @@
           // Se não...
           } else {
             // ...é um botão que o app trata ao clicar
-            botao = el("button", { type: "button", class: botaoClasse, "data-action": "select-plan", text: plano.cta });
+            botao = el("button", { type: "button", class: botaoClasse, "data-action": "select-plan", "data-plano": plano.nome, text: plano.cta });
           }
 
           // Classes do card: destaque e/ou atual

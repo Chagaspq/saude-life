@@ -95,8 +95,12 @@
     const selos = Math.min(5, opcoes.selos != null ? opcoes.selos : SL.pontos ? SL.pontos.selos().filter((s) => s.feito).length : 0);
     // Humor; padrão: o humor de agora
     const h = opcoes.humor || humor();
+    // Cor da roupa escolhida no perfil (padrão: esmeralda)
+    const cor = opcoes.cor || SL.storage.get("sl-perfil", {}).pulso || "esmeralda";
+    // Premium ganha a capa (o "personagem especial")
+    const especial = opcoes.premium != null ? opcoes.premium : SL.premium && SL.premium();
     // Desenho de 120 x 150
-    const s = svg("svg", { viewBox: "0 0 120 150", class: `pulso pulso-${h} pulso-liga-${liga}`, role: "img", "aria-label": `Pulso, seu parceiro de treino, ${h === "comemorando" ? "comemorando" : h === "cansado" ? "cansado" : "feliz"}` });
+    const s = svg("svg", { viewBox: "0 0 120 150", class: `pulso pulso-${h} pulso-liga-${liga} pulso-cor-${cor}${especial ? " pulso-especial" : ""}`, role: "img", "aria-label": `Pulso, seu parceiro de treino, ${h === "comemorando" ? "comemorando" : h === "cansado" ? "cansado" : "feliz"}` });
 
     // Aura girando (só no Diamante)
     if (liga >= 3) s.append(forma("circle", { cx: 60, cy: 78, r: 54, class: "pulso-aura" }));
@@ -110,6 +114,8 @@
 
     // Grupo do corpo (é ele que pula e respira)
     const corpo = forma("g", { class: "pulso-corpo" });
+    // Capa do Premium (atrás do corpo)
+    if (especial) corpo.append(forma("path", { d: "M44 58 Q60 52 76 58 L88 120 Q60 128 32 120Z", class: "pulso-capa" }));
     // Perna esquerda
     corpo.append(forma("rect", { x: 47, y: 98, width: 10, height: 34, rx: 5, class: "pulso-pele" }));
     // Perna direita

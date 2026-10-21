@@ -1292,7 +1292,53 @@
   });
 
   // Botão de escolher plano: avisa que ainda não tem pagamento
-  acao("select-plan", () => toast("Em breve: pagamento dos planos"));
+  acao("select-plan", (alvo) => {
+    // ...plano escolhido (Free, Premium ou Academia)
+    const plano = alvo.dataset.plano || "Premium";
+    // Plano Academia: é vendido para a academia, não para a pessoa
+    if (plano === "Academia") return toast("O plano Academia é contratado pela sua academia. Fale com a recepção 😉");
+    // Voltar para o Free
+    if (plano === "Free")
+      // Pede confirmação
+      return confirmar({
+        // Título
+        titulo: "Voltar para o Free?",
+        // Texto
+        texto: "Você perde o treino automático, o Pulso especial, os relatórios do mês e os desafios sem limite.",
+        // Botão
+        rotulo: "Voltar para o Free",
+        // Se confirmar: salva e recarrega
+        fn: () => {
+          // Salva o plano
+          storage.set("sl-plano", "Free");
+          // Recarrega a página
+          window.location.reload();
+        },
+      });
+    // Premium: o pagamento ainda não existe, então no TCC ativa na hora (demonstração)
+    confirmar({
+      // Título
+      titulo: "Ativar o Premium",
+      // Texto
+      texto: "O pagamento chega em breve. Por enquanto (demonstração do TCC), o Premium é ativado de graça: treino automático sem limite, Pulso especial, relatórios do mês e desafios sem limite.",
+      // Botão
+      rotulo: "Ativar Premium",
+      // Se confirmar...
+      fn: () => {
+        // ...salva o plano
+        storage.set("sl-plano", "Premium");
+        // ...comemora
+        if (window.SL.confete) window.SL.confete();
+        // ...avisa
+        toast("Premium ativado! 🎉");
+        // ...e recarrega para mostrar tudo
+        setTimeout(() => window.location.reload(), 1200);
+      },
+    });
+  });
+
+  // Diz se a pessoa é Premium
+  const premium = () => storage.get("sl-plano", "Free") === "Premium";
 
   // Botão de entrar no desafio...
   acao("join-challenge", (alvo) => {
@@ -1546,23 +1592,193 @@
     });
   }
 
+  // Capas do perfil (fundo do card do topo)
+  const CAPAS = [
+    // Degradê coral
+    { id: "brasa", nome: "Brasa" },
+    // Degradê esmeralda
+    { id: "mata", nome: "Mata" },
+    // Azul-noite
+    { id: "noite", nome: "Noite" },
+    // Coral para dourado
+    { id: "sol", nome: "Pôr do sol" },
+  ];
+  // Cores da roupa do Pulso (a dourada é do Premium)
+  const CORES_PULSO = [
+    // Esmeralda (padrão)
+    { id: "esmeralda", nome: "Esmeralda" },
+    // Coral
+    { id: "coral", nome: "Coral" },
+    // Azul
+    { id: "azul", nome: "Azul" },
+    // Roxo
+    { id: "roxo", nome: "Roxo" },
+    // Dourado (Premium)
+    { id: "dourado", nome: "Dourado", premium: true },
+  ];
+
+  // Grupo de opções redondas (radio) com bolinhas de cor
+  function opcoesCor(nome, titulo, lista, atual) {
+    // Grupo com legenda
+    return el("fieldset", { class: "form-group perfil-opcoes" }, [
+      // Legenda do grupo
+      el("legend", { text: titulo }),
+      // Opções lado a lado
+      el(
+        "div",
+        { class: "perfil-opcoes-lista" },
+        lista.map((o) => {
+          // Bloqueada se é do Premium e a pessoa não é
+          const bloqueada = o.premium && !premium();
+          // Rótulo com a bolinha
+          return el("label", { class: `perfil-opcao opcao-${nome}-${o.id}${bloqueada ? " is-bloqueada" : ""}`, title: bloqueada ? `${o.nome} (Premium)` : o.nome }, [
+            // Radio escondido (o rótulo é clicável)
+            el("input", { type: "radio", name: nome, value: o.id, class: "sr-only", checked: o.id === atual, disabled: bloqueada }),
+            // Bolinha de cor
+            el("span", { class: "perfil-opcao-cor", "aria-hidden": "true" }),
+            // Nome
+            el("span", { class: "perfil-opcao-nome", text: bloqueada ? `${o.nome} ✦` : o.nome }),
+          ]);
+        }),
+      ),
+    ]);
+  }
+
   // Botão de editar perfil...
   acao("edit-profile", () => {
     // ...dados atuais
     const usuario = getUsuario();
+    // ...foto atual (pode mudar no formulário)
+    let foto = perfilSalvo.foto || "";
+    // ...prévia da foto
+    const previa = el("span", { class: "profile-avatar-lg avatar-initials perfil-foto-previa", "aria-hidden": "true", text: initials(usuario.nome) });
+    // Mostra a foto na prévia
+    const pintarFoto = () => {
+      // Foto de fundo (ou nada)
+      previa.style.backgroundImage = foto ? `url(${foto})` : "";
+      // Esconde as letras quando tem foto
+      previa.classList.toggle("tem-foto", Boolean(foto));
+    };
+    // Campo de arquivo da foto
+    const arquivo = el("input", { type: "file", id: "perfil-foto", accept: "image/*", class: "sr-only" });
+    // Botão de tirar a foto
+    const tirar = el("button", { type: "button", class: "btn-secondary", text: "Remover foto" });
+    // Prévia do Pulso
+    const pulsoPrevia = el("div", { class: "perfil-pulso-previa" });
+    // Desenha o Pulso com a cor escolhida
+    const pintarPulso = (cor) => pulsoPrevia.replaceChildren(window.SL.personagem ? window.SL.personagem.desenhar({ cor, humor: "feliz" }) : "");
+    // Selos já conquistados
+    const conquistados = window.SL.pontos ? window.SL.pontos.selos().filter((x) => x.feito) : [];
+    // Selos em destaque salvos
+    const destaque = perfilSalvo.selos || [];
     // ...cria o formulário
     const form = el("form", { class: "modal-form" }, [
+      // Foto: prévia e botões
+      el("div", { class: "perfil-foto-linha" }, [
+        // Prévia
+        previa,
+        // Botão de escolher (rótulo do campo escondido)
+        el("label", { for: "perfil-foto", class: "btn-secondary", text: "Trocar foto" }),
+        // Campo escondido
+        arquivo,
+        // Remover
+        tirar,
+      ]),
       // Campo do nome
       campo("perfil-nome", "Nome", { required: true, maxlength: 50 }),
+      // Campo do apelido
+      campo("perfil-apelido", "Apelido (aparece na saudação)", { maxlength: 20 }),
       // Campo da bio
       campo("perfil-bio", "Bio", { multiline: true, maxlength: 160 }),
+      // Capa do perfil
+      opcoesCor("capa", "Capa do perfil", CAPAS, perfilSalvo.capa || "brasa"),
+      // Cor do Pulso, com a prévia
+      el("div", { class: "perfil-pulso-linha" }, [pulsoPrevia, opcoesCor("pulso", "Roupa do Pulso", CORES_PULSO, perfilSalvo.pulso || "esmeralda")]),
+      // Selos em destaque (até 3)
+      el("fieldset", { class: "form-group perfil-selos" }, [
+        // Legenda
+        el("legend", { text: "Selos em destaque (até 3)" }),
+        // Lista de selos conquistados, ou aviso
+        conquistados.length
+          ? el(
+              "div",
+              { class: "perfil-selos-lista" },
+              conquistados.map((x) =>
+                // Caixinha de cada selo
+                el("label", { class: "perfil-selo" }, [el("input", { type: "checkbox", name: "selo", value: x.id, checked: destaque.includes(x.id) }), x.nome]),
+              ),
+            )
+          : el("p", { class: "meta", text: "Conquiste selos no Ranking para mostrar aqui." }),
+      ]),
       // Botão de salvar
       el("button", { type: "submit", class: "btn-primary", text: "Salvar alterações" }),
     ]);
     // Preenche o nome
     form.querySelector("#perfil-nome").value = usuario.nome;
+    // Preenche o apelido
+    form.querySelector("#perfil-apelido").value = perfilSalvo.apelido || "";
     // Preenche a bio
     form.querySelector("#perfil-bio").value = usuario.bio;
+    // Mostra a foto atual
+    pintarFoto();
+    // Mostra o Pulso atual
+    pintarPulso(perfilSalvo.pulso || "esmeralda");
+
+    // Ao escolher uma foto: corta um quadrado do meio e diminui para 256 x 256
+    arquivo.addEventListener("change", () => {
+      // Arquivo escolhido
+      const f = arquivo.files[0];
+      // Se não é imagem, para
+      if (!f || !f.type.startsWith("image/")) return;
+      // Imagem
+      const img = new Image();
+      // Quando carregar...
+      img.onload = () => {
+        // ...tela de desenho
+        const c = document.createElement("canvas");
+        // Largura
+        c.width = 256;
+        // Altura
+        c.height = 256;
+        // Lado do quadrado do meio
+        const lado = Math.min(img.width, img.height);
+        // Desenha o quadrado diminuído
+        c.getContext("2d").drawImage(img, (img.width - lado) / 2, (img.height - lado) / 2, lado, lado, 0, 0, 256, 256);
+        // Guarda como JPEG leve
+        foto = c.toDataURL("image/jpeg", 0.8);
+        // Libera o arquivo temporário
+        URL.revokeObjectURL(img.src);
+        // Mostra
+        pintarFoto();
+      };
+      // Carrega a imagem do arquivo
+      img.src = URL.createObjectURL(f);
+    });
+    // Remover a foto
+    tirar.addEventListener("click", () => {
+      // Sem foto
+      foto = "";
+      // Mostra as iniciais
+      pintarFoto();
+    });
+    // Ao trocar a cor do Pulso, atualiza a prévia
+    form.addEventListener("change", (e) => {
+      // Cor do Pulso
+      if (e.target.name === "pulso") pintarPulso(e.target.value);
+      // Selos: no máximo 3 marcados
+      if (e.target.name === "selo") {
+        // Caixinhas de selo
+        const caixas = [...form.querySelectorAll('input[name="selo"]')];
+        // Quantas marcadas
+        const marcadas = caixas.filter((c) => c.checked).length;
+        // Desativa as outras quando chega a 3
+        caixas.forEach((c) => (c.disabled = !c.checked && marcadas >= 3));
+      }
+    });
+    // Aplica o limite de 3 já ao abrir
+    const primeiraCaixa = form.querySelector('input[name="selo"]');
+    // (dispara a regra uma vez)
+    if (primeiraCaixa) primeiraCaixa.dispatchEvent(new Event("change", { bubbles: true }));
 
     // Quando clicam em salvar...
     form.addEventListener("submit", (ev) => {
@@ -1577,14 +1793,30 @@
         // ...e para
         return;
       }
+      // Valor do radio marcado
+      const marcado = (n) => (form.querySelector(`input[name="${n}"]:checked`) || {}).value;
       // Guarda o nome
       perfilSalvo.nome = nome;
+      // Guarda o apelido
+      perfilSalvo.apelido = form.querySelector("#perfil-apelido").value.trim();
       // Guarda a bio
       perfilSalvo.bio = form.querySelector("#perfil-bio").value.trim();
+      // Guarda a foto (ou nada)
+      perfilSalvo.foto = foto;
+      // Guarda a capa
+      perfilSalvo.capa = marcado("capa");
+      // Guarda a cor do Pulso
+      perfilSalvo.pulso = marcado("pulso");
+      // Guarda os selos em destaque
+      perfilSalvo.selos = [...form.querySelectorAll('input[name="selo"]:checked')].map((c) => c.value);
       // Salva no navegador
       storage.set("sl-perfil", perfilSalvo);
+      // Sem foto: limpa o fundo das bolinhas de iniciais
+      if (!foto) document.querySelectorAll("[data-user-initials]").forEach((n) => ((n.style.backgroundImage = ""), n.classList.remove("tem-foto")));
       // Escreve os dados novos na página
       renderUsuario();
+      // Avisa a página (o Perfil redesenha a capa, o Pulso e os selos)
+      document.dispatchEvent(new CustomEvent("sl:perfil"));
       // Fecha o modal
       closeModal();
       // Avisa
@@ -1846,6 +2078,7 @@
     onboarding,
     dadosCorpo,
     treinosDoUsuario,
+    premium,
     acharTreino,
     exerciciosDe,
     resumoExercicio,
