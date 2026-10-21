@@ -800,12 +800,31 @@ window.SL &&
             el("a", { href: "../inicio/inicio.html", class: "btn-primary", text: "Voltar ao início" }),
             // ver a evolução
             el("a", { href: "../evolucao/evolucao.html", class: "btn-secondary", text: "Ver minha evolução" }),
+            // compartilhar o treino (cartão de stories)
+            SL.stories ? el("button", { type: "button", class: "btn-secondary", "data-action": "compartilhar-treino", "data-min": minutos, "data-series": feitas.length, "data-volume": volume, text: "Compartilhar" }) : null,
           ]),
         ]),
       );
       // Coloca o foco no resumo
       document.getElementById("conteudo").focus();
     }
+
+    // Botão "Compartilhar": abre o cartão do treino no estilo stories
+    SL.acao("compartilhar-treino", (alvo) => {
+      // Números do treino guardados no botão
+      const { min, series, volume } = alvo.dataset;
+      // Pontos ganhos hoje
+      const pts = SL.pontos ? SL.pontos.somar(new Date().setHours(0, 0, 0, 0), Date.now() + 1) : 0;
+      // Abre o stories
+      SL.stories.abrir("Treino concluído!", [
+        // Tela 1: o treino
+        { kicker: "Treino concluído", numero: treino.nome, legenda: `${SL.duracaoTexto(Number(min))} de treino`, texto: "" },
+        // Tela 2: séries
+        { kicker: "Séries", numero: SL.num(Number(series)), legenda: "séries feitas", texto: `${SL.num(Number(volume))} kg levantados` },
+        // Tela 3: pontos
+        { kicker: "Pontos de hoje", numero: `+${SL.num(pts)}`, legenda: "pontos no ranking", texto: SL.personagem ? SL.personagem.frase() : "" },
+      ]);
+    });
 
     // Pergunta "Como foi o treino?" com 4 emojis; a resposta ajusta a sugestão de carga da próxima vez
     function perguntaEsforco() {

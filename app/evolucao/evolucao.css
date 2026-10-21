@@ -238,3 +238,327 @@
   /* Tamanho do tracejado (usado para animar o desenho do traço) */
   stroke-dasharray: 6 5;
 }
+
+/* Painéis novos da Evolução */
+.ev-painel {
+  /* Espaço interno */
+  padding: 22px;
+  /* Espaço em cima */
+  margin-top: var(--space-4);
+  /* Cantos arredondados */
+  border-radius: var(--radius-lg);
+  /* Borda fininha */
+  border: 1px solid var(--border);
+  /* Fundo dos cards */
+  background: var(--surface);
+}
+
+/* Dentro da grade, os painéis não precisam de margem em cima */
+.evolution-dashboard > .ev-painel {
+  /* Sem margem em cima */
+  margin-top: 0;
+}
+
+/* Grade das metas pessoais */
+.ev-metas {
+  /* Organiza em grade */
+  display: grid;
+  /* Quantas colunas couberem, no mínimo 220 pixels */
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  /* Espaço entre elas */
+  gap: 12px;
+  /* Espaço em cima */
+  margin-top: 12px;
+}
+
+/* Cada meta */
+.ev-meta {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre eles */
+  gap: 8px;
+  /* Espaço interno */
+  padding: 16px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+}
+
+/* Meta batida: borda esmeralda */
+.ev-meta.is-batida {
+  /* Borda esmeralda por dentro */
+  box-shadow: inset 0 0 0 1px var(--emerald);
+}
+
+/* Valor da meta */
+.ev-meta-valor {
+  /* Fonte de placar */
+  font-family: var(--font-placar);
+  /* Tamanho da letra: 20 pixels */
+  font-size: 20px;
+}
+
+/* Caixas de seleção da Evolução */
+.ev-select {
+  /* Espaço interno */
+  padding: 8px 10px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-sm);
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+  /* Cor principal do texto */
+  color: var(--ink);
+  /* Usa a mesma fonte do pai */
+  font: inherit;
+}
+
+/* Desenho do corpo */
+.ev-corpo-svg {
+  /* Largura: a toda */
+  width: 100%;
+  /* Largura máxima */
+  max-width: 360px;
+  /* Centralizado */
+  display: block;
+  /* (margem automática dos lados) */
+  margin: 12px auto;
+}
+
+/* Silhueta do corpo */
+.ev-silhueta {
+  /* Cor de card mais clara */
+  fill: var(--surface-3);
+}
+
+/* Músculos (a força da cor vem do fill-opacity) */
+.ev-musculo {
+  /* Coral */
+  fill: var(--coral);
+  /* Mudança suave */
+  transition: fill-opacity 0.6s var(--ease-out);
+}
+
+/* Lista de recordes */
+.ev-recordes {
+  /* Sem números automáticos */
+  list-style: none;
+  /* Espaço em cima */
+  margin: 12px 0 0;
+  /* Sem espaço interno */
+  padding: 0;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre eles */
+  gap: 6px;
+}
+
+/* Cada recorde */
+.ev-recordes li {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 10px;
+  /* Espaço interno */
+  padding: 10px 12px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-sm);
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+}
+
+/* Medalha ou posição */
+.ev-rec-pos {
+  /* Largura fixa */
+  width: 28px;
+  /* Texto centralizado */
+  text-align: center;
+}
+
+/* Nome do exercício */
+.ev-rec-nome {
+  /* Ocupa o espaço que sobra */
+  flex: 1;
+  /* Deixa encolher */
+  min-width: 0;
+}
+
+/* Carga do recorde */
+.ev-rec-kg {
+  /* Fonte de placar */
+  font-family: var(--font-placar);
+  /* Coral claro */
+  color: var(--coral-light);
+}
+
+/* Mapa de calor rola para o lado se não couber */
+.ev-calor-rolar {
+  /* Rolagem para o lado se precisar */
+  overflow-x: auto;
+  /* Espaço embaixo para a barra */
+  padding-bottom: 6px;
+  /* Espaço em cima */
+  margin-top: 12px;
+}
+
+/* Linha dos meses */
+.ev-calor-meses {
+  /* Organiza em grade */
+  display: grid;
+  /* 53 colunas de 13 pixels */
+  grid-template-columns: repeat(53, 13px);
+  /* Espaço entre colunas */
+  gap: 3px;
+  /* Letra pequena */
+  font-size: 10px;
+  /* Cor apagada */
+  color: var(--muted);
+  /* Espaço embaixo */
+  margin-bottom: 4px;
+}
+
+/* Grade de semanas */
+.ev-calor-grade {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Espaço entre as semanas */
+  gap: 3px;
+}
+
+/* Cada semana (coluna) */
+.ev-calor-col {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre os dias */
+  gap: 3px;
+}
+
+/* Cada dia (quadradinho) */
+.ev-dia {
+  /* Largura de 13 pixels */
+  width: 13px;
+  /* Altura de 13 pixels */
+  height: 13px;
+  /* Cantinhos arredondados */
+  border-radius: 3px;
+  /* Sem treino: cor de card mais clara */
+  background: var(--surface-3);
+}
+
+/* Dia com 1 treino */
+.ev-dia.nivel-1 {
+  /* Esmeralda escura */
+  background: var(--emerald-dark);
+}
+
+/* Dia com 2 treinos */
+.ev-dia.nivel-2 {
+  /* Esmeralda */
+  background: var(--emerald);
+}
+
+/* Dia com 3 ou mais treinos */
+.ev-dia.nivel-3 {
+  /* Coral */
+  background: var(--coral);
+}
+
+/* Dias que ainda não chegaram */
+.ev-dia.is-futuro {
+  /* Invisível */
+  visibility: hidden;
+}
+
+/* Botão de adicionar foto (o campo de arquivo fica escondido dentro) */
+.ev-foto-botao {
+  /* Mãozinha do mouse */
+  cursor: pointer;
+}
+
+/* Escolha de antes e depois */
+.ev-fotos-escolha {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Espaço entre eles */
+  gap: 12px;
+  /* Margem em cima e embaixo */
+  margin: 12px 0;
+}
+
+/* Caixa da comparação */
+.ev-comparar {
+  /* Posição relativa (as fotos ficam uma em cima da outra) */
+  position: relative;
+  /* Largura máxima */
+  max-width: 420px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Esconde o que passar */
+  overflow: hidden;
+}
+
+/* As duas fotos */
+.ev-comparar img {
+  /* Ocupa a largura toda */
+  width: 100%;
+  /* Vira bloco */
+  display: block;
+}
+
+/* Foto de depois por cima da de antes */
+.ev-foto-depois {
+  /* Solta, em cima */
+  position: absolute;
+  /* Cobre a de antes */
+  inset: 0;
+  /* Altura: a toda */
+  height: 100%;
+  /* Preenche sem distorcer */
+  object-fit: cover;
+}
+
+/* Linha que divide antes e depois */
+.ev-linha {
+  /* Solta */
+  position: absolute;
+  /* De cima a baixo */
+  top: 0;
+  /* (até embaixo) */
+  bottom: 0;
+  /* Começa no meio */
+  left: 50%;
+  /* Largura de 3 pixels */
+  width: 3px;
+  /* Branco */
+  background: #fff;
+  /* Ignora cliques */
+  pointer-events: none;
+}
+
+/* Controle deslizante */
+.ev-deslizar {
+  /* Largura máxima igual à da comparação */
+  width: 100%;
+  /* (máximo) */
+  max-width: 420px;
+  /* Cor do controle */
+  accent-color: var(--coral);
+  /* Margem em cima */
+  margin-top: 8px;
+}
+
+/* Rótulos "Frente" e "Costas" do corpo, menores */
+.ev-corpo-svg text {
+  /* Tamanho da letra dentro do desenho */
+  font-size: 9px;
+}

@@ -272,3 +272,318 @@
     width: auto;
   }
 }
+
+/* De onde vêm as metas (embaixo dos macros) */
+.metas-info {
+  /* Margem em cima */
+  margin: 10px 0 0;
+  /* Cor apagada */
+  color: var(--muted);
+  /* Tamanho da letra: 13,5 pixels */
+  font-size: 13.5px;
+}
+
+/* Garrafa de água */
+.garrafa {
+  /* Organiza com grade (centraliza a garrafa) */
+  display: grid;
+  /* Centraliza */
+  place-items: center;
+  /* Espaço em cima e embaixo */
+  padding: 6px 0;
+}
+
+/* Desenho da garrafa */
+.garrafa svg {
+  /* Largura de 70 pixels */
+  width: 70px;
+  /* Altura de 140 pixels */
+  height: 140px;
+}
+
+/* Vidro (fundo da garrafa vazia) */
+.garrafa-vidro {
+  /* Azul bem clarinho e transparente */
+  fill: rgba(124, 196, 240, 0.08);
+}
+
+/* Água com onda */
+.garrafa-agua {
+  /* Azul de informação */
+  fill: var(--info);
+  /* Um pouco transparente */
+  opacity: 0.85;
+  /* Sobe/desce suave quando muda o nível */
+  transition: d 0.6s var(--ease-out);
+  /* Onda indo de um lado para o outro */
+  animation: garrafa-onda 2.4s linear infinite;
+}
+
+/* Animação: a onda anda para o lado (a forma se repete a cada 80 pixels) */
+@keyframes garrafa-onda {
+  /* Fim: andou 80 pixels */
+  to {
+    /* Move para a direita */
+    transform: translateX(80px);
+  }
+}
+
+/* Contorno da garrafa */
+.garrafa-contorno {
+  /* Sem preenchimento */
+  fill: none;
+  /* Azul de informação */
+  stroke: var(--info);
+  /* Grossura */
+  stroke-width: 3;
+  /* Cantos arredondados */
+  stroke-linejoin: round;
+}
+
+/* Brilho do vidro */
+.garrafa-brilho {
+  /* Sem preenchimento */
+  fill: none;
+  /* Branco transparente */
+  stroke: rgba(255, 255, 255, 0.35);
+  /* Grossura */
+  stroke-width: 3;
+  /* Pontas arredondadas */
+  stroke-linecap: round;
+}
+
+/* Lembrete de água */
+.lembrete-agua {
+  /* Margem em cima */
+  margin-top: 10px;
+  /* Tamanho da letra: 13,5 pixels */
+  font-size: 13.5px;
+}
+
+/* Foto do prato na lista */
+.meal-foto {
+  /* Largura de 48 pixels */
+  width: 48px;
+  /* Altura de 48 pixels */
+  height: 48px;
+  /* Cantos arredondados */
+  border-radius: 10px;
+  /* A foto preenche sem distorcer */
+  object-fit: cover;
+  /* Não deixa encolher */
+  flex-shrink: 0;
+}
+
+/* Miniatura no formulário */
+.meal-foto-previa {
+  /* Largura de 96 pixels */
+  width: 96px;
+  /* Altura de 96 pixels */
+  height: 96px;
+  /* Espaço em cima */
+  margin-top: 8px;
+}
+
+/* Bloco de busca de alimentos */
+.alim {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre eles */
+  gap: 6px;
+  /* Espaço interno */
+  padding: 12px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+  /* Borda fininha */
+  border: 1px solid var(--border);
+}
+
+/* Título do bloco */
+.alim-titulo {
+  /* Letra seminegrito */
+  font-weight: 600;
+  /* Tamanho da letra: 14 pixels */
+  font-size: 14px;
+}
+
+/* Campo de busca */
+.alim-busca {
+  /* Espaço interno */
+  padding: 10px 14px;
+  /* Formato pílula */
+  border-radius: var(--radius-full);
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Fundo dos cards */
+  background: var(--surface);
+  /* Cor principal do texto */
+  color: var(--ink);
+  /* Usa a mesma fonte do pai */
+  font: inherit;
+}
+
+/* Listas de resultados e de escolhidos */
+.alim-resultados,
+.alim-escolhidos {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Sem margem */
+  margin: 0;
+  /* Sem espaço interno */
+  padding: 0;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre eles */
+  gap: 4px;
+}
+
+/* Cada resultado é um botão do tamanho da linha */
+.alim-resultados button {
+  /* Largura: a toda */
+  width: 100%;
+  /* Texto à esquerda */
+  text-align: left;
+  /* Espaço interno */
+  padding: 8px 12px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-sm);
+  /* Borda */
+  border: 1px solid var(--border);
+  /* Fundo dos cards */
+  background: var(--surface);
+  /* Cor principal do texto */
+  color: var(--ink);
+  /* Usa a mesma fonte do pai */
+  font: inherit;
+  /* Mãozinha do mouse */
+  cursor: pointer;
+}
+
+/* Resultado com o mouse em cima */
+.alim-resultados button:hover {
+  /* Borda coral */
+  border-color: var(--coral);
+}
+
+/* Cada comida escolhida: nome | − | porções | + */
+.alim-escolhidos li {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 6px;
+}
+
+/* Nome da comida ocupa o espaço que sobra */
+.alim-escolhidos li > span {
+  /* Ocupa o espaço que sobra */
+  flex: 1;
+  /* Deixa encolher */
+  min-width: 0;
+}
+
+/* Quantidade de porções */
+.alim-qtd {
+  /* Largura mínima (não pula quando muda) */
+  min-width: 34px;
+  /* Texto centralizado */
+  text-align: center;
+  /* Fonte de placar */
+  font-family: var(--font-placar);
+}
+
+/* Seção do cardápio */
+.cardapios-secao {
+  /* Espaço em cima */
+  margin-top: var(--space-6);
+}
+
+/* Grade das refeições do cardápio */
+.cardapio {
+  /* Organiza em grade */
+  display: grid;
+  /* Quantas colunas couberem, no mínimo 220 pixels cada */
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  /* Espaço entre elas */
+  gap: 12px;
+}
+
+/* Cada refeição do cardápio */
+.cardapio-item {
+  /* Espaço interno */
+  padding: 16px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Borda fininha */
+  border: 1px solid var(--border);
+  /* Fundo dos cards */
+  background: var(--surface);
+}
+
+/* Texto do cardápio */
+.cardapio-item p {
+  /* Margem em cima e embaixo */
+  margin: 8px 0;
+  /* Linhas mais espaçadas */
+  line-height: 1.5;
+}
+
+/* Topo da refeição: hora e nome */
+.cardapio-topo {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 10px;
+}
+
+/* Rodapé do cardápio: total e botão */
+.cardapio-rodape {
+  /* Ocupa a largura toda da grade */
+  grid-column: 1 / -1;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Quebra linha se não couber */
+  flex-wrap: wrap;
+  /* Um em cada ponta */
+  justify-content: space-between;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 10px;
+}
+
+/* Escolha do modo das metas */
+.metas-modo {
+  /* Sem borda */
+  border: 0;
+  /* Sem margem */
+  margin: 0;
+  /* Sem espaço interno */
+  padding: 0;
+}
+
+/* Pergunta do modo */
+.metas-modo legend {
+  /* Espaço embaixo */
+  margin-bottom: 6px;
+  /* Letra seminegrito */
+  font-weight: 600;
+}
+
+/* Quem pediu menos movimento: água parada */
+@media (prefers-reduced-motion: reduce) {
+  /* Água da garrafa */
+  .garrafa-agua {
+    /* Sem animação */
+    animation: none;
+  }
+}

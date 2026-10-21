@@ -6,8 +6,45 @@ window.SL &&
   SL.pagina(() => {
     // Pega do núcleo: criar elementos, ler/salvar dados e ícones
     const { el, storage, icone } = SL;
-    // Pega as refeições de exemplo e as metas do dia
-    const { REFEICOES_PADRAO, METAS_NUTRICAO: META } = window.SL_DADOS;
+    // Pega as refeições de exemplo
+    const { REFEICOES_PADRAO } = window.SL_DADOS;
+    // Comidas brasileiras e cardápios de exemplo (alimentos.js)
+    const ALIMENTOS = window.SL_ALIMENTOS || [];
+    // Cardápios por objetivo
+    const CARDAPIOS = window.SL_CARDAPIOS || {};
+
+    // Calcula as metas do dia a partir do peso, altura, idade, objetivo e dias de treino
+    // (ou usa as metas que a nutricionista passou, se a pessoa preferir)
+    function calcularMetas() {
+      // Se a pessoa escolheu as metas da nutricionista, usa elas
+      if (storage.get("sl-metas-modo", "auto") === "manual") return storage.get("sl-metas-manual", window.SL_DADOS.METAS_NUTRICAO);
+      // Dados do corpo
+      const { peso, altura, idade } = SL.dadosCorpo();
+      // Respostas do questionário (objetivo e dias)
+      const { objetivo, dias } = SL.onboarding();
+      // Gasto em repouso (fórmula de Mifflin-St Jeor, com a média entre homens e mulheres)
+      const repouso = 10 * peso + 6.25 * altura - 5 * idade - 78;
+      // Quanto mais dias de treino, maior o gasto
+      const atividade = dias <= 2 ? 1.375 : dias <= 4 ? 1.55 : 1.725;
+      // Ajuste pelo objetivo: ganhar massa (+300), emagrecer (−400), os outros mantêm
+      const ajuste = { Hipertrofia: 300, HIIT: -400 }[objetivo] || 0;
+      // Proteína por quilo, conforme o objetivo
+      const protKg = { Hipertrofia: 2, HIIT: 1.8, "Resistência": 1.6 }[objetivo] || 1.4;
+      // Calorias do dia (arredondadas de 10 em 10)
+      const kcal = Math.round((repouso * atividade + ajuste) / 10) * 10;
+      // Proteína em gramas
+      const proteina = Math.round(peso * protKg);
+      // Gordura: 0,9 g por quilo
+      const gordura = Math.round(peso * 0.9);
+      // Carboidrato: o que sobra das calorias (4 kcal por grama)
+      const carbo = Math.max(0, Math.round((kcal - proteina * 4 - gordura * 9) / 4));
+      // Água: 35 ml por quilo, arredondada em copos de 250 ml
+      const aguaMl = Math.round((peso * 35) / 250) * 250;
+      // Devolve as metas
+      return { kcal, proteina, carbo, gordura, aguaMl };
+    }
+    // Metas de hoje
+    let META = calcularMetas();
     // Tamanho de um copo: 250 ml
     const COPO = 250;
     // Data de hoje em texto (para saber se o que foi salvo é de hoje)
@@ -120,6 +157,8 @@ window.SL &&
             el("li", { class: "meal-item" }, [
               // Horário
               el("span", { class: "meal-time", text: r.hora }),
+              // Foto do prato (se tiver)
+              r.foto ? el("img", { class: "meal-foto", src: r.foto, alt: `Foto do prato: ${r.nome}` }) : null,
               // Nome e detalhes
               el("div", { class: "meal-info" }, [
                 // Nome da refeição
@@ -145,6 +184,40 @@ window.SL &&
       );
     }
 
+    // Desenha uma garrafa com água até a altura "nivel" (de 0 a 1), com ondinha animada
+    function garrafa(nivel) {
+      // Desenho de 80 x 160
+      const s = SL.svg("svg", { viewBox: "0 0 80 160" });
+      // Formato da garrafa (tampa, gargalo e corpo)
+      const forma = "M30 6h20v14c0 6 16 12 16 30v94a10 10 0 0 1-10 10H24a10 10 0 0 1-10-10V50c0-18 16-24 16-30z";
+      // Área de corte: a água só aparece dentro da garrafa
+      const defs = SL.svg("defs", {});
+      // Recorte com o formato da garrafa
+      const corte = SL.svg("clipPath", { id: "garrafa-corte" });
+      // Usa o formato
+      corte.append(SL.svg("path", { d: forma }));
+      // Junta
+      defs.append(corte);
+      // Coloca no desenho
+      s.append(defs);
+      // Fundo da garrafa (vazia)
+      s.append(SL.svg("path", { d: forma, class: "garrafa-vidro" }));
+      // Altura da água (o corpo vai de y=20 até y=154)
+      const topo = 154 - nivel * 134;
+      // Grupo da água, recortado pela garrafa
+      const agua = SL.svg("g", { "clip-path": "url(#garrafa-corte)" });
+      // Água com uma onda em cima (a onda se mexe pelo CSS)
+      agua.append(SL.svg("path", { d: `M-80 ${topo} q20 -6 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 V160 H-80z`, class: "garrafa-agua" }));
+      // Coloca a água
+      s.append(agua);
+      // Contorno da garrafa por cima
+      s.append(SL.svg("path", { d: forma, class: "garrafa-contorno" }));
+      // Brilho do vidro
+      s.append(SL.svg("path", { d: "M22 60v70", class: "garrafa-brilho" }));
+      // Devolve
+      return s;
+    }
+
     // Desenha o card da água
     function renderAgua() {
       // Quantos ml bebeu
@@ -158,18 +231,8 @@ window.SL &&
         // ...e a meta
         el("span", { text: ` de ${SL.num(META.aguaMl / 1000, 1)} L` }),
       );
-      // Quantos copos cabem na meta
-      const copos = Math.ceil(META.aguaMl / COPO);
-      // Desenha os copinhos:
-      document.querySelector('[data-render="agua-copos"]').replaceChildren(
-        // um para cada copo da meta
-        ...Array.from({ length: copos }, (_, i) => {
-          // copo cheio se já bebeu aquela quantidade
-          const copo = icone(["M5 3h14l-1.5 17a2 2 0 0 1-2 1.8h-7a2 2 0 0 1-2-1.8z", "M5.5 8h13"], "icon water-glass" + (i < ml / COPO ? " is-full" : ""));
-          // devolve o copo
-          return copo;
-        }),
-      );
+      // Desenha a garrafa com o nível da água
+      document.querySelector('[data-render="agua-garrafa"]').replaceChildren(garrafa(Math.min(1, ml / META.aguaMl)));
       // Barra de progresso da água
       const barraAgua = document.querySelector('[data-render="agua-barra"]');
       // Avisa leitores de tela a porcentagem
@@ -190,14 +253,364 @@ window.SL &&
       renderRefeicoes(itens);
       // Desenha a água
       renderAgua();
+      // Escreve de onde vêm as metas
+      renderMetasInfo();
       // Pinta as barras de progresso
       SL.aplicarProgresso();
     }
+
+    // Escreve de onde vêm as metas, com o botão de ajustar
+    function renderMetasInfo() {
+      // Metas da nutricionista ou calculadas?
+      const manual = storage.get("sl-metas-modo", "auto") === "manual";
+      // Dados do corpo
+      const { peso, altura, idade } = SL.dadosCorpo();
+      // Texto do topo da página
+      document.querySelector('[data-render="metas-origem"]').textContent = manual ? "metas definidas com sua nutricionista" : "metas calculadas para você";
+      // Texto embaixo dos macros
+      document.querySelector('[data-render="metas-info"]').replaceChildren(
+        // Explicação
+        el("span", { text: manual ? "Usando as metas que você digitou. " : `Calculadas para ${SL.num(peso, 1)} kg, ${altura} cm, ${idade} anos e objetivo "${SL.onboarding().rotulo || SL.onboarding().objetivo}". ` }),
+        // Botão de ajustar
+        el("button", { type: "button", class: "btn-link", "data-action": "ajustar-metas", text: "Ajustar" }),
+      );
+    }
+
+    // Botão "Ajustar" metas: dados do corpo ou metas da nutricionista
+    SL.acao("ajustar-metas", () => {
+      // Perfil salvo
+      const perfil = storage.get("sl-perfil", {});
+      // Dados atuais
+      const { peso, altura } = SL.dadosCorpo();
+      // Metas manuais salvas (ou as atuais)
+      const manuais = storage.get("sl-metas-manual", META);
+      // Modo atual
+      const modo = storage.get("sl-metas-modo", "auto");
+      // Formulário
+      const form = el("form", { class: "modal-form" }, [
+        // Escolha do modo
+        el("fieldset", { class: "metas-modo" }, [
+          // Pergunta
+          el("legend", { text: "De onde vêm suas metas?" }),
+          // Calculadas
+          el("label", { class: "check-row" }, [el("input", { type: "radio", name: "modo", value: "auto", checked: modo === "auto" }), " Calcular para mim"]),
+          // Da nutricionista
+          el("label", { class: "check-row" }, [el("input", { type: "radio", name: "modo", value: "manual", checked: modo === "manual" }), " Usar as metas da minha nutricionista"]),
+        ]),
+        // Dados do corpo
+        el("div", { class: "form-row" }, [
+          // Peso
+          SL.campo("m-peso", "Peso (kg)", { type: "number", min: 30, max: 300, step: 0.1 }),
+          // Altura
+          SL.campo("m-altura", "Altura (cm)", { type: "number", min: 120, max: 230 }),
+        ]),
+        // Nascimento
+        SL.campo("m-nasc", "Data de nascimento", { type: "date" }),
+        // Metas manuais
+        el("div", { class: "form-row form-row-4" }, [
+          // Calorias
+          SL.campo("m-kcal", "Calorias", { type: "number", min: 800, max: 6000 }),
+          // Proteína
+          SL.campo("m-prot", "Proteína (g)", { type: "number", min: 0, max: 400 }),
+          // Carbo
+          SL.campo("m-carbo", "Carbo (g)", { type: "number", min: 0, max: 800 }),
+          // Gordura
+          SL.campo("m-gord", "Gordura (g)", { type: "number", min: 0, max: 300 }),
+        ]),
+        // Água manual
+        SL.campo("m-agua", "Água (ml)", { type: "number", min: 500, max: 8000, step: 250 }),
+        // Botão
+        el("button", { type: "submit", class: "btn-primary", text: "Salvar metas" }),
+      ]);
+      // Preenche os campos
+      form.querySelector("#m-peso").value = peso;
+      // Altura
+      form.querySelector("#m-altura").value = altura;
+      // Nascimento
+      form.querySelector("#m-nasc").value = perfil.nascimento || "";
+      // Metas manuais
+      [["#m-kcal", "kcal"], ["#m-prot", "proteina"], ["#m-carbo", "carbo"], ["#m-gord", "gordura"], ["#m-agua", "aguaMl"]].forEach(([id, k]) => (form.querySelector(id).value = manuais[k]));
+      // Quando envia...
+      form.addEventListener("submit", (e) => {
+        // ...impede a página de recarregar
+        e.preventDefault();
+        // ...guarda os dados do corpo no perfil
+        storage.set("sl-perfil", { ...perfil, peso: Number(form.querySelector("#m-peso").value) || perfil.peso, altura: Number(form.querySelector("#m-altura").value) || perfil.altura, nascimento: form.querySelector("#m-nasc").value || perfil.nascimento });
+        // ...guarda o modo
+        storage.set("sl-metas-modo", form.querySelector('[name="modo"]:checked').value);
+        // ...guarda as metas manuais
+        storage.set("sl-metas-manual", { kcal: Number(form.querySelector("#m-kcal").value), proteina: Number(form.querySelector("#m-prot").value), carbo: Number(form.querySelector("#m-carbo").value), gordura: Number(form.querySelector("#m-gord").value), aguaMl: Number(form.querySelector("#m-agua").value) });
+        // ...recalcula
+        META = calcularMetas();
+        // ...fecha
+        SL.closeModal();
+        // ...desenha de novo
+        render();
+        // ...e o cardápio (as porções mudam com a meta)
+        renderCardapio();
+        // ...e avisa
+        SL.toast("Metas atualizadas");
+      });
+      // Abre o modal
+      SL.openModal("Ajustar metas", form);
+    });
+
+    /* ---------- Busca de alimentos e foto ---------- */
+
+    // Diminui uma foto para no máximo "lado" pixels e devolve o texto da imagem (JPEG)
+    function diminuirFoto(arquivo, lado) {
+      // Devolve uma promessa (a imagem demora um pouquinho para carregar)
+      return new Promise((resolve) => {
+        // Imagem temporária
+        const img = new Image();
+        // Quando carregar...
+        img.onload = () => {
+          // ...escala para caber no tamanho
+          const escala = Math.min(1, lado / Math.max(img.width, img.height));
+          // ...tela de desenho do tamanho novo
+          const tela = document.createElement("canvas");
+          // Largura
+          tela.width = Math.round(img.width * escala);
+          // Altura
+          tela.height = Math.round(img.height * escala);
+          // Desenha a foto menor
+          tela.getContext("2d").drawImage(img, 0, 0, tela.width, tela.height);
+          // Devolve como JPEG de qualidade média (fica bem leve)
+          resolve(tela.toDataURL("image/jpeg", 0.7));
+          // Libera a memória da imagem original
+          URL.revokeObjectURL(img.src);
+        };
+        // Carrega o arquivo
+        img.src = URL.createObjectURL(arquivo);
+      });
+    }
+
+    // Bloco de busca de alimentos: escolhe comidas e porções, e preenche calorias e macros
+    function buscaAlimentos() {
+      // Comidas escolhidas: [[alimento, porções], ...]
+      let escolhidos = [];
+      // Campo de busca
+      const busca = el("input", { type: "search", class: "alim-busca", placeholder: "Buscar comida (arroz, frango, tapioca…)", "aria-label": "Buscar comida", autocomplete: "off" });
+      // Resultados da busca
+      const resultados = el("ul", { class: "alim-resultados" });
+      // Comidas escolhidas
+      const lista = el("ul", { class: "alim-escolhidos" });
+      // Atualiza os campos do formulário com a soma
+      function preencher() {
+        // Formulário (o bloco já está dentro dele)
+        const form = caixa.closest("form");
+        // Soma
+        const t = somarAlimentos(escolhidos.map(([a, p]) => [a.nome, p]));
+        // Calorias
+        form.querySelector("#ref-kcal").value = t.kcal;
+        // Proteína
+        form.querySelector("#ref-prot").value = t.proteina;
+        // Carbo
+        form.querySelector("#ref-carbo").value = t.carbo;
+        // Gordura
+        form.querySelector("#ref-gord").value = t.gordura;
+        // Descrição
+        form.querySelector("#ref-desc").value = descrever(escolhidos.map(([a, p]) => [a.nome, p]));
+      }
+      // Desenha as comidas escolhidas
+      function desenharEscolhidos() {
+        // Troca a lista
+        lista.replaceChildren(
+          // Uma linha por comida
+          ...escolhidos.map(([a, p], i) =>
+            // Linha
+            el("li", {}, [
+              // Nome e porção
+              el("span", {}, [el("strong", { text: a.nome }), el("small", { class: "meta", text: ` ${a.porcao}` })]),
+              // Menos porção
+              el("button", { type: "button", class: "btn-icon", "data-i": i, "data-mudar": -0.5, "aria-label": `Menos ${a.nome}`, text: "−" }),
+              // Quantas porções
+              el("strong", { class: "alim-qtd", text: `${String(p).replace(".", ",")}×` }),
+              // Mais porção
+              el("button", { type: "button", class: "btn-icon", "data-i": i, "data-mudar": 0.5, "aria-label": `Mais ${a.nome}`, text: "+" }),
+            ]),
+          ),
+        );
+        // Atualiza os campos
+        preencher();
+      }
+      // Quando digita, mostra até 6 comidas que batem
+      busca.addEventListener("input", () => {
+        // Texto buscado, sem acentos
+        const t = SL.slug(busca.value);
+        // Troca os resultados
+        resultados.replaceChildren(
+          // Comidas que batem
+          ...(t ? ALIMENTOS.filter((a) => SL.slug(a.nome).includes(t)).slice(0, 6) : []).map((a) =>
+            // Item clicável
+            el("li", {}, [el("button", { type: "button", "data-alimento": a.nome }, [el("strong", { text: a.nome }), el("small", { class: "meta", text: ` ${a.porcao} • ${a.kcal} kcal` })])]),
+          ),
+        );
+      });
+      // Clique num resultado: entra na lista
+      resultados.addEventListener("click", (ev) => {
+        // Botão clicado
+        const b = ev.target.closest("[data-alimento]");
+        // Se não foi num resultado, para
+        if (!b) return;
+        // Alimento
+        const a = ALIMENTOS.find((x) => x.nome === b.dataset.alimento);
+        // Se já estava, soma uma porção; se não, entra com 1
+        const ja = escolhidos.find(([x]) => x === a);
+        // Soma ou coloca
+        if (ja) ja[1] += 1;
+        // (coloca)
+        else escolhidos.push([a, 1]);
+        // Limpa a busca
+        busca.value = "";
+        // Esvazia os resultados
+        resultados.replaceChildren();
+        // Desenha a lista
+        desenharEscolhidos();
+      });
+      // Botões de + e − porção
+      lista.addEventListener("click", (ev) => {
+        // Botão clicado
+        const b = ev.target.closest("[data-mudar]");
+        // Se não foi num botão, para
+        if (!b) return;
+        // Qual comida
+        const i = Number(b.dataset.i);
+        // Muda a porção
+        escolhidos[i][1] += Number(b.dataset.mudar);
+        // Se chegou a zero, tira da lista
+        if (escolhidos[i][1] <= 0) escolhidos = escolhidos.filter((_, k) => k !== i);
+        // Desenha de novo
+        desenharEscolhidos();
+      });
+      // Caixa do bloco
+      const caixa = el("div", { class: "alim" }, [el("label", { class: "alim-titulo", text: "Buscar comida (calcula sozinho)" }), busca, resultados, lista]);
+      // Devolve
+      return caixa;
+    }
+
+    /* ---------- Cardápio sugerido ---------- */
+
+    // Soma os macros de uma lista de [alimento, porções]
+    function somarAlimentos(lista) {
+      // Começa do zero
+      const total = { kcal: 0, proteina: 0, carbo: 0, gordura: 0 };
+      // Para cada alimento...
+      lista.forEach(([nome, porcoes]) => {
+        // ...acha na tabela
+        const a = ALIMENTOS.find((x) => x.nome === nome);
+        // ...se não achou, pula
+        if (!a) return;
+        // ...soma cada macro vezes as porções
+        Object.keys(total).forEach((k) => (total[k] += a[k] * porcoes));
+      });
+      // Arredonda tudo
+      Object.keys(total).forEach((k) => (total[k] = Math.round(total[k])));
+      // Devolve
+      return total;
+    }
+
+    // Escreve "2 x Arroz branco" ou só "Arroz branco"
+    const descrever = (lista) => lista.map(([nome, p]) => (p === 1 ? nome : `${String(p).replace(".", ",")}× ${nome}`)).join(", ");
+
+    // Cardápio do objetivo com as porções ajustadas para bater a meta de calorias
+    function cardapioAjustado() {
+      // Cardápio base do objetivo (ou o de ganhar massa)
+      const base = CARDAPIOS[SL.onboarding().objetivo] || CARDAPIOS.Hipertrofia;
+      // Calorias do cardápio base
+      const kcalBase = somarAlimentos(base.flatMap((r) => r[2])).kcal;
+      // Quanto precisa aumentar ou diminuir para chegar na meta
+      const fator = META.kcal / kcalBase;
+      // Multiplica as porções (de meia em meia, no mínimo meia porção)
+      return base.map(([nome, hora, lista]) => [nome, hora, lista.map(([alimento, p]) => [alimento, Math.max(0.5, Math.round(p * fator * 2) / 2)])]);
+    }
+
+    // Desenha o cardápio do objetivo da pessoa
+    function renderCardapio() {
+      // Objetivo
+      const { objetivo, rotulo } = SL.onboarding();
+      // Cardápio com as porções certas para a meta
+      const cardapio = cardapioAjustado();
+      // Escreve o objetivo
+      document.querySelector('[data-render="cardapio-objetivo"]').textContent = rotulo || objetivo;
+      // Total do dia
+      const totalDia = somarAlimentos(cardapio.flatMap((r) => r[2]));
+      // Troca o conteúdo
+      document.querySelector('[data-render="cardapio"]').replaceChildren(
+        // Um card para cada refeição
+        ...cardapio.map(([nome, hora, lista]) => {
+          // Macros da refeição
+          const t = somarAlimentos(lista);
+          // Card
+          return el("article", { class: "cardapio-item" }, [
+            // Hora e nome
+            el("div", { class: "cardapio-topo" }, [el("span", { class: "meal-time", text: hora }), el("strong", { text: nome })]),
+            // O que comer
+            el("p", { text: descrever(lista) }),
+            // Macros
+            el("span", { class: "meta", text: `${t.kcal} kcal • P ${t.proteina} g • C ${t.carbo} g • G ${t.gordura} g` }),
+          ]);
+        }),
+        // Rodapé com o total e o botão de usar
+        el("div", { class: "cardapio-rodape" }, [
+          // Total
+          el("span", { class: "meta", text: `Total do dia: ${totalDia.kcal} kcal • ${totalDia.proteina} g de proteína` }),
+          // Botão
+          el("button", { type: "button", class: "btn-primary", "data-action": "usar-cardapio", text: "Usar este cardápio hoje" }),
+        ]),
+      );
+    }
+
+    // Botão "Usar este cardápio hoje": troca as refeições de hoje pelas do cardápio
+    SL.acao("usar-cardapio", () => {
+      // Cardápio com as porções certas para a meta
+      const cardapio = cardapioAjustado();
+      // Pede confirmação
+      SL.confirmar({
+        // Título
+        titulo: "Usar o cardápio hoje?",
+        // Texto
+        texto: "As refeições de hoje são trocadas pelas do cardápio. Depois você pode editar à vontade.",
+        // Botão
+        rotulo: "Usar cardápio",
+        // Se confirmar...
+        fn: () => {
+          // ...monta as refeições
+          const itens = cardapio.map(([nome, hora, lista], i) => ({ id: "c" + Date.now() + i, nome, hora, descricao: descrever(lista), ...somarAlimentos(lista) }));
+          // ...salva
+          guardarRefeicoes(itens);
+          // ...desenha de novo
+          render();
+          // ...cada refeição registrada vale pontos (até 4 por dia)
+          if (SL.pontos) itens.forEach((r) => SL.pontos.ganhar("refeicao", "refeicao:" + r.id));
+          // ...avisa
+          SL.toast("Cardápio de hoje pronto!");
+        },
+      });
+    });
+
+    /* ---------- Lembrete de água ---------- */
+
+    // Caixinha do lembrete
+    const lembrete = document.querySelector('[data-render="agua-lembrete"]');
+    // Marca conforme o que está salvo
+    lembrete.checked = storage.get("sl-lembrete-agua", false);
+    // Quando muda...
+    lembrete.addEventListener("change", () => {
+      // ...salva
+      storage.set("sl-lembrete-agua", lembrete.checked);
+      // ...se ligou e o navegador sabe mostrar notificações, pede permissão
+      if (lembrete.checked && "Notification" in window && Notification.permission === "default") Notification.requestPermission();
+      // ...avisa
+      SL.toast(lembrete.checked ? "Combinado! Te lembro a cada 2 horas (com o app aberto)." : "Lembrete de água desligado");
+    });
 
     // Botão de mais água...
     SL.acao("agua-mais", (alvo) => {
       // ...soma um copo
       const ml = agua() + COPO;
+      // ...guarda a hora do último gole (para o lembrete)
+      storage.set("sl-agua-ultimo", Date.now());
       // ...salva
       guardarAgua(ml);
       // ...desenha a água de novo
@@ -264,8 +677,10 @@ window.SL &&
           // Horário
           SL.campo("ref-hora", "Horário", { type: "time", required: true }),
         ]),
+        // Busca de comidas brasileiras (soma as calorias sozinha)
+        buscaAlimentos(),
         // O que comeu
-        SL.campo("ref-desc", "O que você comeu", { placeholder: "Ex: Pão integral com ovo", maxlength: 80 }),
+        SL.campo("ref-desc", "O que você comeu", { placeholder: "Ex: Pão integral com ovo", maxlength: 120 }),
         // Linha com quatro campos
         el("div", { class: "form-row form-row-4" }, [
           // Calorias
@@ -277,11 +692,40 @@ window.SL &&
           // Gordura
           SL.campo("ref-gord", "Gordura", { type: "number", min: 0, max: 300, placeholder: "g" }),
         ]),
+        // Foto do prato (opcional; no celular abre a câmera)
+        el("div", { class: "form-group" }, [
+          // Nome do campo
+          el("label", { for: "ref-foto", text: "Foto do prato (opcional)" }),
+          // Campo de arquivo de imagem
+          el("input", { id: "ref-foto", type: "file", accept: "image/*", capture: "environment" }),
+          // Miniatura da foto escolhida
+          el("img", { class: "meal-foto meal-foto-previa", alt: "", hidden: true }),
+        ]),
         // Botão de salvar
         el("button", { type: "submit", class: "btn-primary", text: "Salvar refeição" }),
       ]);
       // Já começa com a hora de agora
       form.querySelector("#ref-hora").value = hora;
+      // Foto do prato já diminuída (texto da imagem), ou vazio
+      let foto = "";
+      // Quando escolhe a foto...
+      form.querySelector("#ref-foto").addEventListener("change", (ev) => {
+        // ...arquivo escolhido
+        const arquivo = ev.target.files[0];
+        // ...se não escolheu, para
+        if (!arquivo) return;
+        // ...diminui a foto para caber no navegador
+        diminuirFoto(arquivo, 240).then((url) => {
+          // Guarda
+          foto = url;
+          // Mostra a miniatura
+          const previa = form.querySelector(".meal-foto-previa");
+          // Imagem
+          previa.src = url;
+          // Aparece
+          previa.hidden = false;
+        });
+      });
 
       // Quando clicam em salvar...
       form.addEventListener("submit", (e) => {
@@ -320,6 +764,8 @@ window.SL &&
             carbo: n("#ref-carbo"),
             // gordura
             gordura: n("#ref-gord"),
+            // foto (se tiver)
+            foto,
           }),
         );
         // Fecha o modal
@@ -338,4 +784,6 @@ window.SL &&
 
     // Desenha a página a primeira vez
     render();
+    // Desenha o cardápio sugerido
+    renderCardapio();
   });

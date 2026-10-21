@@ -4023,3 +4023,224 @@ body[data-pagina]::before {
     animation: none !important;
   }
 }
+
+/* ============================================
+   RESUMO EM STORIES
+   ============================================ */
+
+/* Caixa do stories (formato de celular em pé) */
+.st {
+  /* Posição relativa (barrinhas e botões ficam por cima) */
+  position: relative;
+  /* Proporção de stories (9:16), limitada pela altura da tela */
+  aspect-ratio: 9 / 16;
+  /* Altura máxima */
+  max-height: 62vh;
+  /* Centralizado */
+  margin: 0 auto 14px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-lg);
+  /* Esconde o que passar */
+  overflow: hidden;
+  /* Fundo com dois brilhos (sempre escuro, como a imagem) */
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255, 122, 69, 0.35), transparent 45%),
+    radial-gradient(circle at 85% 90%, rgba(52, 211, 153, 0.28), transparent 45%),
+    #0e1512;
+  /* Texto claro */
+  color: #f4f1ea;
+}
+
+/* Barrinhas de progresso no topo */
+.st-barras {
+  /* Solta, em cima */
+  position: absolute;
+  /* A 10 pixels do topo */
+  top: 10px;
+  /* Dos lados */
+  left: 10px;
+  /* (direita) */
+  right: 10px;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Espaço entre elas */
+  gap: 4px;
+  /* Por cima */
+  z-index: 2;
+}
+
+/* Cada barrinha */
+.st-barras span {
+  /* Divide o espaço igual */
+  flex: 1;
+  /* Altura de 3 pixels */
+  height: 3px;
+  /* Cantos arredondados */
+  border-radius: 2px;
+  /* Branco transparente */
+  background: rgba(255, 255, 255, 0.25);
+  /* Esconde o que passar */
+  overflow: hidden;
+}
+
+/* Parte que enche */
+.st-barras i {
+  /* Vira bloco */
+  display: block;
+  /* Altura: a toda */
+  height: 100%;
+  /* Começa vazia */
+  width: 0;
+  /* Branco */
+  background: #fff;
+}
+
+/* Barrinhas já vistas: cheias */
+.st-barras .is-cheia i {
+  /* Cheia */
+  width: 100%;
+}
+
+/* Barrinha atual: enche em 4 segundos */
+.st-barras .is-atual i {
+  /* Animação de encher */
+  animation: st-encher 4s linear forwards;
+}
+
+/* Animação: barrinha enche */
+@keyframes st-encher {
+  /* Fim: cheia */
+  to {
+    /* Largura toda */
+    width: 100%;
+  }
+}
+
+/* Miolo da tela */
+.st-miolo {
+  /* Ocupa tudo */
+  position: absolute;
+  /* (todos os lados) */
+  inset: 0;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Centralizados */
+  align-items: center;
+  /* (no meio da altura) */
+  justify-content: center;
+  /* Espaço interno */
+  padding: 30px 24px;
+  /* Texto centralizado */
+  text-align: center;
+  /* Animação de entrada a cada tela */
+  animation: st-entrar 0.5s var(--ease-out);
+}
+
+/* Animação: a tela aparece crescendo */
+@keyframes st-entrar {
+  /* Começo: menor e transparente */
+  from {
+    /* Transparente */
+    opacity: 0;
+    /* Um pouco menor */
+    transform: scale(0.92);
+  }
+}
+
+/* Textinho de cima */
+.st-kicker {
+  /* Sem margem */
+  margin: 0;
+  /* Letras maiúsculas */
+  text-transform: uppercase;
+  /* Espaço entre as letras */
+  letter-spacing: 0.1em;
+  /* Letra pequena */
+  font-size: 12px;
+  /* Esmeralda */
+  color: #34d399;
+}
+
+/* Número grande */
+.st-numero {
+  /* Fonte de placar */
+  font-family: var(--font-placar);
+  /* Bem grande (cresce com a tela) */
+  font-size: clamp(44px, 9vh, 76px);
+  /* Linha justa */
+  line-height: 1.1;
+  /* Margem em cima e embaixo */
+  margin: 12px 0 6px;
+  /* Coral claro */
+  color: #ffa06b;
+}
+
+/* Legenda */
+.st-legenda {
+  /* Sem margem */
+  margin: 0;
+  /* Tamanho da letra: 18 pixels */
+  font-size: 18px;
+  /* Letra seminegrito */
+  font-weight: 600;
+}
+
+/* Texto extra */
+.st-texto {
+  /* Margem em cima */
+  margin: 14px 0 0;
+  /* Cinza claro */
+  color: #a3b0a8;
+  /* Linhas mais espaçadas */
+  line-height: 1.5;
+}
+
+/* Botões invisíveis dos lados (clique para voltar/avançar) */
+.st-lado {
+  /* Soltos */
+  position: absolute;
+  /* De cima a baixo */
+  top: 0;
+  /* (embaixo) */
+  bottom: 0;
+  /* Metade da largura */
+  width: 50%;
+  /* Sem borda */
+  border: 0;
+  /* Sem fundo */
+  background: transparent;
+  /* Mãozinha do mouse */
+  cursor: pointer;
+  /* Por cima do miolo */
+  z-index: 1;
+}
+
+/* Lado de voltar */
+.st-voltar {
+  /* Na esquerda */
+  left: 0;
+}
+
+/* Lado de avançar */
+.st-avancar {
+  /* Na direita */
+  right: 0;
+}
+
+/* Quem pediu menos movimento: barrinhas e telas sem animação */
+@media (prefers-reduced-motion: reduce) {
+  /* Barrinha atual e miolo */
+  .st-barras .is-atual i,
+  .st-miolo {
+    /* Sem animação */
+    animation: none;
+  }
+
+  /* Barrinha atual aparece cheia */
+  .st-barras .is-atual i {
+    /* Cheia */
+    width: 100%;
+  }
+}

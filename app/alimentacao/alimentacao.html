@@ -385,7 +385,7 @@
                 <!-- Texto de apoio abaixo do título -->
                 <p class="page-lead">
                   <!-- Data de hoje (preenchida pelo JavaScript) e um lembrete -->
-                  <span data-hoje></span> • metas definidas com sua nutricionista
+                  <span data-hoje></span> • <span data-render="metas-origem">metas calculadas para você</span>
                 </p>
               </div>
               <!-- Botão de adicionar refeição -->
@@ -402,6 +402,8 @@
               <h2 id="heading-macros" class="sr-only">Metas do dia</h2>
               <!-- Cards de calorias e macros (preenchidos pelo JavaScript) -->
               <div class="nutrition-overview" data-render="macros"></div>
+              <!-- Explica de onde vêm as metas, com o botão de ajustar (preenchido pelo alimentacao.js) -->
+              <p class="metas-info" data-render="metas-info"></p>
             </section>
 
             <!-- Grade com refeições e água -->
@@ -420,8 +422,8 @@
                 <h2 id="heading-agua">Água</h2>
                 <!-- Quantos ml já foram bebidos (lido pelos leitores de tela quando muda) -->
                 <p class="water-value" data-render="agua-valor" aria-live="polite"></p>
-                <!-- Copinhos desenhados (preenchidos pelo JavaScript) -->
-                <div class="water-glasses" data-render="agua-copos" aria-hidden="true"></div>
+                <!-- Garrafa que enche conforme a pessoa bebe (desenhada pelo JavaScript) -->
+                <div class="garrafa" data-render="agua-garrafa" aria-hidden="true"></div>
                 <!-- Barra de progresso da meta de água -->
                 <div
                   class="progress-bar-sm progress-info"
@@ -445,8 +447,28 @@
                     + 250 ml
                   </button>
                 </div>
+                <!-- Liga/desliga o lembrete de água a cada 2 horas -->
+                <label class="check-row lembrete-agua">
+                  <!-- Caixinha do lembrete -->
+                  <input type="checkbox" data-render="agua-lembrete" />
+                  <!-- Texto -->
+                  <span>Me lembrar de beber água a cada 2 horas</span>
+                </label>
               </section>
             </div>
+
+            <!-- Seção dos cardápios sugeridos -->
+            <section class="cardapios-secao" aria-labelledby="heading-cardapios">
+              <!-- Topo da seção -->
+              <div class="section-head">
+                <!-- Título da seção -->
+                <h2 id="heading-cardapios">Cardápio sugerido para o seu objetivo</h2>
+                <!-- Objetivo da pessoa -->
+                <span class="meta" data-render="cardapio-objetivo"></span>
+              </div>
+              <!-- Refeições do cardápio (preenchidas pelo alimentacao.js) -->
+              <div class="cardapio" data-render="cardapio"></div>
+            </section>
           </section>
         </main>
         <!-- Rodapé do app -->
@@ -524,6 +546,8 @@
     <script src="../comum/pontos.js"></script>
     <!-- Carrega o Pulso, o personagem que acompanha a pessoa -->
     <script src="../comum/personagem.js"></script>
+    <!-- Carrega as comidas brasileiras e os cardápios de exemplo -->
+    <script src="alimentos.js"></script>
     <!-- Carrega o JavaScript desta página (alimentacao.js) -->
     <script src="alimentacao.js"></script>
   </body>

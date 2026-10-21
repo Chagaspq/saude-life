@@ -397,6 +397,10 @@
                   <button type="button" data-periodo="12" aria-pressed="false">12 sem.</button>
                 </div>
                 <!-- Botão de registrar o peso -->
+                <!-- Botão do resumo da semana (stories) -->
+                <button class="btn-secondary" data-action="resumo" data-periodo-resumo="semana">Resumo da semana</button>
+                <!-- Botão do resumo do mês (stories) -->
+                <button class="btn-secondary" data-action="resumo" data-periodo-resumo="mes">Resumo do mês</button>
                 <button class="btn-primary btn-with-icon" data-action="registrar-peso">
                   <!-- Ícone desenhado em SVG (escondido dos leitores de tela) -->
                   <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
@@ -463,6 +467,70 @@
                 <ul class="history-list" data-render="historico"></ul>
               </section>
             </div>
+
+            <!-- Metas pessoais: peso, carga e data alvo (preenchido pelo evolucao.js) -->
+            <section class="ev-painel" aria-labelledby="heading-metas">
+              <!-- Topo: título e botão -->
+              <div class="section-head">
+                <!-- Título -->
+                <h2 id="heading-metas">Minhas metas</h2>
+                <!-- Botão de definir metas -->
+                <button type="button" class="btn-link" data-action="definir-metas">Definir metas</button>
+              </div>
+              <!-- Metas (preenchidas pelo evolucao.js) -->
+              <div class="ev-metas" data-render="metas-pessoais"></div>
+            </section>
+
+            <!-- Grade: corpo com músculos + recordes -->
+            <div class="evolution-dashboard">
+              <!-- Corpo com os músculos mais treinados -->
+              <section class="ev-painel" aria-labelledby="heading-corpo">
+                <!-- Título -->
+                <h2 id="heading-corpo">Músculos mais treinados</h2>
+                <!-- Explicação -->
+                <p class="meta">Últimos 30 dias. Quanto mais forte a cor, mais séries.</p>
+                <!-- Desenho do corpo (preenchido pelo evolucao.js) -->
+                <div class="ev-corpo" data-render="corpo"></div>
+              </section>
+              <!-- Recordes de carga -->
+              <section class="ev-painel" aria-labelledby="heading-recordes">
+                <!-- Título -->
+                <h2 id="heading-recordes">Recordes pessoais</h2>
+                <!-- Lista (preenchida pelo evolucao.js) -->
+                <ol class="ev-recordes" data-render="recordes"></ol>
+              </section>
+            </div>
+
+            <!-- Mapa de calor do ano -->
+            <section class="ev-painel" aria-labelledby="heading-calor">
+              <!-- Topo: título e total -->
+              <div class="section-head">
+                <!-- Título -->
+                <h2 id="heading-calor">Seu ano de treinos</h2>
+                <!-- Total de dias (preenchido pelo evolucao.js) -->
+                <span class="meta" data-render="calor-total"></span>
+              </div>
+              <!-- Calendário pintado (preenchido pelo evolucao.js) -->
+              <div class="ev-calor" data-render="calor"></div>
+            </section>
+
+            <!-- Fotos de antes e depois -->
+            <section class="ev-painel" aria-labelledby="heading-fotos">
+              <!-- Topo: título e botão de adicionar foto -->
+              <div class="section-head">
+                <!-- Título -->
+                <h2 id="heading-fotos">Antes e depois</h2>
+                <!-- Botão que abre a escolha de foto -->
+                <label class="btn-secondary ev-foto-botao">
+                  <!-- Texto -->
+                  Adicionar foto
+                  <!-- Campo de arquivo escondido (no celular abre a câmera) -->
+                  <input type="file" accept="image/*" class="sr-only" data-render="foto-input" />
+                </label>
+              </div>
+              <!-- Comparação (preenchida pelo evolucao.js) -->
+              <div class="ev-fotos" data-render="fotos"></div>
+            </section>
           </section>
         </main>
         <!-- Rodapé do app -->
@@ -540,6 +608,8 @@
     <script src="../comum/pontos.js"></script>
     <!-- Carrega o Pulso, o personagem que acompanha a pessoa -->
     <script src="../comum/personagem.js"></script>
+    <!-- Carrega o resumo no estilo stories -->
+    <script src="../comum/stories.js"></script>
     <!-- Carrega o JavaScript desta página (evolucao.js) -->
     <script src="evolucao.js"></script>
   </body>

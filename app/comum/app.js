@@ -398,6 +398,22 @@
     return storage.get("sl-onboarding", { objetivo: "Hipertrofia", nivel: "Intermediário", dias: 4 });
   }
 
+  // Dados do corpo da pessoa: peso (último registrado), altura e idade (com valores padrão)
+  function dadosCorpo() {
+    // Perfil salvo (o cadastro e o perfil guardam altura, peso e nascimento)
+    const perfil = storage.get("sl-perfil", {});
+    // Pesos registrados na Evolução
+    const pesos = storage.get("sl-pesos", []);
+    // Peso: o último registrado, o do perfil ou o último do exemplo
+    const peso = pesos.length ? pesos[pesos.length - 1].valor : perfil.peso || window.SL_DADOS.EVOLUCAO.peso.slice(-1)[0];
+    // Altura em centímetros (padrão: 175)
+    const altura = Number(perfil.altura) || 175;
+    // Idade a partir da data de nascimento (padrão: 25 anos)
+    const idade = perfil.nascimento ? Math.floor((Date.now() - new Date(perfil.nascimento)) / (365.25 * 86400000)) : 25;
+    // Devolve os três
+    return { peso: Number(peso), altura, idade };
+  }
+
   // Treinos da pessoa (ou os de exemplo)
   function treinosDoUsuario() {
     // Lê a chave "sl-treinos"
@@ -1110,6 +1126,8 @@
           "sl-pontos", "sl-pontos-inicio", "sl-liga", "sl-liga-vistas", "sl-academia",
           "sl-amigos", "sl-reacoes", "sl-comentarios", "sl-cutucadas", "sl-desafios", "sl-mensagens", "sl-privacidade",
           "sl-plano", "sl-auto-usos", "sl-lugar", "sl-ultimas", "sl-recordes",
+          "sl-metas-modo", "sl-metas-manual", "sl-lembrete-agua", "sl-agua-ultimo", "sl-agua-aviso",
+          "sl-metas-pessoais", "sl-fotos",
         // ...apaga cada uma
         ].forEach(storage.remove);
         // ...e recarrega a página
@@ -1575,6 +1593,7 @@
     diasEntre,
     inicioDaSemana,
     onboarding,
+    dadosCorpo,
     treinosDoUsuario,
     acharTreino,
     exerciciosDe,
@@ -1617,7 +1636,37 @@
   }
 
   // Quando o HTML terminar de carregar...
+  // Lembrete de água: com o app aberto, avisa se passou 2 horas sem beber (entre 8h e 22h)
+  function conferirAgua() {
+    // Só se a pessoa ligou o lembrete
+    if (!storage.get("sl-lembrete-agua", false)) return;
+    // Hora de agora
+    const hora = new Date().getHours();
+    // Só durante o dia
+    if (hora < 8 || hora >= 22) return;
+    // Agora em milissegundos
+    const agora = Date.now();
+    // Duas horas em milissegundos
+    const duasHoras = 2 * 3600000;
+    // Último gole registrado (se nunca registrou, conta como agora)
+    const ultimoGole = storage.get("sl-agua-ultimo", agora);
+    // Último aviso dado
+    const ultimoAviso = storage.get("sl-agua-aviso", 0);
+    // Se ainda não deu 2 horas desde o gole ou desde o último aviso, não avisa
+    if (agora - ultimoGole < duasHoras || agora - ultimoAviso < duasHoras) return;
+    // Guarda a hora do aviso
+    storage.set("sl-agua-aviso", agora);
+    // Avisa na tela
+    toast("💧 Hora de beber água! Já faz 2 horas.");
+    // E também como notificação do sistema, se a pessoa deixou
+    if ("Notification" in window && Notification.permission === "granted") new Notification("Saúde Life", { body: "💧 Hora de beber água! Já faz 2 horas." });
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
+    // ...confere o lembrete de água agora e a cada minuto
+    conferirAgua();
+    // (a cada 60 segundos)
+    setInterval(conferirAgua, 60000);
     // ...faz os números que já estão na página contarem
     contarNumeros();
     // ...escreve os dados da pessoa
