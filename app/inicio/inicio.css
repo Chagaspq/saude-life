@@ -87,8 +87,8 @@
   padding: 12px 14px;
   /* Cantos arredondados */
   border-radius: var(--radius-sm);
-  /* Fundo escuro meio transparente */
-  background: rgba(14, 21, 18, 0.55);
+  /* Fundo de vidro (escuro ou claro, conforme o tema) */
+  background: var(--vidro);
   /* Borda fininha */
   border: 1px solid var(--border);
   /* Letra de 13 pixels */
@@ -293,4 +293,20 @@
     /* Texto centralizado */
     text-align: center;
   }
+}
+
+/* Recado do Pulso no Início */
+.pulso-inicio {
+  /* Espaço embaixo */
+  margin-bottom: var(--space-4);
+  /* Largura máxima (o balão não fica comprido demais) */
+  max-width: 720px;
+}
+
+/* Pulso menor no Início */
+.pulso-inicio .pulso {
+  /* Largura de 84 pixels */
+  width: 84px;
+  /* Altura de 105 pixels */
+  height: 105px;
 }

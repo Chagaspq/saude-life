@@ -97,6 +97,8 @@ window.SL &&
             P.temBonus() ? el("span", { class: "tag tag-success", text: "+20% iniciante" }) : null,
           ]),
         ]),
+        // O Pulso, vestido conforme a liga (se o personagem carregou)
+        SL.personagem ? SL.personagem.desenhar() : null,
       );
     }
 

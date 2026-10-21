@@ -207,6 +207,8 @@
     storage.set("sl-pontos", lista);
     // Mostra o "+10" voando
     voar(pts, opcoes.origem);
+    // Metas batidas e recordes ganham confete
+    if (["metaSemana", "proteina", "agua", "recorde"].includes(tipo) && SL.confete) SL.confete();
     // Avisa a página que os pontos mudaram (para atualizar placares)
     document.dispatchEvent(new CustomEvent("sl:pontos"));
     // Devolve quantos pontos ganhou
@@ -564,6 +566,31 @@
     // Devolve
     return caixa;
   }
+
+  // Quando a página abre, avisa se a pessoa mudou de liga desde a última visita
+  document.addEventListener("DOMContentLoaded", () => {
+    // Estado da liga (já avaliado até esta semana)
+    const estado = liga();
+    // Quantas mudanças a pessoa já viu
+    const vistas = storage.get("sl-liga-vistas", 0);
+    // Se tem mudança nova...
+    if (estado.mudancas.length > vistas) {
+      // ...a mais recente
+      const m = estado.mudancas[0];
+      // ...subiu: confete e parabéns
+      if (m.para > m.de) {
+        // Confete
+        if (SL.confete) SL.confete();
+        // Aviso
+        SL.toast(`Você subiu para a liga ${LIGAS[m.para].nome}! 🎉`);
+      } else {
+        // ...desceu: aviso de força
+        SL.toast(`Você caiu para a liga ${LIGAS[m.para].nome}. Bora recuperar essa semana!`);
+      }
+      // Marca que já viu
+      storage.set("sl-liga-vistas", estado.mudancas.length);
+    }
+  });
 
   // Deixa tudo disponível para as páginas em SL.pontos
   SL.pontos = {

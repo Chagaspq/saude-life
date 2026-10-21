@@ -42,9 +42,11 @@
     <!-- Mesma coisa para o servidor onde ficam os arquivos das fontes -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- Carrega as fontes Space Grotesk (títulos) e Inter (texto) -->
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
     <!-- Carrega as variáveis do site: cores, fontes e espaços (design system) -->
     <link rel="stylesheet" href="../../shared/tokens.css" />
+    <!-- Aplica o tema claro ou escuro antes de desenhar a página (e cria o botão de trocar) -->
+    <script src="../../shared/tema.js"></script>
     <!-- Carrega o estilo base comum a todas as páginas -->
     <link rel="stylesheet" href="../../shared/base.css" />
     <!-- Carrega o estilo comum do app (menu, cards, botões, modal) -->
@@ -417,12 +419,12 @@
     <nav class="bottom-nav" aria-label="Navegação rápida">
       <!-- Link que leva para o Início do app (barra de baixo) -->
       <a href="../inicio/inicio.html" class="bottom-nav-link" data-pagina="inicio"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 9v11h14V9"></path><path d="M10 20v-6h4v6"></path></svg><span>Início</span></a>
-      <!-- Link que leva para a página Descobrir (barra de baixo) -->
-      <a href="../descobrir/descobrir.html" class="bottom-nav-link" data-pagina="descobrir"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"></path><path d="m15.5 8.5-2 5-5 2 2-5z"></path></svg><span>Descobrir</span></a>
       <!-- Link que leva para a página Meus treinos (barra de baixo) -->
       <a href="../treinos/treinos.html" class="bottom-nav-link" data-pagina="treinos"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5h11"></path><path d="M6.5 17.5h11"></path><path d="M2 12h20"></path><path d="M2 9v6"></path><path d="M22 9v6"></path></svg><span>Treinos</span></a>
-      <!-- Link que leva para a página Evolução (barra de baixo) -->
-      <a href="../evolucao/evolucao.html" class="bottom-nav-link" data-pagina="evolucao"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"></path><path d="m7 15 4-4 3 3 6-6"></path></svg><span>Evolução</span></a>
+      <!-- Link que leva para a página Ranking (barra de baixo) -->
+      <a href="../ranking/ranking.html" class="bottom-nav-link" data-pagina="ranking"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path><path d="M12 15v7"></path></svg><span>Ranking</span></a>
+      <!-- Link que leva para a página Comunidade (barra de baixo) -->
+      <a href="../comunidade/comunidade.html" class="bottom-nav-link" data-pagina="comunidade"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span>Galera</span></a>
       <!-- Link que leva para a página Perfil (barra de baixo) -->
       <a href="../perfil/perfil.html" class="bottom-nav-link" data-pagina="perfil"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"></path></svg><span>Perfil</span></a>
     </nav>
@@ -468,6 +470,8 @@
     <script src="../comum/app.js"></script>
     <!-- Carrega os pontos, o ranking, as ligas e os selos -->
     <script src="../comum/pontos.js"></script>
+    <!-- Carrega o Pulso, o personagem que acompanha a pessoa -->
+    <script src="../comum/personagem.js"></script>
     <!-- Carrega o JavaScript desta página (profissionais.js) -->
     <script src="profissionais.js"></script>
   </body>

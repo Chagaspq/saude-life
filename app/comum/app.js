@@ -790,6 +790,18 @@
     );
   }
 
+  // Carregando com a cara da marca: o anel se fecha e o batimento passa
+  function carregandoLogo() {
+    // Desenho de 64 x 64 (o mesmo da logo)
+    const desenho = svg("svg", { viewBox: "0 0 64 64", class: "carregando-desenho", "aria-hidden": "true" });
+    // Anel que vai se fechando
+    desenho.append(svg("path", { d: "M32 9.5A22.5 22.5 0 1 1 12.51 20.75", class: "carregando-anel", pathLength: 100 }));
+    // Batimento que passa por dentro
+    desenho.append(svg("path", { d: "M19.5 33H24.5L28.5 25L33.5 41L37 33H44.5", class: "carregando-batimento", pathLength: 100 }));
+    // Caixa com o desenho e o texto
+    return el("div", { class: "carregando-logo", role: "status" }, [desenho, el("span", { text: "Carregando…" })]);
+  }
+
   // Mostra skeleton e só depois desenha (simula a resposta de um servidor)
   // Mostra o carregando e depois desenha
   function carregar(container, desenhar, quantidade = 3) {
@@ -797,8 +809,8 @@
     if (!container) return;
     // Avisa os leitores de tela que está carregando
     container.setAttribute("aria-busy", "true");
-    // Coloca os cards de carregando
-    container.replaceChildren(...skeleton(quantidade));
+    // Coloca a logo se desenhando no lugar (os cards cinza ficam de reserva em skeleton())
+    container.replaceChildren(carregandoLogo());
     // Espera um pouquinho...
     setTimeout(() => {
       // ...desenha de verdade
@@ -1095,7 +1107,7 @@
         [
           "sl-treinos", "sl-salvos", "sl-seguindo", "sl-reservas", "sl-perfil", "sl-pesos", "sl-agua",
           "sl-refeicoes", "sl-historico", "sl-treino-atual", "sl-desafio", "sl-lidas",
-          "sl-pontos", "sl-pontos-inicio", "sl-liga", "sl-academia",
+          "sl-pontos", "sl-pontos-inicio", "sl-liga", "sl-liga-vistas", "sl-academia",
           "sl-amigos", "sl-reacoes", "sl-comentarios", "sl-cutucadas", "sl-desafios", "sl-mensagens", "sl-privacidade",
         // ...apaga cada uma
         ].forEach(storage.remove);
@@ -1411,6 +1423,139 @@
      ============================================ */
 
   // Deixa todas essas funções disponíveis para as páginas em window.SL
+  /* ============================================
+     CONFETE, NÚMEROS CONTANDO E MENU EM ÁREAS
+     ============================================ */
+
+  // Diz se a pessoa pediu ao sistema para reduzir as animações
+  const menosMovimento = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Chuva rápida de confete nas cores da marca (meta batida, subiu de liga, recorde)
+  function confete() {
+    // Quem pediu menos movimento não vê confete
+    if (menosMovimento()) return;
+    // Caixa que cobre a tela (não atrapalha os cliques)
+    const caixa = el("div", { class: "confete", "aria-hidden": "true" });
+    // Cores do confete
+    const cores = ["#ff7a45", "#34d399", "#f5b544", "#ffa06b", "#7cc4f0"];
+    // 46 pedacinhos
+    for (let i = 0; i < 46; i++) {
+      // Cada pedacinho
+      const p = el("span", {});
+      // Posição na horizontal (de 0% a 100%)
+      p.style.left = Math.random() * 100 + "%";
+      // Cor sorteada
+      p.style.background = cores[i % cores.length];
+      // Atraso para cair (até 0,35 s)
+      p.style.animationDelay = Math.random() * 0.35 + "s";
+      // Duração da queda (entre 1,2 e 2 s)
+      p.style.animationDuration = 1.2 + Math.random() * 0.8 + "s";
+      // Quanto ele vai girar e balançar (usado no CSS)
+      p.style.setProperty("--giro", Math.round(Math.random() * 720 - 360) + "deg");
+      // Balanço para o lado
+      p.style.setProperty("--lado", Math.round(Math.random() * 160 - 80) + "px");
+      // Coloca na caixa
+      caixa.append(p);
+    }
+    // Coloca a caixa na página
+    document.body.append(caixa);
+    // Tira depois de 2,6 segundos
+    setTimeout(() => caixa.remove(), 2600);
+  }
+
+  // Hora em que a página abriu (os números só contam nos primeiros segundos)
+  const abriuEm = Date.now();
+  // Onde ficam os números que contam de 0 até o valor
+  const NUMEROS = ".stat-value, .pontos-anel-texto strong, .rk-degrau-pts, .rk-linha-pts, .cm-post-pts, [data-contar]";
+
+  // Faz um número contar de 0 até o valor dele
+  function contar(alvo) {
+    // Só uma vez por elemento
+    if (alvo.dataset.contado) return;
+    // Marca que já contou
+    alvo.dataset.contado = "1";
+    // Separa: sinal, número (formato brasileiro) e o resto do texto
+    const m = alvo.textContent.match(/^([+−-]?)([\d.]+(?:,\d+)?)(.*)$/s);
+    // Se não começa com número, não faz nada
+    if (!m) return;
+    // Casas decimais do número original
+    const casas = m[2].includes(",") ? m[2].split(",")[1].length : 0;
+    // Valor final (tira os pontos de milhar e troca a vírgula por ponto)
+    const final = Number(m[2].replace(/\./g, "").replace(",", "."));
+    // Se é zero ou inválido, não precisa animar
+    if (!final) return;
+    // Hora em que a contagem começou
+    const inicio = performance.now();
+    // Duração da contagem: 0,9 segundo
+    const duracao = 900;
+    // Um passo da animação
+    function passo(agora) {
+      // Quanto já passou (de 0 a 1)
+      const t = Math.min(1, (agora - inicio) / duracao);
+      // Começa rápido e termina devagar
+      const suave = 1 - Math.pow(1 - t, 3);
+      // Escreve o número desse momento
+      alvo.textContent = m[1] + num(final * suave, casas) + m[3];
+      // Se não acabou, continua no próximo quadro
+      if (t < 1) requestAnimationFrame(passo);
+    }
+    // Começa
+    requestAnimationFrame(passo);
+  }
+
+  // Procura números para contar dentro de um pedaço da página
+  function contarNumeros(raiz = document) {
+    // Só nos primeiros 4 segundos e para quem não pediu menos movimento
+    if (Date.now() - abriuEm > 4000 || menosMovimento() || !raiz.querySelectorAll) return;
+    // O próprio pedaço pode ser um número
+    if (raiz.matches && raiz.matches(NUMEROS)) contar(raiz);
+    // E os números dentro dele
+    raiz.querySelectorAll(NUMEROS).forEach(contar);
+  }
+
+  // Fica de olho em tudo o que o JavaScript desenha na página, para contar os números novos
+  new MutationObserver((mudancas) => mudancas.forEach((m) => m.addedNodes.forEach((n) => n.nodeType === 1 && contarNumeros(n)))).observe(document.documentElement, { childList: true, subtree: true });
+
+  // Áreas do menu lateral: cada página fica na sua área
+  const AREAS = [
+    // Treinar
+    ["Treinar", ["inicio", "descobrir", "treinos", "aulas"]],
+    // Comer
+    ["Comer", ["alimentacao"]],
+    // Evoluir
+    ["Evoluir", ["evolucao", "ranking"]],
+    // Comunidade
+    ["Comunidade", ["comunidade", "profissionais", "academia"]],
+    // Sua conta
+    ["Sua conta", ["planos", "salvos", "perfil"]],
+  ];
+
+  // Lista de links do menu lateral
+  const listaMenu = document.querySelector(".sidebar-nav ul");
+  // Se a página tem menu lateral...
+  if (listaMenu) {
+    // ...guarda cada item pelo nome da página
+    const itens = {};
+    // Para cada item do menu...
+    listaMenu.querySelectorAll("li").forEach((li) => {
+      // ...acha o link
+      const link = li.querySelector("[data-pagina]");
+      // ...e guarda pelo nome
+      if (link) itens[link.dataset.pagina] = li;
+    });
+    // Monta a lista nova, área por área
+    const nova = [];
+    // Para cada área...
+    AREAS.forEach(([nome, paginas]) => {
+      // ...coloca o título da área
+      nova.push(el("li", { class: "nav-area", "aria-hidden": "true", text: nome }));
+      // ...e os itens dela
+      paginas.forEach((p) => itens[p] && nova.push(itens[p]));
+    });
+    // Troca a lista do menu
+    listaMenu.replaceChildren(...nova);
+  }
+
   window.SL = {
     PAGINAS,
     paginaAtual,
@@ -1454,6 +1599,8 @@
     acao,
     getUsuario,
     renderUsuario,
+    confete,
+    contarNumeros,
     // SL.pagina(fn): roda fn quando o HTML da página terminar de carregar
     pagina(fn) {
       // (espera o DOMContentLoaded)
@@ -1470,6 +1617,8 @@
 
   // Quando o HTML terminar de carregar...
   document.addEventListener("DOMContentLoaded", () => {
+    // ...faz os números que já estão na página contarem
+    contarNumeros();
     // ...escreve os dados da pessoa
     renderUsuario();
     // ...escreve a saudação e a data

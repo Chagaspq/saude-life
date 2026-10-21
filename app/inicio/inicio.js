@@ -234,6 +234,8 @@ window.SL &&
     }
     // Desenha o card
     renderPontos();
+    // Desenha o Pulso com a frase do dia (se o personagem carregou)
+    if (SL.personagem) document.querySelector('[data-render="pulso"]').replaceChildren(SL.personagem.card());
     // Atualiza quando os pontos mudam
     document.addEventListener("sl:pontos", renderPontos);
   });

@@ -21,8 +21,8 @@
   top: 0;
   /* Camada 20 (número maior fica por cima) */
   z-index: 20;
-  /* Fundo: cor meio transparente */
-  background: rgba(14, 21, 18, 0.78);
+  /* Fundo da barra (escuro ou claro, conforme o tema) */
+  background: var(--barra-fundo);
   /* Desfoca o que está atrás (efeito vidro) */
   backdrop-filter: blur(10px);
   /* Mesmo ajuste para o Safari e navegadores antigos */

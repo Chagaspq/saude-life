@@ -280,8 +280,8 @@
   padding: 12px 14px;
   /* Cantos arredondados */
   border-radius: var(--radius-md);
-  /* Fundo escuro meio transparente */
-  background: rgba(14, 21, 18, 0.55);
+  /* Fundo de vidro (escuro ou claro, conforme o tema) */
+  background: var(--vidro);
   /* Borda fininha */
   border: 1px solid var(--border);
 }

@@ -1371,8 +1371,8 @@ body.modal-aberto {
   padding: 3px 9px;
   /* Cantos totalmente redondos */
   border-radius: 999px;
-  /* Fundo: cor meio transparente */
-  background: rgba(14, 21, 18, 0.7);
+  /* Fundo de vidro (escuro ou claro, conforme o tema) */
+  background: var(--vidro);
   /* Cor do texto: bege claro do texto */
   color: var(--ink);
   /* Borda de 1 pixel, cor das bordas */
@@ -2770,8 +2770,8 @@ a.btn-secondary {
   grid-template-columns: repeat(5, 1fr);
   /* Espaço interno (em cima, lados e embaixo) */
   padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
-  /* Fundo: cor meio transparente */
-  background: rgba(14, 21, 18, 0.94);
+  /* Fundo da barra (escuro ou claro, conforme o tema) */
+  background: var(--barra-fundo);
   /* Desfoca o que está atrás (efeito vidro) */
   backdrop-filter: blur(12px);
   /* Borda em cima de 1 pixel, cor das bordas */
@@ -3200,5 +3200,609 @@ a.btn-secondary {
   to {
     /* Invisível */
     opacity: 0;
+  }
+}
+
+/* ============================================
+   PULSO (o personagem)
+   ============================================ */
+
+/* Desenho do Pulso */
+.pulso {
+  /* Largura de 120 pixels */
+  width: 120px;
+  /* Altura de 150 pixels */
+  height: 150px;
+  /* Não deixa encolher */
+  flex-shrink: 0;
+  /* Deixa a aura e as estrelas passarem da caixa */
+  overflow: visible;
+}
+
+/* Pele (pernas, braços, mãos, pescoço e cabeça) */
+.pulso-pele {
+  /* Cor de pele */
+  fill: #f0bf95;
+}
+
+/* Braços: traço grosso cor de pele */
+.pulso-braco {
+  /* Sem preenchimento */
+  fill: none;
+  /* Cor de pele */
+  stroke: #f0bf95;
+  /* Grossura do braço */
+  stroke-width: 9;
+  /* Pontas arredondadas */
+  stroke-linecap: round;
+}
+
+/* Tênis coral */
+.pulso-tenis {
+  /* Coral */
+  fill: var(--coral);
+}
+
+/* Bermuda */
+.pulso-bermuda {
+  /* Verde-carvão escuro (fixo nos dois temas) */
+  fill: #24352e;
+}
+
+/* Regata esmeralda */
+.pulso-regata {
+  /* Esmeralda */
+  fill: #34d399;
+}
+
+/* Cabelo */
+.pulso-cabelo {
+  /* Castanho escuro */
+  fill: #2b1d14;
+}
+
+/* Faixa da testa */
+.pulso-faixa {
+  /* Coral */
+  fill: var(--coral);
+}
+
+/* Bochechas rosadas */
+.pulso-bochecha {
+  /* Coral transparente */
+  fill: rgba(255, 122, 69, 0.35);
+}
+
+/* Olhos */
+.pulso-olho {
+  /* Quase preto */
+  fill: #1d2a24;
+}
+
+/* Traços do rosto (olhos fechados, sorriso, boca reta) */
+.pulso-traco {
+  /* Sem preenchimento */
+  fill: none;
+  /* Quase preto */
+  stroke: #1d2a24;
+  /* Grossura do traço */
+  stroke-width: 2;
+  /* Pontas arredondadas */
+  stroke-linecap: round;
+}
+
+/* Boca aberta (comemorando) */
+.pulso-boca {
+  /* Vermelho escuro */
+  fill: #7a2a1a;
+}
+
+/* Gota de suor (cansado) */
+.pulso-suor {
+  /* Azul de informação */
+  fill: #7cc4f0;
+}
+
+/* Logo no peito (anel + batimento) */
+.pulso-logo {
+  /* Sem preenchimento */
+  fill: none;
+  /* Verde-carvão */
+  stroke: #0e1512;
+  /* Grossura do traço */
+  stroke-width: 1.8;
+  /* Pontas arredondadas */
+  stroke-linecap: round;
+  /* Cantos arredondados */
+  stroke-linejoin: round;
+}
+
+/* Munhequeira (a partir da Prata) */
+.pulso-munhequeira {
+  /* Sem preenchimento */
+  fill: none;
+  /* Prata */
+  stroke: #c9d3cd;
+  /* Grossura */
+  stroke-width: 3;
+}
+
+/* Fita da medalha (a partir do Ouro) */
+.pulso-fita {
+  /* Sem preenchimento */
+  fill: none;
+  /* Coral */
+  stroke: var(--coral);
+  /* Grossura */
+  stroke-width: 3;
+  /* Cantos arredondados */
+  stroke-linejoin: round;
+}
+
+/* Medalha (a partir do Ouro) */
+.pulso-medalha {
+  /* Ouro */
+  fill: #f5b544;
+  /* Borda dourada mais escura */
+  stroke: #c98a1d;
+  /* Grossura da borda */
+  stroke-width: 1.5;
+}
+
+/* Diamante em cima da cabeça (Diamante) */
+.pulso-diamante {
+  /* Esmeralda */
+  fill: #34d399;
+  /* Brilho em volta */
+  filter: drop-shadow(0 0 6px rgba(52, 211, 153, 0.8));
+  /* Animação de flutuar */
+  animation: pulso-flutuar 2.4s ease-in-out infinite;
+}
+
+/* Aura girando (Diamante) */
+.pulso-aura {
+  /* Sem preenchimento */
+  fill: none;
+  /* Esmeralda transparente */
+  stroke: rgba(52, 211, 153, 0.45);
+  /* Grossura */
+  stroke-width: 2;
+  /* Tracejado */
+  stroke-dasharray: 6 10;
+  /* Gira em volta do centro do desenho */
+  transform-origin: 60px 78px;
+  /* Animação de girar */
+  animation: pulso-girar 14s linear infinite;
+}
+
+/* Estrelinhas dos selos */
+.pulso-estrela {
+  /* Ouro */
+  fill: #f5b544;
+  /* Gira e brilha em volta do próprio centro */
+  transform-box: fill-box;
+  /* Centro da estrela */
+  transform-origin: center;
+  /* Animação de piscar */
+  animation: pulso-piscar 2s ease-in-out infinite;
+}
+
+/* Sombra no chão */
+.pulso-sombra {
+  /* Preto transparente */
+  fill: rgba(0, 0, 0, 0.25);
+  /* Encolhe quando ele pula */
+  transform-box: fill-box;
+  /* Centro da sombra */
+  transform-origin: center;
+}
+
+/* Corpo: respira devagar (feliz) */
+.pulso-corpo {
+  /* Movimento a partir dos pés */
+  transform-origin: 60px 140px;
+  /* Animação de respirar */
+  animation: pulso-respirar 3s ease-in-out infinite;
+}
+
+/* Comemorando: pula */
+.pulso-comemorando .pulso-corpo {
+  /* Animação de pular */
+  animation: pulso-pular 1s var(--ease-out) infinite;
+}
+
+/* Comemorando: a sombra encolhe junto com o pulo */
+.pulso-comemorando .pulso-sombra {
+  /* Animação da sombra */
+  animation: pulso-sombra 1s var(--ease-out) infinite;
+}
+
+/* Cansado: balança devagar, meio caído */
+.pulso-cansado .pulso-corpo {
+  /* Animação de cansaço */
+  animation: pulso-cansado 4s ease-in-out infinite;
+}
+
+/* Animação: respirar (cresce e volta) */
+@keyframes pulso-respirar {
+  /* No meio: um pouquinho maior */
+  50% {
+    /* Cresce 3% na altura */
+    transform: scaleY(1.03);
+  }
+}
+
+/* Animação: pular */
+@keyframes pulso-pular {
+  /* No meio do tempo: lá em cima */
+  40% {
+    /* Sobe 14 pixels */
+    transform: translateY(-14px);
+  }
+  /* Volta ao chão */
+  70% {
+    /* No chão */
+    transform: translateY(0);
+  }
+}
+
+/* Animação: a sombra diminui quando ele está no alto */
+@keyframes pulso-sombra {
+  /* Lá em cima */
+  40% {
+    /* Sombra menor */
+    transform: scale(0.7);
+    /* Mais fraca */
+    opacity: 0.6;
+  }
+}
+
+/* Animação: balançar cansado */
+@keyframes pulso-cansado {
+  /* Para um lado */
+  25% {
+    /* Inclina um pouco */
+    transform: rotate(-2deg);
+  }
+  /* Para o outro */
+  75% {
+    /* Inclina para o outro lado */
+    transform: rotate(2deg);
+  }
+}
+
+/* Animação: flutuar */
+@keyframes pulso-flutuar {
+  /* No meio: mais alto */
+  50% {
+    /* Sobe 3 pixels */
+    transform: translateY(-3px);
+  }
+}
+
+/* Animação: girar */
+@keyframes pulso-girar {
+  /* Fim: uma volta inteira */
+  to {
+    /* Gira 360 graus */
+    transform: rotate(360deg);
+  }
+}
+
+/* Animação: piscar */
+@keyframes pulso-piscar {
+  /* No meio: menor e apagada */
+  50% {
+    /* Menor */
+    transform: scale(0.6) rotate(45deg);
+    /* Mais apagada */
+    opacity: 0.5;
+  }
+}
+
+/* Card do Pulso: desenho + balão */
+.pulso-card {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens alinhados embaixo (o balão sai da boca) */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 16px;
+}
+
+/* Balão de fala */
+.pulso-balao {
+  /* Posição relativa (para a pontinha do balão) */
+  position: relative;
+  /* Ocupa o espaço que sobra */
+  flex: 1;
+  /* Espaço interno */
+  padding: 14px 18px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-lg);
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+  /* Borda fininha */
+  border: 1px solid var(--border);
+}
+
+/* Pontinha do balão apontando para o Pulso */
+.pulso-balao::before {
+  /* Cria o pedacinho */
+  content: "";
+  /* Solto, preso ao balão */
+  position: absolute;
+  /* No lado esquerdo */
+  left: -8px;
+  /* Na altura do meio */
+  top: 50%;
+  /* Quadradinho de 14 pixels */
+  width: 14px;
+  /* Altura de 14 pixels */
+  height: 14px;
+  /* Mesmo fundo do balão */
+  background: var(--surface-2);
+  /* Borda só em dois lados */
+  border-left: 1px solid var(--border);
+  /* (e embaixo) */
+  border-bottom: 1px solid var(--border);
+  /* Gira 45 graus para virar uma pontinha */
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* Nome "Pulso" no balão */
+.pulso-balao strong {
+  /* Coral claro */
+  color: var(--coral-light);
+  /* Fonte de títulos */
+  font-family: var(--font-display);
+}
+
+/* Frase do balão */
+.pulso-balao p {
+  /* Margem pequena em cima */
+  margin: 2px 0 0;
+  /* Cor principal do texto */
+  color: var(--ink);
+  /* Linhas mais espaçadas */
+  line-height: 1.5;
+}
+
+/* Quem pediu menos movimento: o Pulso fica parado */
+@media (prefers-reduced-motion: reduce) {
+  /* Todas as partes animadas */
+  .pulso-corpo,
+  .pulso-sombra,
+  .pulso-aura,
+  .pulso-estrela,
+  .pulso-diamante {
+    /* Sem animação */
+    animation: none !important;
+  }
+}
+
+/* ============================================
+   VISUAL VIVO: menu em áreas, carregando, confete,
+   fundo vivo, números de placar e tema claro
+   ============================================ */
+
+/* Título de cada área do menu (Treinar, Comer...) */
+.nav-area {
+  /* Espaço em cima e dos lados */
+  padding: 14px 12px 4px;
+  /* Letra pequena */
+  font-size: 11px;
+  /* Letra negrito */
+  font-weight: 700;
+  /* Letras maiúsculas */
+  text-transform: uppercase;
+  /* Espaço entre as letras */
+  letter-spacing: 0.08em;
+  /* Cor mais apagada */
+  color: var(--muted-2);
+}
+
+/* A primeira área não precisa de espaço em cima */
+.nav-area:first-child {
+  /* Sem espaço em cima */
+  padding-top: 0;
+}
+
+/* Links do menu um pouco mais baixos (agora são mais itens) */
+.sidebar-nav .nav-link {
+  /* Espaço interno menor em cima e embaixo */
+  padding-top: 8px;
+  /* (embaixo) */
+  padding-bottom: 8px;
+}
+
+/* Carregando: a logo se desenhando */
+.carregando-logo {
+  /* Ocupa a largura toda da grade */
+  grid-column: 1 / -1;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Centralizados */
+  align-items: center;
+  /* Espaço entre o desenho e o texto */
+  gap: 10px;
+  /* Espaço em cima e embaixo */
+  padding: 36px 0;
+  /* Cor apagada */
+  color: var(--muted);
+  /* Tamanho da letra: 13 pixels */
+  font-size: 13px;
+}
+
+/* Desenho do carregando */
+.carregando-desenho {
+  /* Largura de 56 pixels */
+  width: 56px;
+  /* Altura de 56 pixels */
+  height: 56px;
+  /* Sem preenchimento */
+  fill: none;
+  /* Pontas arredondadas */
+  stroke-linecap: round;
+  /* Cantos arredondados */
+  stroke-linejoin: round;
+}
+
+/* Anel do carregando: vai se fechando e abrindo */
+.carregando-anel {
+  /* Coral */
+  stroke: var(--coral);
+  /* Grossura */
+  stroke-width: 6;
+  /* O traço tem 100 de tamanho (pathLength) */
+  stroke-dasharray: 100;
+  /* Animação de desenhar */
+  animation: carregando-desenhar 1.4s var(--ease-out) infinite;
+}
+
+/* Batimento do carregando: passa da esquerda para a direita */
+.carregando-batimento {
+  /* Esmeralda */
+  stroke: var(--emerald);
+  /* Grossura */
+  stroke-width: 5.5;
+  /* O traço tem 100 de tamanho */
+  stroke-dasharray: 100;
+  /* Animação de desenhar, com um atrasinho */
+  animation: carregando-desenhar 1.4s var(--ease-out) 0.25s infinite;
+}
+
+/* Animação: o traço aparece, fica e some */
+@keyframes carregando-desenhar {
+  /* Começo: escondido */
+  0% {
+    /* Traço todo escondido */
+    stroke-dashoffset: 100;
+  }
+  /* Desenhado */
+  55% {
+    /* Traço todo aparecendo */
+    stroke-dashoffset: 0;
+  }
+  /* Some pelo outro lado */
+  100% {
+    /* Escondido de novo */
+    stroke-dashoffset: -100;
+  }
+}
+
+/* Caixa do confete (cobre a tela, mas deixa clicar) */
+.confete {
+  /* Fixa na tela */
+  position: fixed;
+  /* Cobre tudo */
+  inset: 0;
+  /* Por cima de tudo */
+  z-index: 4000;
+  /* Ignora cliques */
+  pointer-events: none;
+  /* Esconde o que sair da tela */
+  overflow: hidden;
+}
+
+/* Cada pedacinho de confete */
+.confete span {
+  /* Solto na caixa */
+  position: absolute;
+  /* Começa um pouco acima da tela */
+  top: -16px;
+  /* Largura de 8 pixels */
+  width: 8px;
+  /* Altura de 14 pixels */
+  height: 14px;
+  /* Cantinhos arredondados */
+  border-radius: 2px;
+  /* Animação de cair */
+  animation: confete-cair 1.6s cubic-bezier(0.25, 0.6, 0.4, 1) forwards;
+}
+
+/* Animação: cai girando e balançando */
+@keyframes confete-cair {
+  /* Fim: lá embaixo, girado e transparente */
+  to {
+    /* Desce a tela toda, vai para o lado e gira */
+    transform: translate(var(--lado), 105vh) rotate(var(--giro));
+    /* Some no final */
+    opacity: 0.2;
+  }
+}
+
+/* Fundo vivo: anéis e brilhos que se mexem bem devagar atrás do app */
+body[data-pagina]::before {
+  /* Cria o pedacinho */
+  content: "";
+  /* Fixo na tela */
+  position: fixed;
+  /* Um pouco maior que a tela (para ter espaço de mexer) */
+  inset: -20%;
+  /* Atrás de tudo */
+  z-index: -1;
+  /* Ignora cliques */
+  pointer-events: none;
+  /* Dois brilhos (coral e esmeralda) + anéis finos desenhados com degradê */
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255, 122, 69, 0.09), transparent 30%),
+    radial-gradient(circle at 85% 80%, rgba(52, 211, 153, 0.08), transparent 32%),
+    repeating-radial-gradient(circle at 85% 10%, transparent 0 46px, rgba(255, 122, 69, 0.035) 47px 48px, transparent 49px 96px);
+  /* Animação lenta */
+  animation: fundo-vivo 40s ease-in-out infinite alternate;
+}
+
+/* Animação: o fundo vai e volta devagar */
+@keyframes fundo-vivo {
+  /* Fim: deslocado e um pouco girado */
+  to {
+    /* Move e gira bem pouco */
+    transform: translate(4%, 3%) rotate(6deg);
+  }
+}
+
+/* Números com cara de placar */
+.stat-box .stat-value,
+.pontos-anel-texto strong,
+.rk-linha-pts,
+.rk-degrau-pts,
+.rest-time,
+[data-render="cronometro"] {
+  /* Fonte monoespaçada (cada número com a mesma largura) */
+  font-family: var(--font-placar);
+  /* Espaço entre as letras um pouco menor */
+  letter-spacing: -0.02em;
+}
+
+/* Botão de trocar o tema (sol/lua) */
+.btn-tema .icon {
+  /* Gira um pouco ao passar o mouse */
+  transition: transform 0.4s var(--ease-out);
+}
+
+/* Ícone do tema com o mouse em cima */
+.btn-tema:hover .icon {
+  /* Gira 40 graus */
+  transform: rotate(40deg);
+}
+
+/* Tema claro: ajustes que as variáveis sozinhas não resolvem */
+:root[data-tema="claro"] .sidebar-overlay,
+:root[data-tema="claro"] .modal-overlay {
+  /* Fundo escuro mais leve */
+  background: rgba(29, 42, 36, 0.35);
+}
+
+/* Quem pediu menos movimento: sem fundo vivo e sem carregando animado */
+@media (prefers-reduced-motion: reduce) {
+  /* Fundo vivo, anel e batimento do carregando */
+  body[data-pagina]::before,
+  .carregando-anel,
+  .carregando-batimento {
+    /* Sem animação */
+    animation: none;
   }
 }

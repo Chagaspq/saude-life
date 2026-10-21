@@ -523,8 +523,8 @@
   gap: 12px;
   /* Espaço interno (em cima, lados e embaixo) */
   padding: 14px 24px calc(14px + env(safe-area-inset-bottom));
-  /* Fundo: cor meio transparente */
-  background: rgba(14, 21, 18, 0.94);
+  /* Fundo da barra (escuro ou claro, conforme o tema) */
+  background: var(--barra-fundo);
   /* Desfoca o que está atrás (efeito vidro) */
   backdrop-filter: blur(12px);
   /* Borda em cima de 1 pixel, cor das bordas */

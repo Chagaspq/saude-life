@@ -42,9 +42,11 @@
     <!-- Mesma coisa para o servidor onde ficam os arquivos das fontes -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- Carrega as fontes Space Grotesk (títulos) e Inter (texto) -->
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
     <!-- Carrega as variáveis do site: cores, fontes e espaços (design system) -->
     <link rel="stylesheet" href="../../shared/tokens.css" />
+    <!-- Aplica o tema claro ou escuro antes de desenhar a página (e cria o botão de trocar) -->
+    <script src="../../shared/tema.js"></script>
     <!-- Carrega o estilo base comum a todas as páginas -->
     <link rel="stylesheet" href="../../shared/base.css" />
     <!-- Carrega o estilo comum do app (menu, cards, botões, modal) -->
@@ -217,6 +219,8 @@
     <script src="../comum/app.js"></script>
     <!-- Carrega os pontos, o ranking, as ligas e os selos -->
     <script src="../comum/pontos.js"></script>
+    <!-- Carrega o Pulso, o personagem que acompanha a pessoa -->
+    <script src="../comum/personagem.js"></script>
     <!-- Carrega o JavaScript desta página (treino.js) -->
     <script src="treino.js"></script>
   </body>

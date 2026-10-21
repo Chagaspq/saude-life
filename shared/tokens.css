@@ -146,4 +146,81 @@
   --dur-fast: 150ms;
   /* Animação normal (0,2 segundo) */
   --dur-base: 200ms;
+
+  /* Fonte de placar, só para números (cronômetro, pontos, códigos) */
+  --font-placar: "Space Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  /* Fundo de barras fixas (topo e barra de baixo) */
+  --barra-fundo: rgba(14, 21, 18, 0.94);
+  /* Fundo escuro meio transparente usado dentro de cards */
+  --vidro: rgba(14, 21, 18, 0.55);
+  /* Avisa o navegador que o tema é escuro (barras de rolagem e campos escuros) */
+  color-scheme: dark;
+}
+
+/* ============================================
+   TEMA CLARO (bege quente), para treinar no sol
+   Liga quando a pessoa escolhe: <html data-tema="claro">
+   As cores da marca continuam as mesmas, só mais fortes para dar contraste no fundo claro.
+   ============================================ */
+:root[data-tema="claro"] {
+  /* Fundo da página: bege quente */
+  --bg: #f6efe4;
+  /* Fundo dos cards: quase branco, puxado para o bege */
+  --surface: #fffaf2;
+  /* Fundo um pouco mais escuro */
+  --surface-2: #f3e9db;
+  /* Fundo de destaque */
+  --surface-3: #eadcc9;
+  /* Fundo de vidro claro */
+  --surface-glass: rgba(255, 250, 242, 0.92);
+  /* Bordas bege */
+  --border: #e2d3bf;
+  /* Borda mais forte */
+  --border-strong: #cdb89d;
+  /* Borda bem suave */
+  --border-subtle: rgba(14, 21, 18, 0.08);
+  /* Borda coral transparente */
+  --border-coral: rgba(216, 95, 46, 0.45);
+  /* Texto principal: o verde-carvão da marca */
+  --ink: #1d2a24;
+  /* Texto mais forte */
+  --ink-strong: #0e1512;
+  /* Texto apagado */
+  --muted: #5d6c63;
+  /* Texto mais apagado */
+  --muted-2: #74827a;
+  /* Coral claro vira um coral mais forte (para ler no fundo claro) */
+  --coral-light: #d0561f;
+  /* Coral escuro */
+  --coral-dark: #b9481a;
+  /* Coral bem fraquinho */
+  --coral-soft: rgba(255, 122, 69, 0.12);
+  /* Coral fraco */
+  --coral-dim: rgba(255, 122, 69, 0.2);
+  /* Esmeralda mais forte (para ler no fundo claro) */
+  --emerald: #13936a;
+  /* Esmeralda escura */
+  --emerald-dark: #0d7553;
+  /* Esmeralda fraquinha */
+  --emerald-soft: rgba(19, 147, 106, 0.12);
+  /* Amarelo de alerta mais forte */
+  --warning: #b77514;
+  /* Amarelo das estrelas mais forte */
+  --star: #c28a12;
+  /* Azul mais forte */
+  --info: #2b7cad;
+  /* Degradê dos botões: coral mais vivo */
+  --gradient-button: linear-gradient(180deg, #ff8d5c, var(--coral) 70%);
+  /* Sombras mais leves */
+  --shadow-sm: 0 2px 8px rgba(80, 50, 20, 0.1);
+  /* Sombra média */
+  --shadow-md: 0 12px 28px rgba(80, 50, 20, 0.14);
+  /* Sombra grande */
+  --shadow-lg: 0 24px 60px rgba(80, 50, 20, 0.18);
+  /* Barras fixas claras */
+  --barra-fundo: rgba(255, 250, 242, 0.94);
+  /* Vidro claro dentro dos cards */
+  --vidro: rgba(246, 239, 228, 0.8);
+  /* Avisa o navegador que o tema é claro */
+  color-scheme: light;
 }

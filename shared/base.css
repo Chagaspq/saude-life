@@ -109,3 +109,53 @@ input[type="password"]::-ms-clear {
   /* Sempre ficam escondidos */
   display: none !important;
 }
+
+/* Transição suave entre páginas (navegadores novos; nos outros, só troca normal) */
+@view-transition {
+  /* Liga a transição ao clicar em links do próprio site */
+  navigation: auto;
+}
+
+/* A página que sai: some e desce um pouquinho */
+::view-transition-old(root) {
+  /* Animação de sair */
+  animation: 0.22s ease-in both pagina-sair;
+}
+
+/* A página que entra: aparece subindo */
+::view-transition-new(root) {
+  /* Animação de entrar */
+  animation: 0.32s cubic-bezier(0.16, 1, 0.3, 1) both pagina-entrar;
+}
+
+/* Animação: sair */
+@keyframes pagina-sair {
+  /* Fim: transparente e um pouco mais baixa */
+  to {
+    /* Transparente */
+    opacity: 0;
+    /* 8 pixels para baixo */
+    transform: translateY(8px);
+  }
+}
+
+/* Animação: entrar */
+@keyframes pagina-entrar {
+  /* Começo: transparente e um pouco mais baixa */
+  from {
+    /* Transparente */
+    opacity: 0;
+    /* 12 pixels para baixo */
+    transform: translateY(12px);
+  }
+}
+
+/* Quem pediu menos movimento: sem transição entre páginas */
+@media (prefers-reduced-motion: reduce) {
+  /* Página que sai e que entra */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    /* Sem animação */
+    animation: none;
+  }
+}
