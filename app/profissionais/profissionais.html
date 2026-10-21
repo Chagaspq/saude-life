@@ -386,6 +386,9 @@
                 <p class="page-lead">Personal trainers, nutricionistas e fisioterapeutas com registro verificado.</p>
               </div>
             </header>
+            <!-- Profissionais que acompanham você (preenchido pelo profissionais.js) -->
+            <section class="meus-pros" data-render="meus-pros" aria-label="Profissionais que acompanham você"></section>
+
             <!-- Botões de filtro por especialidade (preenchidos pelo JavaScript) -->
             <div
               class="chips-bar"
@@ -393,6 +396,18 @@
               aria-label="Filtrar por especialidade"
               data-render="pros-filtros"
             ></div>
+            <!-- Filtros de cidade e atendimento online -->
+            <div class="filters-bar pros-filtros-extra">
+              <!-- Caixa de cidade (preenchida pelo JavaScript) -->
+              <select aria-label="Filtrar por cidade" data-render="pros-cidade"></select>
+              <!-- Só quem atende online -->
+              <label class="check-row">
+                <!-- Caixinha -->
+                <input type="checkbox" data-render="pros-online" />
+                <!-- Texto -->
+                <span>Só quem atende online</span>
+              </label>
+            </div>
             <!-- Grade dos profissionais (preenchida pelo JavaScript) -->
             <div class="professionals-grid cards-grid">
               <!-- Cards de profissionais (via JS) -->

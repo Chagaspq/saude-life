@@ -778,72 +778,12 @@ window.SL &&
       );
     }
 
-    // Abre o chat com um amigo
+    // Abre o chat com um amigo (o chat fica no núcleo: SL.abrirChat)
     SL.acao("abrir-chat", (alvo) => {
-      // Código do amigo
-      const codigo = alvo.dataset.codigo;
       // Pessoa
-      const pessoa = P.PESSOAS.find((p) => p.codigo === codigo);
-      // Lista de mensagens
-      const lista = el("ol", { class: "cm-chat", "aria-live": "polite" });
-      // Desenha as mensagens
-      function desenhar() {
-        // Troca a lista
-        lista.replaceChildren(
-          // Uma bolha para cada mensagem
-          ...(conversas()[codigo] || []).map((m) => el("li", { class: "cm-bolha" + (m.eu ? " is-eu" : "") }, [el("span", { text: m.texto })])),
-        );
-        // Rola até a última
-        lista.scrollTop = lista.scrollHeight;
-      }
-      // Formulário de enviar
-      const form = el("form", { class: "cm-chat-form" }, [
-        // Nome escondido
-        el("label", { class: "sr-only", for: "chat-texto", text: "Mensagem" }),
-        // Campo
-        el("input", { id: "chat-texto", type: "text", maxlength: 300, placeholder: `Mensagem para ${primeiro(pessoa.nome)}…`, autocomplete: "off" }),
-        // Botão
-        el("button", { type: "submit", class: "btn-primary", text: "Enviar" }),
-      ]);
-      // Guarda uma mensagem na conversa
-      function guardar(eu, texto) {
-        // Conversas salvas
-        const todas = conversas();
-        // Junta a mensagem
-        todas[codigo] = (todas[codigo] || []).concat({ eu, texto, data: new Date().toISOString() });
-        // Salva
-        storage.set("sl-mensagens", todas);
-      }
-      // Quando envia...
-      form.addEventListener("submit", (e) => {
-        // ...impede a página de recarregar
-        e.preventDefault();
-        // ...campo
-        const campo = form.querySelector("input");
-        // ...texto
-        const texto = campo.value.trim();
-        // ...se vazio, para
-        if (!texto) return;
-        // ...guarda a sua mensagem
-        guardar(true, texto);
-        // ...limpa o campo
-        campo.value = "";
-        // ...desenha
-        desenhar();
-        // ...e o amigo "responde" depois de 1,5 segundo (simulado)
-        setTimeout(() => {
-          // Resposta sorteada
-          guardar(false, RESPOSTAS[Math.floor(Math.random() * RESPOSTAS.length)]);
-          // Desenha
-          desenhar();
-          // Atualiza a lista de conversas
-          renderConversas();
-        }, 1500);
-      });
-      // Abre o modal com a conversa
-      SL.openModal(pessoa.nome, [lista, form]);
-      // Desenha as mensagens
-      desenhar();
+      const pessoa = P.PESSOAS.find((p) => p.codigo === alvo.dataset.codigo);
+      // Abre a conversa, com as respostas dos amigos, e atualiza a lista depois
+      SL.abrirChat({ chave: pessoa.codigo, nome: pessoa.nome, respostas: RESPOSTAS, aoEnviar: renderConversas });
     });
 
     /* ---------- Abas ---------- */

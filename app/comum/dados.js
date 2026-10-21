@@ -31,31 +31,56 @@
 
   // Lista de profissionais (nome, especialidade, nota e seguidores)
   const PROFISSIONAIS = [
-    // Ana Souza, nutricionista, nota 5,0
-    { nome: "Ana Souza", especialidade: "Nutricionista", nota: 5.0, seguidores: "1.2k" },
-    // Rafael Souza, personal trainer, nota 5,0
-    { nome: "Rafael Souza", especialidade: "Personal Trainer", nota: 5.0, seguidores: "980" },
-    // Marina Lima, yoga, nota 4,8
-    { nome: "Marina Lima", especialidade: "Yoga", nota: 4.8, seguidores: "2.4k" },
-    // Gabriel Torres, fisioterapeuta, nota 4,7
-    { nome: "Gabriel Torres", especialidade: "Fisioterapeuta", nota: 4.7, seguidores: "640" },
-    // Carla Mendes, personal trainer, nota 4,9
-    { nome: "Carla Mendes", especialidade: "Personal Trainer", nota: 4.9, seguidores: "1.8k" },
-    // Lucas Prado, nutricionista, nota 4,6
-    { nome: "Lucas Prado", especialidade: "Nutricionista", nota: 4.6, seguidores: "510" },
+    // Ana Souza, nutricionista, nota 5,0, São Paulo (atende online)
+    { nome: "Ana Souza", especialidade: "Nutricionista", nota: 5.0, seguidores: "1.2k", registro: "CRN-3 48213", cidade: "São Paulo", bairro: "Pinheiros", online: true, preco: "R$ 180 a consulta", bio: "Nutrição esportiva sem terrorismo: comida de verdade e cardápio que cabe na rotina." },
+    // Rafael Souza, personal trainer, nota 5,0, São Paulo
+    { nome: "Rafael Souza", especialidade: "Personal Trainer", nota: 5.0, seguidores: "980", registro: "CREF 112233-G/SP", cidade: "São Paulo", bairro: "Centro", online: true, preco: "R$ 350 por mês (online)", bio: "Hipertrofia e força. Treino com progressão de carga e acompanhamento pelo app." },
+    // Marina Lima, yoga, nota 4,8, Rio de Janeiro
+    { nome: "Marina Lima", especialidade: "Yoga", nota: 4.8, seguidores: "2.4k", registro: "CREF 054321-G/RJ", cidade: "Rio de Janeiro", bairro: "Botafogo", online: true, preco: "R$ 60 a aula", bio: "Yoga e mobilidade para quem treina pesado e quer se mexer melhor." },
+    // Gabriel Torres, fisioterapeuta, nota 4,7, São Paulo
+    { nome: "Gabriel Torres", especialidade: "Fisioterapeuta", nota: 4.7, seguidores: "640", registro: "CREFITO-3 98765-F", cidade: "São Paulo", bairro: "Vila Mariana", online: false, preco: "R$ 150 a sessão", bio: "Prevenção de lesões e volta segura aos treinos depois de dor ou cirurgia." },
+    // Carla Mendes, personal trainer, nota 4,9, Belo Horizonte
+    { nome: "Carla Mendes", especialidade: "Personal Trainer", nota: 4.9, seguidores: "1.8k", registro: "CREF 076543-G/MG", cidade: "Belo Horizonte", bairro: "Savassi", online: true, preco: "R$ 280 por mês (online)", bio: "Emagrecimento e condicionamento com treinos curtos e intensos." },
+    // Lucas Prado, nutricionista, nota 4,6, Rio de Janeiro
+    { nome: "Lucas Prado", especialidade: "Nutricionista", nota: 4.6, seguidores: "510", registro: "CRN-4 22110", cidade: "Rio de Janeiro", bairro: "Tijuca", online: false, preco: "R$ 140 a consulta", bio: "Reeducação alimentar para iniciantes, com cardápios simples e baratos." },
   ];
 
-  // Aulas da academia (nome, professor, dias, hora, vagas livres e total)
+  // Avaliações de exemplo dos alunos para os profissionais
+  const AVALIACOES = {
+    // Ana
+    "Ana Souza": [["Camila", 5, "Mudou minha relação com a comida. Cardápio fácil de seguir!"], ["Diego", 5, "Ganhei massa sem passar fome."]],
+    // Rafael
+    "Rafael Souza": [["Pedro", 5, "Treino muito bem montado, a carga sobe toda semana."], ["Júlia", 5, "Responde rápido no chat e corrige a execução."]],
+    // Marina
+    "Marina Lima": [["Larissa", 5, "Minhas dores nas costas sumiram."], ["Rafael", 4, "Ótima para mobilidade de quadril."]],
+    // Gabriel
+    "Gabriel Torres": [["Diego", 5, "Voltei a agachar sem dor no joelho."], ["Ana", 4, "Muito cuidadoso e didático."]],
+    // Carla
+    "Carla Mendes": [["Júlia", 5, "Treinos curtos e intensos, perfeito pra minha rotina."], ["Camila", 5, "Perdi 6 kg com ela!"]],
+    // Lucas
+    "Lucas Prado": [["Pedro", 5, "Cardápio barato e gostoso."], ["Larissa", 4, "Bom para quem está começando."]],
+  };
+
+  // Aulas da academia: dias (0 = segunda ... 6 = domingo), hora, duração, sala, vagas livres e total
   const AULAS = [
-    // Aula de Spinning com Carla Mendes, Seg e Qua às 07:00 (4 de 20 vagas livres)
-    { nome: "Spinning", professor: "Carla Mendes", dia: "Seg e Qua", hora: "07:00", vagas: 4, total: 20 },
-    // Aula de Pilates com Marina Lima, Ter e Qui às 19:00 (0 de 12 vagas livres)
-    { nome: "Pilates", professor: "Marina Lima", dia: "Ter e Qui", hora: "19:00", vagas: 0, total: 12 },
-    // Aula de Funcional com Rafael Souza, Seg a Sex às 18:30 (9 de 25 vagas livres)
-    { nome: "Funcional", professor: "Rafael Souza", dia: "Seg a Sex", hora: "18:30", vagas: 9, total: 25 },
-    // Aula de Yoga Flow com Marina Lima, Sábado às 09:00 (6 de 15 vagas livres)
-    { nome: "Yoga Flow", professor: "Marina Lima", dia: "Sábado", hora: "09:00", vagas: 6, total: 15 },
+    // Spinning com Carla Mendes, segunda e quarta às 07:00 (4 de 20 vagas livres)
+    { nome: "Spinning", professor: "Carla Mendes", dia: "Seg e Qua", dias: [0, 2], hora: "07:00", duracao: 45, sala: "Sala bike", vagas: 4, total: 20, nota: 4.8 },
+    // Pilates com Marina Lima, terça e quinta às 19:00 (lotada)
+    { nome: "Pilates", professor: "Marina Lima", dia: "Ter e Qui", dias: [1, 3], hora: "19:00", duracao: 50, sala: "Estúdio 2", vagas: 0, total: 12, nota: 4.9 },
+    // Funcional com Rafael Souza, segunda a sexta às 18:30
+    { nome: "Funcional", professor: "Rafael Souza", dia: "Seg a Sex", dias: [0, 1, 2, 3, 4], hora: "18:30", duracao: 40, sala: "Área funcional", vagas: 9, total: 25, nota: 4.7 },
+    // Yoga Flow com Marina Lima, sábado às 09:00
+    { nome: "Yoga Flow", professor: "Marina Lima", dia: "Sábado", dias: [5], hora: "09:00", duracao: 60, sala: "Estúdio 2", vagas: 6, total: 15, nota: 5.0 },
+    // HIIT Express com Carla Mendes, terça e quinta às 12:15
+    { nome: "HIIT Express", professor: "Carla Mendes", dia: "Ter e Qui", dias: [1, 3], hora: "12:15", duracao: 30, sala: "Área funcional", vagas: 2, total: 16, nota: 4.6 },
+    // Alongamento com Marina Lima, quarta e sexta às 20:00
+    { nome: "Alongamento", professor: "Marina Lima", dia: "Qua e Sex", dias: [2, 4], hora: "20:00", duracao: 30, sala: "Estúdio 2", vagas: 10, total: 15, nota: 4.5 },
+    // Dança com Carla Mendes, sábado às 10:30 (lotada)
+    { nome: "Dança Fit", professor: "Carla Mendes", dia: "Sábado", dias: [5], hora: "10:30", duracao: 50, sala: "Estúdio 1", vagas: 0, total: 25, nota: 4.9 },
   ];
+
+  // Lotação da academia em cada hora do dia (0 a 23), em porcentagem
+  const OCUPACAO = [0, 0, 0, 0, 0, 0, 55, 80, 70, 45, 35, 40, 60, 55, 30, 25, 35, 60, 90, 95, 80, 55, 30, 0];
 
   // Treinos que já vêm criados para a pessoa
   const TREINOS_PADRAO = [
@@ -350,6 +375,6 @@
   window.SL_DADOS = {
     CATALOGO, PROFISSIONAIS, AULAS, TREINOS_PADRAO, EVOLUCAO,
     EXERCICIOS, HISTORICO_PADRAO, REFEICOES_PADRAO, METAS_NUTRICAO,
-    AMIGOS, SUGESTOES, ACADEMIAS,
+    AMIGOS, SUGESTOES, ACADEMIAS, AVALIACOES, OCUPACAO,
   };
 })();

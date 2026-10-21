@@ -385,73 +385,99 @@
                 <!-- Texto de apoio abaixo do título -->
                 <p class="page-lead">Movimento, horários de pico e avisos da sua unidade.</p>
               </div>
+              <!-- Botões para ver como aluno ou como dono da academia -->
+              <div class="aulas-visao" role="group" aria-label="Ver como">
+                <!-- Aluno (começa escolhido) -->
+                <button type="button" data-visao-academia="aluno" aria-pressed="true" class="is-active">Sou aluno</button>
+                <!-- Dono -->
+                <button type="button" data-visao-academia="dono" aria-pressed="false">Sou dono</button>
+              </div>
             </header>
-            <!-- Painel com os números da academia -->
-            <div class="gym-admin-dashboard">
-              <!-- Quadrado de número -->
-              <div class="stat-box">
-                <!-- Alunos ativos: 340 -->
-                <span>Alunos Ativos</span><strong>340</strong>
-              </div>
-              <!-- Quadrado de número -->
-              <div class="stat-box">
-                <!-- Professores: 12 -->
-                <span>Professores</span><strong>12</strong>
-              </div>
-              <!-- Quadrado de número -->
-              <div class="stat-box">
-                <!-- Check-ins de hoje: 87 -->
-                <span>Check-ins hoje</span><strong>87</strong>
-              </div>
-              <!-- Quadrado de número -->
-              <div class="stat-box">
-                <!-- Matrículas novas no mês: 23 -->
-                <span>Novas matrículas (mês)</span><strong>23</strong>
-              </div>
-            </div>
 
-            <!-- Seção da ocupação por horário -->
-            <section aria-labelledby="heading-ocupacao">
-              <!-- Título da seção -->
-              <h2 id="heading-ocupacao">Ocupação por horário</h2>
-              <!-- Lista de barras por horário -->
-              <ul class="bars-list">
-                <!-- Horário da manhã -->
-                <li>
-                  <!-- Faixa de horário -->
-                  <span>06h–09h</span>
-                  <!-- Barra mostrando 85% de ocupação -->
-                  <div class="progress-bar-sm"><div class="fill" data-progress="85"></div></div>
-                  <!-- Porcentagem escrita -->
-                  <strong>85%</strong>
-                </li>
-                <!-- Horário do almoço -->
-                <li>
-                  <!-- Faixa de horário -->
-                  <span>12h–14h</span>
-                  <!-- Barra mostrando 55% de ocupação -->
-                  <div class="progress-bar-sm"><div class="fill" data-progress="55"></div></div>
-                  <!-- Porcentagem escrita -->
-                  <strong>55%</strong>
-                </li>
-                <!-- Horário da noite -->
-                <li>
-                  <!-- Faixa de horário -->
-                  <span>18h–21h</span>
-                  <!-- Barra mostrando 95% de ocupação -->
-                  <div class="progress-bar-sm"><div class="fill" data-progress="95"></div></div>
-                  <!-- Porcentagem escrita -->
-                  <strong>95%</strong>
-                </li>
-              </ul>
-            </section>
+            <!-- Visão do aluno: lotação agora, melhor horário e check-in (preenchida pelo academia.js) -->
+            <div class="academia-aluno" data-render="aluno"></div>
+
+            <!-- Visão do dono (escondida até escolher "Sou dono") -->
+            <div class="academia-dono" data-render="dono" hidden>
+              <!-- Painel com os números da academia -->
+              <div class="gym-admin-dashboard">
+                <!-- Quadrado de número -->
+                <div class="stat-box">
+                  <!-- Alunos ativos: 340 -->
+                  <span>Alunos Ativos</span><strong>340</strong>
+                </div>
+                <!-- Quadrado de número -->
+                <div class="stat-box">
+                  <!-- Professores: 12 -->
+                  <span>Professores</span><strong>12</strong>
+                </div>
+                <!-- Quadrado de número -->
+                <div class="stat-box">
+                  <!-- Check-ins de hoje: 87 -->
+                  <span>Check-ins hoje</span><strong>87</strong>
+                </div>
+                <!-- Quadrado de número -->
+                <div class="stat-box">
+                  <!-- Matrículas novas no mês: 23 -->
+                  <span>Novas matrículas (mês)</span><strong>23</strong>
+                </div>
+              </div>
+
+              <!-- Seção da ocupação por horário -->
+              <section aria-labelledby="heading-ocupacao">
+                <!-- Título da seção -->
+                <h2 id="heading-ocupacao">Ocupação por horário</h2>
+                <!-- Lista de barras por horário -->
+                <ul class="bars-list">
+                  <!-- Horário da manhã -->
+                  <li>
+                    <!-- Faixa de horário -->
+                    <span>06h–09h</span>
+                    <!-- Barra mostrando 85% de ocupação -->
+                    <div class="progress-bar-sm"><div class="fill" data-progress="85"></div></div>
+                    <!-- Porcentagem escrita -->
+                    <strong>85%</strong>
+                  </li>
+                  <!-- Horário do almoço -->
+                  <li>
+                    <!-- Faixa de horário -->
+                    <span>12h–14h</span>
+                    <!-- Barra mostrando 55% de ocupação -->
+                    <div class="progress-bar-sm"><div class="fill" data-progress="55"></div></div>
+                    <!-- Porcentagem escrita -->
+                    <strong>55%</strong>
+                  </li>
+                  <!-- Horário da noite -->
+                  <li>
+                    <!-- Faixa de horário -->
+                    <span>18h–21h</span>
+                    <!-- Barra mostrando 95% de ocupação -->
+                    <div class="progress-bar-sm"><div class="fill" data-progress="95"></div></div>
+                    <!-- Porcentagem escrita -->
+                    <strong>95%</strong>
+                  </li>
+                </ul>
+              </section>
+
+              <!-- Formulário de publicar aviso para os alunos -->
+              <form class="academia-aviso-form" data-render="form-aviso">
+                <!-- Título do formulário -->
+                <h2>Publicar aviso</h2>
+                <!-- Nome escondido do campo -->
+                <label class="sr-only" for="aviso-texto">Texto do aviso</label>
+                <!-- Campo do aviso -->
+                <input id="aviso-texto" type="text" maxlength="80" placeholder="Ex: Academia fecha às 18h no feriado" />
+                <!-- Botão de publicar -->
+                <button type="submit" class="btn-primary">Publicar</button>
+              </form>
+            </div>
 
             <!-- Seção de avisos -->
             <section aria-labelledby="heading-avisos">
               <!-- Título da seção -->
               <h2 id="heading-avisos">Avisos recentes</h2>
-              <!-- Lista de avisos -->
-              <ul class="list-panel">
+              <!-- Lista de avisos (os publicados pelo dono entram no começo) -->
+              <ul class="list-panel" data-render="avisos">
                 <!-- Primeiro aviso -->
                 <li>
                   <!-- Textos do aviso -->

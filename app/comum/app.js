@@ -908,10 +908,14 @@
       el("span", { class: "pro-avatar avatar-initials", "aria-hidden": "true", text: initials(p.nome) }),
       // Nome
       el("h3", { text: p.nome }),
-      // Especialidade
-      el("p", { class: "specialty", text: p.especialidade }),
+      // Especialidade, com o selo de verificado
+      el("p", { class: "specialty" }, [p.especialidade, p.registro ? el("span", { class: "pro-verificado", title: `Registro ${p.registro} conferido`, text: " ✓" }) : null]),
+      // Cidade e se atende online
+      p.cidade ? el("p", { class: "meta", text: `${p.cidade}${p.online ? " • atende online" : ""}` }) : null,
       // Nota e seguidores
       el("p", { class: "stats" }, [nota(p.nota), ` • ${p.seguidores} seguidores`]),
+      // Botão de ver o perfil completo
+      el("button", { type: "button", class: "btn-link", "data-action": "ver-pro", "data-nome": p.nome, text: "Ver perfil" }),
       // Botão de seguir
       el("button", {
         // (coral se já segue)
@@ -1127,7 +1131,8 @@
           "sl-amigos", "sl-reacoes", "sl-comentarios", "sl-cutucadas", "sl-desafios", "sl-mensagens", "sl-privacidade",
           "sl-plano", "sl-auto-usos", "sl-lugar", "sl-ultimas", "sl-recordes",
           "sl-metas-modo", "sl-metas-manual", "sl-lembrete-agua", "sl-agua-ultimo", "sl-agua-aviso",
-          "sl-metas-pessoais", "sl-fotos",
+          "sl-metas-pessoais", "sl-fotos", "sl-meus-pros", "sl-avaliacoes-pros",
+          "sl-espera", "sl-avaliacoes-aulas", "sl-checkins", "sl-avisos",
         // ...apaga cada uma
         ].forEach(storage.remove);
         // ...e recarrega a página
@@ -1306,6 +1311,168 @@
     globalSearch.focus();
   });
 
+  /* ---------- Perfil completo do profissional ---------- */
+
+  // Respostas simuladas de cada tipo de profissional no chat
+  const RESPOSTAS_PRO = {
+    // Personal
+    "Personal Trainer": ["Fechado! Vou montar seu treino e te mando aqui.", "Me conta: quantos dias por semana você consegue treinar?", "Boa! Manda um vídeo da execução que eu corrijo."],
+    // Nutricionista
+    Nutricionista: ["Oi! Me manda como foi sua alimentação ontem que eu ajusto.", "Tenta trocar o lanche por iogurte com aveia, vai ajudar na proteína.", "Vamos marcar uma consulta? Tenho horário quinta."],
+    // Yoga
+    Yoga: ["Namastê! Comece com 10 minutos por dia, ok?", "A aula de sábado é ótima para quem está começando."],
+    // Fisio
+    Fisioterapeuta: ["Sentiu dor em qual movimento?", "Antes do treino, faz 5 minutos de mobilidade de quadril."],
+  };
+
+  // Dicas que cada tipo de profissional publica
+  const DICAS_PRO = {
+    // Personal
+    "Personal Trainer": ["3 sinais de que está na hora de subir a carga", "Agachamento: o erro que mais vejo na academia"],
+    // Nutricionista
+    Nutricionista: ["Marmita da semana em 1 hora", "Quanto de proteína você precisa de verdade?"],
+    // Yoga
+    Yoga: ["Sequência de 10 minutos para acordar o corpo", "Respiração que acalma antes de dormir"],
+    // Fisio
+    Fisioterapeuta: ["Dor no joelho ao agachar: o que fazer", "Aquecimento que previne lesões"],
+  };
+
+  // Abre o perfil completo de um profissional
+  acao("ver-pro", (alvo) => {
+    // Profissional
+    const p = PROFISSIONAIS.find((x) => x.nome === alvo.dataset.nome);
+    // Se não achou, para
+    if (!p) return;
+    // Avaliações de exemplo + as que a pessoa fez
+    const avaliacoes = (window.SL_DADOS.AVALIACOES[p.nome] || []).concat(storage.get("sl-avaliacoes-pros", {})[p.nome] || []);
+    // Profissionais que acompanham a pessoa
+    const meus = storage.get("sl-meus-pros", []);
+    // Este acompanha?
+    const acompanha = meus.includes(p.nome);
+    // É personal (manda treino) ou nutricionista (manda cardápio)?
+    const pedido = p.especialidade === "Personal Trainer" ? "treino" : p.especialidade === "Nutricionista" ? "cardápio" : null;
+    // Monta o perfil
+    openModal(p.nome, [
+      // Topo: bolinha, especialidade e registro
+      el("div", { class: "pro-perfil-topo" }, [
+        // Bolinha
+        el("span", { class: "pro-avatar avatar-initials", "aria-hidden": "true", text: initials(p.nome) }),
+        // Textos
+        el("div", {}, [
+          // Especialidade
+          el("strong", { text: p.especialidade }),
+          // Registro verificado
+          el("span", { class: "pro-registro", text: `✓ ${p.registro} • registro conferido` }),
+          // Cidade
+          el("span", { class: "meta", text: `${p.bairro}, ${p.cidade}${p.online ? " • atende online" : " • só presencial"}` }),
+        ]),
+      ]),
+      // Sobre
+      el("p", { class: "modal-text", text: p.bio }),
+      // Números: nota, seguidores e preço
+      el("div", { class: "pro-numeros" }, [
+        // Nota
+        el("span", {}, [nota(p.nota)]),
+        // Seguidores
+        el("span", { text: `${p.seguidores} seguidores` }),
+        // Preço
+        el("span", { text: p.preco }),
+      ]),
+      // Botões
+      el("div", { class: "modal-actions" }, [
+        // Chamar no chat
+        el("button", { type: "button", class: "btn-primary", "data-action": "chat-pro", "data-nome": p.nome, text: "Chamar no chat" }),
+        // Pedir treino/cardápio (só personal e nutri)
+        pedido ? el("button", { type: "button", class: "btn-secondary", "data-action": "pedir-pro", "data-nome": p.nome, text: acompanha ? `Pedir outro ${pedido}` : `Contratar e pedir ${pedido}` }) : null,
+      ]),
+      // Dicas publicadas
+      el("h3", { class: "pro-titulo", text: "Treinos e dicas" }),
+      // Lista de dicas
+      el("ul", { class: "list-panel" }, (DICAS_PRO[p.especialidade] || []).map((d) => el("li", {}, [el("div", {}, [el("strong", { text: d }), el("span", { text: "Publicado esta semana" })])]))),
+      // Avaliações
+      el("h3", { class: "pro-titulo", text: `Avaliações (${avaliacoes.length})` }),
+      // Lista de avaliações
+      el("ul", { class: "list-panel" }, avaliacoes.map(([quem, n, texto]) => el("li", {}, [el("div", {}, [el("strong", { text: `${"★".repeat(n)}${"☆".repeat(5 - n)} ${quem}` }), el("span", { text: texto })])]))),
+      // Avaliar
+      el("button", { type: "button", class: "btn-secondary btn-block", "data-action": "avaliar-pro", "data-nome": p.nome, text: "Avaliar este profissional" }),
+    ]);
+  });
+
+  // Chamar o profissional no chat
+  acao("chat-pro", (alvo) => {
+    // Profissional
+    const p = PROFISSIONAIS.find((x) => x.nome === alvo.dataset.nome);
+    // Abre o chat com as respostas do tipo dele
+    abrirChat({ chave: "pro:" + p.nome, nome: p.nome, respostas: RESPOSTAS_PRO[p.especialidade] || ["Oi! Como posso ajudar?"] });
+  });
+
+  // Contratar e pedir treino (personal) ou cardápio (nutricionista)
+  acao("pedir-pro", (alvo) => {
+    // Profissional
+    const p = PROFISSIONAIS.find((x) => x.nome === alvo.dataset.nome);
+    // Lista de quem acompanha a pessoa
+    const meus = storage.get("sl-meus-pros", []);
+    // Passa a acompanhar (se ainda não)
+    if (!meus.includes(p.nome)) storage.set("sl-meus-pros", meus.concat(p.nome));
+    // Abre o chat e guarda a função de "mensagem do profissional"
+    const responder = abrirChat({ chave: "pro:" + p.nome, nome: p.nome, respostas: RESPOSTAS_PRO[p.especialidade] || ["Oi!"] });
+    // Personal: monta um treino e manda
+    if (p.especialidade === "Personal Trainer") {
+      // Responde que está montando
+      responder("Bora! Vou montar seu treino agora, um minuto…");
+      // Depois de 2 segundos...
+      setTimeout(() => {
+        // ...treino da semana montado pelo personal (pega um do catálogo com o objetivo da pessoa)
+        const base = CATALOGO.find((t) => t.objetivo === onboarding().objetivo) || CATALOGO[0];
+        // ...treinos da pessoa
+        const treinos = treinosDoUsuario();
+        // ...coloca o treino do personal no começo
+        treinos.unshift({ id: "t" + Date.now(), nome: `Treino do ${p.nome.split(" ")[0]}`, grupo: `${base.grupo} • montado pelo seu personal`, itens: exerciciosDe(base), exercicios: exerciciosDe(base).length });
+        // ...salva
+        storage.set("sl-treinos", treinos);
+        // ...e avisa no chat
+        responder(`Pronto! Mandei o "Treino do ${p.nome.split(" ")[0]}" para os seus treinos. Qualquer dúvida, me chama aqui 💪`);
+      }, 2000);
+    } else {
+      // Nutricionista: manda dicas de cardápio
+      responder("Oi! Já vi suas metas no app. Montei umas trocas pra você:");
+      // Depois de 2 segundos, as dicas
+      setTimeout(() => responder("Café: ovos + fruta. Almoço: prato colorido com arroz, feijão e uma proteína. Lanche: iogurte com aveia. Veja o cardápio sugerido na página Alimentação!"), 2000);
+    }
+  });
+
+  // Avaliar um profissional
+  acao("avaliar-pro", (alvo) => {
+    // Nome do profissional
+    const nome = alvo.dataset.nome;
+    // Formulário
+    const form = el("form", { class: "modal-form" }, [
+      // Estrelas
+      el("fieldset", { class: "estrelas" }, [el("legend", { text: "Sua nota" }), ...[5, 4, 3, 2, 1].map((n) => el("label", {}, [el("input", { type: "radio", name: "nota", value: n, checked: n === 5 }), el("span", { "aria-hidden": "true", text: "★" }), el("span", { class: "sr-only", text: `${n} estrelas` })]))]),
+      // Comentário
+      campo("av-texto", "Comentário", { multiline: true, maxlength: 200, placeholder: "Como foi sua experiência?" }),
+      // Botão
+      el("button", { type: "submit", class: "btn-primary", text: "Enviar avaliação" }),
+    ]);
+    // Quando envia...
+    form.addEventListener("submit", (e) => {
+      // ...impede a página de recarregar
+      e.preventDefault();
+      // ...avaliações salvas
+      const todas = storage.get("sl-avaliacoes-pros", {});
+      // ...junta a nova
+      todas[nome] = (todas[nome] || []).concat([["Você", Number(form.querySelector('[name="nota"]:checked').value), form.querySelector("#av-texto").value.trim() || "Sem comentário."]]);
+      // ...salva
+      storage.set("sl-avaliacoes-pros", todas);
+      // ...fecha
+      closeModal();
+      // ...agradece
+      toast("Valeu pela avaliação!");
+    });
+    // Abre
+    openModal(`Avaliar ${nome}`, form);
+  });
+
   // Salvar treino: vale para Início, Descobrir e Salvos
   // Botão de salvar treino...
   acao("toggle-save", (alvo) => {
@@ -1442,6 +1609,81 @@
      ============================================ */
 
   // Deixa todas essas funções disponíveis para as páginas em window.SL
+  /* ============================================
+     CHAT (amigos e profissionais; as respostas são simuladas)
+     ============================================ */
+
+  // Abre uma conversa no modal. chave = onde salvar (ex.: código do amigo), nome = com quem,
+  // respostas = frases que a outra pessoa responde (sorteadas), aoEnviar = função extra (opcional)
+  function abrirChat({ chave, nome, respostas, aoEnviar }) {
+    // Conversas salvas: { chave: [{ eu, texto, data }] }
+    const conversas = () => storage.get("sl-mensagens", {});
+    // Lista de bolhas
+    const lista = el("ol", { class: "cm-chat", "aria-live": "polite" });
+    // Desenha as mensagens
+    function desenhar() {
+      // Troca a lista
+      lista.replaceChildren(...(conversas()[chave] || []).map((m) => el("li", { class: "cm-bolha" + (m.eu ? " is-eu" : "") }, [el("span", { text: m.texto })])));
+      // Rola até a última
+      lista.scrollTop = lista.scrollHeight;
+    }
+    // Guarda uma mensagem
+    function guardar(eu, texto) {
+      // Conversas
+      const todas = conversas();
+      // Junta a mensagem
+      todas[chave] = (todas[chave] || []).concat({ eu, texto, data: new Date().toISOString() });
+      // Salva
+      storage.set("sl-mensagens", todas);
+    }
+    // Formulário de enviar
+    const form = el("form", { class: "cm-chat-form" }, [
+      // Nome escondido
+      el("label", { class: "sr-only", for: "chat-texto", text: "Mensagem" }),
+      // Campo
+      el("input", { id: "chat-texto", type: "text", maxlength: 300, placeholder: `Mensagem para ${nome.split(" ")[0]}…`, autocomplete: "off" }),
+      // Botão
+      el("button", { type: "submit", class: "btn-primary", text: "Enviar" }),
+    ]);
+    // Quando envia...
+    form.addEventListener("submit", (e) => {
+      // ...impede a página de recarregar
+      e.preventDefault();
+      // ...campo
+      const campo = form.querySelector("input");
+      // ...texto
+      const texto = campo.value.trim();
+      // ...se vazio, para
+      if (!texto) return;
+      // ...guarda
+      guardar(true, texto);
+      // ...limpa
+      campo.value = "";
+      // ...desenha
+      desenhar();
+      // ...a outra pessoa "responde" em 1,5 segundo
+      setTimeout(() => {
+        // Resposta sorteada
+        guardar(false, respostas[Math.floor(Math.random() * respostas.length)]);
+        // Desenha
+        desenhar();
+        // Avisa quem abriu o chat (para atualizar listas)
+        if (aoEnviar) aoEnviar();
+      }, 1500);
+    });
+    // Abre o modal
+    openModal(nome, [lista, form]);
+    // Desenha
+    desenhar();
+    // Devolve uma função para mandar mensagem "da outra pessoa" (ex.: o personal mandando treino)
+    return (texto) => {
+      // Guarda como da outra pessoa
+      guardar(false, texto);
+      // Desenha
+      desenhar();
+    };
+  }
+
   /* ============================================
      CONFETE, NÚMEROS CONTANDO E MENU EM ÁREAS
      ============================================ */
@@ -1621,6 +1863,7 @@
     renderUsuario,
     confete,
     contarNumeros,
+    abrirChat,
     // SL.pagina(fn): roda fn quando o HTML da página terminar de carregar
     pagina(fn) {
       // (espera o DOMContentLoaded)

@@ -1,4 +1,4 @@
-// Profissionais: filtro por especialidade + seguir
+// Profissionais: filtros (especialidade, cidade, online), quem acompanha você, perfil e chat
 // Só continua se o núcleo do app (SL) foi carregado
 window.SL &&
   // Roda o código desta página quando ela estiver pronta
@@ -15,6 +15,43 @@ window.SL &&
     const filtros = document.querySelector('[data-render="pros-filtros"]');
     // Lista das especialidades, sem repetir nenhuma
     const especialidades = [...new Set(PROFISSIONAIS.map((p) => p.especialidade))];
+    // Caixa de cidade
+    const selCidade = document.querySelector('[data-render="pros-cidade"]');
+    // Caixinha de "só online"
+    const soOnline = document.querySelector('[data-render="pros-online"]');
+    // Preenche as cidades (sem repetir)
+    selCidade.replaceChildren(el("option", { value: "", text: "Todas as cidades" }), ...[...new Set(PROFISSIONAIS.map((p) => p.cidade))].map((c) => el("option", { value: c, text: c })));
+    // Mudar a cidade ou o "online" desenha de novo
+    [selCidade, soOnline].forEach((x) => x.addEventListener("change", render));
+
+    // Desenha "Quem acompanha você"
+    function renderMeus() {
+      // Nomes dos profissionais contratados
+      const meus = SL.storage.get("sl-meus-pros", []);
+      // Lugar da seção
+      const alvo = document.querySelector('[data-render="meus-pros"]');
+      // Se não tem nenhum, esconde
+      alvo.hidden = !meus.length;
+      // Troca o conteúdo
+      alvo.replaceChildren(
+        // Título
+        el("h2", { text: "Quem acompanha você" }),
+        // Lista
+        el("ul", { class: "meus-pros-lista" }, meus.map((nome) => {
+          // Profissional
+          const p = PROFISSIONAIS.find((x) => x.nome === nome);
+          // Item com bolinha, nome e botão de chat
+          return el("li", {}, [
+            // Bolinha
+            el("span", { class: "pro-avatar avatar-initials", "aria-hidden": "true", text: SL.initials(nome) }),
+            // Nome e especialidade
+            el("div", {}, [el("strong", { text: nome }), el("span", { class: "meta", text: p.especialidade })]),
+            // Chat
+            el("button", { type: "button", class: "btn-secondary", "data-action": "chat-pro", "data-nome": nome, text: "Conversar" }),
+          ]);
+        })),
+      );
+    }
 
     // Função que desenha filtros e cards na tela
     function render() {
@@ -36,10 +73,14 @@ window.SL &&
         ),
       );
 
-      // Separa só os profissionais da especialidade escolhida (ou todos)
-      const lista = PROFISSIONAIS.filter((p) => !especialidadeAtiva || p.especialidade === especialidadeAtiva);
+      // Separa os profissionais que passam nos filtros (especialidade, cidade e online)
+      const lista = PROFISSIONAIS.filter((p) => (!especialidadeAtiva || p.especialidade === especialidadeAtiva) && (!selCidade.value || p.cidade === selCidade.value) && (!soOnline.checked || p.online));
       // Mostra um card para cada profissional da lista
       grid.replaceChildren(...lista.map(SL.cardProfissional));
+      // Nenhum encontrado: mensagem
+      if (!lista.length) grid.append(SL.estadoVazio("Ninguém com esses filtros", "Tente outra cidade ou marque quem atende online.", null));
+      // Atualiza "Quem acompanha você"
+      renderMeus();
     }
 
     // Quando clicam em algum lugar da área de filtros...

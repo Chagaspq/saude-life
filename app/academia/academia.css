@@ -1,5 +1,297 @@
 /*
  * Estilos só da página Academia (app/academia/academia.html).
  * O que é comum a todas as páginas fica em ../comum/app.css.
- * Ainda vazio: escreva aqui o que for só desta página.
  */
+
+/* Botões "Sou aluno" / "Sou dono" (mesmo visual dos botões de visão das aulas) */
+.aulas-visao {
+  /* Flexbox, mas sem ocupar a linha toda */
+  display: inline-flex;
+  /* Espaço interno */
+  padding: 4px;
+  /* Espaço entre os botões */
+  gap: 4px;
+  /* Formato pílula */
+  border-radius: var(--radius-full);
+  /* Fundo dos cards */
+  background: var(--surface);
+  /* Borda fininha */
+  border: 1px solid var(--border);
+}
+
+/* Cada botão */
+.aulas-visao button {
+  /* Espaço interno */
+  padding: 8px 16px;
+  /* Sem borda */
+  border: 0;
+  /* Formato pílula */
+  border-radius: var(--radius-full);
+  /* Sem fundo */
+  background: transparent;
+  /* Cor apagada */
+  color: var(--muted);
+  /* Usa a mesma fonte do pai */
+  font: inherit;
+  /* Letra seminegrito */
+  font-weight: 600;
+  /* Mãozinha do mouse */
+  cursor: pointer;
+}
+
+/* Botão escolhido */
+.aulas-visao button.is-active {
+  /* Degradê coral */
+  background: var(--gradient-button);
+  /* Texto escuro */
+  color: var(--on-coral);
+}
+
+/* Grade da visão do aluno: lotação e check-in */
+.academia-grade {
+  /* Organiza em grade */
+  display: grid;
+  /* Lotação maior, check-in menor */
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  /* Espaço entre eles */
+  gap: var(--space-4);
+  /* Espaço embaixo */
+  margin-bottom: var(--space-6);
+}
+
+/* Cards da visão do aluno */
+.academia-card {
+  /* Espaço interno */
+  padding: 22px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-lg);
+  /* Borda fininha */
+  border: 1px solid var(--border);
+  /* Fundo dos cards */
+  background: var(--surface);
+}
+
+/* Número grande da lotação + texto */
+.lot-agora {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Alinhados pela base do texto */
+  align-items: baseline;
+  /* Espaço entre eles */
+  gap: 12px;
+  /* Margem em cima e embaixo */
+  margin: 10px 0;
+}
+
+/* Porcentagem */
+.lot-agora strong {
+  /* Fonte de placar */
+  font-family: var(--font-placar);
+  /* Bem grande */
+  font-size: 48px;
+  /* Linha justa */
+  line-height: 1;
+}
+
+/* Texto "Cheia", "Tranquila"... */
+.lot-agora span {
+  /* Letra seminegrito */
+  font-weight: 600;
+  /* Tamanho da letra: 18 pixels */
+  font-size: 18px;
+}
+
+/* Cores por nível de lotação */
+.lot-agora.is-vazia {
+  /* Esmeralda */
+  color: var(--emerald);
+}
+
+/* Movimentada */
+.lot-agora.is-media {
+  /* Amarelo */
+  color: var(--warning);
+}
+
+/* Cheia */
+.lot-agora.is-cheia {
+  /* Coral */
+  color: var(--coral-light);
+}
+
+/* Fechada */
+.lot-agora.is-fechada {
+  /* Apagada */
+  color: var(--muted);
+}
+
+/* Frase do melhor horário */
+.lot-melhor {
+  /* Margem embaixo */
+  margin: 0 0 14px;
+}
+
+/* Gráfico das horas */
+.lot-grafico {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Barras alinhadas embaixo */
+  align-items: flex-end;
+  /* Espaço entre as barras */
+  gap: 4px;
+  /* Altura do gráfico */
+  height: 120px;
+}
+
+/* Cada hora: barra + rótulo */
+.lot-barra {
+  /* Divide o espaço igual */
+  flex: 1;
+  /* Altura: a toda */
+  height: 100%;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Barra embaixo */
+  justify-content: flex-end;
+  /* Centralizados */
+  align-items: center;
+  /* Espaço entre a barra e o rótulo */
+  gap: 4px;
+}
+
+/* A barra em si */
+.lot-barra span {
+  /* Largura: a toda */
+  width: 100%;
+  /* Cantos de cima arredondados */
+  border-radius: 4px 4px 2px 2px;
+  /* Cor de card mais clara */
+  background: var(--surface-3);
+  /* Animação de crescer */
+  animation: lot-crescer 0.8s var(--ease-out) both;
+  /* Cresce a partir de baixo */
+  transform-origin: bottom;
+}
+
+/* Rótulo da hora */
+.lot-barra small {
+  /* Letra pequena */
+  font-size: 10px;
+  /* Cor apagada */
+  color: var(--muted);
+  /* Altura fixa (alinha mesmo sem texto) */
+  height: 12px;
+}
+
+/* Hora de agora: coral */
+.lot-barra.is-agora span {
+  /* Coral */
+  background: var(--coral);
+}
+
+/* Melhor horário: esmeralda */
+.lot-barra.is-melhor span {
+  /* Esmeralda */
+  background: var(--emerald);
+}
+
+/* Animação: a barra cresce de baixo para cima */
+@keyframes lot-crescer {
+  /* Começo: sem altura */
+  from {
+    /* Achatada */
+    transform: scaleY(0);
+  }
+}
+
+/* Card do check-in: tudo centralizado */
+.academia-checkin {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Centralizados */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 10px;
+  /* Texto centralizado */
+  text-align: center;
+}
+
+/* QR code */
+.qr {
+  /* Largura de 170 pixels */
+  width: 170px;
+  /* Altura de 170 pixels */
+  height: 170px;
+  /* Espaço interno branco em volta */
+  padding: 10px;
+  /* Fundo branco */
+  background: #fff;
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Quadradinhos nítidos */
+  shape-rendering: crispEdges;
+}
+
+/* Formulário de publicar aviso (dono) */
+.academia-aviso-form {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Quebra linha se não couber */
+  flex-wrap: wrap;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 10px;
+  /* Margem em cima e embaixo */
+  margin: var(--space-6) 0;
+}
+
+/* Título do formulário ocupa a linha toda */
+.academia-aviso-form h2 {
+  /* Linha toda */
+  width: 100%;
+  /* Sem margem */
+  margin: 0;
+}
+
+/* Campo do aviso */
+.academia-aviso-form input {
+  /* Ocupa o espaço que sobra */
+  flex: 1;
+  /* Largura mínima */
+  min-width: 200px;
+  /* Espaço interno */
+  padding: 10px 14px;
+  /* Formato pílula */
+  border-radius: var(--radius-full);
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+  /* Cor principal do texto */
+  color: var(--ink);
+  /* Usa a mesma fonte do pai */
+  font: inherit;
+}
+
+/* Em telas de até 900 pixels (tablet e celular) */
+@media (max-width: 900px) {
+  /* Grade do aluno */
+  .academia-grade {
+    /* Uma coluna só */
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Se a pessoa pediu ao sistema para reduzir as animações */
+@media (prefers-reduced-motion: reduce) {
+  /* Barras da lotação */
+  .lot-barra span {
+    /* Sem animação */
+    animation: none;
+  }
+}

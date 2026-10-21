@@ -385,9 +385,18 @@
                 <!-- Texto de apoio abaixo do título -->
                 <p class="page-lead">Reserve sua vaga nas aulas coletivas da academia, sem fila.</p>
               </div>
+              <!-- Botões de visão: lista ou grade da semana -->
+              <div class="aulas-visao" role="group" aria-label="Como ver as aulas">
+                <!-- Lista (começa escolhida) -->
+                <button type="button" data-visao="lista" aria-pressed="true" class="is-active">Lista</button>
+                <!-- Grade da semana -->
+                <button type="button" data-visao="grade" aria-pressed="false">Grade da semana</button>
+              </div>
             </header>
-            <!-- Grade das aulas (preenchida pelo aulas.js) -->
+            <!-- Aulas em cards (preenchidas pelo aulas.js) -->
             <div class="cards-grid" data-render="aulas"></div>
+            <!-- Grade da semana, de segunda a domingo (preenchida pelo aulas.js) -->
+            <div class="aulas-grade" data-render="grade" hidden></div>
           </section>
         </main>
         <!-- Rodapé do app -->

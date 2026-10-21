@@ -672,56 +672,6 @@
   font-size: 13.5px;
 }
 
-/* Conversa no modal */
-.cm-chat {
-  /* Sem números */
-  list-style: none;
-  /* Margem embaixo */
-  margin: 0 0 12px;
-  /* Espaço interno */
-  padding: 4px;
-  /* Organiza os itens com flexbox */
-  display: flex;
-  /* Itens em coluna */
-  flex-direction: column;
-  /* Espaço entre as bolhas */
-  gap: 8px;
-  /* Altura mínima */
-  min-height: 160px;
-  /* Altura máxima (depois rola) */
-  max-height: 46vh;
-  /* Barra de rolagem se precisar */
-  overflow-y: auto;
-}
-
-/* Bolha de mensagem do amigo (à esquerda) */
-.cm-bolha {
-  /* Fica à esquerda */
-  align-self: flex-start;
-  /* Largura máxima */
-  max-width: 80%;
-  /* Espaço interno */
-  padding: 9px 14px;
-  /* Cantos arredondados (menos no canto de baixo à esquerda) */
-  border-radius: 16px 16px 16px 4px;
-  /* Fundo de card mais claro */
-  background: var(--surface-2);
-  /* Animação de entrada */
-  animation: cm-entrar 0.3s var(--ease-out) both;
-}
-
-/* Sua bolha (à direita, coral) */
-.cm-bolha.is-eu {
-  /* Fica à direita */
-  align-self: flex-end;
-  /* Cantos (menos no canto de baixo à direita) */
-  border-radius: 16px 16px 4px 16px;
-  /* Fundo em degradê coral */
-  background: var(--gradient-button);
-  /* Texto escuro */
-  color: var(--on-coral);
-}
-
 /* Em telas de até 640 pixels (celular) */
 @media (max-width: 640px) {
   /* Botões do perfil */

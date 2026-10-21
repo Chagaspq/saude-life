@@ -4244,3 +4244,317 @@ body[data-pagina]::before {
     width: 100%;
   }
 }
+
+/* ============================================
+   CHAT (usado na Comunidade e nos Profissionais)
+   ============================================ */
+
+/* Conversa no modal */
+.cm-chat {
+  /* Sem números */
+  list-style: none;
+  /* Margem embaixo */
+  margin: 0 0 12px;
+  /* Espaço interno */
+  padding: 4px;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço entre as bolhas */
+  gap: 8px;
+  /* Altura mínima */
+  min-height: 160px;
+  /* Altura máxima (depois rola) */
+  max-height: 46vh;
+  /* Barra de rolagem se precisar */
+  overflow-y: auto;
+}
+
+/* Bolha de mensagem do amigo (à esquerda) */
+.cm-bolha {
+  /* Fica à esquerda */
+  align-self: flex-start;
+  /* Largura máxima */
+  max-width: 80%;
+  /* Espaço interno */
+  padding: 9px 14px;
+  /* Cantos arredondados (menos no canto de baixo à esquerda) */
+  border-radius: 16px 16px 16px 4px;
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+  /* Animação de entrada */
+  animation: cm-entrar 0.3s var(--ease-out) both;
+}
+
+/* Sua bolha (à direita, coral) */
+.cm-bolha.is-eu {
+  /* Fica à direita */
+  align-self: flex-end;
+  /* Cantos (menos no canto de baixo à direita) */
+  border-radius: 16px 16px 4px 16px;
+  /* Fundo em degradê coral */
+  background: var(--gradient-button);
+  /* Texto escuro */
+  color: var(--on-coral);
+}
+
+/* Formulário de mandar mensagem */
+.cm-chat-form {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Espaço entre o campo e o botão */
+  gap: 8px;
+}
+
+/* Campo da mensagem */
+.cm-chat-form input {
+  /* Ocupa o espaço que sobra */
+  flex: 1;
+  /* Deixa encolher sem estourar */
+  min-width: 0;
+  /* Espaço interno */
+  padding: 10px 14px;
+  /* Formato pílula */
+  border-radius: var(--radius-full);
+  /* Borda */
+  border: 1px solid var(--border);
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+  /* Cor principal do texto */
+  color: var(--ink);
+  /* Usa a mesma fonte do pai */
+  font: inherit;
+}
+
+/* Animação: a bolha sobe um pouco e aparece */
+@keyframes cm-entrar {
+  /* Começo: mais baixa e invisível */
+  from {
+    /* Invisível */
+    opacity: 0;
+    /* 16 pixels para baixo */
+    transform: translateY(16px);
+  }
+}
+
+/* ============================================
+   PROFISSIONAIS: selo, perfil completo e estrelas
+   ============================================ */
+
+/* Selo de verificado ao lado da especialidade */
+.pro-verificado {
+  /* Esmeralda */
+  color: var(--emerald);
+  /* Negrito */
+  font-weight: 700;
+}
+
+/* Topo do perfil: bolinha e textos */
+.pro-perfil-topo {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 14px;
+}
+
+/* Textos do topo, um embaixo do outro */
+.pro-perfil-topo > div {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+  /* Espaço pequeno */
+  gap: 2px;
+}
+
+/* Registro verificado */
+.pro-registro {
+  /* Esmeralda */
+  color: var(--emerald);
+  /* Tamanho da letra: 13 pixels */
+  font-size: 13px;
+  /* Letra seminegrito */
+  font-weight: 600;
+}
+
+/* Linha de números (nota, seguidores, preço) */
+.pro-numeros {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Quebra linha se não couber */
+  flex-wrap: wrap;
+  /* Espaço entre eles */
+  gap: 8px;
+  /* Espaço embaixo */
+  margin-bottom: 14px;
+}
+
+/* Cada número numa pílula */
+.pro-numeros span {
+  /* Espaço interno */
+  padding: 6px 12px;
+  /* Formato pílula */
+  border-radius: var(--radius-full);
+  /* Fundo de card mais claro */
+  background: var(--surface-2);
+  /* Tamanho da letra: 13 pixels */
+  font-size: 13px;
+}
+
+/* Títulos dentro do perfil */
+.pro-titulo {
+  /* Margem em cima e embaixo */
+  margin: 18px 0 8px;
+  /* Tamanho da letra: 16 pixels */
+  font-size: 16px;
+}
+
+/* Estrelas de avaliação (da direita para a esquerda, para o :hover funcionar) */
+.estrelas {
+  /* Sem borda */
+  border: 0;
+  /* Sem margem */
+  margin: 0;
+  /* Sem espaço interno */
+  padding: 0;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Ordem invertida (5 a 1, mas aparece 1 a 5) */
+  flex-direction: row-reverse;
+  /* Alinhadas à esquerda */
+  justify-content: flex-end;
+  /* Espaço entre elas */
+  gap: 4px;
+}
+
+/* Pergunta das estrelas */
+.estrelas legend {
+  /* Espaço embaixo */
+  margin-bottom: 6px;
+  /* Letra seminegrito */
+  font-weight: 600;
+}
+
+/* Bolinha escondida de cada estrela */
+.estrelas input {
+  /* Solta */
+  position: absolute;
+  /* Invisível */
+  opacity: 0;
+}
+
+/* Desenho da estrela */
+.estrelas label span[aria-hidden] {
+  /* Tamanho */
+  font-size: 30px;
+  /* Apagada */
+  color: var(--surface-3);
+  /* Mãozinha do mouse */
+  cursor: pointer;
+  /* Mudança suave */
+  transition: color var(--dur-fast), transform var(--dur-fast);
+}
+
+/* Estrela escolhida e as anteriores (que vêm depois no HTML) ficam douradas */
+.estrelas label:has(input:checked) span[aria-hidden],
+.estrelas label:has(input:checked) ~ label span[aria-hidden],
+.estrelas label:hover span[aria-hidden],
+.estrelas label:hover ~ label span[aria-hidden] {
+  /* Amarelo das estrelas */
+  color: var(--star);
+}
+
+/* Estrela focada pelo teclado */
+.estrelas input:focus-visible + span {
+  /* Contorno coral */
+  outline: 2px solid var(--coral);
+}
+
+/* "Quem acompanha você" */
+.meus-pros {
+  /* Espaço embaixo */
+  margin-bottom: var(--space-6);
+}
+
+/* Lista de quem acompanha */
+.meus-pros-lista {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Sem margem */
+  margin: 10px 0 0;
+  /* Sem espaço interno */
+  padding: 0;
+  /* Organiza em grade */
+  display: grid;
+  /* Quantas colunas couberem, no mínimo 260 pixels */
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  /* Espaço entre eles */
+  gap: 10px;
+}
+
+/* Cada profissional que acompanha */
+.meus-pros-lista li {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço entre eles */
+  gap: 12px;
+  /* Espaço interno */
+  padding: 12px 14px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Borda esmeralda */
+  border: 1px solid var(--emerald-dark);
+  /* Fundo dos cards */
+  background: var(--surface);
+}
+
+/* Nome e especialidade */
+.meus-pros-lista li > div {
+  /* Ocupa o espaço que sobra */
+  flex: 1;
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna */
+  flex-direction: column;
+}
+
+/* Bolinha menor na lista */
+.meus-pros-lista .pro-avatar {
+  /* Largura de 40 pixels */
+  width: 40px;
+  /* Altura de 40 pixels */
+  height: 40px;
+  /* Letra menor */
+  font-size: 14px;
+}
+
+/* Filtros extras dos profissionais */
+.pros-filtros-extra {
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Espaço embaixo */
+  margin-bottom: var(--space-4);
+}
+
+/* Bolinha do profissional no topo do perfil */
+.pro-perfil-topo .pro-avatar {
+  /* Organiza com grade (centraliza as letras) */
+  display: grid;
+  /* Centraliza */
+  place-items: center;
+  /* Largura de 56 pixels */
+  width: 56px;
+  /* Altura de 56 pixels */
+  height: 56px;
+  /* Não deixa encolher */
+  flex-shrink: 0;
+  /* Redonda */
+  border-radius: 50%;
+  /* Letra de 18 pixels */
+  font-size: 18px;
+}
