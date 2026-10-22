@@ -332,12 +332,32 @@
   border: 1px solid var(--border);
   /* Fundo de card mais claro */
   background: var(--surface-2);
-  /* Tamanho do emoji */
-  font-size: 18px;
+  /* Centraliza o ícone */
+  display: inline-grid;
+  /* No meio */
+  place-items: center;
+  /* Cor do ícone */
+  color: var(--muted);
   /* Mãozinha do mouse */
   cursor: pointer;
   /* Cresce suavemente */
   transition: transform var(--dur-fast), border-color var(--dur-fast), background var(--dur-fast);
+}
+
+/* Ícone dentro da reação */
+.cm-reacao .icon {
+  /* Tamanho do ícone */
+  width: 18px;
+  /* Tamanho do ícone */
+  height: 18px;
+}
+
+/* Ícone dentro da reação */
+.cm-reacao .icon {
+  /* Tamanho do ícone */
+  width: 18px;
+  /* Tamanho do ícone */
+  height: 18px;
 }
 
 /* Reação com o mouse em cima: cresce um pouco */
@@ -352,6 +372,8 @@
   background: var(--coral-dim);
   /* Borda coral */
   border-color: var(--coral);
+  /* Ícone coral */
+  color: var(--coral-light);
   /* Animação de pulo */
   animation: cm-pulo 0.4s var(--ease-out);
 }

@@ -416,7 +416,7 @@ window.SL &&
       // Ganha os pontos de recorde (uma vez por exercício neste treino; já solta confete)
       if (SL.pontos) SL.pontos.ganhar("recorde", `recorde:${estado.inicio}:${i}`, { origem });
       // Avisa
-      SL.toast(`Novo recorde no ${e.nome}: ${SL.num(serie.carga, serie.carga % 1 ? 1 : 0)} kg! 🏆`);
+      SL.toast(`Novo recorde no ${e.nome}: ${SL.num(serie.carga, serie.carga % 1 ? 1 : 0)} kg!`);
     }
 
     // Edição de reps e carga: vale para a série e para as próximas ainda não feitas
@@ -826,25 +826,25 @@ window.SL &&
       ]);
     });
 
-    // Pergunta "Como foi o treino?" com 4 emojis; a resposta ajusta a sugestão de carga da próxima vez
+    // Pergunta "Como foi o treino?" com 4 níveis (barrinhas de intensidade); a resposta ajusta a sugestão de carga da próxima vez
     function perguntaEsforco() {
       // Opções
       const opcoes = [
         // Fácil
-        { id: "facil", emoji: "😎", nome: "Fácil" },
+        { id: "facil", nivel: 1, nome: "Fácil" },
         // Ok
-        { id: "ok", emoji: "🙂", nome: "Na medida" },
+        { id: "ok", nivel: 2, nome: "Na medida" },
         // Pesado
-        { id: "pesado", emoji: "😤", nome: "Pesado" },
+        { id: "pesado", nivel: 3, nome: "Pesado" },
         // Muito pesado
-        { id: "muito", emoji: "🥵", nome: "Muito pesado" },
+        { id: "muito", nivel: 4, nome: "Muito pesado" },
       ];
       // Caixa da pergunta
       const caixa = el("fieldset", { class: "esforco" }, [
         // Pergunta
         el("legend", { text: "Como foi o treino?" }),
         // Um botão para cada opção
-        ...opcoes.map((o) => el("button", { type: "button", "data-esforco": o.id, "aria-pressed": "false" }, [el("span", { class: "esforco-emoji", "aria-hidden": "true", text: o.emoji }), o.nome])),
+        ...opcoes.map((o) => el("button", { type: "button", "data-esforco": o.id, "aria-pressed": "false" }, [el("span", { class: `esforco-barras nivel-${o.nivel}`, "aria-hidden": "true" }, [1, 2, 3, 4].map(() => el("i", {}))), o.nome])),
       ]);
       // Quando escolhe...
       caixa.addEventListener("click", (ev) => {
@@ -867,7 +867,7 @@ window.SL &&
         // Salva o histórico
         storage.set("sl-historico", hist);
         // ...e agradece
-        SL.toast(b.dataset.esforco === "facil" ? "Anotado! Na próxima a gente sobe a carga 💪" : b.dataset.esforco === "muito" ? "Anotado! Na próxima a gente alivia um pouco." : "Anotado! Valeu por contar.");
+        SL.toast(b.dataset.esforco === "facil" ? "Anotado! Na próxima a gente sobe a carga." : b.dataset.esforco === "muito" ? "Anotado! Na próxima a gente alivia um pouco." : "Anotado! Valeu por contar.");
       });
       // Devolve a caixa
       return caixa;

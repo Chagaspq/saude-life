@@ -17,8 +17,8 @@
       slug: "como-subir-carga",
       // Assunto (usado no filtro)
       assunto: "Treino",
-      // Emoji da capa
-      emoji: "🏋️",
+      // Ícone da capa
+      icone: "haltere",
       // Título
       titulo: "Quando (e quanto) subir a carga",
       // Resumo do card
@@ -44,8 +44,8 @@
       slug: "agachamento-sem-dor",
       // Assunto
       assunto: "Treino",
-      // Emoji
-      emoji: "🦵",
+      // Ícone da capa
+      icone: "joelho",
       // Título
       titulo: "Agachamento sem dor no joelho",
       // Resumo
@@ -72,8 +72,8 @@
       slug: "marmita-da-semana",
       // Assunto
       assunto: "Alimentação",
-      // Emoji
-      emoji: "🍱",
+      // Ícone da capa
+      icone: "pote",
       // Título
       titulo: "Marmita da semana em 1 hora",
       // Resumo
@@ -99,8 +99,8 @@
       slug: "quanta-proteina",
       // Assunto
       assunto: "Alimentação",
-      // Emoji
-      emoji: "🥚",
+      // Ícone da capa
+      icone: "ovo",
       // Título
       titulo: "Quanta proteína eu preciso?",
       // Resumo
@@ -126,8 +126,8 @@
       slug: "agua-no-treino",
       // Assunto
       assunto: "Hábitos",
-      // Emoji
-      emoji: "💧",
+      // Ícone da capa
+      icone: "gota",
       // Título
       titulo: "Água: quanto beber e quando",
       // Resumo
@@ -153,8 +153,8 @@
       slug: "constancia",
       // Assunto
       assunto: "Hábitos",
-      // Emoji
-      emoji: "🔥",
+      // Ícone da capa
+      icone: "calendario",
       // Título
       titulo: "Constância vence motivação",
       // Resumo
@@ -171,7 +171,7 @@
         "## Treino ruim também conta",
         "Nos dias cansados, faça a versão curta: 15 minutos já mantêm a sequência viva.",
         "## Use a turma",
-        "Treinar com amigos, mesmo à distância, aumenta muito a chance de continuar. É por isso que o Saúde Life tem ranking, desafios e o botão de cutucar. 😉",
+        "Treinar com amigos, mesmo à distância, aumenta muito a chance de continuar. É por isso que o Saúde Life tem ranking, desafios e o botão de cutucar.",
       ],
     },
   ];
@@ -180,6 +180,49 @@
   const ASSUNTOS = ["Todos"].concat([...new Set(ARTIGOS.map((a) => a.assunto))]);
   // Assunto escolhido agora
   let filtro = "Todos";
+
+  // Desenhos dos ícones das capas (traços de 24 x 24, no estilo dos ícones do app)
+  const ICONES = {
+    // Haltere
+    haltere: ["M6 5v14", "M18 5v14", "M3 8v8", "M21 8v8", "M6 12h12"],
+    // Linha de movimento (articulação do joelho)
+    joelho: ["M22 12h-4l-3 9L9 3l-3 9H2"],
+    // Pote de marmita com tampa
+    pote: ["M4 10h16v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z", "M3 7h18v3H3z", "M10 4h4v3h-4z"],
+    // Ovo
+    ovo: ["M12 22c6.23-.05 7.87-5.57 7.5-10-.36-4.34-3.95-9.96-7.5-10-3.55.04-7.14 5.66-7.5 10-.37 4.43 1.27 9.95 7.5 10z"],
+    // Gota de água
+    gota: ["M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"],
+    // Calendário com check (constância)
+    calendario: ["M8 2v4", "M16 2v4", "M3 10h18", "M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z", "m9 16 2 2 4-4"],
+  };
+
+  // Monta a capa de um artigo: quadrado com o ícone do assunto
+  function capa(nome, classe) {
+    // Quadrado da capa
+    const caixa = criar("span", classe);
+    // Ícone só enfeita (o título já diz o assunto)
+    caixa.setAttribute("aria-hidden", "true");
+    // Endereço dos desenhos SVG
+    const NS = "http://www.w3.org/2000/svg";
+    // Desenho
+    const desenho = document.createElementNS(NS, "svg");
+    // Tamanho do desenho
+    desenho.setAttribute("viewBox", "0 0 24 24");
+    // Um traço para cada caminho
+    ICONES[nome].forEach((d) => {
+      // Traço
+      const traco = document.createElementNS(NS, "path");
+      // Caminho do traço
+      traco.setAttribute("d", d);
+      // Coloca no desenho
+      desenho.append(traco);
+    });
+    // Coloca o desenho na capa
+    caixa.append(desenho);
+    // Devolve
+    return caixa;
+  }
 
   // Cria um elemento: tag, classe e texto
   function criar(tag, classe, texto) {
@@ -232,10 +275,8 @@
         const card = criar("a", "blog-card");
         // Endereço do artigo
         card.href = `?a=${a.slug}`;
-        // Capa com emoji
-        const capa = criar("span", "blog-capa", a.emoji);
-        // Emoji é só enfeite
-        capa.setAttribute("aria-hidden", "true");
+        // Capa com o ícone do assunto
+        const capaCard = capa(a.icone, "blog-capa");
         // Assunto
         const tag = criar("span", "blog-tag", a.assunto);
         // Título
@@ -245,7 +286,7 @@
         // Autor e tempo de leitura
         const meta = criar("small", "blog-meta", `${a.autor} • ${a.minutos} min de leitura`);
         // Junta tudo
-        card.append(capa, tag, titulo, resumo, meta);
+        card.append(capaCard, tag, titulo, resumo, meta);
         // Ao clicar, abre sem recarregar a página
         card.addEventListener("click", (e) => {
           // Impede o link de recarregar
@@ -287,9 +328,7 @@
       abrir("", true);
     });
     // Capa grande
-    const capa = criar("span", "blog-capa blog-capa-grande", a.emoji);
-    // Emoji é só enfeite
-    capa.setAttribute("aria-hidden", "true");
+    const capaGrande = capa(a.icone, "blog-capa blog-capa-grande");
     // Título
     const titulo = criar("h1", "", a.titulo);
     // Autor e tempo
@@ -303,7 +342,7 @@
     // Leva ao cadastro
     cta.href = "../cadastro/cadastro.html";
     // Troca o conteúdo da leitura
-    caixa.replaceChildren(voltar, capa, titulo, meta, ...corpo, aviso, cta);
+    caixa.replaceChildren(voltar, capaGrande, titulo, meta, ...corpo, aviso, cta);
     // Leva o foco para o título (bom para teclado e leitor de tela)
     titulo.tabIndex = -1;
     // Foca

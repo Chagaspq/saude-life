@@ -24,21 +24,21 @@ window.SL &&
     // Reações possíveis nos treinos
     const REACOES = [
       // Fogo
-      { id: "fogo", emoji: "🔥", nome: "Fogo" },
+      { id: "fogo", icone: "fogo", nome: "Fogo" },
       // Palmas
-      { id: "palmas", emoji: "👏", nome: "Palmas" },
+      { id: "palmas", icone: "joinha", nome: "Joinha" },
       // Força
-      { id: "forca", emoji: "💪", nome: "Força" },
+      { id: "forca", icone: "haltere", nome: "Força" },
     ];
 
     // Respostas automáticas dos amigos no chat (simuladas)
     const RESPOSTAS = [
       // Resposta 1
-      "Boraaa! Hoje é dia de treino 💪",
+      "Bora! Hoje é dia de treino.",
       // Resposta 2
       "Fechou! Te encontro na academia às 18h?",
       // Resposta 3
-      "Valeu pela força! Bati minha meta hoje 🔥",
+      "Valeu pela força! Bati minha meta hoje.",
       // Resposta 4
       "Tô dentro! Me chama no próximo desafio.",
       // Resposta 5
@@ -261,9 +261,8 @@ window.SL &&
                   "aria-pressed": String(minha === r.id),
                   // Nome para leitores de tela
                   "aria-label": `Reagir com ${r.nome}`,
-                  // Emoji
-                  text: r.emoji,
-                }),
+                  // Ícone da reação (desenhado em SVG)
+                }, [SL.icone(SL.ICONES[r.icone])]),
               ),
               // Total de reações (as dos outros + a sua)
               el("span", { class: "meta", text: `${p.outras + (minha ? 1 : 0)} reações` }),
@@ -400,7 +399,7 @@ window.SL &&
             el("div", { class: "cm-amigo-botoes" }, [
               // Cutucar (só para quem está parado há 2+ dias)
               parado >= 2
-                ? el("button", { type: "button", class: "btn-secondary", "data-action": "cutucar", "data-codigo": a.codigo, disabled: jaCutucou, text: jaCutucou ? "Cutucado ✓" : "👉 Bora treinar!" })
+                ? el("button", { type: "button", class: "btn-secondary", "data-action": "cutucar", "data-codigo": a.codigo, disabled: jaCutucou, text: jaCutucou ? "Cutucado ✓" : "Cutucar" })
                 : null,
               // Mandar mensagem
               el("button", { type: "button", class: "btn-icon btn-outline", "data-action": "abrir-chat", "data-codigo": a.codigo, "aria-label": `Mandar mensagem para ${a.nome}` }, [

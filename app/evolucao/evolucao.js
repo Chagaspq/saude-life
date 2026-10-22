@@ -442,8 +442,8 @@ window.SL &&
     function renderRecordes() {
       // Os 8 maiores
       const lista = listaRecordes().slice(0, 8);
-      // Medalhas dos 3 primeiros
-      const medalhas = ["🥇", "🥈", "🥉"];
+      // Classes das medalhas dos 3 primeiros (ouro, prata e bronze)
+      const medalhas = ["is-ouro", "is-prata", "is-bronze"];
       // Troca a lista
       $("recordes").replaceChildren(
         // Uma linha por recorde
@@ -451,7 +451,7 @@ window.SL &&
           // Linha
           el("li", {}, [
             // Medalha ou posição
-            el("span", { class: "ev-rec-pos", "aria-hidden": "true", text: medalhas[i] || `${i + 1}º` }),
+            el("span", { class: "ev-rec-pos " + (medalhas[i] || ""), "aria-hidden": "true" }, [medalhas[i] ? SL.icone(SL.ICONES.medalha) : `${i + 1}º`]),
             // Nome
             el("span", { class: "ev-rec-nome", text: r.nome }),
             // Etiqueta de recorde batido no app
@@ -659,14 +659,14 @@ window.SL &&
         // Quanto já andou (de 0 a 1)
         const pct = pesoInicio === m.peso ? 1 : Math.max(0, Math.min(1, (pesoInicio - pesoAtual) / (pesoInicio - m.peso)));
         // Cartão
-        cartoes.push(cartaoMeta("Peso", `${SL.num(pesoAtual, 1)} → ${SL.num(m.peso, 1)} kg`, pct, Math.abs(pesoAtual - m.peso) < 0.05 ? "Meta batida! 🎉" : `Faltam ${SL.num(Math.abs(pesoAtual - m.peso), 1)} kg`));
+        cartoes.push(cartaoMeta("Peso", `${SL.num(pesoAtual, 1)} → ${SL.num(m.peso, 1)} kg`, pct, Math.abs(pesoAtual - m.peso) < 0.05 ? "Meta batida!" : `Faltam ${SL.num(Math.abs(pesoAtual - m.peso), 1)} kg`));
       }
       // Meta de carga
       if (m.exercicio && m.carga) {
         // Quanto já andou
         const pct = Math.min(1, recorde / m.carga);
         // Cartão
-        cartoes.push(cartaoMeta(m.exercicio, `${kg(recorde)} → ${kg(m.carga)}`, pct, recorde >= m.carga ? "Meta batida! 🎉" : `Faltam ${kg(m.carga - recorde)}`));
+        cartoes.push(cartaoMeta(m.exercicio, `${kg(recorde)} → ${kg(m.carga)}`, pct, recorde >= m.carga ? "Meta batida!" : `Faltam ${kg(m.carga - recorde)}`));
       }
       // Meta de data
       if (dias != null) cartoes.push(cartaoMeta("Prazo", new Date(m.data).toLocaleDateString("pt-BR"), null, dias > 0 ? `Faltam ${dias} dias` : "Chegou o dia!"));
@@ -798,7 +798,7 @@ window.SL &&
         // Confere se salvou
         if (storage.get("sl-fotos", []).length !== fotos.length) SL.toast("Sem espaço no navegador para mais fotos. Apague uma antiga.");
         // Avisa
-        else SL.toast("Foto guardada só neste aparelho 🔒");
+        else SL.toast("Foto guardada só neste aparelho.");
         // Desenha
         renderFotos();
         // Limpa o campo
@@ -923,7 +923,7 @@ window.SL &&
         // Tela 4: volume
         { kicker: "Força", numero: `${SL.num(volume / 1000, 1)} t`, legenda: "levantadas no total", texto: "Isso é mais que um carro popular!" },
         // Tela 5: Pulso
-        { kicker: "Recado do Pulso", numero: "💪", legenda: SL.personagem ? SL.personagem.frase() : "Bora pra próxima!", texto: "" },
+        { kicker: "Recado do Pulso", numero: "Bora!", legenda: SL.personagem ? SL.personagem.frase() : "Bora pra próxima!", texto: "" },
       ]);
     });
 

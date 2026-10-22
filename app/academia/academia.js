@@ -145,7 +145,7 @@ window.SL &&
       // Guarda a data de agora
       storage.set("sl-checkins", checkins().concat(new Date().toISOString()));
       // Avisa
-      SL.toast("Check-in feito! Bom treino 💪");
+      SL.toast("Check-in feito. Bom treino!");
       // Desenha de novo
       renderAluno();
     });

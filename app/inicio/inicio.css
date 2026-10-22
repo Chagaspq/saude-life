@@ -337,10 +337,30 @@
     var(--surface);
 }
 
-/* Emoji do momento */
-.momento-emoji {
+/* Quadrado do ícone do momento */
+.momento-icone {
+  /* Centraliza o ícone */
+  display: grid;
+  /* No meio */
+  place-items: center;
+  /* Largura */
+  width: 48px;
+  /* Altura */
+  height: 48px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Fundo esmeralda fraco */
+  background: var(--emerald-soft);
+  /* Ícone esmeralda */
+  color: var(--emerald);
+}
+
+/* Ícone do momento */
+.momento-icone .icon {
   /* Tamanho */
-  font-size: 34px;
+  width: 24px;
+  /* Tamanho */
+  height: 24px;
 }
 
 /* Título do momento */

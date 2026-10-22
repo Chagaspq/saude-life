@@ -5190,6 +5190,12 @@ body[data-pagina]::before {
 
 /* Cada selo em destaque */
 .perfil-destaques li {
+  /* Ícone e nome lado a lado */
+  display: inline-flex;
+  /* Centralizados na altura */
+  align-items: center;
+  /* Espaço entre ícone e nome */
+  gap: 5px;
   /* Espaço interno */
   padding: 4px 10px;
   /* Pílula */
@@ -5202,4 +5208,12 @@ body[data-pagina]::before {
   font-size: var(--text-xs);
   /* Negrito */
   font-weight: 600;
+}
+
+/* Ícone da medalha nos selos em destaque */
+.perfil-destaques .icon {
+  /* Tamanho */
+  width: 14px;
+  /* Tamanho */
+  height: 14px;
 }

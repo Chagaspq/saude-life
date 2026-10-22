@@ -381,6 +381,34 @@
   width: 28px;
   /* Texto centralizado */
   text-align: center;
+  /* Cor do número */
+  color: var(--muted);
+}
+
+/* Ícone da medalha */
+.ev-rec-pos .icon {
+  /* Tamanho */
+  width: 20px;
+  /* Tamanho */
+  height: 20px;
+}
+
+/* Medalha de ouro */
+.ev-rec-pos.is-ouro {
+  /* Dourado */
+  color: var(--star);
+}
+
+/* Medalha de prata */
+.ev-rec-pos.is-prata {
+  /* Prateado */
+  color: #c4ccc8;
+}
+
+/* Medalha de bronze */
+.ev-rec-pos.is-bronze {
+  /* Bronze */
+  color: #d08a5a;
 }
 
 /* Nome do exercício */

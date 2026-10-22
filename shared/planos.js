@@ -44,7 +44,7 @@
         // Item 1
         "Acesso total à plataforma",
         // Item 2
-        "Treinos personalizados com IA",
+        "Treinos montados para o seu objetivo",
         // Item 3
         "Relatórios avançados de evolução",
         // Item 4

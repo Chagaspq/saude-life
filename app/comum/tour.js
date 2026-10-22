@@ -18,7 +18,7 @@
   // Passos do tour: alvo (lista de seletores, usa o primeiro visível), título e texto
   const PASSOS = [
     // Boas-vindas (sem alvo)
-    { titulo: "Oi! Eu sou o Pulso 👋", texto: "Vou ser seu parceiro de treino. Em 30 segundos te mostro como tudo funciona." },
+    { titulo: "Oi! Eu sou o Pulso", texto: "Vou ser seu parceiro de treino. Em 30 segundos te mostro como tudo funciona." },
     // Pontos
     { alvo: ['[data-render="pontos"]'], titulo: "Tudo vale ponto", texto: "Cada série, treino, refeição e copo d'água soma pontos. Quanto mais constante, mais pontos." },
     // Treino do dia
@@ -26,7 +26,7 @@
     // Ranking
     { alvo: ['.bottom-nav-link[data-pagina="ranking"]', '.sidebar-nav a[href*="ranking"]'], titulo: "Ranking da semana", texto: "Toda segunda o placar zera. Suba de liga: Bronze, Prata, Ouro e Diamante." },
     // Galera
-    { alvo: ['.bottom-nav-link[data-pagina="comunidade"]', '.sidebar-nav a[href*="comunidade"]'], titulo: "Traga a galera", texto: "Adicione amigos pelo código, crie desafios e mande um cutucão em quem sumiu. 😉" },
+    { alvo: ['.bottom-nav-link[data-pagina="comunidade"]', '.sidebar-nav a[href*="comunidade"]'], titulo: "Traga a galera", texto: "Adicione amigos pelo código, crie desafios e mande um cutucão em quem sumiu." },
     // Fim
     { titulo: "Bora pro primeiro treino?", texto: "Eu fico aqui no Início com um recado por dia. Bom treino!" },
   ];

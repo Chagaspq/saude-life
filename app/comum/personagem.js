@@ -73,7 +73,7 @@
     // Humor atual
     const h = humor();
     // Treinou hoje
-    if (h === "comemorando") return "Treino feito hoje! Tô orgulhoso de você. 🔥";
+    if (h === "comemorando") return "Treino feito hoje! Tô orgulhoso de você.";
     // Parado
     if (h === "cansado") return `Faz ${diasSemTreinar()} dias que a gente não treina… bora voltar devagarinho?`;
     // Número do dia no ano (para trocar a frase todo dia)
@@ -104,10 +104,10 @@
 
     // Aura girando (só no Diamante)
     if (liga >= 3) s.append(forma("circle", { cx: 60, cy: 78, r: 54, class: "pulso-aura" }));
-    // Estrelinhas dos selos em volta
+    // Bolinhas dos selos em volta
     [[18, 40], [102, 44], [12, 92], [108, 96], [60, 6]].slice(0, selos).forEach(([x, y], i) => {
-      // Estrela de 4 pontas
-      s.append(forma("path", { d: `M${x} ${y - 6} L${x + 1.6} ${y - 1.6} L${x + 6} ${y} L${x + 1.6} ${y + 1.6} L${x} ${y + 6} L${x - 1.6} ${y + 1.6} L${x - 6} ${y} L${x - 1.6} ${y - 1.6}Z`, class: "pulso-estrela", style: `animation-delay:${i * 0.4}s` }));
+      // Bolinha (uma para cada selo)
+      s.append(forma("circle", { cx: x, cy: y, r: 3, class: "pulso-estrela", style: `animation-delay:${i * 0.4}s` }));
     });
     // Sombra no chão
     s.append(forma("ellipse", { cx: 60, cy: 143, rx: 24, ry: 4.5, class: "pulso-sombra" }));

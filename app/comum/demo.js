@@ -53,7 +53,7 @@
       // ...séries feitas
       const series = 16 + (d % 4) * 2;
       // ...entra no histórico
-      historico.push({ treinoId: treino.id, nome: treino.nome, data: iso, duracao: 40 + (d % 3) * 8, series, volume: 3200 + d * 90, esforco: ["😮‍💨", "🙂", "💪"][d % 3] });
+      historico.push({ treinoId: treino.id, nome: treino.nome, data: iso, duracao: 40 + (d % 3) * 8, series, volume: 3200 + d * 90, esforco: ["facil", "ok", "pesado"][d % 3] });
       // ...pontos do treino
       eventos.push({ ref: "demo-treino:" + dia, tipo: "treino", pts: 50, data: iso });
       // ...pontos de 8 séries (o limite do dia segura o resto)

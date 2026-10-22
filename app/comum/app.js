@@ -990,6 +990,20 @@
     mais: ["M12 5v14", "M5 12h14"],
     // Sair
     sair: ["M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", "m16 17 5-5-5-5", "M21 12H9"],
+    // Sol (manhã)
+    sol: ["M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z", "M12 2v2", "M12 20v2", "m4.93 4.93 1.41 1.41", "m17.66 17.66 1.41 1.41", "M2 12h2", "M20 12h2", "m6.34 17.66-1.41 1.41", "m19.07 4.93-1.41 1.41"],
+    // Garfo e faca (refeição)
+    talheres: ["M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2", "M7 2v20", "M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"],
+    // Raio (energia)
+    raio: ["M13 2 3 14h9l-1 8 10-12h-9l1-8z"],
+    // Lua (noite)
+    lua: ["M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"],
+    // Cama (descanso)
+    cama: ["M2 4v16", "M2 8h18a2 2 0 0 1 2 2v10", "M2 17h20", "M6 8v9"],
+    // Medalha
+    medalha: ["M12 14a6 6 0 1 0 0-12 6 6 0 0 0 0 12z", "M15.48 12.89 17 22l-5-3-5 3 1.52-9.11"],
+    // Mão de joinha (aplauso)
+    joinha: ["M7 10v12", "M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"],
   };
 
   /* ============================================
@@ -1224,7 +1238,7 @@
       lista.push([`Ranking: você está em ${i + 1}º`, `${primeiro(acima.nome)} está ${acima.pts - ranking[i].pts} pontos na sua frente. Bora passar?`]);
     } else if (i === 0 && ranking[1]) {
       // Aviso de liderança
-      lista.push(["Você lidera o ranking! 🏆", `${primeiro(ranking[1].nome)} está ${ranking[0].pts - ranking[1].pts} pontos atrás. Não deixa chegar!`]);
+      lista.push(["Você lidera o ranking", `${primeiro(ranking[1].nome)} está ${ranking[0].pts - ranking[1].pts} pontos atrás. Não deixa chegar!`]);
     }
     // Situação da liga
     const s = P.situacaoDaLiga();
@@ -1237,7 +1251,7 @@
     // Amigo sorteado
     const amigo = amigos[Math.floor(P.sorteio(new Date().toDateString()) * amigos.length)];
     // Aviso do amigo
-    if (amigo) lista.push([`${primeiro(amigo.nome)} treinou hoje 💪`, "Manda um cutucão na Galera ou treina também para não ficar para trás."]);
+    if (amigo) lista.push([`${primeiro(amigo.nome)} treinou hoje`, "Manda um cutucão na Galera ou treina também para não ficar para trás."]);
     // Devolve
     return lista;
   }
@@ -1344,7 +1358,7 @@
     // ...plano escolhido (Free, Premium ou Academia)
     const plano = alvo.dataset.plano || "Premium";
     // Plano Academia: é vendido para a academia, não para a pessoa
-    if (plano === "Academia") return toast("O plano Academia é contratado pela sua academia. Fale com a recepção 😉");
+    if (plano === "Academia") return toast("O plano Academia é contratado pela sua academia. Fale com a recepção.");
     // Voltar para o Free
     if (plano === "Free")
       // Pede confirmação
@@ -1378,7 +1392,7 @@
         // ...comemora
         if (window.SL.confete) window.SL.confete();
         // ...avisa
-        toast("Premium ativado! 🎉");
+        toast("Premium ativado");
         // ...e recarrega para mostrar tudo
         setTimeout(() => window.location.reload(), 1200);
       },
@@ -1534,7 +1548,7 @@
         // ...salva
         storage.set("sl-treinos", treinos);
         // ...e avisa no chat
-        responder(`Pronto! Mandei o "Treino do ${p.nome.split(" ")[0]}" para os seus treinos. Qualquer dúvida, me chama aqui 💪`);
+        responder(`Pronto! Mandei o "Treino do ${p.nome.split(" ")[0]}" para os seus treinos. Qualquer dúvida, me chama aqui.`);
       }, 2000);
     } else {
       // Nutricionista: manda dicas de cardápio
@@ -1685,7 +1699,7 @@
             // Bolinha de cor
             el("span", { class: "perfil-opcao-cor", "aria-hidden": "true" }),
             // Nome
-            el("span", { class: "perfil-opcao-nome", text: bloqueada ? `${o.nome} ✦` : o.nome }),
+            el("span", { class: "perfil-opcao-nome", text: bloqueada ? `${o.nome} (Premium)` : o.nome }),
           ]);
         }),
       ),
@@ -2169,7 +2183,7 @@
   }
 
   // Avisa quando a internet cai e quando volta (o app continua funcionando offline)
-  window.addEventListener("offline", () => toast("Sem internet. Tudo continua funcionando e fica salvo aqui 📴"));
+  window.addEventListener("offline", () => toast("Sem internet. Tudo continua funcionando e fica salvo aqui."));
   // Quando a internet volta
   window.addEventListener("online", () => toast("Internet de volta ✓"));
 
@@ -2195,9 +2209,9 @@
     // Guarda a hora do aviso
     storage.set("sl-agua-aviso", agora);
     // Avisa na tela
-    toast("💧 Hora de beber água! Já faz 2 horas.");
+    toast("Hora de beber água. Já faz 2 horas.");
     // E também como notificação do sistema, se a pessoa deixou
-    if ("Notification" in window && Notification.permission === "granted") new Notification("Saúde Life", { body: "💧 Hora de beber água! Já faz 2 horas." });
+    if ("Notification" in window && Notification.permission === "granted") new Notification("Saúde Life", { body: "Hora de beber água. Já faz 2 horas." });
   }
 
   document.addEventListener("DOMContentLoaded", () => {

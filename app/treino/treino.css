@@ -1091,10 +1091,59 @@
   background: var(--coral-dim);
 }
 
-/* Emoji grande */
-.esforco-emoji {
-  /* Tamanho do emoji */
-  font-size: 26px;
+/* Barrinhas de intensidade (1 a 4) */
+.esforco-barras {
+  /* Barras lado a lado, alinhadas embaixo */
+  display: inline-flex;
+  /* Alinhadas embaixo */
+  align-items: flex-end;
+  /* Espaço entre as barras */
+  gap: 3px;
+  /* Altura da caixa */
+  height: 22px;
+}
+
+/* Cada barra */
+.esforco-barras i {
+  /* Largura */
+  width: 5px;
+  /* Cantos arredondados */
+  border-radius: 2px;
+  /* Cor apagada (barra vazia) */
+  background: var(--border-strong);
+}
+
+/* Alturas das barras: crescem da esquerda para a direita */
+.esforco-barras i:nth-child(1) {
+  /* Mais baixa */
+  height: 7px;
+}
+
+/* Segunda barra */
+.esforco-barras i:nth-child(2) {
+  /* Altura */
+  height: 12px;
+}
+
+/* Terceira barra */
+.esforco-barras i:nth-child(3) {
+  /* Altura */
+  height: 17px;
+}
+
+/* Quarta barra */
+.esforco-barras i:nth-child(4) {
+  /* Mais alta */
+  height: 22px;
+}
+
+/* Barras acesas conforme o nível (1 = fácil, 4 = muito pesado) */
+.esforco-barras.nivel-1 i:nth-child(-n + 1),
+.esforco-barras.nivel-2 i:nth-child(-n + 2),
+.esforco-barras.nivel-3 i:nth-child(-n + 3),
+.esforco-barras.nivel-4 i:nth-child(-n + 4) {
+  /* Coral */
+  background: var(--coral);
 }
 
 /* Em telas de até 640 pixels (celular) */

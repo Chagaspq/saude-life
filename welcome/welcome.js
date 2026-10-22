@@ -31,7 +31,7 @@
     // Escreve os pontos
     demo("pontos").textContent = pontos;
     // Texto conforme o progresso
-    demo("texto").textContent = feitas === 3 ? "Treino feito! Viu como é? Agora imagina isso valendo no ranking 🔥" : feitas ? `Boa! Faltam ${3 - feitas} série${3 - feitas > 1 ? "s" : ""}.` : "Toque no círculo de cada série 👇";
+    demo("texto").textContent = feitas === 3 ? "Treino feito! Agora imagina isso valendo no ranking." : feitas ? `Boa! Faltam ${3 - feitas} série${3 - feitas > 1 ? "s" : ""}.` : "Toque no círculo de cada série.";
   }
 
   // Mostra o "+10" saindo do botão

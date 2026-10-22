@@ -252,7 +252,7 @@
       // ...mostra o aviso
       cad("quiz").hidden = false;
       // ...com o resumo
-      cad("quiz").textContent = `✓ Seu treino para ${quiz.texto} (${quiz.nivel.toLowerCase()}) já fica salvo na conta.`;
+      cad("quiz").textContent = `Seu treino para ${quiz.texto} (${quiz.nivel.toLowerCase()}) já fica salvo na conta.`;
     }
 
     // Quando escolhem uma foto, diminui e mostra

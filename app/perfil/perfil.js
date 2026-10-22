@@ -31,7 +31,7 @@ window.SL &&
       // Pulso com a roupa escolhida, no canto do card
       if (SL.personagem) card.append(el("div", { class: "perfil-extra perfil-pulso" }, [SL.personagem.desenhar()]));
       // Selo do plano ao lado do nome
-      document.getElementById("heading-perfil").append(el("span", { class: `perfil-extra tag perfil-plano${SL.premium() ? " is-premium" : ""}`, text: SL.premium() ? "Premium ✦" : "Free" }));
+      document.getElementById("heading-perfil").append(el("span", { class: `perfil-extra tag perfil-plano${SL.premium() ? " is-premium" : ""}`, text: SL.premium() ? "Premium" : "Free" }));
       // Selos conquistados
       const selos = SL.pontos ? SL.pontos.selos().filter((x) => x.feito) : [];
       // Os escolhidos para destaque (só os que ainda valem)
@@ -40,7 +40,7 @@ window.SL &&
       if (escolhidos.length)
         // Lista de selos
         document.querySelector(".profile-info .bio").after(
-          el("ul", { class: "perfil-extra perfil-destaques", "aria-label": "Selos em destaque" }, escolhidos.map((x) => el("li", { title: x.texto, text: "🏅 " + x.nome }))),
+          el("ul", { class: "perfil-extra perfil-destaques", "aria-label": "Selos em destaque" }, escolhidos.map((x) => el("li", { title: x.texto }, [SL.icone(SL.ICONES.medalha), x.nome]))),
         );
     }
     // Desenha agora

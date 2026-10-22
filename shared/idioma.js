@@ -46,19 +46,19 @@
     // Topo
     "Seu parceiro de treino": "Your workout buddy", "Progresso de verdade, no seu ritmo.": "Real progress, at your pace.", "Criar minha conta": "Create my account", "Já tenho conta": "I have an account",
     // Demonstração
-    "Experimente agora, sem criar conta": "Try it now, no sign-up", "Agachamento livre": "Barbell squat", "Toque no círculo de cada série 👇": "Tap the circle of each set 👇",
+    "Experimente agora, sem criar conta": "Try it now, no sign-up", "Agachamento livre": "Barbell squat", "Toque no círculo de cada série.": "Tap the circle of each set.",
     // Séries
     "Série 1": "Set 1", "Série 2": "Set 2", "Série 3": "Set 3", "Série 4": "Set 4", "pontos": "points", "Séries de hoje": "Today's sets", "de 3": "of 3",
     // Marcar séries
     "Marcar a série 1 como feita": "Mark set 1 as done", "Marcar a série 2 como feita": "Mark set 2 as done", "Marcar a série 3 como feita": "Mark set 3 as done",
     // Texto da demonstração pronta
-    "Treino feito! Viu como é? Agora imagina isso valendo no ranking 🔥": "Workout done! See? Now imagine that counting on the leaderboard 🔥",
+    "Treino feito! Agora imagina isso valendo no ranking.": "Workout done! Now imagine that counting on the leaderboard.",
     // Peso
     "Peso": "Weight", "−4,0 kg em 12 semanas": "−4.0 kg in 12 weeks",
     // Números
     "Treinos registrados": "Workouts logged", "Profissionais verificados": "Verified professionals", "Avaliação média": "Average rating", "Saúde Life em números": "Saúde Life in numbers",
     // Aviso de exemplo
-    "Números de exemplo — o Saúde Life é um projeto de TCC.": "Sample numbers — Saúde Life is a final course project.",
+    "Números de exemplo. O Saúde Life é um projeto de TCC.": "Sample numbers. Saúde Life is a final course project.",
     // Questionário
     "Em 3 toques": "In 3 taps", "Bora ver como seria o seu treino?": "Want to see what your workout would look like?", "1. O que você quer?": "1. What do you want?",
     // Objetivos do questionário
@@ -72,7 +72,7 @@
     // Ranking de exemplo
     "Treinar junto rende mais": "Training together pays off", "Cada série vale ponto. A semana vira disputa.": "Every set earns points. The week becomes a match.",
     // Texto do ranking de exemplo
-    "Some pontos treinando, comendo bem e bebendo água. Suba de liga, ganhe selos e passe a galera no ranking — que zera toda segunda.": "Earn points by training, eating well and drinking water. Climb leagues, earn badges and pass your friends on the leaderboard — it resets every Monday.",
+    "Some pontos treinando, comendo bem e bebendo água. Suba de liga, ganhe selos e passe a galera no ranking, que zera toda segunda.": "Earn points by training, eating well and drinking water. Climb leagues, earn badges and pass your friends on the leaderboard, which resets every Monday.",
     // Pódio
     "Você?": "You?", "Exemplo de pódio da semana": "Sample weekly podium", "Ligas": "Leagues",
     // Ligas
@@ -88,7 +88,7 @@
     // Recurso: aulas
     "Aulas na academia": "Gym classes", "Veja a grade da semana e reserve sua vaga sem fila e sem grupo de mensagem.": "See the weekly schedule and book your spot, no queues, no group chats.",
     // Como funciona
-    "Como funciona": "How it works", "Do primeiro clique ao primeiro resultado": "From first click to first result", "Comece em menos de 1 minuto": "Start in under 1 minute",
+    "Como funciona": "How it works", "Do primeiro clique ao primeiro resultado": "From first click to first result", "Comece em menos de 1 minuto": "Start in under 1 minute", "Crie sua conta, diga o que você quer (emagrecer, ganhar massa ou ter mais disposição) e comece a usar. Leva menos de um minuto.": "Create your account, tell us what you want (lose weight, build muscle or have more energy) and start using it. It takes less than a minute.", "A gente monta treinos e metas de acordo com sua rotina, seu nível e seu objetivo. Se precisar, um profissional ajusta com você.": "We build workouts and goals around your routine, level and goal. If needed, a professional fine-tunes them with you.",
     // Passos
     "Um plano com a sua cara": "A plan that fits you", "Veja o progresso acontecer": "Watch progress happen",
     // Texto do passo 3
@@ -110,7 +110,7 @@
     // Depoimento 3
     "“Minha nutricionista acompanha tudo pelo app. Ficou muito mais fácil seguir o plano.”": "“My nutritionist follows everything in the app. Sticking to the plan got much easier.”", "22 anos, saúde": "22, health",
     // Aviso de exemplo
-    "Depoimentos de exemplo — o Saúde Life é um projeto de TCC.": "Sample testimonials — Saúde Life is a final course project.",
+    "Depoimentos de exemplo. O Saúde Life é um projeto de TCC.": "Sample testimonials. Saúde Life is a final course project.",
     // Perguntas
     "Dúvidas": "Questions", "Perguntas frequentes": "FAQ", "O Saúde Life é gratuito?": "Is Saúde Life free?",
     // Resposta 1
@@ -140,7 +140,7 @@
     // Itens do Free
     "Treinos básicos da plataforma": "Basic platform workouts", "Acompanhamento simples de evolução": "Simple progress tracking", "Acesso à comunidade": "Community access", "Começar grátis": "Start free",
     // Itens do Premium
-    "Acesso total à plataforma": "Full platform access", "Treinos personalizados com IA": "AI-personalized workouts", "Relatórios avançados de evolução": "Advanced progress reports", "Suporte prioritário": "Priority support", "Assinar Premium": "Get Premium",
+    "Acesso total à plataforma": "Full platform access", "Treinos montados para o seu objetivo": "Workouts built around your goal", "Relatórios avançados de evolução": "Advanced progress reports", "Suporte prioritário": "Priority support", "Assinar Premium": "Get Premium",
     // Itens do Profissional
     "Profissional": "Professional", "Ferramentas pra personal trainers": "Tools for personal trainers", "Gestão de alunos e planos de treino": "Client and workout plan management", "Relatórios de desempenho dos alunos": "Client performance reports", "Assinar Pro": "Get Pro",
     // Itens do Academia
@@ -286,7 +286,7 @@
     // Grupos
     "Corpo inteiro": "Full body", "Inferiores": "Lower body", "Superiores": "Upper body", "Core": "Core",
     // Avisos
-    "Meta semanal em andamento": "Weekly goal in progress", "Meta semanal batida!": "Weekly goal reached!", "Fim de semana chegando": "Weekend's coming", "Você lidera o ranking! 🏆": "You're leading the leaderboard! 🏆",
+    "Meta semanal em andamento": "Weekly goal in progress", "Meta semanal batida!": "Weekly goal reached!", "Fim de semana chegando": "Weekend's coming", "Você lidera o ranking": "You're leading the leaderboard", "Cutucar": "Nudge", "Cutucado ✓": "Nudged ✓",
     // Avisos de amigos
     "Manda um cutucão na Galera ou treina também para não ficar para trás.": "Nudge them in Crew or train too so you don't fall behind.",
 
@@ -354,7 +354,7 @@
 
     // ---------- Tour ----------
     // Passos do tour
-    "Oi! Eu sou o Pulso 👋": "Hi! I'm Pulso 👋", "Vou ser seu parceiro de treino. Em 30 segundos te mostro como tudo funciona.": "I'll be your workout buddy. In 30 seconds I'll show you how it all works.",
+    "Oi! Eu sou o Pulso": "Hi! I'm Pulso", "Vou ser seu parceiro de treino. Em 30 segundos te mostro como tudo funciona.": "I'll be your workout buddy. In 30 seconds I'll show you how it all works.",
     // Passo 2
     "Tudo vale ponto": "Everything earns points", "Cada série, treino, refeição e copo d'água soma pontos. Quanto mais constante, mais pontos.": "Every set, workout, meal and glass of water adds points. The more consistent, the more points.",
     // Passo 3
@@ -362,7 +362,7 @@
     // Passo 4
     "Ranking da semana": "Weekly leaderboard", "Toda segunda o placar zera. Suba de liga: Bronze, Prata, Ouro e Diamante.": "Every Monday the scoreboard resets. Climb leagues: Bronze, Silver, Gold and Diamond.",
     // Passo 5
-    "Traga a galera": "Bring your crew", "Adicione amigos pelo código, crie desafios e mande um cutucão em quem sumiu. 😉": "Add friends by code, create challenges and nudge whoever disappeared. 😉",
+    "Traga a galera": "Bring your crew", "Adicione amigos pelo código, crie desafios e mande um cutucão em quem sumiu.": "Add friends by code, create challenges and nudge whoever disappeared.",
     // Passo 6
     "Bora pro primeiro treino?": "Ready for your first workout?", "Eu fico aqui no Início com um recado por dia. Bom treino!": "I'll be here on Home with a message every day. Have a great workout!",
     // Botões do tour
@@ -455,8 +455,8 @@
     [/^(.+) está (\d+) pontos na sua frente\. Bora passar\?$/, (m, q, n) => `${q} is ${n} points ahead of you. Let's pass them?`],
     // "Rafael está 85 pontos atrás. Não deixa chegar!"
     [/^(.+) está (\d+) pontos atrás\. Não deixa chegar!$/, (m, q, n) => `${q} is ${n} points behind. Don't let them catch up!`],
-    // "Camila treinou hoje 💪"
-    [/^(.+) treinou hoje 💪$/, (m, q) => `${q} trained today 💪`],
+    // "Camila treinou hoje"
+    [/^(.+) treinou hoje$/, (m, q) => `${q} trained today`],
     // "4 treinos por semana"
     [/^(\d+) treinos por semana$/, (m, n) => `${n} workouts per week`],
     // "25 de 25 treinos"
@@ -469,8 +469,8 @@
     [/^Boa! Faltam (\d+) séries?\.$/, (m, n) => `Nice! ${n} set${n === "1" ? "" : "s"} to go.`],
     // "Demonstração: +5 dias"
     [/^Demonstração: \+(\d+) dias?$/, (m, n) => `Demo: +${n} day${n === "1" ? "" : "s"}`],
-    // "Você subiu para a liga Ouro! 🎉"
-    [/^Você subiu para a liga (.+)! 🎉$/, (m, l) => `You moved up to the ${traduzir(l)} league! 🎉`],
+    // "Você subiu para a liga Ouro!"
+    [/^Você subiu para a liga (.+)!$/, (m, l) => `You moved up to the ${traduzir(l)} league!`],
     // "Página — Saúde Life" (títulos das abas do app)
     [/^(.+) — Saúde Life$/, (m, q) => `${traduzir(q)} — Saúde Life`],
     // "Saúde Life — Início"
