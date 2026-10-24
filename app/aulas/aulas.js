@@ -38,14 +38,20 @@ window.SL &&
       const naFila = espera().includes(aula.nome);
       // Nota que a pessoa deu (se deu)
       const minhaNota = notas()[aula.nome];
+      // Próxima vez que a aula acontece
+      const quando = SL.proximaAula(aula);
+      // Minutos até começar
+      const faltam = quando ? Math.round((quando - Date.now()) / 60000) : 9999;
       // Card da aula
       return el("article", { class: "challenge-card aula-card" + (reservado ? " is-reservada" : "") }, [
         // Nome da aula e nota média
         el("div", { class: "aula-topo" }, [el("h3", { text: aula.nome }), el("span", { class: "aula-nota", text: `★ ${SL.num(aula.nota, 1)}` })]),
         // Dia, hora e professor
         el("p", { class: "meta", text: `${aula.dia} • ${aula.hora} • ${aula.duracao} min • com ${aula.professor}` }),
-        // Sala
-        el("p", { class: "meta", text: aula.sala }),
+        // Sala (e se tem a opção online)
+        el("p", { class: "meta" }, [aula.sala, aula.online ? el("span", { class: "tag tag-success aula-online-tag", text: "Também online" }) : null]),
+        // Próxima aula
+        quando ? el("p", { class: "meta", text: `Próxima: ${faltam <= 0 ? "acontecendo agora" : quando.toLocaleDateString("pt-BR", { weekday: "long" }) + " às " + aula.hora}` }) : null,
         // Linha das vagas
         el("p", {
           // Fica coral quando a turma está lotada
@@ -53,6 +59,8 @@ window.SL &&
           // Texto: lotada (e a fila) ou quantas vagas sobram
           text: lotada ? (naFila ? `Turma lotada • você é o ${posicaoFila(aula.nome)}º da fila` : "Turma lotada") : `${vagas} de ${aula.total} vagas disponíveis`,
         }),
+        // Regra de cancelamento (quem reservou)
+        reservado ? el("p", { class: "meta aula-regra", text: faltam < 120 ? "Não dá mais para cancelar (menos de 2h para a aula)" : "Você pode cancelar até 2h antes. Avisamos 1h antes." }) : null,
         // Botões
         el("div", { class: "card-actions" }, [
           // Botão principal: reservar, cancelar, entrar ou sair da fila
@@ -66,6 +74,12 @@ window.SL &&
             // Texto do botão conforme a situação
             text: lotada ? (naFila ? "Sair da fila" : "Entrar na lista de espera") : reservado ? "Cancelar reserva" : "Reservar vaga (+30 pts)",
           }),
+          // Entrar na aula online (quem reservou; abre 15 min antes)
+          reservado && aula.online
+            ? faltam <= 15
+              ? el("a", { class: "btn-primary", href: aula.online, target: "_blank", rel: "noopener", text: "Entrar na aula online" })
+              : el("span", { class: "meta", text: "O link da aula online libera 15 min antes" })
+            : null,
           // Avaliar (só quem reservou)
           reservado ? el("button", { class: "btn-link", "data-action": "avaliar-aula", "data-nome": aula.nome, text: minhaNota ? `Sua nota: ${"★".repeat(minhaNota)}` : "Avaliar aula" }) : null,
         ]),
@@ -107,6 +121,15 @@ window.SL &&
     SL.acao("book-class", (btn) => {
       // ...pega o nome da aula do botão
       const nome = btn.dataset.nome;
+      // Se vai cancelar com menos de 2h para a aula, não deixa
+      if (reservas.includes(nome)) {
+        // Aula
+        const aula = AULAS.find((a) => a.nome === nome);
+        // Próxima vez
+        const quando = SL.proximaAula(aula);
+        // Menos de 2 horas: avisa e para
+        if (quando && quando - Date.now() < 2 * 3600000) return SL.toast("Só dá para cancelar até 2 horas antes da aula");
+      }
       // Se já estava reservada, tira da lista; se não, adiciona
       reservas = reservas.includes(nome) ? reservas.filter((r) => r !== nome) : reservas.concat(nome);
       // Salva a lista de reservas no navegador

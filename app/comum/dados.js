@@ -71,6 +71,7 @@
   };
 
   // Aulas da academia: dias (0 = segunda ... 6 = domingo), hora, duração, sala, vagas livres e total
+  // Aulas da academia (online = link da aula ao vivo pela internet, para quem não pode ir)
   const AULAS = [
     // Spinning com Carla Mendes, segunda e quarta às 07:00 (4 de 20 vagas livres)
     { nome: "Spinning", professor: "Carla Mendes", dia: "Seg e Qua", dias: [0, 2], hora: "07:00", duracao: 45, sala: "Sala bike", vagas: 4, total: 20, nota: 4.8 },
@@ -79,11 +80,11 @@
     // Funcional com Rafael Souza, segunda a sexta às 18:30
     { nome: "Funcional", professor: "Rafael Souza", dia: "Seg a Sex", dias: [0, 1, 2, 3, 4], hora: "18:30", duracao: 40, sala: "Área funcional", vagas: 9, total: 25, nota: 4.7 },
     // Yoga Flow com Marina Lima, sábado às 09:00
-    { nome: "Yoga Flow", professor: "Marina Lima", dia: "Sábado", dias: [5], hora: "09:00", duracao: 60, sala: "Estúdio 2", vagas: 6, total: 15, nota: 5.0 },
+    { nome: "Yoga Flow", professor: "Marina Lima", dia: "Sábado", dias: [5], hora: "09:00", duracao: 60, sala: "Estúdio 2", vagas: 6, total: 15, nota: 5.0, online: "https://meet.jit.si/saudelife-yoga-flow" },
     // HIIT Express com Carla Mendes, terça e quinta às 12:15
-    { nome: "HIIT Express", professor: "Carla Mendes", dia: "Ter e Qui", dias: [1, 3], hora: "12:15", duracao: 30, sala: "Área funcional", vagas: 2, total: 16, nota: 4.6 },
+    { nome: "HIIT Express", professor: "Carla Mendes", dia: "Ter e Qui", dias: [1, 3], hora: "12:15", duracao: 30, sala: "Área funcional", vagas: 2, total: 16, nota: 4.6, online: "https://meet.jit.si/saudelife-hiit-express" },
     // Alongamento com Marina Lima, quarta e sexta às 20:00
-    { nome: "Alongamento", professor: "Marina Lima", dia: "Qua e Sex", dias: [2, 4], hora: "20:00", duracao: 30, sala: "Estúdio 2", vagas: 10, total: 15, nota: 4.5 },
+    { nome: "Alongamento", professor: "Marina Lima", dia: "Qua e Sex", dias: [2, 4], hora: "20:00", duracao: 30, sala: "Estúdio 2", vagas: 10, total: 15, nota: 4.5, online: "https://meet.jit.si/saudelife-alongamento" },
     // Dança com Carla Mendes, sábado às 10:30 (lotada)
     { nome: "Dança Fit", professor: "Carla Mendes", dia: "Sábado", dias: [5], hora: "10:30", duracao: 50, sala: "Estúdio 1", vagas: 0, total: 25, nota: 4.9 },
   ];

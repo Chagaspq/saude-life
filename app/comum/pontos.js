@@ -45,6 +45,8 @@
     sono: 10,
     // Missão do dia cumprida
     missao: 15,
+    // Entrar pelo convite de um amigo (uma vez só)
+    convite: 50,
   };
 
   // Nome de cada tipo de ponto, para mostrar no histórico
@@ -71,6 +73,8 @@
     sono: "Noite bem dormida (7h+)",
     // Missão
     missao: "Missão do dia",
+    // Convite
+    convite: "Entrou por convite",
     // Treino dos dados de exemplo
     exemplo: "Treino (exemplo)",
   };

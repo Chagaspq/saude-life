@@ -5622,3 +5622,242 @@ body[data-pagina]::before {
   /* Ruivo */
   background: #b5492a;
 }
+
+/* ---------- Chat: treino, figurinha e áudio ---------- */
+
+/* Botões de anexar */
+.chat-anexos {
+  /* Lado a lado */
+  display: flex;
+  /* Quebra linha */
+  flex-wrap: wrap;
+  /* Espaço */
+  gap: 6px;
+  /* Espaço */
+  margin: 8px 0;
+}
+
+/* Botão pequeno */
+.btn-sm {
+  /* Menos espaço interno */
+  padding: 6px 12px;
+  /* Letra menor */
+  font-size: var(--text-sm);
+}
+
+/* Caixa de opções (treinos ou figurinhas) */
+.chat-extras {
+  /* Lado a lado */
+  display: flex;
+  /* Quebra linha */
+  flex-wrap: wrap;
+  /* Espaço */
+  gap: 6px;
+  /* Espaço interno */
+  padding: 8px;
+  /* Fundo */
+  background: var(--surface-2);
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+}
+
+/* Figurinha para escolher */
+.chat-figurinha-opcao {
+  /* Sem fundo */
+  background: none;
+  /* Sem borda */
+  border: 1px solid transparent;
+  /* Cantos */
+  border-radius: var(--radius-sm);
+  /* Mãozinha */
+  cursor: pointer;
+  /* Espaço */
+  padding: 2px;
+}
+
+/* Figurinha com mouse */
+.chat-figurinha-opcao:hover {
+  /* Borda coral */
+  border-color: var(--coral-light);
+}
+
+/* Desenho da figurinha (na escolha e na conversa) */
+.chat-figurinha-opcao svg,
+.cm-bolha.is-figurinha svg {
+  /* Largura */
+  width: 60px;
+  /* Altura proporcional */
+  height: auto;
+}
+
+/* Bolha da figurinha sem fundo */
+.cm-bolha.is-figurinha {
+  /* Sem fundo */
+  background: transparent;
+}
+
+/* Cartão do treino enviado */
+.chat-treino {
+  /* Coluna */
+  display: grid;
+  /* Espaço */
+  gap: 2px;
+}
+
+/* Link do treino */
+.chat-treino a {
+  /* Cor do texto da bolha */
+  color: inherit;
+  /* Negrito */
+  font-weight: 600;
+}
+
+/* Áudio */
+.chat-audio {
+  /* Lado a lado */
+  display: flex;
+  /* Alinhados */
+  align-items: center;
+  /* Espaço */
+  gap: 8px;
+  /* Largura mínima */
+  min-width: 160px;
+}
+
+/* Botão de tocar */
+.chat-audio-play {
+  /* Redondo */
+  width: 28px;
+  /* Redondo */
+  height: 28px;
+  /* Redondo */
+  border-radius: 50%;
+  /* Sem borda */
+  border: 0;
+  /* Fundo claro */
+  background: var(--ink);
+  /* Ícone escuro */
+  color: var(--bg);
+  /* Mãozinha */
+  cursor: pointer;
+}
+
+/* Trilho do áudio */
+.chat-audio-barra {
+  /* Ocupa o espaço */
+  flex: 1;
+  /* Altura */
+  height: 4px;
+  /* Fundo */
+  background: rgba(127, 127, 127, 0.35);
+  /* Pontas redondas */
+  border-radius: 4px;
+  /* Esconde o que passar */
+  overflow: hidden;
+}
+
+/* Parte que enche */
+.chat-audio-barra i {
+  /* Bloco */
+  display: block;
+  /* Altura toda */
+  height: 100%;
+  /* Começa vazia */
+  width: 0;
+  /* Cor do texto da bolha */
+  background: currentColor;
+}
+
+/* ---------- Stories: modelos da imagem ---------- */
+
+/* Grupo de modelos */
+.st-modelos {
+  /* Lado a lado */
+  display: flex;
+  /* Espaço */
+  gap: 8px;
+  /* Espaço */
+  margin: 12px 0;
+}
+
+/* Botão de um modelo */
+.st-modelo {
+  /* Divide o espaço */
+  flex: 1;
+  /* Espaço interno */
+  padding: 8px;
+  /* Cantos */
+  border-radius: var(--radius-sm);
+  /* Borda */
+  border: 2px solid var(--border);
+  /* Negrito */
+  font-weight: 600;
+  /* Mãozinha */
+  cursor: pointer;
+}
+
+/* Modelo escuro */
+.st-modelo-escuro {
+  /* Fundo */
+  background: #0e1512;
+  /* Texto */
+  color: #f4f1ea;
+}
+
+/* Modelo claro */
+.st-modelo-claro {
+  /* Fundo */
+  background: #f6f3ec;
+  /* Texto */
+  color: #16201b;
+}
+
+/* Modelo coral */
+.st-modelo-coral {
+  /* Fundo */
+  background: #c96a43;
+  /* Texto */
+  color: #fffaf5;
+}
+
+/* Modelo escolhido */
+.st-modelo[aria-pressed="true"] {
+  /* Borda esmeralda */
+  border-color: var(--emerald);
+  /* Anel em volta */
+  box-shadow: 0 0 0 2px var(--emerald-soft);
+}
+
+/* Preço no card do profissional */
+.pro-preco {
+  /* Coral claro */
+  color: var(--coral-light);
+  /* Negrito */
+  font-weight: 600;
+  /* Letra menor */
+  font-size: var(--text-sm);
+  /* Sem margem */
+  margin: 0;
+}
+
+/* Link do Google Maps no perfil do profissional */
+.pro-mapa-link {
+  /* Esmeralda */
+  color: var(--emerald);
+  /* Letra menor */
+  font-size: var(--text-sm);
+  /* Negrito */
+  font-weight: 600;
+}
+
+/* Nome em cima, detalhe embaixo (usado em listas de pessoas em várias páginas) */
+.cm-amigo-info {
+  /* Ocupa o espaço que sobra */
+  flex: 1;
+  /* Coluna */
+  display: flex;
+  /* Coluna */
+  flex-direction: column;
+  /* Deixa encolher sem estourar */
+  min-width: 0;
+}

@@ -295,3 +295,138 @@
     animation: none;
   }
 }
+
+/* ---------- Horário, aparelhos e painel do dono ---------- */
+
+/* Aberta ou fechada */
+.ac-aberta {
+  /* Negrito */
+  font-weight: 700;
+  /* Espaço */
+  margin: 4px 0 12px;
+}
+
+/* Aberta: esmeralda */
+.ac-aberta.is-aberta {
+  /* Cor */
+  color: var(--emerald);
+}
+
+/* Fechada: coral */
+.ac-aberta.is-fechada {
+  /* Cor */
+  color: var(--coral-light);
+}
+
+/* Listas dos cards novos */
+.ac-horario,
+.ac-aparelhos,
+.ac-sumidos,
+.ac-desafios {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Sem espaço */
+  padding: 0;
+  /* Espaço */
+  margin: 0 0 12px;
+  /* Coluna */
+  display: grid;
+  /* Espaço */
+  gap: 6px;
+}
+
+/* Linhas: texto à esquerda, valor à direita */
+.ac-horario li,
+.ac-aparelhos li,
+.ac-sumidos li {
+  /* Lado a lado */
+  display: flex;
+  /* Nas pontas */
+  justify-content: space-between;
+  /* Alinhados */
+  align-items: center;
+  /* Espaço */
+  gap: 8px;
+}
+
+/* Dia de hoje destacado */
+.ac-horario li.is-hoje {
+  /* Esmeralda */
+  color: var(--emerald);
+  /* Negrito */
+  font-weight: 700;
+}
+
+/* Etiqueta de manutenção */
+.tag-warning {
+  /* Fundo amarelado */
+  background: rgba(245, 181, 68, 0.16);
+  /* Texto dourado */
+  color: var(--star);
+}
+
+/* Gráfico de frequência */
+.ac-freq {
+  /* Barras lado a lado */
+  display: flex;
+  /* Alinhadas embaixo */
+  align-items: flex-end;
+  /* Espaço */
+  gap: 4px;
+  /* Altura */
+  height: 140px;
+}
+
+/* Cada barra (coluna com a barra e o dia) */
+.ac-freq-barra {
+  /* Divide a largura */
+  flex: 1;
+  /* Coluna */
+  display: flex;
+  /* Coluna */
+  flex-direction: column;
+  /* Embaixo */
+  justify-content: flex-end;
+  /* Centralizado */
+  align-items: center;
+  /* Altura toda */
+  height: 100%;
+  /* Espaço */
+  gap: 4px;
+}
+
+/* Parte pintada */
+.ac-freq-barra span {
+  /* Largura toda */
+  width: 100%;
+  /* Esmeralda */
+  background: var(--emerald);
+  /* Cantos de cima */
+  border-radius: 4px 4px 1px 1px;
+  /* Altura mínima */
+  min-height: 4px;
+  /* Meio apagada */
+  opacity: 0.85;
+}
+
+/* Dia embaixo */
+.ac-freq-barra small {
+  /* Cor apagada */
+  color: var(--muted);
+  /* Letra pequena */
+  font-size: 10px;
+}
+
+/* Grade do dono: 3 cards */
+[data-render="dono-extra"] {
+  /* Colunas automáticas */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  /* Espaço em cima */
+  margin-top: var(--space-4);
+}
+
+/* Cards novos do aluno entram na grade de 2 colunas */
+.academia-aluno .academia-grade {
+  /* Quebra linha */
+  grid-auto-flow: row;
+}

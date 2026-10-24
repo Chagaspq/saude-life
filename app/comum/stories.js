@@ -13,8 +13,21 @@
   // Pega do núcleo o criador de elementos
   const { el } = SL;
 
+  // Modelos de imagem: fundo, brilhos, título, número e legenda
+  const MODELOS = {
+    // Escuro (verde-carvão, o padrão)
+    escuro: { nome: "Escuro", fundo: "#0e1512", brilho1: "240,132,90", brilho2: "79,194,154", titulo: "#f4f1ea", numero: "#f5a37f", legenda: "#a3b0a8" },
+    // Claro (creme)
+    claro: { nome: "Claro", fundo: "#f6f3ec", brilho1: "240,132,90", brilho2: "79,194,154", titulo: "#16201b", numero: "#c96a43", legenda: "#55615a" },
+    // Coral (fundo coral, números brancos)
+    coral: { nome: "Coral", fundo: "#c96a43", brilho1: "245,163,127", brilho2: "47,148,116", titulo: "#fffaf5", numero: "#ffffff", legenda: "#ffe3d6" },
+  };
+
   // Gera a imagem do resumo (1080 x 1920) com canvas e devolve como texto de imagem PNG
-  function imagem(titulo, telas) {
+  // modelo = "escuro", "claro" ou "coral"
+  function imagem(titulo, telas, modelo = "escuro") {
+    // Cores do modelo (se não existir, usa o escuro)
+    const m = MODELOS[modelo] || MODELOS.escuro;
     // Tela de desenho
     const c = document.createElement("canvas");
     // Largura de stories
@@ -23,16 +36,16 @@
     c.height = 1920;
     // Pincel
     const g = c.getContext("2d");
-    // Fundo verde-carvão
-    g.fillStyle = "#0e1512";
+    // Fundo do modelo
+    g.fillStyle = m.fundo;
     // Pinta o fundo
     g.fillRect(0, 0, 1080, 1920);
     // Brilho coral em cima
     const b1 = g.createRadialGradient(200, 200, 0, 200, 200, 900);
     // Cor do centro do brilho
-    b1.addColorStop(0, "rgba(240,132,90,0.35)");
+    b1.addColorStop(0, `rgba(${m.brilho1},0.35)`);
     // Cor da borda do brilho
-    b1.addColorStop(1, "rgba(240,132,90,0)");
+    b1.addColorStop(1, `rgba(${m.brilho1},0)`);
     // Usa o brilho
     g.fillStyle = b1;
     // Pinta
@@ -40,9 +53,9 @@
     // Brilho esmeralda embaixo
     const b2 = g.createRadialGradient(900, 1700, 0, 900, 1700, 900);
     // Cor do centro
-    b2.addColorStop(0, "rgba(79,194,154,0.28)");
+    b2.addColorStop(0, `rgba(${m.brilho2},0.28)`);
     // Cor da borda
-    b2.addColorStop(1, "rgba(79,194,154,0)");
+    b2.addColorStop(1, `rgba(${m.brilho2},0)`);
     // Usa o brilho
     g.fillStyle = b2;
     // Pinta
@@ -76,7 +89,7 @@
     // Texto centralizado
     g.textAlign = "center";
     // Cor do título
-    g.fillStyle = "#f4f1ea";
+    g.fillStyle = m.titulo;
     // Fonte do título
     g.font = "700 64px 'Barlow Semi Condensed', Barlow, sans-serif";
     // Título
@@ -86,13 +99,13 @@
     // Para cada tela (até 4)...
     telas.slice(0, 4).forEach((t) => {
       // ...número grande em coral
-      g.fillStyle = "#f5a37f";
+      g.fillStyle = m.numero;
       // Fonte de placar
       g.font = "700 120px 'Space Mono', monospace";
       // Escreve o número
       g.fillText(t.numero, 540, y);
       // ...legenda embaixo
-      g.fillStyle = "#a3b0a8";
+      g.fillStyle = m.legenda;
       // Fonte da legenda
       g.font = "500 42px Barlow, sans-serif";
       // Escreve a legenda
@@ -101,7 +114,7 @@
       y += 250;
     });
     // Marca no rodapé
-    g.fillStyle = "#f4f1ea";
+    g.fillStyle = m.titulo;
     // Fonte da marca
     g.font = "700 48px 'Barlow Semi Condensed', Barlow, sans-serif";
     // Nome
@@ -124,6 +137,29 @@
     const voltar = el("button", { type: "button", class: "st-lado st-voltar", "aria-label": "Tela anterior" });
     // Botão de avançar tela
     const avancar = el("button", { type: "button", class: "st-lado st-avancar", "aria-label": "Próxima tela" });
+    // Modelo escolhido (fica salvo para a próxima vez)
+    let modelo = SL.storage.get("sl-story-modelo", "escuro");
+    // Botões dos modelos de imagem
+    const modelos = el(
+      // Grupo
+      "div",
+      { class: "st-modelos", role: "group", "aria-label": "Modelo da imagem" },
+      // Um botão por modelo
+      Object.entries(MODELOS).map(([id, mo]) => el("button", { type: "button", class: "st-modelo st-modelo-" + id, "data-modelo": id, "aria-pressed": String(id === modelo), text: mo.nome })),
+    );
+    // Ao escolher um modelo, marca e salva
+    modelos.addEventListener("click", (e) => {
+      // Botão
+      const b = e.target.closest("[data-modelo]");
+      // Se não foi num botão, para
+      if (!b) return;
+      // Guarda o modelo
+      modelo = b.dataset.modelo;
+      // Salva
+      SL.storage.set("sl-story-modelo", modelo);
+      // Marca só o escolhido
+      modelos.querySelectorAll("[data-modelo]").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    });
     // Botão de baixar a imagem
     const baixar = el("button", { type: "button", class: "btn-primary btn-block", text: "Baixar imagem para postar" });
     // Caixa do stories
@@ -162,14 +198,14 @@
       // Link temporário
       const a = document.createElement("a");
       // Imagem
-      a.href = imagem(titulo, telas);
+      a.href = imagem(titulo, telas, modelo);
       // Nome do arquivo
       a.download = "saude-life-resumo.png";
       // Clica nele (baixa)
       a.click();
     });
     // Abre no modal
-    SL.openModal(titulo, [caixa, baixar]);
+    SL.openModal(titulo, [caixa, modelos, baixar]);
     // Para o temporizador quando o modal fecha
     const fechar = document.querySelector('[data-action="close-modal"]');
     // (uma vez só)
@@ -179,5 +215,5 @@
   }
 
   // Deixa disponível em SL.stories
-  SL.stories = { abrir, imagem };
+  SL.stories = { abrir, imagem, MODELOS };
 })();

@@ -29,6 +29,14 @@
     "Início": "Home", "Descobrir": "Discover", "Treinos": "Workouts", "Aulas": "Classes", "Alimentação": "Nutrition", "Evolução": "Progress", "Ranking": "Leaderboard",
     // Mais páginas do menu
     "Profissionais": "Professionals", "Academia": "Gym", "Salvos": "Saved", "Perfil": "Profile", "Galera": "Crew",
+    // Páginas e botões novos (comunidade, profissionais, academia e aulas)
+    "Área do profissional": "Pro area", "Grupos": "Groups", "Criar grupo": "Create group", "Treinando agora": "Training now", "Treinar junto": "Train together",
+    // Mais botões novos
+    "Montar treino": "Build workout", "Seus alunos": "Your clients", "Treinos enviados": "Sent workouts", "Sou profissional": "I'm a professional",
+    // Academia
+    "Horário de funcionamento": "Opening hours", "Aparelhos agora": "Equipment now", "Alunos sumidos": "Missing members", "Desafio da academia": "Gym challenge", "Mandar recado": "Send a note",
+    // Chat
+    "Treino": "Workout", "Figurinha": "Sticker", "Áudio (simulado)": "Audio (simulated)", "Mandar no WhatsApp": "Send on WhatsApp", "Copiar link": "Copy link", "Convidar amigo": "Invite friend",
     // Botões do topo do app
     "Configurações": "Settings", "Sair da conta": "Log out", "Abrir menu": "Open menu", "Abrir busca": "Open search", "Pesquisar": "Search",
     // Busca

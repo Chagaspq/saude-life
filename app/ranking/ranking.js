@@ -352,7 +352,7 @@ window.SL &&
     // Desenha a tabela de como ganhar pontos
     function renderTabela() {
       // Tipos na ordem da tabela
-      const tipos = ["serie", "treino", "refeicao", "proteina", "agua", "sono", "missao", "sequencia", "aula", "recorde", "metaSemana"];
+      const tipos = ["serie", "treino", "refeicao", "proteina", "agua", "sono", "missao", "sequencia", "aula", "recorde", "metaSemana", "convite"];
       // Troca a tabela
       $("tabela").replaceChildren(
         // Uma linha para cada tipo

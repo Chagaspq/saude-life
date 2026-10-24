@@ -1,5 +1,128 @@
 /*
  * Estilos só da página Profissionais (app/profissionais/profissionais.html).
  * O que é comum a todas as páginas fica em ../comum/app.css.
- * Ainda vazio: escreva aqui o que for só desta página.
  */
+
+/* Mapa das cidades */
+.pros-mapa {
+  /* Sem margem do navegador */
+  margin: 0 0 var(--space-4);
+  /* Fundo de card */
+  background: var(--surface);
+  /* Borda */
+  border: 1px solid var(--border);
+  /* Cantos */
+  border-radius: var(--radius-lg);
+  /* Espaço interno */
+  padding: var(--space-3);
+  /* Largura máxima */
+  max-width: 520px;
+}
+
+/* Desenho do mapa */
+.pros-mapa-svg {
+  /* Largura toda */
+  width: 100%;
+  /* Altura proporcional */
+  height: auto;
+  /* Sem quebra embaixo */
+  display: block;
+}
+
+/* Terra */
+.pros-mapa-terra {
+  /* Verde bem fraco */
+  fill: var(--emerald-soft);
+  /* Borda */
+  stroke: var(--border);
+  /* Grossura */
+  stroke-width: 1.5;
+}
+
+/* Linha da costa */
+.pros-mapa-costa {
+  /* Sem preenchimento */
+  fill: none;
+  /* Azul-esverdeado fraco */
+  stroke: rgba(79, 194, 154, 0.5);
+  /* Grossura */
+  stroke-width: 3;
+  /* Tracejado (as ondinhas) */
+  stroke-dasharray: 4 5;
+}
+
+/* Alfinete */
+.pros-pino {
+  /* Mãozinha */
+  cursor: pointer;
+}
+
+/* Gota do alfinete */
+.pros-pino path {
+  /* Coral */
+  fill: var(--coral);
+  /* Borda escura */
+  stroke: var(--bg);
+  /* Grossura */
+  stroke-width: 1.5;
+  /* Animação suave */
+  transition: fill 0.2s ease;
+}
+
+/* Número dentro do alfinete */
+.pros-pino text {
+  /* Branco */
+  fill: #fff;
+  /* Letra */
+  font: 700 11px var(--font-body);
+}
+
+/* Nome da cidade */
+.pros-pino .pros-pino-nome {
+  /* Cor do texto */
+  fill: var(--ink);
+  /* Letra */
+  font: 600 10px var(--font-body);
+}
+
+/* Cidade escolhida */
+.pros-pino.is-ativo path {
+  /* Esmeralda */
+  fill: var(--emerald);
+}
+
+/* Cidade sem ninguém com os filtros */
+.pros-pino.is-vazio {
+  /* Apagada */
+  opacity: 0.4;
+}
+
+/* Foco do teclado no alfinete */
+.pros-pino:focus-visible path {
+  /* Contorno */
+  stroke: var(--ink);
+  /* Mais grosso */
+  stroke-width: 3;
+}
+
+/* Tira o contorno padrão (já tem o de cima) */
+.pros-pino:focus {
+  /* Sem contorno */
+  outline: none;
+}
+
+/* Caixas de preço e ordem */
+.pros-filtros-extra select {
+  /* Fundo */
+  background: var(--surface-2);
+  /* Borda */
+  border: 1px solid var(--border);
+  /* Cantos */
+  border-radius: var(--radius-sm);
+  /* Espaço */
+  padding: 8px 10px;
+  /* Cor */
+  color: var(--ink);
+  /* Fonte */
+  font: 400 15px var(--font-body);
+}

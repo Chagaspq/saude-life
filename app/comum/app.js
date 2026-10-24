@@ -930,6 +930,8 @@
       el("p", { class: "specialty" }, [p.especialidade, p.registro ? el("span", { class: "pro-verificado", title: `Registro ${p.registro} conferido`, text: " ✓" }) : null]),
       // Cidade e se atende online
       p.cidade ? el("p", { class: "meta", text: `${p.cidade}${p.online ? " • atende online" : ""}` }) : null,
+      // Preço
+      p.preco ? el("p", { class: "pro-preco", text: p.preco }) : null,
       // Nota e seguidores
       el("p", { class: "stats" }, [nota(p.nota), ` • ${p.seguidores} seguidores`]),
       // Botão de ver o perfil completo
@@ -1167,7 +1169,7 @@
           "sl-espera", "sl-avaliacoes-aulas", "sl-checkins", "sl-avisos",
           "sl-ex-favoritos", "sl-programa", "sl-corridas", "sl-plano-5k", "sl-lembrete-treino", "sl-lembrete-dia",
           "sl-restricoes", "sl-refeicoes-dias", "sl-compras", "sl-sono", "sl-humor", "sl-medidas", "sl-ciclo", "sl-cargas",
-          "sl-duelos", "sl-loja", "sl-saudade-dia",
+          "sl-duelos", "sl-loja", "sl-saudade-dia", "sl-bloqueados", "sl-ocultos", "sl-denuncias", "sl-grupos", "sl-prescricoes", "sl-story-modelo",
         // ...apaga cada uma
         ].forEach(storage.remove);
         // ...e recarrega a página
@@ -1494,6 +1496,8 @@
           el("span", { class: "pro-registro", text: `✓ ${p.registro} • registro conferido` }),
           // Cidade
           el("span", { class: "meta", text: `${p.bairro}, ${p.cidade}${p.online ? " • atende online" : " • só presencial"}` }),
+          // Link para ver o bairro no Google Maps (abre em outra aba)
+          el("a", { class: "pro-mapa-link", href: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(`${p.bairro}, ${p.cidade}`), target: "_blank", rel: "noopener", text: "Ver no Google Maps" }),
         ]),
       ]),
       // Sobre
@@ -1507,6 +1511,8 @@
         // Preço
         el("span", { text: p.preco }),
       ]),
+      // Como agendar: tudo combinado pelo chat
+      el("p", { class: "meta", text: "Para agendar, combine dia e horário direto no chat." }),
       // Botões
       el("div", { class: "modal-actions" }, [
         // Chamar no chat
@@ -1981,17 +1987,47 @@
     const lista = el("ol", { class: "cm-chat", "aria-live": "polite" });
     // Desenha as mensagens
     function desenhar() {
-      // Troca a lista
-      lista.replaceChildren(...(conversas()[chave] || []).map((m) => el("li", { class: "cm-bolha" + (m.eu ? " is-eu" : "") }, [el("span", { text: m.texto })])));
+      // Troca a lista (texto, treino, figurinha ou áudio)
+      lista.replaceChildren(...(conversas()[chave] || []).map((m) => el("li", { class: "cm-bolha" + (m.eu ? " is-eu" : "") + (m.tipo ? " is-" + m.tipo : "") }, [conteudoDaMensagem(m)])));
       // Rola até a última
       lista.scrollTop = lista.scrollHeight;
     }
-    // Guarda uma mensagem
-    function guardar(eu, texto) {
+    // Conteúdo de uma mensagem conforme o tipo
+    function conteudoDaMensagem(m) {
+      // Treino enviado: cartão com link para abrir
+      if (m.tipo === "treino") return el("span", { class: "chat-treino" }, [el("strong", { text: m.texto }), el("a", { href: "../treino/treino.html?id=" + encodeURIComponent(m.treinoId), text: "Abrir treino" })]);
+      // Figurinha do Pulso
+      if (m.tipo === "figurinha") return window.SL.personagem ? window.SL.personagem.desenhar({ humor: m.humor }) : el("span", { text: m.texto });
+      // Áudio (simulado): botão de tocar e barrinha
+      if (m.tipo === "audio") {
+        // Barrinha do áudio
+        const barra = el("span", { class: "chat-audio-barra" }, [el("i", {})]);
+        // Botão de tocar
+        const tocar = el("button", { type: "button", class: "chat-audio-play", "aria-label": `Tocar áudio de ${m.seg} segundos (simulado)`, text: "▶" });
+        // Ao tocar, a barrinha anda pelo tempo do áudio (não tem som: é simulado)
+        tocar.addEventListener("click", () => {
+          // Parte que enche
+          const cheio = barra.querySelector("i");
+          // Volta ao começo sem animar
+          cheio.style.transition = "none";
+          // Vazia
+          cheio.style.width = "0%";
+          // No próximo quadro, enche no tempo do áudio
+          requestAnimationFrame(() => requestAnimationFrame(() => ((cheio.style.transition = `width ${m.seg}s linear`), (cheio.style.width = "100%"))));
+        });
+        // Bolha do áudio
+        return el("span", { class: "chat-audio" }, [tocar, barra, el("small", { text: `0:${String(m.seg).padStart(2, "0")}` })]);
+      }
+      // Texto normal
+      return el("span", { text: m.texto });
+    }
+
+    // Guarda uma mensagem (extra = tipo e dados do treino, figurinha ou áudio)
+    function guardar(eu, texto, extra = {}) {
       // Conversas
       const todas = conversas();
       // Junta a mensagem
-      todas[chave] = (todas[chave] || []).concat({ eu, texto, data: new Date().toISOString() });
+      todas[chave] = (todas[chave] || []).concat({ eu, texto, data: new Date().toISOString(), ...extra });
       // Salva
       storage.set("sl-mensagens", todas);
     }
@@ -2004,6 +2040,86 @@
       // Botão
       el("button", { type: "submit", class: "btn-primary", text: "Enviar" }),
     ]);
+    // A outra pessoa responde depois de 1,5 segundo
+    function responderDepois() {
+      // Espera
+      setTimeout(() => {
+        // Resposta sorteada
+        guardar(false, respostas[Math.floor(Math.random() * respostas.length)]);
+        // Desenha
+        desenhar();
+        // Avisa quem abriu o chat (para atualizar listas)
+        if (aoEnviar) aoEnviar();
+      }, 1500);
+    }
+    // Manda um extra (treino, figurinha ou áudio) e espera a resposta
+    function mandarExtra(texto, extra) {
+      // Guarda
+      guardar(true, texto, extra);
+      // Fecha a caixa de opções
+      extras.hidden = true;
+      // Desenha
+      desenhar();
+      // Resposta
+      responderDepois();
+    }
+    // Caixa de opções (treinos ou figurinhas), aparece ao tocar nos botões
+    const extras = el("div", { class: "chat-extras", hidden: true });
+    // Mostra uma lista de opções na caixa
+    function mostrarExtras(itens) {
+      // Troca as opções
+      extras.replaceChildren(...itens);
+      // Mostra
+      extras.hidden = false;
+    }
+    // Botões de anexar: treino, figurinha e áudio
+    const anexos = el("div", { class: "chat-anexos" }, [
+      // Treino
+      el("button", { type: "button", class: "btn-secondary btn-sm", "data-anexo": "treino", text: "Treino" }),
+      // Figurinha
+      el("button", { type: "button", class: "btn-secondary btn-sm", "data-anexo": "figurinha", text: "Figurinha" }),
+      // Áudio
+      el("button", { type: "button", class: "btn-secondary btn-sm", "data-anexo": "audio", text: "Áudio (simulado)" }),
+    ]);
+    // Clique nos botões de anexar
+    anexos.addEventListener("click", (e) => {
+      // Botão clicado
+      const b = e.target.closest("[data-anexo]");
+      // Se não foi num botão, para
+      if (!b) return;
+      // Treino: lista dos meus treinos
+      if (b.dataset.anexo === "treino") {
+        // Meus treinos
+        const meus = treinosDoUsuario();
+        // Sem treinos: avisa
+        if (!meus.length) return toast("Crie um treino primeiro");
+        // Um botão por treino
+        return mostrarExtras(
+          meus.map((t) => {
+            // Botão do treino
+            const opcao = el("button", { type: "button", class: "btn-link", text: t.nome });
+            // Ao escolher, manda
+            opcao.addEventListener("click", () => mandarExtra(t.nome, { tipo: "treino", treinoId: t.id }));
+            // Devolve
+            return opcao;
+          }),
+        );
+      }
+      // Figurinha: 3 Pulsos
+      if (b.dataset.anexo === "figurinha")
+        return mostrarExtras(
+          ["comemorando", "feliz", "cansado"].map((humor) => {
+            // Botão com o desenho
+            const opcao = el("button", { type: "button", class: "chat-figurinha-opcao", "aria-label": `Figurinha do Pulso ${humor}` }, [window.SL.personagem ? window.SL.personagem.desenhar({ humor }) : humor]);
+            // Ao escolher, manda
+            opcao.addEventListener("click", () => mandarExtra("Figurinha", { tipo: "figurinha", humor }));
+            // Devolve
+            return opcao;
+          }),
+        );
+      // Áudio simulado: duração sorteada entre 3 e 15 segundos
+      mandarExtra("Áudio", { tipo: "audio", seg: 3 + Math.floor(Math.random() * 13) });
+    });
     // Quando envia...
     form.addEventListener("submit", (e) => {
       // ...impede a página de recarregar
@@ -2021,17 +2137,10 @@
       // ...desenha
       desenhar();
       // ...a outra pessoa "responde" em 1,5 segundo
-      setTimeout(() => {
-        // Resposta sorteada
-        guardar(false, respostas[Math.floor(Math.random() * respostas.length)]);
-        // Desenha
-        desenhar();
-        // Avisa quem abriu o chat (para atualizar listas)
-        if (aoEnviar) aoEnviar();
-      }, 1500);
+      responderDepois();
     });
     // Abre o modal
-    openModal(nome, [lista, form]);
+    openModal(nome, [lista, extras, anexos, form]);
     // Desenha
     desenhar();
     // Devolve uma função para mandar mensagem "da outra pessoa" (ex.: o personal mandando treino)
@@ -2145,7 +2254,7 @@
     // Evoluir
     ["Evoluir", ["evolucao", "saude", "ranking", "loja"]],
     // Comunidade
-    ["Comunidade", ["comunidade", "profissionais", "academia"]],
+    ["Comunidade", ["comunidade", "profissionais", "area-pro", "academia"]],
     // Sua conta
     ["Sua conta", ["planos", "salvos", "perfil"]],
   ];
@@ -2216,6 +2325,7 @@
     aplicarProgresso,
     cardTreinoCatalogo,
     cardProfissional,
+    proximaAula,
     statTile,
     ICONES,
     marcarSeguindo,
@@ -2269,6 +2379,52 @@
     avisar("agua", "Hora de beber água. Já faz 2 horas.");
   }
 
+  // Próxima vez que uma aula acontece (data e hora), a partir de agora
+  // (conta como "agora" até o fim da aula, para dar tempo de entrar)
+  function proximaAula(aula) {
+    // Agora
+    const agora = new Date();
+    // Hora e minuto da aula
+    const [h, m] = aula.hora.split(":").map(Number);
+    // Olha hoje e os próximos 7 dias
+    for (let d = 0; d <= 7; d++) {
+      // Dia candidato
+      const dia = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate() + d, h, m);
+      // Dia da semana (segunda = 0)
+      const ds = (dia.getDay() + 6) % 7;
+      // Se a aula é nesse dia e ainda não terminou, é essa
+      if (aula.dias.includes(ds) && dia.getTime() + aula.duracao * 60000 > agora.getTime()) return dia;
+    }
+    // Não deveria chegar aqui
+    return null;
+  }
+
+  // Lembrete 1 hora antes das aulas reservadas (uma vez por aula)
+  function conferirLembreteAulas() {
+    // Aulas reservadas
+    const reservas = storage.get("sl-reservas", []);
+    // Lembretes já dados
+    const dados = storage.get("sl-lembretes-aulas", []);
+    // Para cada aula reservada...
+    (window.SL_DADOS.AULAS || [])
+      .filter((a) => reservas.includes(a.nome))
+      .forEach((a) => {
+        // ...próxima vez
+        const quando = proximaAula(a);
+        // ...minutos que faltam
+        const faltam = quando ? Math.round((quando - Date.now()) / 60000) : -1;
+        // ...chave única desta aula neste dia
+        const chave = a.nome + "|" + (quando ? quando.toDateString() : "");
+        // ...entre 0 e 60 minutos e ainda não avisou: avisa
+        if (faltam > 0 && faltam <= 60 && !dados.includes(chave)) {
+          // Guarda que avisou (só os 30 últimos)
+          storage.set("sl-lembretes-aulas", dados.concat(chave).slice(-30));
+          // Aviso
+          avisar("aulas", `${a.nome} começa às ${a.hora} (em ${faltam} min)${a.online ? ". Dá para entrar online pela página Aulas." : ` na ${a.sala}.`}`);
+        }
+      });
+  }
+
   // Lembrete de treino no horário escolhido no Perfil (nos dias marcados, se ainda não treinou hoje)
   function conferirLembreteTreino() {
     // Só se a chave "Lembretes de treino" está ligada
@@ -2320,12 +2476,16 @@
     conferirAgua();
     // (treino)
     conferirLembreteTreino();
+    // (aulas)
+    conferirLembreteAulas();
     // (a cada 60 segundos)
     setInterval(() => {
       // Água
       conferirAgua();
       // Treino
       conferirLembreteTreino();
+      // Aulas
+      conferirLembreteAulas();
     }, 60000);
     // ...faz os números que já estão na página contarem
     contarNumeros();

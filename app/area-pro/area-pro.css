@@ -1,0 +1,109 @@
+/* Área do profissional */
+
+/* Painéis com espaço entre eles */
+#view-area-pro .panel {
+  /* Espaço em cima */
+  margin-top: var(--space-4);
+}
+
+/* Listas sem bolinhas */
+.ap-alunos,
+.ap-enviados,
+.ap-escolhidos {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Sem espaço */
+  padding: 0;
+  /* Sem margem */
+  margin: 0;
+  /* Coluna */
+  display: grid;
+  /* Espaço */
+  gap: 8px;
+}
+
+/* Aluno */
+.ap-aluno {
+  /* Lado a lado */
+  display: flex;
+  /* Alinhados */
+  align-items: center;
+  /* Espaço */
+  gap: 12px;
+  /* Quebra no celular */
+  flex-wrap: wrap;
+  /* Espaço interno */
+  padding: 10px 0;
+  /* Linha embaixo */
+  border-bottom: 1px solid var(--border);
+}
+
+/* Botões do aluno */
+.ap-botoes {
+  /* Lado a lado */
+  display: flex;
+  /* Espaço */
+  gap: 8px;
+  /* Empurra para a direita */
+  margin-left: auto;
+}
+
+/* Exercício escolhido */
+.ap-ex {
+  /* Nome, séries, x, reps, tirar */
+  display: grid;
+  /* Colunas */
+  grid-template-columns: 1fr 56px auto 56px auto;
+  /* Alinhados */
+  align-items: center;
+  /* Espaço */
+  gap: 6px;
+  /* Fundo */
+  background: var(--surface-2);
+  /* Cantos */
+  border-radius: var(--radius-sm);
+  /* Espaço interno */
+  padding: 6px 10px;
+}
+
+/* Campos de número */
+.ap-ex input {
+  /* Largura toda da coluna */
+  width: 100%;
+  /* Fundo */
+  background: var(--surface);
+  /* Borda */
+  border: 1px solid var(--border);
+  /* Cantos */
+  border-radius: var(--radius-sm);
+  /* Espaço */
+  padding: 6px;
+  /* Cor */
+  color: var(--ink);
+  /* Fonte (16px evita zoom no celular) */
+  font: 400 16px var(--font-body);
+  /* Centralizado */
+  text-align: center;
+}
+
+/* Bolinha com as iniciais do aluno */
+.ap-aluno .rk-avatar {
+  /* Centraliza as letras */
+  display: grid;
+  /* Centraliza */
+  place-items: center;
+  /* Tamanho */
+  width: 36px;
+  /* Tamanho */
+  height: 36px;
+  /* Redonda */
+  border-radius: 50%;
+  /* Fundo */
+  background: var(--surface-3);
+  /* Borda */
+  border: 2px solid var(--border-strong);
+  /* Letra */
+  font: 700 12px var(--font-display);
+  /* Não encolhe */
+  flex-shrink: 0;
+}
