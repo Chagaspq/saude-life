@@ -182,6 +182,10 @@
               <a href="../ranking/ranking.html" class="nav-link" data-pagina="ranking"><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path><path d="M12 15v7"></path></svg><span>Ranking</span></a>
             </li>
             <li>
+              <!-- Link que leva para a página Loja do Pulso (menu lateral) -->
+              <a href="../loja/loja.html" class="nav-link" data-pagina="loja"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span>Loja do Pulso</span></a>
+            </li>
+            <li>
               <!-- Link que leva para a página Comunidade (menu lateral) -->
               <a href="../comunidade/comunidade.html" class="nav-link" data-pagina="comunidade"><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span>Comunidade</span></a>
             </li>
@@ -425,6 +429,8 @@
                 <button type="button" data-escopo="amigos" aria-pressed="true" class="is-active">Amigos</button>
                 <!-- Minha academia -->
                 <button type="button" data-escopo="academia" aria-pressed="false">Minha academia</button>
+                <!-- Pessoas do mesmo nível (iniciante contra iniciante...) -->
+                <button type="button" data-escopo="nivel" aria-pressed="false">Mesmo nível</button>
               </div>
             </div>
 
@@ -438,6 +444,31 @@
               <ol class="rk-lista" data-render="lista"></ol>
             </section>
 
+            <!-- Faixa da temporada do mês (preenchida pelo ranking.js) -->
+            <section class="rk-temporada" data-render="temporada" aria-label="Temporada do mês"></section>
+
+            <!-- Grade com missões do dia e duelos -->
+            <div class="rk-grade">
+              <!-- Missões do dia -->
+              <section class="rk-painel" aria-labelledby="heading-missoes">
+                <!-- Título -->
+                <h2 id="heading-missoes">Missões de hoje</h2>
+                <!-- Explicação -->
+                <p class="meta">3 missões novas por dia. Cada uma vale 15 pontos.</p>
+                <!-- Lista (preenchida pelo ranking.js) -->
+                <ul class="rk-missoes" data-render="missoes"></ul>
+              </section>
+              <!-- Duelos -->
+              <section class="rk-painel" aria-labelledby="heading-duelos">
+                <!-- Título -->
+                <h2 id="heading-duelos">Duelos</h2>
+                <!-- Explicação -->
+                <p class="meta">1 contra 1 por 7 dias: quem fizer mais pontos ganha. Desafie um amigo na Galera.</p>
+                <!-- Lista (preenchida pelo ranking.js) -->
+                <ul class="rk-duelos" data-render="duelos"></ul>
+              </section>
+            </div>
+
             <!-- Grade com ligas e selos -->
             <div class="rk-grade">
               <!-- Seção das ligas -->
@@ -446,7 +477,7 @@
                 <h2 id="heading-ligas">Ligas</h2>
                 <!-- Explicação de como sobe e desce -->
                 <p class="meta" data-render="regra-liga"></p>
-                <!-- Os 4 escudos (preenchidos pelo ranking.js) -->
+                <!-- Os escudos das 6 ligas (preenchidos pelo ranking.js) -->
                 <ol class="rk-ligas" data-render="ligas"></ol>
                 <!-- Últimas mudanças de liga -->
                 <ul class="rk-mudancas" data-render="mudancas"></ul>

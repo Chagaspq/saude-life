@@ -1,0 +1,510 @@
+<!doctype html>
+<!-- A linha acima avisa o navegador que este arquivo é uma página HTML5 -->
+<!-- Começo da página, em português do Brasil -->
+<html lang="pt-BR">
+  <!-- Cabeçalho: informações da página que não aparecem na tela -->
+  <head>
+    <!-- Usa UTF-8 para mostrar os acentos (á, ç, ã) do jeito certo -->
+    <meta charset="UTF-8" />
+    <!-- Faz a página se ajustar à largura da tela do celular -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Cor da barra do navegador no celular (verde-carvão) -->
+    <meta name="theme-color" content="#0e1512" />
+    <!-- Ícone da aba do navegador (a logo) -->
+    <link rel="icon" href="../../shared/favicon.svg" type="image/svg+xml" />
+    <!-- Arquivo que permite instalar o site como app no celular -->
+    <link rel="manifest" href="../../shared/manifest.webmanifest" />
+    <!-- Ícone usado quando o site é salvo na tela inicial do iPhone -->
+    <link rel="apple-touch-icon" href="../../shared/icon-192.png" />
+    <!-- Para redes sociais: diz que isto é um site -->
+    <meta property="og:type" content="website" />
+    <!-- Para redes sociais: nome do site -->
+    <meta property="og:site_name" content="Saúde Life" />
+    <!-- Para redes sociais: idioma português do Brasil -->
+    <meta property="og:locale" content="pt_BR" />
+    <!-- Para redes sociais: título que aparece quando o link é compartilhado -->
+    <meta property="og:title" content="Loja do Pulso — Saúde Life" />
+    <!-- Para redes sociais: texto que aparece quando o link é compartilhado -->
+    <meta property="og:description" content="Troque moedas por roupas e acessórios do seu personagem." />
+    <!-- Para redes sociais: imagem que aparece quando o link é compartilhado -->
+    <meta property="og:image" content="https://chagaspq.github.io/saude-life/shared/og-image.png" />
+    <!-- No X (Twitter), mostra o link com imagem grande -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- Nome que aparece na aba do navegador -->
+    <title>Loja do Pulso — Saúde Life</title>
+    <!-- Descrição da página que aparece no Google -->
+    <meta
+      name="description"
+      content="Troque moedas por roupas e acessórios do seu personagem."
+    />
+    <!-- Já começa a conectar no Google Fonts para as fontes carregarem mais rápido -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!-- Mesma coisa para o servidor onde ficam os arquivos das fontes -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Carrega as fontes Space Grotesk (títulos) e Inter (texto) -->
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <!-- Carrega as variáveis do site: cores, fontes e espaços (design system) -->
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <!-- Aplica o tema claro ou escuro antes de desenhar a página (e cria o botão de trocar) -->
+    <script src="../../shared/tema.js"></script>
+    <!-- Carrega o botão de idioma (português / inglês) -->
+    <script src="../../shared/idioma.js" defer></script>
+    <!-- Carrega o estilo base comum a todas as páginas -->
+    <link rel="stylesheet" href="../../shared/base.css" />
+    <!-- Carrega o estilo comum do app (menu, cards, botões, modal) -->
+    <link rel="stylesheet" href="../comum/app.css" />
+    <!-- Carrega o estilo próprio desta página (loja.css) -->
+    <link rel="stylesheet" href="loja.css" />
+  </head>
+
+  <!-- Corpo: tudo o que aparece na tela -->
+  <body data-pagina="loja">
+    <!-- ==================== APLICAÇÃO PRINCIPAL (APP) ==================== -->
+    <!-- Caixa que segura o app inteiro: menu lateral + conteúdo -->
+    <div id="app-container" class="app-layout">
+      <!-- Overlay escuro atrás da sidebar quando aberta no mobile -->
+      <!-- Fundo escuro que aparece atrás do menu aberto no celular -->
+      <div id="sidebar-overlay" class="sidebar-overlay hidden"></div>
+
+      <!-- SIDEBAR -->
+      <!-- Menu lateral do app -->
+      <aside
+        id="app-sidebar"
+        class="app-sidebar"
+        aria-label="Navegação lateral principal"
+      >
+        <!-- Área da logo no topo do menu -->
+        <div class="sidebar-brand">
+          <!-- Link que leva para o Início do app -->
+          <a href="../inicio/inicio.html" class="brand" aria-label="Saúde Life — Início">
+            <!-- Desenho da logo em SVG: anel de progresso com batimento -->
+            <svg
+              aria-hidden="true"
+              width="28"
+              height="28"
+              viewBox="0 0 64 64"
+              fill="none"
+            >
+              <!-- Definições usadas pelo desenho (como o degradê) -->
+              <defs>
+                <!-- Item da lista -->
+                <linearGradient
+                  id="logo-gradient"
+                  x1="8"
+                  y1="56"
+                  x2="56"
+                  y2="8"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <!-- Começo do degradê, na cor coral -->
+                  <stop offset="0%" stop-color="#f0845a" />
+                  <!-- Fim do degradê, na cor esmeralda -->
+                  <stop offset="100%" stop-color="#4fc29a" />
+                </linearGradient>
+              </defs>
+              <!-- Anel de progresso da logo -->
+              <path
+                d="M32 9.5A22.5 22.5 0 1 1 12.51 20.75"
+                stroke="url(#logo-gradient)"
+                stroke-width="6.5"
+                stroke-linecap="round"
+              />
+              <!-- Linha de batimento cardíaco da logo -->
+              <path
+                d="M19.5 33H24.5L28.5 25L33.5 41L37 33H44.5"
+                stroke="url(#logo-gradient)"
+                stroke-width="6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <!-- Nome da marca: Saúde Life (o "Life" fica em coral) -->
+            <span>Saúde <span class="brand-life">Life</span></span>
+          </a>
+        </div>
+
+        <!-- Lista de links do menu lateral -->
+        <nav class="sidebar-nav" aria-label="Seções do app">
+          <!-- Lista de itens -->
+          <ul>
+            <li>
+              <!-- Link que leva para o Início do app (menu lateral) -->
+              <a href="../inicio/inicio.html" class="nav-link" data-pagina="inicio"
+                ><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 9v11h14V9"></path><path d="M10 20v-6h4v6"></path></svg><span>Início</span></a
+              >
+            </li>
+            <li>
+              <!-- Link que leva para a página Descobrir (menu lateral) -->
+              <a href="../descobrir/descobrir.html" class="nav-link" data-pagina="descobrir"
+                ><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"></path><path d="m15.5 8.5-2 5-5 2 2-5z"></path></svg><span>Descobrir</span></a
+              >
+            </li>
+            <li>
+              <!-- Link que leva para a página Meus treinos (menu lateral) -->
+              <a href="../treinos/treinos.html" class="nav-link" data-pagina="treinos"
+                ><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5h11"></path><path d="M6.5 17.5h11"></path><path d="M2 12h20"></path><path d="M2 9v6"></path><path d="M22 9v6"></path></svg><span>Treinos</span></a
+              >
+            </li>
+            <li>
+              <!-- Link que leva para a página Exercícios (menu lateral) -->
+              <a href="../exercicios/exercicios.html" class="nav-link" data-pagina="exercicios"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg><span>Exercícios</span></a>
+            </li>
+            <li>
+              <!-- Link que leva para a página Programas (menu lateral) -->
+              <a href="../programas/programas.html" class="nav-link" data-pagina="programas"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-3 3"></path></svg><span>Programas</span></a>
+            </li>
+            <li>
+              <!-- Link que leva para a página Corrida (menu lateral) -->
+              <a href="../corrida/corrida.html" class="nav-link" data-pagina="corrida"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 4a2 2 0 1 0 4 0 2 2 0 0 0-4 0"></path><path d="m6 20 3-6 3 2v5"></path><path d="m9 14 2-5 4 2 3-2"></path><path d="M6 11l3-3h4"></path></svg><span>Corrida</span></a>
+            </li>
+            <li>
+              <!-- Link que leva para a página Aulas (menu lateral) -->
+              <a href="../aulas/aulas.html" class="nav-link" data-pagina="aulas"><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><path d="M3 10h18"></path><path d="M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"></path></svg><span>Aulas</span></a>
+            </li>
+            <li>
+              <!-- Link que leva para a página Alimentação (menu lateral) -->
+              <a href="../alimentacao/alimentacao.html" class="nav-link" data-pagina="alimentacao"
+                ><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7c-1.5-2-5-2.5-6.5 0S4 14 6 18s4 3.5 6 2.5c2 1 4 1.5 6-2.5s2-8.5.5-11S13.5 5 12 7z"></path><path d="M12 7c0-2 1-3.5 3-4"></path></svg><span>Alimentação</span></a
+              >
+            </li>
+            <li>
+              <!-- Link que leva para a página Evolução (menu lateral) -->
+              <a href="../evolucao/evolucao.html" class="nav-link" data-pagina="evolucao"
+                ><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"></path><path d="m7 15 4-4 3 3 6-6"></path></svg><span>Evolução</span></a
+              >
+            </li>
+            <li>
+              <!-- Link que leva para a página Saúde (menu lateral) -->
+              <a href="../saude/saude.html" class="nav-link" data-pagina="saude"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg><span>Saúde</span></a>
+            </li>
+            <li>
+              <!-- Link que leva para a página Ranking (menu lateral) -->
+              <a href="../ranking/ranking.html" class="nav-link" data-pagina="ranking"><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path><path d="M12 15v7"></path></svg><span>Ranking</span></a>
+            </li>
+            <li>
+              <!-- Link que leva para a página Loja do Pulso (menu lateral) -->
+              <a href="../loja/loja.html" class="nav-link" data-pagina="loja"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span>Loja do Pulso</span></a>
+            </li>
+            <li>
+              <!-- Link que leva para a página Comunidade (menu lateral) -->
+              <a href="../comunidade/comunidade.html" class="nav-link" data-pagina="comunidade"><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span>Comunidade</span></a>
+            </li>
+            <li>
+              <!-- Link que leva para a página Profissionais (menu lateral) -->
+              <a
+                href="../profissionais/profissionais.html"
+                class="nav-link"
+                data-pagina="profissionais"
+                ><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span>Profissionais</span></a
+              >
+            </li>
+            <li>
+              <!-- Link que leva para a página de planos (menu lateral) -->
+              <a href="../planos/planos.html" class="nav-link" data-pagina="planos"><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><path d="M7.5 7.5h.01"></path></svg><span>Planos</span></a>
+            </li>
+            <li>
+              <!-- Link que leva para a página Salvos (menu lateral) -->
+              <a href="../salvos/salvos.html" class="nav-link" data-pagina="salvos"><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg><span>Salvos</span></a>
+            </li>
+            <li>
+              <!-- Link que leva para a página Academia (menu lateral) -->
+              <a href="../academia/academia.html" class="nav-link" data-pagina="academia"
+                ><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18"></path><path d="M5 21V7l7-4 7 4v14"></path><path d="M9 21v-6h6v6"></path><path d="M9 10h.01"></path><path d="M15 10h.01"></path></svg><span>Academia</span></a
+              >
+            </li>
+            <li>
+              <!-- Link que leva para a página Perfil (menu lateral) -->
+              <a href="../perfil/perfil.html" class="nav-link" data-pagina="perfil"><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"></path></svg><span>Perfil</span></a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Parte de baixo do menu: perfil, configurações e sair -->
+        <div class="sidebar-footer">
+          <!-- Link que leva para a página Perfil -->
+          <a href="../perfil/perfil.html" class="user-profile-summary">
+            <!-- Bolinha com as iniciais do nome da pessoa -->
+            <span
+              class="user-avatar avatar-initials"
+              data-user-initials
+              aria-hidden="true"
+              >BS</span
+            >
+            <!-- Nome da pessoa (o JavaScript troca pelo nome real) -->
+            <span class="user-name" data-user-name>Nome do Usuário</span>
+          </a>
+          <!-- Botão que abre as configurações -->
+          <button
+            class="btn-icon"
+            data-action="open-settings"
+            aria-label="Configurações"
+          >
+            <!-- Ícone desenhado em SVG (escondido dos leitores de tela) -->
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <!-- Círculo do desenho -->
+              <circle cx="12" cy="12" r="3"></circle>
+              <!-- Traço do desenho -->
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"
+              ></path>
+            </svg>
+          </button>
+          <!-- Botão de sair da conta -->
+          <button
+            class="btn-icon"
+            data-action="logout"
+            aria-label="Sair da conta"
+          >
+            <!-- Ícone desenhado em SVG (escondido dos leitores de tela) -->
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <!-- Traço do desenho -->
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <!-- Traço do desenho -->
+              <path d="m16 17 5-5-5-5"></path>
+              <!-- Traço do desenho -->
+              <path d="M21 12H9"></path>
+            </svg>
+          </button>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT WRAPPER -->
+      <!-- Coluna da direita: topo + conteúdo + rodapé -->
+      <div class="app-main-wrapper">
+        <!-- HEADER / TOPBAR -->
+        <!-- Barra do topo do app -->
+        <header class="app-topbar">
+          <!-- Botão de menu (três risquinhos) que abre o menu no celular -->
+          <button
+            id="sidebar-toggle"
+            class="btn-icon btn-menu-toggle"
+            aria-label="Abrir menu"
+            aria-expanded="false"
+            aria-controls="app-sidebar"
+          >
+            <!-- Ícone desenhado em SVG (escondido dos leitores de tela) -->
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <!-- Traço do desenho -->
+              <path d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+
+          <!-- Botão de lupa que abre a busca no celular -->
+          <button
+            class="btn-icon btn-search-toggle"
+            data-action="toggle-search"
+            aria-label="Abrir busca"
+            aria-expanded="false"
+            aria-controls="global-search"
+          >
+            <!-- Ícone desenhado em SVG (escondido dos leitores de tela) -->
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <!-- Círculo do desenho -->
+              <circle cx="11" cy="11" r="7"></circle>
+              <!-- Traço do desenho -->
+              <path d="m20 20-3.5-3.5"></path>
+            </svg>
+          </button>
+
+          <!-- Caixa de busca -->
+          <div class="search-box">
+            <!-- Ícone desenhado em SVG (escondido dos leitores de tela) -->
+            <svg class="icon search-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <!-- Círculo do desenho -->
+              <circle cx="11" cy="11" r="7"></circle>
+              <!-- Traço do desenho -->
+              <path d="m20 20-3.5-3.5"></path>
+            </svg>
+            <!-- Campo onde a pessoa digita o que quer procurar -->
+            <input
+              type="search"
+              id="global-search"
+              placeholder="Pesquisar treinos, profissionais, conteúdos..."
+              aria-label="Pesquisar"
+              autocomplete="off"
+            />
+            <!-- Lista de resultados que aparece embaixo da busca -->
+            <div
+              id="search-results-dropdown"
+              class="search-dropdown hidden"
+              aria-live="polite"
+            ></div>
+          </div>
+
+          <!-- Botões do lado direito do topo -->
+          <div class="topbar-actions">
+            <!-- Botão de notificações (sininho) -->
+            <button
+              class="btn-icon"
+              aria-label="Notificações (3 novas)"
+              data-action="open-notifications"
+              data-badge="notificacoes"
+              data-rotulo="Notificações"
+              data-rotulo-novas="Notificações (3 novas)"
+            >
+              <!-- Ícone desenhado em SVG (escondido dos leitores de tela) -->
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <!-- Traço do desenho -->
+                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+                <!-- Traço do desenho -->
+                <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+              </svg>
+              <!-- Bolinha com o número de novidades -->
+              <span class="badge" aria-hidden="true">3</span>
+            </button>
+            <!-- Botão de mensagens -->
+            <button
+              class="btn-icon"
+              aria-label="Mensagens (1 nova)"
+              data-action="open-messages"
+              data-badge="mensagens"
+              data-rotulo="Mensagens"
+              data-rotulo-novas="Mensagens (1 nova)"
+            >
+              <!-- Ícone desenhado em SVG (escondido dos leitores de tela) -->
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <!-- Traço do desenho -->
+                <path
+                  d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                ></path>
+              </svg>
+              <!-- Bolinha com o número de novidades -->
+              <span class="badge" aria-hidden="true">1</span>
+            </button>
+            <!-- Link para o perfil, com a foto e o primeiro nome -->
+            <a
+              href="../perfil/perfil.html"
+              class="user-menu-trigger"
+              aria-label="Abrir meu perfil"
+            >
+              <!-- Bolinha com as iniciais do nome -->
+              <span
+                class="avatar-small avatar-initials"
+                data-user-initials
+                aria-hidden="true"
+                >BS</span
+              >
+              <!-- Primeiro nome da pessoa (o JavaScript troca pelo nome real) -->
+              <span class="username-top" data-user-first-name>Biel</span>
+            </a>
+          </div>
+        </header>
+
+        <!-- VIEWS CONTAINER -->
+        <!-- Conteúdo principal da página -->
+        <main class="app-views-container" id="conteudo" tabindex="-1">
+          <!-- Seção desta página -->
+          <section
+            id="view-loja"
+            class="view-section active"
+            aria-labelledby="heading-loja"
+          >
+            <!-- Topo da página: título e saldo -->
+            <header class="page-header">
+              <div>
+                <!-- Título principal da página -->
+                <h1 id="heading-loja">Loja do Pulso</h1>
+                <!-- Texto de apoio abaixo do título -->
+                <p class="page-lead">Troque suas moedas por roupas e acessórios. Gastar moedas não muda o seu ranking.</p>
+              </div>
+              <!-- Saldo de moedas (preenchido pelo loja.js) -->
+              <p class="loja-saldo" data-render="saldo" aria-live="polite"></p>
+            </header>
+            <!-- Prévia do personagem e itens -->
+            <div class="loja-grade">
+              <!-- Prévia grande com o que está usando -->
+              <section class="panel loja-previa" aria-label="Como está o seu personagem">
+                <!-- Desenho (preenchido pelo loja.js) -->
+                <div data-render="previa"></div>
+                <!-- Explicação de como ganhar moedas -->
+                <p class="meta">Cada ponto que você ganha vira uma moeda.</p>
+              </section>
+              <!-- Itens à venda (preenchidos pelo loja.js) -->
+              <div class="loja-itens" data-render="itens"></div>
+            </div>
+          </section>
+
+        </main>
+        <!-- Rodapé do app -->
+        <footer class="app-footer">
+          <!-- Texto de direitos autorais -->
+          <p>&copy; 2026 Saúde Life</p>
+          <!-- Links para Termos e Política -->
+          <nav aria-label="Links legais">
+            <!-- Link que leva para os Termos de Uso -->
+            <a href="../../termos/termos.html">Termos de Uso</a>
+            <!-- Link que leva para a Política de Privacidade -->
+            <a href="../../politica/politica.html">Política de Privacidade</a>
+          </nav>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Navegação inferior (só no celular) -->
+    <!-- Barra de navegação de baixo (só aparece no celular) -->
+    <nav class="bottom-nav" aria-label="Navegação rápida">
+      <!-- Link que leva para o Início do app (barra de baixo) -->
+      <a href="../inicio/inicio.html" class="bottom-nav-link" data-pagina="inicio"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 9v11h14V9"></path><path d="M10 20v-6h4v6"></path></svg><span>Início</span></a>
+      <!-- Link que leva para a página Meus treinos (barra de baixo) -->
+      <a href="../treinos/treinos.html" class="bottom-nav-link" data-pagina="treinos"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5h11"></path><path d="M6.5 17.5h11"></path><path d="M2 12h20"></path><path d="M2 9v6"></path><path d="M22 9v6"></path></svg><span>Treinos</span></a>
+      <!-- Link que leva para a página Ranking (barra de baixo) -->
+      <a href="../ranking/ranking.html" class="bottom-nav-link" data-pagina="ranking"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path><path d="M12 15v7"></path></svg><span>Ranking</span></a>
+      <!-- Link que leva para a página Comunidade (barra de baixo) -->
+      <a href="../comunidade/comunidade.html" class="bottom-nav-link" data-pagina="comunidade"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><span>Galera</span></a>
+      <!-- Link que leva para a página Perfil (barra de baixo) -->
+      <a href="../perfil/perfil.html" class="bottom-nav-link" data-pagina="perfil"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><path d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"></path></svg><span>Perfil</span></a>
+    </nav>
+
+    <!-- ==================== MODAIS REUTILIZÁVEIS ==================== -->
+    <!-- Fundo escuro da janela (modal) que abre por cima da página -->
+    <div id="modal-overlay" class="modal-overlay hidden" aria-hidden="true">
+      <!-- Janela do modal -->
+      <div
+        class="modal-window"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+      >
+        <!-- Topo do modal: título e botão de fechar -->
+        <header class="modal-header">
+          <!-- Título do modal (o JavaScript troca o texto) -->
+          <h2 id="modal-title">Título do Modal</h2>
+          <!-- Botão X que fecha o modal -->
+          <button
+            class="btn-close-modal"
+            aria-label="Fechar modal"
+            data-action="close-modal"
+          >
+            &times;
+          </button>
+        </header>
+        <!-- Miolo do modal, preenchido pelo JavaScript -->
+        <div class="modal-body">
+          <!-- Conteúdo dinâmico via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Aviso rápido (toast) -->
+    <!-- Aviso rápido (toast) que aparece embaixo e some sozinho -->
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+
+    <!-- Carrega o relógio do modo demonstração (antes de tudo, para o app usar a data certa) -->
+    <script src="../comum/relogio.js"></script>
+    <!-- Carrega os dados de exemplo (treinos, profissionais, aulas...) -->
+    <script src="../comum/dados.js"></script>
+    <!-- Carrega a biblioteca de exercícios (dicas, músculos, onde fazer) -->
+    <script src="../comum/exercicios.js"></script>
+    <!-- Carrega o núcleo do app (sessão, menu, modal, avisos) -->
+    <script src="../comum/app.js"></script>
+    <!-- Carrega os pontos, o ranking, as ligas e os selos -->
+    <script src="../comum/pontos.js"></script>
+    <!-- Carrega o modo demonstração (dados de exemplo e avançar o tempo) -->
+    <script src="../comum/demo.js"></script>
+    <!-- Carrega o Pulso, o personagem que acompanha a pessoa -->
+    <script src="../comum/personagem.js"></script>
+    <!-- Carrega o JavaScript desta página (loja.js) -->
+    <script src="loja.js"></script>
+  </body>
+</html>

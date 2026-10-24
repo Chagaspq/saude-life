@@ -43,6 +43,8 @@
     metaSemana: 100,
     // Noite de sono registrada com 7 horas ou mais
     sono: 10,
+    // Missão do dia cumprida
+    missao: 15,
   };
 
   // Nome de cada tipo de ponto, para mostrar no histórico
@@ -67,6 +69,8 @@
     metaSemana: "Meta da semana",
     // Sono
     sono: "Noite bem dormida (7h+)",
+    // Missão
+    missao: "Missão do dia",
     // Treino dos dados de exemplo
     exemplo: "Treino (exemplo)",
   };
@@ -90,8 +94,12 @@
     { id: "prata", nome: "Prata" },
     // Liga 2
     { id: "ouro", nome: "Ouro" },
-    // Liga 3 (a mais alta)
+    // Liga 3
     { id: "diamante", nome: "Diamante" },
+    // Liga 4
+    { id: "esmeralda", nome: "Esmeralda" },
+    // Liga 5 (a mais alta)
+    { id: "lenda", nome: "Lenda" },
   ];
 
   /* ---------- Datas ---------- */
@@ -326,12 +334,14 @@
 
   // Liga de uma pessoa simulada, pelo ritmo dela
   function ligaSimulada(ritmo) {
-    // Ritmo alto: Diamante; médio-alto: Ouro; médio: Prata; baixo: Bronze
-    return ritmo >= 700 ? 3 : ritmo >= 500 ? 2 : ritmo >= 300 ? 1 : 0;
+    // Do ritmo mais alto (Lenda) ao mais baixo (Bronze)
+    return ritmo >= 860 ? 5 : ritmo >= 780 ? 4 : ritmo >= 680 ? 3 : ritmo >= 500 ? 2 : ritmo >= 300 ? 1 : 0;
   }
 
   // Todas as pessoas que existem no app (amigos de exemplo + sugestões)
   const PESSOAS = AMIGOS.concat(SUGESTOES);
+  // Nomes das pessoas do ranking "mesmo nível" (simuladas)
+  const NOMES_NIVEL = ["Bruna Teixeira", "Caio Mendes", "Fernanda Lopes", "Gustavo Reis", "Helena Prado", "Igor Santana", "Jéssica Moura", "Lucas Farias", "Paula Ribeiro"];
 
   // Amigos que a pessoa tem agora (no começo, os amigos de exemplo)
   function amigos() {
@@ -420,6 +430,13 @@
       const outros = academia.membros.filter((nome) => !daAcademia.some((a) => a.nome === nome)).map((nome) => ({ nome, ritmo: ritmoDe(nome) }));
       // Junta todos
       pessoas = daAcademia.concat(outros);
+    } else if (escopo === "nivel") {
+      // Ranking do mesmo nível: pessoas do app no mesmo nível (iniciante contra iniciante...)
+      const nivel = SL.onboarding().nivel || "Iniciante";
+      // Faixa de ritmo de cada nível (pontos por semana)
+      const [minimo, faixa] = { Iniciante: [150, 300], "Intermediário": [300, 400], "Avançado": [500, 400] }[nivel] || [150, 300];
+      // 9 pessoas simuladas desse nível
+      pessoas = NOMES_NIVEL.map((nome) => ({ nome, ritmo: minimo + Math.round(sorteio(nome + nivel) * faixa) }));
     } else {
       // Ranking dos amigos
       pessoas = amigos();
@@ -494,43 +511,238 @@
     };
   }
 
-  /* ---------- Selos ---------- */
+  /* ---------- Selos com níveis (bronze, prata e ouro) ---------- */
 
-  // Lista de selos com "feito" verdadeiro ou falso
-  function selos() {
+  // Nomes dos níveis dos selos
+  const NIVEIS_SELO = ["Bronze", "Prata", "Ouro"];
+
+  // Selos: cada um tem 3 níveis. [id, nome, texto com {n}, metas dos 3 níveis, função que conta o progresso]
+  function basesDeSelos() {
+    // Eventos de pontos salvos
+    const lista = salvos();
+    // Quantos eventos de um tipo
+    const conta = (tipo) => lista.filter((e) => e.tipo === tipo).length;
+    // Em quantos dias diferentes um tipo aconteceu
+    const dias = (tipo) => new Set(lista.filter((e) => e.tipo === tipo).map((e) => diaDe(e.data))).size;
+    // Histórico de treinos
+    const hist = SL.historico();
     // Estado da liga
     const estadoLiga = liga();
-    // Eventos salvos
-    const lista = salvos();
-    // Conta em quantos dias diferentes um tipo de evento aconteceu
-    const dias = (tipo) => new Set(lista.filter((e) => e.tipo === tipo).map((e) => diaDe(e.data))).size;
-    // Semanas já avaliadas (para ver se ficou no pódio)
-    const semanas = [];
-    // Volta semana por semana até a primeira avaliada
-    for (let s = semanaAtual() - SEMANA, d = -1; s >= estadoLiga.avaliada - 4 * SEMANA && d >= -4; s -= SEMANA, d--) semanas.push(d);
-    // Ficou entre os 3 primeiros dos amigos em alguma dessas semanas?
-    const podio = semanas.some((d) => ranking("amigos", "semana", d).find((p) => p.eu).posicao <= 3);
-    // Foi o primeiro dos amigos no mês passado?
-    const campeao = ranking("amigos", "mes", -1).find((p) => p.eu).posicao === 1;
+    // Maior liga já alcançada
+    const maiorLiga = Math.max(estadoLiga.atual, ...estadoLiga.mudancas.map((m) => m.para));
+    // Total de pontos já ganhos
+    const totalPts = lista.reduce((t, e) => t + e.pts, 0);
+    // Km de corrida e caminhada
+    const km = storage.get("sl-corridas", []).reduce((t, c) => t + c.km, 0);
+    // Semanas no pódio (últimas 8)
+    let podios = 0;
+    // Volta 8 semanas
+    for (let d = -1; d >= -8; d--) if ((ranking("amigos", "semana", d).find((p) => p.eu) || {}).posicao <= 3) podios++;
+    // Meses como campeão (últimos 6)
+    let campeao = 0;
+    // Volta 6 meses
+    for (let d = -1; d >= -6; d--) if ((ranking("amigos", "mes", d).find((p) => p.eu) || {}).posicao === 1) campeao++;
+    // Duelos vencidos
+    const vencidos = duelos().filter((x) => x.fim < Date.now() && placar(x).eu > placar(x).ele).length;
     // Lista dos selos
     return [
-      // Pódio
-      { id: "podio", nome: "Pódio da semana", texto: "Terminou uma semana entre os 3 primeiros dos amigos", feito: podio },
-      // Campeão
-      { id: "campeao", nome: "Campeão do mês", texto: "Ficou em 1º lugar entre os amigos no mês", feito: campeao },
-      // Subiu de liga
-      { id: "subiu", nome: "Subiu de liga", texto: "Fez 500 pontos numa semana e subiu", feito: estadoLiga.mudancas.some((m) => m.para > m.de) },
-      // Diamante
-      { id: "diamante", nome: "Diamante", texto: "Chegou à liga mais alta", feito: estadoLiga.atual === LIGAS.length - 1 },
-      // Sequência
-      { id: "sequencia", nome: "4 semanas seguidas", texto: "Treinou 4 semanas sem parar", feito: SL.estatisticas().sequencia >= 4 },
-      // Água
-      { id: "agua", nome: "Rei da água", texto: "Bateu a meta de água em 7 dias", feito: dias("agua") >= 7 },
+      // Treinos concluídos
+      ["treinos", "Treinador", "Concluir {n} treinos", [10, 50, 150], hist.length],
+      // Séries marcadas
+      ["series", "Série a série", "Marcar {n} séries", [100, 500, 2000], conta("serie")],
+      // Semanas seguidas
+      ["sequencia", "Constância", "Treinar {n} semanas seguidas", [2, 4, 12], SL.estatisticas().sequencia],
+      // Meta de água
+      ["agua", "Hidratado", "Bater a meta de água em {n} dias", [7, 30, 100], dias("agua")],
       // Refeições
-      { id: "prato", nome: "Prato completo", texto: "Registrou refeições em 7 dias", feito: dias("refeicao") >= 7 },
-      // Recorde
-      { id: "recorde", nome: "Recorde pessoal", texto: "Bateu a própria carga máxima", feito: lista.some((e) => e.tipo === "recorde") },
+      ["prato", "Prato completo", "Registrar refeições em {n} dias", [7, 30, 100], dias("refeicao")],
+      // Proteína
+      ["proteina", "Proteína em dia", "Bater a meta de proteína em {n} dias", [7, 30, 100], dias("proteina")],
+      // Recordes
+      ["recorde", "Quebra-recorde", "Bater {n} recordes de carga", [1, 5, 20], conta("recorde")],
+      // Pódio
+      ["podio", "Pódio", "Terminar {n} semanas no top 3 dos amigos", [1, 3, 6], podios],
+      // Campeão
+      ["campeao", "Campeão do mês", "Ser o 1º dos amigos em {n} meses", [1, 2, 4], campeao],
+      // Ligas
+      ["liga", "Escalada", "Chegar à liga {n}", [2, 3, 5], maiorLiga],
+      // Pontos
+      ["pontos", "Pontuador", "Somar {n} pontos", [1000, 10000, 50000], totalPts],
+      // Aulas
+      ["aula", "Turma", "Reservar {n} aulas", [1, 10, 30], conta("aula")],
+      // Sono
+      ["sono", "Bom de cama", "Dormir 7h ou mais em {n} noites", [7, 30, 100], conta("sono")],
+      // Corrida
+      ["corrida", "Corredor", "Correr ou caminhar {n} km", [10, 100, 500], Math.floor(km)],
+      // Madrugador
+      ["manha", "Madrugador", "Treinar antes das 8h {n} vezes", [5, 20, 50], hist.filter((h) => new Date(h.data).getHours() < 8).length],
+      // Fim de semana
+      ["fds", "Fim de semana ativo", "Treinar no sábado ou domingo {n} vezes", [5, 20, 50], hist.filter((h) => [0, 6].includes(new Date(h.data).getDay())).length],
+      // Missões
+      ["missoes", "Missão dada", "Cumprir {n} missões do dia", [10, 50, 200], conta("missao")],
+      // Duelos
+      ["duelos", "Duelista", "Vencer {n} duelos", [1, 5, 15], vencidos],
+      // Amigos
+      ["amigos", "Turma grande", "Ter {n} amigos no app", [3, 10, 20], amigos().length],
     ];
+  }
+
+  // Lista de selos com "feito" verdadeiro ou falso (um item por nível: 19 selos × 3 níveis)
+  function selos() {
+    // Para cada selo base...
+    return basesDeSelos().flatMap(([id, nome, texto, metas, progresso]) =>
+      // ...um item por nível
+      metas.map((meta, n) => ({
+        // id (ex.: "treinos-0")
+        id: `${id}-${n}`,
+        // selo base
+        base: id,
+        // nível (0 = bronze, 1 = prata, 2 = ouro)
+        nivel: n,
+        // nome com o nível
+        nome: `${nome} ${NIVEIS_SELO[n]}`,
+        // como ganhar (a liga aparece pelo nome)
+        texto: texto.replace("{n}", id === "liga" ? LIGAS[meta].nome : SL.num(meta)),
+        // conquistado?
+        feito: progresso >= meta,
+        // progresso atual e meta (para a barrinha)
+        progresso,
+        // meta
+        meta,
+      })),
+    );
+  }
+
+  /* ---------- Missões do dia ---------- */
+
+  // Missões possíveis: [id, texto, função que diz se foi cumprida hoje]
+  function missoesPossiveis() {
+    // Hoje
+    const hoje = diaDe(new Date());
+    // Eventos de hoje
+    const deHoje = salvos().filter((e) => diaDe(e.data) === hoje);
+    // Quantos eventos de um tipo hoje
+    const hojeTipo = (tipo) => deHoje.filter((e) => e.tipo === tipo).length;
+    // Lista
+    return [
+      // Refeições
+      ["refeicoes", "Registre 3 refeições", hojeTipo("refeicao") >= 3],
+      // Água
+      ["agua", "Bata a meta de água", hojeTipo("agua") >= 1],
+      // Séries
+      ["series", "Faça 12 séries", hojeTipo("serie") >= 12],
+      // Treino
+      ["treino", "Conclua um treino", hojeTipo("treino") >= 1],
+      // Sono
+      ["sono", "Registre como dormiu", storage.get("sl-sono", []).some((n) => diaDe(n.data) === hoje)],
+      // Proteína
+      ["proteina", "Bata a meta de proteína", hojeTipo("proteina") >= 1],
+      // Humor
+      ["humor", "Conte como você está hoje (Saúde)", Boolean(storage.get("sl-humor", {})[hoje])],
+      // Corrida
+      ["corrida", "Faça uma corrida ou caminhada", storage.get("sl-corridas", []).some((c) => diaDe(c.data) === hoje)],
+    ];
+  }
+
+  // As 3 missões de hoje (sempre as mesmas no mesmo dia)
+  function missoes() {
+    // Todas
+    const todas = missoesPossiveis();
+    // Embaralha de um jeito fixo pelo dia e pega 3
+    return todas
+      .map((m) => [sorteio(m[0] + diaDe(new Date())), m])
+      .sort((a, b) => a[0] - b[0])
+      .slice(0, 3)
+      .map(([, [id, texto, feita]]) => ({ id, texto, feita }));
+  }
+
+  // Dá os pontos das missões cumpridas (cada uma uma vez por dia)
+  function conferirMissoes() {
+    // Para cada missão cumprida de hoje, ganha os pontos (o "ganhar" não repete)
+    missoes().forEach((m) => m.feita && ganhar("missao", `missao:${m.id}:${diaDe(new Date())}`));
+  }
+
+  /* ---------- Sequência de dias com escudo ---------- */
+
+  // Dias seguidos treinando. O escudo perdoa 1 dia sem treino por semana.
+  function diasSeguidos() {
+    // Dias com treino
+    const comTreino = new Set(SL.historico().map((h) => diaDe(h.data)));
+    // Contagem
+    let dias = 0;
+    // Semanas em que o escudo já foi usado
+    const escudos = new Set();
+    // Começa hoje (se ainda não treinou hoje, começa de ontem sem quebrar)
+    const d = new Date();
+    // Se não treinou hoje, olha a partir de ontem
+    if (!comTreino.has(diaDe(d))) d.setDate(d.getDate() - 1);
+    // Volta dia a dia (até 1 ano)
+    for (let i = 0; i < 365; i++) {
+      // Semana desse dia
+      const semana = semanaDe(d);
+      // Treinou: conta
+      if (comTreino.has(diaDe(d))) dias++;
+      // Não treinou, mas o escudo desta semana está livre: usa e segue
+      else if (!escudos.has(semana)) escudos.add(semana);
+      // Não treinou e já usou o escudo: acabou a sequência
+      else break;
+      // Dia anterior
+      d.setDate(d.getDate() - 1);
+    }
+    // Devolve os dias e se o escudo desta semana ainda está livre
+    return { dias, escudoLivre: !escudos.has(semanaAtual()) };
+  }
+
+  /* ---------- Temporada do mês ---------- */
+
+  // Nome da temporada de cada mês
+  const TEMPORADAS = ["Janeiro: Volta por Cima", "Fevereiro: Pique de Carnaval", "Março: Força Total", "Abril: Outono Ativo", "Maio: Ritmo Forte", "Junho: Arraiá Fitness", "Julho: Férias em Movimento", "Agosto: Agosto Imparável", "Setembro: Primavera Fit", "Outubro: Outubro em Movimento", "Novembro: Reta Final", "Dezembro: Fecha o Ano"];
+
+  // Temporada atual: nome, dias que faltam e posição no mês
+  function temporada() {
+    // Fim do mês
+    const { fim } = periodo("mes");
+    // Minha posição no mês entre os amigos
+    const pos = minhaPosicao("amigos", "mes");
+    // Devolve
+    return { nome: TEMPORADAS[new Date().getMonth()], diasRestantes: Math.ceil((fim - Date.now()) / DIA), posicao: pos ? pos.posicao : null };
+  }
+
+  /* ---------- Duelos 1 contra 1 ---------- */
+
+  // Duelos salvos: [{ codigo, inicio, fim }]
+  const duelos = () => storage.get("sl-duelos", []);
+
+  // Placar de um duelo: meus pontos e os do amigo no período
+  function placar(d) {
+    // Amigo
+    const amigo = PESSOAS.find((p) => p.codigo === d.codigo) || { nome: "Amigo", ritmo: 400 };
+    // Placar
+    return { eu: somar(d.inicio, d.fim), ele: pontosSimulados(amigo, d.inicio, d.fim), amigo };
+  }
+
+  // Começa um duelo de 7 dias com um amigo
+  function criarDuelo(codigo) {
+    // Já tem duelo aberto com ele?
+    if (duelos().some((d) => d.codigo === codigo && d.fim > Date.now())) return false;
+    // Agora
+    const agora = Date.now();
+    // Salva o duelo novo
+    storage.set("sl-duelos", [{ codigo, inicio: agora, fim: agora + SEMANA }].concat(duelos()));
+    // Deu certo
+    return true;
+  }
+
+  /* ---------- Moedas (para a Loja do Pulso) ---------- */
+
+  // Moedas: todos os pontos já ganhos menos o que já foi gasto na loja (o ranking não muda)
+  function moedas() {
+    // Total ganho
+    const ganho = salvos().reduce((t, e) => t + e.pts, 0);
+    // Gasto
+    const gasto = storage.get("sl-loja", { gasto: 0 }).gasto || 0;
+    // Saldo
+    return Math.max(0, ganho - gasto);
   }
 
   /* ---------- Desenhos ---------- */
@@ -574,8 +786,13 @@
     return caixa;
   }
 
+  // Confere as missões do dia sempre que ganha pontos (o "ganhar" não repete a mesma missão)
+  document.addEventListener("sl:pontos", () => setTimeout(conferirMissoes, 0));
+
   // Quando a página abre, avisa se a pessoa mudou de liga desde a última visita
   document.addEventListener("DOMContentLoaded", () => {
+    // Confere as missões do dia (sono e humor não dão pontos sozinhos)
+    setTimeout(conferirMissoes, 500);
     // Estado da liga (já avaliado até esta semana)
     const estado = liga();
     // Quantas mudanças a pessoa já viu
@@ -607,5 +824,6 @@
     minhaAcademia, escolherAcademia, temBonus,
     PESSOAS, amigos, adicionarAmigo, removerAmigo, pontosSimulados, sorteio, ligaSimulada,
     escudo, anel, semanaAtual, diaDe,
+    NIVEIS_SELO, missoes, conferirMissoes, diasSeguidos, temporada, duelos, placar, criarDuelo, moedas,
   };
 })();

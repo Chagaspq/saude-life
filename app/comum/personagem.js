@@ -62,6 +62,8 @@
     const dias = diasSemTreinar();
     // Treinou hoje: comemorando
     if (dias === 0) return "comemorando";
+    // 5 dias ou mais parado: triste (com saudade)
+    if (dias >= 5) return "triste";
     // 3 dias ou mais parado: cansado
     if (dias >= 3) return "cansado";
     // Normal: feliz
@@ -74,6 +76,8 @@
     const h = humor();
     // Treinou hoje
     if (h === "comemorando") return "Treino feito hoje! Tô orgulhoso de você.";
+    // Sumiu faz tempo
+    if (h === "triste") return `Tô com saudade… faz ${diasSemTreinar()} dias. Que tal só 15 minutinhos hoje?`;
     // Parado
     if (h === "cansado") return `Faz ${diasSemTreinar()} dias que a gente não treina… bora voltar devagarinho?`;
     // Número do dia no ano (para trocar a frase todo dia)
@@ -89,6 +93,7 @@
 
   // Desenha o Pulso. opcoes: { liga, selos, humor, tamanho }
   function desenhar(opcoes = {}) {
+    // (opções também aceitam: quem, pele, cabelo, usando, forca)
     // Liga (0 = Bronze ... 3 = Diamante); padrão: a liga da pessoa
     const liga = opcoes.liga != null ? opcoes.liga : SL.pontos ? SL.pontos.liga().atual : 0;
     // Quantos selos (estrelinhas, no máximo 5); padrão: os selos da pessoa
@@ -99,8 +104,22 @@
     const cor = opcoes.cor || SL.storage.get("sl-perfil", {}).pulso || "esmeralda";
     // Premium ganha a capa (o "personagem especial")
     const especial = opcoes.premium != null ? opcoes.premium : SL.premium && SL.premium();
+    // Aparência escolhida no perfil: personagem (Pulso ou Lia), tom de pele e cor do cabelo
+    const visual = SL.storage.get("sl-perfil", {});
+    // Personagem
+    const quem = opcoes.quem || visual.personagem || "pulso";
+    // Tom de pele (1 a 4)
+    const pele = opcoes.pele || visual.pele || 2;
+    // Cor do cabelo
+    const cabelo = opcoes.cabelo || visual.cabelo || "castanho";
+    // Itens da loja que está usando: { cabeca, olhos, pes }
+    const usando = opcoes.usando || SL.storage.get("sl-loja", {}).usando || {};
+    // Força: fica mais forte com o total de treinos (0 a 3)
+    const total = opcoes.forca != null ? null : SL.historico().length;
+    // Nível de força
+    const forca = opcoes.forca != null ? opcoes.forca : total < 15 ? 0 : total < 40 ? 1 : total < 80 ? 2 : 3;
     // Desenho de 120 x 150
-    const s = svg("svg", { viewBox: "0 0 120 150", class: `pulso pulso-${h} pulso-liga-${liga} pulso-cor-${cor}${especial ? " pulso-especial" : ""}`, role: "img", "aria-label": `Pulso, seu parceiro de treino, ${h === "comemorando" ? "comemorando" : h === "cansado" ? "cansado" : "feliz"}` });
+    const s = svg("svg", { viewBox: "0 0 120 150", class: `pulso pulso-${h} pulso-liga-${liga} pulso-cor-${cor} pulso-pele-${pele} pulso-cabelo-${cabelo} pulso-forca-${forca} pulso-quem-${quem}${usando.pes ? " pulso-pes-" + usando.pes : ""}${especial ? " pulso-especial" : ""}`, role: "img", "aria-label": `${quem === "lia" ? "Lia, sua parceira" : "Pulso, seu parceiro"} de treino, ${{ comemorando: "comemorando", cansado: "cansado", triste: "com saudade" }[h] || "feliz"}` });
 
     // Aura girando (só no Diamante)
     if (liga >= 3) s.append(forma("circle", { cx: 60, cy: 78, r: 54, class: "pulso-aura" }));
@@ -163,12 +182,16 @@
 
     // Pescoço
     corpo.append(forma("rect", { x: 55, y: 47, width: 10, height: 10, rx: 3, class: "pulso-pele" }));
+    // Lia: rabo de cavalo atrás da cabeça
+    if (quem === "lia") corpo.append(forma("path", { d: "M74 26 Q92 30 86 54 Q82 44 74 40Z", class: "pulso-cabelo" }));
     // Cabeça
     corpo.append(forma("circle", { cx: 60, cy: 35, r: 17, class: "pulso-pele" }));
     // Cabelo
     corpo.append(forma("path", { d: "M43 33 Q43 16 60 16 Q77 16 77 33 Q71 25 60 25.5 Q49 25 43 33Z", class: "pulso-cabelo" }));
-    // Faixa na testa (coral, a marca registrada dele)
-    corpo.append(forma("rect", { x: 43.5, y: 25, width: 33, height: 5, rx: 2.5, class: "pulso-faixa" }));
+    // Faixa na testa (coral, a marca registrada dele) — some quando está de boné
+    if (usando.cabeca !== "bone") corpo.append(forma("rect", { x: 43.5, y: 25, width: 33, height: 5, rx: 2.5, class: "pulso-faixa" }));
+    // Lia: franja de lado
+    if (quem === "lia") corpo.append(forma("path", { d: "M43 30 Q50 22 62 24 Q52 26 46 36Z", class: "pulso-cabelo" }));
     // Bochecha esquerda
     corpo.append(forma("circle", { cx: 51, cy: 41, r: 3, class: "pulso-bochecha" }));
     // Bochecha direita
@@ -187,6 +210,17 @@
       corpo.append(forma("path", { d: "M56 44 h8", class: "pulso-traco" }));
       // Gota de suor
       corpo.append(forma("path", { d: "M79 26 q4 6 0 8 q-4 -2 0 -8z", class: "pulso-suor" }));
+    } else if (h === "triste") {
+      // Olhos tristes (sobrancelhas caídas)
+      corpo.append(forma("path", { d: "M51 33 l5 2 M69 33 l-5 2", class: "pulso-traco" }));
+      // Olho esquerdo
+      corpo.append(forma("circle", { cx: 54, cy: 37, r: 1.8, class: "pulso-olho" }));
+      // Olho direito
+      corpo.append(forma("circle", { cx: 66, cy: 37, r: 1.8, class: "pulso-olho" }));
+      // Boca para baixo
+      corpo.append(forma("path", { d: "M54 45 q6 -5 12 0", class: "pulso-traco" }));
+      // Lágrima
+      corpo.append(forma("path", { d: "M51 40 q2 4 0 5 q-2 -1 0 -5z", class: "pulso-suor" }));
     } else {
       // Olho esquerdo
       corpo.append(forma("circle", { cx: 54, cy: 35.5, r: 2, class: "pulso-olho" }));
@@ -196,8 +230,37 @@
       corpo.append(forma("path", { d: "M54 42 q6 5 12 0", class: "pulso-traco" }));
     }
 
-    // Diamante em cima da cabeça (só no Diamante)
-    if (liga >= 3) corpo.append(forma("path", { d: "M54 4 h12 l3 4 -9 9 -9 -9z", class: "pulso-diamante" }));
+    // Diamante em cima da cabeça (Diamante e acima), se não estiver de coroa
+    if (liga >= 3 && usando.cabeca !== "coroa") corpo.append(forma("path", { d: "M54 4 h12 l3 4 -9 9 -9 -9z", class: "pulso-diamante" }));
+
+    // Itens da Loja do Pulso
+    // Boné
+    if (usando.cabeca === "bone") {
+      // Copa do boné
+      corpo.append(forma("path", { d: "M42 31 Q42 15 60 15 Q78 15 78 31Z", class: "pulso-item-bone" }));
+      // Aba do boné
+      corpo.append(forma("path", { d: "M60 29 h26 q3 0 1 4 h-27z", class: "pulso-item-bone" }));
+    }
+    // Fone de ouvido
+    if (usando.cabeca === "fone") {
+      // Arco por cima da cabeça
+      corpo.append(forma("path", { d: "M42 36 Q42 13 60 13 Q78 13 78 36", class: "pulso-item-fone-arco" }));
+      // Concha esquerda
+      corpo.append(forma("rect", { x: 39, y: 31, width: 7, height: 11, rx: 3, class: "pulso-item-fone" }));
+      // Concha direita
+      corpo.append(forma("rect", { x: 74, y: 31, width: 7, height: 11, rx: 3, class: "pulso-item-fone" }));
+    }
+    // Coroa (da liga Lenda ou comprada)
+    if (usando.cabeca === "coroa") corpo.append(forma("path", { d: "M47 17 l3 -10 6 6 4 -8 4 8 6 -6 3 10z", class: "pulso-item-coroa" }));
+    // Óculos escuros
+    if (usando.olhos === "oculos") {
+      // Lente esquerda
+      corpo.append(forma("rect", { x: 48, y: 32, width: 10, height: 7, rx: 3, class: "pulso-item-oculos" }));
+      // Lente direita
+      corpo.append(forma("rect", { x: 62, y: 32, width: 10, height: 7, rx: 3, class: "pulso-item-oculos" }));
+      // Ponte dos óculos
+      corpo.append(forma("path", { d: "M58 35 h4", class: "pulso-item-ponte" }));
+    }
 
     // Coloca o corpo no desenho
     s.append(corpo);
@@ -280,8 +343,8 @@
       desenhar(),
       // Balão de fala
       el("div", { class: "pulso-balao" }, [
-        // Nome
-        el("strong", { text: "Pulso" }),
+        // Nome do parceiro escolhido (Pulso ou Lia)
+        el("strong", { text: SL.storage.get("sl-perfil", {}).personagem === "lia" ? "Lia" : "Pulso" }),
         // Frase
         el("p", { text: texto || frase() }),
       ]),
@@ -327,6 +390,20 @@
       }),
     );
   }
+
+  // Sumiu há 3 dias ou mais: o Pulso manda um aviso (uma vez por dia)
+  document.addEventListener("DOMContentLoaded", () => {
+    // Dias parado
+    const dias = diasSemTreinar();
+    // Hoje
+    const hoje = new Date().toDateString();
+    // Só com 3 a 30 dias parado e uma vez por dia
+    if (dias < 3 || dias > 30 || SL.storage.get("sl-saudade-dia", "") === hoje || !SL.avisar) return;
+    // Marca que avisou
+    SL.storage.set("sl-saudade-dia", hoje);
+    // Avisa (respeita os tipos de aviso e o horário de silêncio)
+    setTimeout(() => SL.avisar("treino", `${(SL.storage.get("sl-perfil", {}).personagem === "lia" ? "A Lia" : "O Pulso")} tá com saudade! Bora voltar com um treino de 15 minutos?`), 1500);
+  });
 
   SL.personagem = { passoAPasso, desenhar, exercicio, card, humor, frase, diasSemTreinar };
 })();

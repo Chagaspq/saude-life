@@ -401,6 +401,8 @@ window.SL &&
               parado >= 2
                 ? el("button", { type: "button", class: "btn-secondary", "data-action": "cutucar", "data-codigo": a.codigo, disabled: jaCutucou, text: jaCutucou ? "Cutucado ✓" : "Cutucar" })
                 : null,
+              // Duelo de 7 dias com esse amigo
+              el("button", { type: "button", class: "btn-secondary", "data-action": "duelo", "data-codigo": a.codigo, text: "Duelo" }),
               // Mandar mensagem
               el("button", { type: "button", class: "btn-icon btn-outline", "data-action": "abrir-chat", "data-codigo": a.codigo, "aria-label": `Mandar mensagem para ${a.nome}` }, [
                 // Ícone de balão
@@ -842,4 +844,21 @@ window.SL &&
     document.addEventListener("sl:pontos", render);
     // Desenha a primeira vez
     render();
+
+    // Botão "Duelo": desafia o amigo para 7 dias de pontos, 1 contra 1
+    SL.acao("duelo", (alvo) => {
+      // Amigo
+      const amigo = P.PESSOAS.find((p) => p.codigo === alvo.dataset.codigo);
+      // Confirma
+      SL.confirmar({
+        // Título
+        titulo: `Duelo com ${primeiro(amigo.nome)}?`,
+        // Texto
+        texto: "Por 7 dias, quem fizer mais pontos ganha. O placar fica no Ranking.",
+        // Botão
+        rotulo: "Começar duelo",
+        // Se confirmar...
+        fn: () => SL.toast(P.criarDuelo(amigo.codigo) ? `Duelo com ${primeiro(amigo.nome)} começou! Veja o placar no Ranking.` : `Vocês já têm um duelo em andamento.`),
+      });
+    });
   });

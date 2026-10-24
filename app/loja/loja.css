@@ -1,0 +1,114 @@
+/* Loja do Pulso */
+
+/* Saldo de moedas */
+.loja-saldo {
+  /* Sem margem */
+  margin: 0;
+  /* Fonte de título */
+  font-family: var(--font-display);
+  /* Tamanho */
+  font-size: var(--text-lg);
+}
+
+/* Número do saldo */
+.loja-saldo strong {
+  /* Fonte de placar */
+  font-family: var(--font-placar);
+  /* Dourado */
+  color: var(--star);
+  /* Maior */
+  font-size: var(--text-2xl);
+}
+
+/* Grade: prévia à esquerda, itens à direita */
+.loja-grade {
+  /* Grade */
+  display: grid;
+  /* Prévia estreita, itens largos */
+  grid-template-columns: minmax(200px, 260px) 1fr;
+  /* Espaço */
+  gap: var(--space-4);
+  /* Alinhados no topo */
+  align-items: start;
+}
+
+/* Prévia grande */
+.loja-previa {
+  /* Centralizado */
+  text-align: center;
+}
+
+/* Desenho da prévia */
+.loja-previa svg {
+  /* Largura */
+  width: 180px;
+  /* Altura proporcional */
+  height: auto;
+}
+
+/* Grade de itens */
+.loja-itens {
+  /* Grade */
+  display: grid;
+  /* Colunas de no mínimo 160 pixels */
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  /* Espaço */
+  gap: var(--space-3);
+}
+
+/* Card do item */
+.loja-item {
+  /* Itens em coluna */
+  display: grid;
+  /* Centralizado */
+  justify-items: center;
+  /* Espaço */
+  gap: 6px;
+  /* Fundo de card */
+  background: var(--surface);
+  /* Borda */
+  border: 1px solid var(--border);
+  /* Cantos arredondados */
+  border-radius: var(--radius-lg);
+  /* Espaço interno */
+  padding: var(--space-4);
+  /* Texto centralizado */
+  text-align: center;
+}
+
+/* Item em uso */
+.loja-item.is-usando {
+  /* Borda esmeralda */
+  border-color: var(--emerald);
+}
+
+/* Prévia pequena do item */
+.loja-item-previa svg {
+  /* Largura */
+  width: 90px;
+  /* Altura proporcional */
+  height: auto;
+}
+
+/* Botão do item ocupa a largura */
+.loja-item button {
+  /* Largura toda */
+  width: 100%;
+}
+
+/* Botão "Usando" */
+.loja-item .is-active {
+  /* Borda esmeralda */
+  border-color: var(--emerald);
+  /* Texto esmeralda */
+  color: var(--emerald);
+}
+
+/* No celular: prévia em cima */
+@media (max-width: 640px) {
+  /* Grade */
+  .loja-grade {
+    /* Uma coluna */
+    grid-template-columns: 1fr;
+  }
+}

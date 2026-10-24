@@ -1167,6 +1167,7 @@
           "sl-espera", "sl-avaliacoes-aulas", "sl-checkins", "sl-avisos",
           "sl-ex-favoritos", "sl-programa", "sl-corridas", "sl-plano-5k", "sl-lembrete-treino", "sl-lembrete-dia",
           "sl-restricoes", "sl-refeicoes-dias", "sl-compras", "sl-sono", "sl-humor", "sl-medidas", "sl-ciclo", "sl-cargas",
+          "sl-duelos", "sl-loja", "sl-saudade-dia",
         // ...apaga cada uma
         ].forEach(storage.remove);
         // ...e recarrega a página
@@ -1689,6 +1690,35 @@
     // Dourado (Premium)
     { id: "dourado", nome: "Dourado", premium: true },
   ];
+  // Personagem parceiro: Pulso ou Lia
+  const PERSONAGENS = [
+    // Pulso
+    { id: "pulso", nome: "Pulso" },
+    // Lia
+    { id: "lia", nome: "Lia" },
+  ];
+  // Tons de pele (1 = mais claro)
+  const PELES = [
+    // Tom 1
+    { id: "1", nome: "Tom 1" },
+    // Tom 2
+    { id: "2", nome: "Tom 2" },
+    // Tom 3
+    { id: "3", nome: "Tom 3" },
+    // Tom 4
+    { id: "4", nome: "Tom 4" },
+  ];
+  // Cores de cabelo
+  const CABELOS = [
+    // Castanho
+    { id: "castanho", nome: "Castanho" },
+    // Preto
+    { id: "preto", nome: "Preto" },
+    // Loiro
+    { id: "loiro", nome: "Loiro" },
+    // Ruivo
+    { id: "ruivo", nome: "Ruivo" },
+  ];
 
   // Grupo de opções redondas (radio) com bolinhas de cor
   function opcoesCor(nome, titulo, lista, atual) {
@@ -1738,8 +1768,13 @@
     const tirar = el("button", { type: "button", class: "btn-secondary", text: "Remover foto" });
     // Prévia do Pulso
     const pulsoPrevia = el("div", { class: "perfil-pulso-previa" });
-    // Desenha o Pulso com a cor escolhida
-    const pintarPulso = (cor) => pulsoPrevia.replaceChildren(window.SL.personagem ? window.SL.personagem.desenhar({ cor, humor: "feliz" }) : "");
+    // Desenha o personagem com o que está marcado no formulário
+    const pintarPulso = () => {
+      // Valor marcado de um grupo (ou o salvo)
+      const v = (nome, padrao) => ((pulsoPrevia.closest("form") || document).querySelector(`input[name="${nome}"]:checked`) || {}).value || padrao;
+      // Desenho
+      pulsoPrevia.replaceChildren(window.SL.personagem ? window.SL.personagem.desenhar({ humor: "feliz", cor: v("pulso", perfilSalvo.pulso || "esmeralda"), quem: v("quem", perfilSalvo.personagem || "pulso"), pele: v("pele", perfilSalvo.pele || "2"), cabelo: v("cabelo", perfilSalvo.cabelo || "castanho") }) : "");
+    };
     // Selos já conquistados
     const conquistados = window.SL.pontos ? window.SL.pontos.selos().filter((x) => x.feito) : [];
     // Selos em destaque salvos
@@ -1765,8 +1800,12 @@
       campo("perfil-bio", "Bio", { multiline: true, maxlength: 160 }),
       // Capa do perfil
       opcoesCor("capa", "Capa do perfil", CAPAS, perfilSalvo.capa || "brasa"),
-      // Cor do Pulso, com a prévia
-      el("div", { class: "perfil-pulso-linha" }, [pulsoPrevia, opcoesCor("pulso", "Roupa do Pulso", CORES_PULSO, perfilSalvo.pulso || "esmeralda")]),
+      // Personagem, com a prévia
+      el("div", { class: "perfil-pulso-linha" }, [pulsoPrevia, el("div", { class: "perfil-pulso-opcoes" }, [opcoesCor("quem", "Seu parceiro de treino", PERSONAGENS, perfilSalvo.personagem || "pulso"), opcoesCor("pulso", "Roupa", CORES_PULSO, perfilSalvo.pulso || "esmeralda")])]),
+      // Tom de pele
+      opcoesCor("pele", "Tom de pele", PELES, String(perfilSalvo.pele || "2")),
+      // Cor do cabelo
+      opcoesCor("cabelo", "Cabelo", CABELOS, perfilSalvo.cabelo || "castanho"),
       // Selos em destaque (até 3)
       el("fieldset", { class: "form-group perfil-selos" }, [
         // Legenda
@@ -1794,8 +1833,8 @@
     form.querySelector("#perfil-bio").value = usuario.bio;
     // Mostra a foto atual
     pintarFoto();
-    // Mostra o Pulso atual
-    pintarPulso(perfilSalvo.pulso || "esmeralda");
+    // Mostra o personagem atual (depois de montar o formulário)
+    setTimeout(pintarPulso, 0);
 
     // Ao escolher uma foto: corta um quadrado do meio e diminui para 256 x 256
     arquivo.addEventListener("change", () => {
@@ -1836,8 +1875,8 @@
     });
     // Ao trocar a cor do Pulso, atualiza a prévia
     form.addEventListener("change", (e) => {
-      // Cor do Pulso
-      if (e.target.name === "pulso") pintarPulso(e.target.value);
+      // Personagem, roupa, pele ou cabelo: redesenha a prévia
+      if (["pulso", "quem", "pele", "cabelo"].includes(e.target.name)) pintarPulso();
       // Selos: no máximo 3 marcados
       if (e.target.name === "selo") {
         // Caixinhas de selo
@@ -1880,6 +1919,12 @@
       perfilSalvo.capa = marcado("capa");
       // Guarda a cor do Pulso
       perfilSalvo.pulso = marcado("pulso");
+      // Guarda o personagem
+      perfilSalvo.personagem = marcado("quem");
+      // Guarda o tom de pele
+      perfilSalvo.pele = marcado("pele");
+      // Guarda o cabelo
+      perfilSalvo.cabelo = marcado("cabelo");
       // Guarda os selos em destaque
       perfilSalvo.selos = [...form.querySelectorAll('input[name="selo"]:checked')].map((c) => c.value);
       // Salva no navegador
@@ -2098,7 +2143,7 @@
     // Comer
     ["Comer", ["alimentacao"]],
     // Evoluir
-    ["Evoluir", ["evolucao", "saude", "ranking"]],
+    ["Evoluir", ["evolucao", "saude", "ranking", "loja"]],
     // Comunidade
     ["Comunidade", ["comunidade", "profissionais", "academia"]],
     // Sua conta

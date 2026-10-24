@@ -2975,8 +2975,20 @@ a.btn-secondary {
 
 /* Diamante */
 .liga-diamante {
-  /* Diamante: esmeralda (é uma pedra preciosa!) */
+  /* Diamante: azul-claro, cor de pedra preciosa */
+  --liga-cor: var(--info);
+}
+
+/* Esmeralda */
+.liga-esmeralda {
+  /* Esmeralda: o verde da marca */
   --liga-cor: var(--emerald);
+}
+
+/* Lenda (a mais alta) */
+.liga-lenda {
+  /* Lenda: roxo */
+  --liga-cor: #b18cf2;
 }
 
 /* Escudo da liga */
@@ -5388,4 +5400,225 @@ body[data-pagina]::before {
   transform: translateX(18px);
   /* Fundo: branco */
   background: var(--ink-strong);
+}
+
+/* ---------- Pulso: aparência, força e itens da loja ---------- */
+
+/* Tons de pele (1 = mais claro, 4 = mais escuro): corpo */
+.pulso-pele-1 .pulso-pele {
+  /* Pele clara */
+  fill: #f6d3b3;
+}
+
+/* Tom 1: braços */
+.pulso-pele-1 .pulso-braco {
+  /* Pele clara */
+  stroke: #f6d3b3;
+}
+
+/* Tom 3: corpo */
+.pulso-pele-3 .pulso-pele {
+  /* Pele morena */
+  fill: #c98e63;
+}
+
+/* Tom 3: braços */
+.pulso-pele-3 .pulso-braco {
+  /* Pele morena */
+  stroke: #c98e63;
+}
+
+/* Tom 4: corpo */
+.pulso-pele-4 .pulso-pele {
+  /* Pele negra */
+  fill: #8a5a3c;
+}
+
+/* Tom 4: braços */
+.pulso-pele-4 .pulso-braco {
+  /* Pele negra */
+  stroke: #8a5a3c;
+}
+
+/* Cabelo preto */
+.pulso-cabelo-preto .pulso-cabelo {
+  /* Preto */
+  fill: #15110e;
+}
+
+/* Cabelo loiro */
+.pulso-cabelo-loiro .pulso-cabelo {
+  /* Loiro */
+  fill: #d9a944;
+}
+
+/* Cabelo ruivo */
+.pulso-cabelo-ruivo .pulso-cabelo {
+  /* Ruivo */
+  fill: #b5492a;
+}
+
+/* Força 1: braços um pouco mais grossos */
+.pulso-forca-1 .pulso-braco {
+  /* Mais grosso */
+  stroke-width: 10.5;
+}
+
+/* Força 2 */
+.pulso-forca-2 .pulso-braco {
+  /* Mais grosso */
+  stroke-width: 12;
+}
+
+/* Força 3 */
+.pulso-forca-3 .pulso-braco {
+  /* Bem mais grosso */
+  stroke-width: 13.5;
+}
+
+/* Força 2 e 3: tronco mais largo */
+.pulso-forca-2 .pulso-regata,
+.pulso-forca-3 .pulso-regata {
+  /* Alarga a partir do meio do peito */
+  transform-origin: 60px 74px;
+  /* 8% mais largo */
+  transform: scaleX(1.08);
+}
+
+/* Força 3: ainda mais largo */
+.pulso-forca-3 .pulso-regata {
+  /* 15% mais largo */
+  transform: scaleX(1.15);
+}
+
+/* Boné */
+.pulso-item-bone {
+  /* Coral escuro */
+  fill: #c96a43;
+}
+
+/* Fone: arco */
+.pulso-item-fone-arco {
+  /* Sem preenchimento */
+  fill: none;
+  /* Traço escuro */
+  stroke: #24352e;
+  /* Grossura */
+  stroke-width: 3;
+}
+
+/* Fone: conchas */
+.pulso-item-fone {
+  /* Esmeralda */
+  fill: #4fc29a;
+}
+
+/* Coroa */
+.pulso-item-coroa {
+  /* Dourado */
+  fill: #f5b544;
+  /* Contorno */
+  stroke: #c98a1e;
+  /* Grossura */
+  stroke-width: 1;
+}
+
+/* Óculos escuros */
+.pulso-item-oculos {
+  /* Lente escura */
+  fill: #15110e;
+}
+
+/* Ponte dos óculos */
+.pulso-item-ponte {
+  /* Traço escuro */
+  stroke: #15110e;
+  /* Grossura */
+  stroke-width: 1.5;
+}
+
+/* Tênis neon */
+.pulso-pes-neon .pulso-tenis {
+  /* Verde-limão */
+  fill: #b8e04a;
+}
+
+/* Tênis branco */
+.pulso-pes-branco .pulso-tenis {
+  /* Branco */
+  fill: #f4f1ea;
+}
+
+/* Tênis roxo */
+.pulso-pes-roxo .pulso-tenis {
+  /* Roxo */
+  fill: #b18cf2;
+}
+
+/* Opções do personagem ao lado da prévia */
+.perfil-pulso-opcoes {
+  /* Grupos em coluna */
+  display: grid;
+  /* Espaço */
+  gap: 12px;
+}
+
+/* Bolinhas dos personagens */
+.opcao-quem-pulso .perfil-opcao-cor {
+  /* Esmeralda (Pulso) */
+  background: linear-gradient(135deg, #4fc29a, #2f9474);
+}
+
+/* Lia */
+.opcao-quem-lia .perfil-opcao-cor {
+  /* Coral (Lia) */
+  background: linear-gradient(135deg, #f0845a, #c96a43);
+}
+
+/* Bolinhas dos tons de pele */
+.opcao-pele-1 .perfil-opcao-cor {
+  /* Tom 1 */
+  background: #f6d3b3;
+}
+
+/* Tom 2 */
+.opcao-pele-2 .perfil-opcao-cor {
+  /* Tom 2 */
+  background: #f0bf95;
+}
+
+/* Tom 3 */
+.opcao-pele-3 .perfil-opcao-cor {
+  /* Tom 3 */
+  background: #c98e63;
+}
+
+/* Tom 4 */
+.opcao-pele-4 .perfil-opcao-cor {
+  /* Tom 4 */
+  background: #8a5a3c;
+}
+
+/* Bolinhas dos cabelos */
+.opcao-cabelo-castanho .perfil-opcao-cor {
+  /* Castanho */
+  background: #2b1d14;
+}
+
+/* Preto */
+.opcao-cabelo-preto .perfil-opcao-cor {
+  /* Preto */
+  background: #15110e;
+}
+
+/* Loiro */
+.opcao-cabelo-loiro .perfil-opcao-cor {
+  /* Loiro */
+  background: #d9a944;
+}
+
+/* Ruivo */
+.opcao-cabelo-ruivo .perfil-opcao-cor {
+  /* Ruivo */
+  background: #b5492a;
 }

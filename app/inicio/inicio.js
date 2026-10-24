@@ -225,6 +225,20 @@ window.SL &&
           el("div", { class: "pontos-card-liga" }, [P.escudo(s.atual), el("strong", { class: `rk-liga-nome liga-${P.LIGAS[s.atual].id}`, text: `Liga ${P.LIGAS[s.atual].nome}` })]),
           // Posição entre os amigos
           el("p", { class: "pontos-card-pos", text: pos ? `Você está em ${pos.posicao}º de ${pos.total} entre os amigos` : "" }),
+          // Sequência de dias com o escudo
+          (() => {
+            // Dias seguidos
+            const seq = P.diasSeguidos();
+            // Etiqueta
+            return el("p", { class: "pontos-card-seq" }, [el("strong", { text: `${seq.dias} dia${seq.dias === 1 ? "" : "s"} seguido${seq.dias === 1 ? "" : "s"}` }), el("span", { class: "meta", text: seq.escudoLivre ? " • escudo da semana livre (1 dia de folga sem perder)" : " • escudo da semana já usado" })]);
+          })(),
+          // Missões de hoje (feitas/total)
+          (() => {
+            // Missões
+            const ms = P.missoes();
+            // Etiqueta com link para o Ranking
+            return el("a", { href: "../ranking/ranking.html#heading-missoes", class: "pontos-card-missoes" }, [`Missões de hoje: ${ms.filter((m) => m.feita).length} de ${ms.length}`, el("span", { class: "meta", text: ` • ${ms.filter((m) => !m.feita).map((m) => m.texto.toLowerCase()).slice(0, 2).join(", ") || "todas feitas!"}` })]);
+          })(),
           // O que falta
           el("p", { class: "meta", text: s.faltaSubir ? `Faltam ${s.faltaSubir} pontos para ${s.noTopo ? "garantir o Diamante" : "subir de liga"} • zera em ${s.diasParaZerar} dia${s.diasParaZerar === 1 ? "" : "s"}` : "Subida garantida nesta semana!" }),
         ]),

@@ -424,6 +424,22 @@
     // Evolução
     "Relatório para o profissional": "Report for your professional", "Carga no exercício": "Load per exercise", "Volume por músculo nesta semana": "Volume per muscle this week", "6 meses": "6 months", "1 ano": "1 year", "Relatório dos últimos 30 dias": "Last 30 days report", "Copiar": "Copy", "Baixar arquivo": "Download file",
 
+    // ---------- Competição e Pulso ----------
+    // Ranking
+    "Mesmo nível": "Same level", "Missões de hoje": "Today's missions", "3 missões novas por dia. Cada uma vale 15 pontos.": "3 new missions a day. Each one is worth 15 points.", "Duelos": "Duels", "Duelo": "Duel", "Começar duelo": "Start duel", "Empatado": "Tied", "Você está ganhando": "You're winning", "Você está perdendo": "You're losing", "Você venceu!": "You won!", "Você perdeu": "You lost",
+    // Duelos e temporada
+    "1 contra 1 por 7 dias: quem fizer mais pontos ganha. Desafie um amigo na Galera.": "1 vs 1 for 7 days: whoever scores more wins. Challenge a friend in Crew.", "Termine o mês no top 3 dos amigos para ganhar o selo exclusivo da temporada.": "Finish the month in your friends' top 3 to win the exclusive season badge.",
+    // Ligas novas e selos
+    "Esmeralda": "Emerald", "Lenda": "Legend", "Ainda não": "Not yet", "Completo!": "Complete!", "Bronze": "Bronze", "Prata": "Silver", "Ouro": "Gold",
+    // Missões
+    "Registre 3 refeições": "Log 3 meals", "Bata a meta de água": "Hit your water goal", "Faça 12 séries": "Do 12 sets", "Conclua um treino": "Finish a workout", "Registre como dormiu": "Log your sleep", "Bata a meta de proteína": "Hit your protein goal", "Conte como você está hoje (Saúde)": "Tell us how you feel today (Health)", "Faça uma corrida ou caminhada": "Go for a run or walk",
+    // Loja
+    "Loja do Pulso": "Pulso's Shop", "Troque suas moedas por roupas e acessórios. Gastar moedas não muda o seu ranking.": "Trade your coins for clothes and accessories. Spending coins doesn't change your ranking.", "Cada ponto que você ganha vira uma moeda.": "Every point you earn becomes a coin.", "Usar": "Wear", "Usando ✓": "Wearing ✓", "Só no Premium": "Premium only", "Chegue à liga Lenda": "Reach the Legend league",
+    // Itens
+    "Boné coral": "Coral cap", "Fone de ouvido": "Headphones", "Coroa da Lenda": "Legend crown", "Óculos escuros": "Sunglasses", "Tênis branco": "White sneakers", "Tênis neon": "Neon sneakers", "Tênis roxo": "Purple sneakers", "Cabeça": "Head", "Rosto": "Face", "Pés": "Feet",
+    // Editar perfil
+    "Seu parceiro de treino": "Your workout buddy", "Roupa": "Outfit", "Tom de pele": "Skin tone", "Cabelo": "Hair", "Castanho": "Brown", "Preto": "Black", "Loiro": "Blond", "Ruivo": "Red",
+
     // ---------- Comuns ----------
     // Botões e palavras soltas
     "Salvar": "Save", "Cancelar": "Cancel", "Confirmar": "Confirm", "Fechar": "Close", "Excluir": "Delete", "Editar": "Edit", "Sim": "Yes", "Não": "No",
@@ -461,6 +477,16 @@
     [/^Hoje: (\d+) de (\d+)$/, (m, a, b) => `Today: ${a} of ${b}`],
     // "Liga Ouro"
     [/^Liga (.+)$/, (m, l) => `${traduzir(l)} League`],
+    // "Liga Lenda" / "Missões de hoje: 1 de 3"
+    [/^Missões de hoje: (\d+) de (\d+)$/, (m, a, b) => `Today's missions: ${a} of ${b}`],
+    // "8 dias seguidos"
+    [/^(\d+) dias? seguidos?$/, (m, n) => `${n} day${n === "1" ? "" : "s"} in a row`],
+    // "Comprar por 300"
+    [/^Comprar por (.+)$/, (m, n) => `Buy for ${n}`],
+    // "Faltam 300" (loja)
+    [/^Faltam (\d[\d.]*)$/, (m, n) => `${n} short`],
+    // "Você x Ana"
+    [/^Você x (.+)$/, (m, q) => `You vs ${q}`],
     // "1 de 4"
     [/^(\d+) de (\d+)$/, (m, a, b) => `${a} of ${b}`],
     // "Dia 6"

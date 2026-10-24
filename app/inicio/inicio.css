@@ -433,3 +433,29 @@
     padding-top: 12px;
   }
 }
+
+/* Sequência de dias no card de pontos */
+.pontos-card-seq {
+  /* Espaço */
+  margin: 4px 0;
+}
+
+/* Missões do dia no card de pontos */
+.pontos-card-missoes {
+  /* Bloco */
+  display: block;
+  /* Cor esmeralda */
+  color: var(--emerald);
+  /* Negrito */
+  font-weight: 600;
+  /* Sem sublinhado */
+  text-decoration: none;
+  /* Espaço */
+  margin: 4px 0;
+}
+
+/* Missões com mouse */
+.pontos-card-missoes:hover {
+  /* Sublinhado */
+  text-decoration: underline;
+}

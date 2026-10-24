@@ -512,8 +512,8 @@
   padding: 0;
   /* Organiza em grade */
   display: grid;
-  /* 4 colunas iguais */
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  /* 3 colunas iguais (6 ligas em 2 linhas) */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   /* Espaço entre elas */
   gap: 8px;
 }
@@ -763,4 +763,197 @@
 .rk-hero > .pulso {
   /* Empurra para a direita */
   margin-left: auto;
+}
+
+/* ---------- Temporada, missões, duelos e níveis dos selos ---------- */
+
+/* Faixa da temporada do mês */
+.rk-temporada {
+  /* Texto à esquerda, posição à direita */
+  display: flex;
+  /* Alinhados no meio */
+  align-items: center;
+  /* Espaço entre os dois lados */
+  justify-content: space-between;
+  /* Espaço */
+  gap: 16px;
+  /* Espaço interno */
+  padding: 20px 24px;
+  /* Espaço em cima e embaixo */
+  margin: 24px 0;
+  /* Cantos arredondados */
+  border-radius: var(--radius-lg);
+  /* Borda coral */
+  border: 1px solid var(--border-coral);
+  /* Fundo com degradê da marca bem fraquinho */
+  background: linear-gradient(110deg, var(--coral-dim), var(--emerald-soft)), var(--surface);
+}
+
+/* Nome da temporada */
+.rk-temporada h2 {
+  /* Tamanho */
+  font-size: var(--text-xl);
+  /* Espaço */
+  margin: 4px 0;
+}
+
+/* Posição no mês */
+.rk-temporada-pos {
+  /* Fonte de placar */
+  font-family: var(--font-placar);
+  /* Grande */
+  font-size: 40px;
+  /* Coral */
+  color: var(--coral-light);
+}
+
+/* Listas de missões e duelos */
+.rk-missoes,
+.rk-duelos {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Sem espaço */
+  padding: 0;
+  /* Espaço */
+  margin: 12px 0 0;
+  /* Itens em coluna */
+  display: grid;
+  /* Espaço */
+  gap: 8px;
+}
+
+/* Linha da missão ou do duelo */
+.rk-missoes li,
+.rk-duelos li {
+  /* Itens lado a lado */
+  display: flex;
+  /* Alinhados no meio */
+  align-items: center;
+  /* Espaço */
+  gap: 10px;
+  /* Espaço interno */
+  padding: 10px 12px;
+  /* Fundo */
+  background: var(--surface-2);
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+}
+
+/* Texto da missão ocupa o meio */
+.rk-missoes li > span:nth-child(2),
+.rk-duelos li > div {
+  /* Ocupa o espaço */
+  flex: 1;
+  /* Pode encolher */
+  min-width: 0;
+}
+
+/* Bolinha de check da missão */
+.rk-missao-check {
+  /* Centraliza o ícone */
+  display: grid;
+  /* No meio */
+  place-items: center;
+  /* Tamanho */
+  width: 24px;
+  /* Tamanho */
+  height: 24px;
+  /* Redonda */
+  border-radius: 50%;
+  /* Borda */
+  border: 2px solid var(--border-strong);
+  /* Não encolhe */
+  flex-shrink: 0;
+}
+
+/* Missão cumprida */
+.rk-missoes li.is-feita {
+  /* Texto apagado */
+  color: var(--muted);
+}
+
+/* Bolinha da missão cumprida */
+.rk-missoes li.is-feita .rk-missao-check {
+  /* Fundo esmeralda */
+  background: var(--emerald);
+  /* Borda esmeralda */
+  border-color: var(--emerald);
+  /* Ícone escuro */
+  color: var(--on-coral);
+}
+
+/* Ícone do check */
+.rk-missao-check .icon {
+  /* Pequeno */
+  width: 14px;
+  /* Pequeno */
+  height: 14px;
+}
+
+/* Pontos da missão */
+.rk-missoes strong {
+  /* Esmeralda */
+  color: var(--emerald);
+}
+
+/* Duelo que já acabou */
+.rk-duelos li.is-acabou {
+  /* Apagado */
+  opacity: 0.7;
+}
+
+/* Linha de cima e de baixo do duelo */
+.rk-duelos li > div {
+  /* Em coluna */
+  display: grid;
+}
+
+/* Placar do duelo */
+.rk-duelo-placar {
+  /* Fonte de placar */
+  font-family: var(--font-placar);
+  /* Negrito */
+  font-weight: 700;
+  /* Coral */
+  color: var(--coral-light);
+}
+
+/* Nível do selo (Bronze, Prata, Ouro) */
+.rk-selo-nivel {
+  /* Letra pequena */
+  font-size: 11px;
+  /* Negrito */
+  font-weight: 700;
+  /* Maiúsculas */
+  text-transform: uppercase;
+  /* Letras afastadas */
+  letter-spacing: 0.06em;
+  /* Cor apagada (ainda não) */
+  color: var(--muted-2);
+}
+
+/* Bronze */
+.rk-selo.nivel-0 .rk-selo-nivel {
+  /* Cor bronze */
+  color: #d08a5a;
+}
+
+/* Prata */
+.rk-selo.nivel-1 .rk-selo-nivel {
+  /* Cor prata */
+  color: #c9d3cd;
+}
+
+/* Ouro */
+.rk-selo.nivel-2 .rk-selo-nivel {
+  /* Cor ouro */
+  color: var(--star);
+}
+
+/* Barrinha do selo */
+.rk-selo .progress-bar-sm {
+  /* Largura toda */
+  width: 100%;
+  /* Espaço em cima */
+  margin-top: 4px;
 }
