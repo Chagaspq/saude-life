@@ -57,6 +57,13 @@ window.SL &&
       // ...com pelo menos uma série feita
       salvo && salvo.treinoId !== treino.id && salvo.series && salvo.series.some((lista) => lista.some((s) => s.feito));
 
+    // Exercícios trocados neste treino (aparelho ocupado): { posição: nome novo }
+    estado.trocas = estado.trocas || {};
+    // Bi-sets ligados: { posição: true } junta o exercício com o próximo
+    estado.biset = estado.biset || {};
+    // Aplica as trocas na lista de exercícios
+    Object.entries(estado.trocas).forEach(([k, nome]) => (exercicios[k] = { ...exercicios[k], nome }));
+
     // Atalho para achar um pedaço da página pelo data-render
     const $ = (nome) => document.querySelector(`[data-render="${nome}"]`);
     // Troca o nome da aba do navegador
@@ -138,8 +145,8 @@ window.SL &&
       const linhas = series.map((s, n) => {
         // se for por tempo...
         const reps = ehTempo(e)
-          // ...mostra o tempo fixo
-          ? el("span", { class: "set-static", text: e.reps })
+          // ...botão que conta o tempo e marca a série sozinho no fim
+          ? el("button", { type: "button", class: "set-timer", "data-action": "cronometrar-serie", "data-serie": n, disabled: s.feito, "aria-label": `Contar ${e.reps} da série ${n + 1}`, text: `▶ ${e.reps}` })
           // se não, um campo de número para as repetições
           : el("input", {
               // (campo de número)
@@ -190,8 +197,8 @@ window.SL &&
 
         // Linha da série (verde se já foi feita)
         return el("li", { class: "set-row" + (s.feito ? " is-done" : "") }, [
-          // Número da série
-          el("span", { class: "set-number", text: `Série ${n + 1}` }),
+          // Número da série (ou "Drop" na série extra com menos peso)
+          el("span", { class: "set-number" + (s.drop ? " is-drop" : ""), text: s.drop ? "Drop" : `Série ${n + 1}` }),
           // Repetições
           el("label", { class: "set-field" }, [reps, el("span", { class: "set-unit", text: ehTempo(e) ? "" : "reps" })]),
           // Carga
@@ -243,10 +250,21 @@ window.SL &&
         ]),
         // Lista das séries
         el("ol", { class: "set-list" }, linhas),
-        // Sugestão de carga (se tiver)
-        sugestaoDeCarga(e, series),
-        // Como fazer: Pulso mostrando o movimento + dicas
-        comoFazer(e),
+        // Opções do exercício: drop set, bi-set e trocar
+        el("div", { class: "set-opcoes" }, [
+          // Drop set: série extra com menos peso, sem descanso antes (só para exercícios com carga)
+          !ehTempo(e) ? el("button", { type: "button", class: "btn-secondary btn-sm", "data-action": "drop-set", text: "+ Drop set" }) : null,
+          // Bi-set com o próximo exercício (não aparece no último)
+          i < exercicios.length - 1
+            ? el("button", { type: "button", class: "btn-secondary btn-sm" + (estado.biset[i] ? " is-active" : ""), "data-action": "bi-set", "aria-pressed": String(Boolean(estado.biset[i])), text: estado.biset[i] ? `Bi-set com ${exercicios[i + 1].nome} ✓` : "Bi-set com o próximo" })
+            : null,
+          // Trocar por um parecido (aparelho ocupado)
+          el("button", { type: "button", class: "btn-secondary btn-sm", "data-action": "trocar-exercicio", text: "Trocar exercício" }),
+        ]),
+        // Sugestão de carga (se tiver; vazio quando não tem, para não aparecer "null")
+        sugestaoDeCarga(e, series) || "",
+        // Como fazer: Pulso mostrando o movimento + dicas (vazio se o exercício não está na biblioteca)
+        comoFazer(e) || "",
       );
 
       // Troca a lista lateral de exercícios:
@@ -316,8 +334,8 @@ window.SL &&
         el("summary", { text: "Como fazer" }),
         // Miolo
         el("div", { class: "como-fazer-miolo" }, [
-          // Pulso fazendo o movimento
-          SL.personagem ? SL.personagem.exercicio(info.mov) : null,
+          // Passo a passo: o Pulso em 3 momentos do movimento (começo, meio e fim)
+          SL.personagem ? SL.personagem.passoAPasso(info.mov) : null,
           // Dicas
           el("div", { class: "como-fazer-dicas" }, [
             // Lista das dicas
@@ -557,6 +575,162 @@ window.SL &&
     // Botão de pular o descanso
     SL.acao("descanso-pular", fimDoDescanso);
 
+    // Botão de -15 segundos (nunca menos que zero; chegando a zero, termina)
+    SL.acao("descanso-menos", () => {
+      // Tira 15 segundos
+      restante = Math.max(0, restante - 15);
+      // Se acabou, termina o descanso
+      if (!restante) return fimDoDescanso();
+      // Desenha de novo
+      desenharDescanso();
+    });
+
+    /* ---------- Tela sempre acesa durante o treino ---------- */
+
+    // Trava da tela (o celular não apaga enquanto ela existir)
+    let travaTela = null;
+    // Pede para a tela ficar acesa (se o navegador deixar)
+    async function manterTelaAcesa() {
+      // Tenta...
+      try {
+        // ...pedir a trava, se existir no navegador
+        if ("wakeLock" in navigator) travaTela = await navigator.wakeLock.request("screen");
+      // Se recusar, segue normal
+      } catch (erro) {
+        // Sem trava
+        travaTela = null;
+      }
+    }
+    // Pede agora
+    manterTelaAcesa();
+    // Ao voltar para a aba, pede de novo (o navegador solta a trava quando a aba some)
+    document.addEventListener("visibilitychange", () => document.visibilityState === "visible" && !document.body.classList.contains("is-finished") && manterTelaAcesa());
+
+    /* ---------- Drop set, bi-set, trocar exercício e séries por tempo ---------- */
+
+    // Vibraçãozinha (se a pessoa deixou ligado no Perfil)
+    // (só depois de a pessoa tocar na página: antes disso o navegador bloqueia)
+    const vibrar = (padrao) => navigator.vibrate && storage.get("sl-pref-vibrar", true) && (!navigator.userActivation || navigator.userActivation.hasBeenActive) && navigator.vibrate(padrao);
+
+    // Drop set: soma uma série com 20% menos peso, sem descanso antes
+    SL.acao("drop-set", () => {
+      // Séries do exercício atual
+      const lista = estado.series[estado.indice];
+      // Última série (base do peso)
+      const ultima = lista[lista.length - 1];
+      // Peso 20% menor, de meio em meio quilo
+      const carga = Math.max(0, Math.round(ultima.carga * 0.8 * 2) / 2);
+      // Soma a série extra
+      lista.push({ reps: ultima.reps, carga, feito: false, drop: true });
+      // Salva
+      salvar();
+      // Desenha
+      render();
+      // Avisa
+      SL.toast(`Drop set: ${SL.num(carga, carga % 1 ? 1 : 0)} kg, sem descanso`);
+    });
+
+    // Bi-set: liga ou desliga o exercício atual com o próximo
+    SL.acao("bi-set", () => {
+      // Exercício atual
+      const i = estado.indice;
+      // Troca o estado
+      estado.biset[i] = !estado.biset[i];
+      // Salva
+      salvar();
+      // Desenha
+      render();
+      // Avisa
+      SL.toast(estado.biset[i] ? `Bi-set: uma série de cada, sem descanso entre ${exercicios[i].nome} e ${exercicios[i + 1].nome}` : "Bi-set desligado");
+    });
+
+    // Trocar o exercício por um parecido (mesmo grupo muscular)
+    SL.acao("trocar-exercicio", () => {
+      // Exercício atual
+      const i = estado.indice;
+      // Grupo dele na biblioteca
+      const grupo = (BIBLIOTECA[exercicios[i].nome] || {}).grupo;
+      // Nomes que já estão no treino
+      const noTreino = exercicios.map((x) => x.nome);
+      // Opções: mesmo grupo, fora do treino
+      const opcoes = Object.keys(BIBLIOTECA).filter((nome) => BIBLIOTECA[nome].grupo === grupo && !noTreino.includes(nome));
+      // Sem opções
+      if (!opcoes.length) return SL.toast("Não achamos um exercício parecido para trocar.");
+      // Abre a lista de opções
+      SL.openModal(
+        // Título
+        `Trocar ${exercicios[i].nome}`,
+        // Lista de botões
+        el(
+          "ul",
+          { class: "list-panel troca-lista" },
+          opcoes.map((nome) =>
+            // Uma opção
+            el("li", {}, [
+              // Botão da opção
+              el("button", { type: "button", class: "btn-link", "data-action": "escolher-troca", "data-nome": nome }, [el("strong", { text: nome }), el("span", { text: `${BIBLIOTECA[nome].musculos || grupo} • ${BIBLIOTECA[nome].equip || BIBLIOTECA[nome].lugar || ""}` })]),
+            ]),
+          ),
+        ),
+      );
+    });
+
+    // Escolheu o exercício novo
+    SL.acao("escolher-troca", (alvo) => {
+      // Exercício atual
+      const i = estado.indice;
+      // Guarda a troca
+      estado.trocas[i] = alvo.dataset.nome;
+      // Troca na lista
+      exercicios[i] = { ...exercicios[i], nome: alvo.dataset.nome };
+      // Salva
+      salvar();
+      // Fecha a lista
+      SL.closeModal();
+      // Desenha
+      render();
+      // Avisa
+      SL.toast(`Trocado por ${alvo.dataset.nome}`);
+    });
+
+    // Transforma "40 s", "1 min" ou "5 min" em segundos
+    function segundosDe(texto) {
+      // Número do texto
+      const n = parseFloat(String(texto).replace(",", "."));
+      // Minutos ou segundos
+      return /min/.test(texto) ? Math.round(n * 60) : Math.round(n) || 30;
+    }
+
+    // Série por tempo: conta o tempo e marca a série sozinho no fim
+    SL.acao("cronometrar-serie", (alvo) => {
+      // Qual série
+      const n = alvo.dataset.serie;
+      // Segundos que faltam
+      let falta = segundosDe(exercicios[estado.indice].reps);
+      // Desativa o botão enquanto conta
+      alvo.disabled = true;
+      // Começo
+      vibrar(30);
+      // A cada segundo...
+      const conta = setInterval(() => {
+        // ...tira um segundo
+        falta -= 1;
+        // ...mostra o tempo
+        alvo.textContent = mmss(falta);
+        // ...se acabou...
+        if (falta <= 0) {
+          // Para de contar
+          clearInterval(conta);
+          // Vibra
+          vibrar([120, 60, 120]);
+          // Marca a série (clica no check dela)
+          const check = document.querySelector(`[data-action="marcar-serie"][data-serie="${n}"]`);
+          // Se achou, clica
+          if (check) check.click();
+        }
+      }, 1000);
+    });
+
     /* ---------- Ações ---------- */
 
     // Botão de marcar a série...
@@ -575,6 +749,8 @@ window.SL &&
       if (SL.pontos) serie.feito ? SL.pontos.ganhar("serie", refSerie, { origem: alvo }) : SL.pontos.perder(refSerie);
       // ...se marcou, confere se bateu recorde de carga
       if (serie.feito) conferirRecorde(i, serie, alvo);
+      // ...vibraçãozinha ao marcar
+      if (serie.feito) vibrar(25);
       // ...salva
       salvar();
       // ...desenha de novo
@@ -582,6 +758,24 @@ window.SL &&
 
       // Se desmarcou, para por aqui
       if (!serie.feito) return;
+      // Bi-set (1º do par): vai direto para o próximo exercício, sem descanso
+      if (estado.biset[i] && estado.series[i + 1] && estado.series[i + 1].some((x) => !x.feito)) {
+        // Sem descanso
+        pararDescanso();
+        // Vai para o par
+        irPara(i + 1);
+        // Para aqui
+        return;
+      }
+      // Bi-set (2º do par): descansa e volta para o primeiro, se ele ainda tem séries
+      if (estado.biset[i - 1] && estado.series[i - 1].some((x) => !x.feito)) {
+        // Descanso e depois volta
+        iniciarDescanso(exercicios[i].descanso || 60, `A seguir: ${exercicios[i - 1].nome}`);
+        // Volta para o primeiro do par quando o descanso acabar
+        avancarDepois = i - 1;
+        // Para aqui
+        return;
+      }
       // Séries do exercício
       const series = estado.series[i];
       // Vê se todas foram feitas
@@ -613,6 +807,8 @@ window.SL &&
         // ...e para
         return;
       }
+      // Próxima série é um drop set: sem descanso
+      if (!exercicioCompleto && series[proximaSerie].drop) return pararDescanso();
       // Começa o descanso
       iniciarDescanso(exercicios[i].descanso, texto);
       // Se terminou o exercício, vai para o próximo quando o descanso acabar
@@ -727,12 +923,39 @@ window.SL &&
         0,
       );
 
+      // Calorias gastas (estimativa): esforço do treino × peso × horas
+      // MET: 6 para treino intenso (HIIT), 5 para musculação e os outros
+      const met = treino.objetivo === "HIIT" ? 6 : 5;
+      // Peso da pessoa (do perfil ou da evolução)
+      const peso = SL.dadosCorpo ? SL.dadosCorpo().peso : 70;
+      // Calorias arredondadas
+      const kcal = Math.round((met * peso * minutos) / 60);
+      // Última vez que fez este mesmo treino (para comparar o volume)
+      const anterior = SL.historico().find((h) => h.treinoId === treino.id && h.volume);
+      // Diferença de volume em % (null se não tem com o que comparar)
+      const diferenca = anterior && volume ? Math.round(((volume - anterior.volume) / anterior.volume) * 100) : null;
+      // Frase da comparação
+      const comparacao =
+        // Sem treino anterior igual
+        diferenca === null
+          ? "Primeira vez com este treino: na próxima a gente compara."
+          : // Levantou mais
+            diferenca > 0
+            ? `Você levantou ${diferenca}% a mais que na última vez (${SL.num(anterior.volume)} kg).`
+            : // Igual
+              diferenca === 0
+              ? "Mesmo volume da última vez. Constância também é evolução."
+              : // Levantou menos
+                `${Math.abs(diferenca)}% a menos que na última vez. Dia mais leve conta também.`;
+      // Solta a trava da tela
+      if (travaTela) travaTela.release().catch(() => {});
+
       // Salva o treino no histórico...
       storage.set(
         // (chave do histórico)
         "sl-historico",
         // ...com os dados deste treino na frente
-        [{ treinoId: treino.id, nome: treino.nome, data: new Date().toISOString(), duracao: minutos, series: feitas.length, volume }].concat(
+        [{ treinoId: treino.id, nome: treino.nome, data: new Date().toISOString(), duracao: minutos, series: feitas.length, volume, kcal }].concat(
           // ...e os treinos antigos depois
           storage.get("sl-historico", []),
         ),
@@ -783,14 +1006,18 @@ window.SL &&
           el("h2", { id: "heading-fim", text: "Treino concluído!" }),
           // texto com a meta da semana
           el("p", { class: "page-lead", text: `${treino.nome} registrado. Isso conta para sua meta: ${stats.nestaSemana} de ${stats.meta} nesta semana.` }),
+          // comparação com a última vez
+          el("p", { class: "finish-comparacao", text: comparacao }),
           // números do treino
-          el("div", { class: "stats-grid stats-grid-3" }, [
+          el("div", { class: "stats-grid stats-grid-4" }, [
             // duração
             SL.statTile({ rotulo: "Duração", valor: SL.duracaoTexto(minutos), iconePaths: ICONES.relogio }),
             // séries
             SL.statTile({ rotulo: "Séries", valor: SL.num(feitas.length), iconePaths: ICONES.check, cor: "emerald" }),
             // volume
             SL.statTile({ rotulo: "Volume total", valor: `${SL.num(volume)} kg`, iconePaths: ICONES.haltere }),
+            // calorias (estimativa)
+            SL.statTile({ rotulo: "Calorias (estimativa)", valor: `${SL.num(kcal)} kcal`, iconePaths: ICONES.fogo, cor: "emerald" }),
           ]),
           // Como foi o treino? (esforço com emoji)
           perguntaEsforco(),

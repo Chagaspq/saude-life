@@ -4064,7 +4064,7 @@ body[data-pagina]::before {
 /* Quem pediu menos movimento: o Pulso mostra a posição parada */
 @media (prefers-reduced-motion: reduce) {
   /* Todas as partes do Pulso em movimento */
-  .pulso-mov * {
+  .pulso-mov:not(.pm-parado) * {
     /* Sem animação */
     animation: none !important;
   }
@@ -5212,4 +5212,58 @@ body[data-pagina]::before {
   width: 14px;
   /* Tamanho */
   height: 14px;
+}
+
+/* ---------- Passo a passo do exercício (3 quadros parados) ---------- */
+
+/* Lista dos 3 quadros */
+.passo-a-passo {
+  /* Sem números padrão (o nome do quadro já tem) */
+  list-style: none;
+  /* Sem espaço padrão */
+  margin: 0;
+  /* Sem espaço padrão */
+  padding: 0;
+  /* Três colunas */
+  display: grid;
+  /* Três colunas iguais */
+  grid-template-columns: repeat(3, 1fr);
+  /* Espaço entre os quadros */
+  gap: 8px;
+}
+
+/* Cada quadro */
+.passo-a-passo li {
+  /* Desenho em cima, nome embaixo */
+  display: grid;
+  /* Centralizado */
+  justify-items: center;
+  /* Espaço */
+  gap: 4px;
+  /* Fundo de card */
+  background: var(--surface-2);
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Espaço interno */
+  padding: 8px 4px;
+  /* Letra pequena */
+  font-size: var(--text-xs);
+  /* Cor apagada */
+  color: var(--muted);
+}
+
+/* Desenho do quadro */
+.passo-a-passo svg {
+  /* Largura */
+  width: 72px;
+  /* Altura proporcional */
+  height: auto;
+}
+
+/* Quadro parado: todas as partes ficam paradas no ponto certo do movimento */
+.pm-parado * {
+  /* Atraso negativo do quadro */
+  animation-delay: var(--atraso) !important;
+  /* Parado */
+  animation-play-state: paused !important;
 }

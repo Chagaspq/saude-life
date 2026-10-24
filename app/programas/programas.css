@@ -1,0 +1,127 @@
+/* Programas: programa em andamento, grade de programas e treinos em casa */
+
+/* Títulos das partes da página */
+.section-title {
+  /* Tamanho */
+  font-size: var(--text-xl);
+  /* Espaço */
+  margin: var(--space-8) 0 var(--space-4);
+}
+
+/* Card do programa em andamento */
+.prog-ativo {
+  /* Itens em coluna */
+  display: grid;
+  /* Espaço */
+  gap: 8px;
+  /* Espaço interno */
+  padding: var(--space-6);
+  /* Cantos arredondados */
+  border-radius: var(--radius-lg);
+  /* Borda esmeralda */
+  border: 1px solid var(--emerald);
+  /* Fundo com brilho esmeralda */
+  background:
+    radial-gradient(circle at 100% 0%, var(--emerald-soft), transparent 50%),
+    var(--surface);
+}
+
+/* Dica da fase do programa */
+.prog-dica {
+  /* Cor do texto */
+  color: var(--ink);
+  /* Sem margem */
+  margin: 4px 0;
+}
+
+/* Grade de programas */
+.prog-grade {
+  /* Grade */
+  display: grid;
+  /* Colunas de no mínimo 260 pixels */
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  /* Espaço */
+  gap: var(--space-4);
+}
+
+/* Card de programa */
+.prog-card {
+  /* Itens em coluna */
+  display: flex;
+  /* Coluna */
+  flex-direction: column;
+  /* Espaço */
+  gap: 10px;
+  /* Fundo de card */
+  background: var(--surface);
+  /* Borda */
+  border: 1px solid var(--border);
+  /* Cantos arredondados */
+  border-radius: var(--radius-lg);
+  /* Espaço interno */
+  padding: var(--space-5);
+}
+
+/* Botão do card fica embaixo */
+.prog-card > button {
+  /* Empurra para o fim */
+  margin-top: auto;
+}
+
+/* Ícone do objetivo */
+.prog-icone {
+  /* Centraliza */
+  display: grid;
+  /* No meio */
+  place-items: center;
+  /* Tamanho */
+  width: 44px;
+  /* Tamanho */
+  height: 44px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Fundo coral fraco */
+  background: var(--coral-dim);
+  /* Ícone coral */
+  color: var(--coral-light);
+}
+
+/* Nome do programa */
+.prog-card h3 {
+  /* Tamanho */
+  font-size: var(--text-lg);
+}
+
+/* Lista de treinos do programa */
+.prog-treinos {
+  /* Recuo das bolinhas */
+  padding-left: 18px;
+  /* Sem margem */
+  margin: 0;
+  /* Cor apagada */
+  color: var(--muted);
+  /* Letra pequena */
+  font-size: var(--text-sm);
+  /* Linhas espaçadas */
+  line-height: 1.6;
+}
+
+/* Etiqueta "Premium" */
+.tag-premium {
+  /* Fundo dourado fraco */
+  background: rgba(245, 181, 68, 0.16);
+  /* Texto dourado */
+  color: var(--star);
+}
+
+/* Etiquetas do card (mesmo visual da página de exercícios) */
+.prog-card .ex-tags {
+  /* Lado a lado */
+  display: flex;
+  /* Quebra linha */
+  flex-wrap: wrap;
+  /* Espaço */
+  gap: 6px;
+  /* Sem margem */
+  margin: 0;
+}

@@ -138,6 +138,59 @@ window.SL &&
       if (location.hash === "#heading-demo") document.getElementById("heading-demo").scrollIntoView();
     }
 
+    /* ---------- Lembrete de treino: horário fixo e dias ---------- */
+
+    // Lembrete salvo (padrão: 18h, de segunda a sexta)
+    const lembrete = storage.get("sl-lembrete-treino", { hora: "18:00", dias: [1, 2, 3, 4, 5] });
+    // Campo da hora
+    const campoHora = document.getElementById("lembrete-hora");
+    // Mostra a hora salva
+    campoHora.value = lembrete.hora;
+    // Letras dos dias (0 = domingo)
+    const DIAS = ["D", "S", "T", "Q", "Q", "S", "S"];
+    // Nomes completos (para leitores de tela)
+    const NOMES_DIAS = ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado"];
+    // Lugar dos botões dos dias
+    const caixaDias = document.querySelector(".lembrete-dias");
+    // Desenha os 7 botões (segunda primeiro)
+    function renderDias() {
+      // Ordem: segunda a domingo
+      caixaDias.replaceChildren(
+        ...[1, 2, 3, 4, 5, 6, 0].map((d) =>
+          // Botão do dia (ligado se está na lista)
+          el("button", { type: "button", class: "lembrete-dia" + (lembrete.dias.includes(d) ? " is-on" : ""), "data-dia": d, "aria-pressed": String(lembrete.dias.includes(d)), "aria-label": NOMES_DIAS[d], text: DIAS[d] }),
+        ),
+      );
+    }
+    // Desenha
+    renderDias();
+    // Clique num dia: liga ou desliga
+    caixaDias.addEventListener("click", (e) => {
+      // Botão clicado
+      const b = e.target.closest("[data-dia]");
+      // Se não foi num botão, para
+      if (!b) return;
+      // Dia
+      const d = Number(b.dataset.dia);
+      // Troca
+      lembrete.dias = lembrete.dias.includes(d) ? lembrete.dias.filter((x) => x !== d) : lembrete.dias.concat(d);
+      // Salva
+      storage.set("sl-lembrete-treino", lembrete);
+      // Desenha
+      renderDias();
+    });
+    // Mudou a hora: salva e pede permissão de notificação
+    campoHora.addEventListener("change", () => {
+      // Guarda a hora
+      lembrete.hora = campoHora.value || "18:00";
+      // Salva
+      storage.set("sl-lembrete-treino", lembrete);
+      // Pede para mostrar notificações do sistema (se ainda não pediu)
+      if ("Notification" in window && Notification.permission === "default") Notification.requestPermission();
+      // Avisa
+      SL.toast(`Lembrete às ${lembrete.hora}`);
+    });
+
     /* ---------- Conta: plano, segurança, backup e excluir ---------- */
 
     // Nome do plano atual na seção Conta

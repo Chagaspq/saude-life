@@ -289,5 +289,44 @@
   }
 
   // Deixa disponível em SL.personagem
-  SL.personagem = { desenhar, exercicio, card, humor, frase, diasSemTreinar };
+  // Duração de cada animação (segundos) e as 3 paradas (fração do ciclo) para o passo a passo
+  const QUADROS = {
+    // Agachar: em pé, descendo, embaixo
+    agachar: [1.8, [0, 0.25, 0.5]],
+    // Empurrar (vai e volta): começo, meio, fim
+    empurrar: [1.6, [0, 0.5, 1]],
+    // Puxar (vai e volta): começo, meio, fim
+    puxar: [1.6, [0, 0.5, 1]],
+    // Core: solto, contraindo, contraído
+    core: [1.6, [0, 0.25, 0.5]],
+    // Cardio: três momentos do pulo
+    cardio: [0.8, [0, 0.25, 0.5]],
+    // Alongar: três momentos do balanço
+    alongar: [3.2, [0, 0.25, 0.5]],
+  };
+
+  // Passo a passo: o Pulso parado em 3 momentos do movimento (começo, meio e fim)
+  function passoAPasso(mov = "agachar") {
+    // Duração e paradas do movimento
+    const [duracao, paradas] = QUADROS[mov] || QUADROS.agachar;
+    // Nomes dos quadros
+    const nomes = ["1. Começo", "2. Meio", "3. Fim"];
+    // Lista com os 3 quadros
+    return el(
+      "ol",
+      { class: "passo-a-passo", "aria-label": "Passo a passo do movimento" },
+      paradas.map((f, k) => {
+        // Desenho animado do movimento
+        const desenho = exercicio(mov);
+        // Marca como parado
+        desenho.classList.add("pm-parado");
+        // Para a animação no ponto certo (atraso negativo = já começa no meio do ciclo)
+        desenho.style.setProperty("--atraso", `${-f * duracao}s`);
+        // Quadro com o desenho e o nome
+        return el("li", {}, [desenho, el("span", { text: nomes[k] })]);
+      }),
+    );
+  }
+
+  SL.personagem = { passoAPasso, desenhar, exercicio, card, humor, frase, diasSemTreinar };
 })();

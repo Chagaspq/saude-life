@@ -1165,6 +1165,7 @@
           "sl-metas-modo", "sl-metas-manual", "sl-lembrete-agua", "sl-agua-ultimo", "sl-agua-aviso",
           "sl-metas-pessoais", "sl-fotos", "sl-meus-pros", "sl-avaliacoes-pros",
           "sl-espera", "sl-avaliacoes-aulas", "sl-checkins", "sl-avisos",
+          "sl-ex-favoritos", "sl-programa", "sl-corridas", "sl-plano-5k", "sl-lembrete-treino", "sl-lembrete-dia",
         // ...apaga cada uma
         ].forEach(storage.remove);
         // ...e recarrega a página
@@ -2092,7 +2093,7 @@
   // Áreas do menu lateral: cada página fica na sua área
   const AREAS = [
     // Treinar
-    ["Treinar", ["inicio", "descobrir", "treinos", "aulas"]],
+    ["Treinar", ["inicio", "descobrir", "treinos", "exercicios", "programas", "corrida", "aulas"]],
     // Comer
     ["Comer", ["alimentacao"]],
     // Evoluir
@@ -2150,6 +2151,7 @@
     dadosCorpo,
     treinosDoUsuario,
     premium,
+    avisar,
     acharTreino,
     exerciciosDe,
     resumoExercicio,
@@ -2217,17 +2219,68 @@
     if (agora - ultimoGole < duasHoras || agora - ultimoAviso < duasHoras) return;
     // Guarda a hora do aviso
     storage.set("sl-agua-aviso", agora);
-    // Avisa na tela
-    toast("Hora de beber água. Já faz 2 horas.");
-    // E também como notificação do sistema, se a pessoa deixou
-    if ("Notification" in window && Notification.permission === "granted") new Notification("Saúde Life", { body: "Hora de beber água. Já faz 2 horas." });
+    // Avisa (na tela e, se deixou, no sistema)
+    avisar("agua", "Hora de beber água. Já faz 2 horas.");
+  }
+
+  // Lembrete de treino no horário escolhido no Perfil (nos dias marcados, se ainda não treinou hoje)
+  function conferirLembreteTreino() {
+    // Só se a chave "Lembretes de treino" está ligada
+    if (!storage.get("sl-pref-notif", true)) return;
+    // Lembrete salvo (padrão: 18h, de segunda a sexta)
+    const lembrete = storage.get("sl-lembrete-treino", { hora: "18:00", dias: [1, 2, 3, 4, 5] });
+    // Agora
+    const agora = new Date();
+    // Hoje (texto, para avisar só uma vez por dia)
+    const hoje = agora.toDateString();
+    // Hoje não é dia de lembrete ou já avisou hoje: para
+    if (!lembrete.dias.includes(agora.getDay()) || storage.get("sl-lembrete-dia", "") === hoje) return;
+    // Hora e minuto do lembrete
+    const [h, m] = lembrete.hora.split(":").map(Number);
+    // Ainda não chegou a hora: para
+    if (agora.getHours() * 60 + agora.getMinutes() < h * 60 + m) return;
+    // Já treinou hoje: não precisa lembrar
+    if (historico().some((x) => new Date(x.data).toDateString() === hoje)) return;
+    // Marca que avisou hoje
+    storage.set("sl-lembrete-dia", hoje);
+    // Avisa (na tela e, se deixou, no sistema)
+    avisar("treino", "Hora do treino! Bora manter a sequência?");
+  }
+
+  // Avisa a pessoa: na tela e como notificação do sistema (respeita o tipo e o horário de silêncio)
+  function avisar(tipo, texto) {
+    // Tipos de aviso ligados (padrão: todos)
+    const tipos = storage.get("sl-avisos-tipos", {});
+    // Esse tipo foi desligado: não avisa
+    if (tipos[tipo] === false) return;
+    // Horário de silêncio (padrão: 22h às 7h, ligado)
+    const silencio = storage.get("sl-silencio", { ligado: true, de: "22:00", ate: "07:00" });
+    // Minutos de agora
+    const agora = new Date().getHours() * 60 + new Date().getMinutes();
+    // Converte "22:00" em minutos
+    const min = (t) => Number(t.split(":")[0]) * 60 + Number(t.split(":")[1]);
+    // Está no silêncio? (o intervalo pode passar da meia-noite)
+    const quieto = silencio.ligado && (min(silencio.de) <= min(silencio.ate) ? agora >= min(silencio.de) && agora < min(silencio.ate) : agora >= min(silencio.de) || agora < min(silencio.ate));
+    // No silêncio, não avisa
+    if (quieto) return;
+    // Aviso na tela
+    toast(texto);
+    // Notificação do sistema, se a pessoa deixou
+    if ("Notification" in window && Notification.permission === "granted") new Notification("Saúde Life", { body: texto, icon: "../../shared/icon-192.png" });
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    // ...confere o lembrete de água agora e a cada minuto
+    // ...confere os lembretes (água e treino) agora e a cada minuto
     conferirAgua();
+    // (treino)
+    conferirLembreteTreino();
     // (a cada 60 segundos)
-    setInterval(conferirAgua, 60000);
+    setInterval(() => {
+      // Água
+      conferirAgua();
+      // Treino
+      conferirLembreteTreino();
+    }, 60000);
     // ...faz os números que já estão na página contarem
     contarNumeros();
     // ...escreve os dados da pessoa

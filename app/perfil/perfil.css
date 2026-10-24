@@ -395,3 +395,89 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* ---------- Horário do lembrete de treino ---------- */
+
+/* Caixa do horário e dos dias */
+.lembrete-config {
+  /* Borda discreta */
+  border: 1px solid var(--border);
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Espaço interno */
+  padding: 10px 14px 14px;
+  /* Sem margem */
+  margin: 0;
+  /* Itens em linha que quebram */
+  display: flex;
+  /* Quebra linha */
+  flex-wrap: wrap;
+  /* Centralizados */
+  align-items: center;
+  /* Espaço */
+  gap: 10px;
+}
+
+/* Nome do grupo */
+.lembrete-config legend {
+  /* Letra pequena */
+  font-size: var(--text-sm);
+  /* Negrito */
+  font-weight: 600;
+  /* Espaço dos lados */
+  padding: 0 4px;
+}
+
+/* Campo da hora */
+.lembrete-config input[type="time"] {
+  /* Fundo */
+  background: var(--surface-2);
+  /* Borda */
+  border: 1px solid var(--border);
+  /* Cantos arredondados */
+  border-radius: var(--radius-sm);
+  /* Cor do texto */
+  color: var(--ink);
+  /* Espaço interno */
+  padding: 6px 10px;
+  /* Fonte do site */
+  font: 500 15px var(--font-body);
+}
+
+/* Botões dos dias */
+.lembrete-dias {
+  /* Lado a lado */
+  display: flex;
+  /* Espaço */
+  gap: 4px;
+}
+
+/* Cada dia */
+.lembrete-dia {
+  /* Tamanho */
+  width: 32px;
+  /* Tamanho */
+  height: 32px;
+  /* Redondo */
+  border-radius: 50%;
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Sem fundo */
+  background: transparent;
+  /* Cor */
+  color: var(--muted);
+  /* Negrito */
+  font-weight: 700;
+  /* Mãozinha */
+  cursor: pointer;
+}
+
+/* Dia ligado */
+.lembrete-dia.is-on {
+  /* Fundo coral */
+  background: var(--coral);
+  /* Borda coral */
+  border-color: var(--coral);
+  /* Texto escuro */
+  color: var(--on-coral);
+}

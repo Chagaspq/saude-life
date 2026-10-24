@@ -27,6 +27,15 @@
     { id: "mobilidade-quadril", nome: "Mobilidade de Quadril", objetivo: "Yoga & Mobilidade", nivel: "Iniciante", duracao: 12, grupo: "Inferiores", nota: 4.7 },
     // Tabata de Braços: HIIT, intermediário, 25 minutos
     { id: "tabata-bracos", nome: "Tabata de Braços", objetivo: "HIIT", nivel: "Intermediário", duracao: 25, grupo: "Superiores", nota: 4.6 },
+    // Treinos em casa (só com o peso do corpo): aparecem na seção "Em casa" dos Programas
+    // Casa: corpo inteiro para quem está começando, 20 minutos
+    { id: "casa-corpo-todo", nome: "Corpo Todo em Casa", objetivo: "Hipertrofia", nivel: "Iniciante", duracao: 20, grupo: "Corpo inteiro", nota: 4.8, lugar: "casa" },
+    // Casa: pernas e glúteos, 25 minutos
+    { id: "casa-pernas", nome: "Pernas e Glúteos em Casa", objetivo: "Hipertrofia", nivel: "Intermediário", duracao: 25, grupo: "Inferiores", nota: 4.7, lugar: "casa" },
+    // Casa: queima rápida, 15 minutos
+    { id: "casa-queima", nome: "Queima Rápida na Sala", objetivo: "HIIT", nivel: "Iniciante", duracao: 15, grupo: "Corpo inteiro", nota: 4.6, lugar: "casa" },
+    // Casa: abdômen e costas, 15 minutos
+    { id: "casa-core", nome: "Core em Casa", objetivo: "Resistência", nivel: "Iniciante", duracao: 15, grupo: "Core", nota: 4.7, lugar: "casa" },
   ];
 
   // Lista de profissionais (nome, especialidade, nota e seguidores)
@@ -255,6 +264,54 @@
       ex("Tríceps no banco", 4, "20 s", 0, 10),
       // Rosca com elástico: 4 séries de 20 s, sem carga, descanso de 10 s
       ex("Rosca com elástico", 4, "20 s", 0, 10),
+    ],
+    // Exercícios do treino "casa-corpo-todo"
+    "casa-corpo-todo": [
+      // Agachamento livre: 3 séries de 15, sem carga
+      ex("Agachamento livre", 3, 15, 0, 45),
+      // Flexão inclinada: 3 séries de 10
+      ex("Flexão inclinada", 3, 10, 0, 45),
+      // Ponte de glúteo: 3 séries de 15
+      ex("Ponte de glúteo", 3, 15, 0, 45),
+      // Superman: 3 séries de 12
+      ex("Superman", 3, 12, 0, 45),
+      // Prancha: 3 séries de 30 s
+      ex("Prancha", 3, "30 s", 0, 30),
+    ],
+    // Exercícios do treino "casa-pernas"
+    "casa-pernas": [
+      // Agachamento búlgaro: 3 séries de 10 (cada perna), sem carga
+      ex("Agachamento búlgaro", 3, 10, 0, 60),
+      // Subida no banco: 3 séries de 12
+      ex("Subida no banco", 3, 12, 0, 45),
+      // Ponte de glúteo: 4 séries de 15
+      ex("Ponte de glúteo", 4, 15, 0, 45),
+      // Agachamento na parede: 3 séries de 40 s
+      ex("Agachamento na parede", 3, "40 s", 0, 30),
+      // Agachamento com salto: 3 séries de 10
+      ex("Agachamento com salto", 3, 10, 0, 45),
+    ],
+    // Exercícios do treino "casa-queima"
+    "casa-queima": [
+      // Polichinelo: 3 x 40 s
+      ex("Polichinelo", 3, "40 s", 0, 20),
+      // Corrida estacionária: 3 x 40 s
+      ex("Corrida estacionária", 3, "40 s", 0, 20),
+      // Escalador: 3 x 30 s
+      ex("Escalador", 3, "30 s", 0, 20),
+      // Skipping: 3 x 30 s
+      ex("Skipping", 3, "30 s", 0, 20),
+    ],
+    // Exercícios do treino "casa-core"
+    "casa-core": [
+      // Dead bug: 3 séries de 12
+      ex("Dead bug", 3, 12, 0, 30),
+      // Prancha com toque no ombro: 3 x 30 s
+      ex("Prancha com toque no ombro", 3, "30 s", 0, 30),
+      // Russian twist: 3 séries de 20
+      ex("Russian twist", 3, 20, 0, 30),
+      // Gato e vaca: 2 x 40 s
+      ex("Gato e vaca", 2, "40 s", 0, 15),
     ],
   };
 

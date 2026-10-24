@@ -1162,3 +1162,113 @@
     flex-wrap: wrap;
   }
 }
+
+/* ---------- Drop set, bi-set, trocar e séries por tempo ---------- */
+
+/* Linha de opções embaixo das séries */
+.set-opcoes {
+  /* Botões lado a lado */
+  display: flex;
+  /* Quebra linha no celular */
+  flex-wrap: wrap;
+  /* Espaço entre os botões */
+  gap: 8px;
+  /* Espaço em cima */
+  margin-top: 12px;
+}
+
+/* Botão pequeno */
+.btn-sm {
+  /* Menos espaço interno */
+  padding: 7px 12px;
+  /* Letra menor */
+  font-size: var(--text-sm);
+}
+
+/* Botão de opção ligado (bi-set) */
+.set-opcoes .is-active {
+  /* Borda esmeralda */
+  border-color: var(--emerald);
+  /* Texto esmeralda */
+  color: var(--emerald);
+}
+
+/* Número "Drop" da série extra */
+.set-number.is-drop {
+  /* Cor coral */
+  color: var(--coral-light);
+  /* Negrito */
+  font-weight: 700;
+}
+
+/* Botão de contar o tempo da série */
+.set-timer {
+  /* Fundo de card */
+  background: var(--surface-2);
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Cor do texto */
+  color: var(--ink);
+  /* Pílula */
+  border-radius: var(--radius-full);
+  /* Espaço interno */
+  padding: 6px 12px;
+  /* Números do mesmo tamanho (o tempo não "pula") */
+  font: 600 var(--text-sm) var(--font-placar);
+  /* Mãozinha */
+  cursor: pointer;
+}
+
+/* Contando (desativado) */
+.set-timer:disabled {
+  /* Borda coral enquanto conta */
+  border-color: var(--coral-light);
+  /* Sem mãozinha */
+  cursor: default;
+}
+
+/* Lista de exercícios para trocar */
+.troca-lista .btn-link {
+  /* Nome em cima, detalhe embaixo */
+  display: grid;
+  /* Alinhado à esquerda */
+  text-align: left;
+  /* Espaço */
+  gap: 2px;
+  /* Largura toda */
+  width: 100%;
+}
+
+/* Detalhe do exercício na troca */
+.troca-lista .btn-link span {
+  /* Cor apagada */
+  color: var(--muted);
+  /* Letra pequena */
+  font-size: var(--text-xs);
+}
+
+/* Frase de comparação no fim do treino */
+.finish-comparacao {
+  /* Cor esmeralda */
+  color: var(--emerald);
+  /* Negrito */
+  font-weight: 600;
+  /* Espaço */
+  margin: 0 0 16px;
+}
+
+/* Passo a passo dentro do "Como fazer": quadros menores e sem encolher */
+.como-fazer .passo-a-passo {
+  /* Largura dos 3 quadros */
+  width: 270px;
+  /* Não encolhe ao lado das dicas */
+  flex-shrink: 0;
+}
+
+/* Desenho de cada quadro */
+.como-fazer .passo-a-passo .pulso {
+  /* Largura */
+  width: 72px;
+  /* Altura */
+  height: 90px;
+}

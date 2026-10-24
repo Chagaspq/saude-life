@@ -207,6 +207,9 @@
     storage.set("sl-pontos", lista);
     // Mostra o "+10" voando
     voar(pts, opcoes.origem);
+    // Vibraçãozinha ao ganhar pontos (se a pessoa deixou ligado no Perfil)
+    // (só depois de a pessoa tocar na página: antes disso o navegador bloqueia)
+    if (navigator.vibrate && storage.get("sl-pref-vibrar", true) && (!navigator.userActivation || navigator.userActivation.hasBeenActive)) navigator.vibrate(15);
     // Metas batidas e recordes ganham confete
     if (["metaSemana", "proteina", "agua", "recorde"].includes(tipo) && SL.confete) SL.confete();
     // Avisa a página que os pontos mudaram (para atualizar placares)

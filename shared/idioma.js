@@ -382,6 +382,32 @@
     // Texto do excluir
     "Sua conta e todos os seus dados (treinos, pesos, fotos, refeições) serão apagados deste aparelho. Não dá para desfazer.": "Your account and all your data (workouts, weights, photos, meals) will be erased from this device. This can't be undone.",
 
+    // ---------- Treino, exercícios, programas e corrida ----------
+    // Menu e páginas novas
+    "Exercícios": "Exercises", "Programas": "Programs", "Corrida": "Running", "Corrida e caminhada": "Running and walking",
+    // Tela de treino
+    "+ Drop set": "+ Drop set", "Bi-set com o próximo": "Superset with next", "Trocar exercício": "Swap exercise", "Drop": "Drop", "Calorias (estimativa)": "Calories (estimate)", "Duração": "Duration", "Volume total": "Total volume",
+    // Fim do treino
+    "Primeira vez com este treino: na próxima a gente compara.": "First time with this workout: next time we'll compare.", "Mesmo volume da última vez. Constância também é evolução.": "Same volume as last time. Consistency is progress too.",
+    // Exercícios
+    "Mais de 100 exercícios com passo a passo, dicas e o erro mais comum.": "Over 100 exercises with step-by-step drawings, tips and the most common mistake.", "Buscar exercício": "Search exercise", "Músculo": "Muscle", "Equipamento": "Equipment", "Lugar": "Place", "Só favoritos": "Favorites only", "Ver como fazer": "How to do it",
+    // Lugares e equipamentos
+    "Dá para fazer em casa": "Can be done at home", "Só na academia": "Gym only", "Em casa": "At home", "Casa ou academia": "Home or gym", "Halteres": "Dumbbells", "Barra": "Barbell", "Polia": "Cable", "Máquina": "Machine", "Peso do corpo": "Bodyweight", "Elástico": "Band", "Barra fixa": "Pull-up bar",
+    // Grupos
+    "Peito": "Chest", "Costas": "Back", "Pernas": "Legs", "Ombros": "Shoulders", "Braços": "Arms", "Cardio": "Cardio", "Mobilidade": "Mobility",
+    // Passo a passo
+    "1. Começo": "1. Start", "2. Meio": "2. Middle", "3. Fim": "3. End", "Cuidado:": "Watch out:", "Nenhum exercício encontrado": "No exercise found",
+    // Programas
+    "Planos de várias semanas com começo, meio e fim. E treinos prontos para fazer em casa.": "Multi-week plans with a beginning, middle and end. Plus ready-made home workouts.", "Programas de semanas": "Multi-week programs", "Treinos em casa": "Home workouts", "Só com o peso do corpo. Grátis, é só começar.": "Bodyweight only. Free, just start.",
+    // Botões dos programas
+    "Começar programa": "Start program", "Desbloquear com Premium": "Unlock with Premium", "Em andamento": "In progress", "Ver os treinos": "See workouts", "Parar programa": "Stop program", "Programas são Premium": "Programs are Premium", "Ver o Premium": "See Premium",
+    // Corrida
+    "Registre distância e tempo. O ritmo é calculado sozinho e cada corrida vale pontos.": "Log distance and time. Pace is calculated for you and every run earns points.", "Registrar": "Log", "Caminhada": "Walk", "Distância (km)": "Distance (km)", "Tempo (minutos)": "Time (minutes)", "Últimas": "Latest",
+    // Corrida: números e plano
+    "Km neste mês": "Km this month", "Saídas neste mês": "Sessions this month", "Melhor ritmo": "Best pace", "Do zero aos 5 km": "Couch to 5K", "Começar o plano": "Start the plan", "Nenhuma ainda. Bora para a primeira?": "None yet. Ready for the first one?",
+    // Lembrete
+    "Horário do lembrete": "Reminder time", "Hora do treino! Bora manter a sequência?": "Workout time! Keep your streak going?",
+
     // ---------- Comuns ----------
     // Botões e palavras soltas
     "Salvar": "Save", "Cancelar": "Cancel", "Confirmar": "Confirm", "Fechar": "Close", "Excluir": "Delete", "Editar": "Edit", "Sim": "Yes", "Não": "No",
