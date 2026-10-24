@@ -5861,3 +5861,247 @@ body[data-pagina]::before {
   /* Deixa encolher sem estourar */
   min-width: 0;
 }
+
+/* ---------- Pagamento (teste grátis, Pix e cartão) ---------- */
+
+/* Caixa do teste grátis */
+.ck-teste {
+  /* Fundo esmeralda fraco */
+  background: var(--emerald-soft);
+  /* Cantos */
+  border-radius: var(--radius-md);
+  /* Espaço interno */
+  padding: 12px 14px;
+  /* Espaço embaixo */
+  margin-bottom: 14px;
+}
+
+/* "ou assine agora" */
+.ck-ou {
+  /* Centralizado */
+  text-align: center;
+  /* Espaço */
+  margin: 10px 0 0;
+}
+
+/* Valor a pagar */
+.ck-resumo {
+  /* Fonte de placar */
+  font-family: var(--font-placar);
+  /* Tamanho */
+  font-size: var(--text-lg);
+  /* Coral claro */
+  color: var(--coral-light);
+  /* Espaço */
+  margin: 10px 0;
+}
+
+/* Abas de método */
+.ck-metodos {
+  /* Espaço */
+  margin: 12px 0;
+}
+
+/* Parte do Pix */
+.ck-pix {
+  /* Coluna */
+  display: grid;
+  /* Centralizado */
+  justify-items: center;
+  /* Espaço */
+  gap: 10px;
+}
+
+/* Pagamento travado (estudante sem confirmar) */
+.ck-pagamento.is-travado {
+  /* Apagado */
+  opacity: 0.45;
+}
+
+/* Confirmação de estudante */
+.ck-estudante {
+  /* Espaço */
+  margin: 10px 0;
+}
+
+/* Erro do cartão */
+.ck-erro {
+  /* Coral claro */
+  color: var(--coral-light);
+  /* Sem margem quando vazio */
+  margin: 0;
+  /* Letra menor */
+  font-size: var(--text-sm);
+}
+
+/* Aviso de demonstração */
+.ck-aviso {
+  /* Espaço em cima */
+  margin-top: 14px;
+  /* Letra menor */
+  font-size: var(--text-sm);
+}
+
+/* ---------- Instalar app, abertura e playlists ---------- */
+
+/* Faixa de instalar (rodapé da tela, acima do menu de baixo no celular) */
+.instalar-faixa {
+  /* Presa na tela */
+  position: fixed;
+  /* Centralizada */
+  left: 50%;
+  /* Acima do menu de baixo */
+  bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+  /* Centraliza */
+  transform: translateX(-50%);
+  /* Largura */
+  width: min(560px, calc(100vw - 32px));
+  /* Por cima */
+  z-index: 900;
+  /* Lado a lado */
+  display: flex;
+  /* Alinhados */
+  align-items: center;
+  /* Quebra no celular */
+  flex-wrap: wrap;
+  /* Espaço */
+  gap: 10px;
+  /* Espaço interno */
+  padding: 12px 16px;
+  /* Fundo */
+  background: var(--surface);
+  /* Borda coral */
+  border: 1px solid var(--border-coral);
+  /* Cantos */
+  border-radius: 16px;
+  /* Sombra */
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+}
+
+/* Texto da faixa */
+.instalar-faixa p {
+  /* Ocupa o espaço */
+  flex: 1 1 220px;
+  /* Sem margem */
+  margin: 0;
+  /* Letra */
+  font-size: var(--text-sm);
+}
+
+/* No computador, mais embaixo (não tem menu de baixo) */
+@media (min-width: 1024px) {
+  /* Faixa */
+  .instalar-faixa {
+    /* Perto do rodapé */
+    bottom: 24px;
+  }
+}
+
+/* Tela da abertura */
+.abertura {
+  /* Cobre tudo */
+  position: fixed;
+  /* Cobre tudo */
+  inset: 0;
+  /* Por cima de tudo */
+  z-index: 3000;
+  /* Centraliza */
+  display: grid;
+  /* Centraliza */
+  place-items: center;
+  /* Itens no meio */
+  align-content: center;
+  /* Espaço */
+  gap: 14px;
+  /* Fundo da página */
+  background: var(--bg);
+  /* Some suave */
+  transition: opacity 0.45s ease;
+}
+
+/* Saindo */
+.abertura.is-saindo {
+  /* Transparente */
+  opacity: 0;
+}
+
+/* Logo grande */
+.abertura svg {
+  /* Tamanho */
+  width: 96px;
+  /* Tamanho */
+  height: 96px;
+  /* Cresce de leve */
+  animation: abertura-logo 1.2s ease both;
+}
+
+/* Nome */
+.abertura-nome {
+  /* Fonte de título */
+  font: 800 28px var(--font-display);
+  /* Cor */
+  color: var(--ink);
+  /* Aparece depois da logo */
+  animation: abertura-nome 0.6s 0.5s ease both;
+}
+
+/* Animação da logo */
+@keyframes abertura-logo {
+  /* Começa pequena e apagada */
+  from {
+    /* Escala */
+    transform: scale(0.6) rotate(-20deg);
+    /* Transparente */
+    opacity: 0;
+  }
+  /* Termina normal */
+  to {
+    /* Escala */
+    transform: scale(1) rotate(0);
+    /* Visível */
+    opacity: 1;
+  }
+}
+
+/* Animação do nome */
+@keyframes abertura-nome {
+  /* Começa embaixo */
+  from {
+    /* Posição */
+    transform: translateY(10px);
+    /* Transparente */
+    opacity: 0;
+  }
+}
+
+/* Lista de playlists */
+.playlists {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Sem espaço */
+  padding: 0;
+  /* Sem margem */
+  margin: 0;
+  /* Coluna */
+  display: grid;
+  /* Espaço */
+  gap: 10px;
+}
+
+/* Cada playlist */
+.playlists li {
+  /* Lado a lado */
+  display: flex;
+  /* Alinhados */
+  align-items: center;
+  /* Quebra */
+  flex-wrap: wrap;
+  /* Espaço */
+  gap: 8px;
+}
+
+/* Nome ocupa o espaço */
+.playlists strong {
+  /* Ocupa */
+  flex: 1 1 160px;
+}

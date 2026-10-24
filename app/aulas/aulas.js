@@ -80,6 +80,8 @@ window.SL &&
               ? el("a", { class: "btn-primary", href: aula.online, target: "_blank", rel: "noopener", text: "Entrar na aula online" })
               : el("span", { class: "meta", text: "O link da aula online libera 15 min antes" })
             : null,
+          // Pôr na agenda (quem reservou)
+          reservado ? el("button", { class: "btn-link", "data-action": "agenda-aula", "data-nome": aula.nome, text: "Adicionar à agenda" }) : null,
           // Avaliar (só quem reservou)
           reservado ? el("button", { class: "btn-link", "data-action": "avaliar-aula", "data-nome": aula.nome, text: minhaNota ? `Sua nota: ${"★".repeat(minhaNota)}` : "Avaliar aula" }) : null,
         ]),
@@ -145,6 +147,14 @@ window.SL &&
         // ...reservou: ganha pontos; cancelou: perde
         reservas.includes(nome) ? SL.pontos.ganhar("aula", ref, { origem: btn }) : SL.pontos.perder(ref);
       }
+    });
+
+    // Baixar a aula para a agenda (repete toda semana nos dias dela)
+    SL.acao("agenda-aula", (btn) => {
+      // Aula
+      const aula = AULAS.find((a) => a.nome === btn.dataset.nome);
+      // Agenda: dias da aula (0 = segunda) viram dias da agenda (0 = domingo)
+      SL.baixarAgenda({ titulo: `${aula.nome} - Saúde Life`, inicio: SL.proximaAula(aula), minutos: aula.duracao, descricao: `${aula.sala} com ${aula.professor}${aula.online ? ". Online: " + aula.online : ""}`, repetir: aula.dias.map((d) => (d + 1) % 7) });
     });
 
     // Entrar ou sair da lista de espera

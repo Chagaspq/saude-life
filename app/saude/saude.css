@@ -233,3 +233,37 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* Números do relógio */
+.relogio-numeros {
+  /* Três colunas */
+  display: grid;
+  /* Colunas automáticas */
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  /* Espaço */
+  gap: 10px;
+  /* Espaço */
+  margin: 12px 0;
+}
+
+/* Cada número */
+.relogio-numeros div {
+  /* Coluna */
+  display: grid;
+  /* Fundo */
+  background: var(--surface-2);
+  /* Cantos */
+  border-radius: var(--radius-md);
+  /* Espaço */
+  padding: 12px;
+}
+
+/* Número grande */
+.relogio-numeros strong {
+  /* Fonte de placar */
+  font-family: var(--font-placar);
+  /* Tamanho */
+  font-size: var(--text-xl);
+  /* Esmeralda */
+  color: var(--emerald);
+}

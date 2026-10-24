@@ -315,7 +315,7 @@ window.SL &&
     // Confere se pode usar o treino automático (Premium; no Free, 1 vez de presente)
     function podeUsarAutomatico() {
       // Plano da pessoa
-      const plano = storage.get("sl-plano", "Free");
+      const plano = SL.premium() ? "Premium" : "Free";
       // Quantas vezes já usou
       const usos = storage.get("sl-auto-usos", 0);
       // Premium e Profissional podem sempre; Free pode 1 vez

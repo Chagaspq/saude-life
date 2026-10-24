@@ -507,6 +507,18 @@
                     <input type="time" id="lembrete-hora" value="18:00" aria-label="Hora do lembrete de treino" />
                     <!-- Dias da semana (o perfil.js cria os botões) -->
                     <div class="lembrete-dias" role="group" aria-label="Dias do lembrete"></div>
+                    <!-- Botão de pôr os treinos na agenda do celular -->
+                    <button type="button" class="btn-link" data-action="agenda-treino">Adicionar à agenda</button>
+                  </fieldset>
+                  <!-- Quais avisos receber, um por um (o perfil.js cria as chaves) -->
+                  <fieldset class="avisos-config" data-render="avisos-tipos">
+                    <!-- Nome do grupo -->
+                    <legend>Avisos que você quer receber</legend>
+                  </fieldset>
+                  <!-- Horário de silêncio: nenhum aviso nesse intervalo -->
+                  <fieldset class="avisos-config" data-render="silencio">
+                    <!-- Nome do grupo -->
+                    <legend>Horário de silêncio</legend>
                   </fieldset>
                   <!-- Linha da preferência de vibrar -->
                   <label class="switch-row">
@@ -577,6 +589,8 @@
           <p>&copy; 2026 Saúde Life</p>
           <!-- Links para Termos e Política -->
           <nav aria-label="Links legais">
+            <!-- Link que leva para a central de ajuda -->
+            <a href="../../ajuda/ajuda.html">Ajuda</a>
             <!-- Link que leva para os Termos de Uso -->
             <a href="../../termos/termos.html">Termos de Uso</a>
             <!-- Link que leva para a Política de Privacidade -->

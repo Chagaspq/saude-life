@@ -371,3 +371,55 @@
   /* Texto escuro */
   color: var(--on-coral);
 }
+
+/* Grupos de avisos e silêncio */
+.avisos-config {
+  /* Borda discreta */
+  border: 1px solid var(--border);
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Espaço interno */
+  padding: 6px 14px 12px;
+  /* Sem margem */
+  margin: 0;
+  /* Coluna */
+  display: grid;
+  /* Espaço */
+  gap: 4px;
+}
+
+/* Título do grupo */
+.avisos-config legend {
+  /* Letra pequena */
+  font-size: var(--text-sm);
+  /* Negrito */
+  font-weight: 600;
+  /* Espaço dos lados */
+  padding: 0 4px;
+}
+
+/* Horas do silêncio */
+.silencio-horas {
+  /* Lado a lado */
+  display: flex;
+  /* Alinhados */
+  align-items: center;
+  /* Espaço */
+  gap: 8px;
+}
+
+/* Campos de hora do silêncio */
+.silencio-horas input {
+  /* Fundo */
+  background: var(--surface-2);
+  /* Borda */
+  border: 1px solid var(--border);
+  /* Cantos */
+  border-radius: var(--radius-sm);
+  /* Espaço */
+  padding: 6px 10px;
+  /* Cor */
+  color: var(--ink);
+  /* Fonte (16px evita zoom no celular) */
+  font: 400 16px var(--font-body);
+}

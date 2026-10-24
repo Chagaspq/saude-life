@@ -31,7 +31,7 @@ window.SL &&
       // Pulso com a roupa escolhida, no canto do card
       if (SL.personagem) card.append(el("div", { class: "perfil-extra perfil-pulso" }, [SL.personagem.desenhar()]));
       // Selo do plano ao lado do nome
-      document.getElementById("heading-perfil").append(el("span", { class: `perfil-extra tag perfil-plano${SL.premium() ? " is-premium" : ""}`, text: SL.premium() ? "Premium" : "Free" }));
+      document.getElementById("heading-perfil").append(el("span", { class: `perfil-extra tag perfil-plano${SL.premium() ? " is-premium" : ""}`, text: SL.premium() ? SL.storage.get("sl-plano", "Premium") : "Free" }));
       // Selos conquistados
       const selos = SL.pontos ? SL.pontos.selos().filter((x) => x.feito) : [];
       // Os escolhidos para destaque (só os que ainda valem)
@@ -140,6 +140,77 @@ window.SL &&
 
     /* ---------- Lembrete de treino: horário fixo e dias ---------- */
 
+    // Pôr os treinos na agenda do celular (no horário e nos dias do lembrete)
+    SL.acao("agenda-treino", () => {
+      // Lembrete salvo
+      const l = storage.get("sl-lembrete-treino", { hora: "18:00", dias: [1, 2, 3, 4, 5] });
+      // Hora e minuto
+      const [h, m] = l.hora.split(":").map(Number);
+      // Próximo dia marcado (a partir de hoje)
+      const inicio = new Date();
+      // Horário
+      inicio.setHours(h, m, 0, 0);
+      // Anda até um dia marcado (no máximo 7 voltas)
+      for (let i = 0; i < 7 && !l.dias.includes(inicio.getDay()); i++) inicio.setDate(inicio.getDate() + 1);
+      // Baixa o evento que repete toda semana
+      SL.baixarAgenda({ titulo: "Treino - Saúde Life", inicio, minutos: 60, descricao: "Hora do treino! Abra o Saúde Life e bora.", repetir: l.dias });
+    });
+
+    /* ---------- Avisos um por um e horário de silêncio ---------- */
+
+    // Tipos de aviso: [id, nome, explicação]
+    const TIPOS_AVISO = [["treino", "Treino", "Lembrete do horário e saudade do Pulso"], ["agua", "Água", "A cada 2 horas, se ainda não bateu a meta"], ["aulas", "Aulas", "1 hora antes das aulas reservadas"], ["ranking", "Ranking", "Quando você sobe de liga"]];
+    // Tipos ligados/desligados (padrão: todos ligados)
+    const tiposAviso = storage.get("sl-avisos-tipos", {});
+    // Uma chave para cada tipo
+    document.querySelector('[data-render="avisos-tipos"]').append(
+      ...TIPOS_AVISO.map(([id, nome, texto]) => {
+        // Chave
+        const chave = el("input", { type: "checkbox", class: "switch", role: "switch", "aria-label": `Avisos de ${nome}` });
+        // Ligada se não foi desligada
+        chave.checked = tiposAviso[id] !== false;
+        // Ao mudar, salva
+        chave.addEventListener("change", () => {
+          // Lê de novo (pode ter mudado)
+          const atual = storage.get("sl-avisos-tipos", {});
+          // Guarda
+          atual[id] = chave.checked;
+          // Salva
+          storage.set("sl-avisos-tipos", atual);
+          // Avisa
+          SL.toast(chave.checked ? `Avisos de ${nome.toLowerCase()} ligados` : `Avisos de ${nome.toLowerCase()} desligados`);
+        });
+        // Linha
+        return el("label", { class: "switch-row" }, [el("span", {}, [el("strong", { text: nome }), el("small", { text: texto })]), chave]);
+      }),
+    );
+    // Horário de silêncio salvo (padrão: 22h às 7h, ligado)
+    const silencio = storage.get("sl-silencio", { ligado: true, de: "22:00", ate: "07:00" });
+    // Chave do silêncio
+    const chaveSilencio = el("input", { type: "checkbox", class: "switch", role: "switch", "aria-label": "Horário de silêncio" });
+    // Marca
+    chaveSilencio.checked = silencio.ligado;
+    // Hora de começo
+    const de = el("input", { type: "time", value: silencio.de, "aria-label": "Silêncio começa às" });
+    // Hora de fim
+    const ate = el("input", { type: "time", value: silencio.ate, "aria-label": "Silêncio termina às" });
+    // Salva tudo
+    const salvarSilencio = () => {
+      // Guarda
+      storage.set("sl-silencio", { ligado: chaveSilencio.checked, de: de.value || "22:00", ate: ate.value || "07:00" });
+      // Avisa
+      SL.toast("Horário de silêncio salvo");
+    };
+    // Qualquer mudança salva
+    [chaveSilencio, de, ate].forEach((x) => x.addEventListener("change", salvarSilencio));
+    // Coloca na tela
+    document.querySelector('[data-render="silencio"]').append(
+      // Linha da chave
+      el("label", { class: "switch-row" }, [el("span", {}, [el("strong", { text: "Não me avisar à noite" }), el("small", { text: "Nenhum aviso nesse intervalo" })]), chaveSilencio]),
+      // Horários
+      el("div", { class: "silencio-horas" }, [el("span", { text: "Das" }), de, el("span", { text: "às" }), ate]),
+    );
+
     // Lembrete salvo (padrão: 18h, de segunda a sexta)
     const lembrete = storage.get("sl-lembrete-treino", { hora: "18:00", dias: [1, 2, 3, 4, 5] });
     // Campo da hora
@@ -194,7 +265,10 @@ window.SL &&
     /* ---------- Conta: plano, segurança, backup e excluir ---------- */
 
     // Nome do plano atual na seção Conta
-    $("plano-nome").textContent = SL.premium() ? "Premium" : "Free";
+    // Assinatura (para mostrar se é teste grátis)
+    const assinatura = SL.storage.get("sl-assinatura", null);
+    // Nome do plano (e quantos dias faltam no teste grátis)
+    $("plano-nome").textContent = SL.premium() ? SL.storage.get("sl-plano", "Premium") + (assinatura && assinatura.teste ? ` (teste: faltam ${Math.max(0, Math.ceil((new Date(assinatura.fim) - Date.now()) / 86400000))} dias)` : "") : "Free";
     // Funções de conta (shared/form-utils.js)
     const F = window.SaudeLifeForm;
     // E-mail de quem está logado

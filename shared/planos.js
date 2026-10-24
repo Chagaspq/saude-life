@@ -13,7 +13,7 @@
 
   // Lista dos planos
   const PLANOS = [
-    // Plano 1
+    // Free: grátis para sempre
     {
       // Nome do plano
       nome: "Free",
@@ -26,52 +26,90 @@
         // Item 2
         "Acompanhamento simples de evolução",
         // Item 3
-        "Acesso à comunidade",
+        "Comunidade e ranking",
       ],
       // Texto do botão
       cta: "Começar grátis",
     },
-    // Plano 2
+    // Premium: o principal
     {
       // Nome do plano
       nome: "Premium",
-      // Preço por mês: R$ 29,90
-      mensal: 29.9,
+      // Preço por mês: R$ 14,90
+      mensal: 14.9,
       // Plano em destaque (mais escolhido)
       destaque: true,
+      // Selo do teste grátis
+      teste: "30 dias grátis",
       // O que o plano tem
       itens: [
         // Item 1
-        "Acesso total à plataforma",
+        "Programas completos e treino automático",
         // Item 2
-        "Treinos montados para o seu objetivo",
-        // Item 3
         "Relatórios avançados de evolução",
+        // Item 3
+        "Pulso especial e desafios sem limite",
         // Item 4
         "Suporte prioritário",
       ],
       // Texto do botão
-      cta: "Assinar Premium",
+      cta: "Testar 30 dias grátis",
     },
-    // Plano 3
+    // Estudante: Premium mais barato
     {
       // Nome do plano
-      nome: "Profissional",
-      // Preço por mês: R$ 79,90
-      mensal: 79.9,
+      nome: "Estudante",
+      // Preço por mês: R$ 9,90
+      mensal: 9.9,
       // O que o plano tem
       itens: [
         // Item 1
-        "Ferramentas pra personal trainers",
+        "Tudo do Premium",
         // Item 2
-        "Gestão de alunos e planos de treino",
+        "Para estudantes com matrícula ativa",
+        // Item 3
+        "Confirmação simples na hora de assinar",
+      ],
+      // Texto do botão
+      cta: "Assinar Estudante",
+    },
+    // Família: até 4 pessoas
+    {
+      // Nome do plano
+      nome: "Família",
+      // Preço por mês: R$ 24,90
+      mensal: 24.9,
+      // O que o plano tem
+      itens: [
+        // Item 1
+        "Tudo do Premium para até 4 pessoas",
+        // Item 2
+        "Cada um com sua conta e seus dados",
+        // Item 3
+        "Ranking da família",
+      ],
+      // Texto do botão
+      cta: "Assinar Família",
+    },
+    // Profissional: para personal e nutri
+    {
+      // Nome do plano
+      nome: "Profissional",
+      // Preço por mês: R$ 49,90
+      mensal: 49.9,
+      // O que o plano tem
+      itens: [
+        // Item 1
+        "Área do profissional completa",
+        // Item 2
+        "Montar e mandar treinos para alunos",
         // Item 3
         "Relatórios de desempenho dos alunos",
       ],
       // Texto do botão
       cta: "Assinar Pro",
     },
-    // Plano 4
+    // Academia: sob consulta
     {
       // Nome do plano
       nome: "Academia",
@@ -80,9 +118,9 @@
       // O que o plano tem
       itens: [
         // Item 1
-        "Sistema completo de gestão",
+        "Painel do dono com frequência e alunos sumidos",
         // Item 2
-        "Múltiplos professores e alunos",
+        "Desafios e avisos para os alunos",
         // Item 3
         "Relatórios e suporte dedicado",
       ],
@@ -230,6 +268,8 @@
             plano.destaque ? el("span", { class: "plan-tag", text: "Mais escolhido" }) : "",
             // Etiqueta "Seu plano" (só no atual)
             ehAtual ? el("span", { class: "plan-tag plan-tag-current", text: "Seu plano" }) : "",
+            // Selo do teste grátis (no Premium)
+            plano.teste && !ehAtual ? el("span", { class: "plan-teste", text: plano.teste }) : "",
             // Nome do plano
             el("h2", { class: "plan-name", text: plano.nome }),
             // Preço
@@ -279,6 +319,9 @@
     // Coloca a chave e a grade dentro da caixa
     container.replaceChildren(toggle, grid);
   }
+
+  // Deixa a lista e a conta do preço disponíveis para o pagamento no app
+  window.SL_PLANOS = { PLANOS: PLANOS, DESCONTO_ANUAL: DESCONTO_ANUAL, reais: reais };
 
   // Procura todas as caixas data-planos da página e desenha os planos nelas
   document.querySelectorAll("[data-planos]").forEach(render);

@@ -141,6 +141,20 @@
         <p class="plans-hero-lead">Treino, alimentação e hábitos em textos curtos, escritos pelos profissionais do Saúde Life.</p>
       </section>
 
+      <!-- Dica do dia (muda todo dia; preenchida pelo blog.js) -->
+      <aside class="blog-dica" data-render="dica" aria-label="Dica do dia"></aside>
+
+      <!-- Busca nos artigos -->
+      <div class="blog-busca" data-render="busca">
+        <!-- Nome escondido do campo -->
+        <label class="sr-only" for="blog-busca">Buscar nos artigos</label>
+        <!-- Campo -->
+        <input type="search" id="blog-busca" placeholder="Buscar: proteína, sono, agachamento..." autocomplete="off" />
+      </div>
+
+      <!-- Atalhos para o glossário e as calculadoras -->
+      <p class="blog-atalhos" data-render="atalhos"><a href="../glossario/glossario.html">Glossário de termos</a> • <a href="../calculadoras/calculadoras.html">Calculadoras (IMC, calorias, água, 1RM)</a></p>
+
       <!-- Filtros por assunto (preenchidos pelo blog.js) -->
       <div class="blog-filtros" role="group" aria-label="Filtrar por assunto" data-render="filtros"></div>
 
@@ -196,6 +210,12 @@
             <li><a href="../planos/planos.html">Planos</a></li>
             <!-- Link que leva para o blog de dicas -->
             <li><a href="../blog/blog.html">Blog de dicas</a></li>
+            <!-- Link da central de ajuda -->
+            <li><a href="../ajuda/ajuda.html">Ajuda</a></li>
+            <!-- Link do glossário -->
+            <li><a href="../glossario/glossario.html">Glossário</a></li>
+            <!-- Link das calculadoras -->
+            <li><a href="../calculadoras/calculadoras.html">Calculadoras</a></li>
             <!-- Link que leva para a página para academias -->
             <li><a href="../academias/academias.html">Para academias</a></li>
             <!-- Link que leva para a tela de cadastro -->

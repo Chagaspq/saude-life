@@ -500,3 +500,207 @@ svg path[d^="M19.5 33H24.5"] {
   /* Check */
   content: "✓";
 }
+
+/* ---------- Acessibilidade (painel e modos) ---------- */
+
+/* Botão solto de acessibilidade: à esquerda do botão de tema solto */
+.btn-a11y-solto {
+  /* Mais à esquerda */
+  right: calc(110px + env(safe-area-inset-right, 0px));
+}
+
+/* Painel de acessibilidade */
+.a11y-painel {
+  /* Preso na tela */
+  position: fixed;
+  /* Distância do topo */
+  top: 64px;
+  /* Distância da direita */
+  right: 16px;
+  /* Largura */
+  width: min(320px, calc(100vw - 32px));
+  /* Por cima de tudo */
+  z-index: 1200;
+  /* Fundo de card */
+  background: var(--surface);
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Cantos */
+  border-radius: 16px;
+  /* Espaço interno */
+  padding: 14px 16px;
+  /* Sombra */
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  /* Coluna */
+  display: grid;
+  /* Espaço */
+  gap: 10px;
+  /* Cor do texto */
+  color: var(--ink);
+}
+
+/* Escondido de verdade */
+.a11y-painel[hidden] {
+  /* Some */
+  display: none;
+}
+
+/* Título do painel */
+.a11y-titulo {
+  /* Sem margem */
+  margin: 0;
+  /* Fonte de título */
+  font: 700 var(--text-lg) var(--font-display);
+}
+
+/* Cada linha */
+.a11y-linha {
+  /* Texto e controle lado a lado */
+  display: flex;
+  /* Nas pontas */
+  justify-content: space-between;
+  /* Alinhados */
+  align-items: center;
+  /* Espaço */
+  gap: 12px;
+  /* Letra */
+  font-size: var(--text-sm);
+}
+
+/* Botões A- e A+ */
+.a11y-fonte button,
+.a11y-voz {
+  /* Fundo */
+  background: var(--surface-2);
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Cantos */
+  border-radius: 10px;
+  /* Cor */
+  color: var(--ink);
+  /* Letra */
+  font: 700 var(--text-sm) var(--font-body);
+  /* Espaço */
+  padding: 6px 12px;
+  /* Mãozinha */
+  cursor: pointer;
+  /* Espaço entre os dois */
+  margin-left: 4px;
+}
+
+/* Botão de voz ocupa a largura */
+.a11y-voz {
+  /* Sem margem */
+  margin: 4px 0 0;
+}
+
+/* Botões do painel com mouse */
+.a11y-fonte button:hover,
+.a11y-voz:hover {
+  /* Borda coral */
+  border-color: var(--coral-light);
+}
+
+/* Texto maior: nível 1 */
+:root[data-fonte="1"] {
+  /* Tamanhos de texto ~12% maiores */
+  --text-xs: 13.5px;
+  --text-sm: 15px;
+  --text-base: 17px;
+  --text-lg: 19px;
+  --text-xl: 22px;
+  --text-2xl: 29px;
+}
+
+/* Texto maior: nível 2 */
+:root[data-fonte="2"] {
+  /* Tamanhos de texto ~25% maiores */
+  --text-xs: 15px;
+  --text-sm: 17px;
+  --text-base: 19px;
+  --text-lg: 21px;
+  --text-xl: 25px;
+  --text-2xl: 32px;
+}
+
+/* Texto maior: nível 3 */
+:root[data-fonte="3"] {
+  /* Tamanhos de texto ~40% maiores */
+  --text-xs: 17px;
+  --text-sm: 19px;
+  --text-base: 21px;
+  --text-lg: 24px;
+  --text-xl: 28px;
+  --text-2xl: 36px;
+}
+
+/* Corpo da página segue o tamanho base (nos níveis maiores) */
+:root[data-fonte="1"] body,
+:root[data-fonte="2"] body,
+:root[data-fonte="3"] body {
+  /* Tamanho base */
+  font-size: var(--text-base);
+}
+
+/* Alto contraste: fundo preto, texto branco, bordas fortes */
+:root[data-contraste] {
+  /* Fundo */
+  --bg: #000000;
+  --surface: #0a0a0a;
+  --surface-2: #141414;
+  --surface-3: #1f1f1f;
+  /* Bordas fortes */
+  --border: #8a8a8a;
+  --border-strong: #ffffff;
+  /* Textos */
+  --ink: #ffffff;
+  --muted: #e6e6e6;
+  --muted-2: #d0d0d0;
+  /* Cores mais vivas */
+  --coral: #ff9a6b;
+  --coral-light: #ffc2a3;
+  --emerald: #5ff2bf;
+}
+
+/* Alto contraste: links sublinhados */
+:root[data-contraste] a {
+  /* Sublinhado */
+  text-decoration: underline;
+}
+
+/* Cores para daltônicos (paleta Okabe-Ito: laranja e azul se distinguem em todos os tipos) */
+:root[data-daltonico] {
+  /* "Coral" vira laranja */
+  --coral: #e69f00;
+  --coral-light: #f2b84b;
+  --coral-dark: #b37a00;
+  --coral-soft: rgba(230, 159, 0, 0.12);
+  --coral-dim: rgba(230, 159, 0, 0.18);
+  --coral-ring: rgba(230, 159, 0, 0.4);
+  --coral-glow: rgba(230, 159, 0, 0.4);
+  /* "Esmeralda" vira azul */
+  --emerald: #56b4e9;
+  --emerald-dark: #0072b2;
+  --emerald-soft: rgba(86, 180, 233, 0.14);
+  /* Aviso vira amarelo */
+  --warning: #f0e442;
+}
+
+/* Modo simples: botões e toques maiores */
+:root[data-simples] button,
+:root[data-simples] .btn-primary,
+:root[data-simples] .btn-secondary,
+:root[data-simples] .nav-link {
+  /* Altura mínima confortável */
+  min-height: 48px;
+}
+
+/* Modo simples: sem animações e enfeites que distraem */
+:root[data-simples] *,
+:root[data-simples] *::before,
+:root[data-simples] *::after {
+  /* Sem animação */
+  animation-duration: 0.01ms !important;
+  /* Sem transição */
+  transition-duration: 0.01ms !important;
+}

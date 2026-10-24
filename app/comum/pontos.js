@@ -810,7 +810,7 @@
         // Confete
         if (SL.confete) SL.confete();
         // Aviso
-        SL.toast(`Você subiu para a liga ${LIGAS[m.para].nome}!`);
+        SL.avisar("ranking", `Você subiu para a liga ${LIGAS[m.para].nome}!`);
       } else {
         // ...desceu: aviso de força
         SL.toast(`Você caiu para a liga ${LIGAS[m.para].nome}. Bora recuperar essa semana!`);

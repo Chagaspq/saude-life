@@ -8,7 +8,7 @@
  * recarregar a página continua mostrando a mudança na hora.
  */
 // Nome da caixa de arquivos guardados (mudar o número apaga as caixas antigas)
-const CACHE = "saude-life-v10";
+const CACHE = "saude-life-v11";
 
 // Todos os arquivos do site (caminhos a partir da pasta do sw.js)
 const ARQUIVOS = [
@@ -33,7 +33,7 @@ const ARQUIVOS = [
   // Esqueci a senha e redefinir
   "./senha/redefinir.html", "./senha/redefinir.js", "./senha/senha.css", "./senha/senha.html", "./senha/senha.js",
   // Arquivos comuns (cores, ícones, manifesto)
-  "./shared/auth.css", "./shared/base.css", "./shared/favicon.svg", "./shared/form-utils.js", "./shared/idioma.js", "./shared/icon-192.png", "./shared/icon-512.png", "./shared/legal.css", "./shared/legal.js", "./shared/manifest.webmanifest", "./shared/og-image.png", "./shared/planos.css", "./shared/planos.js", "./shared/site.css", "./shared/tema.js", "./shared/tokens.css",
+  "./shared/auth.css", "./shared/base.css", "./shared/favicon.svg", "./shared/form-utils.js", "./shared/idioma.js", "./shared/idioma-es.js", "./shared/paginas.css", "./ajuda/ajuda.css", "./ajuda/ajuda.html", "./ajuda/ajuda.js", "./glossario/glossario.css", "./glossario/glossario.html", "./glossario/glossario.js", "./calculadoras/calculadoras.css", "./calculadoras/calculadoras.html", "./calculadoras/calculadoras.js", "./shared/icon-192.png", "./shared/icon-512.png", "./shared/legal.css", "./shared/legal.js", "./shared/manifest.webmanifest", "./shared/og-image.png", "./shared/planos.css", "./shared/planos.js", "./shared/site.css", "./shared/tema.js", "./shared/tokens.css",
   // Termos de uso
   "./termos/termos.html",
   // Página inicial pública

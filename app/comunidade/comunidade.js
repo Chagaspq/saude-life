@@ -1173,8 +1173,8 @@ window.SL &&
 
     // Criar desafio (no plano Free, 1 desafio criado por vez)
     SL.acao("criar-desafio", () => {
-      // Plano da pessoa (padrão: Free)
-      const plano = storage.get("sl-plano", "Free");
+      // Plano da pessoa (Free ou um plano com recursos Premium)
+      const plano = SL.premium() ? "Premium" : "Free";
       // Desafios ativos criados por você
       const meusAtivos = desafios().filter((d) => d.criador === "eu" && d.fim > Date.now());
       // No Free, só 1 por vez

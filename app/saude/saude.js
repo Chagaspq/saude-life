@@ -339,7 +339,106 @@ window.SL &&
       $("ciclo").replaceChildren(liga, fase ? el("div", { class: "ciclo-fase" }, [el("p", { class: "page-kicker", text: `Dia ${dia} de ${ciclo.duracao}` }), el("strong", { text: fase[0] }), el("p", { class: "prog-dica", text: fase[1] })]) : el("p", { class: "meta", text: "Preencha o começo da última menstruação para ver a fase." }), form);
     }
 
+    /* ---------- Relógio inteligente (simulado) ---------- */
+
+    // Modelos de relógio para "conectar"
+    const RELOGIOS = ["Apple Watch", "Galaxy Watch", "Mi Band", "Garmin"];
+
+    // Desenha o cartão do relógio
+    function renderRelogio() {
+      // Relógio salvo
+      const r = storage.get("sl-relogio", null);
+      // Lugar do cartão
+      const alvo = document.querySelector('[data-render="relogio"]');
+      // Não conectado: mostra os botões de conectar
+      if (!r) {
+        // Troca o conteúdo
+        alvo.replaceChildren(
+          // Explicação
+          el("p", { class: "meta", text: "Conecte seu relógio para trazer passos, batimentos e sono sozinho. (Demonstração: os dados são simulados.)" }),
+          // Botões de cada modelo
+          el("div", { class: "humor-opcoes" }, RELOGIOS.map((m) => el("button", { type: "button", class: "btn-secondary", "data-action": "conectar-relogio", "data-modelo": m, text: m }))),
+        );
+        // Para aqui
+        return;
+      }
+      // Agora
+      const agora = new Date();
+      // Sorteio fixo do dia (os números não mudam a cada clique)
+      const sorte = (x) => (SL.pontos ? SL.pontos.sorteio(x + agora.toDateString()) : 0.5);
+      // Passos até agora (parte do dia que passou)
+      const passos = Math.round((5000 + sorte("passos") * 7000) * Math.min(1, Math.max(0, (agora.getHours() - 6) / 16)));
+      // Batimentos em repouso
+      const bpm = 58 + Math.round(sorte("bpm") * 18);
+      // Sono da última noite (horas)
+      const sono = 5.5 + Math.round(sorte("sono") * 6) / 2;
+      // Troca o conteúdo
+      alvo.replaceChildren(
+        // Modelo conectado
+        el("p", { class: "meta" }, [`Conectado: ${r.modelo} • sincronizado agora `, el("button", { type: "button", class: "btn-link", "data-action": "desconectar-relogio", text: "Desconectar" })]),
+        // Números
+        el("div", { class: "relogio-numeros" }, [
+          // Passos
+          el("div", {}, [el("strong", { text: SL.num(passos) }), el("span", { class: "meta", text: "passos hoje" })]),
+          // Batimentos
+          el("div", {}, [el("strong", { text: `${bpm} bpm` }), el("span", { class: "meta", text: "em repouso" })]),
+          // Sono
+          el("div", {}, [el("strong", { text: `${SL.num(sono, 1)} h` }), el("span", { class: "meta", text: "de sono ontem" })]),
+        ]),
+        // Trazer o sono para o registro
+        el("button", { type: "button", class: "btn-secondary", "data-action": "importar-sono", "data-horas": sono, text: "Usar o sono do relógio" }),
+      );
+    }
+
+    // Conectar um relógio (simulado: guarda o modelo)
+    SL.acao("conectar-relogio", (b) => {
+      // Mostra "conectando"
+      b.textContent = "Conectando…";
+      // Depois de 1,2 segundo, conecta
+      setTimeout(() => {
+        // Guarda
+        storage.set("sl-relogio", { modelo: b.dataset.modelo, desde: new Date().toISOString() });
+        // Avisa
+        SL.toast(`${b.dataset.modelo} conectado`);
+        // Desenha
+        renderRelogio();
+      }, 1200);
+    });
+
+    // Desconectar
+    SL.acao("desconectar-relogio", () => {
+      // Tira
+      storage.set("sl-relogio", null);
+      // Desenha
+      renderRelogio();
+    });
+
+    // Usar o sono do relógio: preenche os horários do cartão de sono
+    SL.acao("importar-sono", (b) => {
+      // Horas
+      const horas = Number(b.dataset.horas);
+      // Acordou às 7h; dormiu "horas" antes
+      const dormiu = 24 + 7 - horas;
+      // Campo de dormir
+      const campoDormi = document.querySelector('[data-render="sono"] input[type="time"]');
+      // Campo de acordar
+      const campos = document.querySelectorAll('[data-render="sono"] input[type="time"]');
+      // Se os campos existem, preenche
+      if (campoDormi && campos[1]) {
+        // Dormi às
+        campoDormi.value = `${String(Math.floor(dormiu) % 24).padStart(2, "0")}:${dormiu % 1 ? "30" : "00"}`;
+        // Acordei às
+        campos[1].value = "07:00";
+        // Leva até o cartão do sono
+        campoDormi.scrollIntoView({ behavior: "smooth", block: "center" });
+        // Avisa
+        SL.toast("Horários preenchidos. Confira e toque em Registrar noite.");
+      }
+    });
+
     // Desenha tudo
+    renderRelogio();
+    // Sono
     renderSono();
     // Humor
     renderHumor();

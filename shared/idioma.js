@@ -1,6 +1,6 @@
 /*
- * Português / inglês do Saúde Life.
- * Coloca um botão "EN" / "PT" em todas as páginas. Em inglês, troca os textos
+ * Português / inglês / espanhol do Saúde Life.
+ * Coloca um botão "EN" / "ES" / "PT" em todas as páginas. Em outro idioma, troca os textos
  * da tela usando o dicionário abaixo (frase em português -> frase em inglês),
  * inclusive os que o JavaScript desenha depois (o "observador" vê as mudanças).
  * O que não está no dicionário (nomes de treinos, pessoas) fica em português.
@@ -569,12 +569,26 @@
     [/^([A-Za-zçá-]+-feira|sábado|domingo|Segunda-feira|Terça-feira|Quarta-feira|Quinta-feira|Sexta-feira|Sábado|Domingo), (\d+) de ([a-zç]+)$/i, (m, d, n, mes) => `${PALAVRAS[d.toLowerCase()] || d}, ${PALAVRAS[mes] || mes} ${n}`],
   ];
 
+  // Regras do espanhol (as mais comuns)
+  const REGRAS_ES = [
+    // "Você subiu para a liga Ouro!"
+    [/^Você subiu para a liga (.+)!$/, (m, l) => `¡Subiste a la liga ${traduzir(l)}!`],
+    // "Página — Saúde Life"
+    [/^(.+) — Saúde Life$/, (m, q) => `${traduzir(q)} — Saúde Life`],
+    // "Saúde Life — Início"
+    [/^Saúde Life — (.+)$/, (m, q) => `Saúde Life — ${traduzir(q)}`],
+    // "3 séries", "12 pontos"...
+    [/^(\d+) (séries|pontos|exercícios|treinos)$/, (m, n, p) => `${n} ${{ séries: "series", pontos: "puntos", exercícios: "ejercicios", treinos: "entrenamientos" }[p]}`],
+  ];
+
   // Traduz uma frase (sem os espaços das pontas). Devolve a mesma frase se não souber
   function traduzir(texto) {
+    // Dicionário do idioma escolhido
+    const dic = idioma === "es" ? window.SL_ES || {} : D;
     // Está no dicionário?
-    if (D[texto]) return D[texto];
+    if (dic[texto]) return dic[texto];
     // Alguma regra com números serve?
-    for (const [regra, fn] of REGRAS) {
+    for (const [regra, fn] of idioma === "es" ? REGRAS_ES : REGRAS) {
       // Testa a regra
       const m = texto.match(regra);
       // Se serviu, usa
@@ -586,12 +600,20 @@
     return texto;
   }
 
-  // Idioma escolhido ("pt" ou "en")
+  // Endereço deste arquivo (para achar o idioma-es.js na mesma pasta)
+  const esteArquivo = document.currentScript && document.currentScript.src;
+  // Ordem dos idiomas no botão: português -> inglês -> espanhol -> português
+  const PROXIMO = { pt: "en", en: "es", es: "pt" };
+  // Nome de cada idioma (para o leitor de tela)
+  const NOMES = { pt: "Mudar para inglês (English)", en: "Switch to Spanish (Español)", es: "Cambiar a portugués (Português)" };
+  // Idioma escolhido ("pt", "en" ou "es")
   let idioma = "pt";
   // Tenta ler a escolha salva
   try {
     // Lê do navegador
     idioma = JSON.parse(localStorage.getItem("sl-idioma")) || "pt";
+    // Valor estranho: volta para o português
+    if (!PROXIMO[idioma]) idioma = "pt";
   // Se o navegador bloquear...
   } catch (e) {
     // ...fica em português
@@ -611,6 +633,8 @@
       const no = caminhante.currentNode;
       // ...pula scripts e estilos
       if (/^(SCRIPT|STYLE)$/.test(no.parentNode.nodeName)) continue;
+      // ...pula o nome da marca ("Saúde Life" nunca é traduzido)
+      if (no.parentNode.querySelector && no.parentNode.querySelector(":scope > .brand-life")) continue;
       // ...texto sem espaços nas pontas
       const limpo = no.nodeValue.replace(/\s+/g, " ").trim();
       // ...se não tem letra, pula
@@ -639,10 +663,23 @@
     );
   }
 
-  // Liga o inglês: traduz a página e passa a traduzir o que aparecer depois
+  // Liga o idioma escolhido: traduz a página e passa a traduzir o que aparecer depois
   function ligarIngles() {
-    // Avisa o navegador e os leitores de tela que a página está em inglês
-    document.documentElement.lang = "en";
+    // Espanhol: primeiro carrega o dicionário (arquivo separado), depois traduz
+    if (idioma === "es" && !window.SL_ES && esteArquivo) {
+      // Script do dicionário
+      const script = document.createElement("script");
+      // Mesmo lugar deste arquivo
+      script.src = new URL("idioma-es.js", esteArquivo).href;
+      // Quando carregar, traduz
+      script.onload = ligarIngles;
+      // Carrega
+      document.head.append(script);
+      // Espera
+      return;
+    }
+    // Avisa o navegador e os leitores de tela qual é o idioma da página
+    document.documentElement.lang = idioma;
     // Traduz o título da aba
     document.title = traduzir(document.title);
     // Traduz a página inteira
@@ -668,17 +705,15 @@
     // Classe do visual
     botao.className = "btn-idioma";
     // Mostra o idioma para o qual vai trocar
-    botao.textContent = idioma === "en" ? "PT" : "EN";
+    botao.textContent = PROXIMO[idioma].toUpperCase();
     // Nome para leitores de tela
-    botao.setAttribute("aria-label", idioma === "en" ? "Mudar para português" : "Switch to English");
-    // Também no lang do botão (para a leitura certa)
-    botao.lang = idioma === "en" ? "pt-BR" : "en";
+    botao.setAttribute("aria-label", NOMES[idioma]);
     // Ao clicar: salva a escolha e recarrega a página no outro idioma
     botao.addEventListener("click", function () {
       // Tenta salvar
       try {
         // Salva o outro idioma
-        localStorage.setItem("sl-idioma", JSON.stringify(idioma === "en" ? "pt" : "en"));
+        localStorage.setItem("sl-idioma", JSON.stringify(PROXIMO[idioma]));
       // Se o navegador bloquear...
       } catch (e) {
         /* armazenamento indisponível */
@@ -697,8 +732,8 @@
       // Coloca na página
       document.body.append(botao);
     }
-    // Se a escolha é inglês, traduz
-    if (idioma === "en") ligarIngles();
+    // Se a escolha não é português, traduz
+    if (idioma !== "pt") ligarIngles();
   });
 
   // Deixa a tradução disponível para outros arquivos (ex.: toasts)
