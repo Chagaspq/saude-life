@@ -24,11 +24,7 @@ body {
   /* Cor do texto: bege claro do texto */
   color: var(--ink);
   /* Fonte da letra */
-  font-family:
-    "Inter",
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
+  font-family: var(--font-body);
   /* Deixa a letra mais lisinha no Mac */
   -webkit-font-smoothing: antialiased;
 }
@@ -37,7 +33,7 @@ h1,
 h2,
 h3 {
   /* Fonte da letra */
-  font-family: "Space Grotesk", "Inter", sans-serif;
+  font-family: var(--font-display);
   /* Sem margem */
   margin: 0;
   /* Cor do texto: branco */
@@ -135,7 +131,7 @@ a {
   /* Espaço entre os itens: 8 pixels */
   gap: 8px;
   /* Fonte da letra */
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-display);
   /* Letra negrito */
   font-weight: 700;
   /* Tamanho da letra: 17 pixels */
@@ -803,7 +799,7 @@ a {
   /* Cor do texto: verde-carvão do fundo */
   color: var(--bg);
   /* Fonte da letra */
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-display);
   /* Letra negrito */
   font-weight: 700;
   /* Tamanho da letra: 12 pixels */
@@ -1012,7 +1008,7 @@ a {
   /* Tamanho da letra: 18 pixels */
   font-size: 18px;
   /* Fonte da letra */
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-display);
 }
 
 /* ============================================
@@ -1347,25 +1343,25 @@ body.modal-aberto {
 /* Capa de hipertrofia */
 .card-img-placeholder[data-objetivo="hipertrofia"] {
   /* Fundo em degradê */
-  background: linear-gradient(135deg, rgba(255, 122, 69, 0.35), var(--bg));
+  background: linear-gradient(135deg, rgba(240, 132, 90, 0.35), var(--bg));
 }
 
 /* Capa de HIIT */
 .card-img-placeholder[data-objetivo="hiit"] {
   /* Fundo em degradê */
-  background: linear-gradient(135deg, rgba(255, 160, 107, 0.4), var(--surface-2));
+  background: linear-gradient(135deg, rgba(245, 163, 127, 0.4), var(--surface-2));
 }
 
 /* Capa de yoga e mobilidade */
 .card-img-placeholder[data-objetivo="yoga_mobilidade"] {
   /* Fundo em degradê */
-  background: linear-gradient(135deg, rgba(52, 211, 153, 0.35), var(--bg));
+  background: linear-gradient(135deg, rgba(79, 194, 154, 0.35), var(--bg));
 }
 
 /* Capa de resistência */
 .card-img-placeholder[data-objetivo="resistencia"] {
   /* Fundo em degradê */
-  background: linear-gradient(135deg, rgba(52, 211, 153, 0.2), rgba(255, 122, 69, 0.2));
+  background: linear-gradient(135deg, rgba(79, 194, 154, 0.2), rgba(240, 132, 90, 0.2));
 }
 
 /* Etiquetas */
@@ -3262,7 +3258,7 @@ a.btn-secondary {
 /* Regata esmeralda */
 .pulso-regata {
   /* Esmeralda */
-  fill: #34d399;
+  fill: #4fc29a;
 }
 
 /* Capa do Pulso especial (Premium) */
@@ -3278,13 +3274,13 @@ a.btn-secondary {
 /* Cores da roupa escolhidas no perfil: coral */
 .pulso-cor-coral .pulso-regata {
   /* Coral */
-  fill: #ff7a45;
+  fill: #f0845a;
 }
 
 /* Com regata coral, a faixa fica esmeralda (para não sumir) */
 .pulso-cor-coral .pulso-faixa {
   /* Esmeralda */
-  fill: #34d399;
+  fill: #4fc29a;
 }
 
 /* Roupa azul */
@@ -3320,7 +3316,7 @@ a.btn-secondary {
 /* Bochechas rosadas */
 .pulso-bochecha {
   /* Coral transparente */
-  fill: rgba(255, 122, 69, 0.35);
+  fill: rgba(240, 132, 90, 0.35);
 }
 
 /* Olhos */
@@ -3402,9 +3398,9 @@ a.btn-secondary {
 /* Diamante em cima da cabeça (Diamante) */
 .pulso-diamante {
   /* Esmeralda */
-  fill: #34d399;
+  fill: #4fc29a;
   /* Brilho em volta */
-  filter: drop-shadow(0 0 6px rgba(52, 211, 153, 0.8));
+  filter: drop-shadow(0 0 6px rgba(79, 194, 154, 0.8));
   /* Animação de flutuar */
   animation: pulso-flutuar 2.4s ease-in-out infinite;
 }
@@ -3414,7 +3410,7 @@ a.btn-secondary {
   /* Sem preenchimento */
   fill: none;
   /* Esmeralda transparente */
-  stroke: rgba(52, 211, 153, 0.45);
+  stroke: rgba(79, 194, 154, 0.45);
   /* Grossura */
   stroke-width: 2;
   /* Tracejado */
@@ -3798,9 +3794,9 @@ body[data-pagina]::before {
   pointer-events: none;
   /* Dois brilhos (coral e esmeralda) + anéis finos desenhados com degradê */
   background:
-    radial-gradient(circle at 20% 15%, rgba(255, 122, 69, 0.09), transparent 30%),
-    radial-gradient(circle at 85% 80%, rgba(52, 211, 153, 0.08), transparent 32%),
-    repeating-radial-gradient(circle at 85% 10%, transparent 0 46px, rgba(255, 122, 69, 0.035) 47px 48px, transparent 49px 96px);
+    radial-gradient(circle at 20% 15%, rgba(240, 132, 90, 0.09), transparent 30%),
+    radial-gradient(circle at 85% 80%, rgba(79, 194, 154, 0.08), transparent 32%),
+    repeating-radial-gradient(circle at 85% 10%, transparent 0 46px, rgba(240, 132, 90, 0.035) 47px 48px, transparent 49px 96px);
   /* Animação lenta */
   animation: fundo-vivo 40s ease-in-out infinite alternate;
 }
@@ -4094,8 +4090,8 @@ body[data-pagina]::before {
   overflow: hidden;
   /* Fundo com dois brilhos (sempre escuro, como a imagem) */
   background:
-    radial-gradient(circle at 20% 10%, rgba(255, 122, 69, 0.35), transparent 45%),
-    radial-gradient(circle at 85% 90%, rgba(52, 211, 153, 0.28), transparent 45%),
+    radial-gradient(circle at 20% 10%, rgba(240, 132, 90, 0.35), transparent 45%),
+    radial-gradient(circle at 85% 90%, rgba(79, 194, 154, 0.28), transparent 45%),
     #0e1512;
   /* Texto claro */
   color: #f4f1ea;
@@ -4210,7 +4206,7 @@ body[data-pagina]::before {
   /* Letra pequena */
   font-size: 12px;
   /* Esmeralda */
-  color: #34d399;
+  color: #4fc29a;
 }
 
 /* Número grande */
@@ -4224,7 +4220,7 @@ body[data-pagina]::before {
   /* Margem em cima e embaixo */
   margin: 12px 0 6px;
   /* Coral claro */
-  color: #ffa06b;
+  color: #f5a37f;
 }
 
 /* Legenda */
@@ -4999,14 +4995,14 @@ body[data-pagina]::before {
 .opcao-capa-brasa .perfil-opcao-cor,
 .profile-header-card[data-capa="brasa"] {
   /* Degradê coral */
-  background: linear-gradient(135deg, rgba(255, 122, 69, 0.28), var(--surface) 60%);
+  background: linear-gradient(135deg, rgba(240, 132, 90, 0.28), var(--surface) 60%);
 }
 
 /* Capa mata */
 .opcao-capa-mata .perfil-opcao-cor,
 .profile-header-card[data-capa="mata"] {
   /* Degradê esmeralda */
-  background: linear-gradient(135deg, rgba(52, 211, 153, 0.28), var(--surface) 60%);
+  background: linear-gradient(135deg, rgba(79, 194, 154, 0.28), var(--surface) 60%);
 }
 
 /* Capa noite */
@@ -5020,19 +5016,19 @@ body[data-pagina]::before {
 .opcao-capa-sol .perfil-opcao-cor,
 .profile-header-card[data-capa="sol"] {
   /* Degradê coral para dourado */
-  background: linear-gradient(135deg, rgba(255, 122, 69, 0.3), rgba(245, 181, 68, 0.22) 45%, var(--surface) 75%);
+  background: linear-gradient(135deg, rgba(240, 132, 90, 0.3), rgba(245, 181, 68, 0.22) 45%, var(--surface) 75%);
 }
 
 /* Bolinhas das roupas do Pulso */
 .opcao-pulso-esmeralda .perfil-opcao-cor {
   /* Esmeralda */
-  background: #34d399;
+  background: #4fc29a;
 }
 
 /* Coral */
 .opcao-pulso-coral .perfil-opcao-cor {
   /* Coral */
-  background: #ff7a45;
+  background: #f0845a;
 }
 
 /* Azul */

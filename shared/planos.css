@@ -145,7 +145,7 @@
   /* Sombra em volta da caixa */
   box-shadow:
     0 0 0 1px var(--pl-accent),
-    0 18px 40px rgba(255, 122, 69, 0.12);
+    0 18px 40px rgba(240, 132, 90, 0.12);
 }
 
 /* Nome do plano */
@@ -173,7 +173,7 @@
 /* Valor do preço */
 .plan-price-value {
   /* Fonte da letra */
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-display);
   /* Tamanho da letra: 26 pixels */
   font-size: 26px;
   /* Letra negrito */
@@ -367,7 +367,7 @@
 /* Card do plano que a pessoa já tem */
 .plan-card-current {
   /* Cor da borda: cor meio transparente */
-  border-color: rgba(52, 211, 153, 0.45);
+  border-color: rgba(79, 194, 154, 0.45);
 }
 
 /* Etiqueta "Plano atual" */

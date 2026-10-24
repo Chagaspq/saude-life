@@ -11,8 +11,8 @@
 .onboarding-page {
   /* Fundo com várias camadas (veja as linhas abaixo) */
   background:
-    radial-gradient(circle at 15% 0%, rgba(255, 122, 69, 0.12), transparent 45%),
-    radial-gradient(circle at 90% 100%, rgba(52, 211, 153, 0.1), transparent 45%),
+    radial-gradient(circle at 15% 0%, rgba(240, 132, 90, 0.12), transparent 45%),
+    radial-gradient(circle at 90% 100%, rgba(79, 194, 154, 0.1), transparent 45%),
     var(--bg);
 }
 
@@ -96,7 +96,7 @@
   padding: 0;
   /* Margem embaixo: 14 pixels */
   margin-bottom: 14px;
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Tamanho da letra: 19 pixels */
   font-size: 19px;
@@ -268,7 +268,7 @@
   border: 1.5px solid var(--border);
   /* Fundo: cor de card mais clara */
   background: var(--surface-2);
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Tamanho da letra: 24 pixels */
   font-size: 24px;

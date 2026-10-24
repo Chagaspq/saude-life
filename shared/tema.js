@@ -8,13 +8,11 @@
   // Modo estrito: o JavaScript avisa mais erros
   "use strict";
 
-  // Por enquanto o tema claro vale só dentro do app (o site público é sempre escuro)
-  const noApp = window.location.pathname.includes("/app/");
+  // O tema claro vale no app e no site público (a escolha é a mesma nos dois)
 
   // Lê o tema salvo ("claro" ou "escuro")
   function lerTema() {
     // Fora do app, sempre escuro
-    if (!noApp) return "escuro";
     // Tenta...
     try {
       // ...ler do navegador
@@ -59,10 +57,8 @@
 
   // Quando a página terminar de carregar, coloca o botão no topo
   document.addEventListener("DOMContentLoaded", function () {
-    // Lugar do botão: topo do app ou topo da tela de treino
-    const lugar = noApp && document.querySelector(".topbar-actions, .player-topbar");
-    // Se a página não tem topo (ex.: login), não coloca botão
-    if (!lugar) return;
+    // Lugar do botão: topo do app, topo da tela de treino ou topo do site
+    const lugar = document.querySelector(".topbar-actions, .player-topbar, .top-bar-actions");
     // Cria o botão
     const botao = document.createElement("button");
     // Tipo botão (não envia formulário)
@@ -88,10 +84,16 @@
       atualizarBotao(botao);
     });
     // Na tela de treino, fica antes do relógio; nos outros, é o primeiro botão
-    const relogio = lugar.querySelector(".player-clock");
-    // Coloca no lugar certo
-    if (relogio) lugar.insertBefore(botao, relogio);
-    // (ou no começo)
+    const relogio = lugar && lugar.querySelector(".player-clock");
+    // Sem topo (ex.: login): botão solto no canto, ao lado do botão de idioma
+    if (!lugar) {
+      // Marca como solto
+      botao.classList.add("btn-tema-solto");
+      // Coloca na página
+      document.body.append(botao);
+    // Na tela de treino, antes do relógio
+    } else if (relogio) lugar.insertBefore(botao, relogio);
+    // Nos outros, no começo do topo
     else lugar.prepend(botao);
   });
 

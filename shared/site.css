@@ -40,7 +40,7 @@
   /* Espaço entre os itens: 8 pixels */
   gap: 8px;
   /* Fonte da letra */
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-display);
   /* Letra negrito */
   font-weight: 700;
   /* Tamanho da letra: 16 pixels */
@@ -139,7 +139,7 @@
   /* Espaço interno (em cima, lados e embaixo) */
   padding: var(--space-12) clamp(16px, 5vw, var(--space-16)) var(--space-6);
   /* Fonte da letra */
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-body);
 }
 
 /* Grade do rodapé */
@@ -173,7 +173,7 @@
 /* Títulos das colunas */
 .site-footer-public h2 {
   /* Fonte da letra */
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-display);
   /* Tamanho da letra: 13 pixels */
   font-size: 13px;
   /* Letra seminegrito */

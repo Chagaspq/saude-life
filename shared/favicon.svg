@@ -5,9 +5,9 @@
     <!-- Degradê em diagonal, de baixo à esquerda até em cima à direita -->
     <linearGradient id="g" x1="11" y1="53" x2="53" y2="11" gradientUnits="userSpaceOnUse">
       <!-- Começo do degradê na cor coral -->
-      <stop offset="0%" stop-color="#ff7a45"/>
+      <stop offset="0%" stop-color="#f0845a"/>
       <!-- Final do degradê na cor esmeralda -->
-      <stop offset="100%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#4fc29a"/>
     </linearGradient>
   </defs>
   <!-- Fundo: quadrado verde-carvão com cantos arredondados -->

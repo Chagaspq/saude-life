@@ -101,7 +101,7 @@
   border: 1px solid var(--border);
   /* Fundo: cor dos cards */
   background: var(--surface);
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Letra seminegrito */
   font-weight: 600;
@@ -258,7 +258,7 @@
   /* Fundo: esmeralda fraquinha */
   background: var(--emerald-soft);
   /* Cor da borda: cor meio transparente */
-  border-color: rgba(52, 211, 153, 0.3);
+  border-color: rgba(79, 194, 154, 0.3);
 }
 
 /* Número da série */
@@ -297,7 +297,7 @@
   color: var(--ink);
   /* Usa a mesma fonte do elemento pai */
   font: inherit;
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Tamanho da letra: 16 pixels */
   font-size: 16px;
@@ -319,7 +319,7 @@
 
 /* Valor fixo (quando não dá para editar) */
 .set-static {
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Letra seminegrito */
   font-weight: 600;
@@ -458,7 +458,7 @@
   /* Fundo: coral bem fraquinho */
   background: var(--coral-soft);
   /* Cor da borda: cor meio transparente */
-  border-color: rgba(255, 122, 69, 0.35);
+  border-color: rgba(240, 132, 90, 0.35);
 }
 
 /* Número do exercício atual */
@@ -641,7 +641,7 @@
   align-items: center;
   /* Centraliza no sentido principal */
   justify-content: center;
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Tamanho da letra: 20 pixels */
   font-size: 20px;
@@ -663,7 +663,7 @@
 .rest-title {
   /* Sem margem */
   margin: 0;
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Tamanho da letra: 18 pixels */
   font-size: 18px;
@@ -724,7 +724,7 @@
   border: 1px solid var(--border);
   /* Fundo com várias camadas (veja as linhas abaixo) */
   background:
-    radial-gradient(circle at 50% 0%, rgba(52, 211, 153, 0.14), transparent 60%),
+    radial-gradient(circle at 50% 0%, rgba(79, 194, 154, 0.14), transparent 60%),
     var(--surface);
 }
 
@@ -763,7 +763,7 @@
   /* Cor de preenchimento do desenho: esmeralda fraquinha */
   fill: var(--emerald-soft);
   /* Cor do traço do desenho: cor meio transparente */
-  stroke: rgba(52, 211, 153, 0.35);
+  stroke: rgba(79, 194, 154, 0.35);
 }
 
 /* Miolo do selo */

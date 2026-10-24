@@ -16,7 +16,7 @@ body {
   background-color: var(--bg);
   /* Cor do texto: bege claro do texto */
   color: var(--ink);
-  /* Fonte: fonte de texto (Inter) */
+  /* Fonte: fonte de texto (Barlow) */
   font-family: var(--font-body);
   /* Altura mínima: a tela toda */
   min-height: 100vh;
@@ -120,7 +120,7 @@ body {
 
 /* Título */
 .auth-header h1 {
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Tamanho da letra: 26 pixels */
   font-size: 26px;
@@ -280,7 +280,7 @@ body {
   color: var(--ink);
   /* Tamanho da letra: 14 pixels */
   font-size: 14px;
-  /* Fonte: fonte de texto (Inter) */
+  /* Fonte: fonte de texto (Barlow) */
   font-family: var(--font-body);
 }
 
@@ -471,7 +471,7 @@ body {
   padding: 16px;
   /* Cantos arredondados: 14 pixels */
   border-radius: var(--radius-md);
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Tamanho da letra: 15 pixels */
   font-size: 15px;
@@ -516,7 +516,7 @@ body {
   /* Meio transparente (95% visível) */
   opacity: 0.95;
   /* Sombra em volta da caixa */
-  box-shadow: 0 14px 30px rgba(255, 122, 69, 0.5);
+  box-shadow: 0 14px 30px rgba(240, 132, 90, 0.5);
 }
 
 /* Botão sendo clicado */

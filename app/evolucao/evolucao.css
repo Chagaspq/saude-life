@@ -70,7 +70,7 @@
 /* Números em destaque do resumo */
 .chart-summary strong {
   /* Fonte da letra */
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-display);
   /* Tamanho da letra: 24 pixels */
   font-size: 24px;
 }
@@ -122,7 +122,7 @@
   /* Tamanho da letra: 11 pixels */
   font-size: 11px;
   /* Fonte da letra */
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-body);
 }
 
 /* Linha do gráfico */

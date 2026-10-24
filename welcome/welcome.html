@@ -43,7 +43,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- Carrega as fontes Space Grotesk (títulos) e Inter (texto) -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
       rel="stylesheet"
     />
     <!-- Carrega as variáveis do site: cores, fontes e espaços (design system) -->
@@ -85,9 +85,9 @@
               gradientUnits="userSpaceOnUse"
             >
               <!-- Começo do degradê, na cor coral -->
-              <stop offset="0%" stop-color="#ff7a45" />
+              <stop offset="0%" stop-color="#f0845a" />
               <!-- Fim do degradê, na cor esmeralda -->
-              <stop offset="100%" stop-color="#34d399" />
+              <stop offset="100%" stop-color="#4fc29a" />
             </linearGradient>
           </defs>
           <!-- Anel de progresso da logo -->
@@ -126,6 +126,13 @@
 
     <!-- Conteúdo principal da página -->
     <main>
+      <!-- Faixa do topo: vídeo de fundo (ou foto no celular) atrás do hero -->
+      <div class="hero-faixa">
+        <!-- Fundo da faixa (só enfeite): animação de cores enquanto o vídeo não existe ou não carregou -->
+        <div class="hero-fundo" aria-hidden="true">
+          <!-- Vídeo de treino, comida e amigos (o welcome.js só carrega no computador; arquivos em assets/video/) -->
+          <video class="hero-video" muted loop playsinline preload="none" data-webm="../assets/video/topo.webm" data-mp4="../assets/video/topo.mp4"></video>
+        </div>
       <!-- Primeira seção (hero): a chamada principal do site -->
       <section class="hero">
         <!-- Lado do texto -->
@@ -228,6 +235,7 @@
           </div>
         </div>
       </section>
+      </div>
 
       <!-- Faixa com os números do Saúde Life -->
       <section class="stats-band" aria-label="Saúde Life em números">
@@ -532,126 +540,6 @@
         </div>
       </section>
 
-      <!-- Seção de profissionais -->
-      <section class="pros-compact" aria-labelledby="pros-heading">
-        <!-- Topo da seção -->
-        <div class="section-head">
-          <!-- Textinho acima do título -->
-          <p class="section-kicker">Profissionais</p>
-          <!-- Título da seção -->
-          <h2 id="pros-heading">Você não precisa fazer isso sozinho</h2>
-        </div>
-        <!-- Lista de profissionais -->
-        <div class="pros-list">
-          <!-- Card de profissional -->
-          <article class="pro-card">
-            <!-- Bolinha com as iniciais -->
-            <div class="pro-avatar" aria-hidden="true">AC</div>
-            <!-- Nome -->
-            <h3>Dra. Ana Costa</h3>
-            <!-- Especialidade -->
-            <p class="pro-specialty">Nutricionista</p>
-            <!-- Nota com estrelinha -->
-            <p class="pro-rating">
-              <!-- Ícone desenhado em SVG (escondido dos leitores de tela) -->
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <!-- Forma com vários lados do desenho -->
-                <polygon
-                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                ></polygon>
-              </svg>
-              4,9
-            </p>
-          </article>
-
-          <!-- Card de profissional -->
-          <article class="pro-card">
-            <!-- Bolinha com as iniciais -->
-            <div class="pro-avatar" aria-hidden="true">RS</div>
-            <!-- Nome -->
-            <h3>Rafael Souza</h3>
-            <!-- Especialidade -->
-            <p class="pro-specialty">Personal Trainer</p>
-            <!-- Nota com estrelinha -->
-            <p class="pro-rating">
-              <!-- Ícone desenhado em SVG (escondido dos leitores de tela) -->
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <!-- Forma com vários lados do desenho -->
-                <polygon
-                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                ></polygon>
-              </svg>
-              5,0
-            </p>
-          </article>
-
-          <!-- Card de profissional -->
-          <article class="pro-card">
-            <!-- Bolinha com as iniciais -->
-            <div class="pro-avatar" aria-hidden="true">ML</div>
-            <!-- Nome -->
-            <h3>Marina Lima</h3>
-            <!-- Especialidade -->
-            <p class="pro-specialty">Instrutora de Yoga</p>
-            <!-- Nota com estrelinha -->
-            <p class="pro-rating">
-              <!-- Ícone desenhado em SVG (escondido dos leitores de tela) -->
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <!-- Forma com vários lados do desenho -->
-                <polygon
-                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                ></polygon>
-              </svg>
-              4,8
-            </p>
-          </article>
-          <!-- Card de profissional -->
-          <article class="pro-card">
-            <!-- Bolinha com as iniciais -->
-            <div class="pro-avatar" aria-hidden="true">GT</div>
-            <!-- Nome -->
-            <h3>Gabriel Torres</h3>
-            <!-- Especialidade -->
-            <p class="pro-specialty">Fisioterapeuta</p>
-            <!-- Nota com estrelinha -->
-            <p class="pro-rating">
-              <!-- Ícone desenhado em SVG (escondido dos leitores de tela) -->
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <!-- Forma com vários lados do desenho -->
-                <polygon
-                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                ></polygon>
-              </svg>
-              4,7
-            </p>
-          </article>
-        </div>
-      </section>
-
       <!-- Seção de depoimentos -->
       <section class="testimonials" aria-labelledby="testimonials-heading">
         <!-- Topo da seção -->
@@ -668,21 +556,21 @@
             <!-- Frase da pessoa -->
             <blockquote>“Perdi 6 kg em 3 meses e, pela primeira vez, entendi o meu progresso.”</blockquote>
             <!-- Iniciais, nome e idade -->
-            <figcaption><span class="t-avatar" aria-hidden="true">CA</span><span><strong>Camila</strong> 27 anos, emagrecimento</span></figcaption>
+            <figcaption><span class="t-avatar" aria-hidden="true" data-foto="../assets/fotos/camila.jpg">CA</span><span><strong>Camila</strong> 27 anos, emagrecimento</span></figcaption>
           </figure>
           <!-- Depoimento 2 -->
           <figure class="testimonial">
             <!-- Frase da pessoa -->
             <blockquote>“Os treinos se encaixam na minha rotina de trabalho. Treino 4 vezes por semana sem pular.”</blockquote>
             <!-- Iniciais, nome e idade -->
-            <figcaption><span class="t-avatar" aria-hidden="true">DI</span><span><strong>Diego</strong> 34 anos, hipertrofia</span></figcaption>
+            <figcaption><span class="t-avatar" aria-hidden="true" data-foto="../assets/fotos/diego.jpg">DI</span><span><strong>Diego</strong> 34 anos, hipertrofia</span></figcaption>
           </figure>
           <!-- Depoimento 3 -->
           <figure class="testimonial">
             <!-- Frase da pessoa -->
             <blockquote>“Minha nutricionista acompanha tudo pelo app. Ficou muito mais fácil seguir o plano.”</blockquote>
             <!-- Iniciais, nome e idade -->
-            <figcaption><span class="t-avatar" aria-hidden="true">LA</span><span><strong>Larissa</strong> 22 anos, saúde</span></figcaption>
+            <figcaption><span class="t-avatar" aria-hidden="true" data-foto="../assets/fotos/larissa.jpg">LA</span><span><strong>Larissa</strong> 22 anos, saúde</span></figcaption>
           </figure>
         </div>
         <!-- Aviso: depoimentos de exemplo -->

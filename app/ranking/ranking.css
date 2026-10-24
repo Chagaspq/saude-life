@@ -22,8 +22,8 @@
   border: 1px solid var(--border);
   /* Fundo com dois brilhos (coral e esmeralda) em cima da cor dos cards */
   background:
-    radial-gradient(circle at 0% 50%, rgba(255, 122, 69, 0.16), transparent 45%),
-    radial-gradient(circle at 100% 0%, rgba(52, 211, 153, 0.12), transparent 50%),
+    radial-gradient(circle at 0% 50%, rgba(240, 132, 90, 0.16), transparent 45%),
+    radial-gradient(circle at 100% 0%, rgba(79, 194, 154, 0.12), transparent 50%),
     var(--surface);
 }
 
@@ -653,7 +653,7 @@
 /* Selo conquistado: medalha com brilho */
 .rk-selo.is-feito .rk-selo-medalha {
   /* Brilho coral em volta */
-  box-shadow: 0 0 18px rgba(255, 122, 69, 0.35);
+  box-shadow: 0 0 18px rgba(240, 132, 90, 0.35);
 }
 
 /* Nome do selo */

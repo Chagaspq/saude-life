@@ -17,17 +17,13 @@ body {
   /* Fundo em degradê */
   background-image: radial-gradient(
     circle at 85% -10%,
-    rgba(255, 122, 69, 0.14),
+    rgba(240, 132, 90, 0.14),
     transparent 45%
   );
   /* Cor do texto: bege claro do texto */
   color: var(--ink);
   /* Fonte da letra */
-  font-family:
-    "Inter",
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
+  font-family: var(--font-body);
   /* Deixa a letra mais lisinha no Mac */
   -webkit-font-smoothing: antialiased;
 }
@@ -36,7 +32,7 @@ h1,
 h2,
 h3 {
   /* Fonte da letra */
-  font-family: "Space Grotesk", "Inter", sans-serif;
+  font-family: var(--font-display);
   /* Sem margem */
   margin: 0;
   /* Cor do texto: branco */
@@ -179,7 +175,7 @@ ol {
   /* Espaço interno (em cima, lados e embaixo) */
   padding: 14px 28px;
   /* Sombra em volta da caixa */
-  box-shadow: 0 12px 28px rgba(255, 122, 69, 0.28);
+  box-shadow: 0 12px 28px rgba(240, 132, 90, 0.28);
 }
 
 /* Botão secundário do hero (contorno) */
@@ -260,7 +256,7 @@ ol {
 /* Cards de exemplo dentro da pilha */
 .hero-stack .mock-card {
   /* Fundo: cor meio transparente */
-  background: rgba(14, 21, 18, 0.88);
+  background: var(--surface-glass);
   /* Desfoca o que está atrás (efeito vidro) */
   backdrop-filter: blur(6px);
   /* Sombra em volta da caixa */
@@ -470,7 +466,7 @@ ol {
   /* Cor do traço do desenho: coral claro */
   stroke: var(--coral-light);
   /* Sombra que segue o formato do desenho */
-  filter: drop-shadow(0 0 8px rgba(255, 122, 69, 0.5));
+  filter: drop-shadow(0 0 8px rgba(240, 132, 90, 0.5));
 }
 
 /* Animação chamada "pulse-fade" (passo a passo abaixo) */
@@ -607,7 +603,7 @@ ol {
   /* Borda de 1,5 pixels, coral */
   border: 1.5px solid var(--coral);
   /* Fonte da letra */
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-display);
   /* Tamanho da letra: 18 pixels */
   font-size: 18px;
   /* Letra negrito */
@@ -681,7 +677,7 @@ ol {
   background: var(--gradient-brand);
   /* Cor do texto: verde-carvão do fundo */
   color: var(--bg);
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Letra negrito */
   font-weight: 700;
@@ -838,7 +834,7 @@ ol {
   /* Borda embaixo de 1 pixel, cor das bordas */
   border-bottom: 1px solid var(--border);
   /* Fundo: cor meio transparente */
-  background: rgba(22, 33, 29, 0.6);
+  background: var(--surface-glass);
 }
 
 /* Lista de números */
@@ -886,7 +882,7 @@ ol {
   /* Sem margem */
   margin: 0;
   /* Fonte da letra */
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-display);
   /* Tamanho da letra: entre 30 pixels e 42 pixels, conforme a tela */
   font-size: clamp(30px, 4vw, 42px);
   /* Letra negrito */
@@ -977,7 +973,7 @@ ol {
 /* Ícone dos cards pares (2º e 4º) em outra cor */
 .feature:nth-child(even) .feature-icon {
   /* Fundo: cor meio transparente */
-  background: rgba(52, 211, 153, 0.1);
+  background: rgba(79, 194, 154, 0.1);
   /* Cor do texto: esmeralda */
   color: var(--emerald);
 }
@@ -1016,7 +1012,7 @@ ol {
   /* Cantos arredondados: 24 pixels */
   border-radius: 24px;
   /* Fundo em degradê */
-  background: linear-gradient(180deg, var(--surface), #111a16);
+  background: linear-gradient(180deg, var(--surface), var(--bg));
   /* Sombra em volta da caixa */
   box-shadow: 0 40px 80px rgba(0, 0, 0, 0.45);
   /* Esconde o que passar da caixa */
@@ -1096,7 +1092,7 @@ ol {
   /* Sem margem */
   margin: 0;
   /* Fonte da letra */
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-display);
   /* Tamanho da letra: 22 pixels */
   font-size: 22px;
   /* Letra negrito */
@@ -1216,7 +1212,7 @@ ol {
 /* Texto de melhora (verde) */
 .mock-up {
   /* Fonte da letra */
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-body);
   /* Tamanho da letra: 13 pixels */
   font-size: 13px;
   /* Letra seminegrito */
@@ -1376,7 +1372,7 @@ ol {
   /* Cor do texto: verde-carvão do fundo */
   color: var(--bg);
   /* Fonte da letra */
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-display);
   /* Letra negrito */
   font-weight: 700;
   /* Tamanho da letra: 13 pixels */
@@ -1431,7 +1427,7 @@ ol {
   /* Espaço interno (em cima, lados e embaixo) */
   padding: 20px 4px;
   /* Fonte da letra */
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-display);
   /* Tamanho da letra: 17 pixels */
   font-size: 17px;
   /* Letra seminegrito */
@@ -1827,7 +1823,7 @@ input[type="checkbox"]:focus-visible {
   /* No meio: brilho em volta */
   50% {
     /* Anel de brilho */
-    box-shadow: 0 0 0 6px rgba(255, 122, 69, 0.25);
+    box-shadow: 0 0 0 6px rgba(240, 132, 90, 0.25);
   }
 }
 
@@ -1973,7 +1969,7 @@ input[type="checkbox"]:focus-visible {
   border: 1px solid var(--border);
   /* Fundo com brilho coral */
   background:
-    radial-gradient(circle at 0% 0%, rgba(255, 122, 69, 0.14), transparent 40%),
+    radial-gradient(circle at 0% 0%, rgba(240, 132, 90, 0.14), transparent 40%),
     var(--surface);
 }
 
@@ -2309,6 +2305,125 @@ input[type="checkbox"]:focus-visible {
   /* Botões da demo e "+10" */
   .demo-check,
   .demo-voando {
+    /* Sem animação */
+    animation: none;
+  }
+}
+
+/* ---------- Faixa do topo com vídeo de fundo ---------- */
+
+/* Faixa que ocupa a largura toda atrás do hero */
+.hero-faixa {
+  /* Base para o fundo solto */
+  position: relative;
+  /* Esconde o que passar da faixa */
+  overflow: hidden;
+  /* Cria uma camada própria (o fundo fica atrás do texto) */
+  isolation: isolate;
+}
+
+/* Fundo da faixa: cores que se mexem devagar (aparecem enquanto não tem vídeo) */
+.hero-fundo {
+  /* Solto, cobrindo a faixa toda */
+  position: absolute;
+  /* Encosta nas 4 bordas */
+  inset: 0;
+  /* Atrás do conteúdo */
+  z-index: -1;
+  /* Dois brilhos (coral e esmeralda) sobre o fundo */
+  background:
+    radial-gradient(40% 60% at 75% 40%, var(--coral-dim), transparent 70%),
+    radial-gradient(35% 55% at 20% 80%, var(--emerald-soft), transparent 70%),
+    var(--bg);
+  /* Fundo grande para poder "andar" */
+  background-size: 140% 140%;
+  /* Brilhos passeando */
+  animation: hero-fundo-anda 18s ease-in-out infinite alternate;
+}
+
+/* Véu por cima do vídeo: escurece o lado do texto para dar leitura */
+.hero-fundo::after {
+  /* Precisa de conteúdo para aparecer */
+  content: "";
+  /* Cobre o fundo todo */
+  position: absolute;
+  /* Encosta nas 4 bordas */
+  inset: 0;
+  /* Mais forte na esquerda (texto) e mais leve na direita */
+  background: linear-gradient(90deg, var(--bg) 25%, color-mix(in srgb, var(--bg) 55%, transparent) 60%, color-mix(in srgb, var(--bg) 35%, transparent));
+}
+
+/* Vídeo de fundo */
+.hero-video {
+  /* Cobre o fundo todo */
+  position: absolute;
+  /* Encosta nas 4 bordas */
+  inset: 0;
+  /* Largura toda */
+  width: 100%;
+  /* Altura toda */
+  height: 100%;
+  /* Corta para preencher sem esticar */
+  object-fit: cover;
+  /* Começa invisível (aparece quando começa a tocar) */
+  opacity: 0;
+  /* Aparece suave */
+  transition: opacity 800ms ease;
+}
+
+/* Vídeo tocando */
+.hero-video.is-tocando {
+  /* Visível, um pouco apagado para não brigar com o texto */
+  opacity: 0.55;
+}
+
+/* No celular: sem vídeo (economiza internet); usa a foto, se existir */
+@media (max-width: 640px) {
+  /* Vídeo */
+  .hero-video {
+    /* Some */
+    display: none;
+  }
+
+  /* Fundo com a foto do topo por cima dos brilhos (se o arquivo não existir, ficam só os brilhos) */
+  .hero-fundo {
+    /* Foto + brilhos */
+    background:
+      linear-gradient(var(--vidro), var(--vidro)),
+      url("../assets/fotos/topo.jpg") center / cover no-repeat,
+      radial-gradient(40% 60% at 75% 40%, var(--coral-dim), transparent 70%),
+      var(--bg);
+  }
+}
+
+/* Brilhos passeando */
+@keyframes hero-fundo-anda {
+  /* Começo */
+  from {
+    /* Canto de cima à esquerda */
+    background-position: 0% 0%;
+  }
+  /* Fim */
+  to {
+    /* Canto de baixo à direita */
+    background-position: 100% 100%;
+  }
+}
+
+/* Avatar do depoimento com foto */
+.t-avatar.tem-foto {
+  /* Foto cobre o círculo */
+  background-size: cover;
+  /* Foto centralizada */
+  background-position: center;
+  /* Esconde as iniciais */
+  color: transparent;
+}
+
+/* Quem pediu menos movimento: fundo parado */
+@media (prefers-reduced-motion: reduce) {
+  /* Fundo */
+  .hero-fundo {
     /* Sem animação */
     animation: none;
   }

@@ -130,7 +130,7 @@ input:-webkit-autofill:active {
   /* Centraliza no sentido principal */
   justify-content: center;
   /* Fundo em degradê */
-  background: linear-gradient(160deg, #101a16 0%, var(--bg) 60%);
+  background: linear-gradient(160deg, var(--surface) 0%, var(--bg) 60%);
   /* Esconde o que passar da caixa */
   overflow: hidden;
 }
@@ -146,7 +146,7 @@ input:-webkit-autofill:active {
   /* Fundo com um brilho circular */
   background: radial-gradient(
     circle at 20% 15%,
-    rgba(255, 122, 69, 0.16),
+    rgba(240, 132, 90, 0.16),
     transparent 45%
   );
 }
@@ -169,7 +169,7 @@ input:-webkit-autofill:active {
   align-items: center;
   /* Espaço entre os itens: 12 pixels */
   gap: 12px;
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Letra negrito */
   font-weight: 700;
@@ -195,7 +195,7 @@ input:-webkit-autofill:active {
   display: block;
   /* Letra negrito */
   font-weight: 700;
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Tamanho da letra: entre 32 pixels e 46 pixels, conforme a tela */
   font-size: clamp(32px, 3.4vw, 46px);
@@ -240,12 +240,12 @@ input:-webkit-autofill:active {
   /* Espaço interno em cima: 24 pixels */
   padding-top: 24px;
   /* Borda em cima de 1 pixel, cor meio transparente */
-  border-top: 1px solid rgba(244, 241, 234, 0.1);
+  border-top: 1px solid var(--border);
 }
 
 /* Valor do número */
 .auth-stat dt {
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Tamanho da letra: 22 pixels */
   font-size: 22px;
@@ -270,7 +270,7 @@ input:-webkit-autofill:active {
   /* Sem preenchimento no desenho */
   fill: none;
   /* Cor do traço do desenho: cor meio transparente */
-  stroke: rgba(244, 241, 234, 0.12);
+  stroke: var(--border);
   /* Grossura do traço: 1.5 */
   stroke-width: 1.5;
 }
@@ -278,7 +278,7 @@ input:-webkit-autofill:active {
 /* Segundo anel */
 .pulse-ring-2 {
   /* Cor do traço do desenho: cor meio transparente */
-  stroke: rgba(52, 211, 153, 0.4);
+  stroke: rgba(79, 194, 154, 0.4);
 }
 
 /* Linha de batimento */
@@ -286,7 +286,7 @@ input:-webkit-autofill:active {
   /* Cor do traço do desenho: coral claro */
   stroke: var(--coral-light);
   /* Sombra que segue o formato do desenho */
-  filter: drop-shadow(0 0 8px rgba(255, 122, 69, 0.45));
+  filter: drop-shadow(0 0 8px rgba(240, 132, 90, 0.45));
 }
 
 /* Lado do formulário */
@@ -354,7 +354,7 @@ input:-webkit-autofill:active {
   /* Espaço entre os itens: 14 pixels */
   gap: 14px;
   /* Borda em cima de 1 pixel, cor meio transparente */
-  border-top: 1px solid rgba(244, 241, 234, 0.1);
+  border-top: 1px solid var(--border);
 }
 
 /* Cada vantagem */

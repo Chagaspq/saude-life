@@ -16,7 +16,7 @@ window.SL &&
     // Escreve a frase abaixo da saudação:
     document.querySelector('[data-render="frase-semana"]').textContent = faltam
       // se falta treino, diz quantos (com "s" no plural)
-      ? `Faltam ${faltam} treino${faltam > 1 ? "s" : ""} para bater sua meta da semana.`
+      ? `${faltam > 1 ? "Faltam" : "Falta"} ${faltam} treino${faltam > 1 ? "s" : ""} para bater sua meta da semana.`
       // se não falta, parabeniza e sugere mobilidade
       : "Meta da semana batida. Que tal um treino leve de mobilidade?";
 

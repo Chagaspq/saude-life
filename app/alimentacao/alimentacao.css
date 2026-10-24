@@ -51,7 +51,7 @@
 
 /* Texto pequeno ao lado do número (ex.: de 150 g) */
 .macro-card strong small {
-  /* Fonte: fonte de texto (Inter) */
+  /* Fonte: fonte de texto (Barlow) */
   font-family: var(--font-body);
   /* Tamanho da letra: 13 pixels */
   font-size: 13px;
@@ -109,7 +109,7 @@
   width: 48px;
   /* Não deixa encolher */
   flex-shrink: 0;
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Letra seminegrito */
   font-weight: 600;
@@ -197,7 +197,7 @@
 
 /* Número em destaque */
 .water-value strong {
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Tamanho da letra: 30 pixels */
   font-size: 30px;

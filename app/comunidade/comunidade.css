@@ -59,7 +59,7 @@
   border: 1px solid var(--border);
   /* Fundo com brilho esmeralda */
   background:
-    radial-gradient(circle at 100% 0%, rgba(52, 211, 153, 0.14), transparent 45%),
+    radial-gradient(circle at 100% 0%, rgba(79, 194, 154, 0.14), transparent 45%),
     var(--surface);
 }
 
@@ -592,7 +592,7 @@
   border-color: var(--border-coral);
   /* Fundo com brilho coral */
   background:
-    radial-gradient(circle at 100% 0%, rgba(255, 122, 69, 0.12), transparent 50%),
+    radial-gradient(circle at 100% 0%, rgba(240, 132, 90, 0.12), transparent 50%),
     var(--surface);
 }
 

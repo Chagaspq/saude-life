@@ -30,9 +30,9 @@
     // Brilho coral em cima
     const b1 = g.createRadialGradient(200, 200, 0, 200, 200, 900);
     // Cor do centro do brilho
-    b1.addColorStop(0, "rgba(255,122,69,0.35)");
+    b1.addColorStop(0, "rgba(240,132,90,0.35)");
     // Cor da borda do brilho
-    b1.addColorStop(1, "rgba(255,122,69,0)");
+    b1.addColorStop(1, "rgba(240,132,90,0)");
     // Usa o brilho
     g.fillStyle = b1;
     // Pinta
@@ -40,9 +40,9 @@
     // Brilho esmeralda embaixo
     const b2 = g.createRadialGradient(900, 1700, 0, 900, 1700, 900);
     // Cor do centro
-    b2.addColorStop(0, "rgba(52,211,153,0.28)");
+    b2.addColorStop(0, "rgba(79,194,154,0.28)");
     // Cor da borda
-    b2.addColorStop(1, "rgba(52,211,153,0)");
+    b2.addColorStop(1, "rgba(79,194,154,0)");
     // Usa o brilho
     g.fillStyle = b2;
     // Pinta
@@ -50,9 +50,9 @@
     // Anel da logo (degradê coral → esmeralda)
     const grad = g.createLinearGradient(380, 520, 700, 200);
     // Coral
-    grad.addColorStop(0, "#ff7a45");
+    grad.addColorStop(0, "#f0845a");
     // Esmeralda
-    grad.addColorStop(1, "#34d399");
+    grad.addColorStop(1, "#4fc29a");
     // Usa o degradê no traço
     g.strokeStyle = grad;
     // Grossura do anel
@@ -78,7 +78,7 @@
     // Cor do título
     g.fillStyle = "#f4f1ea";
     // Fonte do título
-    g.font = "700 64px 'Space Grotesk', Inter, sans-serif";
+    g.font = "700 64px 'Barlow Semi Condensed', Barlow, sans-serif";
     // Título
     g.fillText(titulo, 540, 640);
     // Posição do primeiro número
@@ -86,7 +86,7 @@
     // Para cada tela (até 4)...
     telas.slice(0, 4).forEach((t) => {
       // ...número grande em coral
-      g.fillStyle = "#ffa06b";
+      g.fillStyle = "#f5a37f";
       // Fonte de placar
       g.font = "700 120px 'Space Mono', monospace";
       // Escreve o número
@@ -94,7 +94,7 @@
       // ...legenda embaixo
       g.fillStyle = "#a3b0a8";
       // Fonte da legenda
-      g.font = "500 42px Inter, sans-serif";
+      g.font = "500 42px Barlow, sans-serif";
       // Escreve a legenda
       g.fillText(t.legenda, 540, y + 64);
       // Próximo bloco mais abaixo
@@ -103,7 +103,7 @@
     // Marca no rodapé
     g.fillStyle = "#f4f1ea";
     // Fonte da marca
-    g.font = "700 48px 'Space Grotesk', Inter, sans-serif";
+    g.font = "700 48px 'Barlow Semi Condensed', Barlow, sans-serif";
     // Nome
     g.fillText("Saúde Life", 540, 1820);
     // Devolve a imagem

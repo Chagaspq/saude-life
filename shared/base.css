@@ -20,7 +20,7 @@ body {
   background-color: var(--bg);
   /* Cor padrão do texto */
   color: var(--ink);
-  /* Fonte do texto (Inter) */
+  /* Fonte do texto (Barlow) */
   font-family: var(--font-body);
   /* Deixa a letra mais lisinha no Chrome/Safari do Mac */
   -webkit-font-smoothing: antialiased;
@@ -34,7 +34,7 @@ h1,
 h2,
 /* ...e pequenos */
 h3 {
-  /* Usam a fonte de destaque (Space Grotesk) */
+  /* Usam a fonte de destaque (Barlow Semi Condensed) */
   font-family: var(--font-display);
 }
 
@@ -205,6 +205,254 @@ input[type="password"]::-ms-clear {
   top: 14px;
   /* Distância da direita */
   right: 14px;
+  /* Por cima do conteúdo */
+  z-index: 50;
+  /* Fundo do card (para não sumir no fundo) */
+  background: var(--surface);
+}
+
+/* ---------- Logo animada ---------- */
+
+/* Anel da logo: enche ao abrir a página */
+svg path[d^="M32 9.5A22.5"] {
+  /* Traço do tamanho do anel (para poder "desenhar" ele) */
+  stroke-dasharray: 120;
+  /* Começa desenhado */
+  stroke-dashoffset: 0;
+  /* Enche uma vez, em 1,2 segundo */
+  animation: logo-anel 1.2s var(--ease-out) both;
+}
+
+/* Batimento da logo: o traço corre de tempos em tempos, como um monitor cardíaco */
+svg path[d^="M19.5 33H24.5"] {
+  /* Traço do tamanho do batimento, com um vão do mesmo tamanho */
+  stroke-dasharray: 60 60;
+  /* Pulsa a cada 4 segundos, começando depois do anel */
+  animation: logo-batimento 4s ease-in-out 1.2s infinite;
+}
+
+/* Enchendo o anel */
+@keyframes logo-anel {
+  /* Começa vazio */
+  from {
+    /* Traço todo escondido */
+    stroke-dashoffset: 120;
+  }
+}
+
+/* Batimento correndo */
+@keyframes logo-batimento {
+  /* Parado e visível na maior parte do tempo */
+  0%,
+  70% {
+    /* Visível */
+    stroke-dashoffset: 0;
+  }
+  /* Some para a frente */
+  85% {
+    /* Escondido à direita */
+    stroke-dashoffset: -60;
+  }
+  /* Volta a aparecer desenhando da esquerda */
+  85.01% {
+    /* Escondido à esquerda */
+    stroke-dashoffset: 60;
+  }
+  /* Desenhado de novo */
+  100% {
+    /* Visível */
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ---------- Efeito 3D leve nos cards ---------- */
+
+/* Cards que ganham profundidade ao passar o mouse */
+.stat-box,
+.workout-card,
+.rec-card,
+.pro-card,
+.plan-card,
+.feature,
+.testimonial,
+.blog-card,
+.acad-card,
+.challenge-card,
+.academia-card,
+.mock-card {
+  /* Mudanças suaves */
+  transition:
+    transform 260ms var(--ease-out),
+    box-shadow 260ms var(--ease-out),
+    border-color 260ms var(--ease-out);
+}
+
+/* Só em aparelhos com mouse (no celular não existe "passar o mouse") */
+@media (hover: hover) {
+  /* Card com o mouse em cima */
+  .stat-box:hover,
+  .workout-card:hover,
+  .rec-card:hover,
+  .pro-card:hover,
+  .plan-card:hover,
+  .feature:hover,
+  .testimonial:hover,
+  .blog-card:hover,
+  .acad-card:hover,
+  .challenge-card:hover,
+  .academia-card:hover {
+    /* Inclina um pouquinho para trás e sobe (perspectiva dá o 3D) */
+    transform: perspective(900px) rotateX(3deg) translateY(-4px);
+    /* Sombra mais funda embaixo */
+    box-shadow:
+      0 18px 36px rgba(0, 0, 0, 0.28),
+      0 2px 0 var(--border-strong);
+  }
+}
+
+/* ---------- Entrada suave do conteúdo do app ---------- */
+
+/* Blocos do app aparecem subindo, um depois do outro */
+.app-views-container .stat-box,
+.app-views-container .panel,
+.app-views-container .workout-card,
+.app-views-container .pontos-card,
+.app-views-container .momento-card,
+.app-views-container .pulso-inicio {
+  /* Animação de surgir (o estado final é o normal; sem animação, tudo já aparece) */
+  animation: surgir 480ms var(--ease-out) backwards;
+}
+
+/* Atraso em escada: o 2º espera um pouco, o 3º um pouco mais... */
+.app-views-container .stat-box:nth-child(2),
+.app-views-container .panel:nth-child(2),
+.app-views-container .workout-card:nth-child(2) {
+  /* 60 milissegundos */
+  animation-delay: 60ms;
+}
+
+/* Terceiro da fila */
+.app-views-container .stat-box:nth-child(3),
+.app-views-container .panel:nth-child(3),
+.app-views-container .workout-card:nth-child(3) {
+  /* 120 milissegundos */
+  animation-delay: 120ms;
+}
+
+/* Quarto da fila */
+.app-views-container .stat-box:nth-child(4),
+.app-views-container .panel:nth-child(4),
+.app-views-container .workout-card:nth-child(4) {
+  /* 180 milissegundos */
+  animation-delay: 180ms;
+}
+
+/* Surgir: vem de baixo, meio transparente */
+@keyframes surgir {
+  /* Começo */
+  from {
+    /* Transparente */
+    opacity: 0;
+    /* 10 pixels abaixo */
+    transform: translateY(10px);
+  }
+}
+
+/* Quem pediu menos movimento: nada disso */
+@media (prefers-reduced-motion: reduce) {
+  /* Logo, cards e blocos */
+  svg path[d^="M32 9.5A22.5"],
+  svg path[d^="M19.5 33H24.5"],
+  .app-views-container .stat-box,
+  .app-views-container .panel,
+  .app-views-container .workout-card,
+  .app-views-container .pontos-card,
+  .app-views-container .momento-card,
+  .app-views-container .pulso-inicio {
+    /* Sem animação */
+    animation: none;
+  }
+
+  /* Cards parados ao passar o mouse */
+  .stat-box:hover,
+  .workout-card:hover,
+  .rec-card:hover,
+  .pro-card:hover,
+  .plan-card:hover,
+  .feature:hover,
+  .testimonial:hover,
+  .blog-card:hover,
+  .acad-card:hover,
+  .challenge-card:hover,
+  .academia-card:hover {
+    /* Sem inclinar nem subir */
+    transform: none;
+  }
+}
+
+/* ---------- Botão de tema (sol / lua) no site público ---------- */
+
+/* Botão de tema fora do app (topo do site ou solto no canto) */
+.top-bar-actions .btn-tema,
+.btn-tema-solto {
+  /* Centraliza o ícone */
+  display: inline-grid;
+  /* No meio */
+  place-items: center;
+  /* Largura */
+  width: 36px;
+  /* Altura */
+  height: 36px;
+  /* Sem espaço interno */
+  padding: 0;
+  /* Fundo transparente */
+  background: transparent;
+  /* Borda discreta */
+  border: 1px solid var(--border-strong);
+  /* Redondo */
+  border-radius: 50%;
+  /* Cor do ícone */
+  color: var(--ink);
+  /* Mãozinha */
+  cursor: pointer;
+  /* Não encolhe */
+  flex-shrink: 0;
+}
+
+/* Desenho do sol ou da lua */
+.top-bar-actions .btn-tema .icon,
+.btn-tema-solto .icon {
+  /* Tamanho */
+  width: 18px;
+  /* Tamanho */
+  height: 18px;
+  /* Sem preenchimento */
+  fill: none;
+  /* Traço na cor do botão */
+  stroke: currentColor;
+  /* Grossura do traço */
+  stroke-width: 2;
+  /* Pontas redondas */
+  stroke-linecap: round;
+}
+
+/* Botão de tema com mouse ou foco */
+.top-bar-actions .btn-tema:hover,
+.btn-tema-solto:hover {
+  /* Borda e ícone coral */
+  border-color: var(--coral-light);
+  /* Cor coral */
+  color: var(--coral-light);
+}
+
+/* Botão de tema solto (páginas sem topo, como o login): ao lado do botão de idioma */
+.btn-tema-solto {
+  /* Preso na tela */
+  position: fixed;
+  /* Distância do topo */
+  top: calc(14px + env(safe-area-inset-top, 0px));
+  /* À esquerda do botão de idioma */
+  right: calc(64px + env(safe-area-inset-right, 0px));
   /* Por cima do conteúdo */
   z-index: 50;
   /* Fundo do card (para não sumir no fundo) */

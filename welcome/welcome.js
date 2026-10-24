@@ -63,7 +63,7 @@
     // Classe do visual
     caixa.className = "confete";
     // Cores da marca
-    const cores = ["#ff7a45", "#34d399", "#f5b544", "#ffa06b"];
+    const cores = ["#f0845a", "#4fc29a", "#f5b544", "#f5a37f"];
     // 40 pedacinhos
     for (let i = 0; i < 40; i++) {
       // Pedacinho
@@ -197,6 +197,44 @@
     // Prévia inicial
     previa();
   }
+
+  /* ---------- Vídeo de fundo do topo e fotos dos depoimentos ---------- */
+
+  // Vídeo do topo
+  const video = document.querySelector(".hero-video");
+  // Só no computador (tela larga) e se a pessoa não pediu menos movimento
+  if (video && !reduzirMovimento && window.matchMedia("(min-width: 641px)").matches) {
+    // Para cada formato (webm é mais leve, mp4 funciona em todo lugar)...
+    [["webm", "video/webm"], ["mp4", "video/mp4"]].forEach(([chave, tipo]) => {
+      // ...cria a fonte do vídeo
+      const fonte = document.createElement("source");
+      // Endereço do arquivo
+      fonte.src = video.dataset[chave];
+      // Tipo do arquivo
+      fonte.type = tipo;
+      // Coloca no vídeo
+      video.append(fonte);
+    });
+    // Quando começar a tocar, aparece suave
+    video.addEventListener("playing", () => video.classList.add("is-tocando"));
+    // Tenta tocar (se o arquivo não existir, fica só o fundo animado)
+    video.play().catch(() => {});
+  }
+
+  // Fotos dos depoimentos: só aparecem se o arquivo existir (senão ficam as iniciais)
+  document.querySelectorAll("[data-foto]").forEach((avatar) => {
+    // Imagem de teste
+    const img = new Image();
+    // Se carregou...
+    img.onload = () => {
+      // ...usa como fundo do círculo
+      avatar.style.backgroundImage = `url(${avatar.dataset.foto})`;
+      // ...e esconde as iniciais
+      avatar.classList.add("tem-foto");
+    };
+    // Tenta carregar
+    img.src = avatar.dataset.foto;
+  });
 
   /* ---------- Entrada suave das seções ---------- */
 

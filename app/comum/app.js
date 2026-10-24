@@ -1219,7 +1219,7 @@
     // Quantos treinos faltam
     const faltam = Math.max(0, meta - nestaSemana);
     // Aviso da meta
-    lista.push(faltam ? ["Meta semanal em andamento", `Faltam ${faltam} treino${faltam > 1 ? "s" : ""} para completar ${meta}/${meta}.`] : ["Meta semanal batida!", `Você completou ${nestaSemana} treinos nesta semana.`]);
+    lista.push(faltam ? ["Meta semanal em andamento", `${faltam > 1 ? "Faltam" : "Falta"} ${faltam} treino${faltam > 1 ? "s" : ""} para completar ${meta}/${meta}.`] : ["Meta semanal batida!", `Você completou ${nestaSemana} treinos nesta semana.`]);
     // Motor de pontos
     const P = window.SL.pontos;
     // Sem motor de pontos, só a meta
@@ -2001,7 +2001,7 @@
     // Caixa que cobre a tela (não atrapalha os cliques)
     const caixa = el("div", { class: "confete", "aria-hidden": "true" });
     // Cores do confete
-    const cores = ["#ff7a45", "#34d399", "#f5b544", "#ffa06b", "#7cc4f0"];
+    const cores = ["#f0845a", "#4fc29a", "#f5b544", "#f5a37f", "#7cc4f0"];
     // 46 pedacinhos
     for (let i = 0; i < 46; i++) {
       // Cada pedacinho

@@ -446,9 +446,9 @@
     // "São Paulo • atende online"
     [/^atende online$/, () => "online sessions"],
     // "Faltam 3 treinos para bater sua meta da semana."
-    [/^Faltam (\d+) treinos? para bater sua meta da semana\.$/, (m, n) => `${n} workout${n === "1" ? "" : "s"} left to hit your weekly goal.`],
+    [/^Faltam? (\d+) treinos? para bater sua meta da semana\.$/, (m, n) => `${n} workout${n === "1" ? "" : "s"} left to hit your weekly goal.`],
     // "Faltam 3 treinos para completar 4/4."
-    [/^Faltam (\d+) treinos? para completar (.+)\.$/, (m, n, q) => `${n} workout${n === "1" ? "" : "s"} left to complete ${q}.`],
+    [/^Faltam? (\d+) treinos? para completar (.+)\.$/, (m, n, q) => `${n} workout${n === "1" ? "" : "s"} left to complete ${q}.`],
     // "Ranking: você está em 2º"
     [/^Ranking: você está em (\d+)º$/, (m, n) => `Leaderboard: you're #${n}`],
     // "Rafael está 40 pontos na sua frente. Bora passar?"
