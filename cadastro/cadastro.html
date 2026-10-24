@@ -360,6 +360,17 @@
               aria-live="polite"
             ></span>
           </div>
+          <!-- Regras da senha: cada uma fica verde quando é cumprida (o form-utils.js cuida disso) -->
+          <ul class="senha-regras" data-regras-de="password" aria-label="Regras da senha">
+            <!-- Regra obrigatória: tamanho -->
+            <li data-regra="tamanho">Pelo menos 8 caracteres</li>
+            <!-- Dica: número -->
+            <li data-regra="numero">Um número</li>
+            <!-- Dica: letra maiúscula -->
+            <li data-regra="maiuscula">Uma letra maiúscula</li>
+            <!-- Dica: símbolo -->
+            <li data-regra="simbolo">Um símbolo (! @ # ...)</li>
+          </ul>
         </div>
 
         <!-- Grupo de um campo: nome, caixa e erro -->
@@ -566,14 +577,14 @@
         </div>
       </form>
 
-      <!-- Linha divisória "ou continue com" -->
-      <div class="auth-divider" role="separator">
+      <!-- Linha divisória "ou continue com" (escondida até o login com Google/Apple existir) -->
+      <div class="auth-divider" role="separator" hidden>
         <!-- Texto do meio da linha divisória -->
         <span>ou continue com</span>
       </div>
 
-      <!-- Botões de entrar com Google e Apple -->
-      <div class="social-login">
+      <!-- Botões de entrar com Google e Apple (escondidos até funcionarem de verdade) -->
+      <div class="social-login" hidden>
         <!-- Botão de criar conta com o Google (por enquanto só mostra um aviso) -->
         <button
           type="button"

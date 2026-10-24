@@ -508,11 +508,19 @@
                     <!-- Nome do dado -->
                     <dt>Plano</dt>
                     <!-- Plano atual, com link para ver os planos -->
-                    <dd>Free <a href="../planos/planos.html" class="section-link">Ver planos</a></dd>
+                    <dd><span data-render="plano-nome">Free</span> <a href="../planos/planos.html" class="section-link">Ver planos</a></dd>
                   </div>
                 </dl>
                 <!-- Botões da conta -->
                 <div class="account-actions">
+                  <!-- Botão de trocar e-mail e senha -->
+                  <button class="btn-secondary" data-action="seguranca">Trocar e-mail ou senha</button>
+                  <!-- Botão de baixar uma cópia dos dados -->
+                  <button class="btn-secondary" data-action="baixar-backup">Baixar meus dados</button>
+                  <!-- Botão de restaurar uma cópia (o rótulo abre o campo de arquivo escondido) -->
+                  <label class="btn-secondary" for="arquivo-backup">Restaurar backup</label>
+                  <!-- Campo de arquivo escondido (aceita o arquivo baixado acima) -->
+                  <input type="file" id="arquivo-backup" accept="application/json,.json" class="sr-only" />
                   <!-- Botão de voltar aos dados de exemplo -->
                   <button class="btn-secondary" data-action="reset-data">
                     Restaurar dados de exemplo
@@ -523,6 +531,8 @@
                     <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><path d="m16 17 5-5-5-5"></path><path d="M21 12H9"></path></svg>
                     Sair da conta
                   </button>
+                  <!-- Botão de excluir a conta e todos os dados (LGPD) -->
+                  <button class="btn-danger-outline" data-action="excluir-conta">Excluir minha conta</button>
                 </div>
               </section>
             </div>
@@ -607,6 +617,8 @@
     <script src="../comum/demo.js"></script>
     <!-- Carrega o Pulso, o personagem que acompanha a pessoa -->
     <script src="../comum/personagem.js"></script>
+    <!-- Carrega as funções de conta (senha com hash, trocar e-mail, excluir conta) -->
+    <script src="../../shared/form-utils.js"></script>
     <!-- Carrega o JavaScript desta página (perfil.js) -->
     <script src="perfil.js"></script>
   </body>

@@ -334,6 +334,14 @@
               ></span>
             </div>
 
+            <!-- Caixinha "Lembrar de mim": desmarcada, fechar o navegador tira a pessoa da conta -->
+            <div class="form-group checkbox-group">
+              <!-- Caixinha de marcar (já vem marcada) -->
+              <input type="checkbox" id="lembrar" name="lembrar" checked />
+              <!-- Texto da caixinha -->
+              <label for="lembrar">Lembrar de mim neste aparelho</label>
+            </div>
+
             <!-- Caixa de erro geral (escondida até ter erro) -->
             <p
               id="form-global-error"
@@ -354,14 +362,14 @@
             </button>
           </form>
 
-          <!-- Linha divisória "ou continue com" -->
-          <div class="auth-divider" role="separator">
+          <!-- Linha divisória "ou continue com" (escondida até o login com Google/Apple existir) -->
+          <div class="auth-divider" role="separator" hidden>
             <!-- Texto do meio da linha divisória -->
             <span>ou continue com</span>
           </div>
 
-          <!-- Botões de entrar com Google e Apple -->
-          <div class="social-login">
+          <!-- Botões de entrar com Google e Apple (escondidos até funcionarem de verdade) -->
+          <div class="social-login" hidden>
             <!-- Botão de entrar com o Google (por enquanto só mostra um aviso) -->
             <button
               type="button"

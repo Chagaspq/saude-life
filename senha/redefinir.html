@@ -141,6 +141,17 @@
           </div>
           <!-- Lugar onde aparece o erro deste campo -->
           <span id="new-password-error" class="field-error" role="alert" aria-live="polite"></span>
+          <!-- Regras da senha: cada uma fica verde quando é cumprida (o form-utils.js cuida disso) -->
+          <ul class="senha-regras" data-regras-de="new-password" aria-label="Regras da senha">
+            <!-- Regra obrigatória: tamanho -->
+            <li data-regra="tamanho">Pelo menos 8 caracteres</li>
+            <!-- Dica: número -->
+            <li data-regra="numero">Um número</li>
+            <!-- Dica: letra maiúscula -->
+            <li data-regra="maiuscula">Uma letra maiúscula</li>
+            <!-- Dica: símbolo -->
+            <li data-regra="simbolo">Um símbolo (! @ # ...)</li>
+          </ul>
         </div>
 
         <!-- Grupo do campo "Confirmar nova senha" -->

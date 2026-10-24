@@ -137,4 +137,172 @@ window.SL &&
       // Se o endereço pede o painel (#heading-demo), rola até ele
       if (location.hash === "#heading-demo") document.getElementById("heading-demo").scrollIntoView();
     }
+
+    /* ---------- Conta: plano, segurança, backup e excluir ---------- */
+
+    // Nome do plano atual na seção Conta
+    $("plano-nome").textContent = SL.premium() ? "Premium" : "Free";
+    // Funções de conta (shared/form-utils.js)
+    const F = window.SaudeLifeForm;
+    // E-mail de quem está logado
+    const emailAtual = () => (storage.get("sl-sessao", {}) || {}).email;
+
+    // Trocar e-mail ou senha
+    SL.acao("seguranca", () => {
+      // Formulário do e-mail
+      const formEmail = el("form", { class: "modal-form" }, [
+        // Título
+        el("h3", { text: "Trocar e-mail" }),
+        // E-mail novo
+        SL.campo("seg-email", "E-mail novo", { type: "email", required: true }),
+        // Senha atual (o hash da senha usa o e-mail)
+        SL.campo("seg-senha-email", "Sua senha atual", { type: "password", required: true }),
+        // Mensagem
+        el("p", { class: "field-error", role: "alert", "data-msg": "email" }),
+        // Botão
+        el("button", { type: "submit", class: "btn-primary", text: "Salvar e-mail" }),
+      ]);
+      // Formulário da senha
+      const formSenha = el("form", { class: "modal-form" }, [
+        // Título
+        el("h3", { text: "Trocar senha" }),
+        // Senha atual
+        SL.campo("seg-atual", "Senha atual", { type: "password", required: true }),
+        // Senha nova
+        SL.campo("seg-nova", "Senha nova (mínimo 8 caracteres)", { type: "password", required: true }),
+        // Mensagem
+        el("p", { class: "field-error", role: "alert", "data-msg": "senha" }),
+        // Botão
+        el("button", { type: "submit", class: "btn-primary", text: "Salvar senha" }),
+      ]);
+      // Campo de e-mail começa com o atual
+      formEmail.querySelector("#seg-email").value = emailAtual() || "";
+      // Ao salvar o e-mail...
+      formEmail.addEventListener("submit", async (e) => {
+        // ...não recarrega
+        e.preventDefault();
+        // E-mail novo
+        const novo = formEmail.querySelector("#seg-email").value.trim().toLowerCase();
+        // Formato inválido
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(novo)) return (formEmail.querySelector('[data-msg="email"]').textContent = "Digite um e-mail válido.");
+        // Tenta trocar
+        const erro = await F.trocarEmail(emailAtual(), formEmail.querySelector("#seg-senha-email").value, novo);
+        // Mostra o erro, se tiver
+        if (erro) return (formEmail.querySelector('[data-msg="email"]').textContent = erro);
+        // Fecha e avisa
+        SL.closeModal();
+        // Aviso
+        SL.toast("E-mail trocado");
+        // Mostra o e-mail novo
+        document.querySelectorAll("[data-user-email]").forEach((n) => (n.textContent = novo));
+      });
+      // Ao salvar a senha...
+      formSenha.addEventListener("submit", async (e) => {
+        // ...não recarrega
+        e.preventDefault();
+        // Tenta trocar
+        const erro = await F.mudarSenha(emailAtual(), formSenha.querySelector("#seg-atual").value, formSenha.querySelector("#seg-nova").value);
+        // Mostra o erro, se tiver
+        if (erro) return (formSenha.querySelector('[data-msg="senha"]').textContent = erro);
+        // Fecha e avisa
+        SL.closeModal();
+        // Aviso
+        SL.toast("Senha trocada");
+      });
+      // Abre o modal com os dois formulários
+      SL.openModal("Trocar e-mail ou senha", [formEmail, formSenha]);
+    });
+
+    // Chaves que são do aparelho (não entram no backup)
+    const GLOBAIS = ["sl-contas", "sl-conta", "sl-sessao", "sl-tema", "sl-idioma", "sl-reset-pedidos", "sl-pedidos-academia", "sl-dono", "sl-acessibilidade", "sl-instalar-visto"];
+
+    // Baixar uma cópia dos dados (arquivo .json)
+    SL.acao("baixar-backup", () => {
+      // Dados da conta
+      const chaves = {};
+      // Copia cada chave da conta
+      Object.keys(localStorage)
+        // Só as do app, sem as do aparelho e sem as gavetas de outras contas
+        .filter((k) => k.startsWith("sl-") && !GLOBAIS.includes(k) && !k.startsWith("sl-dados:"))
+        // Copia o texto
+        .forEach((k) => (chaves[k] = localStorage.getItem(k)));
+      // Arquivo
+      const arquivo = new Blob([JSON.stringify({ app: "saude-life", versao: 1, data: new Date().toISOString(), email: emailAtual(), chaves }, null, 1)], { type: "application/json" });
+      // Link temporário
+      const a = document.createElement("a");
+      // Endereço do arquivo
+      a.href = URL.createObjectURL(arquivo);
+      // Nome do arquivo com a data
+      a.download = `saude-life-backup-${new Date().toISOString().slice(0, 10)}.json`;
+      // Baixa
+      a.click();
+      // Libera a memória depois
+      setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+      // Avisa
+      SL.toast("Backup baixado");
+    });
+
+    // Restaurar um backup
+    document.getElementById("arquivo-backup").addEventListener("change", (e) => {
+      // Arquivo escolhido
+      const f = e.target.files[0];
+      // Se não escolheu, para
+      if (!f) return;
+      // Lê o arquivo
+      f.text().then((texto) => {
+        // Tenta entender o arquivo
+        let dados = null;
+        // Tenta...
+        try {
+          // ...transformar em dados
+          dados = JSON.parse(texto);
+        // Se não for JSON...
+        } catch (erro) {
+          // ...fica vazio
+          dados = null;
+        }
+        // Não é um backup do Saúde Life
+        if (!dados || dados.app !== "saude-life" || !dados.chaves) return SL.toast("Esse arquivo não é um backup do Saúde Life.");
+        // Confirma antes de trocar tudo
+        SL.confirmar({
+          // Título
+          titulo: "Restaurar este backup?",
+          // Texto
+          texto: `Seus dados atuais serão trocados pelos do backup de ${new Date(dados.data).toLocaleDateString("pt-BR")}.`,
+          // Botão
+          rotulo: "Restaurar",
+          // Se confirmar: grava cada chave e recarrega
+          fn: () => {
+            // Grava cada chave do backup
+            Object.entries(dados.chaves).forEach(([k, v]) => k.startsWith("sl-") && !GLOBAIS.includes(k) && localStorage.setItem(k, v));
+            // Recarrega
+            window.location.reload();
+          },
+        });
+      });
+      // Limpa o campo (para poder escolher o mesmo arquivo de novo)
+      e.target.value = "";
+    });
+
+    // Excluir a conta
+    SL.acao("excluir-conta", () => {
+      // Pede confirmação
+      SL.confirmar({
+        // Título
+        titulo: "Excluir sua conta?",
+        // Texto
+        texto: "Sua conta e todos os seus dados (treinos, pesos, fotos, refeições) serão apagados deste aparelho. Não dá para desfazer.",
+        // Botão
+        rotulo: "Excluir para sempre",
+        // Vermelho
+        perigo: true,
+        // Se confirmar...
+        fn: () => {
+          // ...apaga tudo
+          F.excluirConta(emailAtual());
+          // ...e volta para a página inicial
+          window.location.href = "../../welcome/welcome.html";
+        },
+      });
+    });
   });

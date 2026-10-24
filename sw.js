@@ -8,7 +8,7 @@
  * recarregar a página continua mostrando a mudança na hora.
  */
 // Nome da caixa de arquivos guardados (mudar o número apaga as caixas antigas)
-const CACHE = "saude-life-v5";
+const CACHE = "saude-life-v6";
 
 // Todos os arquivos do site (caminhos a partir da pasta do sw.js)
 const ARQUIVOS = [

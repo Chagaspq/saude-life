@@ -438,11 +438,82 @@
     };
     // Salva a conta
     gravarConta(conta);
-    // Se veio o passo 2...
+    // Se veio o passo 2, guarda o perfil na "gaveta" da conta nova (ela abre quando a pessoa entrar)
     if (extra) {
-      // ...junta com o perfil que já existia (foto, peso, etc. ficam no perfil do app)
-      gravar("sl-perfil", Object.assign(ler("sl-perfil", {}), extra));
+      // Gaveta de dados da conta nova
+      const gaveta = ler("sl-dados:" + email, {});
+      // Junta o perfil (foto, apelido, peso...)
+      gaveta["sl-perfil"] = JSON.stringify(Object.assign(JSON.parse(gaveta["sl-perfil"] || "{}"), extra));
+      // Salva a gaveta
+      gravar("sl-dados:" + email, gaveta);
     }
+  }
+
+  /* ---------- Dados separados por conta ----------
+   * O app guarda tudo em chaves "sl-..." no navegador. Para cada conta ter os
+   * próprios treinos no mesmo aparelho, ao trocar de conta os dados da conta
+   * anterior vão para uma "gaveta" (sl-dados:e-mail) e os da conta nova saem da gaveta dela.
+   */
+
+  // Chaves que valem para o aparelho todo (não são de uma conta só)
+  const GLOBAIS = ["sl-contas", "sl-conta", "sl-sessao", "sl-tema", "sl-idioma", "sl-reset-pedidos", "sl-pedidos-academia", "sl-dono", "sl-acessibilidade", "sl-instalar-visto"];
+
+  // Diz se uma chave é de uma conta (e não do aparelho)
+  const daConta = (chave) => chave.startsWith("sl-") && !GLOBAIS.includes(chave) && !chave.startsWith("sl-dados:");
+
+  // Guarda os dados atuais na gaveta de um e-mail e limpa o navegador
+  function guardarNaGaveta(email) {
+    // Gaveta (o que já tinha + o atual)
+    const gaveta = {};
+    // Para cada chave do navegador...
+    Object.keys(localStorage)
+      // ...só as da conta
+      .filter(daConta)
+      // ...copia para a gaveta e apaga
+      .forEach((chave) => {
+        // Copia o texto como está
+        gaveta[chave] = localStorage.getItem(chave);
+        // Apaga do navegador
+        localStorage.removeItem(chave);
+      });
+    // Salva a gaveta
+    gravar("sl-dados:" + email, gaveta);
+  }
+
+  // Tira da gaveta os dados de um e-mail e coloca no navegador
+  function abrirGaveta(email) {
+    // Gaveta da conta
+    const gaveta = ler("sl-dados:" + email, {});
+    // Coloca cada chave de volta
+    Object.keys(gaveta).forEach((chave) => localStorage.setItem(chave, gaveta[chave]));
+    // A gaveta fica vazia (os dados agora estão soltos no navegador)
+    localStorage.removeItem("sl-dados:" + email);
+    // Marca de quem são os dados soltos
+    gravar("sl-dono", email);
+  }
+
+  // Troca os dados do navegador para a conta que está entrando
+  function trocarDados(email) {
+    // Dono dos dados soltos agora (null = ninguém ainda)
+    const dono = ler("sl-dono", null);
+    // Mesma conta: nada a fazer
+    if (dono === email) return;
+    // Tenta...
+    try {
+      // ...se tinha outra conta, guarda os dados dela
+      if (dono) guardarNaGaveta(dono);
+      // ...abre os dados da conta que está entrando
+      abrirGaveta(email);
+    // Se o navegador bloquear...
+    } catch (e) {
+      /* armazenamento indisponível: segue sem trocar */
+    }
+  }
+
+  // Avisa se o navegador ainda está aberto desde o login (cookie que some ao fechar o navegador)
+  function marcarNavegadorAberto() {
+    // Cookie de sessão (sem data de validade: morre quando o navegador fecha)
+    document.cookie = "sl-aberta=1; path=/; SameSite=Lax";
   }
 
   // Confere e-mail e senha. Devolve a conta, ou uma mensagem de erro
@@ -490,8 +561,87 @@
     const email = qs("#email", form).value.trim().toLowerCase();
     // Nome do cadastro (ou a parte antes do @)
     const nome = (conta && conta.nome) || email.split("@")[0];
-    // Salva a sessão no navegador
-    gravar("sl-sessao", { nome, email });
+    // Troca os dados do navegador para os desta conta
+    trocarDados(email);
+    // Caixinha "Lembrar de mim" (marcada se não existir)
+    const lembrar = qs("#lembrar", form);
+    // Salva a sessão no navegador (com a escolha de lembrar ou não)
+    gravar("sl-sessao", { nome, email, lembrar: lembrar ? lembrar.checked : true });
+    // Marca que o navegador está aberto (sem "lembrar", fechar o navegador desloga)
+    marcarNavegadorAberto();
+    // Pedido da conta de demonstração: depois de abrir os dados dela, completa o que falta
+    const demo = sessionStorage.getItem("sl-demo-pendente");
+    // Se tem pedido...
+    if (demo) {
+      // ...apaga o pedido
+      sessionStorage.removeItem("sl-demo-pendente");
+      // ...questionário já respondido (pula para o Início)
+      if (!localStorage.getItem("sl-onboarding")) gravar("sl-onboarding", { objetivo: "Hipertrofia", nivel: "Intermediário", dias: 4, rotulo: "Ganhar massa muscular" });
+      // ...pede para o app encher os dados de exemplo
+      gravar("sl-demo-preencher", true);
+    }
+    // Respostas do questionário da página inicial (vindas do cadastro)
+    const quiz = sessionStorage.getItem("sl-quiz-pendente");
+    // Se tem, guarda na conta
+    if (quiz) {
+      // Salva para o "Começar" usar
+      localStorage.setItem("sl-quiz", quiz);
+      // Apaga o pedido
+      sessionStorage.removeItem("sl-quiz-pendente");
+    }
+  }
+
+  // Apaga uma conta e todos os dados dela deste aparelho
+  function excluirConta(email) {
+    // Tira a conta da lista
+    gravar("sl-contas", lerContas().filter((c) => c.email !== email));
+    // Se "sl-conta" é ela, apaga
+    if ((ler("sl-conta", {}) || {}).email === email) localStorage.removeItem("sl-conta");
+    // Apaga a gaveta dela
+    localStorage.removeItem("sl-dados:" + email);
+    // Se os dados soltos são dela, apaga todos
+    if (ler("sl-dono", null) === email) {
+      // Apaga cada chave da conta
+      Object.keys(localStorage).filter(daConta).forEach((chave) => localStorage.removeItem(chave));
+      // Ninguém é dono agora
+      localStorage.removeItem("sl-dono");
+    }
+    // Sai da conta
+    localStorage.removeItem("sl-sessao");
+  }
+
+  // Troca o e-mail de uma conta (precisa da senha atual, porque o hash usa o e-mail)
+  async function trocarEmail(emailAtual, senha, emailNovo) {
+    // Conta atual
+    const conta = acharConta(emailAtual);
+    // Senha errada ou sem conta
+    if (!conta || conta.hash !== (await hashSenha(emailAtual, senha))) return "Senha atual incorreta.";
+    // E-mail novo já usado
+    if (acharConta(emailNovo)) return "Já existe uma conta com esse e-mail.";
+    // Tira a conta antiga da lista
+    gravar("sl-contas", lerContas().filter((c) => c.email !== emailAtual));
+    // Grava com o e-mail e o hash novos
+    gravarConta({ ...conta, email: emailNovo, hash: await hashSenha(emailNovo, senha) });
+    // Os dados soltos passam a ser do e-mail novo
+    if (ler("sl-dono", null) === emailAtual) gravar("sl-dono", emailNovo);
+    // Sessão com o e-mail novo
+    gravar("sl-sessao", { ...ler("sl-sessao", {}), email: emailNovo });
+    // Deu certo
+    return "";
+  }
+
+  // Troca a senha de dentro do app (confere a senha atual antes)
+  async function mudarSenha(email, atual, nova) {
+    // Conta
+    const conta = acharConta(email);
+    // Senha atual errada
+    if (!conta || conta.hash !== (await hashSenha(email, atual))) return "Senha atual incorreta.";
+    // Senha nova curta
+    if (nova.length < MIN_PASSWORD_LENGTH) return "A senha nova precisa ter no mínimo " + MIN_PASSWORD_LENGTH + " caracteres.";
+    // Guarda o hash novo
+    await trocarSenha(email, nova);
+    // Deu certo
+    return "";
   }
 
   // Mostra "conta criada" quando a pessoa vem do cadastro
@@ -567,6 +717,41 @@
     });
   }
 
+  // Regras da senha que ficam verdes conforme a pessoa digita
+  const REGRAS_SENHA = {
+    // Tamanho mínimo (obrigatória)
+    tamanho: (v) => v.length >= MIN_PASSWORD_LENGTH,
+    // Tem número
+    numero: (v) => /[0-9]/.test(v),
+    // Tem letra maiúscula
+    maiuscula: (v) => /[A-ZÀ-Ý]/.test(v),
+    // Tem símbolo
+    simbolo: (v) => /[^A-Za-zÀ-ÿ0-9]/.test(v),
+  };
+
+  // Liga as listas de regras da página (cada lista diz de qual campo ela é)
+  function initRegrasSenha() {
+    // Para cada lista...
+    document.querySelectorAll("[data-regras-de]").forEach(function (lista) {
+      // ...campo de senha dela
+      const campo = document.getElementById(lista.dataset.regrasDe);
+      // Se não achou, pula
+      if (!campo) return;
+      // A cada letra digitada...
+      campo.addEventListener("input", function () {
+        // ...confere cada regra e pinta de verde a cumprida
+        lista.querySelectorAll("[data-regra]").forEach(function (item) {
+          // Cumprida?
+          const ok = REGRAS_SENHA[item.dataset.regra](campo.value);
+          // Classe verde
+          item.classList.toggle("is-ok", ok);
+        });
+      });
+    });
+  }
+  // Liga assim que a página carregar
+  document.addEventListener("DOMContentLoaded", initRegrasSenha);
+
   // Deixa as funções disponíveis para login.js e cadastro.js
   window.SaudeLifeForm = {
     initSocialButtons,
@@ -585,6 +770,10 @@
     saveAccount,
     startSession,
     checkLogin,
+    excluirConta,
+    trocarEmail,
+    mudarSenha,
+    trocarDados,
     trocarSenha,
     hashSenha,
     acharConta,

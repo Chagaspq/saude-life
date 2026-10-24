@@ -302,8 +302,8 @@
       if (quiz) {
         // Tenta salvar
         try {
-          // Chave "sl-quiz"
-          localStorage.setItem("sl-quiz", JSON.stringify({ objetivo: quiz.objetivo, nivel: quiz.nivel }));
+          // Fica pendente até a pessoa entrar (aí vai para os dados da conta dela)
+          sessionStorage.setItem("sl-quiz-pendente", JSON.stringify({ objetivo: quiz.objetivo, nivel: quiz.nivel }));
         // Se o navegador bloquear...
         } catch (e) {
           /* armazenamento indisponível: segue sem salvar */

@@ -368,6 +368,20 @@
     // Botões do tour
     "Pular": "Skip", "Próximo": "Next",
 
+    // ---------- Conta (segurança, backup, excluir) ----------
+    // Login e senha
+    "Lembrar de mim neste aparelho": "Remember me on this device", "Regras da senha": "Password rules", "Pelo menos 8 caracteres": "At least 8 characters", "Um número": "One number", "Uma letra maiúscula": "One uppercase letter", "Um símbolo (! @ # ...)": "One symbol (! @ # ...)",
+    // Perfil: conta
+    "Trocar e-mail ou senha": "Change email or password", "Baixar meus dados": "Download my data", "Restaurar backup": "Restore backup", "Excluir minha conta": "Delete my account", "Trocar e-mail": "Change email", "Trocar senha": "Change password",
+    // Campos e mensagens
+    "E-mail novo": "New email", "Sua senha atual": "Your current password", "Senha atual": "Current password", "Senha nova (mínimo 8 caracteres)": "New password (at least 8 characters)", "Salvar e-mail": "Save email", "Salvar senha": "Save password",
+    // Avisos
+    "E-mail trocado": "Email changed", "Senha trocada": "Password changed", "Backup baixado": "Backup downloaded", "Senha atual incorreta.": "Current password is wrong.", "Já existe uma conta com esse e-mail.": "An account with this email already exists.",
+    // Excluir
+    "Excluir sua conta?": "Delete your account?", "Excluir para sempre": "Delete forever", "Restaurar este backup?": "Restore this backup?", "Restaurar": "Restore", "Esse arquivo não é um backup do Saúde Life.": "This file is not a Saúde Life backup.",
+    // Texto do excluir
+    "Sua conta e todos os seus dados (treinos, pesos, fotos, refeições) serão apagados deste aparelho. Não dá para desfazer.": "Your account and all your data (workouts, weights, photos, meals) will be erased from this device. This can't be undone.",
+
     // ---------- Comuns ----------
     // Botões e palavras soltas
     "Salvar": "Save", "Cancelar": "Cancel", "Confirmar": "Confirm", "Fechar": "Close", "Excluir": "Delete", "Editar": "Edit", "Sim": "Yes", "Não": "No",

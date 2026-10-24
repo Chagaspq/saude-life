@@ -199,8 +199,8 @@ input[type="password"]::-ms-clear {
 
 /* Botão solto no canto (páginas sem topo, como o login) */
 .btn-idioma-solto {
-  /* Preso na tela */
-  position: fixed;
+  /* Solto no topo da página (rola junto, para não cobrir o formulário) */
+  position: absolute;
   /* Distância do topo */
   top: 14px;
   /* Distância da direita */
@@ -447,8 +447,8 @@ svg path[d^="M19.5 33H24.5"] {
 
 /* Botão de tema solto (páginas sem topo, como o login): ao lado do botão de idioma */
 .btn-tema-solto {
-  /* Preso na tela */
-  position: fixed;
+  /* Solto no topo da página (rola junto, para não cobrir o formulário) */
+  position: absolute;
   /* Distância do topo */
   top: calc(14px + env(safe-area-inset-top, 0px));
   /* À esquerda do botão de idioma */
@@ -457,4 +457,46 @@ svg path[d^="M19.5 33H24.5"] {
   z-index: 50;
   /* Fundo do card (para não sumir no fundo) */
   background: var(--surface);
+}
+
+/* ---------- Regras da senha (ficam verdes ao cumprir) ---------- */
+
+/* Lista de regras */
+.senha-regras {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Sem espaço padrão */
+  padding: 0;
+  /* Espaço em cima */
+  margin: 8px 0 0;
+  /* Duas colunas */
+  display: grid;
+  /* Duas colunas iguais */
+  grid-template-columns: 1fr 1fr;
+  /* Espaço entre os itens */
+  gap: 4px 12px;
+  /* Letra pequena */
+  font-size: 12.5px;
+  /* Cor apagada */
+  color: var(--muted);
+}
+
+/* Cada regra: bolinha vazia antes do texto */
+.senha-regras li::before {
+  /* Bolinha vazia */
+  content: "○";
+  /* Espaço até o texto */
+  margin-right: 6px;
+}
+
+/* Regra cumprida */
+.senha-regras li.is-ok {
+  /* Verde */
+  color: var(--emerald);
+}
+
+/* Regra cumprida: bolinha vira check */
+.senha-regras li.is-ok::before {
+  /* Check */
+  content: "✓";
 }

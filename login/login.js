@@ -60,10 +60,8 @@
           // Salva
           localStorage.setItem("sl-contas", JSON.stringify(contas));
         }
-        // ...já marca o questionário como respondido (pula para o Início)
-        if (!localStorage.getItem("sl-onboarding")) localStorage.setItem("sl-onboarding", JSON.stringify({ objetivo: "Hipertrofia", nivel: "Intermediário", dias: 4, rotulo: "Ganhar massa muscular" }));
-        // ...pede para o app encher os dados de exemplo ao abrir
-        localStorage.setItem("sl-demo-preencher", "true");
+        // ...pede para, depois de entrar, pular o questionário e encher os dados de exemplo
+        sessionStorage.setItem("sl-demo-pendente", "1");
         // ...e entra como se tivesse clicado em Entrar
         loginForm.requestSubmit();
       });

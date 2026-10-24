@@ -31,7 +31,16 @@
     // Tenta...
     try {
       // ...ler a sessão salva no login
-      return JSON.parse(localStorage.getItem("sl-sessao") || "null");
+      const sessao = JSON.parse(localStorage.getItem("sl-sessao") || "null");
+      // Sem "Lembrar de mim" e o navegador foi fechado desde o login: sai da conta
+      if (sessao && sessao.lembrar === false && !document.cookie.includes("sl-aberta=1")) {
+        // Apaga a sessão
+        localStorage.removeItem("sl-sessao");
+        // Ninguém logado
+        return null;
+      }
+      // Devolve a sessão
+      return sessao;
     // Se der erro...
     } catch (e) {
       // ...diz que ninguém está logado
