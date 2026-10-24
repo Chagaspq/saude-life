@@ -973,6 +973,31 @@ window.SL &&
       });
       // Salva
       storage.set("sl-ultimas", ult);
+      // Histórico de carga de cada exercício (para o gráfico da Evolução) e volume por grupo muscular
+      const cargasHist = storage.get("sl-cargas", {});
+      // Volume de cada grupo neste treino
+      const grupos = {};
+      // Para cada exercício...
+      exercicios.forEach((ex, k) => {
+        // ...séries feitas
+        const feitasEx = estado.series[k].filter((x) => x.feito);
+        // ...se não fez ou é por tempo, pula
+        if (!feitasEx.length || ehTempo(ex)) return;
+        // ...guarda a maior carga do dia (no máximo 60 registros por exercício)
+        cargasHist[ex.nome] = (cargasHist[ex.nome] || []).concat({ data: new Date().toISOString(), carga: Math.max(...feitasEx.map((x) => x.carga)) }).slice(-60);
+        // ...grupo do exercício
+        const g = (BIBLIOTECA[ex.nome] || {}).grupo || "Outros";
+        // ...soma o volume no grupo
+        grupos[g] = (grupos[g] || 0) + feitasEx.reduce((t, x) => t + x.reps * x.carga, 0);
+      });
+      // Salva as cargas
+      storage.set("sl-cargas", cargasHist);
+      // Guarda os grupos no treino que acabou de entrar no histórico (o primeiro da lista)
+      const histAtual = storage.get("sl-historico", []);
+      // Se tem, marca
+      if (histAtual[0]) histAtual[0].grupos = grupos;
+      // Salva
+      storage.set("sl-historico", histAtual);
       // Apaga o treino em andamento
       storage.remove("sl-treino-atual");
       // Se o motor de pontos carregou...

@@ -408,6 +408,22 @@
     // Lembrete
     "Horário do lembrete": "Reminder time", "Hora do treino! Bora manter a sequência?": "Workout time! Keep your streak going?",
 
+    // ---------- Alimentação e saúde ----------
+    // Alimentação
+    "Restrições": "Restrictions", "Repetir ontem": "Repeat yesterday", "Receitas": "Recipes", "Lista de compras da semana": "Weekly shopping list", "Usar este cardápio hoje": "Use this meal plan today", "Copiar lista": "Copy list",
+    // Restrições
+    "Restrições alimentares": "Dietary restrictions", "Vegetariano": "Vegetarian", "Vegano": "Vegan", "Sem lactose": "Lactose-free", "Sem glúten": "Gluten-free", "Alergia a amendoim": "Peanut allergy", "Alergia a frutos do mar": "Shellfish allergy", "Alergia a ovo": "Egg allergy", "Restrições salvas": "Restrictions saved",
+    // Receitas e repetir
+    "Ingredientes": "Ingredients", "Modo de fazer": "Directions", "Registrar 1 porção como refeição": "Log 1 serving as a meal", "Repetir refeições de ontem": "Repeat yesterday's meals", "Repetir": "Repeat", "Repetir todas": "Repeat all", "O que tem no prato? Toque para somar:": "What's on the plate? Tap to add:",
+    // Saúde
+    "Saúde": "Health", "Sono, humor, medidas do corpo e ciclo. Tudo fica só neste aparelho.": "Sleep, mood, body measurements and cycle. Everything stays on this device.", "Sono": "Sleep", "Como você está hoje?": "How are you today?", "IMC e gordura corporal": "BMI and body fat", "Medidas do corpo": "Body measurements",
+    // Sono e humor
+    "Dormi às": "Went to bed at", "Acordei às": "Woke up at", "Registrar noite": "Log night", "Noite registrada ✓": "Night logged ✓", "Com energia": "Energetic", "Normal": "Normal", "Cansado": "Tired", "Com dor muscular": "Sore",
+    // Medidas e ciclo
+    "Cintura": "Waist", "Quadril": "Hips", "Braço": "Arm", "Coxa": "Thigh", "Salvar medidas": "Save measurements", "Ciclo menstrual": "Menstrual cycle", "Acompanhar o ciclo": "Track cycle", "Menstruação": "Period", "Fase folicular": "Follicular phase", "Ovulação": "Ovulation", "Fase lútea": "Luteal phase",
+    // Evolução
+    "Relatório para o profissional": "Report for your professional", "Carga no exercício": "Load per exercise", "Volume por músculo nesta semana": "Volume per muscle this week", "6 meses": "6 months", "1 ano": "1 year", "Relatório dos últimos 30 dias": "Last 30 days report", "Copiar": "Copy", "Baixar arquivo": "Download file",
+
     // ---------- Comuns ----------
     // Botões e palavras soltas
     "Salvar": "Save", "Cancelar": "Cancel", "Confirmar": "Confirm", "Fechar": "Close", "Excluir": "Delete", "Editar": "Edit", "Sim": "Yes", "Não": "No",

@@ -1166,6 +1166,7 @@
           "sl-metas-pessoais", "sl-fotos", "sl-meus-pros", "sl-avaliacoes-pros",
           "sl-espera", "sl-avaliacoes-aulas", "sl-checkins", "sl-avisos",
           "sl-ex-favoritos", "sl-programa", "sl-corridas", "sl-plano-5k", "sl-lembrete-treino", "sl-lembrete-dia",
+          "sl-restricoes", "sl-refeicoes-dias", "sl-compras", "sl-sono", "sl-humor", "sl-medidas", "sl-ciclo", "sl-cargas",
         // ...apaga cada uma
         ].forEach(storage.remove);
         // ...e recarrega a página
@@ -2097,7 +2098,7 @@
     // Comer
     ["Comer", ["alimentacao"]],
     // Evoluir
-    ["Evoluir", ["evolucao", "ranking"]],
+    ["Evoluir", ["evolucao", "saude", "ranking"]],
     // Comunidade
     ["Comunidade", ["comunidade", "profissionais", "academia"]],
     // Sua conta

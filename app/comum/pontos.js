@@ -41,6 +41,8 @@
     recorde: 20,
     // Bater a meta de treinos da semana
     metaSemana: 100,
+    // Noite de sono registrada com 7 horas ou mais
+    sono: 10,
   };
 
   // Nome de cada tipo de ponto, para mostrar no histórico
@@ -63,6 +65,8 @@
     recorde: "Recorde pessoal",
     // Meta da semana
     metaSemana: "Meta da semana",
+    // Sono
+    sono: "Noite bem dormida (7h+)",
     // Treino dos dados de exemplo
     exemplo: "Treino (exemplo)",
   };

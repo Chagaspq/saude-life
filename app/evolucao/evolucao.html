@@ -174,6 +174,10 @@
               >
             </li>
             <li>
+              <!-- Link que leva para a página Saúde (menu lateral) -->
+              <a href="../saude/saude.html" class="nav-link" data-pagina="saude"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg><span>Saúde</span></a>
+            </li>
+            <li>
               <!-- Link que leva para a página Ranking (menu lateral) -->
               <a href="../ranking/ranking.html" class="nav-link" data-pagina="ranking"><svg class="icon nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path><path d="M12 15v7"></path></svg><span>Ranking</span></a>
             </li>
@@ -409,8 +413,14 @@
                   <button type="button" data-periodo="8" aria-pressed="true" class="is-active">8 sem.</button>
                   <!-- Período de 12 semanas -->
                   <button type="button" data-periodo="12" aria-pressed="false">12 sem.</button>
+                  <!-- Período de 6 meses -->
+                  <button type="button" data-periodo="26" aria-pressed="false">6 meses</button>
+                  <!-- Período de 1 ano -->
+                  <button type="button" data-periodo="52" aria-pressed="false">1 ano</button>
                 </div>
                 <!-- Botão de registrar o peso -->
+                <!-- Botão do relatório para mandar ao profissional -->
+                <button class="btn-secondary" data-action="relatorio">Relatório para o profissional</button>
                 <!-- Botão do resumo da semana (stories) -->
                 <button class="btn-secondary" data-action="resumo" data-periodo-resumo="semana">Resumo da semana</button>
                 <!-- Botão do resumo do mês (stories) -->
@@ -450,7 +460,9 @@
                 <!-- Legenda do gráfico -->
                 <figcaption>
                   <!-- Título do gráfico -->
-                  <h2>Carga no agachamento</h2>
+                  <h2><label for="ev-exercicio">Carga no exercício</label></h2>
+                  <!-- Escolha do exercício (preenchida pelo evolucao.js) -->
+                  <select id="ev-exercicio" class="ev-select" data-render="exercicio-escolha"></select>
                   <!-- Período mostrado no gráfico -->
                   <span class="chart-meta" data-render="periodo-texto">Últimas 8 semanas</span>
                 </figcaption>
@@ -493,6 +505,16 @@
               </div>
               <!-- Metas (preenchidas pelo evolucao.js) -->
               <div class="ev-metas" data-render="metas-pessoais"></div>
+            </section>
+
+            <!-- Volume por músculo nesta semana -->
+            <section class="ev-painel ev-volume" aria-labelledby="heading-volume">
+              <!-- Título -->
+              <h2 id="heading-volume">Volume por músculo nesta semana</h2>
+              <!-- Explicação -->
+              <p class="meta">Soma de carga × repetições de cada grupo. Ajuda a ver se algum músculo está ficando para trás.</p>
+              <!-- Barras (preenchidas pelo evolucao.js) -->
+              <div data-render="volume-musculo"></div>
             </section>
 
             <!-- Grade: corpo com músculos + recordes -->

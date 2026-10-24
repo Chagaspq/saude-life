@@ -5267,3 +5267,125 @@ body[data-pagina]::before {
   /* Parado */
   animation-play-state: paused !important;
 }
+
+/* ---------- Chave liga/desliga (usada no Perfil e na Saúde) ---------- */
+
+/* Lista de preferências */
+.switch-list {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna (um embaixo do outro) */
+  flex-direction: column;
+}
+
+/* Cada linha de preferência */
+.switch-row {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Joga os itens para as pontas */
+  justify-content: space-between;
+  /* Espaço entre os itens: 16 pixels */
+  gap: 16px;
+  /* Espaço interno (em cima, lados e embaixo) */
+  padding: 12px 0;
+  /* Mostra a mãozinha ao passar o mouse */
+  cursor: pointer;
+}
+
+/* Linha que vem depois de outra (ganha uma divisória) */
+.switch-row + .switch-row {
+  /* Borda em cima de 1 pixel, cor das bordas */
+  border-top: 1px solid var(--border);
+}
+
+/* Textos da preferência */
+.switch-row span {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna (um embaixo do outro) */
+  flex-direction: column;
+  /* Espaço entre os itens: 2 pixels */
+  gap: 2px;
+}
+
+/* Nome da preferência */
+.switch-row strong {
+  /* Tamanho da letra: 14 pixels */
+  font-size: 14px;
+}
+
+/* Explicação da preferência */
+.switch-row small {
+  /* Cor do texto: cinza apagado */
+  color: var(--muted);
+  /* Tamanho da letra: 12,5 pixels */
+  font-size: 12.5px;
+}
+
+/* Chave liga/desliga (feita a partir de uma caixinha) */
+.switch {
+  /* Tira o visual padrão do navegador */
+  appearance: none;
+  /* Mesmo ajuste para o Safari e navegadores antigos */
+  -webkit-appearance: none;
+  /* Não deixa encolher */
+  flex-shrink: 0;
+  /* Largura: 42 pixels */
+  width: 42px;
+  /* Altura: 24 pixels */
+  height: 24px;
+  /* Sem margem */
+  margin: 0;
+  /* Cantos arredondados: total (formato pílula) */
+  border-radius: var(--radius-full);
+  /* Fundo: cor de destaque mais clara */
+  background: var(--surface-3);
+  /* Borda de 1 pixel, borda mais forte */
+  border: 1px solid var(--border-strong);
+  /* Posição relativa (serve de base para filhos soltos) */
+  position: relative;
+  /* Mostra a mãozinha ao passar o mouse */
+  cursor: pointer;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
+  transition: background var(--dur-base) ease;
+}
+
+/* Bolinha da chave */
+.switch::after {
+  /* Cria um pedacinho vazio, só para enfeite */
+  content: "";
+  /* Posição solta, presa ao pai */
+  position: absolute;
+  /* Distância de cima: 2 pixels */
+  top: 2px;
+  /* Distância da esquerda: 2 pixels */
+  left: 2px;
+  /* Largura: 18 pixels */
+  width: 18px;
+  /* Altura: 18 pixels */
+  height: 18px;
+  /* Cantos totalmente redondos */
+  border-radius: 50%;
+  /* Fundo: cinza apagado */
+  background: var(--muted);
+  /* Faz as mudanças acontecerem de forma suave (transição) */
+  transition: transform var(--dur-base) var(--ease-out), background var(--dur-base) ease;
+}
+
+/* Chave ligada */
+.switch:checked {
+  /* Fundo: esmeralda escura */
+  background: var(--emerald-dark);
+  /* Cor da borda: esmeralda escura */
+  border-color: var(--emerald-dark);
+}
+
+/* Bolinha da chave ligada (vai para a direita) */
+.switch:checked::after {
+  /* Move o elemento */
+  transform: translateX(18px);
+  /* Fundo: branco */
+  background: var(--ink-strong);
+}

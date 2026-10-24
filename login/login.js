@@ -10,7 +10,7 @@
   // Lista das páginas do app permitidas depois do login
   const PAGINAS_APP = [
     "inicio", "descobrir", "treinos", "aulas", "alimentacao", "evolucao",
-    "profissionais", "planos", "salvos", "academia", "perfil", "treino", "ranking", "comunidade", "exercicios", "programas", "corrida",
+    "profissionais", "planos", "salvos", "academia", "perfil", "treino", "ranking", "comunidade", "exercicios", "programas", "corrida", "saude",
   ];
 
   // Descobre para qual página ir depois de entrar

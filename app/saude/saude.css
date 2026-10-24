@@ -1,0 +1,235 @@
+/* Saúde: sono, humor, IMC, medidas e ciclo */
+
+/* Grade dos cartões */
+.saude-grade {
+  /* Grade */
+  display: grid;
+  /* Duas colunas no computador, uma no celular */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* Espaço */
+  gap: var(--space-4);
+}
+
+/* Cartão que ocupa a largura toda */
+.saude-grade .panel-wide {
+  /* Todas as colunas */
+  grid-column: 1 / -1;
+}
+
+/* Número grande do cartão */
+.saude-numero {
+  /* Sem margem em cima */
+  margin: 8px 0;
+}
+
+/* Número em destaque */
+.saude-numero strong {
+  /* Fonte de placar */
+  font-family: var(--font-placar);
+  /* Tamanho */
+  font-size: var(--text-2xl);
+  /* Cor esmeralda */
+  color: var(--emerald);
+}
+
+/* Formulários dos cartões */
+.saude-form {
+  /* Campos lado a lado que quebram */
+  display: flex;
+  /* Quebra linha */
+  flex-wrap: wrap;
+  /* Alinhados embaixo (botão na linha dos campos) */
+  align-items: flex-end;
+  /* Espaço */
+  gap: 10px;
+  /* Espaço */
+  margin: 12px 0;
+}
+
+/* Campo com rótulo em cima */
+.saude-form .corrida-campo {
+  /* Rótulo em cima do campo */
+  display: grid;
+  /* Espaço */
+  gap: 6px;
+  /* Letra do rótulo */
+  font-size: var(--text-sm);
+  /* Negrito */
+  font-weight: 600;
+  /* Ocupa espaço por igual */
+  flex: 1 1 120px;
+}
+
+/* Caixas dos campos e o seletor do sexo */
+.saude-form input,
+#saude-sexo {
+  /* Fundo */
+  background: var(--surface-2);
+  /* Borda */
+  border: 1px solid var(--border);
+  /* Cantos arredondados */
+  border-radius: var(--radius-sm);
+  /* Espaço interno */
+  padding: 9px 12px;
+  /* Cor do texto */
+  color: var(--ink);
+  /* Fonte (16px evita zoom no celular) */
+  font: 400 16px var(--font-body);
+}
+
+/* Barrinhas das horas de sono */
+.sono-barras {
+  /* Lado a lado, alinhadas embaixo */
+  display: flex;
+  /* Alinhadas embaixo */
+  align-items: flex-end;
+  /* Espaço */
+  gap: 6px;
+  /* Altura */
+  height: 70px;
+  /* Espaço */
+  margin: 8px 0;
+}
+
+/* Cada barra */
+.sono-barras span {
+  /* Largura igual */
+  flex: 1;
+  /* Fundo de alerta (menos de 7 h) */
+  background: var(--warning);
+  /* Cantos de cima arredondados */
+  border-radius: 6px 6px 2px 2px;
+  /* Altura mínima */
+  min-height: 4px;
+  /* Meio apagada */
+  opacity: 0.8;
+}
+
+/* Noite boa (7 h ou mais) */
+.sono-barras span.is-boa {
+  /* Esmeralda */
+  background: var(--emerald);
+}
+
+/* Botões do humor */
+.humor-opcoes {
+  /* Lado a lado */
+  display: flex;
+  /* Quebra linha */
+  flex-wrap: wrap;
+  /* Espaço */
+  gap: 8px;
+  /* Espaço */
+  margin: 8px 0;
+}
+
+/* Humor escolhido */
+.humor-opcoes .is-active {
+  /* Borda esmeralda */
+  border-color: var(--emerald);
+  /* Texto esmeralda */
+  color: var(--emerald);
+}
+
+/* Dica do Pulso */
+.prog-dica {
+  /* Cor do texto */
+  color: var(--ink);
+  /* Espaço */
+  margin: 8px 0;
+}
+
+/* Resumo das medidas */
+.medidas-resumo {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Sem espaço */
+  padding: 0;
+  /* Sem margem */
+  margin: 8px 0;
+  /* Quatro colunas */
+  display: grid;
+  /* Quatro colunas */
+  grid-template-columns: repeat(4, 1fr);
+  /* Espaço */
+  gap: 8px;
+}
+
+/* Cada medida */
+.medidas-resumo li {
+  /* Coluna */
+  display: grid;
+  /* Espaço */
+  gap: 2px;
+}
+
+/* Diminuiu (bom para cintura) */
+.medidas-resumo .is-menos {
+  /* Esmeralda */
+  color: var(--emerald);
+}
+
+/* Aumentou */
+.medidas-resumo .is-mais {
+  /* Coral */
+  color: var(--coral-light);
+}
+
+/* Gráfico da cintura */
+.medidas-grafico {
+  /* Largura toda */
+  width: 100%;
+  /* Altura proporcional */
+  height: auto;
+}
+
+/* Linha do gráfico */
+.medidas-linha {
+  /* Sem preenchimento */
+  fill: none;
+  /* Coral */
+  stroke: var(--coral);
+  /* Grossura */
+  stroke-width: 2.5;
+  /* Cantos redondos */
+  stroke-linejoin: round;
+}
+
+/* Pontos do gráfico */
+.medidas-ponto {
+  /* Coral claro */
+  fill: var(--coral-light);
+}
+
+/* Formulário das medidas: 2 colunas */
+.medidas-form .corrida-campo {
+  /* Duas por linha */
+  flex: 1 1 40%;
+}
+
+/* Fase do ciclo */
+.ciclo-fase {
+  /* Espaço */
+  margin: 12px 0;
+  /* Espaço interno */
+  padding: 12px 14px;
+  /* Fundo esmeralda fraco */
+  background: var(--emerald-soft);
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+}
+
+/* Nome da fase */
+.ciclo-fase strong {
+  /* Tamanho */
+  font-size: var(--text-lg);
+}
+
+/* No celular: medidas em 2 colunas */
+@media (max-width: 480px) {
+  /* Resumo */
+  .medidas-resumo {
+    /* Duas colunas */
+    grid-template-columns: 1fr 1fr;
+  }
+}
