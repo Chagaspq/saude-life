@@ -273,7 +273,7 @@
   /* Grade dos painéis */
   .profile-grid {
     /* Uma coluna só */
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -422,4 +422,10 @@
   color: var(--ink);
   /* Fonte (16px evita zoom no celular) */
   font: 400 16px var(--font-body);
+}
+
+/* Horas do silêncio quebram linha em telas estreitas */
+.silencio-horas {
+  /* Quebra */
+  flex-wrap: wrap;
 }

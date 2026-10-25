@@ -296,3 +296,18 @@
     display: none;
   }
 }
+
+/* Celular pequeno: o topo fica só com os botões, "Entrar" e "Começar" (Blog e Planos estão no rodapé) */
+@media (max-width: 480px) {
+  /* Itens do topo mais juntos */
+  .top-bar-actions {
+    /* Espaço menor */
+    gap: 8px;
+  }
+
+  /* Links de texto que não são o "Entrar" */
+  .top-bar-actions .link-entrar:not([href*="login"]) {
+    /* Esconde */
+    display: none;
+  }
+}

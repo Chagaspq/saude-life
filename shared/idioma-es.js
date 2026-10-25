@@ -450,4 +450,565 @@ window.SL_ES = {
   "Acessibilidade": "Accesibilidad", "Tamanho do texto": "Tamaño del texto", "Alto contraste": "Alto contraste", "Cores para daltônicos": "Colores para daltónicos", "Ler a página em voz alta": "Leer la página en voz alta", "Parar leitura": "Detener lectura",
   // Mais
   "Modo simples (letras e botões maiores)": "Modo simple (letras y botones más grandes)", "Tradutor em Libras (VLibras)": "Traductor de lengua de señas (VLibras)", "Ajuda": "Ayuda", "Calculadoras": "Calculadoras", "Glossário": "Glosario", "Instalar app": "Instalar app",
+  // ---------- Telas novas ----------
+  // Água
+  "Água": "Agua",
+  // Série
+  "Série": "Serie",
+  // Confirmação simples na hora de assinar
+  "Confirmação simples na hora de assinar": "Confirmación simple al suscribirte",
+  // Área do profissional completa
+  "Área do profissional completa": "Área del profesional completa",
+  // Montar e mandar treinos para alunos
+  "Montar e mandar treinos para alunos": "Armar y enviar entrenamientos a alumnos",
+  // Painel do dono com frequência e alunos sumidos
+  "Painel do dono com frequência e alunos sumidos": "Panel del dueño con asistencia y alumnos ausentes",
+  // Desafios e avisos para os alunos
+  "Desafios e avisos para os alunos": "Desafíos y avisos para los alumnos",
+  // Central de ajuda
+  "Central de ajuda": "Centro de ayuda",
+  // Como podemos ajudar?
+  "Como podemos ajudar?": "¿Cómo podemos ayudarte?",
+  // Respostas rápidas sobre conta, treinos, pontos, planos e pri
+  "Respostas rápidas sobre conta, treinos, pontos, planos e privacidade.": "Respuestas rápidas sobre cuenta, entrenamientos, puntos, planes y privacidad.",
+  // Conta e acesso
+  "Conta e acesso": "Cuenta y acceso",
+  // Pontos, ligas e ranking
+  "Pontos, ligas e ranking": "Puntos, ligas y ranking",
+  // Planos e pagamento
+  "Planos e pagamento": "Planes y pago",
+  // Privacidade e segurança
+  "Privacidade e segurança": "Privacidad y seguridad",
+  // Não achou a resposta?
+  "Não achou a resposta?": "¿No encontraste la respuesta?",
+  // Fale com a gente pelo e-mail
+  "Fale com a gente pelo e-mail": "Escríbenos al correo",
+  // . Respondemos em até 2 dias úteis.
+  ". Respondemos em até 2 dias úteis.": ". Respondemos en hasta 2 días hábiles.",
+  // Como começo um treino?
+  "Como começo um treino?": "¿Cómo empiezo un entrenamiento?",
+  // O que é o treino automático?
+  "O que é o treino automático?": "¿Qué es el entrenamiento automático?",
+  // Dá para treinar em casa?
+  "Dá para treinar em casa?": "¿Puedo entrenar en casa?",
+  // Como adiciono o treino na minha agenda?
+  "Como adiciono o treino na minha agenda?": "¿Cómo agrego el entrenamiento a mi calendario?",
+  // Como subo de liga?
+  "Como subo de liga?": "¿Cómo subo de liga?",
+  // Como funciona o teste grátis?
+  "Como funciona o teste grátis?": "¿Cómo funciona la prueba gratis?",
+  // Quais formas de pagamento?
+  "Quais formas de pagamento?": "¿Qué formas de pago hay?",
+  // Quem vê meu perfil?
+  "Quem vê meu perfil?": "¿Quién ve mi perfil?",
+  // Você escolhe na Comunidade: público, só amigos ou privado.
+  "Você escolhe na Comunidade: público, só amigos ou privado.": "Tú eliges en Comunidad: público, solo amigos o privado.",
+  // Como bloqueio ou denuncio alguém?
+  "Como bloqueio ou denuncio alguém?": "¿Cómo bloqueo o denuncio a alguien?",
+  // Meus dados de saúde são vendidos?
+  "Meus dados de saúde são vendidos?": "¿Venden mis datos de salud?",
+  // Esqueci minha senha. E agora?
+  "Esqueci minha senha. E agora?": "Olvidé mi contraseña. ¿Y ahora?",
+  // Como troco meu e-mail ou senha?
+  "Como troco meu e-mail ou senha?": "¿Cómo cambio mi correo o contraseña?",
+  // Como excluo minha conta?
+  "Como excluo minha conta?": "¿Cómo elimino mi cuenta?",
+  // Meus dados ficam em outro celular?
+  "Meus dados ficam em outro celular?": "¿Mis datos quedan en otro celular?",
+  // Como ganho pontos?
+  "Como ganho pontos?": "¿Cómo gano puntos?",
+  // Quando o ranking zera?
+  "Quando o ranking zera?": "¿Cuándo se reinicia el ranking?",
+  // Gastar moedas na loja muda meu ranking?
+  "Gastar moedas na loja muda meu ranking?": "¿Gastar monedas cambia mi ranking?",
+  // Quanto custa o Premium?
+  "Quanto custa o Premium?": "¿Cuánto cuesta Premium?",
+  // Como aumento o tamanho das letras?
+  "Como aumento o tamanho das letras?": "¿Cómo agrando las letras?",
+  // O app tem outros idiomas?
+  "O app tem outros idiomas?": "¿La app tiene otros idiomas?",
+  // O que significa cada termo
+  "O que significa cada termo": "Qué significa cada término",
+  // Série, repetição, drop set, RM, macro... tudo explicado em u
+  "Série, repetição, drop set, RM, macro... tudo explicado em uma frase.": "Serie, repetición, drop set, RM, macros... todo explicado en una frase.",
+  // Buscar termo...
+  "Buscar termo...": "Buscar término...",
+  // Faça as contas em segundos
+  "Faça as contas em segundos": "Haz las cuentas en segundos",
+  // IMC, calorias do dia, água e carga máxima (1RM). Resultados 
+  "IMC, calorias do dia, água e carga máxima (1RM). Resultados são estimativas: um profissional ajusta para você.": "IMC, calorías del día, agua y carga máxima (1RM). Los resultados son estimaciones: un profesional los ajusta para ti.",
+  // Calorias do dia
+  "Calorias do dia": "Calorías del día",
+  // Sexo
+  "Sexo": "Sexo",
+  // Feminino
+  "Feminino": "Femenino",
+  // Masculino
+  "Masculino": "Masculino",
+  // Idade
+  "Idade": "Edad",
+  // Atividade
+  "Atividade": "Actividad",
+  // Parado (sem exercício)
+  "Parado (sem exercício)": "Sedentario (sin ejercicio)",
+  // Leve (1 a 3 treinos por semana)
+  "Leve (1 a 3 treinos por semana)": "Ligera (1 a 3 entrenamientos por semana)",
+  // Moderada (3 a 5 treinos)
+  "Moderada (3 a 5 treinos)": "Moderada (3 a 5 entrenamientos)",
+  // Alta (6 a 7 treinos)
+  "Alta (6 a 7 treinos)": "Alta (6 a 7 entrenamientos)",
+  // Minutos de treino hoje
+  "Minutos de treino hoje": "Minutos de entrenamiento hoy",
+  // Carga máxima (1RM)
+  "Carga máxima (1RM)": "Carga máxima (1RM)",
+  // Carga usada (kg)
+  "Carga usada (kg)": "Carga usada (kg)",
+  // Repetições feitas
+  "Repetições feitas": "Repeticiones hechas",
+  // Calcular
+  "Calcular": "Calcular",
+  // Estimativas educativas. Não substituem a avaliação de um pro
+  "Estimativas educativas. Não substituem a avaliação de um profissional de saúde.": "Estimaciones educativas. No reemplazan la evaluación de un profesional de la salud.",
+  // IMC
+  "IMC": "IMC",
+  // Dica do dia:
+  "Dica do dia:": "Consejo del día:",
+  // Glossário de termos
+  "Glossário de termos": "Glosario de términos",
+  // Calculadoras (IMC, calorias, água, 1RM)
+  "Calculadoras (IMC, calorias, água, 1RM)": "Calculadoras (IMC, calorías, agua, 1RM)",
+  // Buscar: proteína, sono, agachamento...
+  "Buscar: proteína, sono, agachamento...": "Buscar: proteína, sueño, sentadilla...",
+  // Compartilhar
+  "Compartilhar": "Compartir",
+  // Não precisa ser perfeito, precisa ser feito.
+  "Não precisa ser perfeito, precisa ser feito.": "No tiene que ser perfecto, tiene que estar hecho.",
+  // • escudo da semana já usado
+  "• escudo da semana já usado": "• escudo de la semana ya usado",
+  // Subida garantida nesta semana!
+  "Subida garantida nesta semana!": "¡Ascenso asegurado esta semana!",
+  // Para começar com o pé direito
+  "Para começar com o pé direito": "Para empezar con el pie derecho",
+  // Dá pra fazer em casa
+  "Dá pra fazer em casa": "Se puede hacer en casa",
+  // Procurar com filtros
+  "Procurar com filtros": "Buscar con filtros",
+  // Até 20 min
+  "Até 20 min": "Hasta 20 min",
+  // Mais de 40 min
+  "Mais de 40 min": "Más de 40 min",
+  // Série a série
+  "Série a série": "Serie a serie",
+  // Proteína em dia
+  "Proteína em dia": "Proteína al día",
+  // Pódio
+  "Pódio": "Podio",
+  // Bom de cama
+  "Bom de cama": "Buen dormilón",
+  // Fim de semana ativo
+  "Fim de semana ativo": "Fin de semana activo",
+  // Missão dada
+  "Missão dada": "Misión cumplida",
+  // Missão do dia
+  "Missão do dia": "Misión del día",
+  // Reserve sua vaga nas aulas coletivas da academia, sem fila.
+  "Reserve sua vaga nas aulas coletivas da academia, sem fila.": "Reserva tu lugar en las clases grupales, sin filas.",
+  // Grade da semana
+  "Grade da semana": "Horario de la semana",
+  // Entrar na lista de espera
+  "Entrar na lista de espera": "Entrar en la lista de espera",
+  // Sair da fila
+  "Sair da fila": "Salir de la lista",
+  // Também online
+  "Também online": "También en línea",
+  // Turma lotada
+  "Turma lotada": "Clase llena",
+  // Reservar vaga (+30 pts)
+  "Reservar vaga (+30 pts)": "Reservar lugar (+30 pts)",
+  // Cancelar reserva
+  "Cancelar reserva": "Cancelar reserva",
+  // Avaliar aula
+  "Avaliar aula": "Valorar clase",
+  // Adicionar à agenda
+  "Adicionar à agenda": "Agregar al calendario",
+  // Entrar na aula online
+  "Entrar na aula online": "Entrar a la clase en línea",
+  // O link da aula online libera 15 min antes
+  "O link da aula online libera 15 min antes": "El enlace de la clase en línea se abre 15 min antes",
+  // Você pode cancelar até 2h antes. Avisamos 1h antes.
+  "Você pode cancelar até 2h antes. Avisamos 1h antes.": "Puedes cancelar hasta 2 h antes. Te avisamos 1 h antes.",
+  // Não dá mais para cancelar (menos de 2h para a aula)
+  "Não dá mais para cancelar (menos de 2h para a aula)": "Ya no se puede cancelar (faltan menos de 2 h)",
+  // Área funcional
+  "Área funcional": "Área funcional",
+  // Estúdio 1
+  "Estúdio 1": "Estudio 1",
+  // Estúdio 2
+  "Estúdio 2": "Estudio 2",
+  // Sala bike
+  "Sala bike": "Sala de bicis",
+  // metas calculadas para você
+  "metas calculadas para você": "metas calculadas para ti",
+  // Adicionar refeição
+  "Adicionar refeição": "Agregar comida",
+  // Metas do dia
+  "Metas do dia": "Metas del día",
+  // Proteínas
+  "Proteínas": "Proteínas",
+  // Refeições de hoje
+  "Refeições de hoje": "Comidas de hoy",
+  // Café da manhã
+  "Café da manhã": "Desayuno",
+  // Almoço
+  "Almoço": "Almuerzo",
+  // Jantar
+  "Jantar": "Cena",
+  // Lanche
+  "Lanche": "Merienda",
+  // Lanche pré-treino
+  "Lanche pré-treino": "Merienda antes de entrenar",
+  // Me lembrar de beber água a cada 2 horas
+  "Me lembrar de beber água a cada 2 horas": "Recordarme tomar agua cada 2 horas",
+  // Cardápio sugerido para o seu objetivo
+  "Cardápio sugerido para o seu objetivo": "Menú sugerido para tu objetivo",
+  // Mais 15 pontos
+  "Mais 15 pontos": "15 puntos más",
+  // Seu progresso semana a semana.
+  "Seu progresso semana a semana.": "Tu progreso semana a semana.",
+  // Resumo da semana
+  "Resumo da semana": "Resumen de la semana",
+  // Resumo do mês
+  "Resumo do mês": "Resumen del mes",
+  // Resumo do período
+  "Resumo do período": "Resumen del período",
+  // Treinos no período
+  "Treinos no período": "Entrenamientos en el período",
+  // soma de carga × repetições
+  "soma de carga × repetições": "suma de carga × repeticiones",
+  // Últimas 8 semanas
+  "Últimas 8 semanas": "Últimas 8 semanas",
+  // Treinos por semana
+  "Treinos por semana": "Entrenamientos por semana",
+  // Histórico de treinos
+  "Histórico de treinos": "Historial de entrenamientos",
+  // Peso alvo, carga alvo e até quando: o app mostra quanto falt
+  "Peso alvo, carga alvo e até quando: o app mostra quanto falta.": "Peso objetivo, carga objetivo y plazo: la app muestra cuánto falta.",
+  // Músculos mais treinados
+  "Músculos mais treinados": "Músculos más entrenados",
+  // Últimos 30 dias. Quanto mais forte a cor, mais séries.
+  "Últimos 30 dias. Quanto mais forte a cor, mais séries.": "Últimos 30 días. Cuanto más fuerte el color, más series.",
+  // Seu ano de treinos
+  "Seu ano de treinos": "Tu año de entrenamientos",
+  // Só quem atende online
+  "Só quem atende online": "Solo atención en línea",
+  // Qualquer preço
+  "Qualquer preço": "Cualquier precio",
+  // Até R$ 150
+  "Até R$ 150": "Hasta R$ 150",
+  // Até R$ 300
+  "Até R$ 300": "Hasta R$ 300",
+  // Menor preço
+  "Menor preço": "Menor precio",
+  // Melhor nota
+  "Melhor nota": "Mejor valorados",
+  // Todas as cidades
+  "Todas as cidades": "Todas las ciudades",
+  // Toque numa cidade para filtrar. No perfil de cada profission
+  "Toque numa cidade para filtrar. No perfil de cada profissional tem o link do Google Maps.": "Toca una ciudad para filtrar. Cada perfil tiene el enlace de Google Maps.",
+  // Ver no Google Maps
+  "Ver no Google Maps": "Ver en Google Maps",
+  // Para agendar, combine dia e horário direto no chat.
+  "Para agendar, combine dia e horário direto no chat.": "Para agendar, acuerda día y hora en el chat.",
+  // Chamar no chat
+  "Chamar no chat": "Escribir en el chat",
+  // Quem acompanha você
+  "Quem acompanha você": "Quién te acompaña",
+  // Conversar
+  "Conversar": "Conversar",
+  // Os treinos que você marcou para fazer depois.
+  "Os treinos que você marcou para fazer depois.": "Los entrenamientos que guardaste para después.",
+  // Toque no marcador de um treino para guardar e encontrar depo
+  "Toque no marcador de um treino para guardar e encontrar depois.": "Toca el marcador de un entrenamiento para guardarlo.",
+  // Movimento, horários de pico e avisos da sua unidade.
+  "Movimento, horários de pico e avisos da sua unidade.": "Movimiento, horas pico y avisos de tu sede.",
+  // Lotação agora
+  "Lotação agora": "Ocupación ahora",
+  // Melhor horário hoje:
+  "Melhor horário hoje:": "Mejor horario hoy:",
+  // Mostre na catraca (simulado no TCC). O código muda todo dia.
+  "Mostre na catraca (simulado no TCC). O código muda todo dia.": "Muéstralo en el torniquete (simulado). El código cambia cada día.",
+  // Fazer check-in
+  "Fazer check-in": "Hacer check-in",
+  // Quantos estão livres neste momento (estimativa pela lotação)
+  "Quantos estão livres neste momento (estimativa pela lotação).": "Cuántas están libres ahora (estimación por la ocupación).",
+  // Em manutenção
+  "Em manutenção": "En mantenimiento",
+  // Sou aluno
+  "Sou aluno": "Soy alumno",
+  // Sou dono
+  "Sou dono": "Soy dueño",
+  // Ocupação por horário
+  "Ocupação por horário": "Ocupación por horario",
+  // Publicar aviso
+  "Publicar aviso": "Publicar aviso",
+  // Publicar
+  "Publicar": "Publicar",
+  // Avisos recentes
+  "Avisos recentes": "Avisos recientes",
+  // Sem check-in há mais de 7 dias. Um recado pode trazer de vol
+  "Sem check-in há mais de 7 dias. Um recado pode trazer de volta.": "Sin check-in hace más de 7 días. Un mensaje puede traerlos de vuelta.",
+  // Aparece para todos os alunos na Comunidade, aba Desafios.
+  "Aparece para todos os alunos na Comunidade, aba Desafios.": "Aparece para todos los alumnos en Comunidad, pestaña Desafíos.",
+  // Criar desafio
+  "Criar desafio": "Crear desafío",
+  // Frequência (14 dias)
+  "Frequência (14 dias)": "Asistencia (14 días)",
+  // Avisos que você quer receber
+  "Avisos que você quer receber": "Avisos que quieres recibir",
+  // Lembrete do horário e saudade do Pulso
+  "Lembrete do horário e saudade do Pulso": "Recordatorio de horario y Pulso extrañándote",
+  // A cada 2 horas, se ainda não bateu a meta
+  "A cada 2 horas, se ainda não bateu a meta": "Cada 2 horas, si aún no cumpliste la meta",
+  // 1 hora antes das aulas reservadas
+  "1 hora antes das aulas reservadas": "1 hora antes de las clases reservadas",
+  // Quando você sobe de liga
+  "Quando você sobe de liga": "Cuando subes de liga",
+  // Horário de silêncio
+  "Horário de silêncio": "Horario de silencio",
+  // Não me avisar à noite
+  "Não me avisar à noite": "No avisarme de noche",
+  // Nenhum aviso nesse intervalo
+  "Nenhum aviso nesse intervalo": "Ningún aviso en ese horario",
+  // Das
+  "Das": "De",
+  // às
+  "às": "a",
+  // Pular para o exercício
+  "Pular para o exercício": "Ir al ejercicio",
+  // Próximo exercício
+  "Próximo exercício": "Siguiente ejercicio",
+  // Música para treinar
+  "Música para treinar": "Música para entrenar",
+  // Abre no app de música do seu celular.
+  "Abre no app de música do seu celular.": "Se abre en la app de música de tu celular.",
+  // Treino pesado
+  "Treino pesado": "Entrenamiento pesado",
+  // Corrida e HIIT
+  "Corrida e HIIT": "Carrera y HIIT",
+  // Funk e pop para treinar
+  "Funk e pop para treinar": "Funk y pop para entrenar",
+  // Yoga e alongamento
+  "Yoga e alongamento": "Yoga y estiramiento",
+  // Veja quem treinou, mande um "bora!" e crie desafios com a ga
+  "Veja quem treinou, mande um \"bora!\" e crie desafios com a galera.": "Mira quién entrenó, manda un \"¡vamos!\" y crea desafíos con tus amigos.",
+  // Seu código de amigo
+  "Seu código de amigo": "Tu código de amigo",
+  // Quem vê seu perfil
+  "Quem vê seu perfil": "Quién ve tu perfil",
+  // Público: todo mundo vê
+  "Público: todo mundo vê": "Público: todos lo ven",
+  // Só amigos veem
+  "Só amigos veem": "Solo amigos",
+  // Privado: só você vê
+  "Privado: só você vê": "Privado: solo tú",
+  // Copiar código
+  "Copiar código": "Copiar código",
+  // Comentário
+  "Comentário": "Comentario",
+  // Copiar treino
+  "Copiar treino": "Copiar entrenamiento",
+  // Comente algo de boa…
+  "Comente algo de boa…": "Comenta algo bueno…",
+  // Enviar
+  "Enviar": "Enviar",
+  // Desafios
+  "Desafios": "Desafíos",
+  // Feed
+  "Feed": "Feed",
+  // Procurar
+  "Procurar": "Buscar",
+  // Participar
+  "Participar": "Participar",
+  // Sair do desafio
+  "Sair do desafio": "Salir del desafío",
+  // Chat do grupo
+  "Chat do grupo": "Chat del grupo",
+  // Sair do grupo
+  "Sair do grupo": "Salir del grupo",
+  // Esconder este post
+  "Esconder este post": "Ocultar esta publicación",
+  // Denunciar
+  "Denunciar": "Denunciar",
+  // Enviar denúncia
+  "Enviar denúncia": "Enviar denuncia",
+  // Qual o problema?
+  "Qual o problema?": "¿Cuál es el problema?",
+  // Mandar mensagem
+  "Mandar mensagem": "Enviar mensaje",
+  // Adicionar amigo
+  "Adicionar amigo": "Agregar amigo",
+  // Últimos treinos
+  "Últimos treinos": "Últimos entrenamientos",
+  // Começar o mesmo treino
+  "Começar o mesmo treino": "Empezar el mismo entrenamiento",
+  // Mandar força
+  "Mandar força": "Enviar ánimo",
+  // Bloqueados
+  "Bloqueados": "Bloqueados",
+  // Desbloquear
+  "Desbloquear": "Desbloquear",
+  // Mande um parabéns
+  "Mande um parabéns": "Manda una felicitación",
+  // Relógio inteligente
+  "Relógio inteligente": "Reloj inteligente",
+  // média das últimas noites
+  "média das últimas noites": "promedio de las últimas noches",
+  // Conta pra gente: o Pulso ajusta a dica do dia.
+  "Conta pra gente: o Pulso ajusta a dica do dia.": "Cuéntanos: Pulso ajusta el consejo del día.",
+  // Últimos 7 dias: nada ainda
+  "Últimos 7 dias: nada ainda": "Últimos 7 días: nada aún",
+  // Sexo biológico (para a conta)
+  "Sexo biológico (para a conta)": "Sexo biológico (para el cálculo)",
+  // Meça a cada 2 semanas para ver o gráfico da cintura.
+  "Meça a cada 2 semanas para ver o gráfico da cintura.": "Mide cada 2 semanas para ver el gráfico de la cintura.",
+  // Braço (cm)
+  "Braço (cm)": "Brazo (cm)",
+  // Cintura (cm)
+  "Cintura (cm)": "Cintura (cm)",
+  // Quadril (cm)
+  "Quadril (cm)": "Cadera (cm)",
+  // Coxa (cm)
+  "Coxa (cm)": "Muslo (cm)",
+  // O app ajusta as dicas de treino para cada fase. Só você vê.
+  "O app ajusta as dicas de treino para cada fase. Só você vê.": "La app ajusta los consejos para cada fase. Solo tú lo ves.",
+  // Usar o sono do relógio
+  "Usar o sono do relógio": "Usar el sueño del reloj",
+  // Desconectar
+  "Desconectar": "Desconectar",
+  // passos hoje
+  "passos hoje": "pasos hoy",
+  // em repouso
+  "em repouso": "en reposo",
+  // de sono ontem
+  "de sono ontem": "de sueño anoche",
+  // Para personal trainers e nutricionistas
+  "Para personal trainers e nutricionistas": "Para entrenadores y nutricionistas",
+  // Acompanhe seus alunos, monte treinos e mande direto para o a
+  "Acompanhe seus alunos, monte treinos e mande direto para o app deles.": "Sigue a tus alumnos, arma entrenamientos y envíalos directo a su app.",
+  // Avaliações
+  "Avaliações": "Valoraciones",
+  // Alunos ativos
+  "Alunos ativos": "Alumnos activos",
+  // acompanhando pelo app
+  "acompanhando pelo app": "siguiendo por la app",
+  // no total
+  "no total": "en total",
+  // nota média 4,9 de 5
+  "nota média 4,9 de 5": "nota media 4,9 de 5",
+  // Nenhum treino enviado ainda. Toque em "Montar treino".
+  "Nenhum treino enviado ainda. Toque em \"Montar treino\".": "Aún no enviaste entrenamientos. Toca \"Armar entrenamiento\".",
+  // Mandar para o aluno
+  "Mandar para o aluno": "Enviar al alumno",
+  // Para quem
+  "Para quem": "Para quién",
+  // Nome do treino
+  "Nome do treino": "Nombre del entrenamiento",
+  // Grupo
+  "Grupo": "Grupo",
+  // Exercício
+  "Exercício": "Ejercicio",
+  // Adicionar
+  "Adicionar": "Agregar",
+  // Tirar
+  "Tirar": "Quitar",
+  // Recado para o aluno (opcional)
+  "Recado para o aluno (opcional)": "Mensaje para el alumno (opcional)",
+  // Começar teste grátis
+  "Começar teste grátis": "Empezar prueba gratis",
+  // ou assine agora
+  "ou assine agora": "o suscríbete ahora",
+  // Cartão de crédito
+  "Cartão de crédito": "Tarjeta de crédito",
+  // Já paguei
+  "Já paguei": "Ya pagué",
+  // Número do cartão
+  "Número do cartão": "Número de tarjeta",
+  // Nome impresso no cartão
+  "Nome impresso no cartão": "Nombre en la tarjeta",
+  // Validade
+  "Validade": "Vencimiento",
+  // Pagar
+  "Pagar": "Pagar",
+  // Processando…
+  "Processando…": "Procesando…",
+  // Conferindo pagamento…
+  "Conferindo pagamento…": "Verificando pago…",
+  // Ambiente de demonstração: nenhum valor é cobrado. Os dados d
+  "Ambiente de demonstração: nenhum valor é cobrado. Os dados do cartão não são guardados.": "Entorno de demostración: no se cobra nada. Los datos de la tarjeta no se guardan.",
+  // Anual -20%
+  "Anual -20%": "Anual -20%",
+  // Instale o Saúde Life
+  "Instale o Saúde Life": "Instala Saúde Life",
+  // Agora não
+  "Agora não": "Ahora no",
+  // Abre mais rápido e funciona sem internet.
+  "Abre mais rápido e funciona sem internet.": "Abre más rápido y funciona sin internet.",
+  // ---------- Telas novas ----------
+  // bateu a própria marca
+  "bateu a própria marca": "superó su propia marca",
+  // Seu treino de 30 min ficaria assim:
+  "Seu treino de 30 min ficaria assim:": "Tu entrenamiento de 30 min sería así:",
+  // Nesta página
+  "Nesta página": "En esta página",
+  // Na prática
+  "Na prática": "En la práctica",
+  // Terça
+  "Terça": "Martes",
+  // Sábado
+  "Sábado": "Sábado",
+  // Segunda
+  "Segunda": "Lunes",
+  // Quarta
+  "Quarta": "Miércoles",
+  // Quinta
+  "Quinta": "Jueves",
+  // Sexta
+  "Sexta": "Viernes",
+  // Domingo
+  "Domingo": "Domingo",
+  // Saúde Life Centro
+  "Saúde Life Centro": "Saúde Life Centro",
+  // Manutenção da esteira 3
+  "Manutenção da esteira 3": "Mantenimiento de la cinta 3",
+  // Previsão de retorno: sexta-feira
+  "Previsão de retorno: sexta-feira": "Regreso previsto: viernes",
+  // Nova turma de Pilates
+  "Nova turma de Pilates": "Nueva clase de Pilates",
+  // Terças e quintas, às 19h
+  "Terças e quintas, às 19h": "Martes y jueves, a las 19 h",
+  // Foco em hipertrofia e consistência diária.
+  "Foco em hipertrofia e consistência diária.": "Enfoque en hipertrofia y constancia diaria.",
+  // Desbloqueie com o Premium para seguir as 8 semanas.
+  "Desbloqueie com o Premium para seguir as 8 semanas.": "Desbloquea con Premium para seguir las 8 semanas.",
+  // Calculadas para
+  "Calculadas para": "Calculadas para",
+  // ---------- Telas novas ----------
+  // Seg e Qua
+  "Seg e Qua": "Lun y Mié",
+  // Ter e Qui
+  "Ter e Qui": "Mar y Jue",
+  // Seg a Sex
+  "Seg a Sex": "Lun a Vie",
+  // Qua e Sex
+  "Qua e Sex": "Mié y Vie",
+  // Treinos para iniciantes
+  "Treinos para iniciantes": "Entrenamientos para principiantes",
+  // Sem aparelho de academia
+  "Sem aparelho de academia": "Sin máquinas de gimnasio",
+  // Os mais bem avaliados
+  "Os mais bem avaliados": "Los mejor valorados",
+  // Até 20 minutos
+  "Até 20 minutos": "Hasta 20 minutos",
+  // • conclua um treino, faça 12 séries
+  "• conclua um treino, faça 12 séries": "• completa un entrenamiento, haz 12 series",
 };
