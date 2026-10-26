@@ -101,7 +101,7 @@
   border: 1px solid var(--border);
   /* Fundo: cor dos cards */
   background: var(--surface);
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Letra seminegrito */
   font-weight: 600;
@@ -258,7 +258,7 @@
   /* Fundo: esmeralda fraquinha */
   background: var(--emerald-soft);
   /* Cor da borda: cor meio transparente */
-  border-color: rgba(52, 211, 153, 0.3);
+  border-color: rgba(79, 194, 154, 0.3);
 }
 
 /* Número da série */
@@ -297,7 +297,7 @@
   color: var(--ink);
   /* Usa a mesma fonte do elemento pai */
   font: inherit;
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Tamanho da letra: 16 pixels */
   font-size: 16px;
@@ -319,7 +319,7 @@
 
 /* Valor fixo (quando não dá para editar) */
 .set-static {
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Letra seminegrito */
   font-weight: 600;
@@ -458,7 +458,7 @@
   /* Fundo: coral bem fraquinho */
   background: var(--coral-soft);
   /* Cor da borda: cor meio transparente */
-  border-color: rgba(255, 122, 69, 0.35);
+  border-color: rgba(240, 132, 90, 0.35);
 }
 
 /* Número do exercício atual */
@@ -641,7 +641,7 @@
   align-items: center;
   /* Centraliza no sentido principal */
   justify-content: center;
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Tamanho da letra: 20 pixels */
   font-size: 20px;
@@ -663,7 +663,7 @@
 .rest-title {
   /* Sem margem */
   margin: 0;
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Tamanho da letra: 18 pixels */
   font-size: 18px;
@@ -724,7 +724,7 @@
   border: 1px solid var(--border);
   /* Fundo com várias camadas (veja as linhas abaixo) */
   background:
-    radial-gradient(circle at 50% 0%, rgba(52, 211, 153, 0.14), transparent 60%),
+    radial-gradient(circle at 50% 0%, rgba(79, 194, 154, 0.14), transparent 60%),
     var(--surface);
 }
 
@@ -763,7 +763,7 @@
   /* Cor de preenchimento do desenho: esmeralda fraquinha */
   fill: var(--emerald-soft);
   /* Cor do traço do desenho: cor meio transparente */
-  stroke: rgba(52, 211, 153, 0.35);
+  stroke: rgba(79, 194, 154, 0.35);
 }
 
 /* Miolo do selo */
@@ -1091,10 +1091,59 @@
   background: var(--coral-dim);
 }
 
-/* Emoji grande */
-.esforco-emoji {
-  /* Tamanho do emoji */
-  font-size: 26px;
+/* Barrinhas de intensidade (1 a 4) */
+.esforco-barras {
+  /* Barras lado a lado, alinhadas embaixo */
+  display: inline-flex;
+  /* Alinhadas embaixo */
+  align-items: flex-end;
+  /* Espaço entre as barras */
+  gap: 3px;
+  /* Altura da caixa */
+  height: 22px;
+}
+
+/* Cada barra */
+.esforco-barras i {
+  /* Largura */
+  width: 5px;
+  /* Cantos arredondados */
+  border-radius: 2px;
+  /* Cor apagada (barra vazia) */
+  background: var(--border-strong);
+}
+
+/* Alturas das barras: crescem da esquerda para a direita */
+.esforco-barras i:nth-child(1) {
+  /* Mais baixa */
+  height: 7px;
+}
+
+/* Segunda barra */
+.esforco-barras i:nth-child(2) {
+  /* Altura */
+  height: 12px;
+}
+
+/* Terceira barra */
+.esforco-barras i:nth-child(3) {
+  /* Altura */
+  height: 17px;
+}
+
+/* Quarta barra */
+.esforco-barras i:nth-child(4) {
+  /* Mais alta */
+  height: 22px;
+}
+
+/* Barras acesas conforme o nível (1 = fácil, 4 = muito pesado) */
+.esforco-barras.nivel-1 i:nth-child(-n + 1),
+.esforco-barras.nivel-2 i:nth-child(-n + 2),
+.esforco-barras.nivel-3 i:nth-child(-n + 3),
+.esforco-barras.nivel-4 i:nth-child(-n + 4) {
+  /* Coral */
+  background: var(--coral);
 }
 
 /* Em telas de até 640 pixels (celular) */
@@ -1112,4 +1161,114 @@
     /* Quebra linha */
     flex-wrap: wrap;
   }
+}
+
+/* ---------- Drop set, bi-set, trocar e séries por tempo ---------- */
+
+/* Linha de opções embaixo das séries */
+.set-opcoes {
+  /* Botões lado a lado */
+  display: flex;
+  /* Quebra linha no celular */
+  flex-wrap: wrap;
+  /* Espaço entre os botões */
+  gap: 8px;
+  /* Espaço em cima */
+  margin-top: 12px;
+}
+
+/* Botão pequeno */
+.btn-sm {
+  /* Menos espaço interno */
+  padding: 7px 12px;
+  /* Letra menor */
+  font-size: var(--text-sm);
+}
+
+/* Botão de opção ligado (bi-set) */
+.set-opcoes .is-active {
+  /* Borda esmeralda */
+  border-color: var(--emerald);
+  /* Texto esmeralda */
+  color: var(--emerald);
+}
+
+/* Número "Drop" da série extra */
+.set-number.is-drop {
+  /* Cor coral */
+  color: var(--coral-light);
+  /* Negrito */
+  font-weight: 700;
+}
+
+/* Botão de contar o tempo da série */
+.set-timer {
+  /* Fundo de card */
+  background: var(--surface-2);
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Cor do texto */
+  color: var(--ink);
+  /* Pílula */
+  border-radius: var(--radius-full);
+  /* Espaço interno */
+  padding: 6px 12px;
+  /* Números do mesmo tamanho (o tempo não "pula") */
+  font: 600 var(--text-sm) var(--font-placar);
+  /* Mãozinha */
+  cursor: pointer;
+}
+
+/* Contando (desativado) */
+.set-timer:disabled {
+  /* Borda coral enquanto conta */
+  border-color: var(--coral-light);
+  /* Sem mãozinha */
+  cursor: default;
+}
+
+/* Lista de exercícios para trocar */
+.troca-lista .btn-link {
+  /* Nome em cima, detalhe embaixo */
+  display: grid;
+  /* Alinhado à esquerda */
+  text-align: left;
+  /* Espaço */
+  gap: 2px;
+  /* Largura toda */
+  width: 100%;
+}
+
+/* Detalhe do exercício na troca */
+.troca-lista .btn-link span {
+  /* Cor apagada */
+  color: var(--muted);
+  /* Letra pequena */
+  font-size: var(--text-xs);
+}
+
+/* Frase de comparação no fim do treino */
+.finish-comparacao {
+  /* Cor esmeralda */
+  color: var(--emerald);
+  /* Negrito */
+  font-weight: 600;
+  /* Espaço */
+  margin: 0 0 16px;
+}
+
+/* Passo a passo dentro do "Como fazer": quadros menores e sem encolher */
+.como-fazer .passo-a-passo {
+  /* Largura dos 3 quadros */
+  width: 270px;
+  /* Não encolhe ao lado das dicas */
+  flex-shrink: 0;
+}
+
+/* Desenho de cada quadro */
+.como-fazer .passo-a-passo .pulso {
+  /* Largura */
+  width: 72px;
+  /* Altura */
+  height: 90px;
 }

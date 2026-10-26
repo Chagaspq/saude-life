@@ -24,19 +24,19 @@ body {
   background-image:
     radial-gradient(
       circle at 15% 15%,
-      rgba(255, 122, 69, 0.1) 0%,
+      rgba(240, 132, 90, 0.1) 0%,
       transparent 45%
     ),
     radial-gradient(
       circle at 85% 85%,
-      rgba(52, 211, 153, 0.06) 0%,
+      rgba(79, 194, 154, 0.06) 0%,
       transparent 50%
     );
   /* Fundo parado enquanto a página rola */
   background-attachment: fixed;
   /* Cor do texto: bege claro do texto */
   color: var(--ink);
-  /* Fonte: fonte de texto (Inter) */
+  /* Fonte: fonte de texto (Barlow) */
   font-family: var(--font-body);
   /* Deixa a letra mais lisinha no Mac */
   -webkit-font-smoothing: antialiased;
@@ -118,7 +118,7 @@ body {
 
 /* Título */
 .auth-header h1 {
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Tamanho da letra: 26 pixels */
   font-size: 26px;
@@ -289,7 +289,7 @@ body {
   color: var(--ink);
   /* Tamanho da letra: 14 pixels */
   font-size: 14px;
-  /* Fonte: fonte de texto (Inter) */
+  /* Fonte: fonte de texto (Barlow) */
   font-family: var(--font-body);
 }
 
@@ -489,7 +489,7 @@ body {
   padding: 16px;
   /* Cantos arredondados: 14 pixels */
   border-radius: var(--radius-md);
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Tamanho da letra: 15 pixels */
   font-size: 15px;

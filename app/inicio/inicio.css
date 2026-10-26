@@ -50,7 +50,7 @@
   /* Fundo com duas camadas: */
   background:
     /* um brilho coral no canto de cima à direita */
-    radial-gradient(circle at 100% 0%, rgba(255, 122, 69, 0.14), transparent 55%),
+    radial-gradient(circle at 100% 0%, rgba(240, 132, 90, 0.14), transparent 55%),
     /* em cima da cor dos cards */
     var(--surface);
 }
@@ -214,7 +214,7 @@
   border: 1px solid var(--border-coral);
   /* Fundo com brilho coral à esquerda */
   background:
-    radial-gradient(circle at 0% 50%, rgba(255, 122, 69, 0.16), transparent 40%),
+    radial-gradient(circle at 0% 50%, rgba(240, 132, 90, 0.16), transparent 40%),
     var(--surface);
 }
 
@@ -333,14 +333,34 @@
   border: 1px solid var(--border);
   /* Fundo com brilho esmeralda à direita */
   background:
-    radial-gradient(circle at 100% 50%, rgba(52, 211, 153, 0.12), transparent 45%),
+    radial-gradient(circle at 100% 50%, rgba(79, 194, 154, 0.12), transparent 45%),
     var(--surface);
 }
 
-/* Emoji do momento */
-.momento-emoji {
+/* Quadrado do ícone do momento */
+.momento-icone {
+  /* Centraliza o ícone */
+  display: grid;
+  /* No meio */
+  place-items: center;
+  /* Largura */
+  width: 48px;
+  /* Altura */
+  height: 48px;
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Fundo esmeralda fraco */
+  background: var(--emerald-soft);
+  /* Ícone esmeralda */
+  color: var(--emerald);
+}
+
+/* Ícone do momento */
+.momento-icone .icon {
   /* Tamanho */
-  font-size: 34px;
+  width: 24px;
+  /* Tamanho */
+  height: 24px;
 }
 
 /* Título do momento */
@@ -412,4 +432,30 @@
     /* Espaço em cima */
     padding-top: 12px;
   }
+}
+
+/* Sequência de dias no card de pontos */
+.pontos-card-seq {
+  /* Espaço */
+  margin: 4px 0;
+}
+
+/* Missões do dia no card de pontos */
+.pontos-card-missoes {
+  /* Bloco */
+  display: block;
+  /* Cor esmeralda */
+  color: var(--emerald);
+  /* Negrito */
+  font-weight: 600;
+  /* Sem sublinhado */
+  text-decoration: none;
+  /* Espaço */
+  margin: 4px 0;
+}
+
+/* Missões com mouse */
+.pontos-card-missoes:hover {
+  /* Sublinhado */
+  text-decoration: underline;
 }

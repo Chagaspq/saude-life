@@ -74,6 +74,65 @@ window.SL &&
       return s;
     }
 
+    /* ---------- Horário de funcionamento e aparelhos ---------- */
+
+    // Horário de cada dia da semana (segunda = 0): [abre, fecha]
+    const HORARIO = [[6, 23], [6, 23], [6, 23], [6, 23], [6, 22], [8, 18], [8, 14]];
+    // Nomes dos dias
+    const DIAS = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"];
+    // Aparelhos da academia: [nome, quantos tem]
+    const APARELHOS = [["Esteira", 12], ["Bicicleta", 8], ["Leg press", 3], ["Supino", 4], ["Rack de agachamento", 3], ["Puxador (pulley)", 2], ["Cadeira extensora", 2], ["Crossover", 2]];
+
+    // Card do horário de funcionamento
+    function cardHorario() {
+      // Dia de hoje (segunda = 0)
+      const hoje = (new Date().getDay() + 6) % 7;
+      // Hora de agora
+      const h = new Date().getHours();
+      // Aberta agora?
+      const aberta = h >= HORARIO[hoje][0] && h < HORARIO[hoje][1];
+      // Card
+      return el("section", { class: "academia-card" }, [
+        // Título
+        el("h2", { text: "Horário de funcionamento" }),
+        // Aberta ou fechada
+        el("p", { class: "ac-aberta " + (aberta ? "is-aberta" : "is-fechada"), text: aberta ? `Aberta agora • fecha às ${HORARIO[hoje][1]}h` : `Fechada agora • abre às ${HORARIO[(hoje + (h >= HORARIO[hoje][1] ? 1 : 0)) % 7][0]}h` }),
+        // Tabela simples dos dias
+        el("ul", { class: "ac-horario" }, DIAS.map((d, i) => el("li", { class: i === hoje ? "is-hoje" : "" }, [el("span", { text: d }), el("strong", { text: `${HORARIO[i][0]}h às ${HORARIO[i][1]}h` })]))),
+      ]);
+    }
+
+    // Card dos aparelhos: quantos estão livres agora (simulado pela lotação)
+    function cardAparelhos() {
+      // Lotação agora
+      const pct = lotacao(new Date().getHours());
+      // Card
+      return el("section", { class: "academia-card" }, [
+        // Título
+        el("h2", { text: "Aparelhos agora" }),
+        // Explicação
+        el("p", { class: "meta", text: "Quantos estão livres neste momento (estimativa pela lotação)." }),
+        // Lista
+        el(
+          "ul",
+          { class: "ac-aparelhos" },
+          APARELHOS.map(([nome, total], i) => {
+            // Em manutenção (um aparelho fixo, para mostrar o aviso)
+            const manutencao = i === 6;
+            // Livres: menos quanto mais cheia (sorteio fixo por hora para variar entre aparelhos)
+            const livres = manutencao ? 0 : Math.max(0, Math.round(total * (1 - pct / 100) * (0.7 + ((i * 37 + new Date().getHours()) % 10) / 20)));
+            // Item
+            return el("li", {}, [
+              // Nome
+              el("span", { text: nome }),
+              // Situação
+              el("span", { class: "tag " + (manutencao ? "tag-warning" : livres ? "tag-success" : ""), text: manutencao ? "Em manutenção" : `${Math.min(total, livres)} de ${total} livres` }),
+            ]);
+          }),
+        ),
+      ]);
+    }
+
     // Check-ins feitos pela pessoa (datas)
     const checkins = () => storage.get("sl-checkins", []);
 
@@ -136,6 +195,10 @@ window.SL &&
             // Quantos check-ins no mês
             el("p", { class: "meta", text: `${checkins().filter((d) => new Date(d).getMonth() === new Date().getMonth()).length} check-ins este mês` }),
           ]),
+          // Horário de funcionamento
+          cardHorario(),
+          // Aparelhos livres
+          cardAparelhos(),
         ]),
       );
     }
@@ -145,7 +208,7 @@ window.SL &&
       // Guarda a data de agora
       storage.set("sl-checkins", checkins().concat(new Date().toISOString()));
       // Avisa
-      SL.toast("Check-in feito! Bom treino 💪");
+      SL.toast("Check-in feito. Bom treino!");
       // Desenha de novo
       renderAluno();
     });
@@ -188,6 +251,133 @@ window.SL &&
       SL.toast("Aviso publicado para os alunos");
     });
 
+    /* ---------- Visão do dono: alunos sumidos, desafio e frequência ---------- */
+
+    // Alunos que não aparecem há um tempo (simulado): [nome, dias sem vir]
+    const SUMIDOS = [["Thiago Ramos", 12], ["Patrícia Gomes", 18], ["Rodrigo Pires", 9], ["Aline Moura", 23]];
+
+    // Check-ins da academia por dia (simulado com a lotação; últimos 14 dias)
+    function frequencia() {
+      // Lista de [data, check-ins]
+      const lista = [];
+      // Para cada um dos 14 dias...
+      for (let d = 13; d >= 0; d--) {
+        // ...data
+        const dia = new Date(Date.now() - d * 86400000);
+        // ...dia da semana (segunda = 0)
+        const ds = (dia.getDay() + 6) % 7;
+        // ...soma da lotação do dia vira check-ins (com um pouco de variação fixa)
+        const total = Math.round(([6, 7, 8, 9, 12, 13, 17, 18, 19, 20].reduce((s, h) => s + lotacao(h, ds), 0) / 6) * (0.9 + (dia.getDate() % 5) / 20));
+        // ...guarda
+        lista.push([dia, total]);
+      }
+      // Devolve
+      return lista;
+    }
+
+    // Desenha a parte extra do dono
+    function renderDono() {
+      // Frequência dos 14 dias
+      const freq = frequencia();
+      // Maior valor (para a altura das barras)
+      const max = Math.max(...freq.map((f) => f[1]));
+      // Média por dia
+      const media = Math.round(freq.reduce((s, f) => s + f[1], 0) / freq.length);
+      // Desafios da academia já criados
+      const desafiosAcademia = storage.get("sl-desafios", []).filter((d) => d.criador === "academia");
+      // Troca o conteúdo
+      $("dono-extra").replaceChildren(
+        // Gráfico de frequência
+        el("section", { class: "academia-card" }, [
+          // Título
+          el("h2", { text: "Frequência (14 dias)" }),
+          // Média
+          el("p", { class: "meta", text: `Média de ${media} check-ins por dia` }),
+          // Barras
+          el(
+            "div",
+            { class: "ac-freq", role: "img", "aria-label": `Check-ins por dia nos últimos 14 dias. Média de ${media} por dia.` },
+            freq.map(([dia, n]) => el("div", { class: "ac-freq-barra", title: `${dia.toLocaleDateString("pt-BR")}: ${n} check-ins` }, [el("span", { style: `height:${Math.round((n / max) * 100)}%` }), el("small", { text: String(dia.getDate()) })])),
+          ),
+        ]),
+        // Alunos sumidos
+        el("section", { class: "academia-card" }, [
+          // Título
+          el("h2", { text: "Alunos sumidos" }),
+          // Explicação
+          el("p", { class: "meta", text: "Sem check-in há mais de 7 dias. Um recado pode trazer de volta." }),
+          // Lista
+          el(
+            "ul",
+            { class: "ac-sumidos" },
+            SUMIDOS.map(([nome, dias]) =>
+              el("li", {}, [
+                // Nome e dias
+                el("div", { class: "cm-amigo-info" }, [el("strong", { text: nome }), el("span", { class: "meta", text: `${dias} dias sem vir` })]),
+                // Botão de chamar
+                el("button", { type: "button", class: "btn-secondary btn-sm", "data-action": "chamar-sumido", "data-nome": nome, text: "Mandar recado" }),
+              ]),
+            ),
+          ),
+        ]),
+        // Desafio da academia
+        el("section", { class: "academia-card" }, [
+          // Título
+          el("h2", { text: "Desafio da academia" }),
+          // Explicação
+          el("p", { class: "meta", text: "Aparece para todos os alunos na Comunidade, aba Desafios." }),
+          // Desafios já criados
+          desafiosAcademia.length ? el("ul", { class: "ac-desafios" }, desafiosAcademia.map((d) => el("li", {}, [el("strong", { text: d.nome }), el("span", { class: "meta", text: ` • meta ${d.meta} ${d.tipo}` })]))) : null,
+          // Botão de criar
+          el("button", { type: "button", class: "btn-primary", "data-action": "desafio-academia", text: "Criar desafio" }),
+        ]),
+      );
+    }
+
+    // Mandar recado para aluno sumido
+    SL.acao("chamar-sumido", (alvo) => {
+      // Chat com respostas simuladas
+      SL.abrirChat({ chave: "academia:" + alvo.dataset.nome, nome: alvo.dataset.nome, respostas: ["Opa! Volto semana que vem, prometo.", "Tive uma viagem, mas já já volto!", "Obrigado por lembrar! Amanhã tô aí."] });
+    });
+
+    // Criar desafio da academia
+    SL.acao("desafio-academia", () => {
+      // Formulário
+      const form = el("form", { class: "modal-form" }, [
+        // Nome
+        SL.campo("da-nome", "Nome do desafio", { placeholder: "Ex: 12 treinos no mês", required: true, maxlength: 40 }),
+        // Meta
+        SL.campo("da-meta", "Meta de treinos no mês", { type: "number", min: 1, max: 31, required: true }),
+        // Botão
+        el("button", { type: "submit", class: "btn-primary", text: "Publicar desafio" }),
+      ]);
+      // Meta padrão
+      form.querySelector("#da-meta").value = 12;
+      // Ao enviar...
+      form.addEventListener("submit", (e) => {
+        // ...não recarrega
+        e.preventDefault();
+        // ...nome
+        const nome = form.querySelector("#da-nome").value.trim();
+        // ...precisa de nome
+        if (!nome) return form.querySelector("#da-nome").focus();
+        // ...período: o mês atual
+        const mes = SL.pontos ? SL.pontos.periodo("mes") : { ini: Date.now(), fim: Date.now() + 30 * 86400000 };
+        // ...membros da academia que viram participantes (os que existem como pessoas)
+        const participantes = SL.pontos ? SL.pontos.PESSOAS.slice(0, 4).map((p) => p.codigo) : [];
+        // ...desafio novo no começo da lista da Comunidade
+        storage.set("sl-desafios", [{ id: "d" + Date.now(), nome, tipo: "treinos", meta: Math.max(1, Number(form.querySelector("#da-meta").value) || 12), ini: mes.ini, fim: mes.fim, criador: "academia", participantes, euDentro: false }].concat(storage.get("sl-desafios", [])));
+        // ...fecha
+        SL.closeModal();
+        // ...desenha
+        renderDono();
+        // ...avisa
+        SL.toast("Desafio publicado para os alunos!");
+      });
+      // Abre o modal
+      SL.openModal("Desafio da academia", form);
+    });
+
     // Botões "Sou aluno" / "Sou dono"
     document.querySelector(".aulas-visao").addEventListener("click", (e) => {
       // Botão clicado
@@ -215,4 +405,6 @@ window.SL &&
     renderAluno();
     // Avisos
     renderAvisos();
+    // Parte extra do dono
+    renderDono();
   });

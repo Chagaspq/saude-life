@@ -13,7 +13,7 @@ body {
   /* Cor do texto: bege claro do texto */
   color: var(--ink);
   /* Fonte da letra */
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-body);
   /* Sem margem */
   margin: 0;
 }
@@ -61,7 +61,7 @@ body {
 /* Título do documento */
 .auth-header h1 {
   /* Fonte da letra */
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-display);
   /* Tamanho da letra */
   font-size: 2rem;
   /* Cor do texto: branco */
@@ -91,7 +91,7 @@ body {
   /* Largura: a toda */
   width: 100%;
   /* Cor do texto: a cor #d7ddd9 */
-  color: #d7ddd9;
+  color: var(--ink);
   /* Tamanho da letra */
   font-size: 0.95rem;
   /* Altura da linha: 1,6 */
@@ -113,7 +113,7 @@ body {
 /* Títulos das seções */
 .terms-content h2 {
   /* Fonte da letra */
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-display);
   /* Tamanho da letra */
   font-size: 1.15rem;
   /* Cor do texto: branco */
@@ -212,7 +212,7 @@ body {
 /* Título do índice */
 .toc h2 {
   /* Fonte da letra */
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-display);
   /* Tamanho da letra */
   font-size: 0.95rem;
   /* Cor do texto: branco */

@@ -1,6 +1,6 @@
 /*
- * Português / inglês do Saúde Life.
- * Coloca um botão "EN" / "PT" em todas as páginas. Em inglês, troca os textos
+ * Português / inglês / espanhol do Saúde Life.
+ * Coloca um botão "EN" / "ES" / "PT" em todas as páginas. Em outro idioma, troca os textos
  * da tela usando o dicionário abaixo (frase em português -> frase em inglês),
  * inclusive os que o JavaScript desenha depois (o "observador" vê as mudanças).
  * O que não está no dicionário (nomes de treinos, pessoas) fica em português.
@@ -29,6 +29,14 @@
     "Início": "Home", "Descobrir": "Discover", "Treinos": "Workouts", "Aulas": "Classes", "Alimentação": "Nutrition", "Evolução": "Progress", "Ranking": "Leaderboard",
     // Mais páginas do menu
     "Profissionais": "Professionals", "Academia": "Gym", "Salvos": "Saved", "Perfil": "Profile", "Galera": "Crew",
+    // Páginas e botões novos (comunidade, profissionais, academia e aulas)
+    "Área do profissional": "Pro area", "Grupos": "Groups", "Criar grupo": "Create group", "Treinando agora": "Training now", "Treinar junto": "Train together",
+    // Mais botões novos
+    "Montar treino": "Build workout", "Seus alunos": "Your clients", "Treinos enviados": "Sent workouts", "Sou profissional": "I'm a professional",
+    // Academia
+    "Horário de funcionamento": "Opening hours", "Aparelhos agora": "Equipment now", "Alunos sumidos": "Missing members", "Desafio da academia": "Gym challenge", "Mandar recado": "Send a note",
+    // Chat
+    "Treino": "Workout", "Figurinha": "Sticker", "Áudio (simulado)": "Audio (simulated)", "Mandar no WhatsApp": "Send on WhatsApp", "Copiar link": "Copy link", "Convidar amigo": "Invite friend",
     // Botões do topo do app
     "Configurações": "Settings", "Sair da conta": "Log out", "Abrir menu": "Open menu", "Abrir busca": "Open search", "Pesquisar": "Search",
     // Busca
@@ -46,19 +54,19 @@
     // Topo
     "Seu parceiro de treino": "Your workout buddy", "Progresso de verdade, no seu ritmo.": "Real progress, at your pace.", "Criar minha conta": "Create my account", "Já tenho conta": "I have an account",
     // Demonstração
-    "Experimente agora, sem criar conta": "Try it now, no sign-up", "Agachamento livre": "Barbell squat", "Toque no círculo de cada série 👇": "Tap the circle of each set 👇",
+    "Experimente agora, sem criar conta": "Try it now, no sign-up", "Agachamento livre": "Barbell squat", "Toque no círculo de cada série.": "Tap the circle of each set.",
     // Séries
     "Série 1": "Set 1", "Série 2": "Set 2", "Série 3": "Set 3", "Série 4": "Set 4", "pontos": "points", "Séries de hoje": "Today's sets", "de 3": "of 3",
     // Marcar séries
     "Marcar a série 1 como feita": "Mark set 1 as done", "Marcar a série 2 como feita": "Mark set 2 as done", "Marcar a série 3 como feita": "Mark set 3 as done",
     // Texto da demonstração pronta
-    "Treino feito! Viu como é? Agora imagina isso valendo no ranking 🔥": "Workout done! See? Now imagine that counting on the leaderboard 🔥",
+    "Treino feito! Agora imagina isso valendo no ranking.": "Workout done! Now imagine that counting on the leaderboard.",
     // Peso
     "Peso": "Weight", "−4,0 kg em 12 semanas": "−4.0 kg in 12 weeks",
     // Números
     "Treinos registrados": "Workouts logged", "Profissionais verificados": "Verified professionals", "Avaliação média": "Average rating", "Saúde Life em números": "Saúde Life in numbers",
     // Aviso de exemplo
-    "Números de exemplo — o Saúde Life é um projeto de TCC.": "Sample numbers — Saúde Life is a final course project.",
+    "Números de exemplo. O Saúde Life é um projeto de TCC.": "Sample numbers. Saúde Life is a final course project.",
     // Questionário
     "Em 3 toques": "In 3 taps", "Bora ver como seria o seu treino?": "Want to see what your workout would look like?", "1. O que você quer?": "1. What do you want?",
     // Objetivos do questionário
@@ -72,7 +80,7 @@
     // Ranking de exemplo
     "Treinar junto rende mais": "Training together pays off", "Cada série vale ponto. A semana vira disputa.": "Every set earns points. The week becomes a match.",
     // Texto do ranking de exemplo
-    "Some pontos treinando, comendo bem e bebendo água. Suba de liga, ganhe selos e passe a galera no ranking — que zera toda segunda.": "Earn points by training, eating well and drinking water. Climb leagues, earn badges and pass your friends on the leaderboard — it resets every Monday.",
+    "Some pontos treinando, comendo bem e bebendo água. Suba de liga, ganhe selos e passe a galera no ranking, que zera toda segunda.": "Earn points by training, eating well and drinking water. Climb leagues, earn badges and pass your friends on the leaderboard, which resets every Monday.",
     // Pódio
     "Você?": "You?", "Exemplo de pódio da semana": "Sample weekly podium", "Ligas": "Leagues",
     // Ligas
@@ -88,7 +96,7 @@
     // Recurso: aulas
     "Aulas na academia": "Gym classes", "Veja a grade da semana e reserve sua vaga sem fila e sem grupo de mensagem.": "See the weekly schedule and book your spot, no queues, no group chats.",
     // Como funciona
-    "Como funciona": "How it works", "Do primeiro clique ao primeiro resultado": "From first click to first result", "Comece em menos de 1 minuto": "Start in under 1 minute",
+    "Como funciona": "How it works", "Do primeiro clique ao primeiro resultado": "From first click to first result", "Comece em menos de 1 minuto": "Start in under 1 minute", "Crie sua conta, diga o que você quer (emagrecer, ganhar massa ou ter mais disposição) e comece a usar. Leva menos de um minuto.": "Create your account, tell us what you want (lose weight, build muscle or have more energy) and start using it. It takes less than a minute.", "A gente monta treinos e metas de acordo com sua rotina, seu nível e seu objetivo. Se precisar, um profissional ajusta com você.": "We build workouts and goals around your routine, level and goal. If needed, a professional fine-tunes them with you.",
     // Passos
     "Um plano com a sua cara": "A plan that fits you", "Veja o progresso acontecer": "Watch progress happen",
     // Texto do passo 3
@@ -110,7 +118,7 @@
     // Depoimento 3
     "“Minha nutricionista acompanha tudo pelo app. Ficou muito mais fácil seguir o plano.”": "“My nutritionist follows everything in the app. Sticking to the plan got much easier.”", "22 anos, saúde": "22, health",
     // Aviso de exemplo
-    "Depoimentos de exemplo — o Saúde Life é um projeto de TCC.": "Sample testimonials — Saúde Life is a final course project.",
+    "Depoimentos de exemplo. O Saúde Life é um projeto de TCC.": "Sample testimonials. Saúde Life is a final course project.",
     // Perguntas
     "Dúvidas": "Questions", "Perguntas frequentes": "FAQ", "O Saúde Life é gratuito?": "Is Saúde Life free?",
     // Resposta 1
@@ -140,7 +148,7 @@
     // Itens do Free
     "Treinos básicos da plataforma": "Basic platform workouts", "Acompanhamento simples de evolução": "Simple progress tracking", "Acesso à comunidade": "Community access", "Começar grátis": "Start free",
     // Itens do Premium
-    "Acesso total à plataforma": "Full platform access", "Treinos personalizados com IA": "AI-personalized workouts", "Relatórios avançados de evolução": "Advanced progress reports", "Suporte prioritário": "Priority support", "Assinar Premium": "Get Premium",
+    "Acesso total à plataforma": "Full platform access", "Treinos montados para o seu objetivo": "Workouts built around your goal", "Relatórios avançados de evolução": "Advanced progress reports", "Suporte prioritário": "Priority support", "Assinar Premium": "Get Premium",
     // Itens do Profissional
     "Profissional": "Professional", "Ferramentas pra personal trainers": "Tools for personal trainers", "Gestão de alunos e planos de treino": "Client and workout plan management", "Relatórios de desempenho dos alunos": "Client performance reports", "Assinar Pro": "Get Pro",
     // Itens do Academia
@@ -286,7 +294,7 @@
     // Grupos
     "Corpo inteiro": "Full body", "Inferiores": "Lower body", "Superiores": "Upper body", "Core": "Core",
     // Avisos
-    "Meta semanal em andamento": "Weekly goal in progress", "Meta semanal batida!": "Weekly goal reached!", "Fim de semana chegando": "Weekend's coming", "Você lidera o ranking! 🏆": "You're leading the leaderboard! 🏆",
+    "Meta semanal em andamento": "Weekly goal in progress", "Meta semanal batida!": "Weekly goal reached!", "Fim de semana chegando": "Weekend's coming", "Você lidera o ranking": "You're leading the leaderboard", "Cutucar": "Nudge", "Cutucado ✓": "Nudged ✓",
     // Avisos de amigos
     "Manda um cutucão na Galera ou treina também para não ficar para trás.": "Nudge them in Crew or train too so you don't fall behind.",
 
@@ -354,7 +362,7 @@
 
     // ---------- Tour ----------
     // Passos do tour
-    "Oi! Eu sou o Pulso 👋": "Hi! I'm Pulso 👋", "Vou ser seu parceiro de treino. Em 30 segundos te mostro como tudo funciona.": "I'll be your workout buddy. In 30 seconds I'll show you how it all works.",
+    "Oi! Eu sou o Pulso": "Hi! I'm Pulso", "Vou ser seu parceiro de treino. Em 30 segundos te mostro como tudo funciona.": "I'll be your workout buddy. In 30 seconds I'll show you how it all works.",
     // Passo 2
     "Tudo vale ponto": "Everything earns points", "Cada série, treino, refeição e copo d'água soma pontos. Quanto mais constante, mais pontos.": "Every set, workout, meal and glass of water adds points. The more consistent, the more points.",
     // Passo 3
@@ -362,15 +370,700 @@
     // Passo 4
     "Ranking da semana": "Weekly leaderboard", "Toda segunda o placar zera. Suba de liga: Bronze, Prata, Ouro e Diamante.": "Every Monday the scoreboard resets. Climb leagues: Bronze, Silver, Gold and Diamond.",
     // Passo 5
-    "Traga a galera": "Bring your crew", "Adicione amigos pelo código, crie desafios e mande um cutucão em quem sumiu. 😉": "Add friends by code, create challenges and nudge whoever disappeared. 😉",
+    "Traga a galera": "Bring your crew", "Adicione amigos pelo código, crie desafios e mande um cutucão em quem sumiu.": "Add friends by code, create challenges and nudge whoever disappeared.",
     // Passo 6
     "Bora pro primeiro treino?": "Ready for your first workout?", "Eu fico aqui no Início com um recado por dia. Bom treino!": "I'll be here on Home with a message every day. Have a great workout!",
     // Botões do tour
     "Pular": "Skip", "Próximo": "Next",
 
+    // ---------- Conta (segurança, backup, excluir) ----------
+    // Login e senha
+    "Lembrar de mim neste aparelho": "Remember me on this device", "Regras da senha": "Password rules", "Pelo menos 8 caracteres": "At least 8 characters", "Um número": "One number", "Uma letra maiúscula": "One uppercase letter", "Um símbolo (! @ # ...)": "One symbol (! @ # ...)",
+    // Perfil: conta
+    "Trocar e-mail ou senha": "Change email or password", "Baixar meus dados": "Download my data", "Restaurar backup": "Restore backup", "Excluir minha conta": "Delete my account", "Trocar e-mail": "Change email", "Trocar senha": "Change password",
+    // Campos e mensagens
+    "E-mail novo": "New email", "Sua senha atual": "Your current password", "Senha atual": "Current password", "Senha nova (mínimo 8 caracteres)": "New password (at least 8 characters)", "Salvar e-mail": "Save email", "Salvar senha": "Save password",
+    // Avisos
+    "E-mail trocado": "Email changed", "Senha trocada": "Password changed", "Backup baixado": "Backup downloaded", "Senha atual incorreta.": "Current password is wrong.", "Já existe uma conta com esse e-mail.": "An account with this email already exists.",
+    // Excluir
+    "Excluir sua conta?": "Delete your account?", "Excluir para sempre": "Delete forever", "Restaurar este backup?": "Restore this backup?", "Restaurar": "Restore", "Esse arquivo não é um backup do Saúde Life.": "This file is not a Saúde Life backup.",
+    // Texto do excluir
+    "Sua conta e todos os seus dados (treinos, pesos, fotos, refeições) serão apagados deste aparelho. Não dá para desfazer.": "Your account and all your data (workouts, weights, photos, meals) will be erased from this device. This can't be undone.",
+
+    // ---------- Treino, exercícios, programas e corrida ----------
+    // Menu e páginas novas
+    "Exercícios": "Exercises", "Programas": "Programs", "Corrida": "Running", "Corrida e caminhada": "Running and walking",
+    // Tela de treino
+    "+ Drop set": "+ Drop set", "Bi-set com o próximo": "Superset with next", "Trocar exercício": "Swap exercise", "Drop": "Drop", "Calorias (estimativa)": "Calories (estimate)", "Duração": "Duration", "Volume total": "Total volume",
+    // Fim do treino
+    "Primeira vez com este treino: na próxima a gente compara.": "First time with this workout: next time we'll compare.", "Mesmo volume da última vez. Constância também é evolução.": "Same volume as last time. Consistency is progress too.",
+    // Exercícios
+    "Mais de 100 exercícios com passo a passo, dicas e o erro mais comum.": "Over 100 exercises with step-by-step drawings, tips and the most common mistake.", "Buscar exercício": "Search exercise", "Músculo": "Muscle", "Equipamento": "Equipment", "Lugar": "Place", "Só favoritos": "Favorites only", "Ver como fazer": "How to do it",
+    // Lugares e equipamentos
+    "Dá para fazer em casa": "Can be done at home", "Só na academia": "Gym only", "Em casa": "At home", "Casa ou academia": "Home or gym", "Halteres": "Dumbbells", "Barra": "Barbell", "Polia": "Cable", "Máquina": "Machine", "Peso do corpo": "Bodyweight", "Elástico": "Band", "Barra fixa": "Pull-up bar",
+    // Grupos
+    "Peito": "Chest", "Costas": "Back", "Pernas": "Legs", "Ombros": "Shoulders", "Braços": "Arms", "Cardio": "Cardio", "Mobilidade": "Mobility",
+    // Passo a passo
+    "1. Começo": "1. Start", "2. Meio": "2. Middle", "3. Fim": "3. End", "Cuidado:": "Watch out:", "Nenhum exercício encontrado": "No exercise found",
+    // Programas
+    "Planos de várias semanas com começo, meio e fim. E treinos prontos para fazer em casa.": "Multi-week plans with a beginning, middle and end. Plus ready-made home workouts.", "Programas de semanas": "Multi-week programs", "Treinos em casa": "Home workouts", "Só com o peso do corpo. Grátis, é só começar.": "Bodyweight only. Free, just start.",
+    // Botões dos programas
+    "Começar programa": "Start program", "Desbloquear com Premium": "Unlock with Premium", "Em andamento": "In progress", "Ver os treinos": "See workouts", "Parar programa": "Stop program", "Programas são Premium": "Programs are Premium", "Ver o Premium": "See Premium",
+    // Corrida
+    "Registre distância e tempo. O ritmo é calculado sozinho e cada corrida vale pontos.": "Log distance and time. Pace is calculated for you and every run earns points.", "Registrar": "Log", "Caminhada": "Walk", "Distância (km)": "Distance (km)", "Tempo (minutos)": "Time (minutes)", "Últimas": "Latest",
+    // Corrida: números e plano
+    "Km neste mês": "Km this month", "Saídas neste mês": "Sessions this month", "Melhor ritmo": "Best pace", "Do zero aos 5 km": "Couch to 5K", "Começar o plano": "Start the plan", "Nenhuma ainda. Bora para a primeira?": "None yet. Ready for the first one?",
+    // Lembrete
+    "Horário do lembrete": "Reminder time", "Hora do treino! Bora manter a sequência?": "Workout time! Keep your streak going?",
+
+    // ---------- Alimentação e saúde ----------
+    // Alimentação
+    "Restrições": "Restrictions", "Repetir ontem": "Repeat yesterday", "Receitas": "Recipes", "Lista de compras da semana": "Weekly shopping list", "Usar este cardápio hoje": "Use this meal plan today", "Copiar lista": "Copy list",
+    // Restrições
+    "Restrições alimentares": "Dietary restrictions", "Vegetariano": "Vegetarian", "Vegano": "Vegan", "Sem lactose": "Lactose-free", "Sem glúten": "Gluten-free", "Alergia a amendoim": "Peanut allergy", "Alergia a frutos do mar": "Shellfish allergy", "Alergia a ovo": "Egg allergy", "Restrições salvas": "Restrictions saved",
+    // Receitas e repetir
+    "Ingredientes": "Ingredients", "Modo de fazer": "Directions", "Registrar 1 porção como refeição": "Log 1 serving as a meal", "Repetir refeições de ontem": "Repeat yesterday's meals", "Repetir": "Repeat", "Repetir todas": "Repeat all", "O que tem no prato? Toque para somar:": "What's on the plate? Tap to add:",
+    // Saúde
+    "Saúde": "Health", "Sono, humor, medidas do corpo e ciclo. Tudo fica só neste aparelho.": "Sleep, mood, body measurements and cycle. Everything stays on this device.", "Sono": "Sleep", "Como você está hoje?": "How are you today?", "IMC e gordura corporal": "BMI and body fat", "Medidas do corpo": "Body measurements",
+    // Sono e humor
+    "Dormi às": "Went to bed at", "Acordei às": "Woke up at", "Registrar noite": "Log night", "Noite registrada ✓": "Night logged ✓", "Com energia": "Energetic", "Normal": "Normal", "Cansado": "Tired", "Com dor muscular": "Sore",
+    // Medidas e ciclo
+    "Cintura": "Waist", "Quadril": "Hips", "Braço": "Arm", "Coxa": "Thigh", "Salvar medidas": "Save measurements", "Ciclo menstrual": "Menstrual cycle", "Acompanhar o ciclo": "Track cycle", "Menstruação": "Period", "Fase folicular": "Follicular phase", "Ovulação": "Ovulation", "Fase lútea": "Luteal phase",
+    // Evolução
+    "Relatório para o profissional": "Report for your professional", "Carga no exercício": "Load per exercise", "Volume por músculo nesta semana": "Volume per muscle this week", "6 meses": "6 months", "1 ano": "1 year", "Relatório dos últimos 30 dias": "Last 30 days report", "Copiar": "Copy", "Baixar arquivo": "Download file",
+
+    // ---------- Competição e Pulso ----------
+    // Ranking
+    "Mesmo nível": "Same level", "Missões de hoje": "Today's missions", "3 missões novas por dia. Cada uma vale 15 pontos.": "3 new missions a day. Each one is worth 15 points.", "Duelos": "Duels", "Duelo": "Duel", "Começar duelo": "Start duel", "Empatado": "Tied", "Você está ganhando": "You're winning", "Você está perdendo": "You're losing", "Você venceu!": "You won!", "Você perdeu": "You lost",
+    // Duelos e temporada
+    "1 contra 1 por 7 dias: quem fizer mais pontos ganha. Desafie um amigo na Galera.": "1 vs 1 for 7 days: whoever scores more wins. Challenge a friend in Crew.", "Termine o mês no top 3 dos amigos para ganhar o selo exclusivo da temporada.": "Finish the month in your friends' top 3 to win the exclusive season badge.",
+    // Ligas novas e selos
+    "Esmeralda": "Emerald", "Lenda": "Legend", "Ainda não": "Not yet", "Completo!": "Complete!", "Bronze": "Bronze", "Prata": "Silver", "Ouro": "Gold",
+    // Missões
+    "Registre 3 refeições": "Log 3 meals", "Bata a meta de água": "Hit your water goal", "Faça 12 séries": "Do 12 sets", "Conclua um treino": "Finish a workout", "Registre como dormiu": "Log your sleep", "Bata a meta de proteína": "Hit your protein goal", "Conte como você está hoje (Saúde)": "Tell us how you feel today (Health)", "Faça uma corrida ou caminhada": "Go for a run or walk",
+    // Loja
+    "Loja do Pulso": "Pulso's Shop", "Troque suas moedas por roupas e acessórios. Gastar moedas não muda o seu ranking.": "Trade your coins for clothes and accessories. Spending coins doesn't change your ranking.", "Cada ponto que você ganha vira uma moeda.": "Every point you earn becomes a coin.", "Usar": "Wear", "Usando ✓": "Wearing ✓", "Só no Premium": "Premium only", "Chegue à liga Lenda": "Reach the Legend league",
+    // Itens
+    "Boné coral": "Coral cap", "Fone de ouvido": "Headphones", "Coroa da Lenda": "Legend crown", "Óculos escuros": "Sunglasses", "Tênis branco": "White sneakers", "Tênis neon": "Neon sneakers", "Tênis roxo": "Purple sneakers", "Cabeça": "Head", "Rosto": "Face", "Pés": "Feet",
+    // Editar perfil
+    "Seu parceiro de treino": "Your workout buddy", "Roupa": "Outfit", "Tom de pele": "Skin tone", "Cabelo": "Hair", "Castanho": "Brown", "Preto": "Black", "Loiro": "Blond", "Ruivo": "Red",
+
     // ---------- Comuns ----------
     // Botões e palavras soltas
     "Salvar": "Save", "Cancelar": "Cancel", "Confirmar": "Confirm", "Fechar": "Close", "Excluir": "Delete", "Editar": "Edit", "Sim": "Yes", "Não": "No",
+    // ---------- Telas novas (comunidade, profissionais, academia, aulas, planos, ajuda e acessibilidade) ----------
+    // Água
+    "Água": "Water",
+    // Série
+    "Série": "Set",
+    // Glossário
+    "Glossário": "Glossary",
+    // Confirmação simples na hora de assinar
+    "Confirmação simples na hora de assinar": "Simple confirmation when you subscribe",
+    // Área do profissional completa
+    "Área do profissional completa": "Full professional area",
+    // Montar e mandar treinos para alunos
+    "Montar e mandar treinos para alunos": "Build and send workouts to clients",
+    // Painel do dono com frequência e alunos sumidos
+    "Painel do dono com frequência e alunos sumidos": "Owner dashboard with attendance and missing members",
+    // Desafios e avisos para os alunos
+    "Desafios e avisos para os alunos": "Challenges and notices for members",
+    // 30 dias grátis
+    "30 dias grátis": "30 days free",
+    // Programas completos e treino automático
+    "Programas completos e treino automático": "Full programs and automatic workouts",
+    // Testar 30 dias grátis
+    "Testar 30 dias grátis": "Try 30 days free",
+    // Tudo do Premium
+    "Tudo do Premium": "Everything in Premium",
+    // Para estudantes com matrícula ativa
+    "Para estudantes com matrícula ativa": "For enrolled students",
+    // Família
+    "Família": "Family",
+    // Tudo do Premium para até 4 pessoas
+    "Tudo do Premium para até 4 pessoas": "Everything in Premium for up to 4 people",
+    // Cada um com sua conta e seus dados
+    "Cada um com sua conta e seus dados": "Each person with their own account and data",
+    // Ranking da família
+    "Ranking da família": "Family leaderboard",
+    // Assinar Família
+    "Assinar Família": "Subscribe to Family",
+    // Estudante
+    "Estudante": "Student",
+    // Assinar Estudante
+    "Assinar Estudante": "Subscribe to Student",
+    // Comunidade e ranking
+    "Comunidade e ranking": "Community and leaderboard",
+    // Pulso especial e desafios sem limite
+    "Pulso especial e desafios sem limite": "Special Pulso and unlimited challenges",
+    // Central de ajuda
+    "Central de ajuda": "Help center",
+    // Como podemos ajudar?
+    "Como podemos ajudar?": "How can we help?",
+    // Respostas rápidas sobre conta, treinos, pontos, planos e pri
+    "Respostas rápidas sobre conta, treinos, pontos, planos e privacidade.": "Quick answers about your account, workouts, points, plans and privacy.",
+    // Conta e acesso
+    "Conta e acesso": "Account and access",
+    // Pontos, ligas e ranking
+    "Pontos, ligas e ranking": "Points, leagues and leaderboard",
+    // Planos e pagamento
+    "Planos e pagamento": "Plans and payment",
+    // Privacidade e segurança
+    "Privacidade e segurança": "Privacy and security",
+    // Acessibilidade
+    "Acessibilidade": "Accessibility",
+    // Não achou a resposta?
+    "Não achou a resposta?": "Didn't find the answer?",
+    // Fale com a gente pelo e-mail
+    "Fale com a gente pelo e-mail": "Email us at",
+    // . Respondemos em até 2 dias úteis.
+    ". Respondemos em até 2 dias úteis.": ". We reply within 2 business days.",
+    // Como começo um treino?
+    "Como começo um treino?": "How do I start a workout?",
+    // O que é o treino automático?
+    "O que é o treino automático?": "What is the automatic workout?",
+    // Dá para treinar em casa?
+    "Dá para treinar em casa?": "Can I train at home?",
+    // Como adiciono o treino na minha agenda?
+    "Como adiciono o treino na minha agenda?": "How do I add the workout to my calendar?",
+    // Como subo de liga?
+    "Como subo de liga?": "How do I move up a league?",
+    // Como funciona o teste grátis?
+    "Como funciona o teste grátis?": "How does the free trial work?",
+    // Quais formas de pagamento?
+    "Quais formas de pagamento?": "Which payment methods?",
+    // Quem vê meu perfil?
+    "Quem vê meu perfil?": "Who sees my profile?",
+    // Você escolhe na Comunidade: público, só amigos ou privado.
+    "Você escolhe na Comunidade: público, só amigos ou privado.": "You choose in Community: public, friends only or private.",
+    // Como bloqueio ou denuncio alguém?
+    "Como bloqueio ou denuncio alguém?": "How do I block or report someone?",
+    // Meus dados de saúde são vendidos?
+    "Meus dados de saúde são vendidos?": "Is my health data sold?",
+    // Esqueci minha senha. E agora?
+    "Esqueci minha senha. E agora?": "I forgot my password. Now what?",
+    // Como troco meu e-mail ou senha?
+    "Como troco meu e-mail ou senha?": "How do I change my email or password?",
+    // Como excluo minha conta?
+    "Como excluo minha conta?": "How do I delete my account?",
+    // Meus dados ficam em outro celular?
+    "Meus dados ficam em outro celular?": "Is my data on other phones?",
+    // Como ganho pontos?
+    "Como ganho pontos?": "How do I earn points?",
+    // Quando o ranking zera?
+    "Quando o ranking zera?": "When does the leaderboard reset?",
+    // Gastar moedas na loja muda meu ranking?
+    "Gastar moedas na loja muda meu ranking?": "Does spending coins change my ranking?",
+    // Quanto custa o Premium?
+    "Quanto custa o Premium?": "How much is Premium?",
+    // Como aumento o tamanho das letras?
+    "Como aumento o tamanho das letras?": "How do I make the text bigger?",
+    // O app tem outros idiomas?
+    "O app tem outros idiomas?": "Does the app have other languages?",
+    // O que significa cada termo
+    "O que significa cada termo": "What each term means",
+    // Série, repetição, drop set, RM, macro... tudo explicado em u
+    "Série, repetição, drop set, RM, macro... tudo explicado em uma frase.": "Set, rep, drop set, RM, macros... all explained in one sentence.",
+    // Buscar termo...
+    "Buscar termo...": "Search term...",
+    // Calculadoras
+    "Calculadoras": "Calculators",
+    // Faça as contas em segundos
+    "Faça as contas em segundos": "Do the math in seconds",
+    // IMC, calorias do dia, água e carga máxima (1RM). Resultados 
+    "IMC, calorias do dia, água e carga máxima (1RM). Resultados são estimativas: um profissional ajusta para você.": "BMI, daily calories, water and max load (1RM). Results are estimates: a professional fine-tunes them for you.",
+    // Calorias do dia
+    "Calorias do dia": "Daily calories",
+    // Sexo
+    "Sexo": "Sex",
+    // Feminino
+    "Feminino": "Female",
+    // Masculino
+    "Masculino": "Male",
+    // Idade
+    "Idade": "Age",
+    // Atividade
+    "Atividade": "Activity",
+    // Parado (sem exercício)
+    "Parado (sem exercício)": "Sedentary (no exercise)",
+    // Leve (1 a 3 treinos por semana)
+    "Leve (1 a 3 treinos por semana)": "Light (1 to 3 workouts a week)",
+    // Moderada (3 a 5 treinos)
+    "Moderada (3 a 5 treinos)": "Moderate (3 to 5 workouts)",
+    // Alta (6 a 7 treinos)
+    "Alta (6 a 7 treinos)": "High (6 to 7 workouts)",
+    // Minutos de treino hoje
+    "Minutos de treino hoje": "Workout minutes today",
+    // Carga máxima (1RM)
+    "Carga máxima (1RM)": "Max load (1RM)",
+    // Carga usada (kg)
+    "Carga usada (kg)": "Load used (kg)",
+    // Repetições feitas
+    "Repetições feitas": "Reps done",
+    // Calcular
+    "Calcular": "Calculate",
+    // Estimativas educativas. Não substituem a avaliação de um pro
+    "Estimativas educativas. Não substituem a avaliação de um profissional de saúde.": "Educational estimates. They don't replace an assessment by a health professional.",
+    // IMC
+    "IMC": "BMI",
+    // Dica do dia:
+    "Dica do dia:": "Tip of the day:",
+    // Glossário de termos
+    "Glossário de termos": "Glossary",
+    // Calculadoras (IMC, calorias, água, 1RM)
+    "Calculadoras (IMC, calorias, água, 1RM)": "Calculators (BMI, calories, water, 1RM)",
+    // Buscar: proteína, sono, agachamento...
+    "Buscar: proteína, sono, agachamento...": "Search: protein, sleep, squat...",
+    // Compartilhar
+    "Compartilhar": "Share",
+    // Não precisa ser perfeito, precisa ser feito.
+    "Não precisa ser perfeito, precisa ser feito.": "It doesn't have to be perfect, it has to be done.",
+    // • escudo da semana já usado
+    "• escudo da semana já usado": "• weekly shield already used",
+    // Subida garantida nesta semana!
+    "Subida garantida nesta semana!": "Promotion locked in this week!",
+    // Para começar com o pé direito
+    "Para começar com o pé direito": "To start on the right foot",
+    // Dá pra fazer em casa
+    "Dá pra fazer em casa": "You can do it at home",
+    // Procurar com filtros
+    "Procurar com filtros": "Search with filters",
+    // Até 20 min
+    "Até 20 min": "Up to 20 min",
+    // Mais de 40 min
+    "Mais de 40 min": "Over 40 min",
+    // Série a série
+    "Série a série": "Set by set",
+    // Proteína em dia
+    "Proteína em dia": "Protein on track",
+    // Pódio
+    "Pódio": "Podium",
+    // Bom de cama
+    "Bom de cama": "Sleep champ",
+    // Fim de semana ativo
+    "Fim de semana ativo": "Active weekend",
+    // Missão dada
+    "Missão dada": "Mission accomplished",
+    // Missão do dia
+    "Missão do dia": "Daily mission",
+    // Reserve sua vaga nas aulas coletivas da academia, sem fila.
+    "Reserve sua vaga nas aulas coletivas da academia, sem fila.": "Book your spot in group classes, no waiting line.",
+    // Grade da semana
+    "Grade da semana": "Weekly schedule",
+    // Entrar na lista de espera
+    "Entrar na lista de espera": "Join the waitlist",
+    // Sair da fila
+    "Sair da fila": "Leave the waitlist",
+    // Também online
+    "Também online": "Also online",
+    // Turma lotada
+    "Turma lotada": "Class full",
+    // Reservar vaga (+30 pts)
+    "Reservar vaga (+30 pts)": "Book a spot (+30 pts)",
+    // Cancelar reserva
+    "Cancelar reserva": "Cancel booking",
+    // Avaliar aula
+    "Avaliar aula": "Rate class",
+    // Adicionar à agenda
+    "Adicionar à agenda": "Add to calendar",
+    // Entrar na aula online
+    "Entrar na aula online": "Join online class",
+    // O link da aula online libera 15 min antes
+    "O link da aula online libera 15 min antes": "The online class link opens 15 min before",
+    // Você pode cancelar até 2h antes. Avisamos 1h antes.
+    "Você pode cancelar até 2h antes. Avisamos 1h antes.": "You can cancel up to 2h before. We'll remind you 1h before.",
+    // Não dá mais para cancelar (menos de 2h para a aula)
+    "Não dá mais para cancelar (menos de 2h para a aula)": "Can't cancel anymore (less than 2h to class)",
+    // Área funcional
+    "Área funcional": "Functional area",
+    // Estúdio 1
+    "Estúdio 1": "Studio 1",
+    // Estúdio 2
+    "Estúdio 2": "Studio 2",
+    // Sala bike
+    "Sala bike": "Bike room",
+    // metas calculadas para você
+    "metas calculadas para você": "goals calculated for you",
+    // Adicionar refeição
+    "Adicionar refeição": "Add meal",
+    // Metas do dia
+    "Metas do dia": "Daily goals",
+    // Proteínas
+    "Proteínas": "Protein",
+    // Refeições de hoje
+    "Refeições de hoje": "Today's meals",
+    // Café da manhã
+    "Café da manhã": "Breakfast",
+    // Almoço
+    "Almoço": "Lunch",
+    // Jantar
+    "Jantar": "Dinner",
+    // Lanche
+    "Lanche": "Snack",
+    // Lanche pré-treino
+    "Lanche pré-treino": "Pre-workout snack",
+    // Me lembrar de beber água a cada 2 horas
+    "Me lembrar de beber água a cada 2 horas": "Remind me to drink water every 2 hours",
+    // Cardápio sugerido para o seu objetivo
+    "Cardápio sugerido para o seu objetivo": "Suggested menu for your goal",
+    // Mais 15 pontos
+    "Mais 15 pontos": "15 more points",
+    // Seu progresso semana a semana.
+    "Seu progresso semana a semana.": "Your progress week by week.",
+    // Resumo da semana
+    "Resumo da semana": "Week summary",
+    // Resumo do mês
+    "Resumo do mês": "Month summary",
+    // Resumo do período
+    "Resumo do período": "Period summary",
+    // Treinos no período
+    "Treinos no período": "Workouts in the period",
+    // soma de carga × repetições
+    "soma de carga × repetições": "sum of load × reps",
+    // Últimas 8 semanas
+    "Últimas 8 semanas": "Last 8 weeks",
+    // Treinos por semana
+    "Treinos por semana": "Workouts per week",
+    // Histórico de treinos
+    "Histórico de treinos": "Workout history",
+    // Peso alvo, carga alvo e até quando: o app mostra quanto falt
+    "Peso alvo, carga alvo e até quando: o app mostra quanto falta.": "Target weight, target load and deadline: the app shows how far you are.",
+    // Músculos mais treinados
+    "Músculos mais treinados": "Most trained muscles",
+    // Últimos 30 dias. Quanto mais forte a cor, mais séries.
+    "Últimos 30 dias. Quanto mais forte a cor, mais séries.": "Last 30 days. The stronger the color, the more sets.",
+    // Seu ano de treinos
+    "Seu ano de treinos": "Your year of training",
+    // Só quem atende online
+    "Só quem atende online": "Online only",
+    // Qualquer preço
+    "Qualquer preço": "Any price",
+    // Até R$ 150
+    "Até R$ 150": "Up to R$ 150",
+    // Até R$ 300
+    "Até R$ 300": "Up to R$ 300",
+    // Menor preço
+    "Menor preço": "Lowest price",
+    // Melhor nota
+    "Melhor nota": "Top rated",
+    // Todas as cidades
+    "Todas as cidades": "All cities",
+    // Toque numa cidade para filtrar. No perfil de cada profission
+    "Toque numa cidade para filtrar. No perfil de cada profissional tem o link do Google Maps.": "Tap a city to filter. Each professional's profile has a Google Maps link.",
+    // Ver no Google Maps
+    "Ver no Google Maps": "View on Google Maps",
+    // Para agendar, combine dia e horário direto no chat.
+    "Para agendar, combine dia e horário direto no chat.": "To book, agree on the day and time in the chat.",
+    // Chamar no chat
+    "Chamar no chat": "Message in chat",
+    // Quem acompanha você
+    "Quem acompanha você": "Who supports you",
+    // Conversar
+    "Conversar": "Chat",
+    // Os treinos que você marcou para fazer depois.
+    "Os treinos que você marcou para fazer depois.": "Workouts you saved for later.",
+    // Toque no marcador de um treino para guardar e encontrar depo
+    "Toque no marcador de um treino para guardar e encontrar depois.": "Tap a workout's bookmark to save it for later.",
+    // Movimento, horários de pico e avisos da sua unidade.
+    "Movimento, horários de pico e avisos da sua unidade.": "Traffic, peak hours and notices from your gym.",
+    // Lotação agora
+    "Lotação agora": "Crowd now",
+    // Melhor horário hoje:
+    "Melhor horário hoje:": "Best time today:",
+    // Mostre na catraca (simulado no TCC). O código muda todo dia.
+    "Mostre na catraca (simulado no TCC). O código muda todo dia.": "Show it at the turnstile (simulated). The code changes every day.",
+    // Fazer check-in
+    "Fazer check-in": "Check in",
+    // Quantos estão livres neste momento (estimativa pela lotação)
+    "Quantos estão livres neste momento (estimativa pela lotação).": "How many are free right now (estimated from the crowd).",
+    // Em manutenção
+    "Em manutenção": "Under maintenance",
+    // Sou aluno
+    "Sou aluno": "I'm a member",
+    // Sou dono
+    "Sou dono": "I'm the owner",
+    // Ocupação por horário
+    "Ocupação por horário": "Occupancy by hour",
+    // Publicar aviso
+    "Publicar aviso": "Post notice",
+    // Publicar
+    "Publicar": "Post",
+    // Avisos recentes
+    "Avisos recentes": "Recent notices",
+    // Sem check-in há mais de 7 dias. Um recado pode trazer de vol
+    "Sem check-in há mais de 7 dias. Um recado pode trazer de volta.": "No check-in for over 7 days. A note might bring them back.",
+    // Aparece para todos os alunos na Comunidade, aba Desafios.
+    "Aparece para todos os alunos na Comunidade, aba Desafios.": "Shows for all members in Community, Challenges tab.",
+    // Criar desafio
+    "Criar desafio": "Create challenge",
+    // Frequência (14 dias)
+    "Frequência (14 dias)": "Attendance (14 days)",
+    // Avisos que você quer receber
+    "Avisos que você quer receber": "Notifications you want",
+    // Lembrete do horário e saudade do Pulso
+    "Lembrete do horário e saudade do Pulso": "Workout time reminder and Pulso missing you",
+    // A cada 2 horas, se ainda não bateu a meta
+    "A cada 2 horas, se ainda não bateu a meta": "Every 2 hours, if you haven't hit the goal",
+    // 1 hora antes das aulas reservadas
+    "1 hora antes das aulas reservadas": "1 hour before booked classes",
+    // Quando você sobe de liga
+    "Quando você sobe de liga": "When you move up a league",
+    // Horário de silêncio
+    "Horário de silêncio": "Quiet hours",
+    // Não me avisar à noite
+    "Não me avisar à noite": "Don't notify me at night",
+    // Nenhum aviso nesse intervalo
+    "Nenhum aviso nesse intervalo": "No notifications during this time",
+    // Das
+    "Das": "From",
+    // às
+    "às": "to",
+    // Pular para o exercício
+    "Pular para o exercício": "Jump to exercise",
+    // Próximo exercício
+    "Próximo exercício": "Next exercise",
+    // Música para treinar
+    "Música para treinar": "Workout music",
+    // Abre no app de música do seu celular.
+    "Abre no app de música do seu celular.": "Opens in your phone's music app.",
+    // Treino pesado
+    "Treino pesado": "Heavy lifting",
+    // Corrida e HIIT
+    "Corrida e HIIT": "Running and HIIT",
+    // Funk e pop para treinar
+    "Funk e pop para treinar": "Funk and pop for training",
+    // Yoga e alongamento
+    "Yoga e alongamento": "Yoga and stretching",
+    // Veja quem treinou, mande um "bora!" e crie desafios com a ga
+    "Veja quem treinou, mande um \"bora!\" e crie desafios com a galera.": "See who trained, send a \"let's go!\" and create challenges with your crew.",
+    // Seu código de amigo
+    "Seu código de amigo": "Your friend code",
+    // Quem vê seu perfil
+    "Quem vê seu perfil": "Who sees your profile",
+    // Público: todo mundo vê
+    "Público: todo mundo vê": "Public: everyone",
+    // Só amigos veem
+    "Só amigos veem": "Friends only",
+    // Privado: só você vê
+    "Privado: só você vê": "Private: only you",
+    // Copiar código
+    "Copiar código": "Copy code",
+    // Comentário
+    "Comentário": "Comment",
+    // Copiar treino
+    "Copiar treino": "Copy workout",
+    // Comente algo de boa…
+    "Comente algo de boa…": "Leave a kind comment…",
+    // Enviar
+    "Enviar": "Send",
+    // Desafios
+    "Desafios": "Challenges",
+    // Feed
+    "Feed": "Feed",
+    // Procurar
+    "Procurar": "Search",
+    // Participar
+    "Participar": "Join",
+    // Sair do desafio
+    "Sair do desafio": "Leave challenge",
+    // Chat do grupo
+    "Chat do grupo": "Group chat",
+    // Sair do grupo
+    "Sair do grupo": "Leave group",
+    // Esconder este post
+    "Esconder este post": "Hide this post",
+    // Denunciar
+    "Denunciar": "Report",
+    // Enviar denúncia
+    "Enviar denúncia": "Send report",
+    // Qual o problema?
+    "Qual o problema?": "What's the problem?",
+    // Mandar mensagem
+    "Mandar mensagem": "Send message",
+    // Adicionar amigo
+    "Adicionar amigo": "Add friend",
+    // Últimos treinos
+    "Últimos treinos": "Latest workouts",
+    // Começar o mesmo treino
+    "Começar o mesmo treino": "Start the same workout",
+    // Mandar força
+    "Mandar força": "Send support",
+    // Bloqueados
+    "Bloqueados": "Blocked",
+    // Desbloquear
+    "Desbloquear": "Unblock",
+    // Mande um parabéns
+    "Mande um parabéns": "Send congrats",
+    // Relógio inteligente
+    "Relógio inteligente": "Smartwatch",
+    // média das últimas noites
+    "média das últimas noites": "average of recent nights",
+    // Conta pra gente: o Pulso ajusta a dica do dia.
+    "Conta pra gente: o Pulso ajusta a dica do dia.": "Tell us: Pulso adjusts the daily tip.",
+    // Últimos 7 dias: nada ainda
+    "Últimos 7 dias: nada ainda": "Last 7 days: nothing yet",
+    // Sexo biológico (para a conta)
+    "Sexo biológico (para a conta)": "Biological sex (for the calculation)",
+    // Meça a cada 2 semanas para ver o gráfico da cintura.
+    "Meça a cada 2 semanas para ver o gráfico da cintura.": "Measure every 2 weeks to see the waist chart.",
+    // Braço (cm)
+    "Braço (cm)": "Arm (cm)",
+    // Cintura (cm)
+    "Cintura (cm)": "Waist (cm)",
+    // Quadril (cm)
+    "Quadril (cm)": "Hips (cm)",
+    // Coxa (cm)
+    "Coxa (cm)": "Thigh (cm)",
+    // O app ajusta as dicas de treino para cada fase. Só você vê.
+    "O app ajusta as dicas de treino para cada fase. Só você vê.": "The app adjusts workout tips for each phase. Only you see it.",
+    // Usar o sono do relógio
+    "Usar o sono do relógio": "Use sleep from watch",
+    // Desconectar
+    "Desconectar": "Disconnect",
+    // passos hoje
+    "passos hoje": "steps today",
+    // em repouso
+    "em repouso": "at rest",
+    // de sono ontem
+    "de sono ontem": "of sleep last night",
+    // Para personal trainers e nutricionistas
+    "Para personal trainers e nutricionistas": "For personal trainers and nutritionists",
+    // Acompanhe seus alunos, monte treinos e mande direto para o a
+    "Acompanhe seus alunos, monte treinos e mande direto para o app deles.": "Follow your clients, build workouts and send them straight to their app.",
+    // Avaliações
+    "Avaliações": "Reviews",
+    // Alunos ativos
+    "Alunos ativos": "Active clients",
+    // acompanhando pelo app
+    "acompanhando pelo app": "following through the app",
+    // no total
+    "no total": "in total",
+    // nota média 4,9 de 5
+    "nota média 4,9 de 5": "average rating 4.9 of 5",
+    // Nenhum treino enviado ainda. Toque em "Montar treino".
+    "Nenhum treino enviado ainda. Toque em \"Montar treino\".": "No workouts sent yet. Tap \"Build workout\".",
+    // Mandar para o aluno
+    "Mandar para o aluno": "Send to client",
+    // Para quem
+    "Para quem": "For whom",
+    // Nome do treino
+    "Nome do treino": "Workout name",
+    // Grupo
+    "Grupo": "Group",
+    // Exercício
+    "Exercício": "Exercise",
+    // Adicionar
+    "Adicionar": "Add",
+    // Tirar
+    "Tirar": "Remove",
+    // Recado para o aluno (opcional)
+    "Recado para o aluno (opcional)": "Note to the client (optional)",
+    // Começar teste grátis
+    "Começar teste grátis": "Start free trial",
+    // ou assine agora
+    "ou assine agora": "or subscribe now",
+    // Cartão de crédito
+    "Cartão de crédito": "Credit card",
+    // Já paguei
+    "Já paguei": "I've paid",
+    // Número do cartão
+    "Número do cartão": "Card number",
+    // Nome impresso no cartão
+    "Nome impresso no cartão": "Name on card",
+    // Validade
+    "Validade": "Expiry",
+    // Pagar
+    "Pagar": "Pay",
+    // Processando…
+    "Processando…": "Processing…",
+    // Conferindo pagamento…
+    "Conferindo pagamento…": "Checking payment…",
+    // Ambiente de demonstração: nenhum valor é cobrado. Os dados d
+    "Ambiente de demonstração: nenhum valor é cobrado. Os dados do cartão não são guardados.": "Demo environment: nothing is charged. Card details are not stored.",
+    // Anual -20%
+    "Anual -20%": "Yearly -20%",
+    // Tamanho do texto
+    "Tamanho do texto": "Text size",
+    // Alto contraste
+    "Alto contraste": "High contrast",
+    // Cores para daltônicos
+    "Cores para daltônicos": "Color-blind friendly colors",
+    // Modo simples (letras e botões maiores)
+    "Modo simples (letras e botões maiores)": "Simple mode (bigger text and buttons)",
+    // Tradutor em Libras (VLibras)
+    "Tradutor em Libras (VLibras)": "Brazilian Sign Language (VLibras)",
+    // Ler a página em voz alta
+    "Ler a página em voz alta": "Read page aloud",
+    // Parar leitura
+    "Parar leitura": "Stop reading",
+    // Instale o Saúde Life
+    "Instale o Saúde Life": "Install Saúde Life",
+    // Instalar app
+    "Instalar app": "Install app",
+    // Agora não
+    "Agora não": "Not now",
+    // Abre mais rápido e funciona sem internet.
+    "Abre mais rápido e funciona sem internet.": "Opens faster and works offline.",
+    // Ajuda
+    "Ajuda": "Help",
+    // ---------- Telas novas (comunidade, profissionais, academia, aulas, planos, ajuda e acessibilidade) ----------
+    // bateu a própria marca
+    "bateu a própria marca": "beat their own record",
+    // Seu treino de 30 min ficaria assim:
+    "Seu treino de 30 min ficaria assim:": "Your 30-min workout would look like this:",
+    // Nesta página
+    "Nesta página": "On this page",
+    // Na prática
+    "Na prática": "In practice",
+    // Terça
+    "Terça": "Tuesday",
+    // Sábado
+    "Sábado": "Saturday",
+    // Segunda
+    "Segunda": "Monday",
+    // Quarta
+    "Quarta": "Wednesday",
+    // Quinta
+    "Quinta": "Thursday",
+    // Sexta
+    "Sexta": "Friday",
+    // Domingo
+    "Domingo": "Sunday",
+    // Saúde Life Centro
+    "Saúde Life Centro": "Saúde Life Downtown",
+    // Manutenção da esteira 3
+    "Manutenção da esteira 3": "Treadmill 3 maintenance",
+    // Previsão de retorno: sexta-feira
+    "Previsão de retorno: sexta-feira": "Expected back: Friday",
+    // Nova turma de Pilates
+    "Nova turma de Pilates": "New Pilates class",
+    // Terças e quintas, às 19h
+    "Terças e quintas, às 19h": "Tuesdays and Thursdays, 7 pm",
+    // Foco em hipertrofia e consistência diária.
+    "Foco em hipertrofia e consistência diária.": "Focus on hypertrophy and daily consistency.",
+    // Desbloqueie com o Premium para seguir as 8 semanas.
+    "Desbloqueie com o Premium para seguir as 8 semanas.": "Unlock with Premium to follow all 8 weeks.",
+    // Calculadas para
+    "Calculadas para": "Calculated for",
+    // ---------- Telas novas (comunidade, profissionais, academia, aulas, planos, ajuda e acessibilidade) ----------
+    // Seg e Qua
+    "Seg e Qua": "Mon and Wed",
+    // Ter e Qui
+    "Ter e Qui": "Tue and Thu",
+    // Seg a Sex
+    "Seg a Sex": "Mon to Fri",
+    // Qua e Sex
+    "Qua e Sex": "Wed and Fri",
+    // Treinos para iniciantes
+    "Treinos para iniciantes": "Beginner workouts",
+    // Sem aparelho de academia
+    "Sem aparelho de academia": "No gym equipment",
+    // Os mais bem avaliados
+    "Os mais bem avaliados": "Top rated",
+    // Até 20 minutos
+    "Até 20 minutos": "Up to 20 minutes",
+    // • conclua um treino, faça 12 séries
+    "• conclua um treino, faça 12 séries": "• finish a workout, do 12 sets",
   };
 
   // Dias da semana e meses (para datas por extenso)
@@ -405,6 +1098,16 @@
     [/^Hoje: (\d+) de (\d+)$/, (m, a, b) => `Today: ${a} of ${b}`],
     // "Liga Ouro"
     [/^Liga (.+)$/, (m, l) => `${traduzir(l)} League`],
+    // "Liga Lenda" / "Missões de hoje: 1 de 3"
+    [/^Missões de hoje: (\d+) de (\d+)$/, (m, a, b) => `Today's missions: ${a} of ${b}`],
+    // "8 dias seguidos"
+    [/^(\d+) dias? seguidos?$/, (m, n) => `${n} day${n === "1" ? "" : "s"} in a row`],
+    // "Comprar por 300"
+    [/^Comprar por (.+)$/, (m, n) => `Buy for ${n}`],
+    // "Faltam 300" (loja)
+    [/^Faltam (\d[\d.]*)$/, (m, n) => `${n} short`],
+    // "Você x Ana"
+    [/^Você x (.+)$/, (m, q) => `You vs ${q}`],
     // "1 de 4"
     [/^(\d+) de (\d+)$/, (m, a, b) => `${a} of ${b}`],
     // "Dia 6"
@@ -446,17 +1149,17 @@
     // "São Paulo • atende online"
     [/^atende online$/, () => "online sessions"],
     // "Faltam 3 treinos para bater sua meta da semana."
-    [/^Faltam (\d+) treinos? para bater sua meta da semana\.$/, (m, n) => `${n} workout${n === "1" ? "" : "s"} left to hit your weekly goal.`],
+    [/^Faltam? (\d+) treinos? para bater sua meta da semana\.$/, (m, n) => `${n} workout${n === "1" ? "" : "s"} left to hit your weekly goal.`],
     // "Faltam 3 treinos para completar 4/4."
-    [/^Faltam (\d+) treinos? para completar (.+)\.$/, (m, n, q) => `${n} workout${n === "1" ? "" : "s"} left to complete ${q}.`],
+    [/^Faltam? (\d+) treinos? para completar (.+)\.$/, (m, n, q) => `${n} workout${n === "1" ? "" : "s"} left to complete ${q}.`],
     // "Ranking: você está em 2º"
     [/^Ranking: você está em (\d+)º$/, (m, n) => `Leaderboard: you're #${n}`],
     // "Rafael está 40 pontos na sua frente. Bora passar?"
     [/^(.+) está (\d+) pontos na sua frente\. Bora passar\?$/, (m, q, n) => `${q} is ${n} points ahead of you. Let's pass them?`],
     // "Rafael está 85 pontos atrás. Não deixa chegar!"
     [/^(.+) está (\d+) pontos atrás\. Não deixa chegar!$/, (m, q, n) => `${q} is ${n} points behind. Don't let them catch up!`],
-    // "Camila treinou hoje 💪"
-    [/^(.+) treinou hoje 💪$/, (m, q) => `${q} trained today 💪`],
+    // "Camila treinou hoje"
+    [/^(.+) treinou hoje$/, (m, q) => `${q} trained today`],
     // "4 treinos por semana"
     [/^(\d+) treinos por semana$/, (m, n) => `${n} workouts per week`],
     // "25 de 25 treinos"
@@ -469,22 +1172,228 @@
     [/^Boa! Faltam (\d+) séries?\.$/, (m, n) => `Nice! ${n} set${n === "1" ? "" : "s"} to go.`],
     // "Demonstração: +5 dias"
     [/^Demonstração: \+(\d+) dias?$/, (m, n) => `Demo: +${n} day${n === "1" ? "" : "s"}`],
-    // "Você subiu para a liga Ouro! 🎉"
-    [/^Você subiu para a liga (.+)! 🎉$/, (m, l) => `You moved up to the ${traduzir(l)} league! 🎉`],
+    // "Você subiu para a liga Ouro!"
+    [/^Você subiu para a liga (.+)!$/, (m, l) => `You moved up to the ${traduzir(l)} league!`],
     // "Página — Saúde Life" (títulos das abas do app)
     [/^(.+) — Saúde Life$/, (m, q) => `${traduzir(q)} — Saúde Life`],
     // "Saúde Life — Início"
     [/^Saúde Life — (.+)$/, (m, q) => `Saúde Life — ${traduzir(q)}`],
     // Datas por extenso: "quarta-feira, 21 de outubro"
     [/^([A-Za-zçá-]+-feira|sábado|domingo|Segunda-feira|Terça-feira|Quarta-feira|Quinta-feira|Sexta-feira|Sábado|Domingo), (\d+) de ([a-zç]+)$/i, (m, d, n, mes) => `${PALAVRAS[d.toLowerCase()] || d}, ${PALAVRAS[mes] || mes} ${n}`],
+    // ---------- Regras das telas novas ----------
+    // "4 de 20 vagas disponíveis"
+    [/^(\d+) de (\d+) vagas disponíveis$/, (m, a, b) => `${a} of ${b} spots left`],
+    // "Próxima: segunda-feira às 07:00"
+    [/^Próxima: (.+) às (\d\d:\d\d)$/, (m, d, h) => `Next: ${PALAVRAS[d] || d} at ${h}`],
+    // "Próxima: acontecendo agora"
+    [/^Próxima: acontecendo agora$/, () => "Next: happening now"],
+    // "6 reações"
+    [/^(\d+) reações$/, (m, n) => `${n} reaction${n === "1" ? "" : "s"}`],
+    // "3 de 4 livres"
+    [/^(\d+) de (\d+) livres$/, (m, a, b) => `${a} of ${b} free`],
+    // "3 treinos esta semana"
+    [/^(\d+) treinos? esta semana$/, (m, n) => `${n} workout${n === "1" ? "" : "s"} this week`],
+    // "Rafael Souza, Personal Trainer • 3 min de leitura" (o "•" separa; o autor fica)
+    // "Há 2 dias às 20h", "Hoje às 9h", "Ontem às 18h"
+    [/^Há (\d+) dias? às (\d+)h$/, (m, n, h) => `${n} day${n === "1" ? "" : "s"} ago at ${h}h`],
+    // Hoje às
+    [/^Hoje às (\d+)h$/, (m, h) => `Today at ${h}h`],
+    // Ontem às
+    [/^Ontem às (\d+)h$/, (m, h) => `Yesterday at ${h}h`],
+    // "22 séries"
+    [/^(\d+) séries$/, (m, n) => `${n} sets`],
+    // "(15% de lotação)"
+    [/^\((\d+)% de lotação\)$/, (m, n) => `(${n}% full)`],
+    // "0 check-ins este mês"
+    [/^(\d+) check-ins este mês$/, (m, n) => `${n} check-ins this month`],
+    // "Novo recorde: Supino"
+    [/^Novo recorde: (.+)$/, (m, q) => `New record: ${q}`],
+    // "Subiu para a liga Ouro!"
+    [/^Subiu para a liga (.+)!$/, (m, l) => `Moved up to the ${traduzir(l)} league!`],
+    // "Você (Biel, para testar)"
+    [/^Você \((.+), para testar\)$/, (m, q) => `You (${q}, for testing)`],
+    // "25 dias treinados no último ano"
+    [/^(\d+) dias treinados no último ano$/, (m, n) => `${n} days trained in the last year`],
+    // "Média de 104 check-ins por dia"
+    [/^Média de (\d+) check-ins por dia$/, (m, n) => `Average of ${n} check-ins per day`],
+    // "12 dias sem vir"
+    [/^(\d+) dias sem vir$/, (m, n) => `${n} days away`],
+    // "Total do dia: 3009 kcal • ..." (partes separadas pelo "•")
+    [/^Total do dia: (.+)$/, (m, q) => `Daily total: ${q}`],
+    // "291 g de proteína"
+    [/^(\d+) g de proteína$/, (m, n) => `${n} g of protein`],
+    // "média de 2,6 por semana"
+    [/^média de (.+) por semana$/, (m, n) => `average of ${n} per week`],
+    // "−2,3 kg no período"
+    [/^(.+) no período$/, (m, q) => `${q} in the period`],
+    // "10 min • 1 porção"
+    [/^(\d+) porç(ão|ões)$/, (m, n) => `${n} serving${n === "1" ? "" : "s"}`],
+    // "Semana de 12/10: subiu para Ouro (970 pts)"
+    [/^Semana de (.+): subiu para (.+) \((.+)\)$/, (m, d, l, n) => `Week of ${d}: moved up to ${traduzir(l)} (${n})`],
+    // "há 24 min"
+    [/^há (\d+) min$/, (m, n) => `${n} min ago`],
+    // "7 amigos"
+    [/^(\d+) amigos?$/, (m, n) => `${n} friend${n === "1" ? "" : "s"}`],
+    // "Jantar: Omelete" (a refeição traduz, o prato fica)
+    [/^(Café da manhã|Almoço|Lanche|Jantar): (.+)$/, (m, r, q) => `${traduzir(r)}: ${q}`],
+    // "com Carla Mendes" (professor da aula)
+    [/^com (.+)$/, (m, q) => `with ${q}`],
+    // "Mais treinados: ..."
+    [/^Mais treinados: (.+)$/, (m, q) => `Most trained: ${q}`],
+  ];
+
+  // Regras do espanhol (as mais comuns)
+  // Dias e meses em espanhol
+  const PALAVRAS_ES = {
+    // Dias
+    "segunda-feira": "lunes", "terça-feira": "martes", "quarta-feira": "miércoles", "quinta-feira": "jueves", "sexta-feira": "viernes", "sábado": "sábado", "domingo": "domingo",
+    // Meses
+    janeiro: "enero", fevereiro: "febrero", "março": "marzo", abril: "abril", maio: "mayo", junho: "junio", julho: "julio", agosto: "agosto", setembro: "septiembre", outubro: "octubre", novembro: "noviembre", dezembro: "diciembre",
+  };
+  // Plural simples em espanhol
+  const pl = (n, um, varios) => (n === "1" ? um : varios);
+  // Regras do espanhol (frases com números)
+  const REGRAS_ES = [
+    // "Passo 1 de 2"
+    [/^Passo (\d+) de (\d+)(?: · (.+))?$/, (m, a, b, c) => `Paso ${a} de ${b}${c ? " · " + traduzir(c) : ""}`],
+    // Faltam pontos
+    [/^Faltam (\d+) pontos para (subir de liga|garantir o Diamante)$/, (m, n, o) => `Faltan ${n} puntos para ${o === "subir de liga" ? "subir de liga" : "asegurar Diamante"}`],
+    // Faltam pontos para subir
+    [/^Faltam (\d+) pontos para subir para (.+)\.$/, (m, n, l) => `Faltan ${n} puntos para subir a ${traduzir(l)}.`],
+    // Não cair
+    [/^Faltam (\d+) pontos para não cair de liga\.$/, (m, n) => `Faltan ${n} puntos para no bajar de liga.`],
+    // Zera
+    [/^(Semana zera|zera) em (\d+) dias?$/, (m, q, n) => `${q === "zera" ? "se reinicia" : "La semana se reinicia"} en ${n} ${pl(n, "día", "días")}`],
+    // Posição
+    [/^Você está em (\d+)º de (\d+) entre os amigos$/, (m, a, b) => `Estás en el ${a}.º de ${b} entre tus amigos`],
+    // Posição curta
+    [/^(\d+)º de (\d+) entre os amigos$/, (m, a, b) => `${a}.º de ${b} entre tus amigos`],
+    // Lugar
+    [/^(\d+)º lugar$/, (m, a) => `${a}.º lugar`],
+    // Hoje
+    [/^Hoje: (\d+) de (\d+)$/, (m, a, b) => `Hoy: ${a} de ${b}`],
+    // Liga
+    [/^Liga (.+)$/, (m, l) => `Liga ${traduzir(l)}`],
+    // Missões
+    [/^Missões de hoje: (\d+) de (\d+)$/, (m, a, b) => `Misiones de hoy: ${a} de ${b}`],
+    // Dias seguidos
+    [/^(\d+) dias? seguidos?$/, (m, n) => `${n} ${pl(n, "día seguido", "días seguidos")}`],
+    // Comprar
+    [/^Comprar por (.+)$/, (m, n) => `Comprar por ${n}`],
+    // Faltam moedas
+    [/^Faltam (\d[\d.]*)$/, (m, n) => `Faltan ${n}`],
+    // Duelo
+    [/^Você x (.+)$/, (m, q) => `Tú vs ${q}`],
+    // Dia
+    [/^Dia (\d+)$/, (m, a) => `Día ${a}`],
+    // Há N dias
+    [/^Há (\d+) dias?$/, (m, n) => `Hace ${n} ${pl(n, "día", "días")}`],
+    // Há N semanas
+    [/^Há (\d+) semanas?$/, (m, n) => `Hace ${n} ${pl(n, "semana", "semanas")}`],
+    // Há N dias às Hh
+    [/^Há (\d+) dias? às (\d+)h$/, (m, n, h) => `Hace ${n} ${pl(n, "día", "días")} a las ${h} h`],
+    // Hoje às
+    [/^Hoje às (\d+)h$/, (m, h) => `Hoy a las ${h} h`],
+    // Ontem às
+    [/^Ontem às (\d+)h$/, (m, h) => `Ayer a las ${h} h`],
+    // Contagens
+    [/^(\d+) (séries|pontos|exercícios|treinos|semanas|participantes|reações)$/, (m, n, q) => `${n} ${{ séries: "series", pontos: "puntos", exercícios: "ejercicios", treinos: "entrenamientos", semanas: "semanas", participantes: "participantes", reações: "reacciones" }[q]}`],
+    // Seguidores
+    [/^(.+) seguidores$/, (m, n) => `${n} seguidores`],
+    // Leitura
+    [/^(\d+) min de leitura$/, (m, n) => `${n} min de lectura`],
+    // Meta
+    [/^meta (.+)$/, (m, n) => `meta ${n}`],
+    // Último
+    [/^Último: (.+)$/, (m, q) => `Último: ${traduzir(q)}`],
+    // Última vez
+    [/^Última vez: (.+)$/, (m, q) => `Última vez: ${traduzir(q)}`],
+    // Começa com
+    [/^Começa com: (.+)$/, (m, q) => `Empieza con: ${q}`],
+    // Atende online
+    [/^atende online$/, () => "atiende en línea"],
+    // Faltam treinos
+    [/^Faltam? (\d+) treinos? para bater sua meta da semana\.$/, (m, n) => `${pl(n, "Falta", "Faltan")} ${n} ${pl(n, "entrenamiento", "entrenamientos")} para cumplir tu meta semanal.`],
+    // Treinou hoje
+    [/^(.+) treinou hoje$/, (m, q) => `${q} entrenó hoy`],
+    // Treinos por semana
+    [/^(\d+) treinos por semana$/, (m, n) => `${n} entrenamientos por semana`],
+    // N de M treinos
+    [/^(\d+) de (\d+) treinos$/, (m, a, b) => `${a} de ${b} entrenamientos`],
+    // Nesta semana
+    [/^(\d+) de (\d+) nesta semana$/, (m, a, b) => `${a} de ${b} esta semana`],
+    // Treino de N min
+    [/^Seu treino de (\d+) min ficaria assim:$/, (m, n) => `Tu entrenamiento de ${n} min sería así:`],
+    // Faltam séries
+    [/^Boa! Faltam (\d+) séries?\.$/, (m, n) => `¡Bien! ${pl(n, "Falta", "Faltan")} ${n} ${pl(n, "serie", "series")}.`],
+    // Demonstração
+    [/^Demonstração: \+(\d+) dias?$/, (m, n) => `Demo: +${n} ${pl(n, "día", "días")}`],
+    // Subiu de liga
+    [/^Você subiu para a liga (.+)!$/, (m, l) => `¡Subiste a la liga ${traduzir(l)}!`],
+    // Post de liga
+    [/^Subiu para a liga (.+)!$/, (m, l) => `¡Subió a la liga ${traduzir(l)}!`],
+    // Recorde
+    [/^Novo recorde: (.+)$/, (m, q) => `Nuevo récord: ${q}`],
+    // Vagas
+    [/^(\d+) de (\d+) vagas disponíveis$/, (m, a, b) => `${a} de ${b} lugares disponibles`],
+    // Próxima aula
+    [/^Próxima: (.+) às (\d\d:\d\d)$/, (m, d, h) => `Próxima: ${PALAVRAS_ES[d] || d} a las ${h}`],
+    // Acontecendo agora
+    [/^Próxima: acontecendo agora$/, () => "Próxima: en curso ahora"],
+    // Livres
+    [/^(\d+) de (\d+) livres$/, (m, a, b) => `${a} de ${b} libres`],
+    // Treinos esta semana
+    [/^(\d+) treinos? esta semana$/, (m, n) => `${n} ${pl(n, "entrenamiento", "entrenamientos")} esta semana`],
+    // Lotação
+    [/^\((\d+)% de lotação\)$/, (m, n) => `(${n}% de ocupación)`],
+    // Check-ins
+    [/^(\d+) check-ins este mês$/, (m, n) => `${n} check-ins este mes`],
+    // Para testar
+    [/^Você \((.+), para testar\)$/, (m, q) => `Tú (${q}, para probar)`],
+    // Ano
+    [/^(\d+) dias treinados no último ano$/, (m, n) => `${n} días entrenados en el último año`],
+    // Média de check-ins
+    [/^Média de (\d+) check-ins por dia$/, (m, n) => `Promedio de ${n} check-ins por día`],
+    // Dias sem vir
+    [/^(\d+) dias sem vir$/, (m, n) => `${n} días sin venir`],
+    // Total do dia
+    [/^Total do dia: (.+)$/, (m, q) => `Total del día: ${q}`],
+    // Proteína
+    [/^(\d+) g de proteína$/, (m, n) => `${n} g de proteína`],
+    // Média por semana
+    [/^média de (.+) por semana$/, (m, n) => `promedio de ${n} por semana`],
+    // No período
+    [/^(.+) no período$/, (m, q) => `${q} en el período`],
+    // Porções
+    [/^(\d+) porç(ão|ões)$/, (m, n) => `${n} ${pl(n, "porción", "porciones")}`],
+    // Mais treinados
+    [/^Mais treinados: (.+)$/, (m, q) => `Más entrenados: ${q}`],
+    // Professor da aula
+    [/^com (.+)$/, (m, q) => `con ${q}`],
+    // "há 24 min"
+    [/^há (\d+) min$/, (m, n) => `hace ${n} min`],
+    // "7 amigos"
+    [/^(\d+) amigos?$/, (m, n) => `${n} ${pl(n, "amigo", "amigos")}`],
+    // Refeição do post
+    [/^(Café da manhã|Almoço|Lanche|Jantar): (.+)$/, (m, r, q) => `${traduzir(r)}: ${q}`],
+    // N de M (genérico, por último)
+    [/^(\d+) de (\d+)$/, (m, a, b) => `${a} de ${b}`],
+    // Títulos das abas
+    [/^(.+) — Saúde Life$/, (m, q) => `${traduzir(q)} — Saúde Life`],
+    // Títulos das abas
+    [/^Saúde Life — (.+)$/, (m, q) => `Saúde Life — ${traduzir(q)}`],
+    // Datas por extenso: "domingo, 25 de outubro"
+    [/^([A-Za-zçá-]+-feira|sábado|domingo), (\d+) de ([a-zç]+)$/i, (m, d, n, mes) => `${PALAVRAS_ES[d.toLowerCase()] || d}, ${n} de ${PALAVRAS_ES[mes] || mes}`],
   ];
 
   // Traduz uma frase (sem os espaços das pontas). Devolve a mesma frase se não souber
   function traduzir(texto) {
+    // Dicionário do idioma escolhido
+    const dic = idioma === "es" ? window.SL_ES || {} : D;
     // Está no dicionário?
-    if (D[texto]) return D[texto];
+    if (dic[texto]) return dic[texto];
     // Alguma regra com números serve?
-    for (const [regra, fn] of REGRAS) {
+    for (const [regra, fn] of idioma === "es" ? REGRAS_ES : REGRAS) {
       // Testa a regra
       const m = texto.match(regra);
       // Se serviu, usa
@@ -496,12 +1405,20 @@
     return texto;
   }
 
-  // Idioma escolhido ("pt" ou "en")
+  // Endereço deste arquivo (para achar o idioma-es.js na mesma pasta)
+  const esteArquivo = document.currentScript && document.currentScript.src;
+  // Ordem dos idiomas no botão: português -> inglês -> espanhol -> português
+  const PROXIMO = { pt: "en", en: "es", es: "pt" };
+  // Nome de cada idioma (para o leitor de tela)
+  const NOMES = { pt: "Mudar para inglês (English)", en: "Switch to Spanish (Español)", es: "Cambiar a portugués (Português)" };
+  // Idioma escolhido ("pt", "en" ou "es")
   let idioma = "pt";
   // Tenta ler a escolha salva
   try {
     // Lê do navegador
     idioma = JSON.parse(localStorage.getItem("sl-idioma")) || "pt";
+    // Valor estranho: volta para o português
+    if (!PROXIMO[idioma]) idioma = "pt";
   // Se o navegador bloquear...
   } catch (e) {
     // ...fica em português
@@ -521,6 +1438,8 @@
       const no = caminhante.currentNode;
       // ...pula scripts e estilos
       if (/^(SCRIPT|STYLE)$/.test(no.parentNode.nodeName)) continue;
+      // ...pula o nome da marca ("Saúde Life" nunca é traduzido)
+      if (no.parentNode.querySelector && no.parentNode.querySelector(":scope > .brand-life")) continue;
       // ...texto sem espaços nas pontas
       const limpo = no.nodeValue.replace(/\s+/g, " ").trim();
       // ...se não tem letra, pula
@@ -549,10 +1468,23 @@
     );
   }
 
-  // Liga o inglês: traduz a página e passa a traduzir o que aparecer depois
+  // Liga o idioma escolhido: traduz a página e passa a traduzir o que aparecer depois
   function ligarIngles() {
-    // Avisa o navegador e os leitores de tela que a página está em inglês
-    document.documentElement.lang = "en";
+    // Espanhol: primeiro carrega o dicionário (arquivo separado), depois traduz
+    if (idioma === "es" && !window.SL_ES && esteArquivo) {
+      // Script do dicionário
+      const script = document.createElement("script");
+      // Mesmo lugar deste arquivo
+      script.src = new URL("idioma-es.js", esteArquivo).href;
+      // Quando carregar, traduz
+      script.onload = ligarIngles;
+      // Carrega
+      document.head.append(script);
+      // Espera
+      return;
+    }
+    // Avisa o navegador e os leitores de tela qual é o idioma da página
+    document.documentElement.lang = idioma;
     // Traduz o título da aba
     document.title = traduzir(document.title);
     // Traduz a página inteira
@@ -578,17 +1510,15 @@
     // Classe do visual
     botao.className = "btn-idioma";
     // Mostra o idioma para o qual vai trocar
-    botao.textContent = idioma === "en" ? "PT" : "EN";
+    botao.textContent = PROXIMO[idioma].toUpperCase();
     // Nome para leitores de tela
-    botao.setAttribute("aria-label", idioma === "en" ? "Mudar para português" : "Switch to English");
-    // Também no lang do botão (para a leitura certa)
-    botao.lang = idioma === "en" ? "pt-BR" : "en";
+    botao.setAttribute("aria-label", NOMES[idioma]);
     // Ao clicar: salva a escolha e recarrega a página no outro idioma
     botao.addEventListener("click", function () {
       // Tenta salvar
       try {
         // Salva o outro idioma
-        localStorage.setItem("sl-idioma", JSON.stringify(idioma === "en" ? "pt" : "en"));
+        localStorage.setItem("sl-idioma", JSON.stringify(PROXIMO[idioma]));
       // Se o navegador bloquear...
       } catch (e) {
         /* armazenamento indisponível */
@@ -607,8 +1537,8 @@
       // Coloca na página
       document.body.append(botao);
     }
-    // Se a escolha é inglês, traduz
-    if (idioma === "en") ligarIngles();
+    // Se a escolha não é português, traduz
+    if (idioma !== "pt") ligarIngles();
   });
 
   // Deixa a tradução disponível para outros arquivos (ex.: toasts)

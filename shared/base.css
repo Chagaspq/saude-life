@@ -20,7 +20,7 @@ body {
   background-color: var(--bg);
   /* Cor padrão do texto */
   color: var(--ink);
-  /* Fonte do texto (Inter) */
+  /* Fonte do texto (Barlow) */
   font-family: var(--font-body);
   /* Deixa a letra mais lisinha no Chrome/Safari do Mac */
   -webkit-font-smoothing: antialiased;
@@ -34,7 +34,7 @@ h1,
 h2,
 /* ...e pequenos */
 h3 {
-  /* Usam a fonte de destaque (Space Grotesk) */
+  /* Usam a fonte de destaque (Barlow Semi Condensed) */
   font-family: var(--font-display);
 }
 
@@ -199,8 +199,8 @@ input[type="password"]::-ms-clear {
 
 /* Botão solto no canto (páginas sem topo, como o login) */
 .btn-idioma-solto {
-  /* Preso na tela */
-  position: fixed;
+  /* Solto no topo da página (rola junto, para não cobrir o formulário) */
+  position: absolute;
   /* Distância do topo */
   top: 14px;
   /* Distância da direita */
@@ -209,4 +209,498 @@ input[type="password"]::-ms-clear {
   z-index: 50;
   /* Fundo do card (para não sumir no fundo) */
   background: var(--surface);
+}
+
+/* ---------- Logo animada ---------- */
+
+/* Anel da logo: enche ao abrir a página */
+svg path[d^="M32 9.5A22.5"] {
+  /* Traço do tamanho do anel (para poder "desenhar" ele) */
+  stroke-dasharray: 120;
+  /* Começa desenhado */
+  stroke-dashoffset: 0;
+  /* Enche uma vez, em 1,2 segundo */
+  animation: logo-anel 1.2s var(--ease-out) both;
+}
+
+/* Batimento da logo: o traço corre de tempos em tempos, como um monitor cardíaco */
+svg path[d^="M19.5 33H24.5"] {
+  /* Traço do tamanho do batimento, com um vão do mesmo tamanho */
+  stroke-dasharray: 60 60;
+  /* Pulsa a cada 4 segundos, começando depois do anel */
+  animation: logo-batimento 4s ease-in-out 1.2s infinite;
+}
+
+/* Enchendo o anel */
+@keyframes logo-anel {
+  /* Começa vazio */
+  from {
+    /* Traço todo escondido */
+    stroke-dashoffset: 120;
+  }
+}
+
+/* Batimento correndo */
+@keyframes logo-batimento {
+  /* Parado e visível na maior parte do tempo */
+  0%,
+  70% {
+    /* Visível */
+    stroke-dashoffset: 0;
+  }
+  /* Some para a frente */
+  85% {
+    /* Escondido à direita */
+    stroke-dashoffset: -60;
+  }
+  /* Volta a aparecer desenhando da esquerda */
+  85.01% {
+    /* Escondido à esquerda */
+    stroke-dashoffset: 60;
+  }
+  /* Desenhado de novo */
+  100% {
+    /* Visível */
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ---------- Efeito 3D leve nos cards ---------- */
+
+/* Cards que ganham profundidade ao passar o mouse */
+.stat-box,
+.workout-card,
+.rec-card,
+.pro-card,
+.plan-card,
+.feature,
+.testimonial,
+.blog-card,
+.acad-card,
+.challenge-card,
+.academia-card,
+.mock-card {
+  /* Mudanças suaves */
+  transition:
+    transform 260ms var(--ease-out),
+    box-shadow 260ms var(--ease-out),
+    border-color 260ms var(--ease-out);
+}
+
+/* Só em aparelhos com mouse (no celular não existe "passar o mouse") */
+@media (hover: hover) {
+  /* Card com o mouse em cima */
+  .stat-box:hover,
+  .workout-card:hover,
+  .rec-card:hover,
+  .pro-card:hover,
+  .plan-card:hover,
+  .feature:hover,
+  .testimonial:hover,
+  .blog-card:hover,
+  .acad-card:hover,
+  .challenge-card:hover,
+  .academia-card:hover {
+    /* Inclina um pouquinho para trás e sobe (perspectiva dá o 3D) */
+    transform: perspective(900px) rotateX(3deg) translateY(-4px);
+    /* Sombra mais funda embaixo */
+    box-shadow:
+      0 18px 36px rgba(0, 0, 0, 0.28),
+      0 2px 0 var(--border-strong);
+  }
+}
+
+/* ---------- Entrada suave do conteúdo do app ---------- */
+
+/* Blocos do app aparecem subindo, um depois do outro */
+.app-views-container .stat-box,
+.app-views-container .panel,
+.app-views-container .workout-card,
+.app-views-container .pontos-card,
+.app-views-container .momento-card,
+.app-views-container .pulso-inicio {
+  /* Animação de surgir (o estado final é o normal; sem animação, tudo já aparece) */
+  animation: surgir 480ms var(--ease-out) backwards;
+}
+
+/* Atraso em escada: o 2º espera um pouco, o 3º um pouco mais... */
+.app-views-container .stat-box:nth-child(2),
+.app-views-container .panel:nth-child(2),
+.app-views-container .workout-card:nth-child(2) {
+  /* 60 milissegundos */
+  animation-delay: 60ms;
+}
+
+/* Terceiro da fila */
+.app-views-container .stat-box:nth-child(3),
+.app-views-container .panel:nth-child(3),
+.app-views-container .workout-card:nth-child(3) {
+  /* 120 milissegundos */
+  animation-delay: 120ms;
+}
+
+/* Quarto da fila */
+.app-views-container .stat-box:nth-child(4),
+.app-views-container .panel:nth-child(4),
+.app-views-container .workout-card:nth-child(4) {
+  /* 180 milissegundos */
+  animation-delay: 180ms;
+}
+
+/* Surgir: vem de baixo, meio transparente */
+@keyframes surgir {
+  /* Começo */
+  from {
+    /* Transparente */
+    opacity: 0;
+    /* 10 pixels abaixo */
+    transform: translateY(10px);
+  }
+}
+
+/* Quem pediu menos movimento: nada disso */
+@media (prefers-reduced-motion: reduce) {
+  /* Logo, cards e blocos */
+  svg path[d^="M32 9.5A22.5"],
+  svg path[d^="M19.5 33H24.5"],
+  .app-views-container .stat-box,
+  .app-views-container .panel,
+  .app-views-container .workout-card,
+  .app-views-container .pontos-card,
+  .app-views-container .momento-card,
+  .app-views-container .pulso-inicio {
+    /* Sem animação */
+    animation: none;
+  }
+
+  /* Cards parados ao passar o mouse */
+  .stat-box:hover,
+  .workout-card:hover,
+  .rec-card:hover,
+  .pro-card:hover,
+  .plan-card:hover,
+  .feature:hover,
+  .testimonial:hover,
+  .blog-card:hover,
+  .acad-card:hover,
+  .challenge-card:hover,
+  .academia-card:hover {
+    /* Sem inclinar nem subir */
+    transform: none;
+  }
+}
+
+/* ---------- Botão de tema (sol / lua) no site público ---------- */
+
+/* Botão de tema fora do app (topo do site ou solto no canto) */
+.top-bar-actions .btn-tema,
+.btn-tema-solto {
+  /* Centraliza o ícone */
+  display: inline-grid;
+  /* No meio */
+  place-items: center;
+  /* Largura */
+  width: 36px;
+  /* Altura */
+  height: 36px;
+  /* Sem espaço interno */
+  padding: 0;
+  /* Fundo transparente */
+  background: transparent;
+  /* Borda discreta */
+  border: 1px solid var(--border-strong);
+  /* Redondo */
+  border-radius: 50%;
+  /* Cor do ícone */
+  color: var(--ink);
+  /* Mãozinha */
+  cursor: pointer;
+  /* Não encolhe */
+  flex-shrink: 0;
+}
+
+/* Desenho do sol ou da lua */
+.top-bar-actions .btn-tema .icon,
+.btn-tema-solto .icon {
+  /* Tamanho */
+  width: 18px;
+  /* Tamanho */
+  height: 18px;
+  /* Sem preenchimento */
+  fill: none;
+  /* Traço na cor do botão */
+  stroke: currentColor;
+  /* Grossura do traço */
+  stroke-width: 2;
+  /* Pontas redondas */
+  stroke-linecap: round;
+}
+
+/* Botão de tema com mouse ou foco */
+.top-bar-actions .btn-tema:hover,
+.btn-tema-solto:hover {
+  /* Borda e ícone coral */
+  border-color: var(--coral-light);
+  /* Cor coral */
+  color: var(--coral-light);
+}
+
+/* Botão de tema solto (páginas sem topo, como o login): ao lado do botão de idioma */
+.btn-tema-solto {
+  /* Solto no topo da página (rola junto, para não cobrir o formulário) */
+  position: absolute;
+  /* Distância do topo */
+  top: calc(14px + env(safe-area-inset-top, 0px));
+  /* À esquerda do botão de idioma */
+  right: calc(64px + env(safe-area-inset-right, 0px));
+  /* Por cima do conteúdo */
+  z-index: 50;
+  /* Fundo do card (para não sumir no fundo) */
+  background: var(--surface);
+}
+
+/* ---------- Regras da senha (ficam verdes ao cumprir) ---------- */
+
+/* Lista de regras */
+.senha-regras {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Sem espaço padrão */
+  padding: 0;
+  /* Espaço em cima */
+  margin: 8px 0 0;
+  /* Duas colunas */
+  display: grid;
+  /* Duas colunas iguais */
+  grid-template-columns: 1fr 1fr;
+  /* Espaço entre os itens */
+  gap: 4px 12px;
+  /* Letra pequena */
+  font-size: 12.5px;
+  /* Cor apagada */
+  color: var(--muted);
+}
+
+/* Cada regra: bolinha vazia antes do texto */
+.senha-regras li::before {
+  /* Bolinha vazia */
+  content: "○";
+  /* Espaço até o texto */
+  margin-right: 6px;
+}
+
+/* Regra cumprida */
+.senha-regras li.is-ok {
+  /* Verde */
+  color: var(--emerald);
+}
+
+/* Regra cumprida: bolinha vira check */
+.senha-regras li.is-ok::before {
+  /* Check */
+  content: "✓";
+}
+
+/* ---------- Acessibilidade (painel e modos) ---------- */
+
+/* Botão solto de acessibilidade: à esquerda do botão de tema solto */
+.btn-a11y-solto {
+  /* Mais à esquerda */
+  right: calc(110px + env(safe-area-inset-right, 0px));
+}
+
+/* Painel de acessibilidade */
+.a11y-painel {
+  /* Preso na tela */
+  position: fixed;
+  /* Distância do topo */
+  top: 64px;
+  /* Distância da direita */
+  right: 16px;
+  /* Largura */
+  width: min(320px, calc(100vw - 32px));
+  /* Por cima de tudo */
+  z-index: 1200;
+  /* Fundo de card */
+  background: var(--surface);
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Cantos */
+  border-radius: 16px;
+  /* Espaço interno */
+  padding: 14px 16px;
+  /* Sombra */
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  /* Coluna */
+  display: grid;
+  /* Espaço */
+  gap: 10px;
+  /* Cor do texto */
+  color: var(--ink);
+}
+
+/* Escondido de verdade */
+.a11y-painel[hidden] {
+  /* Some */
+  display: none;
+}
+
+/* Título do painel */
+.a11y-titulo {
+  /* Sem margem */
+  margin: 0;
+  /* Fonte de título */
+  font: 700 var(--text-lg) var(--font-display);
+}
+
+/* Cada linha */
+.a11y-linha {
+  /* Texto e controle lado a lado */
+  display: flex;
+  /* Nas pontas */
+  justify-content: space-between;
+  /* Alinhados */
+  align-items: center;
+  /* Espaço */
+  gap: 12px;
+  /* Letra */
+  font-size: var(--text-sm);
+}
+
+/* Botões A- e A+ */
+.a11y-fonte button,
+.a11y-voz {
+  /* Fundo */
+  background: var(--surface-2);
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Cantos */
+  border-radius: 10px;
+  /* Cor */
+  color: var(--ink);
+  /* Letra */
+  font: 700 var(--text-sm) var(--font-body);
+  /* Espaço */
+  padding: 6px 12px;
+  /* Mãozinha */
+  cursor: pointer;
+  /* Espaço entre os dois */
+  margin-left: 4px;
+}
+
+/* Botão de voz ocupa a largura */
+.a11y-voz {
+  /* Sem margem */
+  margin: 4px 0 0;
+}
+
+/* Botões do painel com mouse */
+.a11y-fonte button:hover,
+.a11y-voz:hover {
+  /* Borda coral */
+  border-color: var(--coral-light);
+}
+
+/* Texto maior: nível 1 */
+:root[data-fonte="1"] {
+  /* Tamanhos de texto ~12% maiores */
+  --text-xs: 13.5px;
+  --text-sm: 15px;
+  --text-base: 17px;
+  --text-lg: 19px;
+  --text-xl: 22px;
+  --text-2xl: 29px;
+}
+
+/* Texto maior: nível 2 */
+:root[data-fonte="2"] {
+  /* Tamanhos de texto ~25% maiores */
+  --text-xs: 15px;
+  --text-sm: 17px;
+  --text-base: 19px;
+  --text-lg: 21px;
+  --text-xl: 25px;
+  --text-2xl: 32px;
+}
+
+/* Texto maior: nível 3 */
+:root[data-fonte="3"] {
+  /* Tamanhos de texto ~40% maiores */
+  --text-xs: 17px;
+  --text-sm: 19px;
+  --text-base: 21px;
+  --text-lg: 24px;
+  --text-xl: 28px;
+  --text-2xl: 36px;
+}
+
+/* Corpo da página segue o tamanho base (nos níveis maiores) */
+:root[data-fonte="1"] body,
+:root[data-fonte="2"] body,
+:root[data-fonte="3"] body {
+  /* Tamanho base */
+  font-size: var(--text-base);
+}
+
+/* Alto contraste: fundo preto, texto branco, bordas fortes */
+:root[data-contraste] {
+  /* Fundo */
+  --bg: #000000;
+  --surface: #0a0a0a;
+  --surface-2: #141414;
+  --surface-3: #1f1f1f;
+  /* Bordas fortes */
+  --border: #8a8a8a;
+  --border-strong: #ffffff;
+  /* Textos */
+  --ink: #ffffff;
+  --muted: #e6e6e6;
+  --muted-2: #d0d0d0;
+  /* Cores mais vivas */
+  --coral: #ff9a6b;
+  --coral-light: #ffc2a3;
+  --emerald: #5ff2bf;
+}
+
+/* Alto contraste: links sublinhados */
+:root[data-contraste] a {
+  /* Sublinhado */
+  text-decoration: underline;
+}
+
+/* Cores para daltônicos (paleta Okabe-Ito: laranja e azul se distinguem em todos os tipos) */
+:root[data-daltonico] {
+  /* "Coral" vira laranja */
+  --coral: #e69f00;
+  --coral-light: #f2b84b;
+  --coral-dark: #b37a00;
+  --coral-soft: rgba(230, 159, 0, 0.12);
+  --coral-dim: rgba(230, 159, 0, 0.18);
+  --coral-ring: rgba(230, 159, 0, 0.4);
+  --coral-glow: rgba(230, 159, 0, 0.4);
+  /* "Esmeralda" vira azul */
+  --emerald: #56b4e9;
+  --emerald-dark: #0072b2;
+  --emerald-soft: rgba(86, 180, 233, 0.14);
+  /* Aviso vira amarelo */
+  --warning: #f0e442;
+}
+
+/* Modo simples: botões e toques maiores */
+:root[data-simples] button,
+:root[data-simples] .btn-primary,
+:root[data-simples] .btn-secondary,
+:root[data-simples] .nav-link {
+  /* Altura mínima confortável */
+  min-height: 48px;
+}
+
+/* Modo simples: sem animações e enfeites que distraem */
+:root[data-simples] *,
+:root[data-simples] *::before,
+:root[data-simples] *::after {
+  /* Sem animação */
+  animation-duration: 0.01ms !important;
+  /* Sem transição */
+  transition-duration: 0.01ms !important;
 }

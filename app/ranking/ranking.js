@@ -35,6 +35,32 @@ window.SL &&
       prato: ["M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z", "M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"],
       // Recorde: haltere
       recorde: ICONES.haltere,
+      // Treinos: haltere
+      treinos: ICONES.haltere,
+      // Séries: check
+      series: ICONES.check,
+      // Proteína: talheres
+      proteina: ICONES.talheres,
+      // Liga: seta para cima
+      liga: ["M12 19V5", "m5 12 7-7 7 7"],
+      // Pontos: alvo
+      pontos: ICONES.alvo,
+      // Aulas: calendário
+      aula: ICONES.calendario,
+      // Sono: lua
+      sono: ICONES.lua,
+      // Corrida: raio
+      corrida: ICONES.raio,
+      // Madrugador: sol
+      manha: ICONES.sol,
+      // Fim de semana: calendário
+      fds: ICONES.calendario,
+      // Missões: check
+      missoes: ICONES.check,
+      // Duelos: troféu
+      duelos: ICONES.trofeu,
+      // Amigos: medalha
+      amigos: ICONES.medalha,
     };
 
     // Primeiro nome de alguém (a pessoa logada vira "Você")
@@ -61,11 +87,11 @@ window.SL &&
       // Frase da liga conforme a situação
       let frase;
       // Já fez 500: garantiu a subida (ou o topo)
-      if (!s.faltaSubir) frase = s.noTopo ? "Você segurou o Diamante nesta semana. Brabo!" : `Subida garantida! Domingo você vai para ${P.LIGAS[s.atual + 1].nome}.`;
+      if (!s.faltaSubir) frase = s.noTopo ? `Você segurou a liga ${liga.nome} nesta semana. Brabo!` : `Subida garantida! Domingo você vai para ${P.LIGAS[s.atual + 1].nome}.`;
       // Ainda não fez 150: corre risco de cair
       else if (s.faltaManter && s.atual > 0) frase = `Faltam ${s.faltaManter} pontos para não cair de liga.`;
       // No meio do caminho
-      else frase = s.noTopo ? `Faltam ${s.faltaSubir} pontos para garantir o Diamante.` : `Faltam ${s.faltaSubir} pontos para subir para ${P.LIGAS[s.atual + 1].nome}.`;
+      else frase = s.noTopo ? `Faltam ${s.faltaSubir} pontos para garantir a liga ${liga.nome}.` : `Faltam ${s.faltaSubir} pontos para subir para ${P.LIGAS[s.atual + 1].nome}.`;
 
       // Troca o conteúdo do card
       $("hero").replaceChildren(
@@ -225,35 +251,108 @@ window.SL &&
       $("mudancas").replaceChildren(...(itens.length ? itens : [el("li", { class: "meta", text: "Nenhuma mudança de liga ainda." })]));
     }
 
-    // Desenha os selos
+    // Desenha os selos: um card por selo, com o maior nível conquistado e a barrinha até o próximo
     function renderSelos() {
-      // Lista de selos
+      // Todos os selos (cada nível é um item)
       const lista = P.selos();
       // Quantos já ganhou
       $("selos-total").textContent = `${lista.filter((s) => s.feito).length} de ${lista.length}`;
+      // Selos base (sem repetir)
+      const bases = [...new Set(lista.map((s) => s.base))];
       // Troca a grade
       $("selos").replaceChildren(
-        // Um item para cada selo
-        ...lista.map((s) =>
-          // Item (aceso se ganhou)
-          el("li", { class: "rk-selo" + (s.feito ? " is-feito" : "") }, [
-            // Medalha: anel com o ícone no meio
-            el("span", { class: "rk-selo-medalha", "aria-hidden": "true" }, [icone(ICONES_SELO[s.id] || ICONES.trofeu)]),
-            // Nome do selo
-            el("strong", { text: s.nome }),
-            // Como ganhar
-            el("small", { text: s.texto }),
-            // Texto para leitores de tela
-            el("span", { class: "sr-only", text: s.feito ? "Conquistado" : "Ainda não conquistado" }),
-          ]),
+        // Um item por selo base
+        ...bases.map((base) => {
+          // Os 3 níveis dele
+          const niveis = lista.filter((s) => s.base === base);
+          // Maior nível conquistado (-1 = nenhum)
+          const conquistado = niveis.filter((s) => s.feito).length - 1;
+          // Próximo nível (ou o último, se completou)
+          const proximo = niveis[Math.min(2, conquistado + 1)];
+          // Porcentagem até o próximo
+          const pct = Math.min(100, Math.round((proximo.progresso / proximo.meta) * 100));
+          // Nome sem o nível
+          const nome = proximo.nome.replace(/ (Bronze|Prata|Ouro)$/, "");
+          // Item (com a cor do nível conquistado)
+          return el("li", { class: "rk-selo" + (conquistado >= 0 ? ` is-feito nivel-${conquistado}` : "") }, [
+            // Medalha
+            el("span", { class: "rk-selo-medalha", "aria-hidden": "true" }, [icone(ICONES_SELO[base] || ICONES.trofeu)]),
+            // Nome
+            el("strong", { text: nome }),
+            // Nível conquistado
+            el("span", { class: "rk-selo-nivel", text: conquistado >= 0 ? P.NIVEIS_SELO[conquistado] : "Ainda não" }),
+            // Próximo objetivo
+            el("small", { text: conquistado === 2 ? "Completo!" : `${proximo.texto} (${SL.num(Math.min(proximo.progresso, proximo.meta))}/${SL.num(proximo.meta)})` }),
+            // Barrinha
+            conquistado === 2 ? "" : el("div", { class: "progress-bar-sm", role: "progressbar", "aria-label": `Progresso do selo ${nome}`, "aria-valuemin": 0, "aria-valuemax": 100, "aria-valuenow": pct }, [el("div", { class: "fill", "data-progress": pct })]),
+          ]);
+        }),
+      );
+      // Pinta as barrinhas
+      SL.aplicarProgresso();
+    }
+
+    // Desenha a faixa da temporada do mês
+    function renderTemporada() {
+      // Temporada
+      const t = P.temporada();
+      // Troca o conteúdo
+      $("temporada").replaceChildren(
+        // Textos
+        el("div", {}, [
+          // Texto de cima
+          el("p", { class: "page-kicker", text: `Temporada • termina em ${t.diasRestantes} dia${t.diasRestantes === 1 ? "" : "s"}` }),
+          // Nome
+          el("h2", { text: t.nome }),
+          // Prêmio
+          el("p", { class: "meta", text: "Termine o mês no top 3 dos amigos para ganhar o selo exclusivo da temporada." }),
+        ]),
+        // Posição
+        el("strong", { class: "rk-temporada-pos", text: t.posicao ? `${t.posicao}º` : "--" }),
+      );
+    }
+
+    // Desenha as missões do dia
+    function renderMissoes() {
+      // Missões
+      $("missoes").replaceChildren(
+        ...P.missoes().map((m) =>
+          // Linha (verde se cumprida)
+          el("li", { class: m.feita ? "is-feita" : "" }, [el("span", { class: "rk-missao-check", "aria-hidden": "true" }, [m.feita ? icone(ICONES.check) : ""]), el("span", { text: m.texto }), el("strong", { text: m.feita ? "+15 ✓" : "+15" }), el("span", { class: "sr-only", text: m.feita ? "Cumprida" : "Ainda não" })]),
         ),
+      );
+    }
+
+    // Desenha os duelos
+    function renderDuelos() {
+      // Duelos (os 5 mais recentes)
+      const lista = P.duelos().slice(0, 5);
+      // Sem duelos
+      if (!lista.length) return $("duelos").replaceChildren(el("li", { class: "meta" }, [el("a", { href: "../comunidade/comunidade.html", text: "Desafie um amigo na Galera" })]));
+      // Uma linha por duelo
+      $("duelos").replaceChildren(
+        ...lista.map((d) => {
+          // Placar
+          const p = P.placar(d);
+          // Acabou?
+          const acabou = d.fim < Date.now();
+          // Situação
+          const situacao = acabou ? (p.eu > p.ele ? "Você venceu!" : p.eu === p.ele ? "Empate" : "Você perdeu") : p.eu > p.ele ? "Você está ganhando" : p.eu === p.ele ? "Empatado" : "Você está perdendo";
+          // Linha
+          return el("li", { class: acabou ? "is-acabou" : "" }, [
+            // Nome do amigo e situação
+            el("div", {}, [el("strong", { text: `Você x ${p.amigo.nome.split(" ")[0]}` }), el("span", { class: "meta", text: `${situacao} • ${acabou ? "terminou" : `faltam ${Math.ceil((d.fim - Date.now()) / 86400000)} dias`}` })]),
+            // Placar
+            el("span", { class: "rk-duelo-placar", text: `${SL.num(p.eu)} x ${SL.num(p.ele)}` }),
+          ]);
+        }),
       );
     }
 
     // Desenha a tabela de como ganhar pontos
     function renderTabela() {
       // Tipos na ordem da tabela
-      const tipos = ["serie", "treino", "refeicao", "proteina", "agua", "sequencia", "aula", "recorde", "metaSemana"];
+      const tipos = ["serie", "treino", "refeicao", "proteina", "agua", "sono", "missao", "sequencia", "aula", "recorde", "metaSemana", "convite"];
       // Troca a tabela
       $("tabela").replaceChildren(
         // Uma linha para cada tipo
@@ -278,6 +377,12 @@ window.SL &&
       renderLigas();
       // Selos
       renderSelos();
+      // Temporada
+      renderTemporada();
+      // Missões
+      renderMissoes();
+      // Duelos
+      renderDuelos();
       // Tabela
       renderTabela();
     }

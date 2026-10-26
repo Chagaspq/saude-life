@@ -21,22 +21,18 @@ body {
   background-image:
     radial-gradient(
       circle at 15% 10%,
-      rgba(255, 122, 69, 0.1),
+      rgba(240, 132, 90, 0.1),
       transparent 42%
     ),
     radial-gradient(
       circle at 85% 90%,
-      rgba(52, 211, 153, 0.08),
+      rgba(79, 194, 154, 0.08),
       transparent 45%
     );
   /* Cor do texto: bege claro do texto */
   color: var(--ink);
   /* Fonte da letra */
-  font-family:
-    "Inter",
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
+  font-family: var(--font-body);
   /* Deixa a letra mais lisinha no Mac */
   -webkit-font-smoothing: antialiased;
   /* Organiza os itens com flexbox */
@@ -97,7 +93,7 @@ body {
   /* Fundo: cor dos cards */
   background: var(--surface);
   /* Borda de 1 pixel, cor meio transparente */
-  border: 1px solid rgba(255, 160, 107, 0.4);
+  border: 1px solid rgba(245, 163, 127, 0.4);
   /* Cantos arredondados: 14 pixels */
   border-radius: 14px;
   /* Sombra em volta da caixa */
@@ -107,7 +103,7 @@ body {
 /* Título */
 .auth-header h1 {
   /* Fonte da letra */
-  font-family: "Space Grotesk", "Inter", sans-serif;
+  font-family: var(--font-display);
   /* Tamanho da letra: 24 pixels */
   font-size: 24px;
   /* Letra negrito */
@@ -227,7 +223,7 @@ body {
 /* Campo com o mouse em cima */
 .form-group input:hover {
   /* Cor da borda: a cor #3a3a3a */
-  border-color: #3a3a3a;
+  border-color: var(--border-strong);
 }
 
 /* Campo focado */

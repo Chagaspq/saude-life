@@ -59,7 +59,7 @@
   border: 1px solid var(--border);
   /* Fundo com brilho esmeralda */
   background:
-    radial-gradient(circle at 100% 0%, rgba(52, 211, 153, 0.14), transparent 45%),
+    radial-gradient(circle at 100% 0%, rgba(79, 194, 154, 0.14), transparent 45%),
     var(--surface);
 }
 
@@ -332,12 +332,32 @@
   border: 1px solid var(--border);
   /* Fundo de card mais claro */
   background: var(--surface-2);
-  /* Tamanho do emoji */
-  font-size: 18px;
+  /* Centraliza o ícone */
+  display: inline-grid;
+  /* No meio */
+  place-items: center;
+  /* Cor do ícone */
+  color: var(--muted);
   /* Mãozinha do mouse */
   cursor: pointer;
   /* Cresce suavemente */
   transition: transform var(--dur-fast), border-color var(--dur-fast), background var(--dur-fast);
+}
+
+/* Ícone dentro da reação */
+.cm-reacao .icon {
+  /* Tamanho do ícone */
+  width: 18px;
+  /* Tamanho do ícone */
+  height: 18px;
+}
+
+/* Ícone dentro da reação */
+.cm-reacao .icon {
+  /* Tamanho do ícone */
+  width: 18px;
+  /* Tamanho do ícone */
+  height: 18px;
 }
 
 /* Reação com o mouse em cima: cresce um pouco */
@@ -352,6 +372,8 @@
   background: var(--coral-dim);
   /* Borda coral */
   border-color: var(--coral);
+  /* Ícone coral */
+  color: var(--coral-light);
   /* Animação de pulo */
   animation: cm-pulo 0.4s var(--ease-out);
 }
@@ -570,7 +592,7 @@
   border-color: var(--border-coral);
   /* Fundo com brilho coral */
   background:
-    radial-gradient(circle at 100% 0%, rgba(255, 122, 69, 0.12), transparent 50%),
+    radial-gradient(circle at 100% 0%, rgba(240, 132, 90, 0.12), transparent 50%),
     var(--surface);
 }
 
@@ -722,6 +744,373 @@
   .cm-bolha,
   .cm-reacao.is-ativa {
     /* Sem animação */
+    animation: none;
+  }
+}
+
+/* ---------- Novidades: tipos de post, menu, perfil, ao vivo, convite e grupos ---------- */
+
+/* Nome no post vira botão que abre o perfil */
+.cm-nome {
+  /* Sem fundo */
+  background: none;
+  /* Sem borda */
+  border: 0;
+  /* Sem espaço */
+  padding: 0;
+  /* Cor do texto */
+  color: var(--ink);
+  /* Negrito */
+  font: 700 var(--text-base) var(--font-body);
+  /* Mãozinha */
+  cursor: pointer;
+  /* Alinhado à esquerda */
+  text-align: left;
+}
+
+/* Nome com mouse */
+.cm-nome:hover {
+  /* Sublinhado */
+  text-decoration: underline;
+}
+
+/* Botão de opções do post */
+.cm-post-menu {
+  /* Fica no canto */
+  margin-left: 4px;
+}
+
+/* Quadradinho dourado (recorde) */
+.icon-tile-star {
+  /* Fundo dourado fraco */
+  background: rgba(240, 192, 90, 0.16);
+  /* Ícone dourado */
+  color: var(--star);
+}
+
+/* Post de refeição: foto + texto */
+.cm-post-refeicao {
+  /* Lado a lado */
+  display: grid;
+  /* Foto + texto */
+  grid-template-columns: 96px 1fr;
+  /* Alinhados no meio */
+  align-items: center;
+  /* Espaço */
+  gap: 12px;
+  /* Espaço */
+  margin: 10px 0;
+}
+
+/* Textos em coluna */
+.cm-post-refeicao > div:last-child,
+.cm-perfil-pub > div {
+  /* Coluna */
+  display: grid;
+  /* Espaço */
+  gap: 2px;
+}
+
+/* "Foto" do prato (desenhada) */
+.cm-post-foto {
+  /* Quadrada */
+  aspect-ratio: 1;
+  /* Centraliza o ícone */
+  display: grid;
+  /* Centraliza */
+  place-items: center;
+  /* Cantos */
+  border-radius: var(--radius-md);
+  /* Prato: degradê quente */
+  background: radial-gradient(circle at 35% 35%, #f5d8a8 0 18%, transparent 19%), radial-gradient(circle at 65% 60%, #7fc79a 0 20%, transparent 21%), radial-gradient(circle, #fbf6ee 0 46%, #e8dccb 47% 52%, #c96a43 53%);
+  /* Cor do ícone */
+  color: rgba(0, 0, 0, 0.25);
+}
+
+/* Opções do menu do post */
+.cm-menu-opcoes {
+  /* Coluna */
+  display: grid;
+  /* Espaço */
+  gap: 8px;
+}
+
+/* Grupos de opções (denúncia) */
+.cm-motivos {
+  /* Sem borda */
+  border: 0;
+  /* Sem espaço */
+  padding: 0;
+  /* Coluna */
+  display: grid;
+  /* Espaço */
+  gap: 8px;
+}
+
+/* Perfil público: topo */
+.cm-perfil-pub {
+  /* Lado a lado */
+  display: flex;
+  /* Alinhados */
+  align-items: center;
+  /* Espaço */
+  gap: 12px;
+}
+
+/* Escudo à direita */
+.cm-perfil-pub .liga-escudo {
+  /* Empurra para a direita */
+  margin-left: auto;
+}
+
+/* Números do perfil */
+.cm-perfil-numeros {
+  /* Três colunas */
+  display: grid;
+  /* Três colunas */
+  grid-template-columns: repeat(3, 1fr);
+  /* Espaço */
+  gap: 8px;
+  /* Espaço */
+  margin: 16px 0;
+  /* Centralizado */
+  text-align: center;
+}
+
+/* Cada número */
+.cm-perfil-numeros div {
+  /* Coluna */
+  display: grid;
+  /* Fundo */
+  background: var(--surface-2);
+  /* Cantos */
+  border-radius: var(--radius-md);
+  /* Espaço */
+  padding: 10px 6px;
+}
+
+/* Número grande */
+.cm-perfil-numeros strong {
+  /* Fonte de placar */
+  font-family: var(--font-placar);
+  /* Tamanho */
+  font-size: var(--text-xl);
+}
+
+/* Subtítulo */
+.cm-perfil-sub {
+  /* Tamanho */
+  font-size: var(--text-base);
+  /* Espaço */
+  margin: 8px 0;
+}
+
+/* Lista de treinos do perfil */
+.cm-perfil-treinos {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Sem espaço */
+  padding: 0;
+  /* Espaço */
+  margin: 0 0 12px;
+  /* Coluna */
+  display: grid;
+  /* Espaço */
+  gap: 6px;
+}
+
+/* Botões lado a lado (convite, perfil, grupo) */
+.cm-convite-botoes {
+  /* Lado a lado */
+  display: flex;
+  /* Quebra linha */
+  flex-wrap: wrap;
+  /* Espaço */
+  gap: 8px;
+  /* Espaço em cima */
+  margin-top: 12px;
+}
+
+/* Caixa do QR code */
+.cm-convite-qr-caixa {
+  /* Centraliza */
+  display: grid;
+  /* Centraliza */
+  place-items: center;
+  /* Espaço */
+  margin: 12px 0;
+}
+
+/* QR code */
+.cm-convite-qr {
+  /* Fundo branco (o QR precisa) */
+  background: #fff;
+  /* Cantos */
+  border-radius: var(--radius-md);
+  /* Espaço */
+  padding: 6px;
+}
+
+/* Campo do link */
+.cm-convite-link {
+  /* Largura toda */
+  width: 100%;
+  /* Fundo */
+  background: var(--surface-2);
+  /* Borda */
+  border: 1px solid var(--border);
+  /* Cantos */
+  border-radius: var(--radius-sm);
+  /* Espaço interno */
+  padding: 9px 12px;
+  /* Cor */
+  color: var(--ink);
+  /* Fonte (16px evita zoom no celular) */
+  font: 400 16px var(--font-body);
+}
+
+/* Faixa "treinando agora" */
+.cm-ao-vivo {
+  /* Fundo */
+  background: var(--surface);
+  /* Borda esmeralda */
+  border: 1px solid var(--emerald);
+  /* Cantos */
+  border-radius: var(--radius-lg);
+  /* Espaço */
+  padding: 12px 14px;
+  /* Espaço embaixo */
+  margin-bottom: 16px;
+}
+
+/* Título com bolinha */
+.cm-ao-vivo-titulo {
+  /* Lado a lado */
+  display: flex;
+  /* Alinhados */
+  align-items: center;
+  /* Espaço */
+  gap: 8px;
+  /* Sem margem */
+  margin: 0 0 8px;
+  /* Negrito */
+  font-weight: 700;
+}
+
+/* Bolinha "ao vivo" */
+.cm-ao-vivo-ponto {
+  /* Tamanho */
+  width: 10px;
+  /* Tamanho */
+  height: 10px;
+  /* Redonda */
+  border-radius: 50%;
+  /* Esmeralda */
+  background: var(--emerald);
+  /* Pisca devagar */
+  animation: cm-pisca 1.6s ease-in-out infinite;
+}
+
+/* Animação de piscar */
+@keyframes cm-pisca {
+  /* Meio: apagada */
+  50% {
+    /* Transparente */
+    opacity: 0.25;
+  }
+}
+
+/* Lista dos que estão treinando */
+.cm-ao-vivo-lista {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Sem espaço */
+  padding: 0;
+  /* Sem margem */
+  margin: 0;
+  /* Coluna */
+  display: grid;
+  /* Espaço */
+  gap: 8px;
+}
+
+/* Cada pessoa */
+.cm-ao-vivo-lista li {
+  /* Lado a lado */
+  display: flex;
+  /* Alinhados */
+  align-items: center;
+  /* Espaço */
+  gap: 10px;
+}
+
+/* Botão à direita */
+.cm-ao-vivo-lista button {
+  /* Empurra para a direita */
+  margin-left: auto;
+}
+
+/* Ranking do grupo */
+.cm-grupo-ranking {
+  /* Sem números do navegador */
+  list-style: none;
+  /* Sem espaço */
+  padding: 0;
+  /* Espaço */
+  margin: 12px 0;
+  /* Coluna */
+  display: grid;
+  /* Espaço */
+  gap: 4px;
+}
+
+/* Linha do ranking */
+.cm-grupo-ranking li {
+  /* Posição, nome e pontos */
+  display: grid;
+  /* Posição estreita */
+  grid-template-columns: 36px 1fr auto;
+  /* Espaço */
+  gap: 8px;
+  /* Espaço interno */
+  padding: 6px 8px;
+  /* Cantos */
+  border-radius: var(--radius-sm);
+}
+
+/* Sua linha */
+.cm-grupo-ranking li.is-eu {
+  /* Fundo esmeralda fraco */
+  background: var(--emerald-soft);
+}
+
+/* Posição */
+.cm-grupo-pos {
+  /* Fonte de placar */
+  font-family: var(--font-placar);
+  /* Cor apagada */
+  color: var(--muted);
+}
+
+/* Bloqueados no fim da lista de amigos */
+.cm-bloqueados {
+  /* Coluna */
+  display: grid;
+  /* Espaço */
+  gap: 6px;
+  /* Espaço em cima */
+  margin-top: 16px;
+  /* Linha em cima */
+  border-top: 1px solid var(--border);
+  /* Espaço */
+  padding-top: 12px;
+}
+
+/* Sem animação para quem pediu */
+@media (prefers-reduced-motion: reduce) {
+  /* Bolinha parada */
+  .cm-ao-vivo-ponto {
+    /* Sem piscar */
     animation: none;
   }
 }

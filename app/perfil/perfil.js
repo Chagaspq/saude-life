@@ -31,7 +31,7 @@ window.SL &&
       // Pulso com a roupa escolhida, no canto do card
       if (SL.personagem) card.append(el("div", { class: "perfil-extra perfil-pulso" }, [SL.personagem.desenhar()]));
       // Selo do plano ao lado do nome
-      document.getElementById("heading-perfil").append(el("span", { class: `perfil-extra tag perfil-plano${SL.premium() ? " is-premium" : ""}`, text: SL.premium() ? "Premium ✦" : "Free" }));
+      document.getElementById("heading-perfil").append(el("span", { class: `perfil-extra tag perfil-plano${SL.premium() ? " is-premium" : ""}`, text: SL.premium() ? SL.storage.get("sl-plano", "Premium") : "Free" }));
       // Selos conquistados
       const selos = SL.pontos ? SL.pontos.selos().filter((x) => x.feito) : [];
       // Os escolhidos para destaque (só os que ainda valem)
@@ -40,7 +40,7 @@ window.SL &&
       if (escolhidos.length)
         // Lista de selos
         document.querySelector(".profile-info .bio").after(
-          el("ul", { class: "perfil-extra perfil-destaques", "aria-label": "Selos em destaque" }, escolhidos.map((x) => el("li", { title: x.texto, text: "🏅 " + x.nome }))),
+          el("ul", { class: "perfil-extra perfil-destaques", "aria-label": "Selos em destaque" }, escolhidos.map((x) => el("li", { title: x.texto }, [SL.icone(SL.ICONES.medalha), x.nome]))),
         );
     }
     // Desenha agora
@@ -137,4 +137,299 @@ window.SL &&
       // Se o endereço pede o painel (#heading-demo), rola até ele
       if (location.hash === "#heading-demo") document.getElementById("heading-demo").scrollIntoView();
     }
+
+    /* ---------- Lembrete de treino: horário fixo e dias ---------- */
+
+    // Pôr os treinos na agenda do celular (no horário e nos dias do lembrete)
+    SL.acao("agenda-treino", () => {
+      // Lembrete salvo
+      const l = storage.get("sl-lembrete-treino", { hora: "18:00", dias: [1, 2, 3, 4, 5] });
+      // Hora e minuto
+      const [h, m] = l.hora.split(":").map(Number);
+      // Próximo dia marcado (a partir de hoje)
+      const inicio = new Date();
+      // Horário
+      inicio.setHours(h, m, 0, 0);
+      // Anda até um dia marcado (no máximo 7 voltas)
+      for (let i = 0; i < 7 && !l.dias.includes(inicio.getDay()); i++) inicio.setDate(inicio.getDate() + 1);
+      // Baixa o evento que repete toda semana
+      SL.baixarAgenda({ titulo: "Treino - Saúde Life", inicio, minutos: 60, descricao: "Hora do treino! Abra o Saúde Life e bora.", repetir: l.dias });
+    });
+
+    /* ---------- Avisos um por um e horário de silêncio ---------- */
+
+    // Tipos de aviso: [id, nome, explicação]
+    const TIPOS_AVISO = [["treino", "Treino", "Lembrete do horário e saudade do Pulso"], ["agua", "Água", "A cada 2 horas, se ainda não bateu a meta"], ["aulas", "Aulas", "1 hora antes das aulas reservadas"], ["ranking", "Ranking", "Quando você sobe de liga"]];
+    // Tipos ligados/desligados (padrão: todos ligados)
+    const tiposAviso = storage.get("sl-avisos-tipos", {});
+    // Uma chave para cada tipo
+    document.querySelector('[data-render="avisos-tipos"]').append(
+      ...TIPOS_AVISO.map(([id, nome, texto]) => {
+        // Chave
+        const chave = el("input", { type: "checkbox", class: "switch", role: "switch", "aria-label": `Avisos de ${nome}` });
+        // Ligada se não foi desligada
+        chave.checked = tiposAviso[id] !== false;
+        // Ao mudar, salva
+        chave.addEventListener("change", () => {
+          // Lê de novo (pode ter mudado)
+          const atual = storage.get("sl-avisos-tipos", {});
+          // Guarda
+          atual[id] = chave.checked;
+          // Salva
+          storage.set("sl-avisos-tipos", atual);
+          // Avisa
+          SL.toast(chave.checked ? `Avisos de ${nome.toLowerCase()} ligados` : `Avisos de ${nome.toLowerCase()} desligados`);
+        });
+        // Linha
+        return el("label", { class: "switch-row" }, [el("span", {}, [el("strong", { text: nome }), el("small", { text: texto })]), chave]);
+      }),
+    );
+    // Horário de silêncio salvo (padrão: 22h às 7h, ligado)
+    const silencio = storage.get("sl-silencio", { ligado: true, de: "22:00", ate: "07:00" });
+    // Chave do silêncio
+    const chaveSilencio = el("input", { type: "checkbox", class: "switch", role: "switch", "aria-label": "Horário de silêncio" });
+    // Marca
+    chaveSilencio.checked = silencio.ligado;
+    // Hora de começo
+    const de = el("input", { type: "time", value: silencio.de, "aria-label": "Silêncio começa às" });
+    // Hora de fim
+    const ate = el("input", { type: "time", value: silencio.ate, "aria-label": "Silêncio termina às" });
+    // Salva tudo
+    const salvarSilencio = () => {
+      // Guarda
+      storage.set("sl-silencio", { ligado: chaveSilencio.checked, de: de.value || "22:00", ate: ate.value || "07:00" });
+      // Avisa
+      SL.toast("Horário de silêncio salvo");
+    };
+    // Qualquer mudança salva
+    [chaveSilencio, de, ate].forEach((x) => x.addEventListener("change", salvarSilencio));
+    // Coloca na tela
+    document.querySelector('[data-render="silencio"]').append(
+      // Linha da chave
+      el("label", { class: "switch-row" }, [el("span", {}, [el("strong", { text: "Não me avisar à noite" }), el("small", { text: "Nenhum aviso nesse intervalo" })]), chaveSilencio]),
+      // Horários
+      el("div", { class: "silencio-horas" }, [el("span", { text: "Das" }), de, el("span", { text: "às" }), ate]),
+    );
+
+    // Lembrete salvo (padrão: 18h, de segunda a sexta)
+    const lembrete = storage.get("sl-lembrete-treino", { hora: "18:00", dias: [1, 2, 3, 4, 5] });
+    // Campo da hora
+    const campoHora = document.getElementById("lembrete-hora");
+    // Mostra a hora salva
+    campoHora.value = lembrete.hora;
+    // Letras dos dias (0 = domingo)
+    const DIAS = ["D", "S", "T", "Q", "Q", "S", "S"];
+    // Nomes completos (para leitores de tela)
+    const NOMES_DIAS = ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado"];
+    // Lugar dos botões dos dias
+    const caixaDias = document.querySelector(".lembrete-dias");
+    // Desenha os 7 botões (segunda primeiro)
+    function renderDias() {
+      // Ordem: segunda a domingo
+      caixaDias.replaceChildren(
+        ...[1, 2, 3, 4, 5, 6, 0].map((d) =>
+          // Botão do dia (ligado se está na lista)
+          el("button", { type: "button", class: "lembrete-dia" + (lembrete.dias.includes(d) ? " is-on" : ""), "data-dia": d, "aria-pressed": String(lembrete.dias.includes(d)), "aria-label": NOMES_DIAS[d], text: DIAS[d] }),
+        ),
+      );
+    }
+    // Desenha
+    renderDias();
+    // Clique num dia: liga ou desliga
+    caixaDias.addEventListener("click", (e) => {
+      // Botão clicado
+      const b = e.target.closest("[data-dia]");
+      // Se não foi num botão, para
+      if (!b) return;
+      // Dia
+      const d = Number(b.dataset.dia);
+      // Troca
+      lembrete.dias = lembrete.dias.includes(d) ? lembrete.dias.filter((x) => x !== d) : lembrete.dias.concat(d);
+      // Salva
+      storage.set("sl-lembrete-treino", lembrete);
+      // Desenha
+      renderDias();
+    });
+    // Mudou a hora: salva e pede permissão de notificação
+    campoHora.addEventListener("change", () => {
+      // Guarda a hora
+      lembrete.hora = campoHora.value || "18:00";
+      // Salva
+      storage.set("sl-lembrete-treino", lembrete);
+      // Pede para mostrar notificações do sistema (se ainda não pediu)
+      if ("Notification" in window && Notification.permission === "default") Notification.requestPermission();
+      // Avisa
+      SL.toast(`Lembrete às ${lembrete.hora}`);
+    });
+
+    /* ---------- Conta: plano, segurança, backup e excluir ---------- */
+
+    // Nome do plano atual na seção Conta
+    // Assinatura (para mostrar se é teste grátis)
+    const assinatura = SL.storage.get("sl-assinatura", null);
+    // Nome do plano (e quantos dias faltam no teste grátis)
+    $("plano-nome").textContent = SL.premium() ? SL.storage.get("sl-plano", "Premium") + (assinatura && assinatura.teste ? ` (teste: faltam ${Math.max(0, Math.ceil((new Date(assinatura.fim) - Date.now()) / 86400000))} dias)` : "") : "Free";
+    // Funções de conta (shared/form-utils.js)
+    const F = window.SaudeLifeForm;
+    // E-mail de quem está logado
+    const emailAtual = () => (storage.get("sl-sessao", {}) || {}).email;
+
+    // Trocar e-mail ou senha
+    SL.acao("seguranca", () => {
+      // Formulário do e-mail
+      const formEmail = el("form", { class: "modal-form" }, [
+        // Título
+        el("h3", { text: "Trocar e-mail" }),
+        // E-mail novo
+        SL.campo("seg-email", "E-mail novo", { type: "email", required: true }),
+        // Senha atual (o hash da senha usa o e-mail)
+        SL.campo("seg-senha-email", "Sua senha atual", { type: "password", required: true }),
+        // Mensagem
+        el("p", { class: "field-error", role: "alert", "data-msg": "email" }),
+        // Botão
+        el("button", { type: "submit", class: "btn-primary", text: "Salvar e-mail" }),
+      ]);
+      // Formulário da senha
+      const formSenha = el("form", { class: "modal-form" }, [
+        // Título
+        el("h3", { text: "Trocar senha" }),
+        // Senha atual
+        SL.campo("seg-atual", "Senha atual", { type: "password", required: true }),
+        // Senha nova
+        SL.campo("seg-nova", "Senha nova (mínimo 8 caracteres)", { type: "password", required: true }),
+        // Mensagem
+        el("p", { class: "field-error", role: "alert", "data-msg": "senha" }),
+        // Botão
+        el("button", { type: "submit", class: "btn-primary", text: "Salvar senha" }),
+      ]);
+      // Campo de e-mail começa com o atual
+      formEmail.querySelector("#seg-email").value = emailAtual() || "";
+      // Ao salvar o e-mail...
+      formEmail.addEventListener("submit", async (e) => {
+        // ...não recarrega
+        e.preventDefault();
+        // E-mail novo
+        const novo = formEmail.querySelector("#seg-email").value.trim().toLowerCase();
+        // Formato inválido
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(novo)) return (formEmail.querySelector('[data-msg="email"]').textContent = "Digite um e-mail válido.");
+        // Tenta trocar
+        const erro = await F.trocarEmail(emailAtual(), formEmail.querySelector("#seg-senha-email").value, novo);
+        // Mostra o erro, se tiver
+        if (erro) return (formEmail.querySelector('[data-msg="email"]').textContent = erro);
+        // Fecha e avisa
+        SL.closeModal();
+        // Aviso
+        SL.toast("E-mail trocado");
+        // Mostra o e-mail novo
+        document.querySelectorAll("[data-user-email]").forEach((n) => (n.textContent = novo));
+      });
+      // Ao salvar a senha...
+      formSenha.addEventListener("submit", async (e) => {
+        // ...não recarrega
+        e.preventDefault();
+        // Tenta trocar
+        const erro = await F.mudarSenha(emailAtual(), formSenha.querySelector("#seg-atual").value, formSenha.querySelector("#seg-nova").value);
+        // Mostra o erro, se tiver
+        if (erro) return (formSenha.querySelector('[data-msg="senha"]').textContent = erro);
+        // Fecha e avisa
+        SL.closeModal();
+        // Aviso
+        SL.toast("Senha trocada");
+      });
+      // Abre o modal com os dois formulários
+      SL.openModal("Trocar e-mail ou senha", [formEmail, formSenha]);
+    });
+
+    // Chaves que são do aparelho (não entram no backup)
+    const GLOBAIS = ["sl-contas", "sl-conta", "sl-sessao", "sl-tema", "sl-idioma", "sl-reset-pedidos", "sl-pedidos-academia", "sl-dono", "sl-acessibilidade", "sl-instalar-visto"];
+
+    // Baixar uma cópia dos dados (arquivo .json)
+    SL.acao("baixar-backup", () => {
+      // Dados da conta
+      const chaves = {};
+      // Copia cada chave da conta
+      Object.keys(localStorage)
+        // Só as do app, sem as do aparelho e sem as gavetas de outras contas
+        .filter((k) => k.startsWith("sl-") && !GLOBAIS.includes(k) && !k.startsWith("sl-dados:"))
+        // Copia o texto
+        .forEach((k) => (chaves[k] = localStorage.getItem(k)));
+      // Arquivo
+      const arquivo = new Blob([JSON.stringify({ app: "saude-life", versao: 1, data: new Date().toISOString(), email: emailAtual(), chaves }, null, 1)], { type: "application/json" });
+      // Link temporário
+      const a = document.createElement("a");
+      // Endereço do arquivo
+      a.href = URL.createObjectURL(arquivo);
+      // Nome do arquivo com a data
+      a.download = `saude-life-backup-${new Date().toISOString().slice(0, 10)}.json`;
+      // Baixa
+      a.click();
+      // Libera a memória depois
+      setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+      // Avisa
+      SL.toast("Backup baixado");
+    });
+
+    // Restaurar um backup
+    document.getElementById("arquivo-backup").addEventListener("change", (e) => {
+      // Arquivo escolhido
+      const f = e.target.files[0];
+      // Se não escolheu, para
+      if (!f) return;
+      // Lê o arquivo
+      f.text().then((texto) => {
+        // Tenta entender o arquivo
+        let dados = null;
+        // Tenta...
+        try {
+          // ...transformar em dados
+          dados = JSON.parse(texto);
+        // Se não for JSON...
+        } catch (erro) {
+          // ...fica vazio
+          dados = null;
+        }
+        // Não é um backup do Saúde Life
+        if (!dados || dados.app !== "saude-life" || !dados.chaves) return SL.toast("Esse arquivo não é um backup do Saúde Life.");
+        // Confirma antes de trocar tudo
+        SL.confirmar({
+          // Título
+          titulo: "Restaurar este backup?",
+          // Texto
+          texto: `Seus dados atuais serão trocados pelos do backup de ${new Date(dados.data).toLocaleDateString("pt-BR")}.`,
+          // Botão
+          rotulo: "Restaurar",
+          // Se confirmar: grava cada chave e recarrega
+          fn: () => {
+            // Grava cada chave do backup
+            Object.entries(dados.chaves).forEach(([k, v]) => k.startsWith("sl-") && !GLOBAIS.includes(k) && localStorage.setItem(k, v));
+            // Recarrega
+            window.location.reload();
+          },
+        });
+      });
+      // Limpa o campo (para poder escolher o mesmo arquivo de novo)
+      e.target.value = "";
+    });
+
+    // Excluir a conta
+    SL.acao("excluir-conta", () => {
+      // Pede confirmação
+      SL.confirmar({
+        // Título
+        titulo: "Excluir sua conta?",
+        // Texto
+        texto: "Sua conta e todos os seus dados (treinos, pesos, fotos, refeições) serão apagados deste aparelho. Não dá para desfazer.",
+        // Botão
+        rotulo: "Excluir para sempre",
+        // Vermelho
+        perigo: true,
+        // Se confirmar...
+        fn: () => {
+          // ...apaga tudo
+          F.excluirConta(emailAtual());
+          // ...e volta para a página inicial
+          window.location.href = "../../welcome/welcome.html";
+        },
+      });
+    });
   });

@@ -51,7 +51,7 @@
 
 /* Texto pequeno ao lado do número (ex.: de 150 g) */
 .macro-card strong small {
-  /* Fonte: fonte de texto (Inter) */
+  /* Fonte: fonte de texto (Barlow) */
   font-family: var(--font-body);
   /* Tamanho da letra: 13 pixels */
   font-size: 13px;
@@ -109,7 +109,7 @@
   width: 48px;
   /* Não deixa encolher */
   flex-shrink: 0;
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Letra seminegrito */
   font-weight: 600;
@@ -197,7 +197,7 @@
 
 /* Número em destaque */
 .water-value strong {
-  /* Fonte: fonte de títulos (Space Grotesk) */
+  /* Fonte: fonte de títulos (Barlow Semi Condensed) */
   font-family: var(--font-display);
   /* Tamanho da letra: 30 pixels */
   font-size: 30px;
@@ -586,4 +586,189 @@
     /* Sem animação */
     animation: none;
   }
+}
+
+/* ---------- Restrições, repetir ontem, foto, compras e receitas ---------- */
+
+/* Botões do topo da página */
+.alim-topo-botoes {
+  /* Lado a lado */
+  display: flex;
+  /* Quebra linha no celular */
+  flex-wrap: wrap;
+  /* Espaço entre os botões */
+  gap: 8px;
+}
+
+/* Aviso de restrição na busca (ex.: "contém lactose") */
+.alim-aviso {
+  /* Cor de alerta */
+  color: var(--warning);
+  /* Negrito */
+  font-weight: 600;
+}
+
+/* Caixinhas das restrições */
+.restricoes-form {
+  /* Uma por linha */
+  display: grid;
+  /* Espaço */
+  gap: 8px;
+}
+
+/* Sugestões depois da foto */
+.foto-sugestoes {
+  /* Espaço em cima */
+  margin-top: 8px;
+}
+
+/* Botões das comidas sugeridas */
+.foto-chips {
+  /* Lado a lado */
+  display: flex;
+  /* Quebra linha */
+  flex-wrap: wrap;
+  /* Espaço */
+  gap: 6px;
+}
+
+/* Cada comida sugerida */
+.chip-alim {
+  /* Fundo de card */
+  background: var(--surface-2);
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Pílula */
+  border-radius: var(--radius-full);
+  /* Cor do texto */
+  color: var(--ink);
+  /* Letra pequena */
+  font: 500 var(--text-sm) var(--font-body);
+  /* Espaço interno */
+  padding: 6px 12px;
+  /* Mãozinha */
+  cursor: pointer;
+}
+
+/* Comida já somada */
+.chip-alim.is-usado {
+  /* Borda esmeralda */
+  border-color: var(--emerald);
+  /* Texto esmeralda */
+  color: var(--emerald);
+}
+
+/* Lista de compras */
+.compras-lista {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Sem espaço */
+  padding: 0;
+  /* Espaço */
+  margin: 12px 0;
+  /* Itens em coluna */
+  display: grid;
+  /* Espaço entre os itens */
+  gap: 6px;
+  /* Altura máxima (rola se for grande) */
+  max-height: 50vh;
+  /* Rola */
+  overflow-y: auto;
+}
+
+/* Linha da lista de compras */
+.compras-lista label {
+  /* Caixinha e texto lado a lado */
+  display: flex;
+  /* Alinhados */
+  align-items: center;
+  /* Espaço */
+  gap: 10px;
+  /* Mãozinha */
+  cursor: pointer;
+}
+
+/* Caixinha da lista */
+.compras-lista input {
+  /* Cor da marca */
+  accent-color: var(--emerald);
+  /* Tamanho */
+  width: 18px;
+  /* Tamanho */
+  height: 18px;
+}
+
+/* Item já comprado: riscado */
+.compras-lista input:checked + span {
+  /* Riscado */
+  text-decoration: line-through;
+  /* Apagado */
+  opacity: 0.6;
+}
+
+/* Seção de receitas */
+.receitas-secao {
+  /* Espaço em cima */
+  margin-top: var(--space-8);
+}
+
+/* Grade de receitas */
+.receitas-grade {
+  /* Grade */
+  display: grid;
+  /* Colunas de no mínimo 220 pixels */
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  /* Espaço */
+  gap: var(--space-3);
+}
+
+/* Card da receita (botão) */
+.receita-card {
+  /* Itens em coluna */
+  display: grid;
+  /* Espaço */
+  gap: 6px;
+  /* Texto à esquerda */
+  text-align: left;
+  /* Fundo de card */
+  background: var(--surface);
+  /* Borda */
+  border: 1px solid var(--border);
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Espaço interno */
+  padding: var(--space-4);
+  /* Cor do texto */
+  color: var(--ink);
+  /* Fonte do site */
+  font: inherit;
+  /* Mãozinha */
+  cursor: pointer;
+  /* Troca de borda suave */
+  transition: border-color var(--dur-fast);
+}
+
+/* Card da receita com mouse ou foco */
+.receita-card:hover,
+.receita-card:focus-visible {
+  /* Borda coral */
+  border-color: var(--border-coral);
+}
+
+/* Subtítulos da receita (Ingredientes, Modo de fazer) */
+.receita-sub {
+  /* Tamanho */
+  font-size: var(--text-base);
+  /* Espaço */
+  margin: 16px 0 6px;
+}
+
+/* Listas da receita */
+.receita-lista {
+  /* Recuo */
+  padding-left: 20px;
+  /* Linhas espaçadas */
+  line-height: 1.6;
+  /* Espaço embaixo */
+  margin: 0 0 12px;
 }

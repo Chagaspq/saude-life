@@ -27,6 +27,15 @@
     { id: "mobilidade-quadril", nome: "Mobilidade de Quadril", objetivo: "Yoga & Mobilidade", nivel: "Iniciante", duracao: 12, grupo: "Inferiores", nota: 4.7 },
     // Tabata de Braços: HIIT, intermediário, 25 minutos
     { id: "tabata-bracos", nome: "Tabata de Braços", objetivo: "HIIT", nivel: "Intermediário", duracao: 25, grupo: "Superiores", nota: 4.6 },
+    // Treinos em casa (só com o peso do corpo): aparecem na seção "Em casa" dos Programas
+    // Casa: corpo inteiro para quem está começando, 20 minutos
+    { id: "casa-corpo-todo", nome: "Corpo Todo em Casa", objetivo: "Hipertrofia", nivel: "Iniciante", duracao: 20, grupo: "Corpo inteiro", nota: 4.8, lugar: "casa" },
+    // Casa: pernas e glúteos, 25 minutos
+    { id: "casa-pernas", nome: "Pernas e Glúteos em Casa", objetivo: "Hipertrofia", nivel: "Intermediário", duracao: 25, grupo: "Inferiores", nota: 4.7, lugar: "casa" },
+    // Casa: queima rápida, 15 minutos
+    { id: "casa-queima", nome: "Queima Rápida na Sala", objetivo: "HIIT", nivel: "Iniciante", duracao: 15, grupo: "Corpo inteiro", nota: 4.6, lugar: "casa" },
+    // Casa: abdômen e costas, 15 minutos
+    { id: "casa-core", nome: "Core em Casa", objetivo: "Resistência", nivel: "Iniciante", duracao: 15, grupo: "Core", nota: 4.7, lugar: "casa" },
   ];
 
   // Lista de profissionais (nome, especialidade, nota e seguidores)
@@ -62,6 +71,7 @@
   };
 
   // Aulas da academia: dias (0 = segunda ... 6 = domingo), hora, duração, sala, vagas livres e total
+  // Aulas da academia (online = link da aula ao vivo pela internet, para quem não pode ir)
   const AULAS = [
     // Spinning com Carla Mendes, segunda e quarta às 07:00 (4 de 20 vagas livres)
     { nome: "Spinning", professor: "Carla Mendes", dia: "Seg e Qua", dias: [0, 2], hora: "07:00", duracao: 45, sala: "Sala bike", vagas: 4, total: 20, nota: 4.8 },
@@ -70,11 +80,11 @@
     // Funcional com Rafael Souza, segunda a sexta às 18:30
     { nome: "Funcional", professor: "Rafael Souza", dia: "Seg a Sex", dias: [0, 1, 2, 3, 4], hora: "18:30", duracao: 40, sala: "Área funcional", vagas: 9, total: 25, nota: 4.7 },
     // Yoga Flow com Marina Lima, sábado às 09:00
-    { nome: "Yoga Flow", professor: "Marina Lima", dia: "Sábado", dias: [5], hora: "09:00", duracao: 60, sala: "Estúdio 2", vagas: 6, total: 15, nota: 5.0 },
+    { nome: "Yoga Flow", professor: "Marina Lima", dia: "Sábado", dias: [5], hora: "09:00", duracao: 60, sala: "Estúdio 2", vagas: 6, total: 15, nota: 5.0, online: "https://meet.jit.si/saudelife-yoga-flow" },
     // HIIT Express com Carla Mendes, terça e quinta às 12:15
-    { nome: "HIIT Express", professor: "Carla Mendes", dia: "Ter e Qui", dias: [1, 3], hora: "12:15", duracao: 30, sala: "Área funcional", vagas: 2, total: 16, nota: 4.6 },
+    { nome: "HIIT Express", professor: "Carla Mendes", dia: "Ter e Qui", dias: [1, 3], hora: "12:15", duracao: 30, sala: "Área funcional", vagas: 2, total: 16, nota: 4.6, online: "https://meet.jit.si/saudelife-hiit-express" },
     // Alongamento com Marina Lima, quarta e sexta às 20:00
-    { nome: "Alongamento", professor: "Marina Lima", dia: "Qua e Sex", dias: [2, 4], hora: "20:00", duracao: 30, sala: "Estúdio 2", vagas: 10, total: 15, nota: 4.5 },
+    { nome: "Alongamento", professor: "Marina Lima", dia: "Qua e Sex", dias: [2, 4], hora: "20:00", duracao: 30, sala: "Estúdio 2", vagas: 10, total: 15, nota: 4.5, online: "https://meet.jit.si/saudelife-alongamento" },
     // Dança com Carla Mendes, sábado às 10:30 (lotada)
     { nome: "Dança Fit", professor: "Carla Mendes", dia: "Sábado", dias: [5], hora: "10:30", duracao: 50, sala: "Estúdio 1", vagas: 0, total: 25, nota: 4.9 },
   ];
@@ -255,6 +265,54 @@
       ex("Tríceps no banco", 4, "20 s", 0, 10),
       // Rosca com elástico: 4 séries de 20 s, sem carga, descanso de 10 s
       ex("Rosca com elástico", 4, "20 s", 0, 10),
+    ],
+    // Exercícios do treino "casa-corpo-todo"
+    "casa-corpo-todo": [
+      // Agachamento livre: 3 séries de 15, sem carga
+      ex("Agachamento livre", 3, 15, 0, 45),
+      // Flexão inclinada: 3 séries de 10
+      ex("Flexão inclinada", 3, 10, 0, 45),
+      // Ponte de glúteo: 3 séries de 15
+      ex("Ponte de glúteo", 3, 15, 0, 45),
+      // Superman: 3 séries de 12
+      ex("Superman", 3, 12, 0, 45),
+      // Prancha: 3 séries de 30 s
+      ex("Prancha", 3, "30 s", 0, 30),
+    ],
+    // Exercícios do treino "casa-pernas"
+    "casa-pernas": [
+      // Agachamento búlgaro: 3 séries de 10 (cada perna), sem carga
+      ex("Agachamento búlgaro", 3, 10, 0, 60),
+      // Subida no banco: 3 séries de 12
+      ex("Subida no banco", 3, 12, 0, 45),
+      // Ponte de glúteo: 4 séries de 15
+      ex("Ponte de glúteo", 4, 15, 0, 45),
+      // Agachamento na parede: 3 séries de 40 s
+      ex("Agachamento na parede", 3, "40 s", 0, 30),
+      // Agachamento com salto: 3 séries de 10
+      ex("Agachamento com salto", 3, 10, 0, 45),
+    ],
+    // Exercícios do treino "casa-queima"
+    "casa-queima": [
+      // Polichinelo: 3 x 40 s
+      ex("Polichinelo", 3, "40 s", 0, 20),
+      // Corrida estacionária: 3 x 40 s
+      ex("Corrida estacionária", 3, "40 s", 0, 20),
+      // Escalador: 3 x 30 s
+      ex("Escalador", 3, "30 s", 0, 20),
+      // Skipping: 3 x 30 s
+      ex("Skipping", 3, "30 s", 0, 20),
+    ],
+    // Exercícios do treino "casa-core"
+    "casa-core": [
+      // Dead bug: 3 séries de 12
+      ex("Dead bug", 3, 12, 0, 30),
+      // Prancha com toque no ombro: 3 x 30 s
+      ex("Prancha com toque no ombro", 3, "30 s", 0, 30),
+      // Russian twist: 3 séries de 20
+      ex("Russian twist", 3, 20, 0, 30),
+      // Gato e vaca: 2 x 40 s
+      ex("Gato e vaca", 2, "40 s", 0, 15),
     ],
   };
 

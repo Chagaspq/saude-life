@@ -43,7 +43,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- Carrega as fontes Space Grotesk (títulos) e Inter (texto) -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
       rel="stylesheet"
     />
     <!-- Carrega as variáveis do site: cores, fontes e espaços (design system) -->
@@ -89,9 +89,9 @@
               gradientUnits="userSpaceOnUse"
             >
               <!-- Começo do degradê, na cor coral -->
-              <stop offset="0%" stop-color="#ff7a45" />
+              <stop offset="0%" stop-color="#f0845a" />
               <!-- Fim do degradê, na cor esmeralda -->
-              <stop offset="100%" stop-color="#34d399" />
+              <stop offset="100%" stop-color="#4fc29a" />
             </linearGradient>
           </defs>
           <!-- Anel de progresso da logo -->
@@ -151,8 +151,8 @@
         <ul class="acad-grade">
           <!-- Benefício: ranking -->
           <li class="acad-card">
-            <!-- Ícone -->
-            <span class="acad-icone" aria-hidden="true">🏆</span>
+            <!-- Ícone desenhado em SVG (só enfeite) -->
+            <span class="acad-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path><path d="M12 15v7"></path></svg></span>
             <!-- Título -->
             <h3>Ranking da unidade</h3>
             <!-- Texto -->
@@ -160,8 +160,8 @@
           </li>
           <!-- Benefício: check-in -->
           <li class="acad-card">
-            <!-- Ícone -->
-            <span class="acad-icone" aria-hidden="true">📲</span>
+            <!-- Ícone desenhado em SVG (só enfeite) -->
+            <span class="acad-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"></path><path d="M9 7h2v2H9z"></path><path d="M13 7h2v2h-2z"></path><path d="M9 11h2v2H9z"></path><path d="M12 18h.01"></path></svg></span>
             <!-- Título -->
             <h3>Check-in por QR code</h3>
             <!-- Texto -->
@@ -169,8 +169,8 @@
           </li>
           <!-- Benefício: lotação -->
           <li class="acad-card">
-            <!-- Ícone -->
-            <span class="acad-icone" aria-hidden="true">📊</span>
+            <!-- Ícone desenhado em SVG (só enfeite) -->
+            <span class="acad-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"></path><path d="M18 17V9"></path><path d="M13 17V5"></path><path d="M8 17v-3"></path></svg></span>
             <!-- Título -->
             <h3>Lotação em tempo real</h3>
             <!-- Texto -->
@@ -178,8 +178,8 @@
           </li>
           <!-- Benefício: aulas -->
           <li class="acad-card">
-            <!-- Ícone -->
-            <span class="acad-icone" aria-hidden="true">🧘</span>
+            <!-- Ícone desenhado em SVG (só enfeite) -->
+            <span class="acad-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 2v4"></path><path d="M16 2v4"></path><path d="M3 10h18"></path><path d="M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"></path><path d="M8 14h.01"></path><path d="M12 14h.01"></path><path d="M16 14h.01"></path><path d="M8 18h.01"></path><path d="M12 18h.01"></path></svg></span>
             <!-- Título -->
             <h3>Aulas com fila de espera</h3>
             <!-- Texto -->
@@ -187,8 +187,8 @@
           </li>
           <!-- Benefício: avisos -->
           <li class="acad-card">
-            <!-- Ícone -->
-            <span class="acad-icone" aria-hidden="true">📣</span>
+            <!-- Ícone desenhado em SVG (só enfeite) -->
+            <span class="acad-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg></span>
             <!-- Título -->
             <h3>Avisos para os alunos</h3>
             <!-- Texto -->
@@ -196,8 +196,8 @@
           </li>
           <!-- Benefício: painel -->
           <li class="acad-card">
-            <!-- Ícone -->
-            <span class="acad-icone" aria-hidden="true">📈</span>
+            <!-- Ícone desenhado em SVG (só enfeite) -->
+            <span class="acad-icone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m22 7-8.5 8.5-5-5L2 17"></path><path d="M16 7h6v6"></path></svg></span>
             <!-- Título -->
             <h3>Painel do dono</h3>
             <!-- Texto -->
@@ -304,6 +304,12 @@
             <li><a href="../planos/planos.html">Planos</a></li>
             <!-- Link que leva para o blog de dicas -->
             <li><a href="../blog/blog.html">Blog de dicas</a></li>
+            <!-- Link da central de ajuda -->
+            <li><a href="../ajuda/ajuda.html">Ajuda</a></li>
+            <!-- Link do glossário -->
+            <li><a href="../glossario/glossario.html">Glossário</a></li>
+            <!-- Link das calculadoras -->
+            <li><a href="../calculadoras/calculadoras.html">Calculadoras</a></li>
             <!-- Link que leva para a página para academias -->
             <li><a href="../academias/academias.html">Para academias</a></li>
             <!-- Link que leva para a tela de cadastro -->

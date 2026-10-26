@@ -24,21 +24,21 @@ window.SL &&
     // Reações possíveis nos treinos
     const REACOES = [
       // Fogo
-      { id: "fogo", emoji: "🔥", nome: "Fogo" },
+      { id: "fogo", icone: "fogo", nome: "Fogo" },
       // Palmas
-      { id: "palmas", emoji: "👏", nome: "Palmas" },
+      { id: "palmas", icone: "joinha", nome: "Joinha" },
       // Força
-      { id: "forca", emoji: "💪", nome: "Força" },
+      { id: "forca", icone: "haltere", nome: "Força" },
     ];
 
     // Respostas automáticas dos amigos no chat (simuladas)
     const RESPOSTAS = [
       // Resposta 1
-      "Boraaa! Hoje é dia de treino 💪",
+      "Bora! Hoje é dia de treino.",
       // Resposta 2
       "Fechou! Te encontro na academia às 18h?",
       // Resposta 3
-      "Valeu pela força! Bati minha meta hoje 🔥",
+      "Valeu pela força! Bati minha meta hoje.",
       // Resposta 4
       "Tô dentro! Me chama no próximo desafio.",
       // Resposta 5
@@ -106,15 +106,8 @@ window.SL &&
       btnCodigo.addEventListener("click", () => copiar(codigo, "Código copiado!"));
       // Botão de compartilhar o link
       const btnLink = el("button", { type: "button", class: "btn-primary", text: "Convidar amigo" });
-      // Ao clicar...
-      btnLink.addEventListener("click", () => {
-        // ...texto do convite
-        const texto = `Bora treinar comigo no Saúde Life? Me adiciona: ${meuLink()}`;
-        // ...se o celular sabe compartilhar (WhatsApp etc.), abre a janela de compartilhar
-        if (navigator.share) navigator.share({ title: "Saúde Life", text: texto }).catch(() => {});
-        // ...se não, copia o link
-        else copiar(meuLink(), "Link copiado! Mande no WhatsApp.");
-      });
+      // Ao clicar, abre o modal de convite
+      btnLink.addEventListener("click", abrirConvite);
       // Troca o conteúdo do card
       $("perfil").replaceChildren(
         // Bolinha com as iniciais
@@ -134,6 +127,50 @@ window.SL &&
         el("div", { class: "cm-perfil-botoes" }, [btnCodigo, btnLink]),
       );
     }
+
+    // Modal de convite: link, QR code e WhatsApp
+    function abrirConvite() {
+      // Link de convite
+      const link = meuLink();
+      // Texto do convite
+      const texto = `Bora treinar comigo no Saúde Life? Entrando pelo meu link você ganha 50 pontos: ${link}`;
+      // Campo com o link (só leitura, para copiar)
+      const campo = el("input", { type: "text", class: "cm-convite-link", readonly: true, value: link, "aria-label": "Seu link de convite" });
+      // QR code do link (gerado por um serviço de QR; se estiver sem internet, some)
+      const qr = el("img", { class: "cm-convite-qr", width: 180, height: 180, alt: "QR code do seu link de convite", src: "https://api.qrserver.com/v1/create-qr-code/?size=360x360&margin=8&data=" + encodeURIComponent(link) });
+      // Se o QR não carregar (sem internet), esconde
+      qr.addEventListener("error", () => (qr.hidden = true));
+      // Botão de copiar
+      const btnCopiar = el("button", { type: "button", class: "btn-secondary", text: "Copiar link" });
+      // Ao clicar, copia
+      btnCopiar.addEventListener("click", () => copiar(link, "Link copiado!"));
+      // Link do WhatsApp com a mensagem pronta
+      const whats = el("a", { class: "btn-primary", href: "https://wa.me/?text=" + encodeURIComponent(texto), target: "_blank", rel: "noopener", text: "Mandar no WhatsApp" });
+      // Botão de compartilhar do celular (só se o navegador souber)
+      const btnShare = navigator.share ? el("button", { type: "button", class: "btn-secondary", text: "Outros apps" }) : null;
+      // Ao clicar, abre a janela de compartilhar
+      if (btnShare) btnShare.addEventListener("click", () => navigator.share({ title: "Saúde Life", text: texto }).catch(() => {}));
+      // Abre o modal
+      SL.openModal("Convidar amigo", [
+        // Explicação
+        el("p", { class: "meta", text: "Quem entrar pelo seu link ganha 50 pontos e já vira seu amigo." }),
+        // QR code
+        el("div", { class: "cm-convite-qr-caixa" }, [qr]),
+        // Link
+        campo,
+        // Botões
+        el("div", { class: "cm-convite-botoes" }, [whats, btnCopiar, btnShare]),
+      ]);
+    }
+
+    /* ---------- Bloqueios, posts ocultos e denúncias ---------- */
+
+    // Pessoas bloqueadas (códigos)
+    const bloqueados = () => storage.get("sl-bloqueados", []);
+    // Posts que a pessoa escondeu (ids)
+    const ocultos = () => storage.get("sl-ocultos", []);
+    // Acha uma pessoa pelo código
+    const pessoaDe = (codigo) => P.PESSOAS.find((p) => p.codigo === codigo);
 
     /* ---------- Feed ---------- */
 
@@ -181,11 +218,56 @@ window.SL &&
             pts: Math.min(P.LIMITE_DIA, P.TABELA.treino + series * P.TABELA.serie),
             // reações de outras pessoas (simuladas)
             outras: Math.floor(P.sorteio(chave + "r") * 12),
+            // tipo do post
+            tipo: "treino",
           });
+          // Às vezes o treino teve recorde: vira outro post
+          if (P.sorteio(chave + "rec") < 0.25) {
+            // Nomes dos exercícios do catálogo
+            const nomes = Object.keys(window.SL_EXERCICIOS || {});
+            // Exercício sorteado
+            const exercicio = nomes[Math.floor(P.sorteio(chave + "ex") * nomes.length)] || "Supino reto";
+            // Post do recorde (uns minutos depois do treino)
+            lista.push({ id: chave + "-rec", amigo, tipo: "recorde", data: new Date(hora.getTime() + 60000), exercicio, kg: 10 + Math.round(P.sorteio(chave + "kg") * 18) * 5, outras: Math.floor(P.sorteio(chave + "r2") * 15) });
+          }
+        }
+        // Refeição com foto (uma por dia, às vezes)
+        for (let d = 0; d < 7; d++) {
+          // Chave da refeição
+          const chave = amigo.codigo + "ref" + new Date(agora - d * DIA).toDateString();
+          // Só em parte dos dias
+          if (P.sorteio(chave) > 0.3) continue;
+          // Começo do dia
+          const dia = new Date(agora - d * DIA);
+          // Zera o horário
+          dia.setHours(12, 30, 0, 0);
+          // Se ainda não chegou essa hora hoje, pula
+          if (dia.getTime() > agora) continue;
+          // Pratos possíveis
+          const PRATOS = [["Almoço", "Frango, arroz integral e salada", 620], ["Almoço", "Peixe com legumes", 540], ["Lanche", "Iogurte com granola e banana", 320], ["Jantar", "Omelete com espinafre", 410]];
+          // Prato sorteado
+          const [refeicao, prato, kcal] = PRATOS[Math.floor(P.sorteio(chave + "p") * PRATOS.length)];
+          // Post da refeição
+          lista.push({ id: chave, amigo, tipo: "refeicao", data: dia, refeicao, prato, kcal, outras: Math.floor(P.sorteio(chave + "r") * 9) });
+        }
+        // Subiu de liga (uma vez na semana, para alguns amigos)
+        if (P.sorteio(amigo.codigo + P.periodo("semana").ini) < 0.3) {
+          // Dia da subida (entre hoje e 6 dias atrás)
+          const d = Math.floor(P.sorteio(amigo.codigo + "liga") * 7);
+          // Quando
+          const data = new Date(agora - d * DIA - 3 * 3600000);
+          // Liga do amigo
+          const liga = P.ligaSimulada(amigo.ritmo);
+          // Só se não for a primeira liga
+          if (liga > 0) lista.push({ id: amigo.codigo + "liga" + d, amigo, tipo: "liga", data, liga, outras: Math.floor(P.sorteio(amigo.codigo + "lr") * 20) });
         }
       });
+      // Tira bloqueados e posts escondidos
+      const fora = bloqueados();
+      // Escondidos
+      const esc = ocultos();
       // Ordena do mais novo para o mais velho
-      return lista.sort((a, b) => b.data - a.data);
+      return lista.filter((p) => !fora.includes(p.amigo.codigo) && !esc.includes(p.id)).sort((a, b) => b.data - a.data);
     }
 
     // Desenha o feed
@@ -219,28 +301,18 @@ window.SL &&
               el("span", { class: "rk-avatar rk-avatar-sm", "aria-hidden": "true", text: SL.initials(p.amigo.nome) }),
               // Nome e quando
               el("div", { class: "cm-post-quem" }, [
-                // Nome
-                el("strong", { text: p.amigo.nome }),
+                // Nome (botão que abre o perfil)
+                el("button", { type: "button", class: "cm-nome", "data-action": "ver-perfil", "data-codigo": p.amigo.codigo, text: p.amigo.nome }),
                 // Quando e liga
                 el("span", { class: "meta", text: `${SL.dataRelativa(p.data.toISOString())} às ${p.data.getHours()}h • Liga ${P.LIGAS[P.ligaSimulada(p.amigo.ritmo)].nome}` }),
               ]),
               // Escudo da liga do amigo
               P.escudo(P.ligaSimulada(p.amigo.ritmo), "liga-escudo liga-escudo-sm"),
+              // Menu do post (ocultar, denunciar, bloquear)
+              el("button", { type: "button", class: "btn-icon cm-post-menu", "data-action": "menu-post", "data-post": p.id, "data-codigo": p.amigo.codigo, "aria-label": `Opções do post de ${primeiro(p.amigo.nome)}` }, [icone(["M5 12h.01", "M12 12h.01", "M19 12h.01"])]),
             ]),
-            // Miolo: o treino
-            el("div", { class: "cm-post-treino" }, [
-              // Ícone da categoria do treino
-              el("span", { class: "icon-tile icon-tile-coral", "aria-hidden": "true" }, [SL.iconeCategoria(p.treino.objetivo, "icon")]),
-              // Textos do treino
-              el("div", {}, [
-                // Nome do treino
-                el("strong", { text: p.treino.nome }),
-                // Detalhes
-                el("span", { class: "meta", text: `${p.duracao} min • ${p.series} séries • ${p.treino.grupo}` }),
-              ]),
-              // Pontos que o amigo ganhou
-              el("span", { class: "cm-post-pts", text: `+${p.pts}` }),
-            ]),
+            // Miolo: muda conforme o tipo do post
+            miolo(p),
             // Reações e botões
             el("div", { class: "cm-post-acoes" }, [
               // Um botão para cada reação
@@ -261,14 +333,13 @@ window.SL &&
                   "aria-pressed": String(minha === r.id),
                   // Nome para leitores de tela
                   "aria-label": `Reagir com ${r.nome}`,
-                  // Emoji
-                  text: r.emoji,
-                }),
+                  // Ícone da reação (desenhado em SVG)
+                }, [SL.icone(SL.ICONES[r.icone])]),
               ),
               // Total de reações (as dos outros + a sua)
               el("span", { class: "meta", text: `${p.outras + (minha ? 1 : 0)} reações` }),
-              // Botão de copiar o treino
-              el("button", { type: "button", class: "btn-link cm-copiar", "data-action": "copiar-treino", "data-treino": p.treino.id, "data-amigo": primeiro(p.amigo.nome), text: "Copiar treino" }),
+              // Botão de copiar o treino (só nos posts de treino)
+              p.tipo === "treino" ? el("button", { type: "button", class: "btn-link cm-copiar", "data-action": "copiar-treino", "data-treino": p.treino.id, "data-amigo": primeiro(p.amigo.nome), text: "Copiar treino" }) : null,
             ]),
             // Comentários que você fez
             meus.length
@@ -293,6 +364,451 @@ window.SL &&
         }),
       );
     }
+
+    // Miolo do post conforme o tipo: treino, recorde, refeição ou liga
+    function miolo(p) {
+      // Recorde de carga
+      if (p.tipo === "recorde")
+        return el("div", { class: "cm-post-treino cm-post-recorde" }, [
+          // Troféu
+          el("span", { class: "icon-tile icon-tile-star", "aria-hidden": "true" }, [icone(ICONES.trofeu)]),
+          // Textos
+          el("div", {}, [el("strong", { text: `Novo recorde: ${p.exercicio}` }), el("span", { class: "meta", text: `${p.kg} kg • bateu a própria marca` })]),
+          // Pontos do recorde
+          el("span", { class: "cm-post-pts", text: `+${P.TABELA.recorde}` }),
+        ]);
+      // Refeição com foto (a "foto" é um prato desenhado)
+      if (p.tipo === "refeicao")
+        return el("div", { class: "cm-post-refeicao" }, [
+          // Foto do prato
+          el("div", { class: "cm-post-foto", role: "img", "aria-label": `Foto do prato: ${p.prato}` }, [icone(ICONES.talheres)]),
+          // Textos
+          el("div", {}, [el("strong", { text: `${p.refeicao}: ${p.prato}` }), el("span", { class: "meta", text: `${SL.num(p.kcal)} kcal` })]),
+        ]);
+      // Subiu de liga
+      if (p.tipo === "liga")
+        return el("div", { class: "cm-post-treino cm-post-liga" }, [
+          // Escudo da liga nova
+          P.escudo(p.liga, "liga-escudo"),
+          // Textos
+          el("div", {}, [el("strong", { text: `Subiu para a liga ${P.LIGAS[p.liga].nome}!` }), el("span", { class: "meta", text: "Mande um parabéns" })]),
+        ]);
+      // Treino (padrão)
+      return el("div", { class: "cm-post-treino" }, [
+        // Ícone da categoria do treino
+        el("span", { class: "icon-tile icon-tile-coral", "aria-hidden": "true" }, [SL.iconeCategoria(p.treino.objetivo, "icon")]),
+        // Textos do treino
+        el("div", {}, [
+          // Nome do treino
+          el("strong", { text: p.treino.nome }),
+          // Detalhes
+          el("span", { class: "meta", text: `${p.duracao} min • ${p.series} séries • ${p.treino.grupo}` }),
+        ]),
+        // Pontos que o amigo ganhou
+        el("span", { class: "cm-post-pts", text: `+${p.pts}` }),
+      ]);
+    }
+
+    // Menu de um post: ver perfil, esconder, denunciar e bloquear
+    SL.acao("menu-post", (alvo) => {
+      // Post e pessoa
+      const { post, codigo } = alvo.dataset;
+      // Pessoa
+      const pessoa = pessoaDe(codigo);
+      // Botão de cada opção
+      const opcao = (texto, acao, perigo) => el("button", { type: "button", class: perigo ? "btn-secondary btn-danger" : "btn-secondary", "data-action": acao, "data-post": post, "data-codigo": codigo, text: texto });
+      // Abre o modal com as opções
+      SL.openModal(`Post de ${primeiro(pessoa.nome)}`, [
+        // Lista de opções
+        el("div", { class: "cm-menu-opcoes" }, [
+          // Ver perfil
+          opcao("Ver perfil", "ver-perfil"),
+          // Esconder este post
+          opcao("Esconder este post", "ocultar-post"),
+          // Denunciar
+          opcao("Denunciar", "denunciar", true),
+          // Bloquear
+          opcao(`Bloquear ${primeiro(pessoa.nome)}`, "bloquear", true),
+        ]),
+      ]);
+    });
+
+    // Esconder um post do feed
+    SL.acao("ocultar-post", (alvo) => {
+      // Junta o id na lista de escondidos
+      storage.set("sl-ocultos", ocultos().concat(alvo.dataset.post));
+      // Fecha o modal
+      SL.closeModal();
+      // Desenha o feed
+      renderFeed();
+      // Avisa
+      SL.toast("Post escondido");
+    });
+
+    // Denunciar: escolhe o motivo e envia
+    SL.acao("denunciar", (alvo) => {
+      // Pessoa
+      const pessoa = pessoaDe(alvo.dataset.codigo);
+      // Motivos
+      const MOTIVOS = ["Conteúdo ofensivo", "Spam ou propaganda", "Informação falsa de saúde", "Perfil falso", "Outro motivo"];
+      // Formulário
+      const form = el("form", { class: "modal-form" }, [
+        // Grupo de opções
+        el("fieldset", { class: "cm-motivos" }, [
+          // Título
+          el("legend", { text: "Qual o problema?" }),
+          // Uma opção por motivo
+          ...MOTIVOS.map((m, i) => el("label", { class: "check-row" }, [el("input", { type: "radio", name: "motivo", value: m, checked: i === 0 }), " " + m])),
+        ]),
+        // Botão
+        el("button", { type: "submit", class: "btn-primary", text: "Enviar denúncia" }),
+      ]);
+      // Ao enviar...
+      form.addEventListener("submit", (e) => {
+        // ...não recarrega
+        e.preventDefault();
+        // ...guarda a denúncia (sem servidor, fica salva para a equipe ver quando tiver)
+        storage.set("sl-denuncias", storage.get("sl-denuncias", []).concat({ codigo: pessoa.codigo, post: alvo.dataset.post || null, motivo: form.querySelector("input:checked").value, data: new Date().toISOString() }));
+        // ...esconde o post denunciado
+        if (alvo.dataset.post) storage.set("sl-ocultos", ocultos().concat(alvo.dataset.post));
+        // ...fecha
+        SL.closeModal();
+        // ...desenha
+        renderFeed();
+        // ...avisa
+        SL.toast("Denúncia enviada. Obrigado por avisar!");
+      });
+      // Abre o modal
+      SL.openModal(`Denunciar ${primeiro(pessoa.nome)}`, form);
+    });
+
+    // Bloquear: some do feed, dos amigos e das buscas
+    SL.acao("bloquear", (alvo) => {
+      // Pessoa
+      const pessoa = pessoaDe(alvo.dataset.codigo);
+      // Confirma
+      SL.confirmar({
+        // Título
+        titulo: `Bloquear ${primeiro(pessoa.nome)}?`,
+        // Texto
+        texto: "A pessoa sai dos seus amigos e não aparece mais no feed nem nas buscas. Dá para desbloquear na aba Amigos.",
+        // Botão
+        rotulo: "Bloquear",
+        // Vermelho
+        perigo: true,
+        // Se confirmar...
+        fn: () => {
+          // ...junta na lista de bloqueados
+          storage.set("sl-bloqueados", bloqueados().concat(pessoa.codigo));
+          // ...remove dos amigos (isso desenha tudo de novo)
+          P.removerAmigo(pessoa.codigo);
+          // ...avisa
+          SL.toast(`${primeiro(pessoa.nome)} foi bloqueado`);
+        },
+      });
+    });
+
+    // Desbloquear
+    SL.acao("desbloquear", (alvo) => {
+      // Tira da lista
+      storage.set("sl-bloqueados", bloqueados().filter((c) => c !== alvo.dataset.codigo));
+      // Desenha tudo
+      render();
+      // Avisa
+      SL.toast("Desbloqueado");
+    });
+
+    /* ---------- Perfil público de um amigo ---------- */
+
+    // Abre o perfil de alguém
+    SL.acao("ver-perfil", (alvo) => {
+      // Pessoa
+      const pessoa = pessoaDe(alvo.dataset.codigo);
+      // Se não achou, para
+      if (!pessoa) return;
+      // Período da semana
+      const semana = P.periodo("semana");
+      // Posts da pessoa (últimos 7 dias)
+      const dela = posts().filter((p) => p.amigo.codigo === pessoa.codigo);
+      // Treinos dela
+      const treinos = dela.filter((p) => p.tipo === "treino");
+      // Liga dela
+      const liga = P.ligaSimulada(pessoa.ritmo);
+      // É amigo?
+      const amigo = P.amigos().some((a) => a.codigo === pessoa.codigo);
+      // Abre o modal
+      SL.openModal(pessoa.nome, [
+        // Topo: bolinha, código e liga
+        el("div", { class: "cm-perfil-pub" }, [
+          // Bolinha
+          el("span", { class: "rk-avatar", "aria-hidden": "true", text: SL.initials(pessoa.nome) }),
+          // Código e liga
+          el("div", {}, [el("strong", { text: pessoa.codigo }), el("span", { class: "meta", text: `Liga ${P.LIGAS[liga].nome}` })]),
+          // Escudo
+          P.escudo(liga, "liga-escudo"),
+        ]),
+        // Números
+        el("div", { class: "cm-perfil-numeros" }, [
+          // Pontos na semana
+          el("div", {}, [el("strong", { text: SL.num(P.pontosSimulados(pessoa, semana.ini, Date.now())) }), el("span", { class: "meta", text: "pontos na semana" })]),
+          // Treinos em 7 dias
+          el("div", {}, [el("strong", { text: String(treinos.length) }), el("span", { class: "meta", text: "treinos em 7 dias" })]),
+          // Recordes em 7 dias
+          el("div", {}, [el("strong", { text: String(dela.filter((p) => p.tipo === "recorde").length) }), el("span", { class: "meta", text: "recordes" })]),
+        ]),
+        // Últimos treinos
+        el("h3", { class: "cm-perfil-sub", text: "Últimos treinos" }),
+        treinos.length
+          ? el("ul", { class: "cm-perfil-treinos" }, treinos.slice(0, 3).map((t) => el("li", {}, [el("strong", { text: t.treino.nome }), el("span", { class: "meta", text: ` • ${SL.dataRelativa(t.data.toISOString())}` })])))
+          : el("p", { class: "meta", text: "Nenhum treino nos últimos 7 dias." }),
+        // Botões
+        el("div", { class: "cm-convite-botoes" }, [
+          // Mensagem ou adicionar
+          amigo
+            ? el("button", { type: "button", class: "btn-primary", "data-action": "abrir-chat", "data-codigo": pessoa.codigo, text: "Mandar mensagem" })
+            : el("button", { type: "button", class: "btn-primary", "data-action": "adicionar-amigo", "data-codigo": pessoa.codigo, text: "Adicionar amigo" }),
+          // Duelo (só amigos)
+          amigo ? el("button", { type: "button", class: "btn-secondary", "data-action": "duelo", "data-codigo": pessoa.codigo, text: "Duelo" }) : null,
+        ]),
+      ]);
+    });
+
+    /* ---------- Treinando agora (ao vivo, simulado) ---------- */
+
+    // Amigos treinando agora: muda a cada hora, de forma fixa (sorteio)
+    function treinandoAgora() {
+      // Hora atual
+      const agora = new Date();
+      // Chave da hora
+      const hora = agora.toDateString() + agora.getHours();
+      // Só entre 6h e 22h
+      if (agora.getHours() < 6 || agora.getHours() >= 22) return [];
+      // Amigos que caíram no sorteio desta hora (e não estão bloqueados)
+      return P.amigos()
+        .filter((a) => !bloqueados().includes(a.codigo) && P.sorteio(a.codigo + hora) < a.ritmo / 2200)
+        .map((a) => ({
+          // Amigo
+          amigo: a,
+          // Treino sorteado
+          treino: CATALOGO[Math.floor(P.sorteio(a.codigo + hora + "t") * CATALOGO.length)],
+          // Começou há quantos minutos (5 a 40)
+          ha: 5 + Math.floor(P.sorteio(a.codigo + hora + "m") * 36),
+        }));
+    }
+
+    // Desenha a faixa "treinando agora"
+    function renderAoVivo() {
+      // Lista
+      const lista = treinandoAgora();
+      // Lugar da faixa
+      const caixa = $("ao-vivo");
+      // Sem ninguém: esconde
+      caixa.hidden = !lista.length;
+      // Troca o conteúdo
+      caixa.replaceChildren(
+        // Título com bolinha piscando
+        el("p", { class: "cm-ao-vivo-titulo" }, [el("span", { class: "cm-ao-vivo-ponto", "aria-hidden": "true" }), "Treinando agora"]),
+        // Um cartãozinho por amigo
+        el(
+          "ul",
+          { class: "cm-ao-vivo-lista" },
+          lista.map((x) =>
+            el("li", {}, [
+              // Bolinha
+              el("span", { class: "rk-avatar rk-avatar-sm", "aria-hidden": "true", text: SL.initials(x.amigo.nome) }),
+              // Nome e treino
+              el("span", { class: "cm-amigo-info" }, [el("strong", { text: primeiro(x.amigo.nome) }), el("span", { class: "meta", text: `${x.treino.nome} • há ${x.ha} min` })]),
+              // Botão de treinar junto
+              el("button", { type: "button", class: "btn-secondary btn-sm", "data-action": "treinar-junto", "data-codigo": x.amigo.codigo, text: "Treinar junto" }),
+            ]),
+          ),
+        ),
+      );
+    }
+
+    // Treinar junto: mostra o progresso do amigo "ao vivo" e deixa começar o mesmo treino
+    SL.acao("treinar-junto", (alvo) => {
+      // Dados do amigo treinando
+      const x = treinandoAgora().find((t) => t.amigo.codigo === alvo.dataset.codigo);
+      // Se parou de treinar, avisa
+      if (!x) return SL.toast("Ele acabou de terminar o treino");
+      // Total de séries do treino
+      const total = SL.exerciciosDe(x.treino).reduce((s, e) => s + (Number(e.series) || 3), 0) || 12;
+      // Séries que o amigo já fez (pelo tempo que começou)
+      let feitas = Math.min(total - 1, Math.round(x.ha / 3));
+      // Texto do progresso
+      const texto = el("p", { class: "meta", "aria-live": "polite" });
+      // Barra
+      const barra = el("div", { class: "progress-bar-sm progress-emerald" }, [el("div", { class: "fill" })]);
+      // Atualiza o texto e a barra
+      const atualizar = () => {
+        // Texto
+        texto.textContent = `${primeiro(x.amigo.nome)} está na série ${feitas} de ${total}`;
+        // Barra
+        barra.firstChild.style.width = Math.round((feitas / total) * 100) + "%";
+      };
+      // Primeira vez
+      atualizar();
+      // A cada 8 segundos o amigo faz mais uma série (simulado)
+      const timer = setInterval(() => {
+        // Se o modal fechou, para
+        if (!texto.isConnected) return clearInterval(timer);
+        // Mais uma série (até o fim)
+        feitas = Math.min(total, feitas + 1);
+        // Atualiza
+        atualizar();
+      }, 8000);
+      // Abre o modal
+      SL.openModal(`Treinando com ${primeiro(x.amigo.nome)}`, [
+        // Treino
+        el("p", {}, [el("strong", { text: x.treino.nome }), ` • ${x.treino.grupo}`]),
+        // Progresso
+        texto,
+        // Barra
+        barra,
+        // Botões
+        el("div", { class: "cm-convite-botoes" }, [
+          // Começar o mesmo treino
+          el("a", { class: "btn-primary", href: `../treino/treino.html?id=${encodeURIComponent(x.treino.id)}`, text: "Começar o mesmo treino" }),
+          // Mandar força
+          el("button", { type: "button", class: "btn-secondary", "data-action": "abrir-chat", "data-codigo": x.amigo.codigo, text: "Mandar força" }),
+        ]),
+      ]);
+    });
+
+    /* ---------- Grupos ---------- */
+
+    // Grupos salvos (na primeira vez, cria um de exemplo)
+    function grupos() {
+      // Lê os salvos
+      let lista = storage.get("sl-grupos", null);
+      // Primeira vez: grupo de exemplo com os amigos de exemplo
+      if (!lista) {
+        // Grupo de exemplo
+        lista = [{ id: "g-turma", nome: "Turma das 18h", membros: P.amigos().slice(0, 4).map((a) => a.codigo), criado: new Date().toISOString() }];
+        // Salva
+        storage.set("sl-grupos", lista);
+      }
+      // Devolve
+      return lista;
+    }
+
+    // Respostas automáticas no chat do grupo
+    const RESPOSTAS_GRUPO = ["Bora, galera! Quem vai hoje?", "Fiz perna hoje, tô morta haha", "Semana que vem eu passo vocês no ranking!", "Alguém topa correr no sábado?", "Partiu treino!"];
+
+    // Desenha os grupos
+    function renderGrupos() {
+      // Semana atual
+      const semana = P.periodo("semana");
+      // Troca a lista
+      $("grupos").replaceChildren(
+        // Um card por grupo
+        ...grupos().map((g) => {
+          // Membros que existem (e não estão bloqueados)
+          const membros = g.membros.map(pessoaDe).filter((p) => p && !bloqueados().includes(p.codigo));
+          // Ranking da semana do grupo: membros + você
+          const linhas = membros.map((p) => ({ nome: primeiro(p.nome), pts: P.pontosSimulados(p, semana.ini, Date.now()), eu: false })).concat({ nome: "Você", pts: P.somar(semana.ini, Date.now()), eu: true }).sort((a, b) => b.pts - a.pts);
+          // Card
+          return el("article", { class: "cm-desafio cm-grupo" }, [
+            // Topo
+            el("div", { class: "cm-desafio-topo" }, [
+              // Nome e membros
+              el("div", {}, [el("h3", { text: g.nome }), el("p", { class: "meta", text: `${membros.length + 1} pessoas • ranking da semana` })]),
+              // Etiqueta
+              el("span", { class: "tag", text: "Grupo" }),
+            ]),
+            // Ranking
+            el(
+              "ol",
+              { class: "cm-grupo-ranking" },
+              linhas.map((l, i) => el("li", { class: l.eu ? "is-eu" : "" }, [el("span", { class: "cm-grupo-pos", text: `${i + 1}º` }), el("span", { text: l.nome }), el("strong", { text: `${SL.num(l.pts)} pts` })])),
+            ),
+            // Botões
+            el("div", { class: "cm-convite-botoes" }, [
+              // Chat do grupo
+              el("button", { type: "button", class: "btn-primary", "data-action": "chat-grupo", "data-id": g.id, text: "Chat do grupo" }),
+              // Sair
+              el("button", { type: "button", class: "btn-secondary", "data-action": "sair-grupo", "data-id": g.id, text: "Sair do grupo" }),
+            ]),
+          ]);
+        }),
+      );
+      // Sem grupos: estado vazio
+      if (!grupos().length) $("grupos").append(SL.estadoVazio("Nenhum grupo ainda", "Crie um grupo com seus amigos para ter um ranking só de vocês.", null));
+    }
+
+    // Abre o chat do grupo
+    SL.acao("chat-grupo", (alvo) => {
+      // Grupo
+      const g = grupos().find((x) => x.id === alvo.dataset.id);
+      // Abre a conversa
+      SL.abrirChat({ chave: "grupo-" + g.id, nome: g.nome, respostas: RESPOSTAS_GRUPO });
+    });
+
+    // Sair de um grupo
+    SL.acao("sair-grupo", (alvo) => {
+      // Grupo
+      const g = grupos().find((x) => x.id === alvo.dataset.id);
+      // Confirma
+      SL.confirmar({
+        // Título
+        titulo: `Sair de "${g.nome}"?`,
+        // Texto
+        texto: "O grupo some da sua lista e a conversa é apagada.",
+        // Botão
+        rotulo: "Sair",
+        // Vermelho
+        perigo: true,
+        // Se confirmar...
+        fn: () => {
+          // ...tira o grupo
+          storage.set("sl-grupos", grupos().filter((x) => x.id !== g.id));
+          // ...desenha
+          renderGrupos();
+        },
+      });
+    });
+
+    // Criar grupo
+    SL.acao("criar-grupo", () => {
+      // Formulário
+      const form = el("form", { class: "modal-form" }, [
+        // Nome
+        SL.campo("grupo-nome", "Nome do grupo", { placeholder: "Ex: Galera do crossfit", required: true, maxlength: 30 }),
+        // Amigos
+        el("fieldset", { class: "cm-convidar" }, [
+          // Título
+          el("legend", { text: "Quem entra" }),
+          // Uma caixinha por amigo
+          ...P.amigos().map((a) => el("label", { class: "check-row" }, [el("input", { type: "checkbox", value: a.codigo }), " " + a.nome])),
+        ]),
+        // Botão
+        el("button", { type: "submit", class: "btn-primary", text: "Criar grupo" }),
+      ]);
+      // Ao enviar...
+      form.addEventListener("submit", (e) => {
+        // ...não recarrega
+        e.preventDefault();
+        // ...nome
+        const nome = form.querySelector("#grupo-nome").value.trim();
+        // ...membros marcados
+        const membros = [...form.querySelectorAll(".cm-convidar input:checked")].map((c) => c.value);
+        // ...precisa de nome
+        if (!nome) return form.querySelector("#grupo-nome").focus();
+        // ...e de pelo menos 1 amigo
+        if (!membros.length) return SL.toast("Escolha pelo menos 1 amigo");
+        // ...salva no começo
+        storage.set("sl-grupos", [{ id: "g" + Date.now(), nome, membros, criado: new Date().toISOString() }].concat(grupos()));
+        // ...fecha
+        SL.closeModal();
+        // ...desenha
+        renderGrupos();
+        // ...avisa
+        SL.toast("Grupo criado!");
+      });
+      // Abre o modal
+      SL.openModal("Criar grupo", form);
+    });
 
     // Reagir a um post (clicar de novo tira a reação)
     SL.acao("reagir", (alvo) => {
@@ -400,8 +916,10 @@ window.SL &&
             el("div", { class: "cm-amigo-botoes" }, [
               // Cutucar (só para quem está parado há 2+ dias)
               parado >= 2
-                ? el("button", { type: "button", class: "btn-secondary", "data-action": "cutucar", "data-codigo": a.codigo, disabled: jaCutucou, text: jaCutucou ? "Cutucado ✓" : "👉 Bora treinar!" })
+                ? el("button", { type: "button", class: "btn-secondary", "data-action": "cutucar", "data-codigo": a.codigo, disabled: jaCutucou, text: jaCutucou ? "Cutucado ✓" : "Cutucar" })
                 : null,
+              // Duelo de 7 dias com esse amigo
+              el("button", { type: "button", class: "btn-secondary", "data-action": "duelo", "data-codigo": a.codigo, text: "Duelo" }),
               // Mandar mensagem
               el("button", { type: "button", class: "btn-icon btn-outline", "data-action": "abrir-chat", "data-codigo": a.codigo, "aria-label": `Mandar mensagem para ${a.nome}` }, [
                 // Ícone de balão
@@ -415,6 +933,18 @@ window.SL &&
       );
       // Se não tem amigos, mostra o estado vazio
       if (!P.amigos().length) $("amigos").append(SL.estadoVazio("Nenhum amigo ainda", "Procure pelo código, ID ou nome, ou mande seu link de convite.", null));
+      // Pessoas bloqueadas (com botão de desbloquear)
+      const fora = bloqueados().map(pessoaDe).filter(Boolean);
+      // Se tem alguém bloqueado, mostra no fim
+      if (fora.length)
+        $("amigos").append(
+          el("li", { class: "cm-bloqueados" }, [
+            // Título
+            el("strong", { text: "Bloqueados" }),
+            // Um por pessoa
+            ...fora.map((p) => el("div", { class: "cm-amigo" }, [el("span", { text: p.nome }), el("button", { type: "button", class: "btn-link", "data-action": "desbloquear", "data-codigo": p.codigo, text: "Desbloquear" })])),
+          ]),
+        );
     }
 
     // Procura pessoas para adicionar
@@ -426,7 +956,7 @@ window.SL &&
       // Códigos dos amigos atuais
       const meus = P.amigos().map((a) => a.codigo);
       // Pessoas que batem com o código, o ID ou o nome
-      const achados = P.PESSOAS.filter((p) => p.codigo.toLowerCase() === t || idDe(p.codigo) === t || p.nome.toLowerCase().includes(t));
+      const achados = P.PESSOAS.filter((p) => !bloqueados().includes(p.codigo)).filter((p) => p.codigo.toLowerCase() === t || idDe(p.codigo) === t || p.nome.toLowerCase().includes(t));
       // Se ninguém bateu...
       if (!achados.length) {
         // ...avisa
@@ -643,8 +1173,8 @@ window.SL &&
 
     // Criar desafio (no plano Free, 1 desafio criado por vez)
     SL.acao("criar-desafio", () => {
-      // Plano da pessoa (padrão: Free)
-      const plano = storage.get("sl-plano", "Free");
+      // Plano da pessoa (Free ou um plano com recursos Premium)
+      const plano = SL.premium() ? "Premium" : "Free";
       // Desafios ativos criados por você
       const meusAtivos = desafios().filter((d) => d.criador === "eu" && d.fim > Date.now());
       // No Free, só 1 por vez
@@ -823,6 +1353,10 @@ window.SL &&
       renderDesafios();
       // Conversas
       renderConversas();
+      // Grupos
+      renderGrupos();
+      // Treinando agora
+      renderAoVivo();
     }
 
     // Se veio por um link de convite (?add=CODIGO), adiciona o amigo
@@ -833,14 +1367,33 @@ window.SL &&
       const pessoa = P.PESSOAS.find((p) => p.codigo === convite.toUpperCase());
       // ...se existe e foi adicionada, avisa
       if (pessoa && P.adicionarAmigo(pessoa.codigo)) SL.toast(`${primeiro(pessoa.nome)} agora é seu amigo!`);
+      // ...quem entra pelo convite ganha 50 pontos (uma vez só)
+      if (pessoa) P.ganhar("convite", "convite-unico");
       // ...abre a aba de amigos
       abrirAba("amigos");
     }
-    // Se veio pelo link das mensagens (#mensagens), abre essa aba
-    if (window.location.hash === "#mensagens") abrirAba("mensagens");
+    // Se veio pelo link das mensagens (#mensagens) ou dos grupos (#grupos), abre essa aba
+    if (["#mensagens", "#grupos"].includes(window.location.hash)) abrirAba(window.location.hash.slice(1));
 
     // Quando os amigos mudam, desenha de novo
     document.addEventListener("sl:pontos", render);
     // Desenha a primeira vez
     render();
+
+    // Botão "Duelo": desafia o amigo para 7 dias de pontos, 1 contra 1
+    SL.acao("duelo", (alvo) => {
+      // Amigo
+      const amigo = P.PESSOAS.find((p) => p.codigo === alvo.dataset.codigo);
+      // Confirma
+      SL.confirmar({
+        // Título
+        titulo: `Duelo com ${primeiro(amigo.nome)}?`,
+        // Texto
+        texto: "Por 7 dias, quem fizer mais pontos ganha. O placar fica no Ranking.",
+        // Botão
+        rotulo: "Começar duelo",
+        // Se confirmar...
+        fn: () => SL.toast(P.criarDuelo(amigo.codigo) ? `Duelo com ${primeiro(amigo.nome)} começou! Veja o placar no Ranking.` : `Vocês já têm um duelo em andamento.`),
+      });
+    });
   });

@@ -167,3 +167,17 @@
   /* Meio transparente */
   opacity: 0.6;
 }
+
+/* Etiqueta "Também online" */
+.aula-online-tag {
+  /* Espaço à esquerda */
+  margin-left: 8px;
+}
+
+/* Regra de cancelamento */
+.aula-regra {
+  /* Letra menor */
+  font-size: var(--text-sm);
+  /* Itálico leve */
+  font-style: italic;
+}

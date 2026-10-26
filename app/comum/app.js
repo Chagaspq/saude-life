@@ -31,7 +31,16 @@
     // Tenta...
     try {
       // ...ler a sessão salva no login
-      return JSON.parse(localStorage.getItem("sl-sessao") || "null");
+      const sessao = JSON.parse(localStorage.getItem("sl-sessao") || "null");
+      // Sem "Lembrar de mim" e o navegador foi fechado desde o login: sai da conta
+      if (sessao && sessao.lembrar === false && !document.cookie.includes("sl-aberta=1")) {
+        // Apaga a sessão
+        localStorage.removeItem("sl-sessao");
+        // Ninguém logado
+        return null;
+      }
+      // Devolve a sessão
+      return sessao;
     // Se der erro...
     } catch (e) {
       // ...diz que ninguém está logado
@@ -650,7 +659,7 @@
     // Escreve o título
     modalTitle.textContent = title;
     // Coloca o conteúdo no miolo
-    modalBody.replaceChildren(...[].concat(content));
+    modalBody.replaceChildren(...[].concat(content).filter((x) => x != null && x !== false));
     // Mostra o modal
     modalOverlay.classList.remove("hidden");
     // Avisa os leitores de tela que está visível
@@ -921,6 +930,8 @@
       el("p", { class: "specialty" }, [p.especialidade, p.registro ? el("span", { class: "pro-verificado", title: `Registro ${p.registro} conferido`, text: " ✓" }) : null]),
       // Cidade e se atende online
       p.cidade ? el("p", { class: "meta", text: `${p.cidade}${p.online ? " • atende online" : ""}` }) : null,
+      // Preço
+      p.preco ? el("p", { class: "pro-preco", text: p.preco }) : null,
       // Nota e seguidores
       el("p", { class: "stats" }, [nota(p.nota), ` • ${p.seguidores} seguidores`]),
       // Botão de ver o perfil completo
@@ -990,6 +1001,20 @@
     mais: ["M12 5v14", "M5 12h14"],
     // Sair
     sair: ["M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", "m16 17 5-5-5-5", "M21 12H9"],
+    // Sol (manhã)
+    sol: ["M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z", "M12 2v2", "M12 20v2", "m4.93 4.93 1.41 1.41", "m17.66 17.66 1.41 1.41", "M2 12h2", "M20 12h2", "m6.34 17.66-1.41 1.41", "m19.07 4.93-1.41 1.41"],
+    // Garfo e faca (refeição)
+    talheres: ["M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2", "M7 2v20", "M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"],
+    // Raio (energia)
+    raio: ["M13 2 3 14h9l-1 8 10-12h-9l1-8z"],
+    // Lua (noite)
+    lua: ["M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"],
+    // Cama (descanso)
+    cama: ["M2 4v16", "M2 8h18a2 2 0 0 1 2 2v10", "M2 17h20", "M6 8v9"],
+    // Medalha
+    medalha: ["M12 14a6 6 0 1 0 0-12 6 6 0 0 0 0 12z", "M15.48 12.89 17 22l-5-3-5 3 1.52-9.11"],
+    // Mão de joinha (aplauso)
+    joinha: ["M7 10v12", "M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"],
   };
 
   /* ============================================
@@ -1138,10 +1163,13 @@
           "sl-refeicoes", "sl-historico", "sl-treino-atual", "sl-desafio", "sl-lidas",
           "sl-pontos", "sl-pontos-inicio", "sl-liga", "sl-liga-vistas", "sl-academia",
           "sl-amigos", "sl-reacoes", "sl-comentarios", "sl-cutucadas", "sl-desafios", "sl-mensagens", "sl-privacidade",
-          "sl-plano", "sl-auto-usos", "sl-lugar", "sl-ultimas", "sl-recordes",
+          "sl-plano", "sl-assinatura", "sl-teste-usado", "sl-auto-usos", "sl-lugar", "sl-ultimas", "sl-recordes",
           "sl-metas-modo", "sl-metas-manual", "sl-lembrete-agua", "sl-agua-ultimo", "sl-agua-aviso",
           "sl-metas-pessoais", "sl-fotos", "sl-meus-pros", "sl-avaliacoes-pros",
           "sl-espera", "sl-avaliacoes-aulas", "sl-checkins", "sl-avisos",
+          "sl-ex-favoritos", "sl-programa", "sl-corridas", "sl-plano-5k", "sl-lembrete-treino", "sl-lembrete-dia",
+          "sl-restricoes", "sl-refeicoes-dias", "sl-compras", "sl-sono", "sl-humor", "sl-medidas", "sl-ciclo", "sl-cargas",
+          "sl-duelos", "sl-loja", "sl-saudade-dia", "sl-bloqueados", "sl-ocultos", "sl-denuncias", "sl-grupos", "sl-prescricoes", "sl-story-modelo", "sl-relogio",
         // ...apaga cada uma
         ].forEach(storage.remove);
         // ...e recarrega a página
@@ -1205,7 +1233,7 @@
     // Quantos treinos faltam
     const faltam = Math.max(0, meta - nestaSemana);
     // Aviso da meta
-    lista.push(faltam ? ["Meta semanal em andamento", `Faltam ${faltam} treino${faltam > 1 ? "s" : ""} para completar ${meta}/${meta}.`] : ["Meta semanal batida!", `Você completou ${nestaSemana} treinos nesta semana.`]);
+    lista.push(faltam ? ["Meta semanal em andamento", `${faltam > 1 ? "Faltam" : "Falta"} ${faltam} treino${faltam > 1 ? "s" : ""} para completar ${meta}/${meta}.`] : ["Meta semanal batida!", `Você completou ${nestaSemana} treinos nesta semana.`]);
     // Motor de pontos
     const P = window.SL.pontos;
     // Sem motor de pontos, só a meta
@@ -1224,7 +1252,7 @@
       lista.push([`Ranking: você está em ${i + 1}º`, `${primeiro(acima.nome)} está ${acima.pts - ranking[i].pts} pontos na sua frente. Bora passar?`]);
     } else if (i === 0 && ranking[1]) {
       // Aviso de liderança
-      lista.push(["Você lidera o ranking! 🏆", `${primeiro(ranking[1].nome)} está ${ranking[0].pts - ranking[1].pts} pontos atrás. Não deixa chegar!`]);
+      lista.push(["Você lidera o ranking", `${primeiro(ranking[1].nome)} está ${ranking[0].pts - ranking[1].pts} pontos atrás. Não deixa chegar!`]);
     }
     // Situação da liga
     const s = P.situacaoDaLiga();
@@ -1237,7 +1265,7 @@
     // Amigo sorteado
     const amigo = amigos[Math.floor(P.sorteio(new Date().toDateString()) * amigos.length)];
     // Aviso do amigo
-    if (amigo) lista.push([`${primeiro(amigo.nome)} treinou hoje 💪`, "Manda um cutucão na Galera ou treina também para não ficar para trás."]);
+    if (amigo) lista.push([`${primeiro(amigo.nome)} treinou hoje`, "Manda um cutucão na Galera ou treina também para não ficar para trás."]);
     // Devolve
     return lista;
   }
@@ -1344,7 +1372,7 @@
     // ...plano escolhido (Free, Premium ou Academia)
     const plano = alvo.dataset.plano || "Premium";
     // Plano Academia: é vendido para a academia, não para a pessoa
-    if (plano === "Academia") return toast("O plano Academia é contratado pela sua academia. Fale com a recepção 😉");
+    if (plano === "Academia") return toast("O plano Academia é contratado pela sua academia. Fale com a recepção.");
     // Voltar para o Free
     if (plano === "Free")
       // Pede confirmação
@@ -1363,30 +1391,254 @@
           window.location.reload();
         },
       });
-    // Premium: o pagamento ainda não existe, então no TCC ativa na hora (demonstração)
-    confirmar({
-      // Título
-      titulo: "Ativar o Premium",
-      // Texto
-      texto: "O pagamento chega em breve. Por enquanto (demonstração do TCC), o Premium é ativado de graça: treino automático sem limite, Pulso especial, relatórios do mês e desafios sem limite.",
-      // Botão
-      rotulo: "Ativar Premium",
-      // Se confirmar...
-      fn: () => {
-        // ...salva o plano
-        storage.set("sl-plano", "Premium");
-        // ...comemora
-        if (window.SL.confete) window.SL.confete();
-        // ...avisa
-        toast("Premium ativado! 🎉");
-        // ...e recarrega para mostrar tudo
-        setTimeout(() => window.location.reload(), 1200);
-      },
-    });
+    // Planos pagos: abre o pagamento (ou o teste grátis)
+    checkout(plano);
   });
 
-  // Diz se a pessoa é Premium
-  const premium = () => storage.get("sl-plano", "Free") === "Premium";
+  // Ativa um plano: salva o plano e a assinatura, comemora e recarrega
+  function ativarPlano(plano, extra = {}) {
+    // Plano
+    storage.set("sl-plano", plano);
+    // Dados da assinatura (sem dados do cartão: só o final)
+    storage.set("sl-assinatura", { plano, desde: new Date().toISOString(), ...extra });
+    // Fecha o modal
+    closeModal();
+    // Comemora
+    if (window.SL.confete) window.SL.confete();
+    // Avisa
+    toast(extra.teste ? "Teste grátis de 30 dias ativado!" : `Plano ${plano} ativado!`);
+    // Recarrega para mostrar tudo
+    setTimeout(() => window.location.reload(), 1300);
+  }
+
+  // Confere um número de cartão pelo algoritmo de Luhn (pega erros de digitação)
+  function cartaoValido(numero) {
+    // Só os dígitos
+    const d = numero.replace(/\D/g, "");
+    // Cartões têm de 13 a 19 dígitos
+    if (d.length < 13 || d.length > 19) return false;
+    // Soma do Luhn
+    let soma = 0;
+    // Do último dígito para o primeiro, dobrando um sim, um não
+    for (let i = 0; i < d.length; i++) {
+      // Dígito (de trás para a frente)
+      let n = Number(d[d.length - 1 - i]);
+      // Dobra os de posição ímpar
+      if (i % 2) n = n * 2 > 9 ? n * 2 - 9 : n * 2;
+      // Soma
+      soma += n;
+    }
+    // Válido se a soma termina em 0
+    return soma % 10 === 0;
+  }
+
+  // Tela de pagamento: teste grátis (Premium), Pix ou cartão (simulados, sem cobrança de verdade)
+  function checkout(plano) {
+    // Dados do plano (do shared/planos.js)
+    const info = (window.SL_PLANOS && window.SL_PLANOS.PLANOS.find((p) => p.nome === plano)) || { nome: plano, mensal: 14.9 };
+    // Formata dinheiro
+    const reais = (v) => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    // Já usou o teste grátis?
+    const jaTestou = storage.get("sl-teste-usado", false);
+    // Período escolhido (mensal ou anual com 20% de desconto)
+    let anual = false;
+    // Método escolhido
+    let metodo = "pix";
+    // Valor a pagar agora
+    const valor = () => (anual ? info.mensal * 12 * 0.8 : info.mensal);
+    // Texto do valor
+    const resumo = el("p", { class: "ck-resumo" });
+    // Atualiza o resumo
+    const atualizarResumo = () => (resumo.textContent = anual ? `${reais(valor())} por ano (${reais(valor() / 12)}/mês)` : `${reais(valor())} por mês`);
+    // Escolha mensal/anual
+    const periodo = el("div", { class: "billing-toggle", role: "group", "aria-label": "Período" }, [
+      // Mensal
+      el("button", { type: "button", class: "billing-option is-active", "data-p": "mensal", "aria-pressed": "true", text: "Mensal" }),
+      // Anual
+      el("button", { type: "button", class: "billing-option", "data-p": "anual", "aria-pressed": "false", text: "Anual -20%" }),
+    ]);
+    // Ao trocar o período
+    periodo.addEventListener("click", (e) => {
+      // Botão
+      const b = e.target.closest("[data-p]");
+      // Se não foi num botão, para
+      if (!b) return;
+      // Guarda
+      anual = b.dataset.p === "anual";
+      // Marca
+      periodo.querySelectorAll("[data-p]").forEach((x) => (x.classList.toggle("is-active", x === b), x.setAttribute("aria-pressed", String(x === b))));
+      // Atualiza o valor
+      atualizarResumo();
+    });
+    // Primeira vez
+    atualizarResumo();
+
+    // Parte do Pix: QR code e "copia e cola" (código de exemplo)
+    const codigoPix = `00020126SAUDELIFE${plano.toUpperCase()}${Date.now().toString().slice(-6)}5204000053039865802BR6009SAOPAULO`;
+    // Caixa do Pix
+    const pix = el("div", { class: "ck-pix" }, [
+      // QR (desenhado por um serviço de QR; some sem internet)
+      el("img", { class: "cm-convite-qr", width: 160, height: 160, alt: "QR code do Pix (exemplo)", src: "https://api.qrserver.com/v1/create-qr-code/?size=320x320&margin=8&data=" + encodeURIComponent(codigoPix) }),
+      // Copia e cola
+      el("input", { type: "text", readonly: true, value: codigoPix, class: "cm-convite-link", "aria-label": "Pix copia e cola" }),
+      // Botão de confirmar
+      el("button", { type: "button", class: "btn-primary btn-block", "data-ck": "pix", text: "Já paguei" }),
+    ]);
+    // Se o QR não carregar, esconde
+    pix.querySelector("img").addEventListener("error", (e) => (e.target.hidden = true));
+
+    // Parte do cartão
+    const cartao = el("form", { class: "ck-cartao modal-form", hidden: true, novalidate: true }, [
+      // Número
+      campo("ck-numero", "Número do cartão", { inputmode: "numeric", autocomplete: "cc-number", placeholder: "0000 0000 0000 0000", maxlength: 23 }),
+      // Nome
+      campo("ck-nome", "Nome impresso no cartão", { autocomplete: "cc-name" }),
+      // Validade e CVV
+      el("div", { class: "form-row" }, [campo("ck-validade", "Validade", { placeholder: "MM/AA", inputmode: "numeric", autocomplete: "cc-exp", maxlength: 5 }), campo("ck-cvv", "CVV", { inputmode: "numeric", autocomplete: "cc-csc", maxlength: 4 })]),
+      // Erro
+      el("p", { class: "ck-erro", role: "alert" }),
+      // Pagar
+      el("button", { type: "submit", class: "btn-primary btn-block", text: "Pagar" }),
+    ]);
+    // Coloca espaço a cada 4 números enquanto digita
+    cartao.querySelector("#ck-numero").addEventListener("input", (e) => (e.target.value = e.target.value.replace(/\D/g, "").slice(0, 19).replace(/(\d{4})(?=\d)/g, "$1 ")));
+    // Coloca a barra da validade
+    cartao.querySelector("#ck-validade").addEventListener("input", (e) => (e.target.value = e.target.value.replace(/\D/g, "").slice(0, 4).replace(/^(\d{2})(\d)/, "$1/$2")));
+    // Ao pagar com cartão
+    cartao.addEventListener("submit", (e) => {
+      // Não recarrega
+      e.preventDefault();
+      // Campos
+      const num = cartao.querySelector("#ck-numero").value;
+      // Validade
+      const [mm, aa] = cartao.querySelector("#ck-validade").value.split("/").map(Number);
+      // Erro
+      const erro = cartao.querySelector(".ck-erro");
+      // Confere o número
+      if (!cartaoValido(num)) return (erro.textContent = "Número do cartão inválido. Confira os dígitos.");
+      // Confere o nome
+      if (!cartao.querySelector("#ck-nome").value.trim()) return (erro.textContent = "Escreva o nome como está no cartão.");
+      // Confere a validade (mês 1-12 e não vencido)
+      if (!mm || mm > 12 || new Date(2000 + aa, mm) < new Date()) return (erro.textContent = "Validade inválida ou cartão vencido.");
+      // Confere o CVV
+      if (!/^\d{3,4}$/.test(cartao.querySelector("#ck-cvv").value)) return (erro.textContent = "CVV deve ter 3 ou 4 números.");
+      // Limpa o erro
+      erro.textContent = "";
+      // Botão
+      const btn = cartao.querySelector('[type="submit"]');
+      // Mostra "processando"
+      btn.disabled = true;
+      // Texto
+      btn.textContent = "Processando…";
+      // Depois de 1,5 segundo, aprova (simulado)
+      setTimeout(() => ativarPlano(plano, { metodo: "cartao", final: num.replace(/\D/g, "").slice(-4), anual, valor: valor() }), 1500);
+    });
+
+    // Abas de método
+    const metodos = el("div", { class: "billing-toggle ck-metodos", role: "group", "aria-label": "Forma de pagamento" }, [
+      // Pix
+      el("button", { type: "button", class: "billing-option is-active", "data-m": "pix", "aria-pressed": "true", text: "Pix" }),
+      // Cartão
+      el("button", { type: "button", class: "billing-option", "data-m": "cartao", "aria-pressed": "false", text: "Cartão de crédito" }),
+    ]);
+    // Ao trocar o método
+    metodos.addEventListener("click", (e) => {
+      // Botão
+      const b = e.target.closest("[data-m]");
+      // Se não foi num botão, para
+      if (!b) return;
+      // Guarda
+      metodo = b.dataset.m;
+      // Marca
+      metodos.querySelectorAll("[data-m]").forEach((x) => (x.classList.toggle("is-active", x === b), x.setAttribute("aria-pressed", String(x === b))));
+      // Mostra a parte certa
+      pix.hidden = metodo !== "pix";
+      // (e esconde a outra)
+      cartao.hidden = metodo !== "cartao";
+    });
+    // "Já paguei" no Pix: confere (simulado) e ativa
+    pix.querySelector('[data-ck="pix"]').addEventListener("click", (e) => {
+      // Mostra "conferindo"
+      e.target.disabled = true;
+      // Texto
+      e.target.textContent = "Conferindo pagamento…";
+      // Depois de 2 segundos, confirma (simulado)
+      setTimeout(() => ativarPlano(plano, { metodo: "pix", anual, valor: valor() }), 2000);
+    });
+
+    // Estudante: confirma a matrícula
+    const estudante =
+      plano === "Estudante"
+        ? el("label", { class: "check-row ck-estudante" }, [el("input", { type: "checkbox", id: "ck-estudante" }), " Confirmo que sou estudante com matrícula ativa (podemos pedir comprovante)"])
+        : null;
+    // Bloqueia o pagamento até marcar (estudante)
+    const conteudoPagamento = el("div", { class: "ck-pagamento" }, [metodos, pix, cartao]);
+    // Se é estudante, só libera depois de marcar
+    if (estudante) {
+      // Começa travado
+      conteudoPagamento.inert = true;
+      // Meio apagado
+      conteudoPagamento.classList.add("is-travado");
+      // Ao marcar, libera
+      estudante.querySelector("input").addEventListener("change", (e) => {
+        // Libera ou trava
+        conteudoPagamento.inert = !e.target.checked;
+        // Apaga ou acende
+        conteudoPagamento.classList.toggle("is-travado", !e.target.checked);
+      });
+    }
+    // Teste grátis (só Premium e só uma vez)
+    const teste =
+      plano === "Premium" && !jaTestou
+        ? el("div", { class: "ck-teste" }, [
+            // Texto
+            el("p", {}, [el("strong", { text: "30 dias grátis. " }), "Sem cartão agora. Se não gostar, volta para o Free sozinho."]),
+            // Botão
+            el("button", { type: "button", class: "btn-primary btn-block", "data-ck": "teste", text: "Começar teste grátis" }),
+            // Ou
+            el("p", { class: "ck-ou meta", text: "ou assine agora" }),
+          ])
+        : null;
+    // Ao começar o teste
+    if (teste)
+      teste.querySelector('[data-ck="teste"]').addEventListener("click", () => {
+        // Marca que usou o teste
+        storage.set("sl-teste-usado", true);
+        // Ativa com a data de fim
+        ativarPlano(plano, { teste: true, fim: new Date(Date.now() + 30 * 86400000).toISOString() });
+      });
+    // Abre o modal
+    openModal(`Plano ${plano}`, [
+      // Teste grátis
+      teste,
+      // Período
+      periodo,
+      // Valor
+      resumo,
+      // Estudante
+      estudante,
+      // Pagamento
+      conteudoPagamento,
+      // Aviso de demonstração
+      el("p", { class: "meta ck-aviso", text: "Ambiente de demonstração: nenhum valor é cobrado. Os dados do cartão não são guardados." }),
+    ].filter(Boolean));
+  }
+
+  // Diz se a pessoa tem um plano com os recursos Premium (Premium, Estudante, Família ou Profissional)
+  // Teste grátis vencido volta para o Free sozinho
+  const premium = () => {
+    // Assinatura
+    const a = storage.get("sl-assinatura", null);
+    // Teste grátis que já acabou: volta para o Free
+    if (a && a.teste && new Date(a.fim) < new Date()) {
+      // Volta
+      storage.set("sl-plano", "Free");
+      // Tira a assinatura
+      storage.set("sl-assinatura", null);
+    }
+    // Plano atual
+    return ["Premium", "Estudante", "Família", "Profissional"].includes(storage.get("sl-plano", "Free"));
+  };
 
   // Botão de entrar no desafio...
   acao("join-challenge", (alvo) => {
@@ -1468,6 +1720,8 @@
           el("span", { class: "pro-registro", text: `✓ ${p.registro} • registro conferido` }),
           // Cidade
           el("span", { class: "meta", text: `${p.bairro}, ${p.cidade}${p.online ? " • atende online" : " • só presencial"}` }),
+          // Link para ver o bairro no Google Maps (abre em outra aba)
+          el("a", { class: "pro-mapa-link", href: "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(`${p.bairro}, ${p.cidade}`), target: "_blank", rel: "noopener", text: "Ver no Google Maps" }),
         ]),
       ]),
       // Sobre
@@ -1481,6 +1735,8 @@
         // Preço
         el("span", { text: p.preco }),
       ]),
+      // Como agendar: tudo combinado pelo chat
+      el("p", { class: "meta", text: "Para agendar, combine dia e horário direto no chat." }),
       // Botões
       el("div", { class: "modal-actions" }, [
         // Chamar no chat
@@ -1534,7 +1790,7 @@
         // ...salva
         storage.set("sl-treinos", treinos);
         // ...e avisa no chat
-        responder(`Pronto! Mandei o "Treino do ${p.nome.split(" ")[0]}" para os seus treinos. Qualquer dúvida, me chama aqui 💪`);
+        responder(`Pronto! Mandei o "Treino do ${p.nome.split(" ")[0]}" para os seus treinos. Qualquer dúvida, me chama aqui.`);
       }, 2000);
     } else {
       // Nutricionista: manda dicas de cardápio
@@ -1664,6 +1920,35 @@
     // Dourado (Premium)
     { id: "dourado", nome: "Dourado", premium: true },
   ];
+  // Personagem parceiro: Pulso ou Lia
+  const PERSONAGENS = [
+    // Pulso
+    { id: "pulso", nome: "Pulso" },
+    // Lia
+    { id: "lia", nome: "Lia" },
+  ];
+  // Tons de pele (1 = mais claro)
+  const PELES = [
+    // Tom 1
+    { id: "1", nome: "Tom 1" },
+    // Tom 2
+    { id: "2", nome: "Tom 2" },
+    // Tom 3
+    { id: "3", nome: "Tom 3" },
+    // Tom 4
+    { id: "4", nome: "Tom 4" },
+  ];
+  // Cores de cabelo
+  const CABELOS = [
+    // Castanho
+    { id: "castanho", nome: "Castanho" },
+    // Preto
+    { id: "preto", nome: "Preto" },
+    // Loiro
+    { id: "loiro", nome: "Loiro" },
+    // Ruivo
+    { id: "ruivo", nome: "Ruivo" },
+  ];
 
   // Grupo de opções redondas (radio) com bolinhas de cor
   function opcoesCor(nome, titulo, lista, atual) {
@@ -1685,7 +1970,7 @@
             // Bolinha de cor
             el("span", { class: "perfil-opcao-cor", "aria-hidden": "true" }),
             // Nome
-            el("span", { class: "perfil-opcao-nome", text: bloqueada ? `${o.nome} ✦` : o.nome }),
+            el("span", { class: "perfil-opcao-nome", text: bloqueada ? `${o.nome} (Premium)` : o.nome }),
           ]);
         }),
       ),
@@ -1713,8 +1998,13 @@
     const tirar = el("button", { type: "button", class: "btn-secondary", text: "Remover foto" });
     // Prévia do Pulso
     const pulsoPrevia = el("div", { class: "perfil-pulso-previa" });
-    // Desenha o Pulso com a cor escolhida
-    const pintarPulso = (cor) => pulsoPrevia.replaceChildren(window.SL.personagem ? window.SL.personagem.desenhar({ cor, humor: "feliz" }) : "");
+    // Desenha o personagem com o que está marcado no formulário
+    const pintarPulso = () => {
+      // Valor marcado de um grupo (ou o salvo)
+      const v = (nome, padrao) => ((pulsoPrevia.closest("form") || document).querySelector(`input[name="${nome}"]:checked`) || {}).value || padrao;
+      // Desenho
+      pulsoPrevia.replaceChildren(window.SL.personagem ? window.SL.personagem.desenhar({ humor: "feliz", cor: v("pulso", perfilSalvo.pulso || "esmeralda"), quem: v("quem", perfilSalvo.personagem || "pulso"), pele: v("pele", perfilSalvo.pele || "2"), cabelo: v("cabelo", perfilSalvo.cabelo || "castanho") }) : "");
+    };
     // Selos já conquistados
     const conquistados = window.SL.pontos ? window.SL.pontos.selos().filter((x) => x.feito) : [];
     // Selos em destaque salvos
@@ -1740,8 +2030,12 @@
       campo("perfil-bio", "Bio", { multiline: true, maxlength: 160 }),
       // Capa do perfil
       opcoesCor("capa", "Capa do perfil", CAPAS, perfilSalvo.capa || "brasa"),
-      // Cor do Pulso, com a prévia
-      el("div", { class: "perfil-pulso-linha" }, [pulsoPrevia, opcoesCor("pulso", "Roupa do Pulso", CORES_PULSO, perfilSalvo.pulso || "esmeralda")]),
+      // Personagem, com a prévia
+      el("div", { class: "perfil-pulso-linha" }, [pulsoPrevia, el("div", { class: "perfil-pulso-opcoes" }, [opcoesCor("quem", "Seu parceiro de treino", PERSONAGENS, perfilSalvo.personagem || "pulso"), opcoesCor("pulso", "Roupa", CORES_PULSO, perfilSalvo.pulso || "esmeralda")])]),
+      // Tom de pele
+      opcoesCor("pele", "Tom de pele", PELES, String(perfilSalvo.pele || "2")),
+      // Cor do cabelo
+      opcoesCor("cabelo", "Cabelo", CABELOS, perfilSalvo.cabelo || "castanho"),
       // Selos em destaque (até 3)
       el("fieldset", { class: "form-group perfil-selos" }, [
         // Legenda
@@ -1769,8 +2063,8 @@
     form.querySelector("#perfil-bio").value = usuario.bio;
     // Mostra a foto atual
     pintarFoto();
-    // Mostra o Pulso atual
-    pintarPulso(perfilSalvo.pulso || "esmeralda");
+    // Mostra o personagem atual (depois de montar o formulário)
+    setTimeout(pintarPulso, 0);
 
     // Ao escolher uma foto: corta um quadrado do meio e diminui para 256 x 256
     arquivo.addEventListener("change", () => {
@@ -1811,8 +2105,8 @@
     });
     // Ao trocar a cor do Pulso, atualiza a prévia
     form.addEventListener("change", (e) => {
-      // Cor do Pulso
-      if (e.target.name === "pulso") pintarPulso(e.target.value);
+      // Personagem, roupa, pele ou cabelo: redesenha a prévia
+      if (["pulso", "quem", "pele", "cabelo"].includes(e.target.name)) pintarPulso();
       // Selos: no máximo 3 marcados
       if (e.target.name === "selo") {
         // Caixinhas de selo
@@ -1855,6 +2149,12 @@
       perfilSalvo.capa = marcado("capa");
       // Guarda a cor do Pulso
       perfilSalvo.pulso = marcado("pulso");
+      // Guarda o personagem
+      perfilSalvo.personagem = marcado("quem");
+      // Guarda o tom de pele
+      perfilSalvo.pele = marcado("pele");
+      // Guarda o cabelo
+      perfilSalvo.cabelo = marcado("cabelo");
       // Guarda os selos em destaque
       perfilSalvo.selos = [...form.querySelectorAll('input[name="selo"]:checked')].map((c) => c.value);
       // Salva no navegador
@@ -1911,17 +2211,47 @@
     const lista = el("ol", { class: "cm-chat", "aria-live": "polite" });
     // Desenha as mensagens
     function desenhar() {
-      // Troca a lista
-      lista.replaceChildren(...(conversas()[chave] || []).map((m) => el("li", { class: "cm-bolha" + (m.eu ? " is-eu" : "") }, [el("span", { text: m.texto })])));
+      // Troca a lista (texto, treino, figurinha ou áudio)
+      lista.replaceChildren(...(conversas()[chave] || []).map((m) => el("li", { class: "cm-bolha" + (m.eu ? " is-eu" : "") + (m.tipo ? " is-" + m.tipo : "") }, [conteudoDaMensagem(m)])));
       // Rola até a última
       lista.scrollTop = lista.scrollHeight;
     }
-    // Guarda uma mensagem
-    function guardar(eu, texto) {
+    // Conteúdo de uma mensagem conforme o tipo
+    function conteudoDaMensagem(m) {
+      // Treino enviado: cartão com link para abrir
+      if (m.tipo === "treino") return el("span", { class: "chat-treino" }, [el("strong", { text: m.texto }), el("a", { href: "../treino/treino.html?id=" + encodeURIComponent(m.treinoId), text: "Abrir treino" })]);
+      // Figurinha do Pulso
+      if (m.tipo === "figurinha") return window.SL.personagem ? window.SL.personagem.desenhar({ humor: m.humor }) : el("span", { text: m.texto });
+      // Áudio (simulado): botão de tocar e barrinha
+      if (m.tipo === "audio") {
+        // Barrinha do áudio
+        const barra = el("span", { class: "chat-audio-barra" }, [el("i", {})]);
+        // Botão de tocar
+        const tocar = el("button", { type: "button", class: "chat-audio-play", "aria-label": `Tocar áudio de ${m.seg} segundos (simulado)`, text: "▶" });
+        // Ao tocar, a barrinha anda pelo tempo do áudio (não tem som: é simulado)
+        tocar.addEventListener("click", () => {
+          // Parte que enche
+          const cheio = barra.querySelector("i");
+          // Volta ao começo sem animar
+          cheio.style.transition = "none";
+          // Vazia
+          cheio.style.width = "0%";
+          // No próximo quadro, enche no tempo do áudio
+          requestAnimationFrame(() => requestAnimationFrame(() => ((cheio.style.transition = `width ${m.seg}s linear`), (cheio.style.width = "100%"))));
+        });
+        // Bolha do áudio
+        return el("span", { class: "chat-audio" }, [tocar, barra, el("small", { text: `0:${String(m.seg).padStart(2, "0")}` })]);
+      }
+      // Texto normal
+      return el("span", { text: m.texto });
+    }
+
+    // Guarda uma mensagem (extra = tipo e dados do treino, figurinha ou áudio)
+    function guardar(eu, texto, extra = {}) {
       // Conversas
       const todas = conversas();
       // Junta a mensagem
-      todas[chave] = (todas[chave] || []).concat({ eu, texto, data: new Date().toISOString() });
+      todas[chave] = (todas[chave] || []).concat({ eu, texto, data: new Date().toISOString(), ...extra });
       // Salva
       storage.set("sl-mensagens", todas);
     }
@@ -1934,6 +2264,86 @@
       // Botão
       el("button", { type: "submit", class: "btn-primary", text: "Enviar" }),
     ]);
+    // A outra pessoa responde depois de 1,5 segundo
+    function responderDepois() {
+      // Espera
+      setTimeout(() => {
+        // Resposta sorteada
+        guardar(false, respostas[Math.floor(Math.random() * respostas.length)]);
+        // Desenha
+        desenhar();
+        // Avisa quem abriu o chat (para atualizar listas)
+        if (aoEnviar) aoEnviar();
+      }, 1500);
+    }
+    // Manda um extra (treino, figurinha ou áudio) e espera a resposta
+    function mandarExtra(texto, extra) {
+      // Guarda
+      guardar(true, texto, extra);
+      // Fecha a caixa de opções
+      extras.hidden = true;
+      // Desenha
+      desenhar();
+      // Resposta
+      responderDepois();
+    }
+    // Caixa de opções (treinos ou figurinhas), aparece ao tocar nos botões
+    const extras = el("div", { class: "chat-extras", hidden: true });
+    // Mostra uma lista de opções na caixa
+    function mostrarExtras(itens) {
+      // Troca as opções
+      extras.replaceChildren(...itens);
+      // Mostra
+      extras.hidden = false;
+    }
+    // Botões de anexar: treino, figurinha e áudio
+    const anexos = el("div", { class: "chat-anexos" }, [
+      // Treino
+      el("button", { type: "button", class: "btn-secondary btn-sm", "data-anexo": "treino", text: "Treino" }),
+      // Figurinha
+      el("button", { type: "button", class: "btn-secondary btn-sm", "data-anexo": "figurinha", text: "Figurinha" }),
+      // Áudio
+      el("button", { type: "button", class: "btn-secondary btn-sm", "data-anexo": "audio", text: "Áudio (simulado)" }),
+    ]);
+    // Clique nos botões de anexar
+    anexos.addEventListener("click", (e) => {
+      // Botão clicado
+      const b = e.target.closest("[data-anexo]");
+      // Se não foi num botão, para
+      if (!b) return;
+      // Treino: lista dos meus treinos
+      if (b.dataset.anexo === "treino") {
+        // Meus treinos
+        const meus = treinosDoUsuario();
+        // Sem treinos: avisa
+        if (!meus.length) return toast("Crie um treino primeiro");
+        // Um botão por treino
+        return mostrarExtras(
+          meus.map((t) => {
+            // Botão do treino
+            const opcao = el("button", { type: "button", class: "btn-link", text: t.nome });
+            // Ao escolher, manda
+            opcao.addEventListener("click", () => mandarExtra(t.nome, { tipo: "treino", treinoId: t.id }));
+            // Devolve
+            return opcao;
+          }),
+        );
+      }
+      // Figurinha: 3 Pulsos
+      if (b.dataset.anexo === "figurinha")
+        return mostrarExtras(
+          ["comemorando", "feliz", "cansado"].map((humor) => {
+            // Botão com o desenho
+            const opcao = el("button", { type: "button", class: "chat-figurinha-opcao", "aria-label": `Figurinha do Pulso ${humor}` }, [window.SL.personagem ? window.SL.personagem.desenhar({ humor }) : humor]);
+            // Ao escolher, manda
+            opcao.addEventListener("click", () => mandarExtra("Figurinha", { tipo: "figurinha", humor }));
+            // Devolve
+            return opcao;
+          }),
+        );
+      // Áudio simulado: duração sorteada entre 3 e 15 segundos
+      mandarExtra("Áudio", { tipo: "audio", seg: 3 + Math.floor(Math.random() * 13) });
+    });
     // Quando envia...
     form.addEventListener("submit", (e) => {
       // ...impede a página de recarregar
@@ -1951,17 +2361,10 @@
       // ...desenha
       desenhar();
       // ...a outra pessoa "responde" em 1,5 segundo
-      setTimeout(() => {
-        // Resposta sorteada
-        guardar(false, respostas[Math.floor(Math.random() * respostas.length)]);
-        // Desenha
-        desenhar();
-        // Avisa quem abriu o chat (para atualizar listas)
-        if (aoEnviar) aoEnviar();
-      }, 1500);
+      responderDepois();
     });
     // Abre o modal
-    openModal(nome, [lista, form]);
+    openModal(nome, [lista, extras, anexos, form]);
     // Desenha
     desenhar();
     // Devolve uma função para mandar mensagem "da outra pessoa" (ex.: o personal mandando treino)
@@ -1978,7 +2381,7 @@
      ============================================ */
 
   // Diz se a pessoa pediu ao sistema para reduzir as animações
-  const menosMovimento = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const menosMovimento = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches || document.documentElement.hasAttribute("data-simples");
 
   // Chuva rápida de confete nas cores da marca (meta batida, subiu de liga, recorde)
   function confete() {
@@ -1987,7 +2390,7 @@
     // Caixa que cobre a tela (não atrapalha os cliques)
     const caixa = el("div", { class: "confete", "aria-hidden": "true" });
     // Cores do confete
-    const cores = ["#ff7a45", "#34d399", "#f5b544", "#ffa06b", "#7cc4f0"];
+    const cores = ["#f0845a", "#4fc29a", "#f5b544", "#f5a37f", "#7cc4f0"];
     // 46 pedacinhos
     for (let i = 0; i < 46; i++) {
       // Cada pedacinho
@@ -2069,13 +2472,13 @@
   // Áreas do menu lateral: cada página fica na sua área
   const AREAS = [
     // Treinar
-    ["Treinar", ["inicio", "descobrir", "treinos", "aulas"]],
+    ["Treinar", ["inicio", "descobrir", "treinos", "exercicios", "programas", "corrida", "aulas"]],
     // Comer
     ["Comer", ["alimentacao"]],
     // Evoluir
-    ["Evoluir", ["evolucao", "ranking"]],
+    ["Evoluir", ["evolucao", "saude", "ranking", "loja"]],
     // Comunidade
-    ["Comunidade", ["comunidade", "profissionais", "academia"]],
+    ["Comunidade", ["comunidade", "profissionais", "area-pro", "academia"]],
     // Sua conta
     ["Sua conta", ["planos", "salvos", "perfil"]],
   ];
@@ -2127,6 +2530,7 @@
     dadosCorpo,
     treinosDoUsuario,
     premium,
+    avisar,
     acharTreino,
     exerciciosDe,
     resumoExercicio,
@@ -2145,6 +2549,8 @@
     aplicarProgresso,
     cardTreinoCatalogo,
     cardProfissional,
+    proximaAula,
+    baixarAgenda,
     statTile,
     ICONES,
     marcarSeguindo,
@@ -2169,7 +2575,7 @@
   }
 
   // Avisa quando a internet cai e quando volta (o app continua funcionando offline)
-  window.addEventListener("offline", () => toast("Sem internet. Tudo continua funcionando e fica salvo aqui 📴"));
+  window.addEventListener("offline", () => toast("Sem internet. Tudo continua funcionando e fica salvo aqui."));
   // Quando a internet volta
   window.addEventListener("online", () => toast("Internet de volta ✓"));
 
@@ -2194,17 +2600,274 @@
     if (agora - ultimoGole < duasHoras || agora - ultimoAviso < duasHoras) return;
     // Guarda a hora do aviso
     storage.set("sl-agua-aviso", agora);
-    // Avisa na tela
-    toast("💧 Hora de beber água! Já faz 2 horas.");
-    // E também como notificação do sistema, se a pessoa deixou
-    if ("Notification" in window && Notification.permission === "granted") new Notification("Saúde Life", { body: "💧 Hora de beber água! Já faz 2 horas." });
+    // Avisa (na tela e, se deixou, no sistema)
+    avisar("agua", "Hora de beber água. Já faz 2 horas.");
   }
 
+  // Próxima vez que uma aula acontece (data e hora), a partir de agora
+  // (conta como "agora" até o fim da aula, para dar tempo de entrar)
+  function proximaAula(aula) {
+    // Agora
+    const agora = new Date();
+    // Hora e minuto da aula
+    const [h, m] = aula.hora.split(":").map(Number);
+    // Olha hoje e os próximos 7 dias
+    for (let d = 0; d <= 7; d++) {
+      // Dia candidato
+      const dia = new Date(agora.getFullYear(), agora.getMonth(), agora.getDate() + d, h, m);
+      // Dia da semana (segunda = 0)
+      const ds = (dia.getDay() + 6) % 7;
+      // Se a aula é nesse dia e ainda não terminou, é essa
+      if (aula.dias.includes(ds) && dia.getTime() + aula.duracao * 60000 > agora.getTime()) return dia;
+    }
+    // Não deveria chegar aqui
+    return null;
+  }
+
+  // Lembrete 1 hora antes das aulas reservadas (uma vez por aula)
+  function conferirLembreteAulas() {
+    // Aulas reservadas
+    const reservas = storage.get("sl-reservas", []);
+    // Lembretes já dados
+    const dados = storage.get("sl-lembretes-aulas", []);
+    // Para cada aula reservada...
+    (window.SL_DADOS.AULAS || [])
+      .filter((a) => reservas.includes(a.nome))
+      .forEach((a) => {
+        // ...próxima vez
+        const quando = proximaAula(a);
+        // ...minutos que faltam
+        const faltam = quando ? Math.round((quando - Date.now()) / 60000) : -1;
+        // ...chave única desta aula neste dia
+        const chave = a.nome + "|" + (quando ? quando.toDateString() : "");
+        // ...entre 0 e 60 minutos e ainda não avisou: avisa
+        if (faltam > 0 && faltam <= 60 && !dados.includes(chave)) {
+          // Guarda que avisou (só os 30 últimos)
+          storage.set("sl-lembretes-aulas", dados.concat(chave).slice(-30));
+          // Aviso
+          avisar("aulas", `${a.nome} começa às ${a.hora} (em ${faltam} min)${a.online ? ". Dá para entrar online pela página Aulas." : ` na ${a.sala}.`}`);
+        }
+      });
+  }
+
+  // Lembrete de treino no horário escolhido no Perfil (nos dias marcados, se ainda não treinou hoje)
+  function conferirLembreteTreino() {
+    // Só se a chave "Lembretes de treino" está ligada
+    if (!storage.get("sl-pref-notif", true)) return;
+    // Lembrete salvo (padrão: 18h, de segunda a sexta)
+    const lembrete = storage.get("sl-lembrete-treino", { hora: "18:00", dias: [1, 2, 3, 4, 5] });
+    // Agora
+    const agora = new Date();
+    // Hoje (texto, para avisar só uma vez por dia)
+    const hoje = agora.toDateString();
+    // Hoje não é dia de lembrete ou já avisou hoje: para
+    if (!lembrete.dias.includes(agora.getDay()) || storage.get("sl-lembrete-dia", "") === hoje) return;
+    // Hora e minuto do lembrete
+    const [h, m] = lembrete.hora.split(":").map(Number);
+    // Ainda não chegou a hora: para
+    if (agora.getHours() * 60 + agora.getMinutes() < h * 60 + m) return;
+    // Já treinou hoje: não precisa lembrar
+    if (historico().some((x) => new Date(x.data).toDateString() === hoje)) return;
+    // Marca que avisou hoje
+    storage.set("sl-lembrete-dia", hoje);
+    // Avisa (na tela e, se deixou, no sistema)
+    avisar("treino", "Hora do treino! Bora manter a sequência?");
+  }
+
+  // Avisa a pessoa: na tela e como notificação do sistema (respeita o tipo e o horário de silêncio)
+  function avisar(tipo, texto) {
+    // Tipos de aviso ligados (padrão: todos)
+    const tipos = storage.get("sl-avisos-tipos", {});
+    // Esse tipo foi desligado: não avisa
+    if (tipos[tipo] === false) return;
+    // Horário de silêncio (padrão: 22h às 7h, ligado)
+    const silencio = storage.get("sl-silencio", { ligado: true, de: "22:00", ate: "07:00" });
+    // Minutos de agora
+    const agora = new Date().getHours() * 60 + new Date().getMinutes();
+    // Converte "22:00" em minutos
+    const min = (t) => Number(t.split(":")[0]) * 60 + Number(t.split(":")[1]);
+    // Está no silêncio? (o intervalo pode passar da meia-noite)
+    const quieto = silencio.ligado && (min(silencio.de) <= min(silencio.ate) ? agora >= min(silencio.de) && agora < min(silencio.ate) : agora >= min(silencio.de) || agora < min(silencio.ate));
+    // No silêncio, não avisa
+    if (quieto) return;
+    // Aviso na tela
+    toast(texto);
+    // Notificação do sistema, se a pessoa deixou
+    if ("Notification" in window && Notification.permission === "granted") new Notification("Saúde Life", { body: texto, icon: "../../shared/icon-192.png" });
+  }
+
+  /* ---------- Celular: instalar, abertura, agenda e músicas ---------- */
+
+  // Pedido de instalação guardado (o navegador avisa quando o site pode virar app)
+  let pedidoInstalar = null;
+  // Guarda o pedido e mostra o convite
+  window.addEventListener("beforeinstallprompt", (e) => {
+    // Não mostra a janela do navegador agora
+    e.preventDefault();
+    // Guarda para usar no botão
+    pedidoInstalar = e;
+    // Mostra o convite (se a pessoa não dispensou)
+    mostrarConviteInstalar();
+  });
+
+  // Convite para instalar o app (faixa no rodapé da tela)
+  function mostrarConviteInstalar() {
+    // Já instalado (abrindo como app), já dispensou ou já está na tela: não mostra
+    if (window.matchMedia("(display-mode: standalone)").matches || storage.get("sl-instalar-dispensado", false) || document.querySelector(".instalar-faixa")) return;
+    // É iPhone/iPad (no Safari não existe o pedido: mostra o passo a passo)
+    const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    // Sem pedido e não é iPhone: não dá para instalar daqui
+    if (!pedidoInstalar && !ios) return;
+    // Faixa
+    const faixa = el("div", { class: "instalar-faixa", role: "region", "aria-label": "Instalar app" }, [
+      // Texto
+      el("p", {}, [el("strong", { text: "Instale o Saúde Life" }), ios ? " Toque em Compartilhar e depois em \"Adicionar à Tela de Início\"." : " Abre mais rápido e funciona sem internet."]),
+      // Botão de instalar (só quando o navegador deixa)
+      pedidoInstalar ? el("button", { type: "button", class: "btn-primary btn-sm", "data-instalar": "sim", text: "Instalar app" }) : null,
+      // Agora não
+      el("button", { type: "button", class: "btn-link", "data-instalar": "nao", text: "Agora não" }),
+    ]);
+    // Cliques da faixa
+    faixa.addEventListener("click", async (e) => {
+      // Botão
+      const b = e.target.closest("[data-instalar]");
+      // Se não foi num botão, para
+      if (!b) return;
+      // Instalar: abre a janela do navegador
+      if (b.dataset.instalar === "sim" && pedidoInstalar) {
+        // Mostra
+        pedidoInstalar.prompt();
+        // Espera a resposta
+        await pedidoInstalar.userChoice;
+        // O pedido só vale uma vez
+        pedidoInstalar = null;
+      } else {
+        // Dispensou: não mostra mais
+        storage.set("sl-instalar-dispensado", true);
+      }
+      // Tira a faixa
+      faixa.remove();
+    });
+    // Coloca na página
+    document.body.append(faixa);
+  }
+
+  // Logo animada na abertura do app (uma vez por sessão; some sozinha)
+  function abertura() {
+    // Já mostrou nesta sessão, pessoa pediu menos movimento ou é a tela de treino: não mostra
+    if (sessionStorage.getItem("sl-abertura") || menosMovimento() || !document.querySelector(".sidebar-brand svg")) return;
+    // Marca que mostrou
+    sessionStorage.setItem("sl-abertura", "1");
+    // Cópia da logo do menu
+    const logo = document.querySelector(".sidebar-brand svg").cloneNode(true);
+    // Tela da abertura
+    const tela = el("div", { class: "abertura", "aria-hidden": "true" }, [logo, el("span", { class: "abertura-nome" }, ["Saúde ", el("span", { class: "brand-life", text: "Life" })])]);
+    // Coloca na página
+    document.body.append(tela);
+    // Depois de 1,3 segundo, some
+    setTimeout(() => tela.classList.add("is-saindo"), 1300);
+    // E sai da página
+    setTimeout(() => tela.remove(), 1800);
+  }
+
+  // Baixa um evento de agenda (.ics), que abre no Google Agenda, iPhone ou Outlook
+  // repetir = dias da semana para repetir toda semana (0 = domingo), ou nada
+  function baixarAgenda({ titulo, inicio, minutos = 60, descricao = "", repetir = null }) {
+    // Data no formato da agenda (20261024T180000)
+    const fmt = (d) => `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}T${String(d.getHours()).padStart(2, "0")}${String(d.getMinutes()).padStart(2, "0")}00`;
+    // Fim
+    const fim = new Date(inicio.getTime() + minutos * 60000);
+    // Siglas dos dias (padrão da agenda)
+    const SIGLAS = ["SU", "MO", "TU", "WE", "TH", "FR", "SA"];
+    // Linhas do arquivo
+    const linhas = [
+      // Começo
+      "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Saude Life//PT-BR", "BEGIN:VEVENT",
+      // Identificador único
+      `UID:${Date.now()}@saudelife`,
+      // Quando foi criado
+      `DTSTAMP:${fmt(new Date())}`,
+      // Começo e fim (no horário do aparelho)
+      `DTSTART:${fmt(inicio)}`, `DTEND:${fmt(fim)}`,
+      // Título e descrição
+      `SUMMARY:${titulo}`, `DESCRIPTION:${descricao.replace(/\n/g, "\\n")}`,
+      // Repetição semanal (se tiver)
+      repetir && repetir.length ? `RRULE:FREQ=WEEKLY;BYDAY=${repetir.map((d) => SIGLAS[d]).join(",")}` : null,
+      // Aviso 30 minutos antes
+      "BEGIN:VALARM", "TRIGGER:-PT30M", "ACTION:DISPLAY", `DESCRIPTION:${titulo}`, "END:VALARM",
+      // Fim
+      "END:VEVENT", "END:VCALENDAR",
+    ].filter(Boolean);
+    // Arquivo
+    const arquivo = new Blob([linhas.join("\r\n")], { type: "text/calendar" });
+    // Link temporário
+    const a = document.createElement("a");
+    // Endereço do arquivo
+    a.href = URL.createObjectURL(arquivo);
+    // Nome do arquivo
+    a.download = `${slug(titulo) || "treino"}.ics`;
+    // Baixa
+    a.click();
+    // Libera a memória depois
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    // Avisa
+    toast("Evento baixado. Abra o arquivo para pôr na sua agenda.");
+  }
+
+  // Playlists sugeridas para treinar (abrem no Spotify ou no YouTube Music)
+  const PLAYLISTS = [
+    // Força
+    ["Treino pesado", "treino pesado musculação"],
+    // HIIT e corrida
+    ["Corrida e HIIT", "corrida hiit"],
+    // Funk e pop
+    ["Funk e pop para treinar", "funk academia"],
+    // Yoga e alongamento
+    ["Yoga e alongamento", "yoga relax"],
+  ];
+  // Abre a lista de playlists
+  acao("playlists", () =>
+    openModal("Música para treinar", [
+      // Explicação
+      el("p", { class: "meta", text: "Abre no app de música do seu celular." }),
+      // Lista
+      el(
+        "ul",
+        { class: "playlists" },
+        PLAYLISTS.map(([nome, busca]) =>
+          el("li", {}, [
+            // Nome
+            el("strong", { text: nome }),
+            // Spotify
+            el("a", { class: "btn-secondary btn-sm", href: "https://open.spotify.com/search/" + encodeURIComponent(busca) + "/playlists", target: "_blank", rel: "noopener", text: "Spotify" }),
+            // YouTube Music
+            el("a", { class: "btn-secondary btn-sm", href: "https://music.youtube.com/search?q=" + encodeURIComponent(busca), target: "_blank", rel: "noopener", text: "YouTube Music" }),
+          ]),
+        ),
+      ),
+    ]),
+  );
+
   document.addEventListener("DOMContentLoaded", () => {
-    // ...confere o lembrete de água agora e a cada minuto
+    // ...logo animada na abertura
+    abertura();
+    // ...convite de instalar (iPhone não tem o aviso do navegador)
+    setTimeout(mostrarConviteInstalar, 4000);
+    // ...confere os lembretes (água e treino) agora e a cada minuto
     conferirAgua();
+    // (treino)
+    conferirLembreteTreino();
+    // (aulas)
+    conferirLembreteAulas();
     // (a cada 60 segundos)
-    setInterval(conferirAgua, 60000);
+    setInterval(() => {
+      // Água
+      conferirAgua();
+      // Treino
+      conferirLembreteTreino();
+      // Aulas
+      conferirLembreteAulas();
+    }, 60000);
     // ...faz os números que já estão na página contarem
     contarNumeros();
     // ...escreve os dados da pessoa

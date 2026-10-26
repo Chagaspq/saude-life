@@ -116,7 +116,7 @@ window.SL &&
         // Escolher exercícios da biblioteca (marcar = entra na lista abaixo)
         escolherDaLista(),
         // Caixa de texto dos exercícios, um por linha (dá para digitar exercícios novos)
-        SL.campo("treino-itens", "Exercícios (um por linha — marque acima ou digite)", { multiline: true, placeholder: "Supino reto\nCrucifixo\nTríceps na corda" }),
+        SL.campo("treino-itens", "Exercícios (um por linha)", { multiline: true, placeholder: "Supino reto\nCrucifixo\nTríceps na corda" }),
         // Dica embaixo dos campos
         el("p", { class: "form-hint", text: "Cada exercício começa com 3 séries de 12. Você ajusta reps e carga durante o treino." }),
         // Botão de salvar
@@ -315,7 +315,7 @@ window.SL &&
     // Confere se pode usar o treino automático (Premium; no Free, 1 vez de presente)
     function podeUsarAutomatico() {
       // Plano da pessoa
-      const plano = storage.get("sl-plano", "Free");
+      const plano = SL.premium() ? "Premium" : "Free";
       // Quantas vezes já usou
       const usos = storage.get("sl-auto-usos", 0);
       // Premium e Profissional podem sempre; Free pode 1 vez
@@ -435,7 +435,7 @@ window.SL &&
         // Exercícios do treino
         const itens = sortear(grupos, lugar, 6);
         // Treino "Plano A — ..."
-        return { id: `t${agora}${i}`, nome: `Plano ${"ABCDEF"[i]} — ${nome}`, grupo: nome, itens, exercicios: itens.length };
+        return { id: `t${agora}${i}`, nome: `Plano ${"ABCDEF"[i]}: ${nome}`, grupo: nome, itens, exercicios: itens.length };
       });
       // Salva todos
       adicionarTreinos(novos, `Plano da semana pronto: ${novos.length} treinos (${dias} dias, como a sua meta).`);

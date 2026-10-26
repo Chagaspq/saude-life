@@ -1,0 +1,141 @@
+/* Corrida e caminhada */
+
+/* Duas colunas: registrar e plano */
+.corrida-grade {
+  /* Grade */
+  display: grid;
+  /* Duas colunas no computador */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* Espaço */
+  gap: var(--space-4);
+  /* Espaço em cima */
+  margin-top: var(--space-6);
+}
+
+/* Formulário */
+.corrida-form {
+  /* Campos em coluna */
+  display: grid;
+  /* Espaço entre os campos */
+  gap: 12px;
+  /* Espaço em cima */
+  margin-top: 12px;
+}
+
+/* Escolha corrida / caminhada */
+.corrida-tipo {
+  /* Sem borda */
+  border: 0;
+  /* Sem espaço padrão */
+  padding: 0;
+  /* Sem margem */
+  margin: 0;
+  /* Lado a lado */
+  display: flex;
+  /* Espaço */
+  gap: 16px;
+}
+
+/* Rótulos do tipo */
+.corrida-tipo label {
+  /* Rádio e texto lado a lado */
+  display: inline-flex;
+  /* Centralizados */
+  align-items: center;
+  /* Espaço */
+  gap: 6px;
+}
+
+/* Rádios na cor da marca */
+.corrida-tipo input {
+  /* Coral */
+  accent-color: var(--coral);
+}
+
+/* Campo com rótulo em cima */
+.corrida-campo {
+  /* Rótulo em cima do campo */
+  display: grid;
+  /* Espaço */
+  gap: 6px;
+  /* Letra do rótulo */
+  font-size: var(--text-sm);
+  /* Negrito */
+  font-weight: 600;
+}
+
+/* Caixa do campo */
+.corrida-campo input {
+  /* Fundo */
+  background: var(--surface-2);
+  /* Borda */
+  border: 1px solid var(--border);
+  /* Cantos arredondados */
+  border-radius: var(--radius-sm);
+  /* Espaço interno */
+  padding: 10px 12px;
+  /* Cor do texto */
+  color: var(--ink);
+  /* Fonte (16px evita zoom no celular) */
+  font: 400 16px var(--font-body);
+}
+
+/* Ritmo calculado */
+.corrida-ritmo {
+  /* Fonte de placar */
+  font-family: var(--font-placar);
+  /* Cor esmeralda */
+  color: var(--emerald);
+  /* Sem margem */
+  margin: 0;
+}
+
+/* Subtítulo "Últimas" */
+.corrida-sub {
+  /* Tamanho */
+  font-size: var(--text-base);
+  /* Espaço */
+  margin: var(--space-6) 0 var(--space-2);
+}
+
+/* Lista das 8 semanas do plano */
+.plano5k-lista {
+  /* Recuo */
+  padding-left: 18px;
+  /* Linhas espaçadas */
+  line-height: 1.7;
+  /* Cor apagada */
+  color: var(--muted);
+  /* Letra pequena */
+  font-size: var(--text-sm);
+}
+
+/* Sessão da semana */
+.plano5k-sessao {
+  /* Tamanho */
+  font-size: var(--text-lg);
+  /* Negrito */
+  font-weight: 600;
+}
+
+/* As 3 sessões para marcar */
+.plano5k-dias {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Sem espaço */
+  padding: 0;
+  /* Lado a lado */
+  display: flex;
+  /* Quebra linha */
+  flex-wrap: wrap;
+  /* Espaço */
+  gap: 8px;
+}
+
+/* Sessão feita */
+.plano5k-dias .is-feito {
+  /* Borda esmeralda */
+  border-color: var(--emerald);
+  /* Texto esmeralda */
+  color: var(--emerald);
+}

@@ -30,8 +30,9 @@
   ],
   "shortcuts": [
     {
-      "name": "Meus treinos",
-      "url": "../app/treinos/treinos.html",
+      "name": "Começar treino",
+      "short_name": "Treinar",
+      "url": "../app/treino/treino.html",
       "icons": [
         {
           "src": "icon-192.png",
@@ -40,8 +41,31 @@
       ]
     },
     {
-      "name": "Evolução",
-      "url": "../app/evolucao/evolucao.html",
+      "name": "Registrar refeição",
+      "short_name": "Refeição",
+      "url": "../app/alimentacao/alimentacao.html",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Ranking da semana",
+      "short_name": "Ranking",
+      "url": "../app/ranking/ranking.html",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Meus treinos",
+      "short_name": "Treinos",
+      "url": "../app/treinos/treinos.html",
       "icons": [
         {
           "src": "icon-192.png",

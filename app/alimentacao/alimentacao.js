@@ -12,6 +12,40 @@ window.SL &&
     const ALIMENTOS = window.SL_ALIMENTOS || [];
     // Cardápios por objetivo
     const CARDAPIOS = window.SL_CARDAPIOS || {};
+    // Restrições possíveis, trocas do cardápio e receitas (alimentos.js)
+    const RESTRICOES = window.SL_RESTRICOES || [];
+    // Trocas do cardápio
+    const TROCAS = window.SL_TROCAS || {};
+    // Receitas
+    const RECEITAS = window.SL_RECEITAS || [];
+
+    /* ---------- Restrições alimentares ---------- */
+
+    // Restrições marcadas pela pessoa (ids)
+    const restricoes = () => storage.get("sl-restricoes", []);
+    // Etiquetas que a pessoa não come (juntando as restrições)
+    const proibidas = () => RESTRICOES.filter(([id]) => restricoes().includes(id)).flatMap(([, , tags]) => tags);
+    // Diz se uma lista de etiquetas serve para a pessoa
+    const serveTags = (tags) => !tags.some((t) => proibidas().includes(t));
+    // Diz se uma comida (pelo nome) serve
+    const serve = (nome) => {
+      // Comida na tabela
+      const a = ALIMENTOS.find((x) => x.nome === nome);
+      // Se não achou, serve (não sabemos as etiquetas)
+      return !a || serveTags(a.tags || []);
+    };
+    // Nomes das etiquetas para os avisos
+    const NOMES_TAGS = { carne: "carne", peixe: "peixe", "frutos-mar": "frutos do mar", ovo: "ovo", lactose: "lactose", gluten: "glúten", amendoim: "amendoim", animal: "origem animal" };
+    // Aviso de uma comida que não serve (ex.: "contém lactose")
+    const aviso = (a) => {
+      // Etiquetas proibidas que ela tem
+      const ruins = (a.tags || []).filter((t) => proibidas().includes(t) && t !== "animal");
+      // Texto (se só tem "animal", fala isso)
+      return ruins.length ? `contém ${ruins.map((t) => NOMES_TAGS[t]).join(" e ")}` : (a.tags || []).includes("animal") && proibidas().includes("animal") ? "de origem animal" : "";
+    };
+
+    // Histórico de refeições por dia (para "Repetir ontem"): { "dia": [refeições] }
+    const historicoRefeicoes = () => storage.get("sl-refeicoes-dias", {});
 
     // Calcula as metas do dia a partir do peso, altura, idade, objetivo e dias de treino
     // (ou usa as metas que a nutricionista passou, se a pessoa preferir)
@@ -62,6 +96,14 @@ window.SL &&
     function guardarRefeicoes(itens) {
       // Guarda na chave "sl-refeicoes"
       storage.set("sl-refeicoes", { data: hoje, itens });
+      // Guarda também no histórico por dia (só os últimos 14 dias, sem as fotos para não pesar)
+      const dias = historicoRefeicoes();
+      // Refeições de hoje sem foto
+      dias[hoje] = itens.map((x) => ({ ...x, foto: "" }));
+      // Mantém só os 14 dias mais recentes
+      const chaves = Object.keys(dias).sort((a, b) => new Date(b) - new Date(a)).slice(0, 14);
+      // Salva
+      storage.set("sl-refeicoes-dias", Object.fromEntries(chaves.map((k) => [k, dias[k]])));
     }
     // Devolve quantos ml de água a pessoa bebeu hoje
     function agua() {
@@ -443,7 +485,7 @@ window.SL &&
           // Comidas que batem
           ...(t ? ALIMENTOS.filter((a) => SL.slug(a.nome).includes(t)).slice(0, 6) : []).map((a) =>
             // Item clicável
-            el("li", {}, [el("button", { type: "button", "data-alimento": a.nome }, [el("strong", { text: a.nome }), el("small", { class: "meta", text: ` ${a.porcao} • ${a.kcal} kcal` })])]),
+            el("li", {}, [el("button", { type: "button", "data-alimento": a.nome }, [el("strong", { text: a.nome }), el("small", { class: "meta", text: ` ${a.porcao} • ${a.kcal} kcal` }), aviso(a) ? el("small", { class: "alim-aviso", text: ` • ${aviso(a)}` }) : ""])]),
           ),
         );
       });
@@ -485,6 +527,21 @@ window.SL &&
       });
       // Caixa do bloco
       const caixa = el("div", { class: "alim" }, [el("label", { class: "alim-titulo", text: "Buscar comida (calcula sozinho)" }), busca, resultados, lista]);
+      // Adiciona uma comida pelo nome (usado pelas sugestões depois da foto)
+      caixa.adicionar = (nome) => {
+        // Comida
+        const a = ALIMENTOS.find((x) => x.nome === nome);
+        // Se não achou, para
+        if (!a) return;
+        // Se já estava, soma uma porção
+        const ja = escolhidos.find(([x]) => x === a);
+        // Soma ou coloca
+        if (ja) ja[1] += 1;
+        // (coloca)
+        else escolhidos.push([a, 1]);
+        // Desenha
+        desenharEscolhidos();
+      };
       // Devolve
       return caixa;
     }
@@ -522,7 +579,20 @@ window.SL &&
       // Quanto precisa aumentar ou diminuir para chegar na meta
       const fator = META.kcal / kcalBase;
       // Multiplica as porções (de meia em meia, no mínimo meia porção)
-      return base.map(([nome, hora, lista]) => [nome, hora, lista.map(([alimento, p]) => [alimento, Math.max(0.5, Math.round(p * fator * 2) / 2)])]);
+      const ajustado = base.map(([nome, hora, lista]) => [nome, hora, lista.map(([alimento, p]) => [alimento, Math.max(0.5, Math.round(p * fator * 2) / 2)])]);
+      // Troca o que a pessoa não come pela primeira opção que serve (ou tira, se nenhuma serve)
+      return ajustado.map(([nome, hora, lista]) => [
+        // Nome da refeição
+        nome,
+        // Hora
+        hora,
+        // Comidas com as trocas
+        lista
+          // Troca cada comida que não serve
+          .map(([alimento, p]) => (serve(alimento) ? [alimento, p] : [(TROCAS[alimento] || []).find(serve), p]))
+          // Tira as que ficaram sem troca
+          .filter(([alimento]) => alimento),
+      ]);
     }
 
     // Desenha o cardápio do objetivo da pessoa
@@ -555,8 +625,13 @@ window.SL &&
         el("div", { class: "cardapio-rodape" }, [
           // Total
           el("span", { class: "meta", text: `Total do dia: ${totalDia.kcal} kcal • ${totalDia.proteina} g de proteína` }),
-          // Botão
-          el("button", { type: "button", class: "btn-primary", "data-action": "usar-cardapio", text: "Usar este cardápio hoje" }),
+          // Botões
+          el("div", { class: "card-actions" }, [
+            // Lista de compras da semana
+            el("button", { type: "button", class: "btn-secondary", "data-action": "lista-compras", text: "Lista de compras da semana" }),
+            // Usar o cardápio hoje
+            el("button", { type: "button", class: "btn-primary", "data-action": "usar-cardapio", text: "Usar este cardápio hoje" }),
+          ]),
         ]),
       );
     }
@@ -700,12 +775,38 @@ window.SL &&
           el("input", { id: "ref-foto", type: "file", accept: "image/*", capture: "environment" }),
           // Miniatura da foto escolhida
           el("img", { class: "meal-foto meal-foto-previa", alt: "", hidden: true }),
+          // Depois da foto: toques rápidos no que tem no prato (preenche as calorias)
+          el("div", { class: "foto-sugestoes", hidden: true }, [
+            // Pergunta
+            el("p", { class: "meta", text: "O que tem no prato? Toque para somar:" }),
+            // Botões das comidas mais comuns (só as que a pessoa come)
+            el(
+              "div",
+              { class: "foto-chips" },
+              ["Arroz branco", "Feijão carioca", "Peito de frango grelhado", "Bife de patinho", "Ovo cozido", "Salada verde com tomate", "Batata-doce cozida", "Macarrão cozido", "Tofu grelhado", "Farofa"]
+                // Só as que servem
+                .filter(serve)
+                // Um botão por comida
+                .map((nome) => el("button", { type: "button", class: "chip-alim", "data-comida": nome, text: nome })),
+            ),
+          ]),
         ]),
         // Botão de salvar
         el("button", { type: "submit", class: "btn-primary", text: "Salvar refeição" }),
       ]);
       // Já começa com a hora de agora
       form.querySelector("#ref-hora").value = hora;
+      // Toque numa sugestão da foto: soma a comida na busca
+      form.querySelector(".foto-chips").addEventListener("click", (ev) => {
+        // Botão
+        const b = ev.target.closest("[data-comida]");
+        // Se não foi num botão, para
+        if (!b) return;
+        // Soma a comida
+        form.querySelector(".alim").adicionar(b.dataset.comida);
+        // Marca o botão como usado
+        b.classList.add("is-usado");
+      });
       // Foto do prato já diminuída (texto da imagem), ou vazio
       let foto = "";
       // Quando escolhe a foto...
@@ -724,6 +825,8 @@ window.SL &&
           previa.src = url;
           // Aparece
           previa.hidden = false;
+          // Mostra as sugestões do que tem no prato
+          form.querySelector(".foto-sugestoes").hidden = false;
         });
       });
 
@@ -782,8 +885,197 @@ window.SL &&
       SL.openModal("Adicionar refeição", form);
     });
 
+    /* ---------- Restrições, repetir ontem, lista de compras e receitas ---------- */
+
+    // Botão "Restrições": escolher vegetariano, sem lactose, alergias...
+    SL.acao("restricoes", () => {
+      // Marcadas agora
+      const marcadas = restricoes();
+      // Formulário com uma caixinha por restrição
+      const form = el("form", { class: "modal-form restricoes-form" }, [
+        // Explicação
+        el("p", { class: "meta", text: "O cardápio troca o que você não come, as receitas mostram só as que servem e a busca avisa." }),
+        // Caixinhas
+        ...RESTRICOES.map(([id, nome]) => el("label", { class: "perfil-selo" }, [el("input", { type: "checkbox", name: "restricao", value: id, checked: marcadas.includes(id) }), nome])),
+        // Salvar
+        el("button", { type: "submit", class: "btn-primary", text: "Salvar" }),
+      ]);
+      // Ao salvar...
+      form.addEventListener("submit", (e) => {
+        // ...não recarrega
+        e.preventDefault();
+        // ...guarda as marcadas
+        storage.set("sl-restricoes", [...form.querySelectorAll('input[name="restricao"]:checked')].map((c) => c.value));
+        // ...fecha
+        SL.closeModal();
+        // ...redesenha o cardápio e as receitas
+        renderCardapio();
+        // (receitas)
+        renderReceitas();
+        // ...avisa
+        SL.toast("Restrições salvas");
+      });
+      // Abre o modal
+      SL.openModal("Restrições alimentares", form);
+    });
+
+    // Botão "Repetir ontem": copia as refeições de ontem para hoje
+    SL.acao("repetir-ontem", () => {
+      // Data de ontem
+      const ontem = new Date(Date.now() - 86400000).toDateString();
+      // Refeições de ontem
+      const deOntem = historicoRefeicoes()[ontem];
+      // Sem nada de ontem
+      if (!deOntem || !deOntem.length) return SL.toast("Não achamos refeições de ontem neste aparelho.");
+      // Lista para escolher quais repetir
+      SL.openModal(
+        // Título
+        "Repetir refeições de ontem",
+        // Lista com um botão por refeição + repetir todas
+        [
+          // Uma linha por refeição
+          el(
+            "ul",
+            { class: "list-panel" },
+            deOntem.map((r, i) =>
+              // Linha
+              el("li", {}, [el("div", {}, [el("strong", { text: `${r.hora} • ${r.nome}` }), el("span", { text: `${r.descricao || ""} • ${SL.num(r.kcal)} kcal` })]), el("button", { type: "button", class: "btn-secondary", "data-action": "repetir-uma", "data-i": i, text: "Repetir" })]),
+            ),
+          ),
+          // Repetir todas
+          el("button", { type: "button", class: "btn-primary btn-block", "data-action": "repetir-uma", "data-i": "todas", text: "Repetir todas" }),
+        ],
+      );
+    });
+
+    // Repetir uma (ou todas) as refeições de ontem
+    SL.acao("repetir-uma", (alvo) => {
+      // Refeições de ontem
+      const deOntem = historicoRefeicoes()[new Date(Date.now() - 86400000).toDateString()] || [];
+      // Quais repetir
+      const escolhidas = alvo.dataset.i === "todas" ? deOntem : [deOntem[Number(alvo.dataset.i)]];
+      // Copia com ids novos
+      const novas = escolhidas.map((r, k) => ({ ...r, id: "r" + Date.now() + k }));
+      // Salva junto com as de hoje
+      guardarRefeicoes(refeicoes().concat(novas));
+      // Pontos de cada refeição (até 4 por dia)
+      if (SL.pontos) novas.forEach((r) => SL.pontos.ganhar("refeicao", "refeicao:" + r.id));
+      // Fecha se repetiu todas; senão, desativa o botão
+      if (alvo.dataset.i === "todas") SL.closeModal();
+      // (desativa)
+      else alvo.disabled = true;
+      // Desenha
+      render();
+      // Avisa
+      SL.toast(novas.length > 1 ? "Refeições de ontem repetidas" : "Refeição repetida");
+    });
+
+    // Lista de compras da semana (cardápio × 7 dias), com caixinhas que ficam salvas
+    SL.acao("lista-compras", () => {
+      // Soma as porções de cada comida no cardápio do dia
+      const porcoes = {};
+      // Para cada refeição e comida...
+      cardapioAjustado().forEach(([, , lista]) => lista.forEach(([nome, p]) => (porcoes[nome] = (porcoes[nome] || 0) + p)));
+      // Itens já marcados
+      const marcados = storage.get("sl-compras", {});
+      // Linhas da lista (semana = 7 dias)
+      const itens = Object.entries(porcoes).sort(([a], [b]) => a.localeCompare(b, "pt-BR"));
+      // Texto para copiar
+      const texto = itens.map(([nome, p]) => `- ${nome}: ${SL.num(p * 7, (p * 7) % 1 ? 1 : 0)} porções`).join("\n");
+      // Lista com caixinhas
+      const lista = el(
+        "ul",
+        { class: "compras-lista" },
+        itens.map(([nome, p]) => {
+          // Porção da comida (ex.: "1 filé (120 g)")
+          const a = ALIMENTOS.find((x) => x.nome === nome);
+          // Linha com caixinha
+          return el("li", {}, [el("label", {}, [el("input", { type: "checkbox", "data-item": nome, checked: Boolean(marcados[nome]) }), el("span", {}, [el("strong", { text: nome }), el("small", { class: "meta", text: ` ${SL.num(p * 7, (p * 7) % 1 ? 1 : 0)} × ${a ? a.porcao : "porção"}` })])])]);
+        }),
+      );
+      // Marcar/desmarcar salva
+      lista.addEventListener("change", (e) => {
+        // Itens marcados
+        const m = storage.get("sl-compras", {});
+        // Guarda o estado deste item
+        m[e.target.dataset.item] = e.target.checked;
+        // Salva
+        storage.set("sl-compras", m);
+      });
+      // Botão de copiar a lista
+      const copiar = el("button", { type: "button", class: "btn-primary btn-block", text: "Copiar lista" });
+      // Copia o texto
+      copiar.addEventListener("click", () => navigator.clipboard.writeText("Lista de compras (Saúde Life)\n" + texto).then(() => SL.toast("Lista copiada"), () => SL.toast("Não deu para copiar neste navegador")));
+      // Abre o modal
+      SL.openModal("Lista de compras da semana", [el("p", { class: "meta", text: "Para seguir o cardápio por 7 dias. Marque o que já tem em casa." }), lista, copiar]);
+    });
+
+    // Desenha as receitas (só as que servem para as restrições)
+    function renderReceitas() {
+      // Receitas que servem
+      const lista = RECEITAS.filter((rc) => serveTags(rc.tags));
+      // Aviso do filtro
+      document.querySelector('[data-render="receitas-filtro"]').textContent = restricoes().length ? `${lista.length} receitas para as suas restrições` : `${lista.length} receitas`;
+      // Um card por receita
+      document.querySelector('[data-render="receitas"]').replaceChildren(
+        ...lista.map((rc) =>
+          // Card (é um botão: abre o passo a passo)
+          el("button", { type: "button", class: "receita-card", "data-action": "ver-receita", "data-nome": rc.nome }, [
+            // Nome
+            el("strong", { text: rc.nome }),
+            // Tempo e porções
+            el("span", { class: "meta", text: `${rc.tempo} • ${rc.porcoes} porç${rc.porcoes > 1 ? "ões" : "ão"}` }),
+            // Macros
+            el("span", { class: "meal-macros" }, [el("span", { class: "macro-chip macro-emerald", text: `P ${rc.proteina} g` }), el("span", { class: "tag", text: `${rc.kcal} kcal` })]),
+          ]),
+        ),
+      );
+    }
+
+    // Abrir uma receita
+    SL.acao("ver-receita", (alvo) => {
+      // Receita
+      const rc = RECEITAS.find((x) => x.nome === alvo.dataset.nome);
+      // Botão de registrar como refeição
+      const registrar = el("button", { type: "button", class: "btn-primary btn-block", text: "Registrar 1 porção como refeição" });
+      // Ao registrar...
+      registrar.addEventListener("click", () => {
+        // ...hora de agora
+        const agora = new Date();
+        // ...id da refeição
+        const id = "r" + Date.now();
+        // ...salva
+        guardarRefeicoes(refeicoes().concat({ id, nome: rc.nome, hora: `${String(agora.getHours()).padStart(2, "0")}:${String(agora.getMinutes()).padStart(2, "0")}`, descricao: "Receita do Saúde Life", kcal: rc.kcal, proteina: rc.proteina, carbo: rc.carbo, gordura: rc.gordura }));
+        // ...pontos
+        if (SL.pontos) SL.pontos.ganhar("refeicao", "refeicao:" + id);
+        // ...fecha e redesenha
+        SL.closeModal();
+        // (redesenha)
+        render();
+        // ...avisa
+        SL.toast("Refeição registrada");
+      });
+      // Abre o passo a passo
+      SL.openModal(rc.nome, [
+        // Tempo, porções e macros
+        el("p", { class: "meta", text: `${rc.tempo} • ${rc.porcoes} porç${rc.porcoes > 1 ? "ões" : "ão"} • por porção: ${rc.kcal} kcal, P ${rc.proteina} g, C ${rc.carbo} g, G ${rc.gordura} g` }),
+        // Ingredientes
+        el("h3", { class: "receita-sub", text: "Ingredientes" }),
+        // Lista de ingredientes
+        el("ul", { class: "receita-lista" }, rc.ingredientes.map((i) => el("li", { text: i }))),
+        // Modo de fazer
+        el("h3", { class: "receita-sub", text: "Modo de fazer" }),
+        // Passos numerados
+        el("ol", { class: "receita-lista" }, rc.passos.map((p) => el("li", { text: p }))),
+        // Registrar
+        registrar,
+      ]);
+    });
+
     // Desenha a página a primeira vez
     render();
     // Desenha o cardápio sugerido
     renderCardapio();
+    // Desenha as receitas
+    renderReceitas();
   });

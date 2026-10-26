@@ -12,6 +12,93 @@ window.SL &&
     const DIA = 86400000;
     // Período escolhido (começa com 8 semanas)
     let semanas = 8;
+    // Exercício escolhido no gráfico de carga (começa com o agachamento)
+    let exercicioEscolhido = "Agachamento livre";
+    // Cargas de cada exercício ao longo do tempo: { nome: [{ data, carga }] } (salvas no fim de cada treino)
+    const cargasSalvas = () => storage.get("sl-cargas", {});
+
+    // Pontos do gráfico de carga do exercício escolhido
+    function pontosExercicio(nome) {
+      // Registrados pela pessoa
+      const meus = (cargasSalvas()[nome] || []).map((c) => ({ data: new Date(c.data), valor: c.carga }));
+      // O agachamento tem os exemplos semanais também
+      const base = nome === "Agachamento livre" ? serieSemanal(EVOLUCAO.cargas) : [];
+      // Junta e ordena por data
+      return base.concat(meus).sort((a, b) => a.data - b.data);
+    }
+
+    // Preenche a escolha de exercícios (agachamento + os que a pessoa já fez)
+    function preencherExercicios() {
+      // Campo de escolha
+      const campo = document.querySelector('[data-render="exercicio-escolha"]');
+      // Nomes: agachamento primeiro, depois os outros em ordem alfabética
+      const nomes = ["Agachamento livre"].concat(Object.keys(cargasSalvas()).filter((n) => n !== "Agachamento livre").sort((a, b) => a.localeCompare(b, "pt-BR")));
+      // Uma opção por exercício
+      campo.replaceChildren(...nomes.map((n) => el("option", { value: n, text: n, selected: n === exercicioEscolhido })));
+      // Ao trocar, redesenha
+      campo.onchange = () => {
+        // Guarda a escolha
+        exercicioEscolhido = campo.value;
+        // Desenha
+        render();
+      };
+    }
+
+    // Volume de cada grupo muscular num treino do histórico
+    function volumePorGrupo(h) {
+      // Treinos novos já guardam o volume por grupo
+      if (h.grupos) return h.grupos;
+      // Treinos antigos/de exemplo: calcula pelos exercícios do treino
+      const treino = SL.acharTreino(h.treinoId);
+      // Sem treino, sem volume
+      if (!treino) return {};
+      // Soma por grupo
+      const grupos = {};
+      // Para cada exercício com repetições...
+      SL.exerciciosDe(treino)
+        .filter((x) => typeof x.reps === "number")
+        // ...soma séries × reps × carga no grupo dele
+        .forEach((x) => {
+          // Grupo do exercício
+          const g = ((window.SL_EXERCICIOS || {})[x.nome] || {}).grupo || "Outros";
+          // Soma
+          grupos[g] = (grupos[g] || 0) + x.series * x.reps * (x.carga || 0);
+        });
+      // Devolve
+      return grupos;
+    }
+
+    // Desenha as barras de volume por músculo da semana
+    function renderVolume() {
+      // Começo da semana
+      const inicio = SL.inicioDaSemana(new Date()).getTime();
+      // Soma dos treinos da semana
+      const total = {};
+      // Para cada treino da semana...
+      SL.historico()
+        .filter((h) => new Date(h.data).getTime() >= inicio)
+        // ...soma os grupos
+        .forEach((h) => Object.entries(volumePorGrupo(h)).forEach(([g, v]) => (total[g] = (total[g] || 0) + v)));
+      // Grupos principais (aparecem mesmo com zero)
+      const grupos = ["Peito", "Costas", "Pernas", "Ombros", "Braços", "Core"];
+      // Maior volume (para a escala)
+      const maior = Math.max(1, ...grupos.map((g) => total[g] || 0));
+      // Troca as barras
+      document.querySelector('[data-render="volume-musculo"]').replaceChildren(
+        el(
+          "ul",
+          { class: "bars-list ev-volume-lista" },
+          grupos.map((g) => {
+            // Volume do grupo
+            const v = Math.round(total[g] || 0);
+            // Porcentagem da barra
+            const pct = Math.round((v / maior) * 100);
+            // Linha
+            return el("li", {}, [el("span", { text: g }), el("div", { class: "progress-bar-sm" + (v ? "" : " is-vazia"), role: "img", "aria-label": `${g}: ${v} kg` }, [el("div", { class: "fill", "data-progress": pct })]), el("strong", { text: v ? `${SL.num(v)} kg` : "0" })]);
+          }),
+        ),
+      );
+    }
 
     // Série semanal de exemplo: o último ponto é a semana atual
     // Transforma uma lista de valores em pontos com data, uma semana cada
@@ -299,8 +386,16 @@ window.SL &&
 
       // Desenha o gráfico de peso com o resumo
       document.querySelector('[data-render="grafico-peso"]').replaceChildren(resumoGrafico(peso, "kg", 1, true), grafico(peso, "kg", 1));
-      // Desenha o gráfico de carga com o resumo
-      document.querySelector('[data-render="grafico-cargas"]').replaceChildren(resumoGrafico(cargas, "kg", 1, false), grafico(cargas, "kg", 1));
+      // Pontos do exercício escolhido no período
+      const cargasEx = noPeriodo(pontosExercicio(exercicioEscolhido));
+      // Desenha o gráfico de carga com o resumo (com 2 pontos ou mais)
+      document.querySelector('[data-render="grafico-cargas"]').replaceChildren(
+        ...(cargasEx.length > 1 ? [resumoGrafico(cargasEx, "kg", 1, false), grafico(cargasEx, "kg", 1)] : [el("p", { class: "meta", text: "Ainda poucos treinos com este exercício no período. Treine mais vezes (ou escolha um período maior) para ver o gráfico." })]),
+      );
+      // Escolha de exercícios atualizada
+      preencherExercicios();
+      // Volume por músculo da semana
+      renderVolume();
       // Desenha o gráfico de frequência
       document.querySelector('[data-render="grafico-frequencia"]').replaceChildren(graficoFrequencia(meta));
 
@@ -442,8 +537,8 @@ window.SL &&
     function renderRecordes() {
       // Os 8 maiores
       const lista = listaRecordes().slice(0, 8);
-      // Medalhas dos 3 primeiros
-      const medalhas = ["🥇", "🥈", "🥉"];
+      // Classes das medalhas dos 3 primeiros (ouro, prata e bronze)
+      const medalhas = ["is-ouro", "is-prata", "is-bronze"];
       // Troca a lista
       $("recordes").replaceChildren(
         // Uma linha por recorde
@@ -451,7 +546,7 @@ window.SL &&
           // Linha
           el("li", {}, [
             // Medalha ou posição
-            el("span", { class: "ev-rec-pos", "aria-hidden": "true", text: medalhas[i] || `${i + 1}º` }),
+            el("span", { class: "ev-rec-pos " + (medalhas[i] || ""), "aria-hidden": "true" }, [medalhas[i] ? SL.icone(SL.ICONES.medalha) : `${i + 1}º`]),
             // Nome
             el("span", { class: "ev-rec-nome", text: r.nome }),
             // Etiqueta de recorde batido no app
@@ -659,14 +754,14 @@ window.SL &&
         // Quanto já andou (de 0 a 1)
         const pct = pesoInicio === m.peso ? 1 : Math.max(0, Math.min(1, (pesoInicio - pesoAtual) / (pesoInicio - m.peso)));
         // Cartão
-        cartoes.push(cartaoMeta("Peso", `${SL.num(pesoAtual, 1)} → ${SL.num(m.peso, 1)} kg`, pct, Math.abs(pesoAtual - m.peso) < 0.05 ? "Meta batida! 🎉" : `Faltam ${SL.num(Math.abs(pesoAtual - m.peso), 1)} kg`));
+        cartoes.push(cartaoMeta("Peso", `${SL.num(pesoAtual, 1)} → ${SL.num(m.peso, 1)} kg`, pct, Math.abs(pesoAtual - m.peso) < 0.05 ? "Meta batida!" : `Faltam ${SL.num(Math.abs(pesoAtual - m.peso), 1)} kg`));
       }
       // Meta de carga
       if (m.exercicio && m.carga) {
         // Quanto já andou
         const pct = Math.min(1, recorde / m.carga);
         // Cartão
-        cartoes.push(cartaoMeta(m.exercicio, `${kg(recorde)} → ${kg(m.carga)}`, pct, recorde >= m.carga ? "Meta batida! 🎉" : `Faltam ${kg(m.carga - recorde)}`));
+        cartoes.push(cartaoMeta(m.exercicio, `${kg(recorde)} → ${kg(m.carga)}`, pct, recorde >= m.carga ? "Meta batida!" : `Faltam ${kg(m.carga - recorde)}`));
       }
       // Meta de data
       if (dias != null) cartoes.push(cartaoMeta("Prazo", new Date(m.data).toLocaleDateString("pt-BR"), null, dias > 0 ? `Faltam ${dias} dias` : "Chegou o dia!"));
@@ -798,7 +893,7 @@ window.SL &&
         // Confere se salvou
         if (storage.get("sl-fotos", []).length !== fotos.length) SL.toast("Sem espaço no navegador para mais fotos. Apague uma antiga.");
         // Avisa
-        else SL.toast("Foto guardada só neste aparelho 🔒");
+        else SL.toast("Foto guardada só neste aparelho.");
         // Desenha
         renderFotos();
         // Limpa o campo
@@ -875,6 +970,81 @@ window.SL &&
       atualizar();
     }
 
+    /* ---------- Relatório para o profissional ---------- */
+
+    // Monta o texto do relatório dos últimos 30 dias
+    function textoRelatorio() {
+      // Pessoa
+      const u = SL.getUsuario ? SL.getUsuario() : { nome: "" };
+      // Começo do período (30 dias atrás)
+      const desde = Date.now() - 30 * DIA;
+      // Treinos do período
+      const treinos = SL.historico().filter((h) => new Date(h.data).getTime() >= desde);
+      // Pesos do período
+      const pesos = pontosPeso().filter((p) => p.data.getTime() >= desde);
+      // Sono (média das últimas noites)
+      const sono = storage.get("sl-sono", []).filter((n) => new Date(n.data).getTime() >= desde);
+      // Última medida
+      const medida = storage.get("sl-medidas", [])[0];
+      // Objetivo
+      const obj = SL.onboarding();
+      // Recordes (as 5 maiores cargas)
+      const recs = Object.entries(cargasSalvas())
+        .map(([nome, l]) => [nome, Math.max(...l.map((c) => c.carga))])
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5);
+      // Linhas do relatório
+      return [
+        // Cabeçalho
+        `Relatório Saúde Life — ${u.nome || ""}`,
+        // Período
+        `Período: ${new Date(desde).toLocaleDateString("pt-BR")} a ${new Date().toLocaleDateString("pt-BR")}`,
+        // Objetivo
+        `Objetivo: ${obj.rotulo || obj.objetivo} • Nível: ${obj.nivel} • Meta: ${obj.dias} treinos por semana`,
+        // Vazio
+        "",
+        // Treinos
+        `Treinos: ${treinos.length} (${SL.num(treinos.length / 4.3, 1)} por semana) • ${SL.duracaoTexto(treinos.reduce((t, h) => t + (h.duracao || 0), 0))} no total`,
+        // Volume
+        `Volume levantado: ${SL.num(treinos.reduce((t, h) => t + (h.volume || 0), 0))} kg`,
+        // Peso
+        pesos.length > 1 ? `Peso: ${SL.num(pesos[0].valor, 1)} kg → ${SL.num(pesos[pesos.length - 1].valor, 1)} kg` : `Peso: ${pesos.length ? SL.num(pesos[0].valor, 1) + " kg" : "sem registro"}`,
+        // Sono
+        `Sono: ${sono.length ? SL.num(sono.reduce((t, n) => t + n.horas, 0) / sono.length, 1) + " h por noite (média)" : "sem registro"}`,
+        // Medidas
+        medida ? `Medidas (${new Date(medida.data).toLocaleDateString("pt-BR")}): ${["cintura", "quadril", "braco", "coxa"].filter((k) => medida[k]).map((k) => `${k} ${medida[k]} cm`).join(", ")}` : "Medidas: sem registro",
+        // Vazio
+        "",
+        // Cargas máximas
+        "Cargas máximas:",
+        // Uma linha por exercício
+        ...(recs.length ? recs.map(([nome, c]) => `- ${nome}: ${SL.num(c, c % 1 ? 1 : 0)} kg`) : ["- ainda sem registros"]),
+      ].join("\n");
+    }
+
+    // Botão "Relatório para o profissional"
+    SL.acao("relatorio", () => {
+      // Texto
+      const texto = textoRelatorio();
+      // Caixa com o texto (dá para selecionar)
+      const caixa = el("pre", { class: "ev-relatorio", text: texto });
+      // Copiar
+      const copiar = el("button", { type: "button", class: "btn-primary", text: "Copiar" });
+      // Ao copiar...
+      copiar.addEventListener("click", () => navigator.clipboard.writeText(texto).then(() => SL.toast("Relatório copiado. É só colar no chat do seu profissional."), () => SL.toast("Não deu para copiar: selecione o texto e copie.")));
+      // Baixar
+      const baixar = el("button", { type: "button", class: "btn-secondary", text: "Baixar arquivo" });
+      // Ao baixar...
+      baixar.addEventListener("click", () => {
+        // Arquivo de texto
+        const a = el("a", { href: URL.createObjectURL(new Blob([texto], { type: "text/plain" })), download: `relatorio-saude-life-${new Date().toISOString().slice(0, 10)}.txt` });
+        // Baixa
+        a.click();
+      });
+      // Abre o modal
+      SL.openModal("Relatório dos últimos 30 dias", [el("p", { class: "meta", text: "Mande para o seu personal ou nutricionista." }), caixa, el("div", { class: "modal-actions" }, [baixar, copiar])]);
+    });
+
     /* ---------- Resumo da semana / do mês (stories) ---------- */
 
     // Botão de resumo
@@ -923,7 +1093,7 @@ window.SL &&
         // Tela 4: volume
         { kicker: "Força", numero: `${SL.num(volume / 1000, 1)} t`, legenda: "levantadas no total", texto: "Isso é mais que um carro popular!" },
         // Tela 5: Pulso
-        { kicker: "Recado do Pulso", numero: "💪", legenda: SL.personagem ? SL.personagem.frase() : "Bora pra próxima!", texto: "" },
+        { kicker: "Recado do Pulso", numero: "Bora!", legenda: SL.personagem ? SL.personagem.frase() : "Bora pra próxima!", texto: "" },
       ]);
     });
 

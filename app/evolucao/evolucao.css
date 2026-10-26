@@ -70,7 +70,7 @@
 /* Números em destaque do resumo */
 .chart-summary strong {
   /* Fonte da letra */
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-display);
   /* Tamanho da letra: 24 pixels */
   font-size: 24px;
 }
@@ -122,7 +122,7 @@
   /* Tamanho da letra: 11 pixels */
   font-size: 11px;
   /* Fonte da letra */
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-body);
 }
 
 /* Linha do gráfico */
@@ -381,6 +381,34 @@
   width: 28px;
   /* Texto centralizado */
   text-align: center;
+  /* Cor do número */
+  color: var(--muted);
+}
+
+/* Ícone da medalha */
+.ev-rec-pos .icon {
+  /* Tamanho */
+  width: 20px;
+  /* Tamanho */
+  height: 20px;
+}
+
+/* Medalha de ouro */
+.ev-rec-pos.is-ouro {
+  /* Dourado */
+  color: var(--star);
+}
+
+/* Medalha de prata */
+.ev-rec-pos.is-prata {
+  /* Prateado */
+  color: #c4ccc8;
+}
+
+/* Medalha de bronze */
+.ev-rec-pos.is-bronze {
+  /* Bronze */
+  color: #d08a5a;
 }
 
 /* Nome do exercício */
@@ -561,4 +589,76 @@
 .ev-corpo-svg text {
   /* Tamanho da letra dentro do desenho */
   font-size: 9px;
+}
+
+/* ---------- Escolha do exercício, volume por músculo e relatório ---------- */
+
+/* Escolha do exercício no gráfico de carga */
+.ev-select {
+  /* Fundo de card */
+  background: var(--surface-2);
+  /* Borda */
+  border: 1px solid var(--border);
+  /* Cor do texto */
+  color: var(--ink);
+  /* Cantos arredondados */
+  border-radius: var(--radius-sm);
+  /* Espaço interno */
+  padding: 6px 10px;
+  /* Fonte do site */
+  font: 500 var(--text-sm) var(--font-body);
+  /* Não passa da largura do card */
+  max-width: 100%;
+}
+
+/* Painel do volume por músculo */
+.ev-volume {
+  /* Espaço */
+  margin: var(--space-6) 0;
+}
+
+/* Linhas do volume: nome, barra e número */
+.ev-volume-lista li {
+  /* Três colunas */
+  display: grid;
+  /* Nome, barra, número */
+  grid-template-columns: 70px 1fr 90px;
+  /* Centralizados */
+  align-items: center;
+  /* Espaço */
+  gap: 10px;
+}
+
+/* Número do volume à direita */
+.ev-volume-lista strong {
+  /* À direita */
+  text-align: right;
+  /* Números alinhados */
+  font-variant-numeric: tabular-nums;
+}
+
+/* Barra de grupo sem treino na semana */
+.ev-volume-lista .is-vazia {
+  /* Apagada */
+  opacity: 0.5;
+}
+
+/* Texto do relatório */
+.ev-relatorio {
+  /* Quebra as linhas longas */
+  white-space: pre-wrap;
+  /* Fonte do site (não monoespaçada) */
+  font: 400 var(--text-sm) / 1.6 var(--font-body);
+  /* Fundo de card */
+  background: var(--surface-2);
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Espaço interno */
+  padding: 14px;
+  /* Altura máxima (rola se for grande) */
+  max-height: 50vh;
+  /* Rola */
+  overflow: auto;
+  /* Cor do texto */
+  color: var(--ink);
 }

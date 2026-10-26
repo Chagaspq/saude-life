@@ -8,6 +8,7 @@
  *   carga    = carga inicial sugerida em kg (0 = peso do corpo)
  *   dicas    = 2 dicas curtas de como fazer
  *   erro     = o erro mais comum
+ *   equip    = equipamento (calculado no fim do arquivo, para os filtros)
  * Fica em window.SL_EXERCICIOS para todas as páginas usarem.
  */
 (function () {
@@ -138,5 +139,129 @@
     "Postura do pombo": x("Mobilidade", ["gluteos"], "casa", "alongar", 0, ["Perna da frente dobrada, de trás esticada.", "Desça o tronco aos poucos."], "Torcer o joelho da frente para caber na posição."),
     // Alongamento 90/90
     "Alongamento 90/90": x("Mobilidade", ["gluteos"], "casa", "alongar", 0, ["As duas pernas dobradas em 90 graus.", "Incline o tronco sobre a perna da frente."], "Arredondar as costas para descer mais."),
+
+    /* ---------- Mais exercícios (biblioteca ampliada) ---------- */
+    // Supino reto com halteres
+    "Supino reto com halteres": x("Peito", ["peito", "triceps"], "ambos", "empurrar", 14, ["Halteres na linha do peito, cotovelos a 45 graus.", "Desça devagar e suba sem bater um halter no outro."], "Abrir demais os cotovelos e forçar o ombro."),
+    // Supino declinado
+    "Supino declinado": x("Peito", ["peito", "triceps"], "academia", "empurrar", 30, ["Pés bem presos no apoio do banco.", "A barra desce na parte de baixo do peito."], "Deixar a barra cair rápido no peito."),
+    // Crucifixo inclinado
+    "Crucifixo inclinado": x("Peito", ["peito", "ombros"], "ambos", "empurrar", 8, ["Braços levemente dobrados o tempo todo.", "Abra até sentir alongar o peito, sem passar da linha do ombro."], "Esticar os cotovelos e pesar demais."),
+    // Crossover na polia
+    "Crossover na polia": x("Peito", ["peito"], "academia", "empurrar", 15, ["Um pé à frente para ter equilíbrio.", "Junte as mãos na frente do quadril, apertando o peito."], "Usar o corpo para jogar o peso."),
+    // Flexão inclinada
+    "Flexão inclinada": x("Peito", ["peito", "triceps"], "casa", "empurrar", 0, ["Mãos num banco, sofá ou mesa firme.", "Corpo reto como uma prancha."], "Deixar o quadril cair."),
+    // Flexão diamante
+    "Flexão diamante": x("Peito", ["triceps", "peito"], "casa", "empurrar", 0, ["Mãos juntas formando um diamante embaixo do peito.", "Cotovelos rentes ao corpo."], "Abrir os cotovelos para os lados."),
+    // Peck deck
+    "Peck deck": x("Peito", ["peito"], "academia", "empurrar", 30, ["Costas coladas no encosto.", "Segure 1 segundo com os braços fechados."], "Soltar o peso de uma vez na volta."),
+    // Barra fixa
+    "Barra fixa": x("Costas", ["costas", "biceps"], "ambos", "puxar", 0, ["Pegada um pouco mais larga que os ombros.", "Puxe até o queixo passar da barra."], "Balançar o corpo para subir."),
+    // Barra fixa com elástico
+    "Barra fixa com elástico": x("Costas", ["costas", "biceps"], "ambos", "puxar", 0, ["O elástico ajuda a subir: quanto mais grosso, mais ajuda.", "Desça controlando até esticar os braços."], "Descer de uma vez."),
+    // Remada cavalinho
+    "Remada cavalinho": x("Costas", ["costas"], "academia", "puxar", 30, ["Peito apoiado ou tronco firme, coluna reta.", "Puxe levando os cotovelos para trás."], "Arredondar a lombar."),
+    // Remada com elástico
+    "Remada com elástico": x("Costas", ["costas", "biceps"], "casa", "puxar", 0, ["Prenda o elástico numa porta ou nos pés.", "Aperte as escápulas no fim do movimento."], "Puxar só com os braços, sem usar as costas."),
+    // Puxada com pegada fechada
+    "Puxada com pegada fechada": x("Costas", ["costas", "biceps"], "academia", "puxar", 35, ["Triângulo na polia, peito para cima.", "Leve o triângulo até perto do peito."], "Jogar o tronco para trás."),
+    // Pullover com halter
+    "Pullover com halter": x("Costas", ["costas", "peito"], "ambos", "puxar", 12, ["Deitado no banco, halter com as duas mãos.", "Leve o halter para trás da cabeça com os braços quase esticados."], "Dobrar muito os cotovelos e virar um tríceps."),
+    // Hiperextensão lombar
+    "Hiperextensão lombar": x("Costas", ["costas", "gluteos"], "academia", "puxar", 0, ["Quadril apoiado no banco romano.", "Suba até alinhar o corpo, sem passar disso."], "Jogar o corpo para trás com tranco."),
+    // Desenvolvimento com barra
+    "Desenvolvimento com barra": x("Ombros", ["ombros", "triceps"], "academia", "empurrar", 20, ["Barra na frente do rosto, abdômen firme.", "Empurre para cima até quase esticar."], "Arquear demais a lombar."),
+    // Elevação frontal
+    "Elevação frontal": x("Ombros", ["ombros"], "ambos", "empurrar", 5, ["Suba os halteres até a altura dos ombros.", "Desça devagar."], "Balançar o tronco para subir."),
+    // Crucifixo inverso
+    "Crucifixo inverso": x("Ombros", ["ombros", "costas"], "ambos", "puxar", 5, ["Tronco inclinado para a frente, costas retas.", "Abra os braços como asas."], "Usar peso demais e encolher os ombros."),
+    // Encolhimento com halteres
+    "Encolhimento com halteres": x("Ombros", ["ombros", "costas"], "ambos", "puxar", 16, ["Suba os ombros em direção às orelhas.", "Segure 1 segundo no alto."], "Girar os ombros (só sobe e desce)."),
+    // Arnold press
+    "Arnold press": x("Ombros", ["ombros", "triceps"], "ambos", "empurrar", 8, ["Comece com as palmas viradas para você.", "Gire os punhos enquanto sobe."], "Fazer rápido e sem controle."),
+    // Elevação lateral na polia
+    "Elevação lateral na polia": x("Ombros", ["ombros"], "academia", "empurrar", 5, ["Um braço por vez, cabo cruzando na frente do corpo.", "Suba até a linha do ombro."], "Subir acima da linha do ombro."),
+    // Flexão pike
+    "Flexão pike": x("Ombros", ["ombros", "triceps"], "casa", "empurrar", 0, ["Quadril alto, corpo em V invertido.", "Desça a cabeça entre as mãos."], "Fazer com o quadril baixo (vira flexão comum)."),
+    // Rosca concentrada
+    "Rosca concentrada": x("Braços", ["biceps"], "ambos", "puxar", 8, ["Cotovelo apoiado na parte de dentro da coxa.", "Suba devagar e aperte no alto."], "Tirar o cotovelo do apoio."),
+    // Rosca scott
+    "Rosca scott": x("Braços", ["biceps"], "academia", "puxar", 15, ["Braços apoiados no banco scott.", "Desça até quase esticar, sem travar."], "Soltar o peso de uma vez na descida."),
+    // Rosca na polia
+    "Rosca na polia": x("Braços", ["biceps"], "academia", "puxar", 15, ["Cotovelos colados no corpo.", "Suba sem mexer os ombros."], "Jogar o corpo para trás."),
+    // Tríceps testa
+    "Tríceps testa": x("Braços", ["triceps"], "ambos", "empurrar", 15, ["Deitado, barra ou halteres acima do rosto.", "Dobre só os cotovelos, levando o peso até a testa."], "Abrir os cotovelos."),
+    // Tríceps coice
+    "Tríceps coice": x("Braços", ["triceps"], "ambos", "empurrar", 5, ["Tronco inclinado, cotovelo colado ao corpo.", "Estique o braço para trás e segure 1 segundo."], "Balançar o braço."),
+    // Mergulho nas paralelas
+    "Mergulho nas paralelas": x("Braços", ["triceps", "peito"], "academia", "empurrar", 0, ["Corpo reto para focar no tríceps.", "Desça até os cotovelos fazerem 90 graus."], "Descer demais e forçar o ombro."),
+    // Abdominal infra no banco
+    "Abdominal infra no banco": x("Core", ["abdomen"], "ambos", "core", 0, ["Mãos segurando o banco atrás da cabeça.", "Suba as pernas tirando o quadril do banco."], "Balançar as pernas."),
+    // Prancha com toque no ombro
+    "Prancha com toque no ombro": x("Core", ["abdomen", "ombros"], "casa", "core", 0, ["Pés afastados para ter equilíbrio.", "Toque o ombro oposto sem girar o quadril."], "Rebolar o quadril a cada toque."),
+    // Dead bug
+    "Dead bug": x("Core", ["abdomen"], "casa", "core", 0, ["Lombar colada no chão o tempo todo.", "Estique braço e perna opostos devagar."], "Tirar a lombar do chão."),
+    // Russian twist
+    "Russian twist": x("Core", ["abdomen"], "casa", "core", 0, ["Tronco inclinado para trás, pés no chão ou no ar.", "Gire o tronco de um lado para o outro."], "Mexer só os braços."),
+    // Abdominal na polia
+    "Abdominal na polia": x("Core", ["abdomen"], "academia", "core", 25, ["Ajoelhado, corda atrás da cabeça.", "Enrole o tronco levando os cotovelos aos joelhos."], "Puxar com os braços."),
+    // Roda abdominal
+    "Roda abdominal": x("Core", ["abdomen", "ombros"], "ambos", "core", 0, ["Comece ajoelhado.", "Vá até onde conseguir sem cair a lombar."], "Deixar o quadril afundar."),
+    // Hack squat
+    "Hack squat": x("Pernas", ["quadriceps", "gluteos"], "academia", "agachar", 40, ["Costas apoiadas, pés no meio da plataforma.", "Desça até 90 graus."], "Tirar os calcanhares da plataforma."),
+    // Agachamento sumô
+    "Agachamento sumô": x("Pernas", ["quadriceps", "gluteos"], "ambos", "agachar", 16, ["Pés bem afastados, pontas para fora.", "Segure um halter entre as pernas."], "Deixar os joelhos caírem para dentro."),
+    // Elevação pélvica com barra
+    "Elevação pélvica com barra": x("Pernas", ["gluteos", "posteriores"], "academia", "agachar", 40, ["Costas apoiadas num banco, barra no quadril (use proteção).", "Suba apertando o glúteo e segure 1 segundo."], "Arquear a lombar no alto em vez de usar o glúteo."),
+    // Cadeira abdutora
+    "Cadeira abdutora": x("Pernas", ["gluteos"], "academia", "agachar", 30, ["Costas no encosto.", "Abra as pernas e volte devagar."], "Voltar soltando o peso."),
+    // Subida no banco
+    "Subida no banco": x("Pernas", ["quadriceps", "gluteos"], "ambos", "agachar", 0, ["Banco ou degrau firme, na altura do joelho.", "Empurre com a perna de cima, sem pular com a de baixo."], "Dar impulso com o pé de baixo."),
+    // Agachamento na parede
+    "Agachamento na parede": x("Pernas", ["quadriceps"], "casa", "agachar", 0, ["Costas coladas na parede, joelhos a 90 graus.", "Segure o tempo combinado respirando."], "Deixar os joelhos passarem muito da ponta do pé."),
+    // Mesa flexora
+    "Mesa flexora": x("Pernas", ["posteriores"], "academia", "agachar", 25, ["Deitado, quadril colado no banco.", "Puxe até perto do glúteo e volte devagar."], "Levantar o quadril."),
+    // Pular corda
+    "Pular corda": x("Cardio", ["corpo", "panturrilhas"], "ambos", "cardio", 0, ["Pulos baixos, na ponta dos pés.", "Gire a corda com os punhos, não com os braços."], "Pular alto demais e cansar rápido."),
+    // Corrida estacionária
+    "Corrida estacionária": x("Cardio", ["corpo", "quadriceps"], "casa", "cardio", 0, ["Corra no lugar levantando os joelhos.", "Mantenha o ritmo constante."], "Bater os calcanhares com força no chão."),
+    // Bicicleta ergométrica
+    "Bicicleta ergométrica": x("Cardio", ["corpo", "quadriceps"], "academia", "cardio", 0, ["Banco na altura do quadril.", "Joelho quase esticado embaixo."], "Banco baixo demais (força o joelho)."),
+    // Remo ergômetro
+    "Remo ergômetro": x("Cardio", ["corpo", "costas"], "academia", "cardio", 0, ["Empurre com as pernas primeiro, depois puxe com os braços.", "Volte na ordem contrária."], "Puxar só com os braços."),
+    // Elíptico
+    "Elíptico": x("Cardio", ["corpo"], "academia", "cardio", 0, ["Use os braços junto com as pernas.", "Postura reta, sem apoiar o peso nos braços."], "Ficar pendurado nas alças."),
+    // Caminhada rápida
+    "Caminhada rápida": x("Cardio", ["corpo"], "ambos", "cardio", 0, ["Passos rápidos, braços balançando.", "Respiração forte, mas ainda dá para falar."], "Andar devagar demais para contar como treino."),
+    // Skipping
+    "Skipping": x("Cardio", ["corpo", "quadriceps"], "casa", "cardio", 0, ["Joelhos na altura do quadril.", "Braços acompanham as pernas."], "Inclinar o tronco para trás."),
+    // Alongamento de posterior
+    "Alongamento de posterior": x("Mobilidade", ["posteriores"], "casa", "alongar", 0, ["Perna esticada num degrau, coluna reta.", "Incline o tronco até sentir alongar."], "Arredondar as costas para descer mais."),
+    // Gato e vaca
+    "Gato e vaca": x("Mobilidade", ["costas"], "casa", "alongar", 0, ["De quatro apoios, mãos embaixo dos ombros.", "Arredonde e arqueie a coluna seguindo a respiração."], "Mexer só o pescoço."),
+    // Abertura de peito na parede
+    "Abertura de peito na parede": x("Mobilidade", ["peito", "ombros"], "casa", "alongar", 0, ["Antebraço apoiado na parede.", "Gire o corpo para o lado oposto devagar."], "Forçar até doer."),
   };
+
+  // Equipamento de cada exercício (para o filtro), pelo nome e pelo lugar
+  function equipamentoDe(nome, ex) {
+    // Corda de pular (antes da polia, que também tem "corda" no nome)
+    if (/pular corda/i.test(nome)) return "Corda";
+    // Elástico
+    if (/elástico/i.test(nome)) return "Elástico";
+    // Polia (cabo)
+    if (/polia|corda|crossover|puxada|pulldown/i.test(nome)) return "Polia";
+    // Máquinas
+    if (/cadeira|leg press|hack|peck|mesa|máquina|bicicleta|remo erg|elíptico|abdutora/i.test(nome)) return "Máquina";
+    // Barra fixa e paralelas
+    if (/barra fixa|paralelas/i.test(nome)) return "Barra fixa";
+    // Barra
+    if (/barra|stiff|terra|supino reto$|supino declinado|remada curvada|cavalinho|rosca direta|scott/i.test(nome)) return "Barra";
+    // Halteres
+    if (/halter|rosca|elevação lateral$|elevação frontal|crucifixo|arnold|coice|testa|francês|encolhimento|sumô|afundo|búlgaro|supino inclinado/i.test(nome)) return "Halteres";
+    // Sem carga: peso do corpo
+    return ex.carga ? "Halteres" : "Peso do corpo";
+  }
+  // Coloca o equipamento em cada exercício
+  Object.entries(window.SL_EXERCICIOS).forEach(([nome, ex]) => (ex.equip = ex.equip || equipamentoDe(nome, ex)));
 })();

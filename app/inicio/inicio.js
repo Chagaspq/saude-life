@@ -16,7 +16,7 @@ window.SL &&
     // Escreve a frase abaixo da saudação:
     document.querySelector('[data-render="frase-semana"]').textContent = faltam
       // se falta treino, diz quantos (com "s" no plural)
-      ? `Faltam ${faltam} treino${faltam > 1 ? "s" : ""} para bater sua meta da semana.`
+      ? `${faltam > 1 ? "Faltam" : "Falta"} ${faltam} treino${faltam > 1 ? "s" : ""} para bater sua meta da semana.`
       // se não falta, parabeniza e sugere mobilidade
       : "Meta da semana batida. Que tal um treino leve de mobilidade?";
 
@@ -225,6 +225,20 @@ window.SL &&
           el("div", { class: "pontos-card-liga" }, [P.escudo(s.atual), el("strong", { class: `rk-liga-nome liga-${P.LIGAS[s.atual].id}`, text: `Liga ${P.LIGAS[s.atual].nome}` })]),
           // Posição entre os amigos
           el("p", { class: "pontos-card-pos", text: pos ? `Você está em ${pos.posicao}º de ${pos.total} entre os amigos` : "" }),
+          // Sequência de dias com o escudo
+          (() => {
+            // Dias seguidos
+            const seq = P.diasSeguidos();
+            // Etiqueta
+            return el("p", { class: "pontos-card-seq" }, [el("strong", { text: `${seq.dias} dia${seq.dias === 1 ? "" : "s"} seguido${seq.dias === 1 ? "" : "s"}` }), el("span", { class: "meta", text: seq.escudoLivre ? " • escudo da semana livre (1 dia de folga sem perder)" : " • escudo da semana já usado" })]);
+          })(),
+          // Missões de hoje (feitas/total)
+          (() => {
+            // Missões
+            const ms = P.missoes();
+            // Etiqueta com link para o Ranking
+            return el("a", { href: "../ranking/ranking.html#heading-missoes", class: "pontos-card-missoes" }, [`Missões de hoje: ${ms.filter((m) => m.feita).length} de ${ms.length}`, el("span", { class: "meta", text: ` • ${ms.filter((m) => !m.feita).map((m) => m.texto.toLowerCase()).slice(0, 2).join(", ") || "todas feitas!"}` })]);
+          })(),
           // O que falta
           el("p", { class: "meta", text: s.faltaSubir ? `Faltam ${s.faltaSubir} pontos para ${s.noTopo ? "garantir o Diamante" : "subir de liga"} • zera em ${s.diasParaZerar} dia${s.diasParaZerar === 1 ? "" : "s"}` : "Subida garantida nesta semana!" }),
         ]),
@@ -245,25 +259,25 @@ window.SL &&
       const hora = agora.getHours() + agora.getMinutes() / 60;
       // Já treinou hoje?
       const treinouHoje = SL.historico().some((h) => new Date(h.data).toDateString() === agora.toDateString());
-      // Sugestão do horário: [emoji, título, texto, botão, link]
+      // Sugestão do horário: [ícone, título, texto, botão, link]
       const m =
         // Manhã
         hora >= 5 && hora < 10
-          ? ["☀️", "Bom dia! Começa com proteína", "Ovo, iogurte ou queijo no café ajudam a bater a meta de proteína.", "Registrar café", "../alimentacao/alimentacao.html"]
+          ? ["sol", "Bom dia! Começa com proteína", "Ovo, iogurte ou queijo no café ajudam a bater a meta de proteína.", "Registrar café", "../alimentacao/alimentacao.html"]
           : // Almoço
             hora >= 10 && hora < 14
-            ? ["🍽️", "Hora do almoço", "Metade do prato com salada e legumes. Registra e ganha 5 pontos.", "Registrar almoço", "../alimentacao/alimentacao.html"]
+            ? ["talheres", "Hora do almoço", "Metade do prato com salada e legumes. Registra e ganha 5 pontos.", "Registrar almoço", "../alimentacao/alimentacao.html"]
             : // Tarde
               hora >= 14 && hora < 18
-              ? ["⚡", "Tarde de energia", "Um lanche com carboidrato e um copo d'água antes do treino.", "Ver treinos", "../treinos/treinos.html"]
+              ? ["raio", "Tarde de energia", "Um lanche com carboidrato e um copo d'água antes do treino.", "Ver treinos", "../treinos/treinos.html"]
               : // Noite, já treinou
                 hora >= 18 && hora < 22 && treinouHoje
-                ? ["🌙", "Treino feito hoje!", "Agora é recuperar: janta com proteína e uma boa noite de sono.", "Ver evolução", "../evolucao/evolucao.html"]
+                ? ["lua", "Treino feito hoje!", "Agora é recuperar: janta com proteína e uma boa noite de sono.", "Ver evolução", "../evolucao/evolucao.html"]
                 : // Noite, ainda não treinou
                   hora >= 18 && hora < 22
-                  ? ["🔥", "Ainda dá tempo de treinar", "20 minutos já valem pontos e mantêm sua sequência.", "Começar treino", "../treinos/treinos.html"]
+                  ? ["fogo", "Ainda dá tempo de treinar", "20 minutos já valem pontos e mantêm sua sequência.", "Começar treino", "../treinos/treinos.html"]
                   : // Madrugada
-                    ["😴", "Hora de descansar", "Sono também é treino: 7 a 9 horas ajudam o músculo a crescer.", "Ver resumo", "../evolucao/evolucao.html"];
+                    ["cama", "Hora de descansar", "Sono também é treino: 7 a 9 horas ajudam o músculo a crescer.", "Ver resumo", "../evolucao/evolucao.html"];
       // Meta de passos
       const META = 8000;
       // Passos do dia inteiro (sorteado pelo dia, entre 5 e 12 mil)
@@ -274,8 +288,8 @@ window.SL &&
       const passos = Math.round(doDia * parte);
       // Troca o conteúdo
       alvo.replaceChildren(
-        // Emoji grande
-        el("span", { class: "momento-emoji", "aria-hidden": "true", text: m[0] }),
+        // Ícone do momento
+        el("span", { class: "momento-icone" }, [SL.icone(SL.ICONES[m[0]])]),
         // Textos e botão
         el("div", { class: "momento-info" }, [el("strong", { text: m[1] }), el("p", { text: m[2] }), el("a", { href: m[4], class: "btn-secondary", text: m[3] })]),
         // Passos de hoje

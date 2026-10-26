@@ -42,7 +42,7 @@
     <!-- Mesma coisa para o servidor onde ficam os arquivos das fontes -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- Carrega as fontes Space Grotesk (títulos) e Inter (texto) -->
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
     <!-- Carrega as variáveis do site: cores, fontes e espaços (design system) -->
     <link rel="stylesheet" href="../../shared/tokens.css" />
     <!-- Aplica o tema claro ou escuro antes de desenhar a página (e cria o botão de trocar) -->
@@ -87,6 +87,11 @@
           <!-- Grupo muscular do treino -->
           <p class="meta" data-render="grupo"></p>
         </div>
+        <!-- Botão de músicas para treinar (abre as playlists) -->
+        <button class="btn-icon" data-action="playlists" aria-label="Música para treinar" title="Música para treinar">
+          <!-- Ícone de nota musical -->
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+        </button>
         <!-- Relógio do tempo de treino -->
         <div class="player-clock" aria-label="Tempo de treino">
           <!-- Ícone de relógio -->
@@ -172,6 +177,8 @@
         <p class="sr-only" role="status" data-render="descanso-aviso"></p>
         <!-- Botões do descanso -->
         <div class="rest-actions">
+          <!-- Botão de tirar 15 segundos -->
+          <button class="btn-secondary" data-action="descanso-menos">−15 s</button>
           <!-- Botão de somar 15 segundos -->
           <button class="btn-secondary" data-action="descanso-mais">+15 s</button>
           <!-- Botão de pular o descanso -->

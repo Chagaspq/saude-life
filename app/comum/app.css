@@ -24,11 +24,7 @@ body {
   /* Cor do texto: bege claro do texto */
   color: var(--ink);
   /* Fonte da letra */
-  font-family:
-    "Inter",
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
+  font-family: var(--font-body);
   /* Deixa a letra mais lisinha no Mac */
   -webkit-font-smoothing: antialiased;
 }
@@ -37,7 +33,7 @@ h1,
 h2,
 h3 {
   /* Fonte da letra */
-  font-family: "Space Grotesk", "Inter", sans-serif;
+  font-family: var(--font-display);
   /* Sem margem */
   margin: 0;
   /* Cor do texto: branco */
@@ -135,7 +131,7 @@ a {
   /* Espaço entre os itens: 8 pixels */
   gap: 8px;
   /* Fonte da letra */
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-display);
   /* Letra negrito */
   font-weight: 700;
   /* Tamanho da letra: 17 pixels */
@@ -803,7 +799,7 @@ a {
   /* Cor do texto: verde-carvão do fundo */
   color: var(--bg);
   /* Fonte da letra */
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-display);
   /* Letra negrito */
   font-weight: 700;
   /* Tamanho da letra: 12 pixels */
@@ -1012,7 +1008,7 @@ a {
   /* Tamanho da letra: 18 pixels */
   font-size: 18px;
   /* Fonte da letra */
-  font-family: "Space Grotesk", sans-serif;
+  font-family: var(--font-display);
 }
 
 /* ============================================
@@ -1347,25 +1343,25 @@ body.modal-aberto {
 /* Capa de hipertrofia */
 .card-img-placeholder[data-objetivo="hipertrofia"] {
   /* Fundo em degradê */
-  background: linear-gradient(135deg, rgba(255, 122, 69, 0.35), var(--bg));
+  background: linear-gradient(135deg, rgba(240, 132, 90, 0.35), var(--bg));
 }
 
 /* Capa de HIIT */
 .card-img-placeholder[data-objetivo="hiit"] {
   /* Fundo em degradê */
-  background: linear-gradient(135deg, rgba(255, 160, 107, 0.4), var(--surface-2));
+  background: linear-gradient(135deg, rgba(245, 163, 127, 0.4), var(--surface-2));
 }
 
 /* Capa de yoga e mobilidade */
 .card-img-placeholder[data-objetivo="yoga_mobilidade"] {
   /* Fundo em degradê */
-  background: linear-gradient(135deg, rgba(52, 211, 153, 0.35), var(--bg));
+  background: linear-gradient(135deg, rgba(79, 194, 154, 0.35), var(--bg));
 }
 
 /* Capa de resistência */
 .card-img-placeholder[data-objetivo="resistencia"] {
   /* Fundo em degradê */
-  background: linear-gradient(135deg, rgba(52, 211, 153, 0.2), rgba(255, 122, 69, 0.2));
+  background: linear-gradient(135deg, rgba(79, 194, 154, 0.2), rgba(240, 132, 90, 0.2));
 }
 
 /* Etiquetas */
@@ -2979,8 +2975,20 @@ a.btn-secondary {
 
 /* Diamante */
 .liga-diamante {
-  /* Diamante: esmeralda (é uma pedra preciosa!) */
+  /* Diamante: azul-claro, cor de pedra preciosa */
+  --liga-cor: var(--info);
+}
+
+/* Esmeralda */
+.liga-esmeralda {
+  /* Esmeralda: o verde da marca */
   --liga-cor: var(--emerald);
+}
+
+/* Lenda (a mais alta) */
+.liga-lenda {
+  /* Lenda: roxo */
+  --liga-cor: #b18cf2;
 }
 
 /* Escudo da liga */
@@ -3262,7 +3270,7 @@ a.btn-secondary {
 /* Regata esmeralda */
 .pulso-regata {
   /* Esmeralda */
-  fill: #34d399;
+  fill: #4fc29a;
 }
 
 /* Capa do Pulso especial (Premium) */
@@ -3278,13 +3286,13 @@ a.btn-secondary {
 /* Cores da roupa escolhidas no perfil: coral */
 .pulso-cor-coral .pulso-regata {
   /* Coral */
-  fill: #ff7a45;
+  fill: #f0845a;
 }
 
 /* Com regata coral, a faixa fica esmeralda (para não sumir) */
 .pulso-cor-coral .pulso-faixa {
   /* Esmeralda */
-  fill: #34d399;
+  fill: #4fc29a;
 }
 
 /* Roupa azul */
@@ -3320,7 +3328,7 @@ a.btn-secondary {
 /* Bochechas rosadas */
 .pulso-bochecha {
   /* Coral transparente */
-  fill: rgba(255, 122, 69, 0.35);
+  fill: rgba(240, 132, 90, 0.35);
 }
 
 /* Olhos */
@@ -3402,9 +3410,9 @@ a.btn-secondary {
 /* Diamante em cima da cabeça (Diamante) */
 .pulso-diamante {
   /* Esmeralda */
-  fill: #34d399;
+  fill: #4fc29a;
   /* Brilho em volta */
-  filter: drop-shadow(0 0 6px rgba(52, 211, 153, 0.8));
+  filter: drop-shadow(0 0 6px rgba(79, 194, 154, 0.8));
   /* Animação de flutuar */
   animation: pulso-flutuar 2.4s ease-in-out infinite;
 }
@@ -3414,7 +3422,7 @@ a.btn-secondary {
   /* Sem preenchimento */
   fill: none;
   /* Esmeralda transparente */
-  stroke: rgba(52, 211, 153, 0.45);
+  stroke: rgba(79, 194, 154, 0.45);
   /* Grossura */
   stroke-width: 2;
   /* Tracejado */
@@ -3798,9 +3806,9 @@ body[data-pagina]::before {
   pointer-events: none;
   /* Dois brilhos (coral e esmeralda) + anéis finos desenhados com degradê */
   background:
-    radial-gradient(circle at 20% 15%, rgba(255, 122, 69, 0.09), transparent 30%),
-    radial-gradient(circle at 85% 80%, rgba(52, 211, 153, 0.08), transparent 32%),
-    repeating-radial-gradient(circle at 85% 10%, transparent 0 46px, rgba(255, 122, 69, 0.035) 47px 48px, transparent 49px 96px);
+    radial-gradient(circle at 20% 15%, rgba(240, 132, 90, 0.09), transparent 30%),
+    radial-gradient(circle at 85% 80%, rgba(79, 194, 154, 0.08), transparent 32%),
+    repeating-radial-gradient(circle at 85% 10%, transparent 0 46px, rgba(240, 132, 90, 0.035) 47px 48px, transparent 49px 96px);
   /* Animação lenta */
   animation: fundo-vivo 40s ease-in-out infinite alternate;
 }
@@ -4068,7 +4076,7 @@ body[data-pagina]::before {
 /* Quem pediu menos movimento: o Pulso mostra a posição parada */
 @media (prefers-reduced-motion: reduce) {
   /* Todas as partes do Pulso em movimento */
-  .pulso-mov * {
+  .pulso-mov:not(.pm-parado) * {
     /* Sem animação */
     animation: none !important;
   }
@@ -4094,8 +4102,8 @@ body[data-pagina]::before {
   overflow: hidden;
   /* Fundo com dois brilhos (sempre escuro, como a imagem) */
   background:
-    radial-gradient(circle at 20% 10%, rgba(255, 122, 69, 0.35), transparent 45%),
-    radial-gradient(circle at 85% 90%, rgba(52, 211, 153, 0.28), transparent 45%),
+    radial-gradient(circle at 20% 10%, rgba(240, 132, 90, 0.35), transparent 45%),
+    radial-gradient(circle at 85% 90%, rgba(79, 194, 154, 0.28), transparent 45%),
     #0e1512;
   /* Texto claro */
   color: #f4f1ea;
@@ -4210,7 +4218,7 @@ body[data-pagina]::before {
   /* Letra pequena */
   font-size: 12px;
   /* Esmeralda */
-  color: #34d399;
+  color: #4fc29a;
 }
 
 /* Número grande */
@@ -4224,7 +4232,7 @@ body[data-pagina]::before {
   /* Margem em cima e embaixo */
   margin: 12px 0 6px;
   /* Coral claro */
-  color: #ffa06b;
+  color: #f5a37f;
 }
 
 /* Legenda */
@@ -4999,14 +5007,14 @@ body[data-pagina]::before {
 .opcao-capa-brasa .perfil-opcao-cor,
 .profile-header-card[data-capa="brasa"] {
   /* Degradê coral */
-  background: linear-gradient(135deg, rgba(255, 122, 69, 0.28), var(--surface) 60%);
+  background: linear-gradient(135deg, rgba(240, 132, 90, 0.28), var(--surface) 60%);
 }
 
 /* Capa mata */
 .opcao-capa-mata .perfil-opcao-cor,
 .profile-header-card[data-capa="mata"] {
   /* Degradê esmeralda */
-  background: linear-gradient(135deg, rgba(52, 211, 153, 0.28), var(--surface) 60%);
+  background: linear-gradient(135deg, rgba(79, 194, 154, 0.28), var(--surface) 60%);
 }
 
 /* Capa noite */
@@ -5020,19 +5028,19 @@ body[data-pagina]::before {
 .opcao-capa-sol .perfil-opcao-cor,
 .profile-header-card[data-capa="sol"] {
   /* Degradê coral para dourado */
-  background: linear-gradient(135deg, rgba(255, 122, 69, 0.3), rgba(245, 181, 68, 0.22) 45%, var(--surface) 75%);
+  background: linear-gradient(135deg, rgba(240, 132, 90, 0.3), rgba(245, 181, 68, 0.22) 45%, var(--surface) 75%);
 }
 
 /* Bolinhas das roupas do Pulso */
 .opcao-pulso-esmeralda .perfil-opcao-cor {
   /* Esmeralda */
-  background: #34d399;
+  background: #4fc29a;
 }
 
 /* Coral */
 .opcao-pulso-coral .perfil-opcao-cor {
   /* Coral */
-  background: #ff7a45;
+  background: #f0845a;
 }
 
 /* Azul */
@@ -5190,6 +5198,12 @@ body[data-pagina]::before {
 
 /* Cada selo em destaque */
 .perfil-destaques li {
+  /* Ícone e nome lado a lado */
+  display: inline-flex;
+  /* Centralizados na altura */
+  align-items: center;
+  /* Espaço entre ícone e nome */
+  gap: 5px;
   /* Espaço interno */
   padding: 4px 10px;
   /* Pílula */
@@ -5202,4 +5216,892 @@ body[data-pagina]::before {
   font-size: var(--text-xs);
   /* Negrito */
   font-weight: 600;
+}
+
+/* Ícone da medalha nos selos em destaque */
+.perfil-destaques .icon {
+  /* Tamanho */
+  width: 14px;
+  /* Tamanho */
+  height: 14px;
+}
+
+/* ---------- Passo a passo do exercício (3 quadros parados) ---------- */
+
+/* Lista dos 3 quadros */
+.passo-a-passo {
+  /* Sem números padrão (o nome do quadro já tem) */
+  list-style: none;
+  /* Sem espaço padrão */
+  margin: 0;
+  /* Sem espaço padrão */
+  padding: 0;
+  /* Três colunas */
+  display: grid;
+  /* Três colunas iguais */
+  grid-template-columns: repeat(3, 1fr);
+  /* Espaço entre os quadros */
+  gap: 8px;
+}
+
+/* Cada quadro */
+.passo-a-passo li {
+  /* Desenho em cima, nome embaixo */
+  display: grid;
+  /* Centralizado */
+  justify-items: center;
+  /* Espaço */
+  gap: 4px;
+  /* Fundo de card */
+  background: var(--surface-2);
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+  /* Espaço interno */
+  padding: 8px 4px;
+  /* Letra pequena */
+  font-size: var(--text-xs);
+  /* Cor apagada */
+  color: var(--muted);
+}
+
+/* Desenho do quadro */
+.passo-a-passo svg {
+  /* Largura */
+  width: 72px;
+  /* Altura proporcional */
+  height: auto;
+}
+
+/* Quadro parado: todas as partes ficam paradas no ponto certo do movimento */
+.pm-parado * {
+  /* Atraso negativo do quadro */
+  animation-delay: var(--atraso) !important;
+  /* Parado */
+  animation-play-state: paused !important;
+}
+
+/* ---------- Chave liga/desliga (usada no Perfil e na Saúde) ---------- */
+
+/* Lista de preferências */
+.switch-list {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna (um embaixo do outro) */
+  flex-direction: column;
+}
+
+/* Cada linha de preferência */
+.switch-row {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens centralizados na altura */
+  align-items: center;
+  /* Joga os itens para as pontas */
+  justify-content: space-between;
+  /* Espaço entre os itens: 16 pixels */
+  gap: 16px;
+  /* Espaço interno (em cima, lados e embaixo) */
+  padding: 12px 0;
+  /* Mostra a mãozinha ao passar o mouse */
+  cursor: pointer;
+}
+
+/* Linha que vem depois de outra (ganha uma divisória) */
+.switch-row + .switch-row {
+  /* Borda em cima de 1 pixel, cor das bordas */
+  border-top: 1px solid var(--border);
+}
+
+/* Textos da preferência */
+.switch-row span {
+  /* Organiza os itens com flexbox */
+  display: flex;
+  /* Itens em coluna (um embaixo do outro) */
+  flex-direction: column;
+  /* Espaço entre os itens: 2 pixels */
+  gap: 2px;
+}
+
+/* Nome da preferência */
+.switch-row strong {
+  /* Tamanho da letra: 14 pixels */
+  font-size: 14px;
+}
+
+/* Explicação da preferência */
+.switch-row small {
+  /* Cor do texto: cinza apagado */
+  color: var(--muted);
+  /* Tamanho da letra: 12,5 pixels */
+  font-size: 12.5px;
+}
+
+/* Chave liga/desliga (feita a partir de uma caixinha) */
+.switch {
+  /* Tira o visual padrão do navegador */
+  appearance: none;
+  /* Mesmo ajuste para o Safari e navegadores antigos */
+  -webkit-appearance: none;
+  /* Não deixa encolher */
+  flex-shrink: 0;
+  /* Largura: 42 pixels */
+  width: 42px;
+  /* Altura: 24 pixels */
+  height: 24px;
+  /* Sem margem */
+  margin: 0;
+  /* Cantos arredondados: total (formato pílula) */
+  border-radius: var(--radius-full);
+  /* Fundo: cor de destaque mais clara */
+  background: var(--surface-3);
+  /* Borda de 1 pixel, borda mais forte */
+  border: 1px solid var(--border-strong);
+  /* Posição relativa (serve de base para filhos soltos) */
+  position: relative;
+  /* Mostra a mãozinha ao passar o mouse */
+  cursor: pointer;
+  /* Faz as mudanças acontecerem de forma suave (transição) */
+  transition: background var(--dur-base) ease;
+}
+
+/* Bolinha da chave */
+.switch::after {
+  /* Cria um pedacinho vazio, só para enfeite */
+  content: "";
+  /* Posição solta, presa ao pai */
+  position: absolute;
+  /* Distância de cima: 2 pixels */
+  top: 2px;
+  /* Distância da esquerda: 2 pixels */
+  left: 2px;
+  /* Largura: 18 pixels */
+  width: 18px;
+  /* Altura: 18 pixels */
+  height: 18px;
+  /* Cantos totalmente redondos */
+  border-radius: 50%;
+  /* Fundo: cinza apagado */
+  background: var(--muted);
+  /* Faz as mudanças acontecerem de forma suave (transição) */
+  transition: transform var(--dur-base) var(--ease-out), background var(--dur-base) ease;
+}
+
+/* Chave ligada */
+.switch:checked {
+  /* Fundo: esmeralda escura */
+  background: var(--emerald-dark);
+  /* Cor da borda: esmeralda escura */
+  border-color: var(--emerald-dark);
+}
+
+/* Bolinha da chave ligada (vai para a direita) */
+.switch:checked::after {
+  /* Move o elemento */
+  transform: translateX(18px);
+  /* Fundo: branco */
+  background: var(--ink-strong);
+}
+
+/* ---------- Pulso: aparência, força e itens da loja ---------- */
+
+/* Tons de pele (1 = mais claro, 4 = mais escuro): corpo */
+.pulso-pele-1 .pulso-pele {
+  /* Pele clara */
+  fill: #f6d3b3;
+}
+
+/* Tom 1: braços */
+.pulso-pele-1 .pulso-braco {
+  /* Pele clara */
+  stroke: #f6d3b3;
+}
+
+/* Tom 3: corpo */
+.pulso-pele-3 .pulso-pele {
+  /* Pele morena */
+  fill: #c98e63;
+}
+
+/* Tom 3: braços */
+.pulso-pele-3 .pulso-braco {
+  /* Pele morena */
+  stroke: #c98e63;
+}
+
+/* Tom 4: corpo */
+.pulso-pele-4 .pulso-pele {
+  /* Pele negra */
+  fill: #8a5a3c;
+}
+
+/* Tom 4: braços */
+.pulso-pele-4 .pulso-braco {
+  /* Pele negra */
+  stroke: #8a5a3c;
+}
+
+/* Cabelo preto */
+.pulso-cabelo-preto .pulso-cabelo {
+  /* Preto */
+  fill: #15110e;
+}
+
+/* Cabelo loiro */
+.pulso-cabelo-loiro .pulso-cabelo {
+  /* Loiro */
+  fill: #d9a944;
+}
+
+/* Cabelo ruivo */
+.pulso-cabelo-ruivo .pulso-cabelo {
+  /* Ruivo */
+  fill: #b5492a;
+}
+
+/* Força 1: braços um pouco mais grossos */
+.pulso-forca-1 .pulso-braco {
+  /* Mais grosso */
+  stroke-width: 10.5;
+}
+
+/* Força 2 */
+.pulso-forca-2 .pulso-braco {
+  /* Mais grosso */
+  stroke-width: 12;
+}
+
+/* Força 3 */
+.pulso-forca-3 .pulso-braco {
+  /* Bem mais grosso */
+  stroke-width: 13.5;
+}
+
+/* Força 2 e 3: tronco mais largo */
+.pulso-forca-2 .pulso-regata,
+.pulso-forca-3 .pulso-regata {
+  /* Alarga a partir do meio do peito */
+  transform-origin: 60px 74px;
+  /* 8% mais largo */
+  transform: scaleX(1.08);
+}
+
+/* Força 3: ainda mais largo */
+.pulso-forca-3 .pulso-regata {
+  /* 15% mais largo */
+  transform: scaleX(1.15);
+}
+
+/* Boné */
+.pulso-item-bone {
+  /* Coral escuro */
+  fill: #c96a43;
+}
+
+/* Fone: arco */
+.pulso-item-fone-arco {
+  /* Sem preenchimento */
+  fill: none;
+  /* Traço escuro */
+  stroke: #24352e;
+  /* Grossura */
+  stroke-width: 3;
+}
+
+/* Fone: conchas */
+.pulso-item-fone {
+  /* Esmeralda */
+  fill: #4fc29a;
+}
+
+/* Coroa */
+.pulso-item-coroa {
+  /* Dourado */
+  fill: #f5b544;
+  /* Contorno */
+  stroke: #c98a1e;
+  /* Grossura */
+  stroke-width: 1;
+}
+
+/* Óculos escuros */
+.pulso-item-oculos {
+  /* Lente escura */
+  fill: #15110e;
+}
+
+/* Ponte dos óculos */
+.pulso-item-ponte {
+  /* Traço escuro */
+  stroke: #15110e;
+  /* Grossura */
+  stroke-width: 1.5;
+}
+
+/* Tênis neon */
+.pulso-pes-neon .pulso-tenis {
+  /* Verde-limão */
+  fill: #b8e04a;
+}
+
+/* Tênis branco */
+.pulso-pes-branco .pulso-tenis {
+  /* Branco */
+  fill: #f4f1ea;
+}
+
+/* Tênis roxo */
+.pulso-pes-roxo .pulso-tenis {
+  /* Roxo */
+  fill: #b18cf2;
+}
+
+/* Opções do personagem ao lado da prévia */
+.perfil-pulso-opcoes {
+  /* Grupos em coluna */
+  display: grid;
+  /* Espaço */
+  gap: 12px;
+}
+
+/* Bolinhas dos personagens */
+.opcao-quem-pulso .perfil-opcao-cor {
+  /* Esmeralda (Pulso) */
+  background: linear-gradient(135deg, #4fc29a, #2f9474);
+}
+
+/* Lia */
+.opcao-quem-lia .perfil-opcao-cor {
+  /* Coral (Lia) */
+  background: linear-gradient(135deg, #f0845a, #c96a43);
+}
+
+/* Bolinhas dos tons de pele */
+.opcao-pele-1 .perfil-opcao-cor {
+  /* Tom 1 */
+  background: #f6d3b3;
+}
+
+/* Tom 2 */
+.opcao-pele-2 .perfil-opcao-cor {
+  /* Tom 2 */
+  background: #f0bf95;
+}
+
+/* Tom 3 */
+.opcao-pele-3 .perfil-opcao-cor {
+  /* Tom 3 */
+  background: #c98e63;
+}
+
+/* Tom 4 */
+.opcao-pele-4 .perfil-opcao-cor {
+  /* Tom 4 */
+  background: #8a5a3c;
+}
+
+/* Bolinhas dos cabelos */
+.opcao-cabelo-castanho .perfil-opcao-cor {
+  /* Castanho */
+  background: #2b1d14;
+}
+
+/* Preto */
+.opcao-cabelo-preto .perfil-opcao-cor {
+  /* Preto */
+  background: #15110e;
+}
+
+/* Loiro */
+.opcao-cabelo-loiro .perfil-opcao-cor {
+  /* Loiro */
+  background: #d9a944;
+}
+
+/* Ruivo */
+.opcao-cabelo-ruivo .perfil-opcao-cor {
+  /* Ruivo */
+  background: #b5492a;
+}
+
+/* ---------- Chat: treino, figurinha e áudio ---------- */
+
+/* Botões de anexar */
+.chat-anexos {
+  /* Lado a lado */
+  display: flex;
+  /* Quebra linha */
+  flex-wrap: wrap;
+  /* Espaço */
+  gap: 6px;
+  /* Espaço */
+  margin: 8px 0;
+}
+
+/* Botão pequeno */
+.btn-sm {
+  /* Menos espaço interno */
+  padding: 6px 12px;
+  /* Letra menor */
+  font-size: var(--text-sm);
+}
+
+/* Caixa de opções (treinos ou figurinhas) */
+.chat-extras {
+  /* Lado a lado */
+  display: flex;
+  /* Quebra linha */
+  flex-wrap: wrap;
+  /* Espaço */
+  gap: 6px;
+  /* Espaço interno */
+  padding: 8px;
+  /* Fundo */
+  background: var(--surface-2);
+  /* Cantos arredondados */
+  border-radius: var(--radius-md);
+}
+
+/* Figurinha para escolher */
+.chat-figurinha-opcao {
+  /* Sem fundo */
+  background: none;
+  /* Sem borda */
+  border: 1px solid transparent;
+  /* Cantos */
+  border-radius: var(--radius-sm);
+  /* Mãozinha */
+  cursor: pointer;
+  /* Espaço */
+  padding: 2px;
+}
+
+/* Figurinha com mouse */
+.chat-figurinha-opcao:hover {
+  /* Borda coral */
+  border-color: var(--coral-light);
+}
+
+/* Desenho da figurinha (na escolha e na conversa) */
+.chat-figurinha-opcao svg,
+.cm-bolha.is-figurinha svg {
+  /* Largura */
+  width: 60px;
+  /* Altura proporcional */
+  height: auto;
+}
+
+/* Bolha da figurinha sem fundo */
+.cm-bolha.is-figurinha {
+  /* Sem fundo */
+  background: transparent;
+}
+
+/* Cartão do treino enviado */
+.chat-treino {
+  /* Coluna */
+  display: grid;
+  /* Espaço */
+  gap: 2px;
+}
+
+/* Link do treino */
+.chat-treino a {
+  /* Cor do texto da bolha */
+  color: inherit;
+  /* Negrito */
+  font-weight: 600;
+}
+
+/* Áudio */
+.chat-audio {
+  /* Lado a lado */
+  display: flex;
+  /* Alinhados */
+  align-items: center;
+  /* Espaço */
+  gap: 8px;
+  /* Largura mínima */
+  min-width: 160px;
+}
+
+/* Botão de tocar */
+.chat-audio-play {
+  /* Redondo */
+  width: 28px;
+  /* Redondo */
+  height: 28px;
+  /* Redondo */
+  border-radius: 50%;
+  /* Sem borda */
+  border: 0;
+  /* Fundo claro */
+  background: var(--ink);
+  /* Ícone escuro */
+  color: var(--bg);
+  /* Mãozinha */
+  cursor: pointer;
+}
+
+/* Trilho do áudio */
+.chat-audio-barra {
+  /* Ocupa o espaço */
+  flex: 1;
+  /* Altura */
+  height: 4px;
+  /* Fundo */
+  background: rgba(127, 127, 127, 0.35);
+  /* Pontas redondas */
+  border-radius: 4px;
+  /* Esconde o que passar */
+  overflow: hidden;
+}
+
+/* Parte que enche */
+.chat-audio-barra i {
+  /* Bloco */
+  display: block;
+  /* Altura toda */
+  height: 100%;
+  /* Começa vazia */
+  width: 0;
+  /* Cor do texto da bolha */
+  background: currentColor;
+}
+
+/* ---------- Stories: modelos da imagem ---------- */
+
+/* Grupo de modelos */
+.st-modelos {
+  /* Lado a lado */
+  display: flex;
+  /* Espaço */
+  gap: 8px;
+  /* Espaço */
+  margin: 12px 0;
+}
+
+/* Botão de um modelo */
+.st-modelo {
+  /* Divide o espaço */
+  flex: 1;
+  /* Espaço interno */
+  padding: 8px;
+  /* Cantos */
+  border-radius: var(--radius-sm);
+  /* Borda */
+  border: 2px solid var(--border);
+  /* Negrito */
+  font-weight: 600;
+  /* Mãozinha */
+  cursor: pointer;
+}
+
+/* Modelo escuro */
+.st-modelo-escuro {
+  /* Fundo */
+  background: #0e1512;
+  /* Texto */
+  color: #f4f1ea;
+}
+
+/* Modelo claro */
+.st-modelo-claro {
+  /* Fundo */
+  background: #f6f3ec;
+  /* Texto */
+  color: #16201b;
+}
+
+/* Modelo coral */
+.st-modelo-coral {
+  /* Fundo */
+  background: #c96a43;
+  /* Texto */
+  color: #fffaf5;
+}
+
+/* Modelo escolhido */
+.st-modelo[aria-pressed="true"] {
+  /* Borda esmeralda */
+  border-color: var(--emerald);
+  /* Anel em volta */
+  box-shadow: 0 0 0 2px var(--emerald-soft);
+}
+
+/* Preço no card do profissional */
+.pro-preco {
+  /* Coral claro */
+  color: var(--coral-light);
+  /* Negrito */
+  font-weight: 600;
+  /* Letra menor */
+  font-size: var(--text-sm);
+  /* Sem margem */
+  margin: 0;
+}
+
+/* Link do Google Maps no perfil do profissional */
+.pro-mapa-link {
+  /* Esmeralda */
+  color: var(--emerald);
+  /* Letra menor */
+  font-size: var(--text-sm);
+  /* Negrito */
+  font-weight: 600;
+}
+
+/* Nome em cima, detalhe embaixo (usado em listas de pessoas em várias páginas) */
+.cm-amigo-info {
+  /* Ocupa o espaço que sobra */
+  flex: 1;
+  /* Coluna */
+  display: flex;
+  /* Coluna */
+  flex-direction: column;
+  /* Deixa encolher sem estourar */
+  min-width: 0;
+}
+
+/* ---------- Pagamento (teste grátis, Pix e cartão) ---------- */
+
+/* Caixa do teste grátis */
+.ck-teste {
+  /* Fundo esmeralda fraco */
+  background: var(--emerald-soft);
+  /* Cantos */
+  border-radius: var(--radius-md);
+  /* Espaço interno */
+  padding: 12px 14px;
+  /* Espaço embaixo */
+  margin-bottom: 14px;
+}
+
+/* "ou assine agora" */
+.ck-ou {
+  /* Centralizado */
+  text-align: center;
+  /* Espaço */
+  margin: 10px 0 0;
+}
+
+/* Valor a pagar */
+.ck-resumo {
+  /* Fonte de placar */
+  font-family: var(--font-placar);
+  /* Tamanho */
+  font-size: var(--text-lg);
+  /* Coral claro */
+  color: var(--coral-light);
+  /* Espaço */
+  margin: 10px 0;
+}
+
+/* Abas de método */
+.ck-metodos {
+  /* Espaço */
+  margin: 12px 0;
+}
+
+/* Parte do Pix */
+.ck-pix {
+  /* Coluna */
+  display: grid;
+  /* Centralizado */
+  justify-items: center;
+  /* Espaço */
+  gap: 10px;
+}
+
+/* Pagamento travado (estudante sem confirmar) */
+.ck-pagamento.is-travado {
+  /* Apagado */
+  opacity: 0.45;
+}
+
+/* Confirmação de estudante */
+.ck-estudante {
+  /* Espaço */
+  margin: 10px 0;
+}
+
+/* Erro do cartão */
+.ck-erro {
+  /* Coral claro */
+  color: var(--coral-light);
+  /* Sem margem quando vazio */
+  margin: 0;
+  /* Letra menor */
+  font-size: var(--text-sm);
+}
+
+/* Aviso de demonstração */
+.ck-aviso {
+  /* Espaço em cima */
+  margin-top: 14px;
+  /* Letra menor */
+  font-size: var(--text-sm);
+}
+
+/* ---------- Instalar app, abertura e playlists ---------- */
+
+/* Faixa de instalar (rodapé da tela, acima do menu de baixo no celular) */
+.instalar-faixa {
+  /* Presa na tela */
+  position: fixed;
+  /* Centralizada */
+  left: 50%;
+  /* Acima do menu de baixo */
+  bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+  /* Centraliza */
+  transform: translateX(-50%);
+  /* Largura */
+  width: min(560px, calc(100vw - 32px));
+  /* Por cima */
+  z-index: 900;
+  /* Lado a lado */
+  display: flex;
+  /* Alinhados */
+  align-items: center;
+  /* Quebra no celular */
+  flex-wrap: wrap;
+  /* Espaço */
+  gap: 10px;
+  /* Espaço interno */
+  padding: 12px 16px;
+  /* Fundo */
+  background: var(--surface);
+  /* Borda coral */
+  border: 1px solid var(--border-coral);
+  /* Cantos */
+  border-radius: 16px;
+  /* Sombra */
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+}
+
+/* Texto da faixa */
+.instalar-faixa p {
+  /* Ocupa o espaço */
+  flex: 1 1 220px;
+  /* Sem margem */
+  margin: 0;
+  /* Letra */
+  font-size: var(--text-sm);
+}
+
+/* No computador, mais embaixo (não tem menu de baixo) */
+@media (min-width: 1024px) {
+  /* Faixa */
+  .instalar-faixa {
+    /* Perto do rodapé */
+    bottom: 24px;
+  }
+}
+
+/* Tela da abertura */
+.abertura {
+  /* Cobre tudo */
+  position: fixed;
+  /* Cobre tudo */
+  inset: 0;
+  /* Por cima de tudo */
+  z-index: 3000;
+  /* Centraliza */
+  display: grid;
+  /* Centraliza */
+  place-items: center;
+  /* Itens no meio */
+  align-content: center;
+  /* Espaço */
+  gap: 14px;
+  /* Fundo da página */
+  background: var(--bg);
+  /* Some suave */
+  transition: opacity 0.45s ease;
+}
+
+/* Saindo */
+.abertura.is-saindo {
+  /* Transparente */
+  opacity: 0;
+}
+
+/* Logo grande */
+.abertura svg {
+  /* Tamanho */
+  width: 96px;
+  /* Tamanho */
+  height: 96px;
+  /* Cresce de leve */
+  animation: abertura-logo 1.2s ease both;
+}
+
+/* Nome */
+.abertura-nome {
+  /* Fonte de título */
+  font: 800 28px var(--font-display);
+  /* Cor */
+  color: var(--ink);
+  /* Aparece depois da logo */
+  animation: abertura-nome 0.6s 0.5s ease both;
+}
+
+/* Animação da logo */
+@keyframes abertura-logo {
+  /* Começa pequena e apagada */
+  from {
+    /* Escala */
+    transform: scale(0.6) rotate(-20deg);
+    /* Transparente */
+    opacity: 0;
+  }
+  /* Termina normal */
+  to {
+    /* Escala */
+    transform: scale(1) rotate(0);
+    /* Visível */
+    opacity: 1;
+  }
+}
+
+/* Animação do nome */
+@keyframes abertura-nome {
+  /* Começa embaixo */
+  from {
+    /* Posição */
+    transform: translateY(10px);
+    /* Transparente */
+    opacity: 0;
+  }
+}
+
+/* Lista de playlists */
+.playlists {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Sem espaço */
+  padding: 0;
+  /* Sem margem */
+  margin: 0;
+  /* Coluna */
+  display: grid;
+  /* Espaço */
+  gap: 10px;
+}
+
+/* Cada playlist */
+.playlists li {
+  /* Lado a lado */
+  display: flex;
+  /* Alinhados */
+  align-items: center;
+  /* Quebra */
+  flex-wrap: wrap;
+  /* Espaço */
+  gap: 8px;
+}
+
+/* Nome ocupa o espaço */
+.playlists strong {
+  /* Ocupa */
+  flex: 1 1 160px;
 }

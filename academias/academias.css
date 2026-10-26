@@ -70,7 +70,7 @@
 .acad-icone {
   /* Quadrado centralizado */
   display: grid;
-  /* Emoji no meio */
+  /* Ícone no meio */
   place-items: center;
   /* Largura */
   width: 48px;
@@ -80,8 +80,26 @@
   border-radius: var(--radius-md);
   /* Fundo com as cores da marca */
   background: linear-gradient(135deg, var(--coral-dim), var(--emerald-soft));
-  /* Tamanho do emoji */
-  font-size: 24px;
+  /* Cor do ícone */
+  color: var(--coral-light);
+}
+
+/* Desenho do ícone */
+.acad-icone svg {
+  /* Tamanho */
+  width: 24px;
+  /* Tamanho */
+  height: 24px;
+  /* Sem preenchimento (só traço) */
+  fill: none;
+  /* Traço na cor do ícone */
+  stroke: currentColor;
+  /* Grossura do traço */
+  stroke-width: 1.8;
+  /* Pontas redondas */
+  stroke-linecap: round;
+  /* Cantos redondos */
+  stroke-linejoin: round;
 }
 
 /* Título do benefício */

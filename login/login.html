@@ -43,7 +43,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- Carrega as fontes Space Grotesk (títulos) e Inter (texto) -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
       rel="stylesheet"
     />
     <!-- Carrega as variáveis do site: cores, fontes e espaços (design system) -->
@@ -83,9 +83,9 @@
                   gradientUnits="userSpaceOnUse"
                 >
                   <!-- Começo do degradê, na cor coral -->
-                  <stop offset="0%" stop-color="#ff7a45" />
+                  <stop offset="0%" stop-color="#f0845a" />
                   <!-- Fim do degradê, na cor esmeralda -->
-                  <stop offset="100%" stop-color="#34d399" />
+                  <stop offset="100%" stop-color="#4fc29a" />
                 </linearGradient>
               </defs>
               <!-- Traço do desenho -->
@@ -180,9 +180,9 @@
                     gradientUnits="userSpaceOnUse"
                   >
                     <!-- Começo do degradê, na cor coral -->
-                    <stop offset="0%" stop-color="#ff7a45" />
+                    <stop offset="0%" stop-color="#f0845a" />
                     <!-- Fim do degradê, na cor esmeralda -->
-                    <stop offset="100%" stop-color="#34d399" />
+                    <stop offset="100%" stop-color="#4fc29a" />
                   </linearGradient>
                 </defs>
                 <!-- Anel de progresso da logo -->
@@ -334,6 +334,14 @@
               ></span>
             </div>
 
+            <!-- Caixinha "Lembrar de mim": desmarcada, fechar o navegador tira a pessoa da conta -->
+            <div class="form-group checkbox-group">
+              <!-- Caixinha de marcar (já vem marcada) -->
+              <input type="checkbox" id="lembrar" name="lembrar" checked />
+              <!-- Texto da caixinha -->
+              <label for="lembrar">Lembrar de mim neste aparelho</label>
+            </div>
+
             <!-- Caixa de erro geral (escondida até ter erro) -->
             <p
               id="form-global-error"
@@ -354,14 +362,14 @@
             </button>
           </form>
 
-          <!-- Linha divisória "ou continue com" -->
-          <div class="auth-divider" role="separator">
+          <!-- Linha divisória "ou continue com" (escondida até o login com Google/Apple existir) -->
+          <div class="auth-divider" role="separator" hidden>
             <!-- Texto do meio da linha divisória -->
             <span>ou continue com</span>
           </div>
 
-          <!-- Botões de entrar com Google e Apple -->
-          <div class="social-login">
+          <!-- Botões de entrar com Google e Apple (escondidos até funcionarem de verdade) -->
+          <div class="social-login" hidden>
             <!-- Botão de entrar com o Google (por enquanto só mostra um aviso) -->
             <button
               type="button"

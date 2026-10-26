@@ -1,0 +1,23 @@
+Pasta de fotos e vídeos do Saúde Life
+=====================================
+
+O site já está pronto para mostrar estes arquivos. Enquanto eles não
+existirem, aparece um fundo animado (no topo) e as iniciais (nos depoimentos).
+
+Vídeo do topo da página inicial (só no computador):
+  assets/video/topo.mp4    (obrigatório, até uns 5 MB, 10 a 20 segundos, sem som)
+  assets/video/topo.webm   (opcional, versão mais leve do mesmo vídeo)
+
+Foto do topo no celular:
+  assets/fotos/topo.jpg    (deitada, uns 1200 x 800)
+
+Fotos dos depoimentos (quadradas, uns 200 x 200):
+  assets/fotos/camila.jpg
+  assets/fotos/diego.jpg
+  assets/fotos/larissa.jpg
+
+Onde achar grátis (uso comercial liberado, sem precisar dar crédito):
+  Vídeos: https://www.pexels.com/pt-br/videos/  (busque "academia", "treino", "salada", "amigos correndo")
+  Fotos:  https://www.pexels.com/pt-br/  ou  https://unsplash.com/
+
+Depois de colocar os arquivos, é só salvar no git.
