@@ -216,11 +216,17 @@
     // É uma janela (para leitores de tela)
     painel.setAttribute("role", "dialog");
     // Nome da janela
-    painel.setAttribute("aria-label", "Acessibilidade");
+    painel.setAttribute("aria-label", "Exibição e acessibilidade");
     // Conteúdo
     painel.innerHTML =
       // Título
-      '<p class="a11y-titulo">Acessibilidade</p>' +
+      '<p class="a11y-titulo">Exibição</p>' +
+      // Tema claro (o botão de sol/lua do topo foi juntado aqui)
+      '<label class="a11y-linha"><span>Tema claro</span><input type="checkbox" class="switch" role="switch" data-a11y-tema></label>' +
+      // Idioma (o botão EN/ES/PT do topo foi juntado aqui)
+      '<div class="a11y-linha"><span>Idioma</span><span class="a11y-fonte" role="group" aria-label="Idioma"><button type="button" data-idioma="pt" lang="pt-BR">PT</button><button type="button" data-idioma="en" lang="en">EN</button><button type="button" data-idioma="es" lang="es">ES</button></span></div>' +
+      // Separador
+      '<p class="a11y-sub">Acessibilidade</p>' +
       // Tamanho do texto
       '<div class="a11y-linha"><span>Tamanho do texto</span><span class="a11y-fonte"><button type="button" data-a11y="menos" aria-label="Diminuir texto">A-</button><button type="button" data-a11y="mais" aria-label="Aumentar texto">A+</button></span></div>' +
       // Chaves
@@ -245,6 +251,54 @@
     }
     // Primeira vez
     marcar();
+    // Chave do tema claro
+    const chaveTema = painel.querySelector("[data-a11y-tema]");
+    // Marca conforme o tema salvo
+    chaveTema.checked = lerTema() === "claro";
+    // Ao mudar, troca e salva o tema
+    chaveTema.addEventListener("change", function () {
+      // Tema novo
+      const novo = chaveTema.checked ? "claro" : "escuro";
+      // Tenta salvar
+      try {
+        // Salva no navegador
+        localStorage.setItem("sl-tema", novo);
+      } catch (e) {
+        /* armazenamento indisponível: troca só nesta página */
+      }
+      // Aplica
+      aplicar(novo);
+    });
+    // Idioma atual (marca o botão)
+    let idiomaAtual = "pt";
+    // Tenta ler
+    try {
+      // Idioma salvo
+      idiomaAtual = JSON.parse(localStorage.getItem("sl-idioma")) || "pt";
+    } catch (e) {
+      /* fica português */
+    }
+    // Marca o idioma escolhido
+    painel.querySelectorAll("[data-idioma]").forEach(function (b) {
+      // Pressionado se é o atual
+      b.setAttribute("aria-pressed", String(b.dataset.idioma === idiomaAtual));
+    });
+    // Ao escolher um idioma, salva e recarrega a página
+    painel.addEventListener("click", function (e) {
+      // Botão de idioma
+      const b = e.target.closest("[data-idioma]");
+      // Se não foi, ou já é o atual, para
+      if (!b || b.dataset.idioma === idiomaAtual) return;
+      // Tenta salvar
+      try {
+        // Salva
+        localStorage.setItem("sl-idioma", JSON.stringify(b.dataset.idioma));
+      } catch (err) {
+        /* armazenamento indisponível */
+      }
+      // Recarrega no idioma novo
+      location.reload();
+    });
     // Mudou uma chave
     painel.addEventListener("change", function (e) {
       // Chave
@@ -326,9 +380,9 @@
     // Ícone
     botao.innerHTML = ICONE_A11Y;
     // Nome
-    botao.setAttribute("aria-label", "Acessibilidade");
+    botao.setAttribute("aria-label", "Exibição: tema, idioma e acessibilidade");
     // Dica
-    botao.title = "Acessibilidade";
+    botao.title = "Exibição e acessibilidade";
     // Começa fechado
     botao.setAttribute("aria-expanded", "false");
     // Coloca antes do botão de tema (ou no fim da página)

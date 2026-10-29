@@ -413,6 +413,8 @@
                 <!-- Texto de apoio abaixo do título -->
                 <p class="page-lead">Cada série vale pontos. A semana zera toda segunda e o mês fecha no dia 1º.</p>
               </div>
+              <!-- Atalho para a loja do Pulso (saiu do menu lateral para o menu ficar mais curto) -->
+              <a class="btn-secondary" href="../loja/loja.html">Loja do Pulso</a>
             </header>
 
             <!-- Card grande: anel dos pontos da semana + liga da pessoa (preenchido pelo ranking.js) -->
@@ -503,12 +505,15 @@
 
             <!-- Seção de como ganhar pontos -->
             <section class="rk-painel" aria-labelledby="heading-regras">
-              <!-- Título da seção -->
-              <h2 id="heading-regras">Como ganhar pontos</h2>
-              <!-- Tabela de pontos (preenchida pelo ranking.js) -->
-              <ul class="rk-tabela" data-render="tabela"></ul>
-              <!-- Regras extras: limite do dia e bônus de iniciante -->
-              <p class="meta" data-render="regras-extra"></p>
+              <!-- Caixa que abre e fecha (começa fechada para a página ficar mais limpa) -->
+              <details class="rk-regras">
+                <!-- Título clicável -->
+                <summary><h2 id="heading-regras">Como ganhar pontos</h2></summary>
+                <!-- Tabela de pontos (preenchida pelo ranking.js) -->
+                <ul class="rk-tabela" data-render="tabela"></ul>
+                <!-- Regras extras: limite do dia e bônus de iniciante -->
+                <p class="meta" data-render="regras-extra"></p>
+              </details>
             </section>
           </section>
         </main>

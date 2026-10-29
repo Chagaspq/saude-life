@@ -1016,9 +1016,11 @@ window.SL &&
       const lista = RECEITAS.filter((rc) => serveTags(rc.tags));
       // Aviso do filtro
       document.querySelector('[data-render="receitas-filtro"]').textContent = restricoes().length ? `${lista.length} receitas para as suas restrições` : `${lista.length} receitas`;
-      // Um card por receita
-      document.querySelector('[data-render="receitas"]').replaceChildren(
-        ...lista.map((rc) =>
+      // Lugar das receitas
+      const grade = document.querySelector('[data-render="receitas"]');
+      // Um card por receita (só 4 até a pessoa pedir todas, para a página ficar mais limpa)
+      grade.replaceChildren(
+        ...lista.slice(0, verTodasReceitas ? lista.length : 4).map((rc) =>
           // Card (é um botão: abre o passo a passo)
           el("button", { type: "button", class: "receita-card", "data-action": "ver-receita", "data-nome": rc.nome }, [
             // Nome
@@ -1030,7 +1032,23 @@ window.SL &&
           ]),
         ),
       );
+      // Se tem mais de 4, botão de ver todas / ver menos
+      if (lista.length > 4) {
+        // Botão
+        const mais = el("button", { type: "button", class: "btn-link receitas-mais", text: verTodasReceitas ? "Ver menos" : `Ver todas as ${lista.length} receitas` });
+        // Ao clicar, troca e desenha de novo
+        mais.addEventListener("click", () => {
+          // Troca
+          verTodasReceitas = !verTodasReceitas;
+          // Desenha
+          renderReceitas();
+        });
+        // Coloca no fim
+        grade.append(mais);
+      }
     }
+    // Mostrando todas as receitas? (começa com 4)
+    let verTodasReceitas = false;
 
     // Abrir uma receita
     SL.acao("ver-receita", (alvo) => {

@@ -118,6 +118,22 @@
       el("h2", { id: "heading-demo", text: "Modo demonstração" }),
       // Explicação
       el("p", { class: "meta", text: "Para apresentar o TCC: enche o app de dados e avança o tempo para mostrar o ranking zerando e a liga mudando." }),
+      // Modo apresentação: menu só com as 7 páginas principais
+      (() => {
+        // Chave
+        const chave = el("input", { type: "checkbox", class: "switch", role: "switch", "aria-label": "Modo apresentação" });
+        // Marca conforme o salvo
+        chave.checked = storage.get("sl-modo-apresentacao", false);
+        // Ao mudar, salva e recarrega (o menu muda)
+        chave.addEventListener("change", () => {
+          // Salva
+          storage.set("sl-modo-apresentacao", chave.checked);
+          // Recarrega
+          window.location.reload();
+        });
+        // Linha da chave
+        return el("label", { class: "switch-row" }, [el("span", {}, [el("strong", { text: "Modo apresentação" }), el("small", { text: "Menu só com o essencial: Início, Treinos, Alimentação, Evolução, Ranking, Comunidade e Perfil" })]), chave]);
+      })(),
       // Data atual do app
       el("p", { class: "demo-data" }, ["Hoje no app: ", el("strong", { text: hoje }), dias ? ` (+${dias} dia${dias > 1 ? "s" : ""})` : ""]),
       // Botões

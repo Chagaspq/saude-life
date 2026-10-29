@@ -2473,14 +2473,12 @@
   const AREAS = [
     // Treinar
     ["Treinar", ["inicio", "descobrir", "treinos", "exercicios", "programas", "corrida", "aulas"]],
-    // Comer
-    ["Comer", ["alimentacao"]],
-    // Evoluir
-    ["Evoluir", ["evolucao", "saude", "ranking", "loja"]],
-    // Comunidade
-    ["Comunidade", ["comunidade", "profissionais", "area-pro", "academia"]],
-    // Sua conta
-    ["Sua conta", ["planos", "salvos", "perfil"]],
+    // Saúde (comer e evoluir juntos: menos títulos no menu)
+    ["Saúde", ["alimentacao", "saude", "evolucao"]],
+    // Comunidade (Loja fica no Ranking e Área do profissional em Profissionais)
+    ["Comunidade", ["comunidade", "ranking", "profissionais", "academia"]],
+    // Sua conta (Salvos fica em Treinos)
+    ["Sua conta", ["planos", "perfil"]],
   ];
 
   // Lista de links do menu lateral
@@ -2499,11 +2497,20 @@
     // Monta a lista nova, área por área
     const nova = [];
     // Para cada área...
+    // Modo apresentação (Perfil > Modo demonstração): só as páginas principais
+    const ESSENCIAL = ["inicio", "treinos", "alimentacao", "evolucao", "ranking", "comunidade", "perfil"];
+    // Está ligado?
+    const enxuto = storage.get("sl-modo-apresentacao", false);
+    // Para cada área...
     AREAS.forEach(([nome, paginas]) => {
+      // ...páginas que aparecem (no modo apresentação, só as principais)
+      const visiveis = paginas.filter((p) => itens[p] && (!enxuto || ESSENCIAL.includes(p)));
+      // ...área vazia não aparece
+      if (!visiveis.length) return;
       // ...coloca o título da área
       nova.push(el("li", { class: "nav-area", "aria-hidden": "true", text: nome }));
       // ...e os itens dela
-      paginas.forEach((p) => itens[p] && nova.push(itens[p]));
+      visiveis.forEach((p) => nova.push(itens[p]));
     });
     // Troca a lista do menu
     listaMenu.replaceChildren(...nova);

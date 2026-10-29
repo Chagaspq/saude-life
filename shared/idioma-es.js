@@ -1011,4 +1011,15 @@ window.SL_ES = {
   "Até 20 minutos": "Hasta 20 minutos",
   // • conclua um treino, faça 12 séries
   "• conclua um treino, faça 12 séries": "• completa un entrenamiento, haz 12 series",
+  // ---------- Telas novas ----------
+  // Exibição
+  "Exibição": "Pantalla",
+  // Idioma
+  "Idioma": "Idioma",
+  // Modo apresentação
+  "Modo apresentação": "Modo presentación",
+  // Menu só com o essencial: Início, Treinos, Alimentação, Evolu
+  "Menu só com o essencial: Início, Treinos, Alimentação, Evolução, Ranking, Comunidade e Perfil": "Menú solo con lo esencial: Inicio, Entrenamientos, Alimentación, Progreso, Ranking, Comunidad y Perfil",
+  // Ver menos
+  "Ver menos": "Ver menos",
 };

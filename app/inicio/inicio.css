@@ -459,3 +459,9 @@
   /* Sublinhado */
   text-decoration: underline;
 }
+
+/* Grade com um card só (o treino ocupa a largura toda) */
+.home-grid.home-grid-um {
+  /* Uma coluna */
+  grid-template-columns: minmax(0, 1fr);
+}

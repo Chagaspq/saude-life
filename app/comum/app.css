@@ -3792,7 +3792,7 @@ a.btn-secondary {
   }
 }
 
-/* Fundo vivo: anéis e brilhos que se mexem bem devagar atrás do app */
+/* Fundo: dois brilhos fracos e parados atrás do app */
 body[data-pagina]::before {
   /* Cria o pedacinho */
   content: "";
@@ -3804,13 +3804,10 @@ body[data-pagina]::before {
   z-index: -1;
   /* Ignora cliques */
   pointer-events: none;
-  /* Dois brilhos (coral e esmeralda) + anéis finos desenhados com degradê */
+  /* Só dois brilhos bem fracos (sem anéis, para o fundo ficar limpo) */
   background:
-    radial-gradient(circle at 20% 15%, rgba(240, 132, 90, 0.09), transparent 30%),
-    radial-gradient(circle at 85% 80%, rgba(79, 194, 154, 0.08), transparent 32%),
-    repeating-radial-gradient(circle at 85% 10%, transparent 0 46px, rgba(240, 132, 90, 0.035) 47px 48px, transparent 49px 96px);
-  /* Animação lenta */
-  animation: fundo-vivo 40s ease-in-out infinite alternate;
+    radial-gradient(circle at 20% 15%, rgba(240, 132, 90, 0.05), transparent 30%),
+    radial-gradient(circle at 85% 80%, rgba(79, 194, 154, 0.04), transparent 32%);
 }
 
 /* Animação: o fundo vai e volta devagar */

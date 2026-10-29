@@ -1064,6 +1064,17 @@
     "Até 20 minutos": "Up to 20 minutes",
     // • conclua um treino, faça 12 séries
     "• conclua um treino, faça 12 séries": "• finish a workout, do 12 sets",
+    // ---------- Telas novas (comunidade, profissionais, academia, aulas, planos, ajuda e acessibilidade) ----------
+    // Exibição
+    "Exibição": "Display",
+    // Idioma
+    "Idioma": "Language",
+    // Modo apresentação
+    "Modo apresentação": "Presentation mode",
+    // Menu só com o essencial: Início, Treinos, Alimentação, Evolu
+    "Menu só com o essencial: Início, Treinos, Alimentação, Evolução, Ranking, Comunidade e Perfil": "Menu with only the essentials: Home, Workouts, Nutrition, Progress, Leaderboard, Community and Profile",
+    // Ver menos
+    "Ver menos": "Show less",
   };
 
   // Dias da semana e meses (para datas por extenso)
@@ -1236,6 +1247,10 @@
     [/^(\d+) amigos?$/, (m, n) => `${n} friend${n === "1" ? "" : "s"}`],
     // "Jantar: Omelete" (a refeição traduz, o prato fica)
     [/^(Café da manhã|Almoço|Lanche|Jantar): (.+)$/, (m, r, q) => `${traduzir(r)}: ${q}`],
+    // "Ver todos os selos (19)"
+    [/^Ver todos os selos \((\d+)\)$/, (m, n) => `See all badges (${n})`],
+    // "Ver todas as 10 receitas"
+    [/^Ver todas as (\d+) receitas$/, (m, n) => `See all ${n} recipes`],
     // "com Carla Mendes" (professor da aula)
     [/^com (.+)$/, (m, q) => `with ${q}`],
     // "Mais treinados: ..."
@@ -1370,6 +1385,10 @@
     [/^Mais treinados: (.+)$/, (m, q) => `Más entrenados: ${q}`],
     // Professor da aula
     [/^com (.+)$/, (m, q) => `con ${q}`],
+    // Ver todos os selos
+    [/^Ver todos os selos \((\d+)\)$/, (m, n) => `Ver todas las insignias (${n})`],
+    // Ver todas as receitas
+    [/^Ver todas as (\d+) receitas$/, (m, n) => `Ver las ${n} recetas`],
     // "há 24 min"
     [/^há (\d+) min$/, (m, n) => `hace ${n} min`],
     // "7 amigos"

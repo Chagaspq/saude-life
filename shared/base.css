@@ -704,3 +704,46 @@ svg path[d^="M19.5 33H24.5"] {
   /* Sem transição */
   transition-duration: 0.01ms !important;
 }
+
+/* ---------- Topo mais limpo: tema e idioma ficam dentro do painel "Exibição" ---------- */
+
+/* Esconde os botões soltos de tema e idioma (as opções estão no painel) */
+.btn-tema:not(.btn-a11y),
+.btn-idioma {
+  /* Some */
+  display: none !important;
+}
+
+/* Botão de exibição solto (login, cadastro): no canto */
+.btn-a11y-solto {
+  /* Canto direito */
+  right: calc(14px + env(safe-area-inset-right, 0px));
+}
+
+/* Subtítulo "Acessibilidade" dentro do painel */
+.a11y-sub {
+  /* Sem margem */
+  margin: 6px 0 0;
+  /* Linha em cima */
+  border-top: 1px solid var(--border);
+  /* Espaço */
+  padding-top: 10px;
+  /* Letra pequena */
+  font-size: var(--text-xs);
+  /* Negrito */
+  font-weight: 700;
+  /* Maiúsculas */
+  text-transform: uppercase;
+  /* Espaçado */
+  letter-spacing: 0.08em;
+  /* Cor apagada */
+  color: var(--muted);
+}
+
+/* Idioma escolhido */
+.a11y-fonte [aria-pressed="true"] {
+  /* Borda coral */
+  border-color: var(--coral);
+  /* Texto coral */
+  color: var(--coral-light);
+}

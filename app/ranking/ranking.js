@@ -258,7 +258,20 @@ window.SL &&
       // Quantos já ganhou
       $("selos-total").textContent = `${lista.filter((s) => s.feito).length} de ${lista.length}`;
       // Selos base (sem repetir)
-      const bases = [...new Set(lista.map((s) => s.base))];
+      const todos = [...new Set(lista.map((s) => s.base))];
+      // Quão perto cada base está do próximo nível (0 a 1), para mostrar primeiro os quase prontos
+      const perto = (base) => {
+        // Níveis da base
+        const n = lista.filter((s) => s.base === base);
+        // Próximo nível não feito
+        const prox = n.find((s) => !s.feito);
+        // Completo conta como 1
+        return prox ? Math.min(1, prox.progresso / prox.meta) : 1;
+      };
+      // Já ganhou algum nível?
+      const ganhou = (base) => lista.some((s) => s.base === base && s.feito);
+      // Mostra: os que já ganhou + os 3 mais perto de ganhar (ou todos, se pediu)
+      const bases = verTodosSelos ? todos : todos.filter(ganhou).concat(todos.filter((b) => !ganhou(b)).sort((a, b) => perto(b) - perto(a)).slice(0, 3));
       // Troca a grade
       $("selos").replaceChildren(
         // Um item por selo base
@@ -288,9 +301,22 @@ window.SL &&
           ]);
         }),
       );
+      // Botão de ver todos / ver menos
+      const botao = el("li", { class: "rk-selos-mais" }, [el("button", { type: "button", class: "btn-link", text: verTodosSelos ? "Ver menos" : `Ver todos os selos (${todos.length})` })]);
+      // Ao clicar, troca e desenha de novo
+      botao.firstChild.addEventListener("click", () => {
+        // Troca
+        verTodosSelos = !verTodosSelos;
+        // Desenha
+        renderSelos();
+      });
+      // Coloca no fim da grade
+      $("selos").append(botao);
       // Pinta as barrinhas
       SL.aplicarProgresso();
     }
+    // Mostrando todos os selos? (começa só com os principais)
+    let verTodosSelos = false;
 
     // Desenha a faixa da temporada do mês
     function renderTemporada() {

@@ -772,3 +772,11 @@
   /* Espaço embaixo */
   margin: 0 0 12px;
 }
+
+/* Botão "Ver todas as receitas" ocupa a linha toda */
+.receitas-mais {
+  /* Linha toda */
+  grid-column: 1 / -1;
+  /* Centralizado */
+  justify-self: center;
+}

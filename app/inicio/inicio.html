@@ -441,8 +441,8 @@
             <!-- Card dos pontos da semana: anel, liga e posição (preenchido pelo inicio.js) -->
             <section class="pontos-card" data-render="pontos" aria-label="Seus pontos da semana"></section>
 
-            <!-- Grade com duas colunas: treino e desafio -->
-            <div class="home-grid">
+            <!-- Treino para continuar (ocupa a largura toda) -->
+            <div class="home-grid home-grid-um">
               <!-- Seção do treino para continuar -->
               <section aria-labelledby="heading-continue">
                 <!-- Título da seção (o JavaScript troca conforme o caso) -->
@@ -453,52 +453,7 @@
                 <div data-render="continue"></div>
               </section>
 
-              <!-- Seção do desafio -->
-              <section aria-labelledby="heading-desafio">
-                <!-- Título da seção -->
-                <h2 id="heading-desafio">Desafio ativo</h2>
-                <!-- Card do desafio -->
-                <article class="challenge-card challenge-hero">
-                  <!-- Topo do card: ícone e textos -->
-                  <div class="challenge-top">
-                    <!-- Quadradinho verde com o ícone de troféu -->
-                    <span class="icon-tile icon-tile-emerald" aria-hidden="true">
-                      <!-- Ícone de troféu em SVG -->
-                      <svg class="icon" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
-                    </span>
-                    <div>
-                      <!-- Nome do desafio -->
-                      <h3>Desafio 30 Dias Abdominais</h3>
-                      <!-- Descrição do desafio -->
-                      <p class="meta">Definição e resistência do core</p>
-                    </div>
-                  </div>
-                  <!-- Linha com o dia atual e quantas pessoas participam -->
-                  <div class="challenge-progress">
-                    <!-- Em que dia do desafio a pessoa está -->
-                    <span><strong>Dia 6</strong> de 30</span>
-                    <!-- Quantas pessoas participam -->
-                    <span class="meta">450 participantes</span>
-                  </div>
-                  <!-- Barra de progresso (o role avisa os leitores de tela) -->
-                  <div
-                    class="progress-bar-sm progress-emerald"
-                    role="progressbar"
-                    aria-label="Progresso do desafio"
-                    aria-valuenow="20"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  >
-                    <!-- Parte pintada da barra de progresso -->
-                    <div class="fill" data-progress="20"></div>
-                  </div>
-                  <!-- Botão de entrar no desafio -->
-                  <button class="btn-primary" data-action="join-challenge">
-                    Participar do desafio
-                  </button>
-                </article>
-              </section>
-            </div>
+              </div>
 
             <!-- Seção de treinos recomendados -->
             <section aria-labelledby="heading-recomendados">
@@ -511,19 +466,6 @@
               </div>
               <!-- Fileira que rola para o lado com os treinos (preenchida pelo JavaScript) -->
               <div class="horizontal-scroll" data-render="recomendados"></div>
-            </section>
-
-            <!-- Seção de profissionais em destaque -->
-            <section aria-labelledby="heading-pros">
-              <!-- Topo de uma seção: título e link ao lado -->
-              <div class="section-head">
-                <!-- Título da seção -->
-                <h2 id="heading-pros">Profissionais em destaque</h2>
-                <!-- Link que leva para a página Profissionais -->
-                <a href="../profissionais/profissionais.html" class="section-link">Ver todos</a>
-              </div>
-              <!-- Grade dos profissionais (preenchida pelo JavaScript) -->
-              <div class="cards-grid pros-row" data-render="pros-destaque"></div>
             </section>
           </section>
         </main>

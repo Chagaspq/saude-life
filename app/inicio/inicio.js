@@ -5,8 +5,8 @@ window.SL &&
   SL.pagina(() => {
     // Pega do núcleo: criar elementos e os ícones
     const { el, icone, ICONES } = SL;
-    // Pega o catálogo de treinos e a lista de profissionais
-    const { CATALOGO, PROFISSIONAIS } = window.SL_DADOS;
+    // Pega o catálogo de treinos
+    const { CATALOGO } = window.SL_DADOS;
     // Calcula os números de treino da pessoa
     const stats = SL.estatisticas();
 
@@ -193,13 +193,6 @@ window.SL &&
       // Coloca um card para cada um na área de recomendados
       .forEach((t) => document.querySelector('[data-render="recomendados"]').append(SL.cardTreinoCatalogo(t)));
 
-    /* Profissionais em destaque */
-    // Acha a área de profissionais em destaque...
-    document
-      .querySelector('[data-render="pros-destaque"]')
-      // ...e coloca os 4 primeiros profissionais
-      .replaceChildren(...PROFISSIONAIS.slice(0, 4).map(SL.cardProfissional));
-
     // Pinta todas as barras de progresso da página
     SL.aplicarProgresso();
 
@@ -225,22 +218,13 @@ window.SL &&
           el("div", { class: "pontos-card-liga" }, [P.escudo(s.atual), el("strong", { class: `rk-liga-nome liga-${P.LIGAS[s.atual].id}`, text: `Liga ${P.LIGAS[s.atual].nome}` })]),
           // Posição entre os amigos
           el("p", { class: "pontos-card-pos", text: pos ? `Você está em ${pos.posicao}º de ${pos.total} entre os amigos` : "" }),
-          // Sequência de dias com o escudo
-          (() => {
-            // Dias seguidos
-            const seq = P.diasSeguidos();
-            // Etiqueta
-            return el("p", { class: "pontos-card-seq" }, [el("strong", { text: `${seq.dias} dia${seq.dias === 1 ? "" : "s"} seguido${seq.dias === 1 ? "" : "s"}` }), el("span", { class: "meta", text: seq.escudoLivre ? " • escudo da semana livre (1 dia de folga sem perder)" : " • escudo da semana já usado" })]);
-          })(),
-          // Missões de hoje (feitas/total)
+          // Missões de hoje (feitas/total), em uma linha curta
           (() => {
             // Missões
             const ms = P.missoes();
-            // Etiqueta com link para o Ranking
-            return el("a", { href: "../ranking/ranking.html#heading-missoes", class: "pontos-card-missoes" }, [`Missões de hoje: ${ms.filter((m) => m.feita).length} de ${ms.length}`, el("span", { class: "meta", text: ` • ${ms.filter((m) => !m.feita).map((m) => m.texto.toLowerCase()).slice(0, 2).join(", ") || "todas feitas!"}` })]);
+            // Link para as missões no Ranking
+            return el("a", { href: "../ranking/ranking.html#heading-missoes", class: "pontos-card-missoes", text: `Missões de hoje: ${ms.filter((m) => m.feita).length} de ${ms.length}` });
           })(),
-          // O que falta
-          el("p", { class: "meta", text: s.faltaSubir ? `Faltam ${s.faltaSubir} pontos para ${s.noTopo ? "garantir o Diamante" : "subir de liga"} • zera em ${s.diasParaZerar} dia${s.diasParaZerar === 1 ? "" : "s"}` : "Subida garantida nesta semana!" }),
         ]),
         // Link para o ranking
         el("a", { href: "../ranking/ranking.html", class: "btn-secondary", text: "Ver ranking" }),
@@ -304,7 +288,7 @@ window.SL &&
             el("div", { class: "fill", "data-progress": Math.min(100, Math.round((passos / META) * 100)) }),
           ]),
           // Aviso de simulação
-          el("small", { class: "meta", text: "Simulado (sem pulseira conectada)" }),
+          
         ]),
       );
       // Pinta a barra
