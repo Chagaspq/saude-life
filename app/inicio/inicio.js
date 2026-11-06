@@ -108,8 +108,8 @@ window.SL &&
           "Nenhum treino ainda",
           // Texto
           "Crie seu primeiro treino ou escolha um pronto.",
-          // Botão que leva para Descobrir
-          el("a", { href: "../descobrir/descobrir.html", class: "btn-primary", text: "Descobrir treinos" }),
+          // Botão que leva para Treinos
+          el("a", { href: "../treinos/treinos.html", class: "btn-primary", text: "Criar meu primeiro treino" }),
         ),
       );
     // Se tem treino...
@@ -181,22 +181,10 @@ window.SL &&
       );
     }
 
-    /* Recomendados: primeiro os do objetivo escolhido no questionário */
-    // Objetivo escolhido no questionário
-    const objetivo = SL.onboarding().objetivo;
-    // Copia o catálogo
-    CATALOGO.slice()
-      // Ordena: primeiro os do objetivo, depois os de nota maior
-      .sort((a, b) => (b.objetivo === objetivo) - (a.objetivo === objetivo) || b.nota - a.nota)
-      // Pega só os 6 primeiros
-      .slice(0, 6)
-      // Coloca um card para cada um na área de recomendados
-      .forEach((t) => document.querySelector('[data-render="recomendados"]').append(SL.cardTreinoCatalogo(t)));
-
     // Pinta todas as barras de progresso da página
     SL.aplicarProgresso();
 
-    /* Card dos pontos: anel da semana, liga e posição entre os amigos */
+    /* Card dos pontos: anel da semana e liga (só os pontos da própria pessoa) */
     function renderPontos() {
       // Lugar do card
       const alvo = document.querySelector('[data-render="pontos"]');
@@ -206,8 +194,6 @@ window.SL &&
       const P = SL.pontos;
       // Situação da semana
       const s = P.situacaoDaLiga();
-      // Posição entre os amigos
-      const pos = P.minhaPosicao("amigos", "semana");
       // Troca o conteúdo do card
       alvo.replaceChildren(
         // Anel menor com os pontos
@@ -216,88 +202,26 @@ window.SL &&
         el("div", { class: "pontos-card-info" }, [
           // Linha com o escudo e a liga
           el("div", { class: "pontos-card-liga" }, [P.escudo(s.atual), el("strong", { class: `rk-liga-nome liga-${P.LIGAS[s.atual].id}`, text: `Liga ${P.LIGAS[s.atual].nome}` })]),
-          // Posição entre os amigos
-          el("p", { class: "pontos-card-pos", text: pos ? `Você está em ${pos.posicao}º de ${pos.total} entre os amigos` : "" }),
-          // Missões de hoje (feitas/total), em uma linha curta
-          (() => {
-            // Missões
-            const ms = P.missoes();
-            // Link para as missões no Ranking
-            return el("a", { href: "../ranking/ranking.html#heading-missoes", class: "pontos-card-missoes", text: `Missões de hoje: ${ms.filter((m) => m.feita).length} de ${ms.length}` });
-          })(),
+          // Como ganhar pontos, em uma linha
+          el("p", { class: "meta", text: "Cada série, treino, refeição e copo d'água valem pontos. A semana zera toda segunda." }),
         ]),
-        // Link para o ranking
-        el("a", { href: "../ranking/ranking.html", class: "btn-secondary", text: "Ver ranking" }),
       );
     }
     // Desenha o card
     renderPontos();
 
-    /* Card do momento: sugestão conforme o horário e passos de hoje (simulados) */
-    function renderMomento() {
-      // Lugar do card
-      const alvo = document.querySelector('[data-render="momento"]');
-      // Agora
-      const agora = new Date();
-      // Hora (com os minutos como fração)
-      const hora = agora.getHours() + agora.getMinutes() / 60;
-      // Já treinou hoje?
-      const treinouHoje = SL.historico().some((h) => new Date(h.data).toDateString() === agora.toDateString());
-      // Sugestão do horário: [ícone, título, texto, botão, link]
-      const m =
-        // Manhã
-        hora >= 5 && hora < 10
-          ? ["sol", "Bom dia! Começa com proteína", "Ovo, iogurte ou queijo no café ajudam a bater a meta de proteína.", "Registrar café", "../alimentacao/alimentacao.html"]
-          : // Almoço
-            hora >= 10 && hora < 14
-            ? ["talheres", "Hora do almoço", "Metade do prato com salada e legumes. Registra e ganha 5 pontos.", "Registrar almoço", "../alimentacao/alimentacao.html"]
-            : // Tarde
-              hora >= 14 && hora < 18
-              ? ["raio", "Tarde de energia", "Um lanche com carboidrato e um copo d'água antes do treino.", "Ver treinos", "../treinos/treinos.html"]
-              : // Noite, já treinou
-                hora >= 18 && hora < 22 && treinouHoje
-                ? ["lua", "Treino feito hoje!", "Agora é recuperar: janta com proteína e uma boa noite de sono.", "Ver evolução", "../evolucao/evolucao.html"]
-                : // Noite, ainda não treinou
-                  hora >= 18 && hora < 22
-                  ? ["fogo", "Ainda dá tempo de treinar", "20 minutos já valem pontos e mantêm sua sequência.", "Começar treino", "../treinos/treinos.html"]
-                  : // Madrugada
-                    ["cama", "Hora de descansar", "Sono também é treino: 7 a 9 horas ajudam o músculo a crescer.", "Ver resumo", "../evolucao/evolucao.html"];
-      // Meta de passos
-      const META = 8000;
-      // Passos do dia inteiro (sorteado pelo dia, entre 5 e 12 mil)
-      const doDia = 5000 + Math.round((SL.pontos ? SL.pontos.sorteio("passos" + agora.toDateString()) : 0.5) * 7000);
-      // Parte do dia que já passou (das 6h às 22h)
-      const parte = Math.max(0, Math.min(1, (hora - 6) / 16));
-      // Passos até agora
-      const passos = Math.round(doDia * parte);
-      // Troca o conteúdo
-      alvo.replaceChildren(
-        // Ícone do momento
-        el("span", { class: "momento-icone" }, [SL.icone(SL.ICONES[m[0]])]),
-        // Textos e botão
-        el("div", { class: "momento-info" }, [el("strong", { text: m[1] }), el("p", { text: m[2] }), el("a", { href: m[4], class: "btn-secondary", text: m[3] })]),
-        // Passos de hoje
-        el("div", { class: "momento-passos" }, [
-          // Número
-          el("strong", { class: "momento-passos-num", text: SL.num(passos) }),
-          // Legenda
-          el("span", { text: `passos hoje • meta ${SL.num(META)}` }),
-          // Barra de progresso
-          el("div", { class: "progress-bar-sm progress-emerald", role: "progressbar", "aria-label": "Passos de hoje", "aria-valuemin": 0, "aria-valuemax": 100, "aria-valuenow": Math.min(100, Math.round((passos / META) * 100)) }, [
-            // Parte cheia
-            el("div", { class: "fill", "data-progress": Math.min(100, Math.round((passos / META) * 100)) }),
-          ]),
-          // Aviso de simulação
-          
-        ]),
-      );
-      // Pinta a barra
-      SL.aplicarProgresso();
+    /* Avisos do administrador (publicados no Painel do administrador) */
+    // Avisos guardados no aparelho
+    const avisosAdmin = SL.storage.get("sl-avisos-admin", []);
+    // Lugar dos avisos
+    const alvoAvisos = document.querySelector('[data-render="avisos-admin"]');
+    // Só aparece se tiver aviso (até 3, os mais novos)
+    if (avisosAdmin.length) {
+      // Mostra
+      alvoAvisos.hidden = false;
+      // Título e lista
+      alvoAvisos.replaceChildren(el("h2", { text: "Avisos da academia" }), el("ul", { class: "list-panel" }, avisosAdmin.slice(0, 3).map((a) => el("li", {}, [el("div", {}, [el("strong", { text: a.texto }), el("span", { text: `${a.autor || "Administrador"} • ${SL.dataRelativa(a.data)}` })])]))));
     }
-    // Desenha o card do momento
-    renderMomento();
-    // Desenha o Pulso com a frase do dia (se o personagem carregou)
-    if (SL.personagem) document.querySelector('[data-render="pulso"]').replaceChildren(SL.personagem.card());
     // Atualiza quando os pontos mudam
     document.addEventListener("sl:pontos", renderPontos);
   });

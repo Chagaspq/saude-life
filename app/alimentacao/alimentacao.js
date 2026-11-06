@@ -109,8 +109,8 @@ window.SL &&
     function agua() {
       // Lê o que foi salvo
       const salvo = storage.get("sl-agua", null);
-      // Se foi salvo hoje usa isso; se não, começa com 2500 ml
-      return salvo && salvo.data === hoje ? salvo.ml : 2500;
+      // Se foi salvo hoje usa isso; se não, começa zerado
+      return salvo && salvo.data === hoje ? salvo.ml : 0;
     }
     // Salva a água de hoje
     function guardarAgua(ml) {

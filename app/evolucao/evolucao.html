@@ -428,11 +428,11 @@
                 </div>
                 <!-- Botão de registrar o peso -->
                 <!-- Botão do relatório para mandar ao profissional -->
-                <button class="btn-secondary" data-action="relatorio">Relatório para o profissional</button>
+                <button class="btn-secondary" data-action="relatorio" hidden data-fora-mvp>Relatório para o profissional</button>
                 <!-- Botão do resumo da semana (stories) -->
-                <button class="btn-secondary" data-action="resumo" data-periodo-resumo="semana">Resumo da semana</button>
+                <button class="btn-secondary" data-action="resumo" data-periodo-resumo="semana" hidden data-fora-mvp>Resumo da semana</button>
                 <!-- Botão do resumo do mês (stories) -->
-                <button class="btn-secondary" data-action="resumo" data-periodo-resumo="mes">Resumo do mês</button>
+                <button class="btn-secondary" data-action="resumo" data-periodo-resumo="mes" hidden data-fora-mvp>Resumo do mês</button>
                 <button class="btn-primary btn-with-icon" data-action="registrar-peso">
                   <!-- Ícone desenhado em SVG (escondido dos leitores de tela) -->
                   <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
@@ -446,7 +446,7 @@
               <!-- Título escondido, só para leitores de tela -->
               <h2 id="heading-resumo-evolucao" class="sr-only">Resumo do período</h2>
               <!-- Grade dos 4 números (preenchida pelo JavaScript) -->
-              <div class="stats-grid stats-grid-4" data-render="evolucao-resumo"></div>
+              <div class="stats-grid" data-render="evolucao-resumo"></div>
             </section>
 
             <!-- Grade com dois gráficos -->
@@ -464,7 +464,7 @@
                 <div data-render="grafico-peso"></div>
               </figure>
               <!-- Bloco do gráfico de carga -->
-              <figure class="chart-container" data-chart="cargas">
+              <figure class="chart-container" data-chart="cargas" hidden data-fora-mvp>
                 <!-- Legenda do gráfico -->
                 <figcaption>
                   <!-- Título do gráfico -->
@@ -516,7 +516,7 @@
             </section>
 
             <!-- Volume por músculo nesta semana -->
-            <section class="ev-painel ev-volume" aria-labelledby="heading-volume">
+            <section class="ev-painel ev-volume" aria-labelledby="heading-volume" hidden data-fora-mvp>
               <!-- Título -->
               <h2 id="heading-volume">Volume por músculo nesta semana</h2>
               <!-- Explicação -->
@@ -528,7 +528,7 @@
             <!-- Grade: corpo com músculos + recordes -->
             <div class="evolution-dashboard">
               <!-- Corpo com os músculos mais treinados -->
-              <section class="ev-painel" aria-labelledby="heading-corpo">
+              <section class="ev-painel" aria-labelledby="heading-corpo" hidden data-fora-mvp>
                 <!-- Título -->
                 <h2 id="heading-corpo">Músculos mais treinados</h2>
                 <!-- Explicação -->
@@ -537,7 +537,7 @@
                 <div class="ev-corpo" data-render="corpo"></div>
               </section>
               <!-- Recordes de carga -->
-              <section class="ev-painel" aria-labelledby="heading-recordes">
+              <section class="ev-painel" aria-labelledby="heading-recordes" hidden data-fora-mvp>
                 <!-- Título -->
                 <h2 id="heading-recordes">Recordes pessoais</h2>
                 <!-- Lista (preenchida pelo evolucao.js) -->
@@ -546,7 +546,7 @@
             </div>
 
             <!-- Mapa de calor do ano -->
-            <section class="ev-painel" aria-labelledby="heading-calor">
+            <section class="ev-painel" aria-labelledby="heading-calor" hidden data-fora-mvp>
               <!-- Topo: título e total -->
               <div class="section-head">
                 <!-- Título -->
@@ -559,7 +559,7 @@
             </section>
 
             <!-- Fotos de antes e depois -->
-            <section class="ev-painel" aria-labelledby="heading-fotos">
+            <section class="ev-painel" aria-labelledby="heading-fotos" hidden data-fora-mvp>
               <!-- Topo: título e botão de adicionar foto -->
               <div class="section-head">
                 <!-- Título -->

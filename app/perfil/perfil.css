@@ -429,3 +429,69 @@
   /* Quebra */
   flex-wrap: wrap;
 }
+
+/* ---------- Tipo de conta: comparação cliente x administrador ---------- */
+
+/* Selo "Cliente" */
+.selo-cliente {
+  /* Pílula */
+  display: inline-flex;
+  /* Espaço */
+  padding: 4px 10px;
+  /* Pílula */
+  border-radius: 999px;
+  /* Fundo coral fraco */
+  background: var(--coral-soft);
+  /* Texto coral */
+  color: var(--coral-light);
+  /* Letra */
+  font: 800 12px var(--font-display);
+  /* Espaçado */
+  letter-spacing: 0.06em;
+}
+
+/* Tabela */
+.tipo-conta-tabela {
+  /* Largura toda */
+  width: 100%;
+  /* Bordas juntas */
+  border-collapse: collapse;
+  /* Letra */
+  font-size: var(--text-sm);
+  /* Espaço */
+  margin-top: 12px;
+}
+
+/* Células */
+.tipo-conta-tabela th,
+.tipo-conta-tabela td {
+  /* Alinhado à esquerda */
+  text-align: left;
+  /* Espaço */
+  padding: 10px 12px;
+  /* Linha embaixo */
+  border-bottom: 1px solid var(--border);
+  /* Alinha em cima */
+  vertical-align: top;
+}
+
+/* Coluna do tipo atual */
+.tipo-conta-tabela .is-atual {
+  /* Fundo destacado */
+  background: var(--emerald-soft);
+  /* Negrito */
+  font-weight: 600;
+}
+
+/* Celular: tabela rola para o lado se não couber */
+.tipo-conta-painel {
+  /* Rola */
+  overflow-x: auto;
+}
+
+/* Administrador: sem plano de cliente nem números de treino no cartão do perfil */
+body.is-admin .perfil-plano,
+body.is-admin .profile-stats-bar {
+  /* Some */
+  display: none;
+}

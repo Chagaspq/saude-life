@@ -6102,3 +6102,78 @@ body[data-pagina]::before {
   /* Ocupa */
   flex: 1 1 160px;
 }
+
+/* ---------- Acesso de administrador: bem destacado para não confundir com o cliente ---------- */
+
+/* Selo "ADMIN" (no topo e no painel) */
+.selo-admin {
+  /* Pílula */
+  display: inline-flex;
+  /* Alinhado */
+  align-items: center;
+  /* Espaço interno */
+  padding: 4px 10px;
+  /* Pílula */
+  border-radius: 999px;
+  /* Fundo esmeralda */
+  background: var(--emerald);
+  /* Texto escuro */
+  color: #06120d;
+  /* Letra */
+  font: 800 12px var(--font-display);
+  /* Espaçado */
+  letter-spacing: 0.08em;
+}
+
+/* Administrador: faixa esmeralda em cima da tela inteira */
+body.is-admin {
+  /* Linha esmeralda no topo */
+  border-top: 4px solid var(--emerald);
+}
+
+/* Administrador: menu lateral com borda esmeralda */
+body.is-admin .sidebar {
+  /* Borda direita esmeralda */
+  border-right-color: var(--emerald);
+}
+
+/* Administrador: título "Administração" do menu em esmeralda */
+body.is-admin .nav-area {
+  /* Cor */
+  color: var(--emerald);
+}
+
+/* Faixa explicativa no painel do administrador */
+.faixa-admin {
+  /* Lado a lado */
+  display: flex;
+  /* Alinhados */
+  align-items: center;
+  /* Espaço */
+  gap: 12px;
+  /* Espaço interno */
+  padding: 12px 16px;
+  /* Espaço embaixo */
+  margin-bottom: var(--space-4);
+  /* Fundo esmeralda fraco */
+  background: var(--emerald-soft);
+  /* Borda esmeralda */
+  border: 1px solid var(--emerald);
+  /* Cantos */
+  border-radius: var(--radius-md);
+  /* Letra */
+  font-size: var(--text-sm);
+}
+
+/* Partes guardadas para depois do MVP: ficam escondidas de verdade */
+[data-fora-mvp][hidden] {
+  /* Some */
+  display: none !important;
+}
+
+/* MVP: sem a busca do topo (ela procurava páginas que ficaram para depois) */
+.app-topbar .search-box,
+.app-topbar .btn-search-toggle {
+  /* Some */
+  display: none;
+}

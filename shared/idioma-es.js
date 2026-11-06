@@ -1022,4 +1022,99 @@ window.SL_ES = {
   "Menu só com o essencial: Início, Treinos, Alimentação, Evolução, Ranking, Comunidade e Perfil": "Menú solo con lo esencial: Inicio, Entrenamientos, Alimentación, Progreso, Ranking, Comunidad y Perfil",
   // Ver menos
   "Ver menos": "Ver menos",
+  // ---------- Telas novas ----------
+  // Meu treino
+  "Meu treino": "Mi entrenamiento",
+  // Administração
+  "Administração": "Administración",
+  // Painel
+  "Painel": "Panel",
+  // Painel do administrador
+  "Painel do administrador": "Panel del administrador",
+  // Clientes
+  "Clientes": "Clientes",
+  // Ativos na semana
+  "Ativos na semana": "Activos en la semana",
+  // Treinos na semana
+  "Treinos na semana": "Entrenamientos en la semana",
+  // cadastrados neste aparelho
+  "cadastrados neste aparelho": "registrados en este dispositivo",
+  // treinaram nos últimos 7 dias
+  "treinaram nos últimos 7 dias": "entrenaron en los últimos 7 días",
+  // somando todos os clientes
+  "somando todos os clientes": "sumando todos los clientes",
+  // Mandar treino
+  "Mandar treino": "Enviar entrenamiento",
+  // Avisos para os clientes
+  "Avisos para os clientes": "Avisos para los clientes",
+  // O aviso aparece no Início de todos os clientes.
+  "O aviso aparece no Início de todos os clientes.": "El aviso aparece en el Inicio de todos los clientes.",
+  // Apagar
+  "Apagar": "Borrar",
+  // Nenhum aviso publicado.
+  "Nenhum aviso publicado.": "Ningún aviso publicado.",
+  // Clientes cadastrados neste aparelho e o que eles registraram
+  "Clientes cadastrados neste aparelho e o que eles registraram.": "Clientes registrados en este dispositivo y lo que registraron.",
+  // Avisos da academia
+  "Avisos da academia": "Avisos del gimnasio",
+  // Criar meu primeiro treino
+  "Criar meu primeiro treino": "Crear mi primer entrenamiento",
+  // Nenhum treino ainda
+  "Nenhum treino ainda": "Aún no hay entrenamientos",
+  // Sou cliente
+  "Sou cliente": "Soy cliente",
+  // Sou administrador
+  "Sou administrador": "Soy administrador",
+  // Registro meus treinos, refeições e evolução
+  "Registro meus treinos, refeições e evolução": "Registro mis entrenamientos, comidas y progreso",
+  // Academia ou personal: acompanho clientes e mando treinos
+  "Academia ou personal: acompanho clientes e mando treinos": "Gimnasio o entrenador: sigo clientes y envío entrenamientos",
+  // Demonstração: cliente
+  "Demonstração: cliente": "Demo: cliente",
+  // Demonstração: administrador
+  "Demonstração: administrador": "Demo: administrador",
+  // Tipo de conta:
+  "Tipo de conta:": "Tipo de cuenta:",
+  // Cliente
+  "Cliente": "Cliente",
+  // Administrador
+  "Administrador": "Administrador",
+  // O que muda
+  "O que muda": "Qué cambia",
+  // Páginas
+  "Páginas": "Páginas",
+  // Dados
+  "Dados": "Datos",
+  // Marca na tela
+  "Marca na tela": "Marca en pantalla",
+  // Nenhuma
+  "Nenhuma": "Ninguna",
+  // Início, Treinos, Alimentação, Evolução e Perfil
+  "Início, Treinos, Alimentação, Evolução e Perfil": "Inicio, Entrenamientos, Alimentación, Progreso y Perfil",
+  // Painel do administrador e Perfil
+  "Painel do administrador e Perfil": "Panel del administrador y Perfil",
+  // Registra os próprios treinos
+  "Registra os próprios treinos": "Registra sus propios entrenamientos",
+  // Monta e manda treinos para os clientes
+  "Monta e manda treinos para os clientes": "Arma y envía entrenamientos a los clientes",
+  // Vê só os próprios dados
+  "Vê só os próprios dados": "Ve solo sus propios datos",
+  // Vê os clientes e quanto cada um treinou
+  "Vê os clientes e quanto cada um treinou": "Ve a los clientes y cuánto entrenó cada uno",
+  // Recebe os avisos no Início
+  "Recebe os avisos no Início": "Recibe los avisos en Inicio",
+  // Publica avisos para todos os clientes
+  "Publica avisos para todos os clientes": "Publica avisos para todos los clientes",
+  // Selo ADMIN no topo e faixa verde
+  "Selo ADMIN no topo e faixa verde": "Sello ADMIN arriba y franja verde",
+  // Apagar meus dados
+  "Apagar meus dados": "Borrar mis datos",
+  // Apagar meus dados e começar do zero
+  "Apagar meus dados e começar do zero": "Borrar mis datos y empezar de cero",
+  // Nenhum treino registrado ainda.
+  "Nenhum treino registrado ainda.": "Aún no hay entrenamientos registrados.",
+  // Cada série, treino, refeição e copo d'água valem pontos. A s
+  "Cada série, treino, refeição e copo d'água valem pontos. A semana zera toda segunda.": "Cada serie, entrenamiento, comida y vaso de agua suman puntos. La semana se reinicia cada lunes.",
+  // Adicionar exercício
+  "Adicionar exercício": "Agregar ejercicio",
 };

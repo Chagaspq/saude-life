@@ -432,11 +432,8 @@
               <div class="stats-grid stats-grid-4" data-render="resumo"></div>
             </section>
 
-            <!-- O Pulso (personagem) com a frase do dia (preenchido pelo inicio.js) -->
-            <section class="pulso-inicio" data-render="pulso" aria-label="Recado do Pulso, seu parceiro de treino"></section>
-
-            <!-- Card do momento do dia (muda conforme o horário) e passos de hoje (preenchido pelo inicio.js) -->
-            <section class="momento-card" data-render="momento" aria-label="Sugestão para agora"></section>
+            <!-- Avisos do administrador (academia ou personal); some se não tiver nenhum -->
+            <section class="avisos-admin" data-render="avisos-admin" aria-label="Avisos da sua academia" hidden></section>
 
             <!-- Card dos pontos da semana: anel, liga e posição (preenchido pelo inicio.js) -->
             <section class="pontos-card" data-render="pontos" aria-label="Seus pontos da semana"></section>
@@ -452,21 +449,7 @@
                 <!-- Card do treino (preenchido pelo inicio.js) -->
                 <div data-render="continue"></div>
               </section>
-
-              </div>
-
-            <!-- Seção de treinos recomendados -->
-            <section aria-labelledby="heading-recomendados">
-              <!-- Topo de uma seção: título e link ao lado -->
-              <div class="section-head">
-                <!-- Título da seção -->
-                <h2 id="heading-recomendados">Recomendados para você</h2>
-                <!-- Link que leva para a página Descobrir -->
-                <a href="../descobrir/descobrir.html" class="section-link">Ver todos</a>
-              </div>
-              <!-- Fileira que rola para o lado com os treinos (preenchida pelo JavaScript) -->
-              <div class="horizontal-scroll" data-render="recomendados"></div>
-            </section>
+            </div>
           </section>
         </main>
         <!-- Rodapé do app -->

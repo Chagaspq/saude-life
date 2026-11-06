@@ -10,7 +10,7 @@
   // Lista das páginas do app permitidas depois do login
   const PAGINAS_APP = [
     "inicio", "descobrir", "treinos", "aulas", "alimentacao", "evolucao",
-    "profissionais", "planos", "salvos", "academia", "perfil", "treino", "ranking", "comunidade", "exercicios", "programas", "corrida", "saude", "loja", "area-pro",
+    "profissionais", "planos", "salvos", "academia", "perfil", "treino", "ranking", "comunidade", "exercicios", "programas", "corrida", "saude", "loja", "area-pro", "admin",
   ];
 
   // Descobre para qual página ir depois de entrar
@@ -41,30 +41,33 @@
     // Apaga a mensagem de erro quando a pessoa volta a digitar
     F.clearErrorOnInput(loginForm);
 
-    // Botão "Entrar na demonstração": cria a conta de exemplo e entra direto
-    const botaoDemo = document.querySelector("[data-demo-login]");
-    // Se o botão existe...
-    if (botaoDemo)
-      // ...quando clicam nele...
+    // Botões de demonstração: cliente (com dados de exemplo) e administrador (painel)
+    document.querySelectorAll("[data-demo-login]").forEach((botaoDemo) =>
+      // Quando clicam...
       botaoDemo.addEventListener("click", async function () {
-        // ...preenche o formulário com a conta de exemplo
-        loginForm.querySelector("#email").value = "demo@saudelife.app";
+        // ...é o administrador?
+        const admin = botaoDemo.dataset.demoLogin === "admin";
+        // ...e-mail da conta de exemplo
+        const email = admin ? "admin@saudelife.app" : "demo@saudelife.app";
+        // ...preenche o formulário
+        loginForm.querySelector("#email").value = email;
         // (senha de exemplo)
         loginForm.querySelector("#password").value = "demo1234";
         // ...cria a conta de exemplo se ainda não existe
-        if (!F.acharConta("demo@saudelife.app")) {
+        if (!F.acharConta(email)) {
           // Contas salvas
           const contas = JSON.parse(localStorage.getItem("sl-contas") || "[]");
-          // Soma a conta de exemplo (com o hash da senha)
-          contas.push({ nome: "Biel Demonstração", email: "demo@saudelife.app", hash: await F.hashSenha("demo@saudelife.app", "demo1234"), criada: new Date().toISOString() });
+          // Soma a conta de exemplo (com o hash da senha e o tipo)
+          contas.push({ nome: admin ? "Academia Demonstração" : "Biel Demonstração", email, hash: await F.hashSenha(email, "demo1234"), criada: new Date().toISOString(), tipo: admin ? "admin" : "cliente" });
           // Salva
           localStorage.setItem("sl-contas", JSON.stringify(contas));
         }
-        // ...pede para, depois de entrar, pular o questionário e encher os dados de exemplo
-        sessionStorage.setItem("sl-demo-pendente", "1");
+        // ...cliente: depois de entrar, pula o questionário e enche os dados de exemplo
+        if (!admin) sessionStorage.setItem("sl-demo-pendente", "1");
         // ...e entra como se tivesse clicado em Entrar
         loginForm.requestSubmit();
-      });
+      }),
+    );
 
     // Quando a pessoa clica em Entrar...
     loginForm.addEventListener("submit", async function (event) {
@@ -85,8 +88,8 @@
       }
       // Guarda a sessão (quem está logado) no navegador
       F.startSession(loginForm, resultado.conta);
-      // Mostra "Entrando..." e vai para a página do app
-      F.submitForm(loginForm, "Entrando...", destinoDepoisDoLogin());
+      // Mostra "Entrando..." e vai para a página do app (administrador vai direto para o painel)
+      F.submitForm(loginForm, "Entrando...", resultado.conta.tipo === "admin" ? "../app/admin/admin.html" : destinoDepoisDoLogin());
     });
   });
 })();

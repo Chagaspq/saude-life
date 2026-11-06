@@ -156,7 +156,9 @@
       cansado: [["M44 62 L39 88", 39, 89], ["M76 62 L81 88", 81, 89]],
       // Feliz: mostrando o muque
       feliz: [["M44 62 Q30 72 31 53", 31, 52], ["M76 62 Q90 72 89 53", 89, 52]],
-    }[h];
+      // Triste (com saudade): braços caídos, igual ao cansado
+      triste: [["M44 62 L39 88", 39, 89], ["M76 62 L81 88", 81, 89]],
+    }[h] || [];
     // Para cada braço...
     bracos.forEach(([d, mx, my]) => {
       // ...o braço (traço grosso cor de pele)

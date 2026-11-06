@@ -193,6 +193,23 @@
         <fieldset class="cad-passo" data-passo="1">
           <!-- Nome do passo (só para leitores de tela) -->
           <legend class="sr-only">Passo 1: sua conta</legend>
+          <!-- Tipo de conta: cliente (treina) ou administrador (academia/personal que acompanha clientes) -->
+          <div class="tipo-conta" role="radiogroup" aria-label="Tipo de conta">
+            <!-- Opção cliente (começa marcada) -->
+            <label class="tipo-conta-opcao">
+              <!-- Bolinha -->
+              <input type="radio" name="tipo-conta" value="cliente" checked />
+              <!-- Textos -->
+              <span><strong>Sou cliente</strong><small>Registro meus treinos, refeições e evolução</small></span>
+            </label>
+            <!-- Opção administrador -->
+            <label class="tipo-conta-opcao">
+              <!-- Bolinha -->
+              <input type="radio" name="tipo-conta" value="admin" />
+              <!-- Textos -->
+              <span><strong>Sou administrador</strong><small>Academia ou personal: acompanho clientes e mando treinos</small></span>
+            </label>
+          </div>
         <!-- Grupo de um campo: nome, caixa e erro -->
         <div class="form-group">
           <!-- Nome do campo (o for liga ele ao campo de id "name") -->

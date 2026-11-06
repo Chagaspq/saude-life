@@ -435,6 +435,8 @@
       hash: await hashSenha(email, qs("#password", form).value),
       // quando foi criada
       criada: new Date().toISOString(),
+      // tipo de conta: "cliente" (padrão) ou "admin" (academia ou personal)
+      tipo: (qs('input[name="tipo-conta"]:checked', form) || { value: "cliente" }).value,
     };
     // Salva a conta
     gravarConta(conta);
@@ -456,7 +458,7 @@
    */
 
   // Chaves que valem para o aparelho todo (não são de uma conta só)
-  const GLOBAIS = ["sl-contas", "sl-conta", "sl-sessao", "sl-tema", "sl-idioma", "sl-reset-pedidos", "sl-pedidos-academia", "sl-dono", "sl-acessibilidade", "sl-instalar-visto"];
+  const GLOBAIS = ["sl-contas", "sl-conta", "sl-sessao", "sl-avisos-admin", "sl-tema", "sl-idioma", "sl-reset-pedidos", "sl-pedidos-academia", "sl-dono", "sl-acessibilidade", "sl-instalar-visto"];
 
   // Diz se uma chave é de uma conta (e não do aparelho)
   const daConta = (chave) => chave.startsWith("sl-") && !GLOBAIS.includes(chave) && !chave.startsWith("sl-dados:");
@@ -566,7 +568,7 @@
     // Caixinha "Lembrar de mim" (marcada se não existir)
     const lembrar = qs("#lembrar", form);
     // Salva a sessão no navegador (com a escolha de lembrar ou não)
-    gravar("sl-sessao", { nome, email, lembrar: lembrar ? lembrar.checked : true });
+    gravar("sl-sessao", { nome, email, tipo: (conta && conta.tipo) || "cliente", lembrar: lembrar ? lembrar.checked : true });
     // Marca que o navegador está aberto (sem "lembrar", fechar o navegador desloga)
     marcarNavegadorAberto();
     // Pedido da conta de demonstração: depois de abrir os dados dela, completa o que falta
