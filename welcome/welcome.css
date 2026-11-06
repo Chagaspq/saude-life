@@ -2434,3 +2434,22 @@ input[type="checkbox"]:focus-visible {
   /* Uma coluna estreita */
   grid-template-columns: minmax(0, 220px);
 }
+
+/* Ícones dos recursos mais sóbrios: traço fino, uma cor só e quadradinho com borda */
+.feature-icon,
+.feature:nth-child(even) .feature-icon {
+  /* Um pouco maior */
+  width: 48px;
+  /* Um pouco maior */
+  height: 48px;
+  /* Espaço interno */
+  padding: 12px;
+  /* Fundo neutro */
+  background: var(--surface-2);
+  /* Borda fina */
+  border: 1px solid var(--border-strong);
+  /* Mesma cor nos 4 cards (coral claro) */
+  color: var(--coral-light);
+  /* Traço mais fino (cara mais profissional) */
+  stroke-width: 1.6;
+}
