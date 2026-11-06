@@ -457,3 +457,78 @@ input:-webkit-autofill:active {
   /* Imagem de fundo sem repetir */
   background-repeat: no-repeat;
 }
+
+/* ---------- Tipo de conta no cadastro (cliente ou administrador) ---------- */
+
+/* Duas opções lado a lado */
+.tipo-conta {
+  /* Grade */
+  display: grid;
+  /* Duas colunas */
+  grid-template-columns: 1fr 1fr;
+  /* Espaço */
+  gap: 10px;
+  /* Espaço embaixo */
+  margin-bottom: 18px;
+}
+
+/* Cada opção é um cartão clicável */
+.tipo-conta-opcao {
+  /* Lado a lado: bolinha e texto */
+  display: flex;
+  /* Alinhados em cima */
+  align-items: flex-start;
+  /* Espaço */
+  gap: 8px;
+  /* Espaço interno */
+  padding: 12px;
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Cantos */
+  border-radius: 12px;
+  /* Mãozinha */
+  cursor: pointer;
+}
+
+/* Textos em coluna */
+.tipo-conta-opcao span {
+  /* Coluna */
+  display: grid;
+  /* Espaço */
+  gap: 2px;
+}
+
+/* Explicação */
+.tipo-conta-opcao small {
+  /* Cor apagada */
+  color: var(--muted);
+  /* Letra pequena */
+  font-size: 12.5px;
+  /* Linhas */
+  line-height: 1.35;
+}
+
+/* Opção escolhida */
+.tipo-conta-opcao:has(input:checked) {
+  /* Borda coral */
+  border-color: var(--coral);
+  /* Fundo coral fraco */
+  background: var(--coral-soft);
+}
+
+/* Bolinha na cor da marca */
+.tipo-conta-opcao input {
+  /* Cor */
+  accent-color: var(--coral);
+  /* Alinha com o título */
+  margin-top: 3px;
+}
+
+/* Celular estreito: uma opção embaixo da outra */
+@media (max-width: 380px) {
+  /* Grade */
+  .tipo-conta {
+    /* Uma coluna */
+    grid-template-columns: 1fr;
+  }
+}

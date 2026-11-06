@@ -68,8 +68,10 @@
   } catch (e) {
     onboardingFeito = true; // sem armazenamento, não prende a pessoa no questionário
   }
-  // Se não respondeu e não está no questionário...
-  if (!onboardingFeito && paginaAtual !== "comecar") {
+  // Administrador não responde o questionário (ele não treina pelo app)
+  const sessaoAdmin = (lerSessao() || {}).tipo === "admin";
+  // Se não respondeu, não é administrador e não está no questionário...
+  if (!onboardingFeito && !sessaoAdmin && paginaAtual !== "comecar") {
     // ...vai para o questionário
     window.location.replace("../comecar/comecar.html");
     // ...e para tudo
@@ -357,7 +359,7 @@
       // nome (do perfil, da sessão ou "Visitante")
       nome: perfilSalvo.nome || sessao.nome || "Visitante",
       // bio (do perfil ou um texto padrão)
-      bio: perfilSalvo.bio != null ? perfilSalvo.bio : "Foco em hipertrofia e consistência diária.",
+      bio: perfilSalvo.bio || "",
     };
   }
 
@@ -422,8 +424,8 @@
     const perfil = storage.get("sl-perfil", {});
     // Pesos registrados na Evolução
     const pesos = storage.get("sl-pesos", []);
-    // Peso: o último registrado, o do perfil ou o último do exemplo
-    const peso = pesos.length ? pesos[pesos.length - 1].valor : perfil.peso || window.SL_DADOS.EVOLUCAO.peso.slice(-1)[0];
+    // Peso: o último registrado ou o do perfil (sem nenhum, usa 70 kg só para as contas de meta)
+    const peso = pesos.length ? pesos[pesos.length - 1].valor : perfil.peso || 70;
     // Altura em centímetros (padrão: 175)
     const altura = Number(perfil.altura) || 175;
     // Idade a partir da data de nascimento (padrão: 25 anos)
@@ -1139,7 +1141,7 @@
       // link para refazer o questionário
       el("a", { href: "../comecar/comecar.html", class: "btn-secondary btn-block", text: "Refazer questionário inicial" }),
       // botão de restaurar os dados
-      el("button", { class: "btn-secondary btn-block", "data-action": "reset-data", text: "Restaurar dados de exemplo" }),
+      el("button", { class: "btn-secondary btn-block", "data-action": "reset-data", text: "Apagar meus dados e começar do zero" }),
     ]);
   });
 
@@ -1148,11 +1150,11 @@
     // ...pede confirmação
     confirmar({
       // Título
-      titulo: "Restaurar dados de exemplo?",
+      titulo: "Apagar seus dados?",
       // Texto
-      texto: "Seus treinos, histórico, refeições, pesos e preferências voltam ao exemplo inicial.",
+      texto: "Seus treinos, histórico, refeições, pesos e preferências são apagados e o app volta a ficar zerado. A conta continua.",
       // Texto do botão
-      rotulo: "Restaurar",
+      rotulo: "Apagar",
       // Botão vermelho
       perigo: true,
       // Se confirmar...
@@ -1169,7 +1171,7 @@
           "sl-espera", "sl-avaliacoes-aulas", "sl-checkins", "sl-avisos",
           "sl-ex-favoritos", "sl-programa", "sl-corridas", "sl-plano-5k", "sl-lembrete-treino", "sl-lembrete-dia",
           "sl-restricoes", "sl-refeicoes-dias", "sl-compras", "sl-sono", "sl-humor", "sl-medidas", "sl-ciclo", "sl-cargas",
-          "sl-duelos", "sl-loja", "sl-saudade-dia", "sl-bloqueados", "sl-ocultos", "sl-denuncias", "sl-grupos", "sl-prescricoes", "sl-story-modelo", "sl-relogio",
+          "sl-duelos", "sl-loja", "sl-saudade-dia", "sl-bloqueados", "sl-ocultos", "sl-denuncias", "sl-grupos", "sl-prescricoes", "sl-story-modelo", "sl-relogio", "sl-demo", "sl-demo-dias", "sl-missoes",
         // ...apaga cada uma
         ].forEach(storage.remove);
         // ...e recarrega a página
@@ -1224,48 +1226,21 @@
     openModal(titulo, el("ul", { class: "list-panel" }, itens));
   }
 
-  // Avisos do dia: meta da semana, ranking, fim de semana e amigos
+  // Avisos de verdade: a meta da semana da pessoa e os avisos do administrador
   function avisos() {
     // Lista de avisos [título, texto]
     const lista = [];
-    // Números da semana
-    const { nestaSemana, meta } = estatisticas();
-    // Quantos treinos faltam
-    const faltam = Math.max(0, meta - nestaSemana);
-    // Aviso da meta
-    lista.push(faltam ? ["Meta semanal em andamento", `${faltam > 1 ? "Faltam" : "Falta"} ${faltam} treino${faltam > 1 ? "s" : ""} para completar ${meta}/${meta}.`] : ["Meta semanal batida!", `Você completou ${nestaSemana} treinos nesta semana.`]);
-    // Motor de pontos
-    const P = window.SL.pontos;
-    // Sem motor de pontos, só a meta
-    if (!P) return lista;
-    // Ranking da semana entre os amigos
-    const ranking = P.ranking("amigos", "semana");
-    // Minha posição na lista
-    const i = ranking.findIndex((r) => r.eu);
-    // Primeiro nome
-    const primeiro = (nome) => nome.split(" ")[0];
-    // Se estou no ranking...
-    if (i > 0) {
-      // ...quem está logo acima
-      const acima = ranking[i - 1];
-      // Aviso de quem está na frente
-      lista.push([`Ranking: você está em ${i + 1}º`, `${primeiro(acima.nome)} está ${acima.pts - ranking[i].pts} pontos na sua frente. Bora passar?`]);
-    } else if (i === 0 && ranking[1]) {
-      // Aviso de liderança
-      lista.push(["Você lidera o ranking", `${primeiro(ranking[1].nome)} está ${ranking[0].pts - ranking[1].pts} pontos atrás. Não deixa chegar!`]);
+    // Administrador não treina: só vê os próprios avisos publicados
+    if (!ehAdmin()) {
+      // Números da semana
+      const { nestaSemana, meta } = estatisticas();
+      // Quantos treinos faltam
+      const faltam = Math.max(0, meta - nestaSemana);
+      // Aviso da meta
+      lista.push(faltam ? ["Meta semanal em andamento", `${faltam > 1 ? "Faltam" : "Falta"} ${faltam} treino${faltam > 1 ? "s" : ""} para completar ${meta}/${meta}.`] : ["Meta semanal batida!", `Você completou ${nestaSemana} treinos nesta semana.`]);
     }
-    // Situação da liga
-    const s = P.situacaoDaLiga();
-    // Sexta, sábado ou domingo: aviso de fim de semana
-    if ([5, 6, 0].includes(new Date().getDay()))
-      // Aviso
-      lista.push(["Fim de semana chegando", s.faltaSubir ? `O ranking zera em ${s.diasParaZerar} dia${s.diasParaZerar > 1 ? "s" : ""}. Faltam ${s.faltaSubir} pontos para subir de liga.` : "Sua subida de liga já está garantida. Aproveita o descanso!"]);
-    // Amigo do dia (sorteado pelo dia, sempre o mesmo no mesmo dia)
-    const amigos = window.SL_DADOS.AMIGOS;
-    // Amigo sorteado
-    const amigo = amigos[Math.floor(P.sorteio(new Date().toDateString()) * amigos.length)];
-    // Aviso do amigo
-    if (amigo) lista.push([`${primeiro(amigo.nome)} treinou hoje`, "Manda um cutucão na Galera ou treina também para não ficar para trás."]);
+    // Avisos publicados pelo administrador (os 5 mais novos)
+    storage.get("sl-avisos-admin", []).slice(0, 5).forEach((a) => lista.push([a.texto, `${a.autor || "Administrador"} • ${dataRelativa(a.data)}`]));
     // Devolve
     return lista;
   }
@@ -1284,6 +1259,8 @@
     const badge = sino.querySelector(".badge");
     // Escreve o número
     if (badge) badge.textContent = qtd;
+    // Sem avisos: sem bolinha
+    if (badge && !qtd) badge.remove();
     // Nome para leitores de tela
     sino.dataset.rotuloNovas = `Notificações (${qtd} nova${qtd > 1 ? "s" : ""})`;
   }
@@ -2469,47 +2446,84 @@
   // Fica de olho em tudo o que o JavaScript desenha na página, para contar os números novos
   new MutationObserver((mudancas) => mudancas.forEach((m) => m.addedNodes.forEach((n) => n.nodeType === 1 && contarNumeros(n)))).observe(document.documentElement, { childList: true, subtree: true });
 
-  // Áreas do menu lateral: cada página fica na sua área
-  const AREAS = [
-    // Treinar
-    ["Treinar", ["inicio", "descobrir", "treinos", "exercicios", "programas", "corrida", "aulas"]],
-    // Comer
-    ["Comer", ["alimentacao"]],
-    // Evoluir
-    ["Evoluir", ["evolucao", "saude", "ranking", "loja"]],
-    // Comunidade
-    ["Comunidade", ["comunidade", "profissionais", "area-pro", "academia"]],
-    // Sua conta
-    ["Sua conta", ["planos", "salvos", "perfil"]],
-  ];
+  /* ---------- MVP: poucas páginas e acesso de administrador separado do cliente ---------- */
 
-  // Lista de links do menu lateral
+  // Tipo de conta de quem está logado: "cliente" (padrão) ou "admin" (academia ou personal)
+  const ehAdmin = () => (storage.get("sl-sessao", {}) || {}).tipo === "admin";
+
+  // Páginas do cliente no MVP: [id, nome no menu, desenho do ícone]
+  const MENU_CLIENTE = [
+    // Início
+    ["inicio", "Início", ["M3 10.5 12 3l9 7.5", "M5 9v11h14V9", "M10 20v-6h4v6"]],
+    // Treinos
+    ["treinos", "Treinos", ["M6.5 6.5h11", "M6.5 17.5h11", "M2 12h20", "M2 9v6", "M22 9v6"]],
+    // Alimentação
+    ["alimentacao", "Alimentação", ["M12 21c-4.4 0-8-3.6-8-8 0-3 2-6 5-6 1.2 0 2 .5 3 .5s1.8-.5 3-.5c3 0 5 3 5 6 0 4.4-3.6 8-8 8z", "M12 7.5c0-2 1-3.5 3-4.5"]],
+    // Evolução
+    ["evolucao", "Evolução", ["M3 3v18h18", "m7 14 4-4 3 3 6-6"]],
+    // Perfil
+    ["perfil", "Perfil", ["M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2", "M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"]],
+  ];
+  // Páginas do administrador: só o painel e o perfil
+  const MENU_ADMIN = [
+    // Painel do administrador
+    ["admin", "Painel", ["M3 3h7v9H3z", "M14 3h7v5h-7z", "M14 12h7v9h-7z", "M3 16h7v5H3z"]],
+    // Perfil
+    ["perfil", "Perfil", ["M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2", "M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"]],
+  ];
+  // Páginas que o cliente pode abrir (as do menu + o treino em andamento, o questionário e os planos)
+  const PODE_CLIENTE = ["inicio", "treinos", "treino", "alimentacao", "evolucao", "perfil", "comecar", "planos"];
+  // Páginas que o administrador pode abrir
+  const PODE_ADMIN = ["admin", "perfil"];
+  // Página atual (pelo data-pagina do body)
+  const paginaMvp = document.body && document.body.dataset.pagina;
+  // Se a página não é permitida para esse tipo de conta, vai para a página inicial dele
+  if (paginaMvp && storage.get("sl-sessao", null)) {
+    // Admin fora das páginas dele: vai para o painel
+    if (ehAdmin() && !PODE_ADMIN.includes(paginaMvp)) window.location.replace("../admin/admin.html");
+    // Cliente fora das páginas dele: vai para o Início
+    else if (!ehAdmin() && !PODE_CLIENTE.includes(paginaMvp)) window.location.replace("../inicio/inicio.html");
+  }
+  // Marca o tipo de conta no <body> (o CSS destaca o administrador)
+  if (document.body) document.body.classList.add(ehAdmin() ? "is-admin" : "is-cliente");
+
+  // Cria um link do menu (lateral ou de baixo)
+  function linkMenu([id, nome, tracos], classe) {
+    // Link
+    const a = el("a", { href: `../${id}/${id}.html`, class: classe, "data-pagina": id }, [icone(tracos, classe === "nav-link" ? "icon nav-icon" : "icon"), el("span", { text: nome })]);
+    // Página atual fica marcada
+    if (id === paginaMvp) (a.classList.add("active"), a.setAttribute("aria-current", "page"));
+    // Devolve
+    return a;
+  }
+
+  // Menu lateral: troca pelos links do tipo de conta
   const listaMenu = document.querySelector(".sidebar-nav ul");
   // Se a página tem menu lateral...
   if (listaMenu) {
-    // ...guarda cada item pelo nome da página
-    const itens = {};
-    // Para cada item do menu...
-    listaMenu.querySelectorAll("li").forEach((li) => {
-      // ...acha o link
-      const link = li.querySelector("[data-pagina]");
-      // ...e guarda pelo nome
-      if (link) itens[link.dataset.pagina] = li;
-    });
-    // Monta a lista nova, área por área
-    const nova = [];
-    // Para cada área...
-    AREAS.forEach(([nome, paginas]) => {
-      // ...coloca o título da área
-      nova.push(el("li", { class: "nav-area", "aria-hidden": "true", text: nome }));
-      // ...e os itens dela
-      paginas.forEach((p) => itens[p] && nova.push(itens[p]));
-    });
-    // Troca a lista do menu
-    listaMenu.replaceChildren(...nova);
+    // ...itens do tipo de conta
+    const menu = ehAdmin() ? MENU_ADMIN : MENU_CLIENTE;
+    // ...título da área: deixa claro qual acesso é
+    const titulo = el("li", { class: "nav-area", "aria-hidden": "true", text: ehAdmin() ? "Administração" : "Meu treino" });
+    // ...troca a lista
+    listaMenu.replaceChildren(titulo, ...menu.map((m) => el("li", {}, [linkMenu(m, "nav-link")])));
+  }
+  // Barra de baixo (celular): mesmos itens
+  const barraBaixo = document.querySelector(".bottom-nav");
+  // Se a página tem a barra...
+  if (barraBaixo) barraBaixo.replaceChildren(...(ehAdmin() ? MENU_ADMIN : MENU_CLIENTE).map((m) => linkMenu(m, "bottom-nav-link")));
+  // Botão de mensagens do topo: fora do MVP (não tem comunidade)
+  document.querySelectorAll('[data-action="open-messages"]').forEach((b) => b.remove());
+  // Selo "ADMIN" no topo, ao lado do nome (bem visível para não confundir com o cliente)
+  if (ehAdmin()) {
+    // Lugar dos botões do topo
+    const topo = document.querySelector(".topbar-actions");
+    // Coloca o selo no começo
+    if (topo) topo.prepend(el("span", { class: "selo-admin", title: "Você está no acesso de administrador", text: "ADMIN" }));
   }
 
   window.SL = {
+    ehAdmin,
     PAGINAS,
     paginaAtual,
     el,

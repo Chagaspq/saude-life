@@ -957,3 +957,37 @@
   /* Espaço em cima */
   margin-top: 4px;
 }
+
+/* Botão "Ver todos os selos" ocupa a linha toda */
+.rk-selos-mais {
+  /* Linha toda */
+  grid-column: 1 / -1;
+  /* Centralizado */
+  text-align: center;
+  /* Sem bolinha */
+  list-style: none;
+}
+
+/* "Como ganhar pontos" que abre e fecha */
+.rk-regras summary {
+  /* Mãozinha */
+  cursor: pointer;
+  /* Título e setinha lado a lado */
+  display: flex;
+  /* Alinhados */
+  align-items: center;
+  /* Espaço */
+  gap: 8px;
+}
+
+/* Título dentro do resumo sem margem */
+.rk-regras summary h2 {
+  /* Sem margem */
+  margin: 0;
+}
+
+/* Lista aberta com espaço em cima */
+.rk-regras[open] .rk-tabela {
+  /* Espaço */
+  margin-top: 14px;
+}

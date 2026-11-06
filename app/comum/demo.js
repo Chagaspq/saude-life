@@ -22,6 +22,8 @@
 
   // Enche o app com 3 semanas de treinos, pontos e pesos
   function preencher() {
+    // Conta de demonstração sem treinos: coloca os treinos de exemplo
+    if (!SL.treinosDoUsuario().length) storage.set("sl-treinos", window.SL_DADOS.DEMO.TREINOS);
     // Treinos da pessoa (para usar nomes de verdade)
     const treinos = SL.treinosDoUsuario();
     // Histórico novo

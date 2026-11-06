@@ -113,10 +113,12 @@ window.SL &&
     function pontosPeso() {
       // Pesos registrados pela pessoa
       const registrados = storage.get("sl-pesos", []).map((p) => ({ data: new Date(p.data), valor: p.valor }));
-      // Pesos de exemplo...
+      // Sem registro nenhum: usa o peso informado no cadastro (se tiver), como ponto de hoje
+      const doPerfil = storage.get("sl-perfil", {}).peso;
+      // Pesos de exemplo (vazios no MVP)...
       return serieSemanal(EVOLUCAO.peso)
-        // ...mais os registrados...
-        .concat(registrados)
+        // ...mais os registrados (ou o do cadastro)...
+        .concat(registrados.length ? registrados : doPerfil ? [{ data: new Date(), valor: Number(doPerfil) }] : [])
         // ...em ordem de data
         .sort((a, b) => a.data - b.data);
     }
@@ -134,6 +136,8 @@ window.SL &&
 
     // Desenha um gráfico de linha em SVG
     function grafico(pontos, unidade, casas) {
+      // Menos de 2 pontos não dá linha: mostra só um aviso
+      if (pontos.length < 2) return el("p", { class: "grafico-vazio meta", text: pontos.length ? "Registre mais uma vez para ver o gráfico." : "Ainda sem registros. O gráfico aparece quando você começar a registrar." });
       // Largura do desenho
       const W = 520;
       // Altura do desenho
@@ -233,6 +237,8 @@ window.SL &&
 
     // Monta o resumo embaixo do gráfico (valor atual e quanto mudou)
     function resumoGrafico(pontos, unidade, casas, menorEhMelhor) {
+      // Sem pontos: só o aviso
+      if (!pontos.length) return el("p", { class: "meta", text: "Ainda sem registros. Os números aparecem aqui conforme você registra." });
       // Diferença entre o último e o primeiro valor
       const variacao = pontos[pontos.length - 1].valor - pontos[0].valor;
       // Diz se a mudança foi boa (peso caindo, carga subindo)
@@ -367,17 +373,15 @@ window.SL &&
       document.querySelector('[data-render="meta-semanal"]').textContent = `Linha tracejada: sua meta de ${meta} por semana`;
 
       // Quanto o peso mudou
-      const variacaoPeso = peso[peso.length - 1].valor - peso[0].valor;
-      // Quanto a carga mudou
-      const variacaoCarga = cargas[cargas.length - 1].valor - cargas[0].valor;
+      const variacaoPeso = peso.length ? peso[peso.length - 1].valor - peso[0].valor : 0;
+      // Quanto a carga mudou (zero se ainda não tem registros)
+      const variacaoCarga = cargas.length ? cargas[cargas.length - 1].valor - cargas[0].valor : 0;
       // Atalho que devolve o sinal (+ ou −)
       const sinal = (v) => (v > 0 ? "+" : v < 0 ? "−" : "");
-      // Troca o resumo pelos 4 quadradinhos:
+      // Troca o resumo pelos 3 quadradinhos:
       document.querySelector('[data-render="evolucao-resumo"]').replaceChildren(
         // Peso atual
-        SL.statTile({ rotulo: "Peso atual", valor: `${SL.num(peso[peso.length - 1].valor, 1)} kg`, detalhe: `${sinal(variacaoPeso)}${SL.num(Math.abs(variacaoPeso), 1)} kg no período`, iconePaths: ICONES.balanca, cor: "emerald" }),
-        // Carga do agachamento
-        SL.statTile({ rotulo: "Agachamento", valor: `${SL.num(cargas[cargas.length - 1].valor, 1)} kg`, detalhe: `${sinal(variacaoCarga)}${SL.num(Math.abs(variacaoCarga), 1)} kg no período`, iconePaths: ICONES.haltere }),
+        SL.statTile({ rotulo: "Peso atual", valor: peso.length ? `${SL.num(peso[peso.length - 1].valor, 1)} kg` : "—", detalhe: `${sinal(variacaoPeso)}${SL.num(Math.abs(variacaoPeso), 1)} kg no período`, iconePaths: ICONES.balanca, cor: "emerald" }),
         // Treinos no período
         SL.statTile({ rotulo: "Treinos no período", valor: SL.num(historico.length), detalhe: `média de ${SL.num(historico.length / semanas, 1)} por semana`, iconePaths: ICONES.calendario, cor: "emerald" }),
         // Volume levantado (em toneladas)
@@ -445,7 +449,7 @@ window.SL &&
     // Botão de registrar peso...
     SL.acao("registrar-peso", () => {
       // ...pega o último peso
-      const atual = pontosPeso().slice(-1)[0].valor;
+      const atual = (pontosPeso().slice(-1)[0] || {}).valor || "";
       // Cria o formulário
       const form = el("form", { class: "modal-form" }, [
         // Campo do peso (entre 30 e 300 kg)
@@ -740,9 +744,9 @@ window.SL &&
         return;
       }
       // Peso de hoje
-      const pesoAtual = pontosPeso().slice(-1)[0].valor;
+      const pesoAtual = (pontosPeso().slice(-1)[0] || {}).valor || m.pesoInicio || 0;
       // Peso no começo (o primeiro ponto)
-      const pesoInicio = m.pesoInicio || pontosPeso()[0].valor;
+      const pesoInicio = m.pesoInicio || (pontosPeso()[0] || {}).valor || pesoAtual;
       // Recorde atual do exercício escolhido
       const recorde = (listaRecordes().find((r) => r.nome === m.exercicio) || { v: 0 }).v;
       // Dias até a data alvo
@@ -827,7 +831,7 @@ window.SL &&
           // Peso alvo
           peso: Number(form.querySelector("#mp-peso").value) || null,
           // Peso de partida
-          pesoInicio: m.pesoInicio || pontosPeso().slice(-1)[0].valor,
+          pesoInicio: m.pesoInicio || (pontosPeso().slice(-1)[0] || {}).valor || null,
           // Exercício
           exercicio: form.querySelector("#mp-ex").value || null,
           // Carga alvo

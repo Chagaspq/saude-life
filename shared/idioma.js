@@ -1064,6 +1064,112 @@
     "Até 20 minutos": "Up to 20 minutes",
     // • conclua um treino, faça 12 séries
     "• conclua um treino, faça 12 séries": "• finish a workout, do 12 sets",
+    // ---------- Telas novas (comunidade, profissionais, academia, aulas, planos, ajuda e acessibilidade) ----------
+    // Exibição
+    "Exibição": "Display",
+    // Idioma
+    "Idioma": "Language",
+    // Modo apresentação
+    "Modo apresentação": "Presentation mode",
+    // Menu só com o essencial: Início, Treinos, Alimentação, Evolu
+    "Menu só com o essencial: Início, Treinos, Alimentação, Evolução, Ranking, Comunidade e Perfil": "Menu with only the essentials: Home, Workouts, Nutrition, Progress, Leaderboard, Community and Profile",
+    // Ver menos
+    "Ver menos": "Show less",
+    // ---------- Telas novas (comunidade, profissionais, academia, aulas, planos, ajuda e acessibilidade) ----------
+    // Meu treino
+    "Meu treino": "My training",
+    // Administração
+    "Administração": "Administration",
+    // Painel
+    "Painel": "Dashboard",
+    // Painel do administrador
+    "Painel do administrador": "Admin dashboard",
+    // Clientes
+    "Clientes": "Clients",
+    // Ativos na semana
+    "Ativos na semana": "Active this week",
+    // Treinos na semana
+    "Treinos na semana": "Workouts this week",
+    // cadastrados neste aparelho
+    "cadastrados neste aparelho": "registered on this device",
+    // treinaram nos últimos 7 dias
+    "treinaram nos últimos 7 dias": "trained in the last 7 days",
+    // somando todos os clientes
+    "somando todos os clientes": "across all clients",
+    // Mandar treino
+    "Mandar treino": "Send workout",
+    // Avisos para os clientes
+    "Avisos para os clientes": "Notices for clients",
+    // O aviso aparece no Início de todos os clientes.
+    "O aviso aparece no Início de todos os clientes.": "The notice shows on every client's Home.",
+    // Apagar
+    "Apagar": "Delete",
+    // Nenhum aviso publicado.
+    "Nenhum aviso publicado.": "No notices posted.",
+    // Clientes cadastrados neste aparelho e o que eles registraram
+    "Clientes cadastrados neste aparelho e o que eles registraram.": "Clients registered on this device and what they logged.",
+    // Avisos da academia
+    "Avisos da academia": "Gym notices",
+    // Criar meu primeiro treino
+    "Criar meu primeiro treino": "Create my first workout",
+    // Nenhum treino ainda
+    "Nenhum treino ainda": "No workouts yet",
+    // Sou cliente
+    "Sou cliente": "I'm a client",
+    // Sou administrador
+    "Sou administrador": "I'm an administrator",
+    // Registro meus treinos, refeições e evolução
+    "Registro meus treinos, refeições e evolução": "I log my workouts, meals and progress",
+    // Academia ou personal: acompanho clientes e mando treinos
+    "Academia ou personal: acompanho clientes e mando treinos": "Gym or trainer: I follow clients and send workouts",
+    // Demonstração: cliente
+    "Demonstração: cliente": "Demo: client",
+    // Demonstração: administrador
+    "Demonstração: administrador": "Demo: administrator",
+    // Tipo de conta:
+    "Tipo de conta:": "Account type:",
+    // Cliente
+    "Cliente": "Client",
+    // Administrador
+    "Administrador": "Administrator",
+    // O que muda
+    "O que muda": "What changes",
+    // Páginas
+    "Páginas": "Pages",
+    // Dados
+    "Dados": "Data",
+    // Marca na tela
+    "Marca na tela": "On-screen mark",
+    // Nenhuma
+    "Nenhuma": "None",
+    // Início, Treinos, Alimentação, Evolução e Perfil
+    "Início, Treinos, Alimentação, Evolução e Perfil": "Home, Workouts, Nutrition, Progress and Profile",
+    // Painel do administrador e Perfil
+    "Painel do administrador e Perfil": "Admin dashboard and Profile",
+    // Registra os próprios treinos
+    "Registra os próprios treinos": "Logs their own workouts",
+    // Monta e manda treinos para os clientes
+    "Monta e manda treinos para os clientes": "Builds and sends workouts to clients",
+    // Vê só os próprios dados
+    "Vê só os próprios dados": "Sees only their own data",
+    // Vê os clientes e quanto cada um treinou
+    "Vê os clientes e quanto cada um treinou": "Sees clients and how much each trained",
+    // Recebe os avisos no Início
+    "Recebe os avisos no Início": "Gets notices on Home",
+    // Publica avisos para todos os clientes
+    "Publica avisos para todos os clientes": "Posts notices for all clients",
+    // Selo ADMIN no topo e faixa verde
+    "Selo ADMIN no topo e faixa verde": "ADMIN badge on top and green bar",
+    // Apagar meus dados
+    "Apagar meus dados": "Erase my data",
+    // Apagar meus dados e começar do zero
+    "Apagar meus dados e começar do zero": "Erase my data and start over",
+    // Nenhum treino registrado ainda.
+    "Nenhum treino registrado ainda.": "No workouts logged yet.",
+    // Cada série, treino, refeição e copo d'água valem pontos. A s
+    "Cada série, treino, refeição e copo d'água valem pontos. A semana zera toda segunda.": "Every set, workout, meal and glass of water earns points. The week resets every Monday.",
+    // Adicionar exercício
+    "Adicionar exercício": "Add exercise",
   };
 
   // Dias da semana e meses (para datas por extenso)
@@ -1236,6 +1342,10 @@
     [/^(\d+) amigos?$/, (m, n) => `${n} friend${n === "1" ? "" : "s"}`],
     // "Jantar: Omelete" (a refeição traduz, o prato fica)
     [/^(Café da manhã|Almoço|Lanche|Jantar): (.+)$/, (m, r, q) => `${traduzir(r)}: ${q}`],
+    // "Ver todos os selos (19)"
+    [/^Ver todos os selos \((\d+)\)$/, (m, n) => `See all badges (${n})`],
+    // "Ver todas as 10 receitas"
+    [/^Ver todas as (\d+) receitas$/, (m, n) => `See all ${n} recipes`],
     // "com Carla Mendes" (professor da aula)
     [/^com (.+)$/, (m, q) => `with ${q}`],
     // "Mais treinados: ..."
@@ -1370,6 +1480,10 @@
     [/^Mais treinados: (.+)$/, (m, q) => `Más entrenados: ${q}`],
     // Professor da aula
     [/^com (.+)$/, (m, q) => `con ${q}`],
+    // Ver todos os selos
+    [/^Ver todos os selos \((\d+)\)$/, (m, n) => `Ver todas las insignias (${n})`],
+    // Ver todas as receitas
+    [/^Ver todas as (\d+) receitas$/, (m, n) => `Ver las ${n} recetas`],
     // "há 24 min"
     [/^há (\d+) min$/, (m, n) => `hace ${n} min`],
     // "7 amigos"

@@ -16,7 +16,6 @@ window.SL &&
     // Mostra quantas semanas seguidas a pessoa treinou
     $("sequencia").textContent = SL.num(stats.sequencia);
     // Mostra quantos profissionais a pessoa segue
-    $("seguindo-count").textContent = SL.num(storage.get("sl-seguindo", []).length);
 
     // Desenha o que a pessoa personalizou: capa, Pulso, plano e selos em destaque
     function renderPersonalizado() {
@@ -29,7 +28,7 @@ window.SL &&
       // Tira o que foi desenhado antes (para não repetir)
       card.querySelectorAll(".perfil-extra").forEach((x) => x.remove());
       // Pulso com a roupa escolhida, no canto do card
-      if (SL.personagem) card.append(el("div", { class: "perfil-extra perfil-pulso" }, [SL.personagem.desenhar()]));
+      // (no MVP o Pulso não aparece no perfil)
       // Selo do plano ao lado do nome
       document.getElementById("heading-perfil").append(el("span", { class: `perfil-extra tag perfil-plano${SL.premium() ? " is-premium" : ""}`, text: SL.premium() ? SL.storage.get("sl-plano", "Premium") : "Free" }));
       // Selos conquistados
@@ -77,7 +76,6 @@ window.SL &&
       // Conquista de 4 semanas seguidas
       { nome: "Constância", texto: "4 semanas seguidas treinando", feito: stats.sequencia >= 4, icone: ICONES.fogo },
       // Conquista de entrar em um desafio
-      { nome: "Desafiante", texto: "Entrou em um desafio", feito: Boolean(storage.get("sl-desafio", null)), icone: ICONES.calendario },
     ];
     // Mostra quantas conquistas foram feitas, ex.: "3 de 6"
     $("conquistas-total").textContent = `${conquistas.filter((c) => c.feito).length} de ${conquistas.length}`;
@@ -116,6 +114,8 @@ window.SL &&
           ]),
         ),
     );
+    // Sem treinos ainda: avisa
+    if (!SL.historico().length) $("atividade").append(el("li", { class: "meta", text: "Nenhum treino registrado ainda." }));
 
     // Para cada chave de preferência (notificações etc.)...
     document.querySelectorAll("[data-pref]").forEach((input) => {
@@ -130,8 +130,39 @@ window.SL &&
       });
     });
 
-    // Painel do modo demonstração (depois da seção Conta)
-    if (SL.demo) {
+    /* ---------- Tipo de conta: o que muda entre cliente e administrador ---------- */
+
+    // É administrador?
+    const admin = SL.ehAdmin();
+    // Linhas da comparação: [o quê, cliente, administrador]
+    const COMPARA = [
+      ["Páginas", "Início, Treinos, Alimentação, Evolução e Perfil", "Painel do administrador e Perfil"],
+      ["Treinos", "Registra os próprios treinos", "Monta e manda treinos para os clientes"],
+      ["Dados", "Vê só os próprios dados", "Vê os clientes e quanto cada um treinou"],
+      ["Avisos", "Recebe os avisos no Início", "Publica avisos para todos os clientes"],
+      ["Marca na tela", "Nenhuma", "Selo ADMIN no topo e faixa verde"],
+    ];
+    // Administrador não treina pelo app: esconde as partes do cliente (objetivos, conquistas, atividade, preferências e plano)
+    if (admin) ["heading-objetivos", "heading-conquistas", "heading-atividade", "heading-preferencias"].forEach((id) => (document.querySelector(`[aria-labelledby="${id}"]`).hidden = true));
+    // Administrador: esconde a linha do plano
+    if (admin) $("plano-nome").closest("div").hidden = true;
+    // Cartão da comparação (logo depois do cartão do perfil, para ficar bem visível)
+    document.querySelector('[aria-labelledby="heading-objetivos"]').before(
+      el("section", { class: "panel panel-wide tipo-conta-painel", "aria-labelledby": "heading-tipo" }, [
+        // Título com o tipo atual
+        el("h2", { id: "heading-tipo" }, ["Tipo de conta: ", el("span", { class: admin ? "selo-admin" : "selo-cliente", text: admin ? "ADMIN" : "Cliente" })]),
+        // Tabela da comparação (a coluna do tipo atual fica destacada)
+        el("table", { class: "tipo-conta-tabela" }, [
+          // Cabeçalho
+          el("thead", {}, [el("tr", {}, [el("th", { scope: "col", text: "O que muda" }), el("th", { scope: "col", class: admin ? "" : "is-atual", text: "Cliente" }), el("th", { scope: "col", class: admin ? "is-atual" : "", text: "Administrador" })])]),
+          // Linhas
+          el("tbody", {}, COMPARA.map(([o, c, a]) => el("tr", {}, [el("th", { scope: "row", text: o }), el("td", { class: admin ? "" : "is-atual", text: c }), el("td", { class: admin ? "is-atual" : "", text: a })]))),
+        ]),
+      ]),
+    );
+
+    // Painel do modo demonstração: só na conta de demonstração (as contas de verdade ficam zeradas)
+    if (SL.demo && (SL.storage.get("sl-sessao", {}) || {}).email === "demo@saudelife.app") {
       // Coloca o painel
       document.querySelector('[aria-labelledby="heading-conta"]').after(SL.demo.painel());
       // Se o endereço pede o painel (#heading-demo), rola até ele
@@ -159,7 +190,7 @@ window.SL &&
     /* ---------- Avisos um por um e horário de silêncio ---------- */
 
     // Tipos de aviso: [id, nome, explicação]
-    const TIPOS_AVISO = [["treino", "Treino", "Lembrete do horário e saudade do Pulso"], ["agua", "Água", "A cada 2 horas, se ainda não bateu a meta"], ["aulas", "Aulas", "1 hora antes das aulas reservadas"], ["ranking", "Ranking", "Quando você sobe de liga"]];
+    const TIPOS_AVISO = [["treino", "Treino", "Lembrete do horário e saudade do Pulso"], ["agua", "Água", "A cada 2 horas, se ainda não bateu a meta"]];
     // Tipos ligados/desligados (padrão: todos ligados)
     const tiposAviso = storage.get("sl-avisos-tipos", {});
     // Uma chave para cada tipo

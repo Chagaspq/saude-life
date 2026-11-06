@@ -347,10 +347,10 @@
   // Nomes das pessoas do ranking "mesmo nível" (simuladas)
   const NOMES_NIVEL = ["Bruna Teixeira", "Caio Mendes", "Fernanda Lopes", "Gustavo Reis", "Helena Prado", "Igor Santana", "Jéssica Moura", "Lucas Farias", "Paula Ribeiro"];
 
-  // Amigos que a pessoa tem agora (no começo, os amigos de exemplo)
+  // Amigos que a pessoa tem agora (no começo, nenhum)
   function amigos() {
     // Lê os códigos dos amigos salvos (ou os de exemplo)
-    const codigos = storage.get("sl-amigos", AMIGOS.map((a) => a.codigo));
+    const codigos = storage.get("sl-amigos", []);
     // Devolve as pessoas com esses códigos
     return PESSOAS.filter((p) => codigos.includes(p.codigo));
   }

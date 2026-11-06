@@ -431,8 +431,17 @@
 
   // Deixa todos esses dados disponíveis para as outras páginas em window.SL_DADOS
   window.SL_DADOS = {
-    CATALOGO, PROFISSIONAIS, AULAS, TREINOS_PADRAO, EVOLUCAO,
-    EXERCICIOS, HISTORICO_PADRAO, REFEICOES_PADRAO, METAS_NUTRICAO,
-    AMIGOS, SUGESTOES, ACADEMIAS, AVALIACOES, OCUPACAO,
+    // Conteúdo do produto (catálogo, exercícios, metas): fica igual para todos
+    CATALOGO, PROFISSIONAIS, AULAS, EXERCICIOS, METAS_NUTRICAO, AMIGOS, SUGESTOES, ACADEMIAS, AVALIACOES, OCUPACAO,
+    // Dados da pessoa: começam ZERADOS (cada tela mostra só o que o usuário registrou)
+    TREINOS_PADRAO: [],
+    // Histórico vazio
+    HISTORICO_PADRAO: [],
+    // Refeições vazias
+    REFEICOES_PADRAO: [],
+    // Gráficos da evolução vazios
+    EVOLUCAO: { peso: [], cargas: [] },
+    // Exemplos guardados só para a conta de demonstração (botão "Entrar na demonstração")
+    DEMO: { TREINOS: TREINOS_PADRAO, REFEICOES: REFEICOES_PADRAO },
   };
 })();
