@@ -2453,3 +2453,65 @@ input[type="checkbox"]:focus-visible {
   /* Traço mais fino (cara mais profissional) */
   stroke-width: 1.6;
 }
+
+/* ---------- Ícones dos recursos: degradê coral → esmeralda (cara da logo) ---------- */
+
+/* Quadradinho com brilho suave e borda clara */
+.feature-icon.feature-icon-duo,
+.feature:nth-child(even) .feature-icon.feature-icon-duo {
+  /* Tamanho */
+  width: 56px;
+  /* Tamanho */
+  height: 56px;
+  /* Espaço interno (o desenho fica com 32 pixels) */
+  padding: 12px;
+  /* Cantos mais redondos */
+  border-radius: 16px;
+  /* Fundo: degradê bem fraco nas cores da marca */
+  background: linear-gradient(145deg, rgba(240, 132, 90, 0.16), rgba(79, 194, 154, 0.1));
+  /* Borda clarinha */
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  /* Brilho interno em cima e sombra leve embaixo */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 8px 20px rgba(0, 0, 0, 0.25);
+  /* Traço */
+  stroke-width: 1.7;
+}
+
+/* Partes preenchidas do desenho: o degradê bem transparente (efeito "duotone") */
+.feature-icon-duo .duo {
+  /* Preenche com o degradê do traço */
+  fill: currentColor;
+  /* Bem fraquinho */
+  fill-opacity: 0.12;
+}
+
+/* A cor do preenchimento acompanha o tom da marca */
+.feature-icon-duo {
+  /* Cor usada no preenchimento fraco */
+  color: #f5a37f;
+}
+
+/* Card com mouse: o ícone sobe um pouquinho */
+.feature:hover .feature-icon-duo {
+  /* Sobe */
+  transform: translateY(-2px);
+  /* Animação suave */
+  transition: transform 0.25s ease;
+}
+
+/* Quem pediu menos movimento: sem subir */
+@media (prefers-reduced-motion: reduce) {
+  /* Ícone parado */
+  .feature:hover .feature-icon-duo {
+    /* Sem mexer */
+    transform: none;
+  }
+}
+
+/* Tema claro: quadradinho com fundo claro */
+:root[data-tema="claro"] .feature-icon.feature-icon-duo {
+  /* Borda escura bem fraca */
+  border-color: rgba(0, 0, 0, 0.08);
+  /* Sombra mais leve */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 6px 16px rgba(0, 0, 0, 0.08);
+}
