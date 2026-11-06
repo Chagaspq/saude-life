@@ -1237,10 +1237,10 @@
       // Quantos treinos faltam
       const faltam = Math.max(0, meta - nestaSemana);
       // Aviso da meta
-      lista.push(faltam ? ["Meta semanal em andamento", `${faltam > 1 ? "Faltam" : "Falta"} ${faltam} treino${faltam > 1 ? "s" : ""} para completar ${meta}/${meta}.`] : ["Meta semanal batida!", `Você completou ${nestaSemana} treinos nesta semana.`]);
+      lista.push(faltam ? ["Meta semanal em andamento", `${faltam > 1 ? "Faltam" : "Falta"} ${faltam} treino${faltam > 1 ? "s" : ""} para completar ${meta}/${meta}.`, "meta"] : ["Meta semanal batida!", `Você completou ${nestaSemana} treinos nesta semana.`, "meta"]);
     }
     // Avisos publicados pelo administrador (os 5 mais novos)
-    storage.get("sl-avisos-admin", []).slice(0, 5).forEach((a) => lista.push([a.texto, `${a.autor || "Administrador"} • ${dataRelativa(a.data)}`]));
+    storage.get("sl-avisos-admin", []).slice(0, 5).forEach((a) => lista.push([a.texto, `${a.autor || "Administrador"} • ${dataRelativa(a.data)}`, "aviso"]));
     // Devolve
     return lista;
   }
@@ -1265,10 +1265,70 @@
     sino.dataset.rotuloNovas = `Notificações (${qtd} nova${qtd > 1 ? "s" : ""})`;
   }
 
-  // Botão de notificações...
+  // Ícones das notificações: meta (alvo) e aviso da academia (megafone)
+  const ICONE_NOTIF = {
+    // Alvo
+    meta: ["M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z", "M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12z", "M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"],
+    // Megafone
+    aviso: ["m3 11 18-5v12L3 14v-3z", "M11.6 16.8a3 3 0 1 1-5.8-1.6"],
+  };
+
+  // Painel de notificações: abre logo abaixo do sino (no lugar da janela no meio da tela)
   acao("open-notifications", (alvo) => {
-    // ...abre a caixa com os avisos do dia
-    abrirCaixa(alvo.dataset.badge, "Notificações", avisos().map(([titulo, texto]) => itemLista(titulo, texto)));
+    // Se já está aberto, fecha
+    const aberto = document.querySelector(".notif-painel");
+    // Fecha e para
+    if (aberto) return (aberto.remove(), alvo.setAttribute("aria-expanded", "false"));
+    // Avisos
+    const lista = avisos();
+    // Marca como lidas (some a bolinha)
+    const lidas = storage.get("sl-lidas", []);
+    // Guarda
+    if (!lidas.includes(alvo.dataset.badge)) storage.set("sl-lidas", lidas.concat(alvo.dataset.badge));
+    // Atualiza a bolinha
+    marcarLidas();
+    // Painel
+    const painel = el("div", { class: "notif-painel", role: "dialog", "aria-label": "Notificações" }, [
+      // Topo
+      el("div", { class: "notif-topo" }, [el("strong", { text: "Notificações" }), el("span", { class: "meta", text: lista.length ? `${lista.length} ${lista.length === 1 ? "aviso" : "avisos"}` : "" })]),
+      // Lista (ou vazio)
+      lista.length
+        ? el(
+            "ul",
+            { class: "notif-lista" },
+            lista.map(([titulo, texto, tipo]) =>
+              el("li", { class: "notif-item notif-" + (tipo || "meta") }, [
+                // Ícone redondo
+                el("span", { class: "notif-icone", "aria-hidden": "true" }, [icone(ICONE_NOTIF[tipo] || ICONE_NOTIF.meta)]),
+                // Textos
+                el("div", {}, [el("strong", { text: titulo }), el("span", { text: texto })]),
+              ]),
+            ),
+          )
+        : el("p", { class: "notif-vazio", text: "Tudo em dia. Nenhuma notificação." }),
+    ]);
+    // Coloca na página
+    document.body.append(painel);
+    // Avisa que abriu
+    alvo.setAttribute("aria-expanded", "true");
+    // Fecha ao clicar fora
+    setTimeout(() => {
+      // Clique fora do painel e do sino fecha
+      const fora = (e) => {
+        // Clicou dentro: ignora
+        if (painel.contains(e.target) || alvo.contains(e.target)) return;
+        // Fecha
+        painel.remove();
+        // Avisa
+        alvo.setAttribute("aria-expanded", "false");
+        // Para de ouvir
+        document.removeEventListener("click", fora);
+      };
+      // Ouve
+      document.addEventListener("click", fora);
+    });
+    // Esc fecha
+    painel.addEventListener("keydown", (e) => e.key === "Escape" && (painel.remove(), alvo.focus()));
   });
 
   // Botão de mensagens...

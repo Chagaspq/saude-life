@@ -1173,6 +1173,13 @@
     // ---------- Telas novas (comunidade, profissionais, academia, aulas, planos, ajuda e acessibilidade) ----------
     // Apagar tudo deste navegador
     "Apagar tudo deste navegador": "Erase everything from this browser",
+    // ---------- Telas novas (comunidade, profissionais, academia, aulas, planos, ajuda e acessibilidade) ----------
+    // Tudo em dia. Nenhuma notificação.
+    "Tudo em dia. Nenhuma notificação.": "All caught up. No notifications.",
+    // aviso
+    "aviso": "notice",
+    // avisos
+    "avisos": "notices",
   };
 
   // Dias da semana e meses (para datas por extenso)

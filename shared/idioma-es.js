@@ -1120,4 +1120,11 @@ window.SL_ES = {
   // ---------- Telas novas ----------
   // Apagar tudo deste navegador
   "Apagar tudo deste navegador": "Borrar todo de este navegador",
+  // ---------- Telas novas ----------
+  // Tudo em dia. Nenhuma notificação.
+  "Tudo em dia. Nenhuma notificação.": "Todo al día. Ninguna notificación.",
+  // aviso
+  "aviso": "aviso",
+  // avisos
+  "avisos": "avisos",
 };

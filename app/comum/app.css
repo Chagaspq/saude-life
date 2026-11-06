@@ -6177,3 +6177,301 @@ body.is-admin .nav-area {
   /* Some */
   display: none;
 }
+
+/* ---------- Topo do app: botões redondos, contador caprichado e "pílula" do usuário ---------- */
+
+/* Botões sempre no canto direito */
+.topbar-actions {
+  /* Empurra para a direita */
+  margin-left: auto;
+  /* Espaço entre os botões */
+  gap: 10px;
+}
+
+/* Botões redondos do topo (exibição e notificações) */
+.topbar-actions .btn-icon {
+  /* Posição para o contador */
+  position: relative;
+  /* Centraliza o ícone */
+  display: inline-grid;
+  /* No meio */
+  place-items: center;
+  /* Tamanho */
+  width: 40px;
+  /* Tamanho */
+  height: 40px;
+  /* Redondo */
+  border-radius: 50%;
+  /* Fundo suave */
+  background: var(--surface);
+  /* Borda fina */
+  border: 1px solid var(--border-strong);
+  /* Cor do ícone */
+  color: var(--ink);
+  /* Animação suave */
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+/* Ícone dentro do botão */
+.topbar-actions .btn-icon .icon {
+  /* Tamanho */
+  width: 19px;
+  /* Tamanho */
+  height: 19px;
+}
+
+/* Botão com mouse ou aberto */
+.topbar-actions .btn-icon:hover,
+.topbar-actions .btn-icon[aria-expanded="true"] {
+  /* Borda coral */
+  border-color: var(--coral-light);
+  /* Fundo um pouco mais claro */
+  background: var(--surface-2);
+  /* Ícone coral */
+  color: var(--coral-light);
+}
+
+/* Contador de notificações: bolinha coral com anel da cor do fundo */
+.topbar-actions .badge {
+  /* Posição no canto de cima */
+  top: -3px;
+  /* Canto direito */
+  right: -3px;
+  /* Tamanho */
+  min-width: 18px;
+  /* Tamanho */
+  height: 18px;
+  /* Espaço dos lados (números de 2 dígitos) */
+  padding: 0 5px;
+  /* Letra */
+  font: 800 10.5px var(--font-body);
+  /* Centraliza o número */
+  display: inline-grid;
+  /* No meio */
+  place-items: center;
+  /* Degradê da marca */
+  background: linear-gradient(135deg, var(--coral-light), var(--coral));
+  /* Anel da cor do fundo (separa do botão) */
+  box-shadow: 0 0 0 2px var(--bg);
+}
+
+/* "Pílula" do usuário: foto e nome dentro de um botão arredondado */
+.topbar-actions .user-menu-trigger {
+  /* Lado a lado */
+  display: inline-flex;
+  /* Alinhados */
+  align-items: center;
+  /* Espaço */
+  gap: 8px;
+  /* Espaço interno (menos do lado da foto) */
+  padding: 4px 14px 4px 4px;
+  /* Pílula */
+  border-radius: 999px;
+  /* Fundo suave */
+  background: var(--surface);
+  /* Borda fina */
+  border: 1px solid var(--border-strong);
+  /* Animação */
+  transition: border-color 0.2s ease;
+}
+
+/* Pílula com mouse */
+.topbar-actions .user-menu-trigger:hover {
+  /* Borda coral */
+  border-color: var(--coral-light);
+}
+
+/* Foto/iniciais dentro da pílula */
+.topbar-actions .user-menu-trigger .avatar-small {
+  /* Tamanho */
+  width: 32px;
+  /* Tamanho */
+  height: 32px;
+}
+
+/* Nome na pílula */
+.topbar-actions .username-top {
+  /* Negrito */
+  font-weight: 600;
+  /* Letra */
+  font-size: var(--text-sm);
+}
+
+/* Celular: a pílula mostra só a foto */
+@media (max-width: 640px) {
+  /* Pílula */
+  .topbar-actions .user-menu-trigger {
+    /* Sem espaço extra */
+    padding: 3px;
+  }
+
+  /* Nome */
+  .topbar-actions .username-top {
+    /* Some */
+    display: none;
+  }
+}
+
+/* ---------- Painel de notificações (abre embaixo do sino) ---------- */
+
+/* Painel */
+.notif-painel {
+  /* Preso na tela */
+  position: fixed;
+  /* Logo abaixo do topo */
+  top: 68px;
+  /* Canto direito */
+  right: 20px;
+  /* Largura */
+  width: min(360px, calc(100vw - 32px));
+  /* Por cima de tudo */
+  z-index: 1200;
+  /* Fundo */
+  background: var(--surface);
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Cantos */
+  border-radius: 16px;
+  /* Sombra */
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  /* Esconde o que passar dos cantos */
+  overflow: hidden;
+  /* Entra descendo de leve */
+  animation: notif-entra 0.18s ease;
+}
+
+/* Animação de entrada */
+@keyframes notif-entra {
+  /* Começa um pouco acima e transparente */
+  from {
+    /* Posição */
+    transform: translateY(-6px);
+    /* Transparente */
+    opacity: 0;
+  }
+}
+
+/* Topo do painel */
+.notif-topo {
+  /* Lado a lado */
+  display: flex;
+  /* Nas pontas */
+  justify-content: space-between;
+  /* Alinhados */
+  align-items: center;
+  /* Espaço */
+  padding: 14px 16px;
+  /* Linha embaixo */
+  border-bottom: 1px solid var(--border);
+}
+
+/* Lista */
+.notif-lista {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Sem espaço */
+  margin: 0;
+  /* Sem espaço */
+  padding: 6px;
+  /* Altura máxima (rola se tiver muitos) */
+  max-height: 360px;
+  /* Rola */
+  overflow-y: auto;
+}
+
+/* Cada notificação */
+.notif-item {
+  /* Ícone e texto lado a lado */
+  display: grid;
+  /* Ícone + texto */
+  grid-template-columns: 36px 1fr;
+  /* Espaço */
+  gap: 12px;
+  /* Alinhados em cima */
+  align-items: start;
+  /* Espaço */
+  padding: 10px;
+  /* Cantos */
+  border-radius: 12px;
+}
+
+/* Notificação com mouse */
+.notif-item:hover {
+  /* Fundo */
+  background: var(--surface-2);
+}
+
+/* Textos em coluna */
+.notif-item div {
+  /* Coluna */
+  display: grid;
+  /* Espaço */
+  gap: 2px;
+  /* Letra */
+  font-size: var(--text-sm);
+}
+
+/* Detalhe da notificação */
+.notif-item span:not(.notif-icone) {
+  /* Cor apagada */
+  color: var(--muted);
+}
+
+/* Ícone redondo */
+.notif-icone {
+  /* Centraliza */
+  display: grid;
+  /* No meio */
+  place-items: center;
+  /* Tamanho */
+  width: 36px;
+  /* Tamanho */
+  height: 36px;
+  /* Redondo */
+  border-radius: 50%;
+}
+
+/* Ícone */
+.notif-icone .icon {
+  /* Tamanho */
+  width: 18px;
+  /* Tamanho */
+  height: 18px;
+}
+
+/* Meta: esmeralda */
+.notif-meta .notif-icone {
+  /* Fundo */
+  background: var(--emerald-soft);
+  /* Cor */
+  color: var(--emerald);
+}
+
+/* Aviso da academia: coral */
+.notif-aviso .notif-icone {
+  /* Fundo */
+  background: var(--coral-soft);
+  /* Cor */
+  color: var(--coral-light);
+}
+
+/* Sem notificações */
+.notif-vazio {
+  /* Espaço */
+  padding: 24px 16px;
+  /* Centralizado */
+  text-align: center;
+  /* Cor apagada */
+  color: var(--muted);
+  /* Sem margem */
+  margin: 0;
+}
+
+/* Sem animação para quem pediu */
+@media (prefers-reduced-motion: reduce) {
+  /* Painel */
+  .notif-painel {
+    /* Sem animação */
+    animation: none;
+  }
+}
