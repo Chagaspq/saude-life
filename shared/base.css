@@ -747,3 +747,55 @@ svg path[d^="M19.5 33H24.5"] {
   /* Texto coral */
   color: var(--coral-light);
 }
+
+/* ---------- Ícones do site todos no mesmo estilo (igual aos do welcome) ----------
+ * Quadradinho com brilho suave e traço em degradê coral → esmeralda.
+ * O degradê #sl-grad é colocado na página pelo tema.js. */
+
+/* Quadradinhos de ícone (resumos, listas, conquistas, notificações, estados vazios) */
+.icon-tile,
+.badge-icon,
+.notif-icone,
+.empty-state .empty-illustration {
+  /* Fundo: degradê bem fraco nas cores da marca */
+  background: linear-gradient(145deg, rgba(240, 132, 90, 0.16), rgba(79, 194, 154, 0.1)) !important;
+  /* Borda clarinha */
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  /* Brilho interno em cima e sombra leve */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+/* Traço do ícone em degradê (no lugar de uma cor só) */
+.icon-tile svg,
+.icon-tile svg *,
+.badge-icon svg,
+.badge-icon svg *,
+.notif-icone svg,
+.notif-icone svg * {
+  /* Degradê da marca */
+  stroke: url(#sl-grad);
+}
+
+/* Desenho do estado vazio (grade de 64): degradê do tamanho dele */
+.empty-state .empty-illustration * {
+  /* Degradê da marca */
+  stroke: url(#sl-grad-64);
+}
+
+/* Traço um pouco mais fino (cara mais profissional) */
+.icon-tile svg,
+.badge-icon svg,
+.notif-icone svg {
+  /* Grossura */
+  stroke-width: 1.8;
+}
+
+/* Tema claro: borda e sombra mais leves */
+:root[data-tema="claro"] .icon-tile,
+:root[data-tema="claro"] .badge-icon,
+:root[data-tema="claro"] .notif-icone {
+  /* Borda escura bem fraca */
+  border-color: rgba(0, 0, 0, 0.08);
+  /* Sombra leve */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 4px 10px rgba(0, 0, 0, 0.06);
+}

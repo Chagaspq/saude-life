@@ -367,6 +367,28 @@
     return painel;
   }
 
+  // Degradê da marca (coral → esmeralda) para o traço de todos os ícones do site.
+  // Fica num desenho escondido; o CSS usa com "stroke: url(#sl-grad)".
+  document.addEventListener("DOMContentLoaded", function () {
+    // Já existe: para
+    if (document.getElementById("sl-grad")) return;
+    // Desenho escondido (sem tamanho) só com o degradê
+    const defs = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    // Sem tamanho
+    defs.setAttribute("width", "0");
+    // Sem tamanho
+    defs.setAttribute("height", "0");
+    // Escondido dos leitores de tela
+    defs.setAttribute("aria-hidden", "true");
+    // Fora do fluxo da página
+    defs.style.position = "absolute";
+    // O degradê (diagonal, na grade do desenho: 24 para os ícones e 64 para o desenho do estado vazio;
+    // assim funciona até em ícones feitos só de linhas retas)
+    defs.innerHTML = '<defs><linearGradient id="sl-grad" gradientUnits="userSpaceOnUse" x1="2" y1="2" x2="22" y2="22"><stop offset="0" stop-color="#f5a37f"></stop><stop offset="1" stop-color="#4fc29a"></stop></linearGradient><linearGradient id="sl-grad-64" gradientUnits="userSpaceOnUse" x1="6" y1="6" x2="58" y2="58"><stop offset="0" stop-color="#f5a37f"></stop><stop offset="1" stop-color="#4fc29a"></stop></linearGradient></defs>';
+    // Coloca no começo da página
+    document.body.prepend(defs);
+  });
+
   // Quando a página carregar, coloca o botão de acessibilidade ao lado do de tema
   document.addEventListener("DOMContentLoaded", function () {
     // Botão de tema (criado acima)
