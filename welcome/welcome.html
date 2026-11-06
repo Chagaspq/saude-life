@@ -143,8 +143,7 @@
           <h1>Progresso de verdade, no seu ritmo.</h1>
           <!-- Texto de apoio abaixo do título -->
           <p class="hero-lead">
-            Cada série vale ponto, cada semana vira disputa com a galera e o
-            Pulso te acompanha do primeiro treino até a liga Diamante.
+            Registre seus treinos, refeições e evolução em um só lugar.
             Testa aí do lado: marca uma série.
           </p>
           <!-- Botões principais -->
@@ -199,7 +198,7 @@
               <!-- Placar de pontos da demonstração -->
               <p class="demo-pontos"><strong data-demo="pontos">0</strong> pontos</p>
             </div>
-            <!-- Fileira com mais dois cards -->
+            <!-- Fileira com o card das séries de hoje -->
             <div class="hero-card-row">
               <!-- Card de exemplo: meta semanal -->
               <div class="mock-card mock-goal hero-card-goal">
@@ -215,144 +214,11 @@
                 <!-- Texto no meio do anel: quantas séries de 3 -->
                 <p class="mock-ring-text"><strong data-demo="feitas">0</strong> de 3</p>
               </div>
-              <!-- Card de exemplo: gráfico de peso -->
-              <div class="mock-card hero-card-chart">
-                <!-- Rótulo do card -->
-                <p class="mock-label">Peso</p>
-                <!-- Peso atual -->
-                <p class="mock-title">79,6 kg</p>
-                <!-- Quanto o peso mudou -->
-                <p class="mock-up">−4,0 kg em 12 semanas</p>
-                <!-- Mini gráfico de linha -->
-                <svg viewBox="0 0 300 110" class="mock-line" preserveAspectRatio="none">
-                  <!-- Forma com vários lados do desenho -->
-                  <polygon points="0,110 0,24 43,30 86,38 129,36 172,58 215,66 258,78 300,88 300,110" class="mock-line-area"></polygon>
-                  <!-- Linha com várias pontas do desenho -->
-                  <polyline points="0,24 43,30 86,38 129,36 172,58 215,66 258,78 300,88" class="mock-line-stroke"></polyline>
-                </svg>
-              </div>
             </div>
           </div>
         </div>
       </section>
       </div>
-
-      <!-- Faixa com os números do Saúde Life -->
-      <section class="stats-band" aria-label="Saúde Life em números">
-        <!-- Lista de números (dt = nome, dd = valor) -->
-        <dl class="stats-list">
-          <!-- Número 1 -->
-          <div class="stat">
-            <!-- Nome do número -->
-            <dt>Treinos registrados</dt>
-            <!-- Valor -->
-            <dd>12 mil</dd>
-          </div>
-          <!-- Número 2 -->
-          <div class="stat">
-            <!-- Nome do número -->
-            <dt>Profissionais verificados</dt>
-            <!-- Valor -->
-            <dd>500</dd>
-          </div>
-          <!-- Número 3 -->
-          <div class="stat">
-            <!-- Nome do número -->
-            <dt>Avaliação média</dt>
-            <!-- Valor -->
-            <dd>4,9</dd>
-          </div>
-        </dl>
-        <!-- Aviso: os números são de exemplo -->
-        <p class="exemplo-aviso">Números de exemplo. O Saúde Life é um projeto de TCC.</p>
-      </section>
-
-      <!-- Seção do mini questionário: monte seu treino em 3 toques -->
-      <section class="quiz" aria-labelledby="quiz-heading">
-        <!-- Topo da seção -->
-        <div class="section-head">
-          <!-- Textinho acima do título -->
-          <p class="section-kicker">Em 3 toques</p>
-          <!-- Título da seção -->
-          <h2 id="quiz-heading">Bora ver como seria o seu treino?</h2>
-        </div>
-        <!-- Cartão do questionário (o welcome.js mostra a prévia do treino) -->
-        <form class="quiz-card" data-quiz>
-          <!-- Pergunta 1: objetivo -->
-          <fieldset>
-            <!-- Pergunta -->
-            <legend>1. O que você quer?</legend>
-            <!-- Opção: ganhar massa -->
-            <label class="quiz-chip"><input type="radio" name="objetivo" value="Hipertrofia" checked /><span>Ganhar massa</span></label>
-            <!-- Opção: emagrecer -->
-            <label class="quiz-chip"><input type="radio" name="objetivo" value="HIIT" /><span>Emagrecer</span></label>
-            <!-- Opção: condicionamento -->
-            <label class="quiz-chip"><input type="radio" name="objetivo" value="Resistência" /><span>Mais fôlego</span></label>
-            <!-- Opção: bem-estar -->
-            <label class="quiz-chip"><input type="radio" name="objetivo" value="Yoga & Mobilidade" /><span>Bem-estar</span></label>
-          </fieldset>
-          <!-- Pergunta 2: tempo -->
-          <fieldset>
-            <!-- Pergunta -->
-            <legend>2. Quanto tempo você tem?</legend>
-            <!-- 20 minutos -->
-            <label class="quiz-chip"><input type="radio" name="tempo" value="20" /><span>20 min</span></label>
-            <!-- 30 minutos -->
-            <label class="quiz-chip"><input type="radio" name="tempo" value="30" checked /><span>30 min</span></label>
-            <!-- 45 minutos -->
-            <label class="quiz-chip"><input type="radio" name="tempo" value="45" /><span>45 min</span></label>
-          </fieldset>
-          <!-- Pergunta 3: nível -->
-          <fieldset>
-            <!-- Pergunta -->
-            <legend>3. Como está seu nível?</legend>
-            <!-- Iniciante -->
-            <label class="quiz-chip"><input type="radio" name="nivel" value="Iniciante" checked /><span>Começando</span></label>
-            <!-- Intermediário -->
-            <label class="quiz-chip"><input type="radio" name="nivel" value="Intermediário" /><span>Já treino</span></label>
-            <!-- Avançado -->
-            <label class="quiz-chip"><input type="radio" name="nivel" value="Avançado" /><span>Treino há anos</span></label>
-          </fieldset>
-          <!-- Prévia do treino (preenchida pelo welcome.js) -->
-          <div class="quiz-previa" data-quiz-previa aria-live="polite"></div>
-        </form>
-      </section>
-
-      <!-- Seção da prévia do ranking -->
-      <section class="ranking-previa" aria-labelledby="ranking-heading">
-        <!-- Topo da seção -->
-        <div class="section-head">
-          <!-- Textinho acima do título -->
-          <p class="section-kicker">Treinar junto rende mais</p>
-          <!-- Título da seção -->
-          <h2 id="ranking-heading">Cada série vale ponto. A semana vira disputa.</h2>
-          <!-- Texto de apoio -->
-          <p class="section-lead">
-            Some pontos treinando, comendo bem e bebendo água. Suba de liga,
-            ganhe selos e passe a galera no ranking, que zera toda segunda.
-          </p>
-        </div>
-        <!-- Pódio de exemplo -->
-        <ol class="rp-podio" aria-label="Exemplo de pódio da semana">
-          <!-- 2º lugar -->
-          <li class="rp-degrau rp-2"><span class="rp-avatar" aria-hidden="true">RL</span><strong>Rafael</strong><span>890 pts</span><b aria-hidden="true">2º</b></li>
-          <!-- 1º lugar -->
-          <li class="rp-degrau rp-1"><span class="rp-avatar" aria-hidden="true">VC</span><strong>Você?</strong><span>1.020 pts</span><b aria-hidden="true">1º</b></li>
-          <!-- 3º lugar -->
-          <li class="rp-degrau rp-3"><span class="rp-avatar" aria-hidden="true">AS</span><strong>Ana</strong><span>760 pts</span><b aria-hidden="true">3º</b></li>
-        </ol>
-        <!-- As 4 ligas -->
-        <ul class="rp-ligas" aria-label="Ligas">
-          <!-- Bronze -->
-          <li class="liga-bronze"><svg viewBox="0 0 48 56" aria-hidden="true"><path d="M24 3 5 10v15c0 13 8.5 23.5 19 28 10.5-4.5 19-15 19-28V10Z"></path></svg>Bronze</li>
-          <!-- Prata -->
-          <li class="liga-prata"><svg viewBox="0 0 48 56" aria-hidden="true"><path d="M24 3 5 10v15c0 13 8.5 23.5 19 28 10.5-4.5 19-15 19-28V10Z"></path></svg>Prata</li>
-          <!-- Ouro -->
-          <li class="liga-ouro"><svg viewBox="0 0 48 56" aria-hidden="true"><path d="M24 3 5 10v15c0 13 8.5 23.5 19 28 10.5-4.5 19-15 19-28V10Z"></path></svg>Ouro</li>
-          <!-- Diamante -->
-          <li class="liga-diamante"><svg viewBox="0 0 48 56" aria-hidden="true"><path d="M24 3 5 10v15c0 13 8.5 23.5 19 28 10.5-4.5 19-15 19-28V10Z"></path></svg>Diamante</li>
-        </ul>
-      </section>
 
       <!-- Seção de recursos -->
       <section class="features" aria-labelledby="features-heading">
@@ -388,18 +254,18 @@
             <!-- Ícone desenhado em SVG (escondido dos leitores de tela) -->
             <svg class="feature-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8"></path><path d="m16 11 2 2 4-4"></path></svg>
             <!-- Nome do recurso -->
-            <h3>Profissionais verificados</h3>
+            <h3>Alimentação e água</h3>
             <!-- Explicação do recurso -->
-            <p>Personal, nutricionista e fisioterapeuta com registro conferido, prontos pra te orientar.</p>
+            <p>Anote as refeições do dia e os copos d'água, com metas calculadas para o seu objetivo.</p>
           </article>
           <!-- Recurso: aulas -->
           <article class="feature">
             <!-- Ícone desenhado em SVG (escondido dos leitores de tela) -->
             <svg class="feature-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><path d="M3 10h18"></path><path d="M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"></path></svg>
             <!-- Nome do recurso -->
-            <h3>Aulas na academia</h3>
+            <h3>Acompanhamento da academia</h3>
             <!-- Explicação do recurso -->
-            <p>Veja a grade da semana e reserve sua vaga sem fila e sem grupo de mensagem.</p>
+            <p>Sua academia ou personal acompanha seu progresso, manda treinos e avisos direto no app.</p>
           </article>
         </div>
       </section>
@@ -464,119 +330,6 @@
         </div>
       </section>
 
-      <!-- Seção que mostra o app por dentro -->
-      <section class="app-preview" aria-labelledby="preview-heading">
-        <!-- Topo da seção -->
-        <div class="section-head">
-          <!-- Textinho acima do título -->
-          <p class="section-kicker">Por dentro do app</p>
-          <!-- Título da seção -->
-          <h2 id="preview-heading">Cada série registrada, sem caderninho</h2>
-          <!-- Texto de apoio -->
-          <p class="section-lead">
-            Marque as séries, ajuste a carga na hora e deixe o cronômetro de descanso avisar quando voltar.
-          </p>
-        </div>
-        <!-- Desenho de uma janela do app (só enfeite) -->
-        <div class="mockup" aria-hidden="true">
-          <!-- Barra da janela -->
-          <div class="mockup-bar">
-            <!-- As três bolinhas da janela -->
-            <span></span><span></span><span></span>
-          </div>
-          <!-- Miolo da janela: tela de treino -->
-          <div class="mockup-body mockup-player">
-            <!-- Card do exercício -->
-            <div class="mock-card">
-              <!-- Rótulo do card -->
-              <p class="mock-label">Exercício 2 de 6</p>
-              <!-- Nome do exercício -->
-              <p class="mock-title">Leg press 45°</p>
-              <!-- Séries, repetições e descanso -->
-              <p class="mock-meta">4 séries × 12 reps • descanso de 90 s</p>
-              <!-- Lista de séries -->
-              <ul class="mock-sets">
-                <!-- Série 1 feita -->
-                <li class="is-done"><span>Série 1</span><span>12 × 140 kg</span><i><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></i></li>
-                <!-- Série 2 feita -->
-                <li class="is-done"><span>Série 2</span><span>12 × 140 kg</span><i><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg></i></li>
-                <!-- Série 3 por fazer -->
-                <li><span>Série 3</span><span>12 × 150 kg</span><i></i></li>
-                <!-- Série 4 por fazer -->
-                <li><span>Série 4</span><span>12 × 150 kg</span><i></i></li>
-              </ul>
-            </div>
-            <!-- Card do descanso -->
-            <div class="mock-card mock-goal">
-              <!-- Rótulo do card -->
-              <p class="mock-label">Descanso</p>
-              <!-- Anel do tempo de descanso -->
-              <svg viewBox="0 0 120 120" class="mock-ring mock-ring-rest">
-                <!-- Círculo do desenho -->
-                <circle cx="60" cy="60" r="48" class="mock-ring-track"></circle>
-                <!-- Círculo do desenho -->
-                <circle cx="60" cy="60" r="48" class="mock-ring-fill"></circle>
-              </svg>
-              <!-- Tempo que falta -->
-              <p class="mock-ring-text"><strong>0:58</strong> para a série 3</p>
-            </div>
-            <!-- Card do treino concluído -->
-            <div class="mock-card">
-              <!-- Rótulo do card -->
-              <p class="mock-label">Treino concluído</p>
-              <!-- Tempo total do treino -->
-              <p class="mock-title">52 min</p>
-              <!-- Resumo do treino -->
-              <ul class="mock-summary">
-                <!-- Total de séries -->
-                <li><span>Séries</span><strong>22</strong></li>
-                <!-- Peso total levantado -->
-                <li><span>Volume</span><strong>5.940 kg</strong></li>
-                <!-- Meta da semana -->
-                <li><span>Meta da semana</span><strong>3 de 4</strong></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Seção de depoimentos -->
-      <section class="testimonials" aria-labelledby="testimonials-heading">
-        <!-- Topo da seção -->
-        <div class="section-head">
-          <!-- Textinho acima do título -->
-          <p class="section-kicker">Depoimentos</p>
-          <!-- Título da seção -->
-          <h2 id="testimonials-heading">Quem usa, continua</h2>
-        </div>
-        <!-- Grade de depoimentos -->
-        <div class="testimonials-grid">
-          <!-- Depoimento 1 -->
-          <figure class="testimonial">
-            <!-- Frase da pessoa -->
-            <blockquote>“Perdi 6 kg em 3 meses e, pela primeira vez, entendi o meu progresso.”</blockquote>
-            <!-- Iniciais, nome e idade -->
-            <figcaption><span class="t-avatar" aria-hidden="true" data-foto="../assets/fotos/camila.jpg">CA</span><span><strong>Camila</strong> 27 anos, emagrecimento</span></figcaption>
-          </figure>
-          <!-- Depoimento 2 -->
-          <figure class="testimonial">
-            <!-- Frase da pessoa -->
-            <blockquote>“Os treinos se encaixam na minha rotina de trabalho. Treino 4 vezes por semana sem pular.”</blockquote>
-            <!-- Iniciais, nome e idade -->
-            <figcaption><span class="t-avatar" aria-hidden="true" data-foto="../assets/fotos/diego.jpg">DI</span><span><strong>Diego</strong> 34 anos, hipertrofia</span></figcaption>
-          </figure>
-          <!-- Depoimento 3 -->
-          <figure class="testimonial">
-            <!-- Frase da pessoa -->
-            <blockquote>“Minha nutricionista acompanha tudo pelo app. Ficou muito mais fácil seguir o plano.”</blockquote>
-            <!-- Iniciais, nome e idade -->
-            <figcaption><span class="t-avatar" aria-hidden="true" data-foto="../assets/fotos/larissa.jpg">LA</span><span><strong>Larissa</strong> 22 anos, saúde</span></figcaption>
-          </figure>
-        </div>
-        <!-- Aviso: depoimentos de exemplo -->
-        <p class="exemplo-aviso">Depoimentos de exemplo. O Saúde Life é um projeto de TCC.</p>
-      </section>
-
       <!-- Seção de perguntas frequentes -->
       <section class="faq" aria-labelledby="faq-heading">
         <!-- Topo da seção -->
@@ -601,13 +354,6 @@
             <summary>Preciso ir à academia?</summary>
             <!-- Resposta -->
             <p>Não. Há treinos para fazer em casa, sem equipamento, e treinos completos para quem já frequenta academia.</p>
-          </details>
-          <!-- Pergunta 3 -->
-          <details>
-            <!-- Texto da pergunta -->
-            <summary>Os profissionais são verificados?</summary>
-            <!-- Resposta -->
-            <p>Sim. Conferimos o registro profissional de cada especialista (CREF, CRN ou CREFITO) antes de liberar o perfil.</p>
           </details>
           <!-- Pergunta 4 -->
           <details>

@@ -2581,15 +2581,10 @@
     },
   };
 
-  // App instalável no celular (só funciona em http/https, não em file://)
-  // Se o navegador suporta e a página está num servidor...
-  if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
-    // ...registra o service worker (app instalável e offline)
-    window.addEventListener("load", () => navigator.serviceWorker.register("../../sw.js").catch(() => {}));
-  }
+  // Sem service worker: o site não guarda cópia offline (o tema.js desliga o antigo, se existir)
 
-  // Avisa quando a internet cai e quando volta (o app continua funcionando offline)
-  window.addEventListener("offline", () => toast("Sem internet. Tudo continua funcionando e fica salvo aqui."));
+  // Avisa quando a internet cai e quando volta (o que já está aberto continua funcionando)
+  window.addEventListener("offline", () => toast("Sem internet. O que você registrar fica salvo aqui; para abrir outra página, precisa de internet."));
   // Quando a internet volta
   window.addEventListener("online", () => toast("Internet de volta ✓"));
 
@@ -2735,7 +2730,7 @@
     // Faixa
     const faixa = el("div", { class: "instalar-faixa", role: "region", "aria-label": "Instalar app" }, [
       // Texto
-      el("p", {}, [el("strong", { text: "Instale o Saúde Life" }), ios ? " Toque em Compartilhar e depois em \"Adicionar à Tela de Início\"." : " Abre mais rápido e funciona sem internet."]),
+      el("p", {}, [el("strong", { text: "Instale o Saúde Life" }), ios ? " Toque em Compartilhar e depois em \"Adicionar à Tela de Início\"." : " Abre como um app, direto da tela do celular."]),
       // Botão de instalar (só quando o navegador deixa)
       pedidoInstalar ? el("button", { type: "button", class: "btn-primary btn-sm", "data-instalar": "sim", text: "Instalar app" }) : null,
       // Agora não

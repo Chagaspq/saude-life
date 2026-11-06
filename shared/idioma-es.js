@@ -173,7 +173,7 @@ window.SL_ES = {
   // Cadastro
   "Crie sua conta grátis em menos de um minuto e receba um plano que cabe na sua rotina.": "Crea tu cuenta gratis en menos de un minuto y recibe un plan que cabe en tu rutina.",
   // Lista
-  "Treinos guiados com séries, cargas e descanso": "Entrenamientos guiados con series, cargas y descanso", "Gráficos da sua evolução semana a semana": "Gráficos de tu progreso semana a semana", "Profissionais com registro verificado": "Profesionales con matrícula verificada", "Grátis para sempre no plano Free, sem cartão": "Gratis para siempre en el plan Free, sin tarjeta",
+  "Treinos guiados com séries, cargas e descanso": "Entrenamientos guiados con series, cargas y descanso", "Gráficos da sua evolução semana a semana": "Gráficos de tu progreso semana a semana", "Profissionais com registro verificado": "Profesionales con matrícula verificada", "Acompanhamento da sua academia ou personal": "Seguimiento de tu gimnasio o entrenador", "Grátis para sempre no plano Free, sem cartão": "Gratis para siempre en el plan Free, sin tarjeta",
   // Passos
   "Comece agora sua jornada com o Saúde Life.": "Empieza ahora tu camino con Saúde Life.", "Passo 1: sua conta": "Paso 1: tu cuenta", "Passo 2: sobre você": "Paso 2: sobre ti", "Nome completo": "Nombre completo", "Confirmar senha": "Confirmar contraseña",
   // Dados opcionais

@@ -2428,3 +2428,9 @@ input[type="checkbox"]:focus-visible {
     animation: none;
   }
 }
+
+/* Só o card das séries de hoje embaixo da demonstração (o de peso saiu: era um número inventado) */
+.hero-card-row {
+  /* Uma coluna estreita */
+  grid-template-columns: minmax(0, 220px);
+}
