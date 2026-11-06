@@ -6475,3 +6475,68 @@ body.is-admin .nav-area {
     animation: none;
   }
 }
+
+/* ---------- Ajustes do prompt de melhoria (PROMPT-MELHORIAS.md) ---------- */
+
+/* Topo em esmeralda: ícones, bordas ao passar o mouse e contador */
+.topbar-actions .btn-icon {
+  /* Ícone esmeralda */
+  color: var(--emerald);
+}
+
+/* Botões do topo com mouse ou abertos: esmeralda (o coral fica só para a ação principal da tela) */
+.topbar-actions .btn-icon:hover,
+.topbar-actions .btn-icon[aria-expanded="true"] {
+  /* Borda */
+  border-color: var(--emerald);
+  /* Fundo esmeralda bem fraco */
+  background: var(--emerald-soft);
+  /* Ícone */
+  color: var(--emerald);
+}
+
+/* Contador de notificações em esmeralda */
+.topbar-actions .badge {
+  /* Degradê esmeralda */
+  background: linear-gradient(135deg, #7fe0bd, var(--emerald));
+  /* Número escuro */
+  color: #06120d;
+}
+
+/* Pílula do usuário com mouse: borda esmeralda */
+.topbar-actions .user-menu-trigger:hover {
+  /* Borda */
+  border-color: var(--emerald);
+}
+
+/* Estado vazio: cartão suave (sem tracejado), com o desenho num círculo verde */
+.empty-state {
+  /* Borda fina contínua */
+  border: 1px solid var(--border);
+  /* Fundo com um brilho bem leve */
+  background: radial-gradient(circle at 50% 0%, rgba(79, 194, 154, 0.08), transparent 60%), var(--surface);
+  /* Cantos */
+  border-radius: 16px;
+}
+
+/* Desenho do estado vazio dentro de um círculo */
+.empty-state .empty-illustration {
+  /* Tamanho */
+  width: 64px;
+  /* Tamanho */
+  height: 64px;
+  /* Espaço interno */
+  padding: 12px;
+  /* Redondo */
+  border-radius: 50%;
+  /* Fundo esmeralda fraco */
+  background: var(--emerald-soft);
+}
+
+/* Botão de +250 ml: esmeralda (o coral da tela fica no "Adicionar refeição") */
+.btn-agua-mais {
+  /* Borda */
+  border-color: var(--emerald);
+  /* Texto */
+  color: var(--emerald);
+}
