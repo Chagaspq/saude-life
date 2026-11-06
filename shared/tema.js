@@ -395,6 +395,33 @@
     if (lerA11y().vlibras) carregarVLibras();
   });
 
+  // Apaga TUDO o que o site salvou neste navegador (contas, treinos, dados antigos de teste)
+  // e volta para a página inicial. Usado pelo botão "Apagar tudo deste navegador".
+  function limparTudo(caminhoInicio) {
+    // Confirma antes (não dá para desfazer)
+    if (!window.confirm("Apagar tudo o que o Saúde Life salvou neste navegador? Contas, treinos e dados somem e não dá para desfazer.")) return;
+    // Tenta apagar...
+    try {
+      // ...cada chave do site (todas começam com "sl-")
+      Object.keys(localStorage).filter((k) => k.startsWith("sl-")).forEach((k) => localStorage.removeItem(k));
+      // ...e as da sessão
+      Object.keys(sessionStorage).filter((k) => k.startsWith("sl-")).forEach((k) => sessionStorage.removeItem(k));
+    } catch (e) {
+      /* armazenamento indisponível: não tinha nada salvo */
+    }
+    // Apaga o cookie de "navegador aberto"
+    document.cookie = "sl-aberta=; max-age=0; path=/";
+    // Volta para a página inicial
+    window.location.href = caminhoInicio;
+  }
+  // Qualquer botão com data-limpar-tudo chama a limpeza (o valor é o caminho da página inicial)
+  document.addEventListener("click", function (e) {
+    // Botão clicado
+    const b = e.target.closest && e.target.closest("[data-limpar-tudo]");
+    // Se foi nele, limpa
+    if (b) limparTudo(b.dataset.limparTudo);
+  });
+
   // Sem cópia offline: se o navegador tinha um service worker antigo do site, desliga ele
   // (assim o site abre sempre direto na versão mais nova)
   if ("serviceWorker" in navigator) {

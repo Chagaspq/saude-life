@@ -1170,6 +1170,9 @@
     "Cada série, treino, refeição e copo d'água valem pontos. A semana zera toda segunda.": "Every set, workout, meal and glass of water earns points. The week resets every Monday.",
     // Adicionar exercício
     "Adicionar exercício": "Add exercise",
+    // ---------- Telas novas (comunidade, profissionais, academia, aulas, planos, ajuda e acessibilidade) ----------
+    // Apagar tudo deste navegador
+    "Apagar tudo deste navegador": "Erase everything from this browser",
   };
 
   // Dias da semana e meses (para datas por extenso)
