@@ -1117,4 +1117,7 @@ window.SL_ES = {
   "Cada série, treino, refeição e copo d'água valem pontos. A semana zera toda segunda.": "Cada serie, entrenamiento, comida y vaso de agua suman puntos. La semana se reinicia cada lunes.",
   // Adicionar exercício
   "Adicionar exercício": "Agregar ejercicio",
+  // ---------- Telas novas ----------
+  // Apagar tudo deste navegador
+  "Apagar tudo deste navegador": "Borrar todo de este navegador",
 };
