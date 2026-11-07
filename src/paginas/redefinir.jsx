@@ -4,6 +4,8 @@ import { montar } from "../montar.jsx";
 import { CampoConta, BotaoEnviar, RegrasSenha, esperar } from "../componentes/Formulario.jsx";
 import { trocarSenha, REGRAS_SENHA, MIN_SENHA } from "../lib/conta.js";
 import { ler, gravar } from "../lib/armazenamento.js";
+// API
+import { api, apiLigada } from "../lib/api.js";
 import CascoSenha from "../componentes/CascoSenha.jsx";
 import "../estilos/kit-conta.js";
 import "../estilos/senha.css";
@@ -13,7 +15,7 @@ const token = new URLSearchParams(location.search).get("token");
 // Código guardado nesta aba
 const tokenSalvo = sessionStorage.getItem("sl-reset-token");
 // Link válido?
-const valido = !!token && (!tokenSalvo || token === tokenSalvo);
+const valido = !!token && (apiLigada() || !tokenSalvo || token === tokenSalvo);
 
 // Página
 function Redefinir() {
@@ -48,6 +50,25 @@ function Redefinir() {
     if (novos.confirmar) return document.getElementById("confirm-new-password")?.focus();
     // Esperando
     setCarregando("Salvando...");
+    // Com API: o servidor confere o link e troca a senha
+    if (apiLigada()) {
+      // Tenta
+      try {
+        // Troca
+        await api("POST", "/auth/redefinir-senha", { token, senha });
+      } catch (e) {
+        // Erro (link vencido ou usado)
+        setCarregando("");
+        // Mostra
+        return setMsg({ texto: e.message });
+      }
+      // Sucesso
+      setMsg({ ok: true, texto: "Senha alterada! Redirecionando para o login..." });
+      // Espera
+      await esperar(1500);
+      // Vai
+      return (location.href = "../login/login.html");
+    }
     // Pedidos
     const pedidos = ler("sl-reset-pedidos", {});
     // E-mail do pedido

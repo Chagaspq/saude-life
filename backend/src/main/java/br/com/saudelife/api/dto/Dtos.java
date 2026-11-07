@@ -52,8 +52,10 @@ public final class Dtos {
     public static UsuarioDto de(Usuario u) {
       // Academia (com código só para admin)
       AcademiaDto a = u.getAcademia() == null ? null : new AcademiaDto(u.getAcademia().getId(), u.getAcademia().getNome(), u.ehAdmin() ? u.getAcademia().getCodigo() : null);
+      // Plano vencido volta a ser Free
+      boolean vencido = u.getPlanoFim() != null && u.getPlanoFim().isBefore(Instant.now());
       // Monta
-      return new UsuarioDto(u.getId(), u.getNome(), u.getEmail(), u.getTipo().name(), a, u.getApelido(), u.getBio(), u.getAlturaCm(), u.getObjetivo(), u.getNivel(), u.getDiasSemana(), u.getPlano(), u.getPlanoFim());
+      return new UsuarioDto(u.getId(), u.getNome(), u.getEmail(), u.getTipo().name(), a, u.getApelido(), u.getBio(), u.getAlturaCm(), u.getObjetivo(), u.getNivel(), u.getDiasSemana(), vencido ? "Free" : u.getPlano(), vencido ? null : u.getPlanoFim());
     }
   }
 

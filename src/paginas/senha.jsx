@@ -5,6 +5,8 @@ import CascoSenha from "../componentes/CascoSenha.jsx";
 import { CampoConta, BotaoEnviar, esperar } from "../componentes/Formulario.jsx";
 import { emailValido } from "../lib/conta.js";
 import { ler, gravar } from "../lib/armazenamento.js";
+// API
+import { api, apiLigada } from "../lib/api.js";
 import "../estilos/kit-conta.js";
 import "../estilos/senha.css";
 
@@ -33,6 +35,23 @@ function Senha() {
     if (problema) return document.getElementById("email")?.focus();
     // Esperando
     setCarregando("Enviando...");
+    // Com API: o servidor manda o e-mail
+    if (apiLigada()) {
+      // Tenta
+      try {
+        // Pede
+        const r = await api("POST", "/auth/esqueci-senha", { email: email.trim() });
+        // Sem e-mail configurado no servidor: mostra o link de demonstração
+        setLink(r.tokenDemo ? new URL("redefinir.html", location.href).href + "?token=" + r.tokenDemo : "enviado");
+      } catch (e) {
+        // Erro
+        setErro(e.message);
+      }
+      // Limpa
+      setEmail("");
+      // Pronto
+      return setCarregando("");
+    }
     // Código do pedido
     const token = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2) + Date.now().toString(36);
     // Guarda o pedido (código → e-mail)
@@ -58,10 +77,14 @@ function Senha() {
         {/* Sucesso */}
         <p id="form-global-success" className="field-success" role="status" aria-live="polite" hidden={!link}>
           Se esse e-mail estiver cadastrado, você vai receber as instruções em instantes.
-          <br />
-          <a href={link} className="demo-link">
-            Modo demonstração: abrir link de redefinição →
-          </a>
+          {link !== "enviado" && (
+            <>
+              <br />
+              <a href={link} className="demo-link">
+                Modo demonstração: abrir link de redefinição →
+              </a>
+            </>
+          )}
         </p>
         {/* Enviar */}
         <BotaoEnviar texto="Enviar instruções" carregando={carregando} />

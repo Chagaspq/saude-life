@@ -12,8 +12,9 @@ import br.com.saudelife.api.repositorio.SessaoLoginRepositorio;
 import br.com.saudelife.api.repositorio.UsuarioRepositorio;
 // Tokens
 import br.com.saudelife.api.seguranca.Tokens;
-// Regras da conta
+// Regras da conta e e-mail
 import br.com.saudelife.api.servico.ContaServico;
+import br.com.saudelife.api.servico.EmailServico;
 // Validação do corpo
 import jakarta.validation.Valid;
 // Lê do application.properties
@@ -43,15 +44,21 @@ public class AuthController {
   private final RedefinicaoSenhaRepositorio redefinicoes;
   // Mostrar o link de senha na resposta (só na demonstração)
   private final boolean mostrarLink;
+  // E-mail
+  private final EmailServico email;
+  // Endereço do site (para montar o link)
+  private final String site;
 
   // Construtor
-  public AuthController(ContaServico conta, UsuarioRepositorio usuarios, SessaoLoginRepositorio sessoes, RedefinicaoSenhaRepositorio redefinicoes, @Value("${saudelife.mostrar-link-senha}") boolean mostrarLink) {
+  public AuthController(ContaServico conta, UsuarioRepositorio usuarios, SessaoLoginRepositorio sessoes, RedefinicaoSenhaRepositorio redefinicoes, @Value("${saudelife.mostrar-link-senha}") boolean mostrarLink, EmailServico email, @Value("${saudelife.site}") String site) {
     // Guarda
     this.conta = conta;
     this.usuarios = usuarios;
     this.sessoes = sessoes;
     this.redefinicoes = redefinicoes;
     this.mostrarLink = mostrarLink;
+    this.email = email;
+    this.site = site;
   }
 
   // POST /auth/cadastro: cria a conta (cliente ou admin) e já entra
@@ -90,7 +97,11 @@ public class AuthController {
       String token = Tokens.novo();
       // Guarda só o resumo, vale 1 hora
       redefinicoes.save(new RedefinicaoSenha(Tokens.hash(token), u, Instant.now().plus(Duration.ofHours(1))));
-      // Aqui entraria o envio do e-mail. Na demonstração, o token vai na resposta.
+      // Link da página de nova senha
+      String link = site + "/senha/redefinir.html?token=" + token;
+      // Manda o e-mail
+      email.enviar(u.getEmail(), "Saúde Life: crie uma senha nova", "Olá, " + u.getNome().split(" ")[0] + "!\n\nPara criar uma senha nova, abra o link abaixo (vale 1 hora):\n" + link + "\n\nSe não foi você, ignore este e-mail.");
+      // Na demonstração (sem e-mail), o token também vai na resposta
       if (mostrarLink) r.put("tokenDemo", token);
     });
     // Responde

@@ -115,6 +115,45 @@ src/main/resources/
   application-postgres.properties   PostgreSQL
 ```
 
-## Próximo passo
+## Colocar na internet (Render, grátis)
 
-Ligar o site (React) na API: trocar, tela por tela, o que hoje é salvo no navegador por chamadas `fetch` para estas rotas.
+O arquivo `render.yaml` (na raiz do repositório) cria a API e o banco PostgreSQL de uma vez.
+
+1. Crie uma conta em https://render.com (pode entrar com o GitHub).
+2. **New > Blueprint**, escolha o repositório `saude-life` e clique em **Apply**.
+3. Espere uns 5 minutos. A API fica em **https://saudelife-api.onrender.com/v1** (confira o nome no painel; se for outro, ajuste `SAUDELIFE_API` no painel e o passo 4).
+4. Ligue o site na API: no arquivo `.env.production` (raiz do projeto), troque para
+   `VITE_API_URL=https://saudelife-api.onrender.com/v1`, rode `npm run build` e mande para o GitHub.
+
+> No plano grátis, a API "dorme" depois de 15 minutos parada: a primeira chamada demora uns 50 segundos. Antes de apresentar, abra o site uma vez para acordar.
+> O banco grátis do Render vale por 30 dias; depois é preciso criar outro (ou pagar o plano básico).
+
+## E-mail de verdade (esqueci a senha)
+
+No painel do Render (**saudelife-api > Environment**), preencha:
+
+| Variável | Exemplo (Gmail) |
+|---|---|
+| `MAIL_HOST` | `smtp.gmail.com` |
+| `MAIL_USUARIO` | `seuemail@gmail.com` |
+| `MAIL_SENHA` | "Senha de app" do Google (Conta Google > Segurança > Senhas de app) |
+
+Depois troque `SAUDELIFE_MOSTRAR_LINK` para `false` (o link deixa de aparecer na tela e só vai por e-mail).
+
+## Pagamento de verdade (Mercado Pago)
+
+1. Crie uma conta em https://www.mercadopago.com.br/developers e uma aplicação.
+2. Copie o **Access Token** (para testar, use o de **teste**; para cobrar de verdade, o de **produção**).
+3. No painel do Render, preencha `MERCADOPAGO_TOKEN` com ele.
+
+Pronto: na tela **Planos** do site aparece "Pagar com Pix ou cartão (Mercado Pago)". A pessoa paga na página do Mercado Pago, volta para o site e o plano ativa sozinho quando o pagamento é aprovado (o Mercado Pago avisa a rota `/webhooks/pagamento`, e a API confere o pagamento direto no Mercado Pago antes de ativar).
+
+## Como o site usa a API
+
+Com `VITE_API_URL` preenchido, o site:
+- entra, cria conta e troca senha pela API;
+- ao abrir cada tela, baixa os dados da conta do servidor (fichas, histórico, pesos, refeições, água, avisos);
+- a cada mudança, sobe para o servidor (fichas, treinos feitos, refeições, água, peso, perfil, pontos, avisos do admin);
+- o painel do admin lista os clientes da academia pelo servidor e manda treinos por ele.
+
+Sem `VITE_API_URL`, tudo continua salvo só no navegador (modo demonstração).

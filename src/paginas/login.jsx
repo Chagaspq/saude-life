@@ -6,6 +6,9 @@ import { Logo } from "../componentes/base.jsx";
 import { CampoConta, MensagemGeral, BotaoEnviar, esperar } from "../componentes/Formulario.jsx";
 import { acharConta, conferirLogin, criarConta, entrar, limparTudo, emailValido, MIN_SENHA } from "../lib/conta.js";
 import { gravar } from "../lib/armazenamento.js";
+// API e sincronização
+import { apiLigada } from "../lib/api.js";
+import { puxar } from "../lib/nuvem.js";
 import "../estilos/kit-conta.js";
 import "../estilos/login.css";
 
@@ -68,8 +71,9 @@ function Login() {
     entrar(res.conta, lembrar);
     // Mostra "entrando"
     setCarregando("Entrando...");
-    // Espera um pouco
-    await esperar(900);
+    // Com API: baixa os dados da conta; sem API: só espera um pouco
+    if (apiLigada()) await puxar().catch(() => {});
+    else await esperar(900);
     // Vai
     location.href = destino(res.conta);
   }
@@ -82,6 +86,8 @@ function Login() {
     setEmail(emailDemo);
     // Senha
     setSenha("demo1234");
+    // Com API: as contas de demonstração já existem no servidor
+    if (apiLigada()) return enviar(emailDemo, "demo1234");
     // Cria a conta se ainda não existe
     if (!acharConta(emailDemo)) await criarConta({ nome: admin ? "Academia Demonstração" : "Biel Demonstração", email: emailDemo, senha: "demo1234", tipo: admin ? "admin" : "cliente" });
     // Cliente: pede para encher os dados de exemplo

@@ -1,5 +1,5 @@
 // Planos dentro do app: escolher plano e pagar (demonstração): teste grátis, Pix ou cartão.
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { montar } from "../montar.jsx";
 import AppLayout from "../componentes/AppLayout.jsx";
 import { Modal, Confirmar } from "../componentes/base.jsx";
@@ -7,6 +7,9 @@ import Planos, { PLANOS, reais, DESCONTO_ANUAL } from "../componentes/Planos.jsx
 import { plano as planoAtual, toast } from "../lib/nucleo.js";
 import { ler, gravar } from "../lib/armazenamento.js";
 import { confete } from "../lib/efeitos.js";
+// Servidor (quando ligado)
+import { api, apiLigada } from "../lib/api.js";
+import { puxar } from "../lib/nuvem.js";
 import "../estilos/kit-app.js";
 import "../estilos/app-planos.css";
 
@@ -70,6 +73,30 @@ function Checkout({ nome, anualInicial, onPronto }) {
 
   // Termina com sucesso
   const concluir = (extra) => (ativarPlano(nome, { anual, valor, ...extra }), onPronto());
+  // Pagamento de verdade ligado no servidor?
+  const [real, setReal] = useState(false);
+  // Pergunta ao servidor
+  useEffect(() => {
+    // Só com servidor
+    if (apiLigada()) api("GET", "/assinaturas/config").then((c) => setReal(!!c.pagamentoReal)).catch(() => {});
+  }, []);
+  // Vai para a página de pagamento do Mercado Pago
+  async function pagarDeVerdade() {
+    // Esperando
+    setEsperando("mp");
+    // Tenta
+    try {
+      // Cria o pagamento
+      const r = await api("POST", "/assinaturas/checkout", { plano: nome, anual });
+      // Vai pagar
+      location.href = r.link;
+    } catch (e) {
+      // Erro
+      setErro(e.message);
+      // Para de esperar
+      setEsperando("");
+    }
+  }
 
   // Paga com cartão
   function pagarCartao(e) {
@@ -136,7 +163,20 @@ function Checkout({ nome, anualInicial, onPronto }) {
           <input type="checkbox" id="ck-estudante" checked={estudante} onChange={(e) => setEstudante(e.target.checked)} /> Confirmo que sou estudante com matrícula ativa (podemos pedir comprovante)
         </label>
       )}
-      {/* Pagamento */}
+      {/* Pagamento de verdade (Mercado Pago: Pix ou cartão na página dele) */}
+      {real && (
+        <div className={"ck-pagamento" + (travado ? " is-travado" : "")} inert={travado ? "" : undefined}>
+          <button type="button" className="btn-primary btn-block" disabled={esperando === "mp"} onClick={pagarDeVerdade}>
+            {esperando === "mp" ? "Abrindo o pagamento…" : "Pagar com Pix ou cartão (Mercado Pago)"}
+          </button>
+          <p className="ck-erro" role="alert">
+            {erro}
+          </p>
+          <p className="meta ck-aviso">Você paga na página segura do Mercado Pago e volta para cá. O plano ativa assim que o pagamento for aprovado.</p>
+        </div>
+      )}
+      {/* Pagamento de demonstração */}
+      {!real && (
       <div className={"ck-pagamento" + (travado ? " is-travado" : "")} inert={travado ? "" : undefined}>
         {/* Forma */}
         <div className="billing-toggle ck-metodos" role="group" aria-label="Forma de pagamento">
@@ -187,8 +227,9 @@ function Checkout({ nome, anualInicial, onPronto }) {
           </form>
         )}
       </div>
+      )}
       {/* Aviso */}
-      <p className="meta ck-aviso">Ambiente de demonstração: nenhum valor é cobrado. Os dados do cartão não são guardados.</p>
+      {!real && <p className="meta ck-aviso">Ambiente de demonstração: nenhum valor é cobrado. Os dados do cartão não são guardados.</p>}
     </>
   );
 }
@@ -199,6 +240,17 @@ function AppPlanos() {
   const [escolha, setEscolha] = useState(null);
   // Pedido de confirmação
   const [pedido, setPedido] = useState(null);
+  // Voltou do Mercado Pago
+  useEffect(() => {
+    // Resultado no endereço
+    const r = new URLSearchParams(location.search).get("pagamento");
+    // Aprovado: atualiza o plano
+    if (r === "ok") toast("Pagamento aprovado! Seu plano já está ativo."), puxar().catch(() => {});
+    // Pendente (ex.: Pix ainda não pago)
+    if (r === "pendente") toast("Pagamento em análise. O plano ativa assim que for aprovado.");
+    // Recusado
+    if (r === "erro") toast("O pagamento não foi aprovado. Tente de novo ou use outra forma.");
+  }, []);
 
   // Escolheu um plano
   function escolher(nome, anual) {

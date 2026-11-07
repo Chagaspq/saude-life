@@ -54,7 +54,7 @@ public class WebConfig implements WebMvcConfigurer {
         // Todas as rotas
         .addPathPatterns("/**")
         // Menos: cadastro, login e senha (mas "sair" precisa de login)
-        .excludePathPatterns("/auth/cadastro", "/auth/login", "/auth/esqueci-senha", "/auth/redefinir-senha", "/planos", "/error");
+        .excludePathPatterns("/auth/cadastro", "/auth/login", "/auth/esqueci-senha", "/auth/redefinir-senha", "/planos", "/assinaturas/config", "/webhooks/**", "/error");
   }
 
   // Hash de senha BCrypt (custo 10)
