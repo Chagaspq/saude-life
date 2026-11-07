@@ -49,6 +49,14 @@ function destino(pagina) {
   return null;
 }
 
+// Conta de demonstração: enche os dados de exemplo uma vez (antes de conferir para onde ir)
+if (ler("sl-demo-preencher", false)) {
+  // Apaga o pedido
+  localStorage.removeItem("sl-demo-preencher");
+  // Enche
+  preencherDemo();
+}
+
 // Casco (semMenu = tela de treino e questionário)
 export default function AppLayout({ pagina, children, semMenu }) {
   // Redesenha quando os dados mudam
@@ -70,13 +78,6 @@ export default function AppLayout({ pagina, children, semMenu }) {
     document.body.dataset.pagina = pagina;
     // Marca o tipo de conta (o CSS destaca o administrador)
     document.body.classList.add(lerSessao()?.tipo === "admin" ? "is-admin" : "is-cliente");
-    // Conta de demonstração: enche os dados de exemplo uma vez
-    if (ler("sl-demo-preencher", false)) {
-      // Apaga o pedido
-      localStorage.removeItem("sl-demo-preencher");
-      // Enche
-      preencherDemo();
-    }
     // Lembretes agora e a cada minuto
     conferirLembretes();
     // A cada minuto

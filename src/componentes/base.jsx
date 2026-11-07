@@ -142,6 +142,10 @@ export function useDados() {
 export function Modal({ titulo, aberto, onFechar, children, largo }) {
   // Caixa da janela
   const janela = useRef(null);
+  // Função de fechar mais recente (sem refazer o efeito a cada desenho)
+  const fechar = useRef(onFechar);
+  // Atualiza
+  fechar.current = onFechar;
   // Ao abrir: foca o primeiro campo, Esc fecha e trava a rolagem da página
   useEffect(() => {
     // Fechado: nada
@@ -153,7 +157,7 @@ export function Modal({ titulo, aberto, onFechar, children, largo }) {
     // Foca o primeiro campo (ou o botão de fechar)
     setTimeout(() => (janela.current?.querySelector("input, select, textarea, button:not(.btn-close-modal)") || janela.current?.querySelector("button"))?.focus(), 30);
     // Esc fecha
-    const tecla = (e) => e.key === "Escape" && onFechar();
+    const tecla = (e) => e.key === "Escape" && fechar.current();
     // Escuta
     document.addEventListener("keydown", tecla);
     // Ao fechar
@@ -165,7 +169,7 @@ export function Modal({ titulo, aberto, onFechar, children, largo }) {
       // Devolve o foco
       antes?.focus?.();
     };
-  }, [aberto, onFechar]);
+  }, [aberto]);
   // Fechado: não desenha
   if (!aberto) return null;
   // Janela

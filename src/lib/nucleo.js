@@ -135,3 +135,29 @@ export function plano() {
 
 // Tem os recursos do Premium?
 export const premium = () => ["Premium", "Estudante", "Família", "Profissional"].includes(plano());
+
+// Treino em andamento (guardado pela tela de treino)
+export const treinoAtual = () => ler("sl-treino-atual", null);
+
+// Endereço da tela de treino de um treino
+export const linkTreino = (id) => "../treino/treino.html?id=" + encodeURIComponent(id);
+
+// Resumo de um exercício: "3 × 12 reps • 20 kg"
+export function resumoExercicio(e) {
+  // Repetições (número ou texto como "40 s")
+  const reps = typeof e.reps === "number" ? `${e.reps} reps` : e.reps;
+  // Carga (se tiver)
+  const carga = e.carga ? ` • ${String(e.carga).replace(".", ",")} kg` : "";
+  // Junta
+  return `${e.series} × ${reps}${carga}`;
+}
+
+// Exercício novo pelo nome (usa a carga sugerida da biblioteca; core e cardio contam tempo)
+export function novoExercicio(nome) {
+  // Informações da biblioteca
+  const info = (window.SL_EXERCICIOS || {})[nome];
+  // Conta por tempo?
+  const porTempo = info && ["core", "cardio", "alongar"].includes(info.mov) && info.carga === 0 && info.grupo !== "Pernas";
+  // Exercício
+  return { nome, series: 3, reps: porTempo ? "40 s" : 12, carga: info ? info.carga : 0, descanso: porTempo ? 30 : 60 };
+}

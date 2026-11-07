@@ -56,4 +56,6 @@ export function preencherDemo() {
   gravar("sl-pontos", ler("sl-pontos", []).filter((e) => !String(e.ref).startsWith("demo-")).concat(eventos));
   // Pesos
   gravar("sl-pesos", pesos);
+  // Questionário já respondido (a demonstração entra direto no Início)
+  if (!ler("sl-onboarding", null)) gravar("sl-onboarding", { objetivo: "Hipertrofia", nivel: "Intermediário", dias: 4, rotulo: "Ganhar massa muscular", data: new Date().toISOString() });
 }
