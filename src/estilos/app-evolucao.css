@@ -662,3 +662,9 @@
   /* Cor do texto */
   color: var(--ink);
 }
+
+/* Histórico de treinos sozinho na linha, abaixo dos gráficos */
+.ev-historico {
+  /* Espaço em cima */
+  margin-top: 16px;
+}
