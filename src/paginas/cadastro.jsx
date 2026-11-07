@@ -151,10 +151,12 @@ function Cadastro() {
     if (c.peso) extra.peso = Number(c.peso);
     // Foto
     if (foto) extra.foto = foto;
+    // Mostra "criando" (com servidor grátis, a primeira vez pode demorar)
+    setCarregando("Criando conta...");
     // Cria
     const erro = await criarConta({ nome: c.nome, email: c.email, senha: c.senha, tipo: c.tipo, codigoAcademia: c.codigo }, Object.keys(extra).length ? extra : null);
-    // Deu erro
-    if (erro) return setMsg({ texto: erro });
+    // Deu erro: para de carregar e mostra
+    if (erro) return setCarregando(""), setMsg({ texto: erro });
     // Mostra "criando"
     setCarregando("Criando conta...");
     // Espera

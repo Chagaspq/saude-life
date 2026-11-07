@@ -56,10 +56,14 @@ function Login() {
     setErros(novos);
     // Tem erro: foca o primeiro
     if (Object.keys(novos).length) return document.getElementById(novos.email ? "email" : "password")?.focus();
+    // Mostra "entrando" (com servidor grátis, a primeira vez pode demorar)
+    setCarregando("Entrando...");
     // Confere a conta
     const res = await conferirLogin(emailUsado, senhaUsada);
     // Errou: avisa
     if (res.erro) {
+      // Para de carregar
+      setCarregando("");
       // Mensagem
       setMsg({ texto: res.erro });
       // Foca a senha
