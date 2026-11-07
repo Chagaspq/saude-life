@@ -1,24 +1,25 @@
 <!doctype html>
-<!-- A linha acima avisa o navegador que este arquivo é uma página HTML5 -->
-<!-- Começo da página, com o idioma em português do Brasil -->
+<!-- Endereço raiz do site: vai direto para a página inicial -->
 <html lang="pt-BR">
-  <!-- Cabeçalho: informações da página que não aparecem na tela -->
   <head>
-    <!-- Usa UTF-8 para mostrar acentos (á, ç, ã) do jeito certo -->
+    <!-- Acentos certos -->
     <meta charset="UTF-8" />
-    <!-- Faz a página se ajustar à largura da tela do celular -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Nome que aparece na aba do navegador -->
+    <!-- Título -->
     <title>Saúde Life</title>
-    <!-- Ícone da aba do navegador (a logo do Saúde Life) -->
-    <link rel="icon" href="shared/favicon.svg" type="image/svg+xml" />
-    <!-- Entrada do projeto: abre a página de boas-vindas -->
-    <!-- Redireciona na hora (0 segundos) para a página de boas-vindas -->
-    <meta http-equiv="refresh" content="0; url=welcome/welcome.html" />
+    <!-- Se o JavaScript estiver desligado, vai para a página inicial depois de 2 segundos -->
+    <noscript><meta http-equiv="refresh" content="2; url=welcome/welcome.html" /></noscript>
+    <!-- Escolhe para onde ir -->
+    <script>
+      // Se existe a pasta docs/ aqui, o site pronto está nela
+      fetch("docs/welcome/welcome.html", { method: "HEAD" })
+        // Achou: vai para o site pronto; não achou: já estamos no site pronto
+        .then((r) => location.replace(r.ok ? "docs/welcome/welcome.html" : "welcome/welcome.html"))
+        // Erro de rede: vai para a página inicial daqui
+        .catch(() => location.replace("welcome/welcome.html"));
+    </script>
   </head>
-  <!-- Corpo: o que aparece na tela -->
   <body>
-    <!-- Link de reserva, caso o redirecionamento automático não funcione -->
-    <p><a href="welcome/welcome.html">Abrir o Saúde Life</a></p>
+    <!-- Link, se o navegador não for sozinho -->
+    <a href="welcome/welcome.html">Abrir o Saúde Life</a>
   </body>
 </html>
