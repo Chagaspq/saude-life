@@ -110,7 +110,9 @@ for (const [arquivo, titulo, descricao, componente] of PAGINAS) {
   // ...salva
   writeFileSync(arquivo, html);
 }
-// Página raiz: vai para a página inicial
+// Página raiz: vai para a página inicial.
+// Funciona nos dois jeitos do GitHub Pages: servindo a pasta /docs (site pronto)
+// ou a raiz do repositório (aí o site pronto fica em docs/).
 writeFileSync(
   "index.html",
   `<!doctype html>
@@ -119,10 +121,19 @@ writeFileSync(
   <head>
     <!-- Acentos certos -->
     <meta charset="UTF-8" />
-    <!-- Vai para a página inicial -->
-    <meta http-equiv="refresh" content="0; url=welcome/welcome.html" />
     <!-- Título -->
     <title>Saúde Life</title>
+    <!-- Se o JavaScript estiver desligado, vai para a página inicial depois de 2 segundos -->
+    <noscript><meta http-equiv="refresh" content="2; url=welcome/welcome.html" /></noscript>
+    <!-- Escolhe para onde ir -->
+    <script>
+      // Se existe a pasta docs/ aqui, o site pronto está nela
+      fetch("docs/welcome/welcome.html", { method: "HEAD" })
+        // Achou: vai para o site pronto; não achou: já estamos no site pronto
+        .then((r) => location.replace(r.ok ? "docs/welcome/welcome.html" : "welcome/welcome.html"))
+        // Erro de rede: vai para a página inicial daqui
+        .catch(() => location.replace("welcome/welcome.html"));
+    </script>
   </head>
   <body>
     <!-- Link, se o navegador não for sozinho -->

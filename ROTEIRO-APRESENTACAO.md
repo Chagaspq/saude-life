@@ -36,6 +36,8 @@ Essa mesma tabela aparece no **Perfil** de cada conta.
 
 ## Perguntas que a banca pode fazer
 
+- **Que tecnologia vocês usaram?** React 18 com Vite. Cada tela é um componente React; as peças que se repetem (casco do app, janelas, cartões, formulários) são componentes reutilizados. O Vite gera o site pronto na pasta `docs/`, que o GitHub Pages publica.
+
 - **Onde ficam os dados?** No navegador (localStorage), separados por conta. Por isso o administrador só vê os clientes cadastrados no mesmo aparelho. O próximo passo é um servidor com banco de dados.
 - **Por que as telas começam vazias?** Porque é um MVP: nada é inventado, tudo vem do que o usuário registra.
 - **Qualquer um pode criar conta de administrador?** No MVP sim, para facilitar a demonstração. Com servidor, a conta de administrador seria liberada só para academias e personais verificados.
