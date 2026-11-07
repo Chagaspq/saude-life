@@ -9,7 +9,7 @@ import { readdirSync, statSync } from "node:fs";
 import { resolve, join } from "node:path";
 
 // Pastas que não são páginas do site
-const IGNORAR = new Set(["node_modules", "docs", "documentacao", "legado", "public", "src", "ferramentas", ".git"]);
+const IGNORAR = new Set(["node_modules", "docs", "documentacao", "legado", "public", "src", "ferramentas", "backend", ".git"]);
 
 // Procura todas as páginas .html do projeto (em qualquer pasta)
 function paginas(pasta = ".") {

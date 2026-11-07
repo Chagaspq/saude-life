@@ -54,6 +54,7 @@ src/
 
 public/           arquivos copiados do jeito que estão (ícones, imagem de compartilhar, tradução EN/ES)
 ferramentas/      scripts de apoio (gerar os HTML das páginas)
+backend/          API em Java + Spring Boot (abre no Spring Tools; veja backend/README.md)
 documentacao/     banco de dados (SQL) e API para a próxima versão
 docs/             SITE PRONTO (gerado pelo `npm run build`; não editar à mão)
 
@@ -63,7 +64,7 @@ docs/             SITE PRONTO (gerado pelo `npm run build`; não editar à mão)
 ## Onde os dados ficam
 
 No próprio navegador (`localStorage`), separados por conta. A senha é guardada como resumo (SHA-256), nunca o texto.
-A próxima versão usa servidor e banco de dados: veja `documentacao/banco-de-dados.sql` e `documentacao/API.md`.
+O servidor já está pronto na pasta `backend/` (Java + Spring Boot + PostgreSQL); o próximo passo é ligar o site nele. Desenho completo em `documentacao/API.md` e `documentacao/banco-de-dados.sql`.
 
 ## Acessibilidade
 
