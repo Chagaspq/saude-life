@@ -1,0 +1,250 @@
+/* Estilos comuns das páginas públicas de conteúdo (ajuda, glossário e calculadoras) */
+
+/* Largura do miolo */
+.pg-largura {
+  /* Largura máxima */
+  max-width: 1000px;
+  /* Centralizado, com espaço dos lados no celular */
+  margin: 0 auto 32px;
+  /* Espaço dos lados */
+  padding: 0 16px;
+}
+
+/* Campo de busca */
+.pg-busca {
+  /* Largura toda */
+  width: 100%;
+  /* Fundo */
+  background: var(--surface);
+  /* Borda */
+  border: 1px solid var(--border-strong);
+  /* Cantos */
+  border-radius: 12px;
+  /* Espaço */
+  padding: 12px 16px;
+  /* Cor */
+  color: var(--ink);
+  /* Fonte (16px evita zoom no celular) */
+  font: 400 16px var(--font-body);
+  /* Espaço embaixo */
+  margin-bottom: 20px;
+}
+
+/* ---------- Ajuda ---------- */
+
+/* Assunto */
+.ajuda-lista h2 {
+  /* Fonte de título */
+  font: 700 var(--text-xl) var(--font-display);
+  /* Espaço */
+  margin: 24px 0 10px;
+}
+
+/* Pergunta (abre e fecha) */
+.ajuda-lista details {
+  /* Fundo */
+  background: var(--surface);
+  /* Borda */
+  border: 1px solid var(--border);
+  /* Cantos */
+  border-radius: 12px;
+  /* Espaço embaixo */
+  margin-bottom: 8px;
+}
+
+/* Linha da pergunta */
+.ajuda-lista summary {
+  /* Espaço */
+  padding: 14px 16px;
+  /* Negrito */
+  font-weight: 600;
+  /* Mãozinha */
+  cursor: pointer;
+}
+
+/* Resposta */
+.ajuda-lista details p {
+  /* Espaço */
+  margin: 0;
+  /* Espaço interno */
+  padding: 0 16px 14px;
+  /* Cor apagada */
+  color: var(--muted);
+}
+
+/* Caixa de contato */
+.ajuda-contato {
+  /* Espaço em cima */
+  margin-top: 28px;
+  /* Espaço interno */
+  padding: 18px;
+  /* Fundo coral fraco */
+  background: var(--coral-soft);
+  /* Cantos */
+  border-radius: 14px;
+}
+
+/* Link do contato */
+.ajuda-contato a {
+  /* Coral claro */
+  color: var(--coral-light);
+}
+
+/* ---------- Glossário ---------- */
+
+/* Letras */
+.glossario-letras {
+  /* Lado a lado */
+  display: flex;
+  /* Quebra linha */
+  flex-wrap: wrap;
+  /* Espaço */
+  gap: 6px;
+  /* Espaço embaixo */
+  margin-bottom: 16px;
+}
+
+/* Cada letra */
+.glossario-letras a {
+  /* Tamanho */
+  min-width: 34px;
+  /* Centralizado */
+  text-align: center;
+  /* Espaço */
+  padding: 6px;
+  /* Fundo */
+  background: var(--surface);
+  /* Borda */
+  border: 1px solid var(--border);
+  /* Cantos */
+  border-radius: 8px;
+  /* Cor */
+  color: var(--ink);
+  /* Sem sublinhado */
+  text-decoration: none;
+  /* Negrito */
+  font-weight: 700;
+}
+
+/* Lista de termos */
+.glossario-lista {
+  /* Sem margem */
+  margin: 0;
+}
+
+/* Termo */
+.glossario-lista dt {
+  /* Fonte de título */
+  font: 700 var(--text-lg) var(--font-display);
+  /* Coral claro */
+  color: var(--coral-light);
+  /* Espaço em cima */
+  margin-top: 16px;
+  /* Espaço para o topo fixo ao pular */
+  scroll-margin-top: 90px;
+}
+
+/* Explicação */
+.glossario-lista dd {
+  /* Sem recuo */
+  margin: 4px 0 0;
+  /* Cor apagada */
+  color: var(--muted);
+}
+
+/* ---------- Calculadoras ---------- */
+
+/* Grade */
+.calc-grade {
+  /* Grade */
+  display: grid;
+  /* Colunas automáticas */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  /* Espaço */
+  gap: 16px;
+}
+
+/* Card de calculadora */
+.calc-card {
+  /* Coluna */
+  display: grid;
+  /* Espaço */
+  gap: 10px;
+  /* Fundo */
+  background: var(--surface);
+  /* Borda */
+  border: 1px solid var(--border);
+  /* Cantos */
+  border-radius: 16px;
+  /* Espaço interno */
+  padding: 18px;
+  /* Itens no topo */
+  align-content: start;
+}
+
+/* Título do card */
+.calc-card h2 {
+  /* Fonte de título */
+  font: 700 var(--text-xl) var(--font-display);
+  /* Sem margem */
+  margin: 0;
+}
+
+/* Rótulos */
+.calc-card label {
+  /* Coluna */
+  display: grid;
+  /* Espaço */
+  gap: 4px;
+  /* Letra */
+  font-size: var(--text-sm);
+  /* Negrito */
+  font-weight: 600;
+}
+
+/* Campos */
+.calc-card input,
+.calc-card select {
+  /* Fundo */
+  background: var(--surface-2);
+  /* Borda */
+  border: 1px solid var(--border);
+  /* Cantos */
+  border-radius: 10px;
+  /* Espaço */
+  padding: 10px 12px;
+  /* Cor */
+  color: var(--ink);
+  /* Fonte (16px evita zoom no celular) */
+  font: 400 16px var(--font-body);
+}
+
+/* Resultado */
+.calc-resultado {
+  /* Bloco */
+  display: block;
+  /* Cor */
+  color: var(--ink);
+  /* Letra */
+  font-size: var(--text-base);
+}
+
+/* Número do resultado */
+.calc-resultado strong {
+  /* Fonte de placar */
+  font-family: var(--font-placar, monospace);
+  /* Tamanho */
+  font-size: var(--text-2xl);
+  /* Esmeralda */
+  color: var(--emerald);
+  /* Linha própria */
+  display: block;
+}
+
+/* Aviso */
+.calc-aviso {
+  /* Cor apagada */
+  color: var(--muted);
+  /* Letra menor */
+  font-size: var(--text-sm);
+}
