@@ -197,15 +197,22 @@ export function Modal({ titulo, aberto, onFechar, children, largo }) {
 export function Confirmar({ pedido, onFechar }) {
   // Sem pedido: nada
   if (!pedido) return null;
+  // Cancelar: faz a ação do cancelar (se tiver) e fecha
+  const cancelar = () => {
+    // Fecha
+    onFechar();
+    // Ação opcional
+    pedido.cancelar?.();
+  };
   // Janela
   return (
-    <Modal titulo={pedido.titulo} aberto onFechar={onFechar}>
+    <Modal titulo={pedido.titulo} aberto onFechar={cancelar}>
       {/* Texto */}
       <p className="modal-text">{pedido.texto}</p>
       {/* Botões */}
       <div className="modal-actions">
         {/* Cancelar */}
-        <button type="button" className="btn-secondary" onClick={onFechar}>
+        <button type="button" className="btn-secondary" onClick={cancelar}>
           Cancelar
         </button>
         {/* Confirmar */}
