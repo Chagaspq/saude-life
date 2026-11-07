@@ -1,9 +1,35 @@
 // Casco do site público: topo com marca e links, conteúdo e rodapé.
+import { useEffect, useState } from "react";
 import { Logo, Marca, GradienteIcones, Avisos } from "./base.jsx";
 import Exibicao from "./Exibicao.jsx";
 
-// Casco (atual = id da página para marcar o link do topo)
-export default function PublicLayout({ atual, children }) {
+// Botão "voltar ao topo" (aparece depois de rolar 400 px)
+function VoltarTopo() {
+  // Escondido no começo
+  const [escondido, setEscondido] = useState(true);
+  // Escuta a rolagem
+  useEffect(() => {
+    // Confere a posição
+    const ver = () => setEscondido(window.scrollY < 400);
+    // Liga
+    window.addEventListener("scroll", ver, { passive: true });
+    // Confere já
+    ver();
+    // Desliga ao sair
+    return () => window.removeEventListener("scroll", ver);
+  }, []);
+  // Botão
+  return (
+    <a href="#topo" className={"back-to-top" + (escondido ? " is-hidden" : "")} aria-label="Voltar ao topo">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="m18 15-6-6-6 6" />
+      </svg>
+    </a>
+  );
+}
+
+// Casco (atual = id da página para marcar o link do topo; classe = classe do <main>; topo = mostra "voltar ao topo")
+export default function PublicLayout({ atual, classe, topo, children }) {
   // Página
   return (
     <>
@@ -44,7 +70,13 @@ export default function PublicLayout({ atual, children }) {
       </header>
 
       {/* Conteúdo */}
-      <main id="conteudo">{children}</main>
+      <main id="conteudo" className={classe || undefined}>
+        {/* Âncora do topo */}
+        {topo && <span id="topo" />}
+        {children}
+      </main>
+      {/* Voltar ao topo */}
+      {topo && <VoltarTopo />}
 
       {/* Rodapé */}
       <footer className="site-footer-public">

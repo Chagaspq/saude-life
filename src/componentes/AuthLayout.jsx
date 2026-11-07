@@ -6,9 +6,10 @@ import Exibicao from "./Exibicao.jsx";
 export default function AuthLayout({ titulo, texto, lista, children }) {
   // Página
   return (
-    <div className="auth-split">
-      {/* Exibição solta no canto */}
+    <>
+      {/* Exibição solta no canto (fora da grade) */}
       <Exibicao solto />
+      <div className="auth-split">
       {/* Lado visual (enfeite) */}
       <aside className="auth-visual" aria-hidden="true">
         <div className="auth-visual-content">
@@ -37,8 +38,9 @@ export default function AuthLayout({ titulo, texto, lista, children }) {
       <main className="auth-form-panel">
         <div className="auth-container">{children}</div>
       </main>
+      </div>
       {/* Avisos rápidos */}
       <Avisos />
-    </div>
+    </>
   );
 }
