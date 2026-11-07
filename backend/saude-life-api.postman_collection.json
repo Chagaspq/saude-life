@@ -1,0 +1,1164 @@
+{
+  "info": {
+    "name": "Saúde Life API",
+    "description": "Rotas da API do Saúde Life. Ligue a API no Spring Tools (Run As > Spring Boot App) e rode na ordem: os logins guardam o token sozinhos.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base",
+      "value": "http://localhost:8080/v1"
+    },
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "tokenAdmin",
+      "value": ""
+    },
+    {
+      "key": "clienteId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Conta",
+      "item": [
+        {
+          "name": "Login cliente demo",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/auth/login",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Entra com o cliente de demonstração e guarda o token.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"demo@saudelife.app\",\n  \"senha\": \"demo1234\"\n}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Guarda o token para as próximas chamadas",
+                  "if (pm.response.code < 300) pm.collectionVariables.set('{salvar}', pm.response.json().token);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login admin demo",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/auth/login",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Entra com o admin de demonstração e guarda o token.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@saudelife.app\",\n  \"senha\": \"demo1234\"\n}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Guarda o token para as próximas chamadas",
+                  "if (pm.response.code < 300) pm.collectionVariables.set('{salvar}', pm.response.json().token);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Cadastro de cliente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/auth/cadastro",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "auth",
+                "cadastro"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Ana Souza\",\n  \"email\": \"ana@exemplo.com\",\n  \"senha\": \"Treino#2026\",\n  \"tipo\": \"cliente\",\n  \"codigoAcademia\": \"SL-DEMO\"\n}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Guarda o token para as próximas chamadas",
+                  "if (pm.response.code < 300) pm.collectionVariables.set('{salvar}', pm.response.json().token);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Esqueci a senha",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/auth/esqueci-senha",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "auth",
+                "esqueci-senha"
+              ]
+            },
+            "description": "Na demonstração a resposta traz o tokenDemo.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"demo@saudelife.app\"\n}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Redefinir senha",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/auth/redefinir-senha",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "auth",
+                "redefinir-senha"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"COLE_O_tokenDemo_AQUI\",\n  \"senha\": \"NovaSenha#1\"\n}"
+            },
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Sair",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/auth/sair",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "auth",
+                "sair"
+              ]
+            },
+            "description": "",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Meu perfil",
+      "item": [
+        {
+          "name": "Ver perfil",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/me",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "me"
+              ]
+            },
+            "description": "",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Mudar perfil",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/me",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "me"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apelido\": \"Biel\",\n  \"objetivo\": \"Hipertrofia\",\n  \"nivel\": \"Intermediário\",\n  \"diasSemana\": 4\n}"
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Trocar senha",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/me/senha",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "me",
+                "senha"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"atual\": \"demo1234\",\n  \"nova\": \"Nova#12345\"\n}"
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Entrar numa academia",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/me/academia",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "me",
+                "academia"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"codigo\": \"SL-DEMO\"\n}"
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Exportar meus dados",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/me/exportar",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "me",
+                "exportar"
+              ]
+            },
+            "description": "",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Treinos",
+      "item": [
+        {
+          "name": "Minhas fichas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/treinos",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "treinos"
+              ]
+            },
+            "description": "",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Criar ficha",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/treinos",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "treinos"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Treino A - Pernas\",\n  \"grupo\": \"Quadríceps e glúteos\",\n  \"itens\": [\n    {\n      \"nome\": \"Agachamento livre\",\n      \"series\": 4,\n      \"reps\": \"10\",\n      \"carga\": 40,\n      \"descansoS\": 90\n    },\n    {\n      \"nome\": \"Leg press 45°\",\n      \"series\": 3,\n      \"reps\": \"12\",\n      \"carga\": 120,\n      \"descansoS\": 60\n    }\n  ]\n}"
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Concluir treino",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/sessoes",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "sessoes"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Treino A - Pernas\",\n  \"duracaoMin\": 45,\n  \"series\": 7,\n  \"volume\": 3200,\n  \"kcal\": 260,\n  \"esforco\": \"ok\"\n}"
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Histórico",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/sessoes?de=2026-10-01&ate=2026-12-31",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "sessoes"
+              ],
+              "query": [
+                {
+                  "key": "de",
+                  "value": "2026-10-01"
+                },
+                {
+                  "key": "ate",
+                  "value": "2026-12-31"
+                }
+              ]
+            },
+            "description": "",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Resumo da semana",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/resumo/semana",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "resumo",
+                "semana"
+              ]
+            },
+            "description": "",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Alimentação e evolução",
+      "item": [
+        {
+          "name": "Refeições de hoje",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/refeicoes",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "refeicoes"
+              ]
+            },
+            "description": "",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Registrar refeição",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/refeicoes",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "refeicoes"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Almoço\",\n  \"hora\": \"12:30\",\n  \"descricao\": \"Arroz, feijão e frango\",\n  \"kcal\": 650,\n  \"proteina\": 45,\n  \"carbo\": 80,\n  \"gordura\": 15\n}"
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Água do dia",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/agua/2026-11-07",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "agua",
+                "2026-11-07"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ml\": 1500\n}"
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Registrar peso",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/pesos",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "pesos"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"valorKg\": 76.4\n}"
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Pesos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/pesos",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "pesos"
+              ]
+            },
+            "description": "",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Pontos e avisos",
+      "item": [
+        {
+          "name": "Pontos da semana",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/pontos/semana",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "pontos",
+                "semana"
+              ]
+            },
+            "description": "",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Ganhar ponto de série",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/pontos",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "pontos"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipo\": \"serie\",\n  \"ref\": \"serie:teste:1\"\n}"
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Avisos da academia",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/avisos",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "avisos"
+              ]
+            },
+            "description": "",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Administrador",
+      "item": [
+        {
+          "name": "Minha academia",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/admin/academia",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "admin",
+                "academia"
+              ]
+            },
+            "description": "",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenAdmin}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Resumo do painel",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/admin/resumo",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "admin",
+                "resumo"
+              ]
+            },
+            "description": "",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenAdmin}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Clientes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/admin/clientes",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "admin",
+                "clientes"
+              ]
+            },
+            "description": "Copie o id de um cliente para a variável clienteId da coleção.",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenAdmin}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Guarda o id do primeiro cliente",
+                  "const l = pm.response.json(); if (l.length) pm.collectionVariables.set('clienteId', l[0].id);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Detalhe do cliente",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/admin/clientes/{{clienteId}}",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "admin",
+                "clientes",
+                "{{clienteId}}"
+              ]
+            },
+            "description": "",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenAdmin}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Mandar treino",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/admin/clientes/{{clienteId}}/treinos",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "admin",
+                "clientes",
+                "{{clienteId}}",
+                "treinos"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"Treino do Personal\",\n  \"itens\": [\n    {\n      \"nome\": \"Remada curvada\",\n      \"series\": 3,\n      \"reps\": \"12\",\n      \"carga\": 30,\n      \"descansoS\": 60\n    }\n  ]\n}"
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenAdmin}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Publicar aviso",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base}}/admin/avisos",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "admin",
+                "avisos"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"texto\": \"Academia fecha às 18h no feriado\"\n}"
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenAdmin}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Avisos publicados",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/admin/avisos",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "admin",
+                "avisos"
+              ]
+            },
+            "description": "",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{tokenAdmin}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. Planos",
+      "item": [
+        {
+          "name": "Planos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/planos",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "planos"
+              ]
+            },
+            "description": "",
+            "auth": {
+              "type": "noauth"
+            }
+          }
+        },
+        {
+          "name": "Começar teste grátis",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/assinaturas/teste",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "assinaturas",
+                "teste"
+              ]
+            },
+            "description": "",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Cancelar",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base}}/assinaturas/cancelar",
+              "host": [
+                "{{base}}"
+              ],
+              "path": [
+                "assinaturas",
+                "cancelar"
+              ]
+            },
+            "description": "",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

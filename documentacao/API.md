@@ -1,6 +1,6 @@
 # Saúde Life: base da API
 
-Proposta de API REST para quando o site ganhar um servidor. As tabelas estão em [`banco-de-dados.sql`](banco-de-dados.sql).
+Desenho da API REST. As tabelas usadas pela API estão em [`backend/banco/banco-de-dados.sql`](../backend/banco/banco-de-dados.sql).
 
 **Feita em:** Java 17 + Spring Boot 3 + PostgreSQL. O código está na pasta [`backend/`](../backend/README.md) (abre no Spring Tools). Esta página é o desenho completo; o `backend/README.md` lista as rotas que já funcionam.
 

@@ -33,6 +33,18 @@ O teste `FluxoCompletoTest` liga o servidor e faz o caminho da apresentação: c
 
 Pelo terminal: `mvn test`.
 
+## Banco de dados
+
+O arquivo **`banco/banco-de-dados.sql`** tem as 12 tabelas (comentadas) que a API usa. A API cria tudo sozinha ao ligar, mas dá para criar à mão no pgAdmin (Query Tool) e mostrar no TCC.
+Ele foi conferido: a API roda em cima dele no modo `validate` sem nenhuma diferença.
+
+Tabelas: `academias`, `usuarios`, `sessoes_login`, `redefinicoes_senha`, `treinos`, `treino_itens`, `sessoes_treino`, `refeicoes`, `agua_dia`, `pesos`, `pontos`, `avisos`.
+
+## Testar no Postman
+
+Importe **`saude-life-api.postman_collection.json`** no Postman (**Import**). São 34 chamadas separadas por assunto.
+Rode primeiro **Login cliente demo** e **Login admin demo**: o token é guardado sozinho para as outras.
+
 ## Como testar as rotas na mão
 
 Com o **Postman** (ou Insomnia):

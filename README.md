@@ -64,7 +64,7 @@ docs/             SITE PRONTO (gerado pelo `npm run build`; não editar à mão)
 ## Onde os dados ficam
 
 No próprio navegador (`localStorage`), separados por conta. A senha é guardada como resumo (SHA-256), nunca o texto.
-O servidor já está pronto na pasta `backend/` (Java + Spring Boot + PostgreSQL); o próximo passo é ligar o site nele. Desenho completo em `documentacao/API.md` e `documentacao/banco-de-dados.sql`.
+O servidor já está pronto na pasta `backend/` (Java + Spring Boot + PostgreSQL); o próximo passo é ligar o site nele. Banco em `backend/banco/banco-de-dados.sql`; rotas em `backend/README.md` (e no Postman: `backend/saude-life-api.postman_collection.json`).
 
 ## Acessibilidade
 
