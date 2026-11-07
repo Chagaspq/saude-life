@@ -1,7 +1,7 @@
 # Saúde Life — API (Java + Spring Boot)
 
 Servidor do Saúde Life: contas (cliente e administrador), treinos, histórico, refeições, água, peso, pontos, avisos e painel do admin.
-Feito em **Java 17** com **Spring Boot 3**, **Spring Data JPA** e banco **H2** (para testar) ou **PostgreSQL** (de verdade).
+Feito em **Java 17** com **Spring Boot 3**, **Spring Data JPA** e banco **H2** (para testar), **SQL Server** ou **PostgreSQL**.
 
 ## Abrir e rodar no Spring Tools (STS)
 
@@ -26,6 +26,22 @@ Para ver o banco: **http://localhost:8080/v1/h2-console** (JDBC URL `jdbc:h2:mem
 3. No STS: **Run As > Run Configurations > Spring Boot App > Profile: `postgres`** e rode.
 4. As tabelas são criadas sozinhas na primeira vez.
 
+## Usar o SQL Server (Microsoft)
+
+A API também roda no **SQL Server** (ex.: SQL Server Express + SQL Server Management Studio no seu computador).
+O site no ar (Render) continua usando PostgreSQL, porque o Render não oferece SQL Server; o código é o mesmo para os dois.
+
+1. Instale o **SQL Server Express** e o **SSMS** (https://www.microsoft.com/pt-br/sql-server/sql-server-downloads).
+2. No instalador do SQL Server, escolha **Mixed Mode** (autenticação do Windows **e** do SQL Server) e crie a senha do usuário **sa**.
+   - Já instalou sem isso? No SSMS: botão direito no servidor > **Properties > Security > SQL Server and Windows Authentication**; depois **Security > Logins > sa** > habilite e defina a senha; reinicie o serviço.
+3. Habilite o TCP: **SQL Server Configuration Manager > SQL Server Network Configuration > Protocols for SQLEXPRESS > TCP/IP = Enabled**; em **IP Addresses > IPAll**, coloque **TCP Port = 1433**; reinicie o serviço.
+4. No SSMS, abra **`banco/banco-de-dados-sqlserver.sql`** e aperte **F5**: cria o banco `saudelife` e as 12 tabelas.
+5. Em `src/main/resources/application-sqlserver.properties`, troque a senha (`DB_SENHA`) pela senha do `sa`.
+6. No Spring Tools: **Run As > Run Configurations > Spring Boot App > Profile: `sqlserver`** e rode.
+7. Os dados aparecem no SSMS: **saudelife > Tables** > botão direito > **Select Top 1000 Rows**.
+
+Conferido: a API roda em cima desse script no modo `validate` (sem nenhuma diferença), e o caminho completo (cadastro, treino, refeição, peso, admin, avisos, senha e excluir conta) passou no SQL Server 2022.
+
 ## Testes automáticos
 
 No STS: botão direito em `src/test/java` > **Run As > JUnit Test**.
@@ -35,7 +51,7 @@ Pelo terminal: `mvn test`.
 
 ## Banco de dados
 
-O arquivo **`banco/banco-de-dados.sql`** tem as 12 tabelas (comentadas) que a API usa. A API cria tudo sozinha ao ligar, mas dá para criar à mão no pgAdmin (Query Tool) e mostrar no TCC.
+Dois arquivos com as 12 tabelas (comentadas) que a API usa: **`banco/banco-de-dados-sqlserver.sql`** (SQL Server, para o SSMS) e **`banco/banco-de-dados.sql`** (PostgreSQL, usado no Render). A API cria tudo sozinha ao ligar, mas dá para criar à mão no pgAdmin (Query Tool) e mostrar no TCC.
 Ele foi conferido: a API roda em cima dele no modo `validate` sem nenhuma diferença.
 
 Tabelas: `academias`, `usuarios`, `sessoes_login`, `redefinicoes_senha`, `treinos`, `treino_itens`, `sessoes_treino`, `refeicoes`, `agua_dia`, `pesos`, `pontos`, `avisos`.
@@ -112,7 +128,8 @@ src/main/java/br/com/saudelife/api/
   erro/          erros no formato { "erro": "..." }
 src/main/resources/
   application.properties            H2 (padrão)
-  application-postgres.properties   PostgreSQL
+  application-postgres.properties   PostgreSQL (Render)
+  application-sqlserver.properties  SQL Server
 ```
 
 ## Colocar na internet (Render, grátis)
