@@ -1,6 +1,6 @@
 // Painel do administrador: números dos clientes, lista de clientes, mandar treino e avisos.
 // Os dados de cada cliente ficam na "gaveta" dele (sl-dados:e-mail) neste navegador.
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { montar } from "../montar.jsx";
 import AppLayout from "../componentes/AppLayout.jsx";
 import { ICONES, CartaoNumero, Modal } from "../componentes/base.jsx";
@@ -8,6 +8,8 @@ import { usuario, toast } from "../lib/nucleo.js";
 import { num, dataRelativa, iniciais } from "../lib/formato.js";
 import { ler, gravar } from "../lib/armazenamento.js";
 import { BIBLIOTECA } from "../lib/exercicios.js";
+// Servidor (quando ligado)
+import { api, apiLigada } from "../lib/api.js";
 import "../estilos/kit-app.js";
 import "../estilos/app-admin.css";
 
@@ -138,8 +140,17 @@ function Admin() {
   const [aviso, setAviso] = useState("");
   // Administrador
   const eu = usuario();
-  // Clientes com o resumo de cada um
-  const resumos = clientes().map((c) => {
+  // Clientes vindos do servidor (null = carregando)
+  const [doServidor, setDoServidor] = useState(null);
+  // Com servidor: busca os clientes da academia (de novo quando os dados mudam)
+  const carregar = () => api("GET", "/admin/clientes").then((l) => setDoServidor(l.map((c) => ({ id: c.id, nome: c.nome, email: c.email, total: c.treinosTotal, semana: c.treinosSemana, ultimo: c.ultimoTreino ? { data: c.ultimoTreino } : null, peso: c.ultimoPesoKg })))).catch((e) => toast(e.message));
+  // Ao abrir
+  useEffect(() => {
+    // Só com servidor
+    if (apiLigada()) carregar();
+  }, []);
+  // Clientes com o resumo de cada um (do servidor ou deste navegador)
+  const resumos = apiLigada() ? doServidor || [] : clientes().map((c) => {
     // Treinos
     const hist = dadoDoCliente(c.email, "sl-historico", []);
     // Último
@@ -183,12 +194,18 @@ function Admin() {
         <header className="page-header">
           <div>
             <h1 id="heading-admin">Painel do administrador</h1>
-            <p className="page-lead">Clientes cadastrados neste aparelho e o que eles registraram.</p>
+            <p className="page-lead">{apiLigada() ? "Clientes da sua academia e o que eles registraram." : "Clientes cadastrados neste aparelho e o que eles registraram."}</p>
+            {/* Código para os clientes entrarem (com servidor) */}
+            {apiLigada() && ler("sl-academia", null)?.codigo && (
+              <p className="meta">
+                Código da academia para os clientes: <strong>{ler("sl-academia", null).codigo}</strong>
+              </p>
+            )}
           </div>
         </header>
         {/* Números */}
         <div className="stats-grid">
-          <CartaoNumero rotulo="Clientes" valor={String(resumos.length)} detalhe="cadastrados neste aparelho" icone={ICONES.joinha} />
+          <CartaoNumero rotulo="Clientes" valor={String(resumos.length)} detalhe={apiLigada() ? "na sua academia" : "cadastrados neste aparelho"} icone={ICONES.joinha} />
           <CartaoNumero rotulo="Ativos na semana" valor={String(resumos.filter((r) => r.semana > 0).length)} detalhe="treinaram nos últimos 7 dias" icone={ICONES.fogo} cor="emerald" />
           <CartaoNumero rotulo="Treinos na semana" valor={String(resumos.reduce((s, r) => s + r.semana, 0))} detalhe="somando todos os clientes" icone={ICONES.haltere} />
         </div>
@@ -196,7 +213,7 @@ function Admin() {
         <section className="panel" aria-labelledby="titulo-clientes">
           <h2 id="titulo-clientes">Clientes</h2>
           <ul className="adm-clientes">
-            {!resumos.length && <li className="meta">Nenhum cliente ainda. Quando alguém criar uma conta "Sou cliente" neste aparelho, aparece aqui.</li>}
+            {!resumos.length && <li className="meta">{apiLigada() ? (doServidor ? `Nenhum cliente ainda. Passe o código da academia (${ler("sl-academia", null)?.codigo || "veja no topo"}) para seus clientes.` : "Carregando clientes...") : 'Nenhum cliente ainda. Quando alguém criar uma conta "Sou cliente" neste aparelho, aparece aqui.'}</li>}
             {resumos.map((r) => (
               <li key={r.email} className="adm-cliente">
                 <span className="adm-avatar" aria-hidden="true">
@@ -252,7 +269,22 @@ function Admin() {
         {para && (
           <FormTreino
             cliente={para}
-            onEnviar={(nome, itens) => {
+            onEnviar={async (nome, itens) => {
+              // Com servidor: manda pela API
+              if (apiLigada()) {
+                // Tenta
+                try {
+                  // Manda (formato do servidor)
+                  await api("POST", `/admin/clientes/${para.id}/treinos`, { nome, itens: itens.map((i) => ({ nome: i.nome, series: i.series, reps: String(i.reps), carga: i.carga, descansoS: i.descanso })) });
+                } catch (e) {
+                  // Erro
+                  return toast(e.message);
+                }
+                // Avisa
+                toast(`Treino enviado para ${para.nome.split(" ")[0]}!`);
+                // Fecha
+                return setPara(null);
+              }
               // Treinos do cliente
               const treinos = dadoDoCliente(para.email, "sl-treinos", []);
               // Põe o novo no topo

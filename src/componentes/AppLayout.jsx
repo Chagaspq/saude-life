@@ -9,6 +9,9 @@ import { usuario } from "../lib/nucleo.js";
 import { iniciais } from "../lib/formato.js";
 import { listaAvisos, conferirLembretes } from "../lib/avisos.js";
 import { preencherDemo } from "../lib/demo.js";
+// Servidor (quando ligado)
+import { apiLigada } from "../lib/api.js";
+import { sincronizarAoAbrir } from "../lib/nuvem.js";
 
 // Páginas do cliente: [id, nome, ícone]
 const MENU_CLIENTE = [
@@ -53,8 +56,8 @@ function destino(pagina) {
 if (ler("sl-demo-preencher", false)) {
   // Apaga o pedido
   localStorage.removeItem("sl-demo-preencher");
-  // Enche
-  preencherDemo();
+  // Enche (com servidor, os dados de exemplo já vêm dele)
+  if (!apiLigada()) preencherDemo();
 }
 
 // Casco (semMenu = tela de treino e questionário)
@@ -78,6 +81,11 @@ export default function AppLayout({ pagina, children, semMenu }) {
     document.body.dataset.pagina = pagina;
     // Marca o tipo de conta (o CSS destaca o administrador)
     document.body.classList.add(lerSessao()?.tipo === "admin" ? "is-admin" : "is-cliente");
+    // Com servidor: sobe o pendente e baixa os dados atualizados
+    sincronizarAoAbrir().catch((e) => {
+      // Login vencido: volta para o login
+      if (e.status === 401) sair(), window.location.replace("../../login/login.html?voltar=" + pagina);
+    });
     // Lembretes agora e a cada minuto
     conferirLembretes();
     // A cada minuto

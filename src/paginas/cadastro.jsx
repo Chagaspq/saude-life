@@ -5,6 +5,8 @@ import AuthLayout from "../componentes/AuthLayout.jsx";
 import { Logo } from "../componentes/base.jsx";
 import { CampoConta, MensagemGeral, BotaoEnviar, RegrasSenha, esperar } from "../componentes/Formulario.jsx";
 import { acharConta, criarConta, emailValido, REGRAS_SENHA, MIN_SENHA } from "../lib/conta.js";
+// Servidor (quando ligado)
+import { apiLigada } from "../lib/api.js";
 import "../estilos/kit-conta.js";
 import "../estilos/cadastro.css";
 
@@ -46,7 +48,7 @@ function Cadastro() {
   // Passo (1 ou 2)
   const [passo, setPasso] = useState(1);
   // Campos
-  const [c, setC] = useState({ tipo: "cliente", nome: "", email: "", senha: "", confirmar: "", apelido: "", nascimento: "", altura: "", peso: "", termos: false });
+  const [c, setC] = useState({ tipo: "cliente", nome: "", email: "", senha: "", confirmar: "", apelido: "", nascimento: "", altura: "", peso: "", termos: false, codigo: "" });
   // Foto
   const [foto, setFoto] = useState("");
   // Erros
@@ -150,7 +152,7 @@ function Cadastro() {
     // Foto
     if (foto) extra.foto = foto;
     // Cria
-    const erro = await criarConta({ nome: c.nome, email: c.email, senha: c.senha, tipo: c.tipo }, Object.keys(extra).length ? extra : null);
+    const erro = await criarConta({ nome: c.nome, email: c.email, senha: c.senha, tipo: c.tipo, codigoAcademia: c.codigo }, Object.keys(extra).length ? extra : null);
     // Deu erro
     if (erro) return setMsg({ texto: erro });
     // Mostra "criando"
@@ -229,6 +231,8 @@ function Cadastro() {
           </CampoConta>
           {/* Confirmar */}
           <CampoConta id="confirm-password" rotulo="Confirmar senha" icone="senha" senha autoComplete="new-password" required placeholder="••••••••" value={c.confirmar} erro={erros.confirmar} onChange={mudar("confirmar")} />
+          {/* Código da academia (só cliente e com servidor) */}
+          {apiLigada() && c.tipo === "cliente" && <CampoConta id="codigo" rotulo="Código da academia (opcional)" placeholder="Ex.: SL-4F2K" autoComplete="off" value={c.codigo} erro={erros.codigo} onChange={mudar("codigo")} />}
         </fieldset>
 
         {/* Passo 2 */}

@@ -9,6 +9,10 @@ import { num, dataRelativa, duracaoTexto, iniciais, slug } from "../lib/formato.
 import { ler, gravar } from "../lib/armazenamento.js";
 import { lerSessao, ehAdmin, sair, trocarEmail, mudarSenha, excluirConta, limparTudo, emailValido } from "../lib/conta.js";
 import { preencherDemo } from "../lib/demo.js";
+// Servidor (quando ligado)
+import { api, apiLigada } from "../lib/api.js";
+import { excluirNoServidor } from "../lib/conta.js";
+import { puxar } from "../lib/nuvem.js";
 import "../estilos/kit-app.js";
 import "../estilos/app-perfil.css";
 
@@ -583,6 +587,38 @@ function Perfil() {
                 </div>
               )}
             </dl>
+            {/* Academia (com servidor, só cliente) */}
+            {apiLigada() && !admin && (
+              <form
+                className="adm-aviso-form"
+                onSubmit={async (e) => {
+                  // Sem recarregar
+                  e.preventDefault();
+                  // Código digitado
+                  const codigo = new FormData(e.currentTarget).get("codigo").trim();
+                  // Vazio
+                  if (!codigo) return;
+                  // Tenta entrar
+                  try {
+                    // Entra
+                    await api("PATCH", "/me/academia", { codigo });
+                    // Atualiza os dados
+                    await puxar();
+                    // Avisa
+                    toast("Pronto! Você entrou na academia.");
+                  } catch (erro) {
+                    // Código errado
+                    toast(erro.message);
+                  }
+                }}
+              >
+                <label htmlFor="codigo-academia">{ler("sl-academia", null) ? `Academia: ${ler("sl-academia", null).nome}. Trocar pelo código:` : "Entrar numa academia (código que ela te passou):"}</label>
+                <input id="codigo-academia" name="codigo" placeholder="Ex.: SL-4F2K" maxLength={10} />
+                <button type="submit" className="btn-secondary">
+                  Entrar
+                </button>
+              </form>
+            )}
             <div className="account-actions">
               <button className="btn-secondary" onClick={() => setJanela("seguranca")}>
                 Trocar e-mail ou senha
@@ -645,7 +681,23 @@ function Perfil() {
                     texto: "Sua conta e todos os seus dados (treinos, pesos, fotos, refeições) serão apagados deste aparelho. Não dá para desfazer.",
                     rotulo: "Excluir para sempre",
                     perigo: true,
-                    fn: () => (excluirConta(u.email), (location.href = "../../welcome/welcome.html")),
+                    fn: async () => {
+                      // Com servidor: pede a senha e apaga lá
+                      if (apiLigada()) {
+                        // Senha
+                        const senha = window.prompt("Para excluir, digite sua senha:");
+                        // Desistiu
+                        if (!senha) return;
+                        // Apaga no servidor
+                        const erro = await excluirNoServidor(senha);
+                        // Erro (senha errada)
+                        if (erro) return toast(erro);
+                      }
+                      // Apaga deste aparelho
+                      excluirConta(u.email);
+                      // Volta para o começo
+                      location.href = "../../welcome/welcome.html";
+                    },
                   })
                 }
               >

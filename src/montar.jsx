@@ -2,6 +2,8 @@
 import { StrictMode, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { EVENTO_MUDOU } from "./lib/armazenamento.js";
+// Sincronização com a API (quando ligada)
+import { ligarSincronizacao } from "./lib/nuvem.js";
 
 // Redesenha a página toda vez que os dados salvos mudam (nesta aba ou em outra)
 function Redesenhar({ Pagina }) {
@@ -27,6 +29,8 @@ function Redesenhar({ Pagina }) {
 
 // Desenha o componente da página
 export function montar(Pagina) {
+  // Liga a sincronização com o servidor (não faz nada sem API)
+  ligarSincronizacao();
   // Raiz
   createRoot(document.getElementById("raiz")).render(
     <StrictMode>

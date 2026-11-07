@@ -1,14 +1,14 @@
 # Saúde Life: base da API
 
-Proposta de API REST para quando o site ganhar um servidor. As tabelas estão em [`banco-de-dados.sql`](banco-de-dados.sql).
+Desenho da API REST. As tabelas usadas pela API estão em [`backend/banco/banco-de-dados.sql`](../backend/banco/banco-de-dados.sql).
 
-**Sugestão de tecnologia:** Node.js com Express (ou Fastify) e PostgreSQL. Uma alternativa mais rápida é o Supabase, que já entrega o banco PostgreSQL, o login e o armazenamento de fotos.
+**Feita em:** Java 17 + Spring Boot 3 + PostgreSQL. O código está na pasta [`backend/`](../backend/README.md) (abre no Spring Tools). Esta página é o desenho completo; o `backend/README.md` lista as rotas que já funcionam.
 
 ## Regras gerais
 
 - Endereço base: `https://api.saudelife.com.br/v1`
 - Tudo em JSON. Datas em ISO 8601 (`2026-11-06T18:30:00Z`).
-- **Login:** a resposta do login traz um `token` de acesso (JWT, válido por 15 minutos) e um cookie seguro para renovar. As outras rotas recebem `Authorization: Bearer <token>`.
+- **Login:** a resposta do login traz um `token` de acesso (válido por 30 dias). As outras rotas recebem `Authorization: Bearer <token>`.
 - **Quem pode o quê:** cada rota diz se é **pública**, **cliente**, **admin** ou **logado** (os dois). Um cliente só vê os próprios dados; um admin só vê os clientes da academia dele.
 - **Erros:** `{ "erro": "texto para mostrar na tela" }` com o código certo (400 dado inválido, 401 sem login, 403 sem permissão, 404 não achou, 409 já existe).
 - **Senha:** nunca volta em nenhuma resposta; no banco fica só o hash.

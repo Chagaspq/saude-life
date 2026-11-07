@@ -1,6 +1,8 @@
 // Contas do Saúde Life (sem servidor: tudo fica no navegador).
 // Cadastro, login, sessão, troca de dados entre contas, trocar e-mail/senha e excluir.
 import { ler, gravar, apagar } from "./armazenamento.js";
+// API (servidor), quando ligada
+import { api, apiLigada } from "./api.js";
 
 // Tamanho mínimo da senha
 export const MIN_SENHA = 8;
@@ -43,9 +45,28 @@ function gravarConta(conta) {
 }
 
 // Cria a conta do cadastro (extra = perfil do passo 2: apelido, nascimento, altura, peso, foto)
-export async function criarConta({ nome, email, senha, tipo = "cliente" }, extra) {
+export async function criarConta({ nome, email, senha, tipo = "cliente", codigoAcademia }, extra) {
   // E-mail em minúsculas
   email = email.trim().toLowerCase();
+  // Com API: cria no servidor
+  if (apiLigada()) {
+    // Tenta
+    try {
+      // Cria (já devolve um token)
+      const r = await api("POST", "/auth/cadastro", { nome: nome.trim(), email, senha, tipo, codigoAcademia: tipo === "cliente" && codigoAcademia ? codigoAcademia.trim() : undefined });
+      // Perfil do passo 2 (altura vai para o servidor)
+      if (extra?.altura || extra?.apelido) await api("PATCH", "/me", { apelido: extra.apelido, alturaCm: extra.altura }, r.token).catch(() => {});
+      // Fecha esse login (a pessoa entra na tela de login)
+      await api("POST", "/auth/sair", undefined, r.token).catch(() => {});
+    } catch (e) {
+      // Frase do servidor
+      return e.message;
+    }
+    // Guarda o resto do perfil (nascimento, peso, foto) na gaveta deste aparelho
+    if (extra) gravar("sl-dados:" + email, { ...ler("sl-dados:" + email, {}), "sl-perfil": JSON.stringify(extra) });
+    // Certo
+    return "";
+  }
   // Já existe
   if (acharConta(email)) return "Já existe uma conta com esse e-mail. Entre ou use outro.";
   // Salva a conta (só o resumo da senha)
@@ -67,6 +88,19 @@ export async function criarConta({ nome, email, senha, tipo = "cliente" }, extra
 export async function conferirLogin(email, senha) {
   // E-mail em minúsculas
   email = email.trim().toLowerCase();
+  // Com API: confere no servidor
+  if (apiLigada()) {
+    // Tenta
+    try {
+      // Entra
+      const r = await api("POST", "/auth/login", { email, senha });
+      // Conta com o token
+      return { conta: { nome: r.usuario.nome, email: r.usuario.email, tipo: r.usuario.tipo, token: r.token } };
+    } catch (e) {
+      // Frase do servidor
+      return { erro: e.message };
+    }
+  }
   // Conta
   const conta = acharConta(email);
   // Não existe
@@ -117,7 +151,7 @@ export function entrar(conta, lembrar = true) {
   // Troca os dados para os da conta
   trocarDados(conta.email);
   // Salva a sessão
-  gravar("sl-sessao", { nome: conta.nome, email: conta.email, tipo: conta.tipo || "cliente", lembrar });
+  gravar("sl-sessao", { nome: conta.nome, email: conta.email, tipo: conta.tipo || "cliente", lembrar, token: conta.token });
   // Marca o navegador como aberto (sem "lembrar", fechar o navegador desloga)
   document.cookie = "sl-aberta=1; path=/; SameSite=Lax";
 }
@@ -139,6 +173,8 @@ export function lerSessao() {
 
 // Sai da conta
 export function sair() {
+  // Com API: fecha o login no servidor (sem esperar)
+  if (apiLigada() && ler("sl-sessao", null)?.token) api("POST", "/auth/sair").catch(() => {});
   // Apaga a sessão
   apagar("sl-sessao");
 }
@@ -160,6 +196,21 @@ export async function trocarSenha(email, senha) {
 
 // Troca a senha pedindo a atual
 export async function mudarSenha(email, atual, nova) {
+  // Com API: troca no servidor
+  if (apiLigada()) {
+    // Tenta
+    try {
+      // Troca (o servidor devolve um token novo)
+      const r = await api("PATCH", "/me/senha", { atual, nova });
+      // Guarda o token novo
+      gravar("sl-sessao", { ...ler("sl-sessao", {}), token: r.token });
+      // Certo
+      return "";
+    } catch (e) {
+      // Frase do servidor
+      return e.message;
+    }
+  }
   // Conta
   const conta = acharConta(email);
   // Senha atual errada
@@ -176,6 +227,23 @@ export async function mudarSenha(email, atual, nova) {
 export async function trocarEmail(emailAtual, senha, emailNovo) {
   // E-mail novo em minúsculas
   emailNovo = emailNovo.trim().toLowerCase();
+  // Com API: troca no servidor
+  if (apiLigada()) {
+    // Tenta
+    try {
+      // Troca
+      await api("PATCH", "/me/email", { senha, email: emailNovo });
+    } catch (e) {
+      // Frase do servidor
+      return e.message;
+    }
+    // Dono dos dados deste aparelho
+    if (ler("sl-dono", null) === emailAtual) gravar("sl-dono", emailNovo);
+    // Sessão
+    gravar("sl-sessao", { ...ler("sl-sessao", {}), email: emailNovo });
+    // Certo
+    return "";
+  }
   // Conta
   const conta = acharConta(emailAtual);
   // Senha errada
@@ -192,6 +260,20 @@ export async function trocarEmail(emailAtual, senha, emailNovo) {
   gravar("sl-sessao", { ...ler("sl-sessao", {}), email: emailNovo });
   // Certo
   return "";
+}
+
+// Exclui a conta no servidor (com API; pede a senha). Devolve "" ou a frase do erro.
+export async function excluirNoServidor(senha) {
+  // Tenta
+  try {
+    // Apaga
+    await api("DELETE", "/me", { senha });
+    // Certo
+    return "";
+  } catch (e) {
+    // Frase do servidor
+    return e.message;
+  }
 }
 
 // Exclui a conta e todos os dados dela deste aparelho
