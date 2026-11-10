@@ -1,25 +1,17 @@
 <!doctype html>
-<!-- Endereço raiz do site: vai direto para a página inicial -->
+<!-- Raiz do repositório: leva para o site pronto (pasta docs/).
+     O código do site fica em frontend/ e o da API em backend/. -->
 <html lang="pt-BR">
   <head>
     <!-- Acentos certos -->
     <meta charset="UTF-8" />
     <!-- Título -->
     <title>Saúde Life</title>
-    <!-- Se o JavaScript estiver desligado, vai para a página inicial depois de 2 segundos -->
-    <noscript><meta http-equiv="refresh" content="2; url=welcome/welcome.html" /></noscript>
-    <!-- Escolhe para onde ir -->
-    <script>
-      // Se existe a pasta docs/ aqui, o site pronto está nela
-      fetch("docs/welcome/welcome.html", { method: "HEAD" })
-        // Achou: vai para o site pronto; não achou: já estamos no site pronto
-        .then((r) => location.replace(r.ok ? "docs/welcome/welcome.html" : "welcome/welcome.html"))
-        // Erro de rede: vai para a página inicial daqui
-        .catch(() => location.replace("welcome/welcome.html"));
-    </script>
+    <!-- Vai para a página inicial do site pronto -->
+    <meta http-equiv="refresh" content="0; url=docs/welcome/welcome.html" />
   </head>
   <body>
     <!-- Link, se o navegador não for sozinho -->
-    <a href="welcome/welcome.html">Abrir o Saúde Life</a>
+    <a href="docs/welcome/welcome.html">Abrir o Saúde Life</a>
   </body>
 </html>

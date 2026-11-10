@@ -80,7 +80,7 @@ public class DadosIniciais implements CommandLineRunner {
     t.trocarItens(List.of(item("Agachamento livre", 4, "10", 60, 90), item("Leg press 45°", 4, "12", 140, 90), item("Cadeira extensora", 3, "12", 45, 60)));
     // Guarda
     treinos.save(t);
-    // 6 treinos nos últimos 14 dias e 3 pesos
+    // 6 treinos nos últimos 14 dias
     for (int d = 1; d <= 6; d++) {
       // Treino
       SessaoTreino s = new SessaoTreino();
@@ -100,14 +100,16 @@ public class DadosIniciais implements CommandLineRunner {
       // Guarda
       historico.save(s);
     }
-    // Pesos
-    for (int i = 0; i < 3; i++) {
+    // Pesos: um por semana nas últimas 6 semanas (o gráfico da Evolução fica com linha)
+    for (int i = 0; i < 6; i++) {
       // Peso
       Peso p = new Peso();
       // Dono
       p.setUsuario(cliente);
-      // Valor
-      p.setValorKg(79 - i * 0.6);
+      // Semana
+      p.setData(Instant.now().minus(Duration.ofDays((5 - i) * 7L)));
+      // Valor (caindo aos poucos)
+      p.setValorKg(Math.round((79.4 - i * 0.5) * 10) / 10.0);
       // Guarda
       pesos.save(p);
     }

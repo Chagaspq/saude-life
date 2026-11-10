@@ -74,6 +74,12 @@
       <artifactId>postgresql</artifactId>
       <scope>runtime</scope>
     </dependency>
+    <!-- Driver do SQL Server (Microsoft) -->
+    <dependency>
+      <groupId>com.microsoft.sqlserver</groupId>
+      <artifactId>mssql-jdbc</artifactId>
+      <scope>runtime</scope>
+    </dependency>
     <!-- Reinicia sozinho ao salvar no Spring Tools -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
