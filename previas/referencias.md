@@ -72,3 +72,10 @@ Atenção: várias dessas imagens do Pinterest **foram feitas por IA** (dá pra 
 - **Foto do advogado ou da advogada** em destaque, com assinatura: passa confiança.
 - **Botão "Agendar consulta"** que manda pro WhatsApp.
 - **Regra da OAB:** sem preço, sem promoção e sem promessa de resultado. Nada de "98% de casos ganhos". Depoimento de cliente é arriscado, melhor evitar. Pode: áreas de atuação, formação, anos de experiência, artigos e contato.
+
+### Academia, confeitaria, café e barbearia (mais refs)
+- **Phoenix Fitness (academia):** foto preto e branco de treino ocupando o topo, 3 motivos ("por que nós") em caixas com borda fina, programas alternando foto e texto, botão "agendar aula".
+- **SweetBakes (confeitaria):** fundo rosado claro, foto grande do bolo no topo, faixa de 4 vantagens com ícones (ingredientes, entrega, encomenda), produtos em cards com preço e botão de pedir, história da marca com foto. Ótimo modelo pra confeitaria e Happy Cake.
+- **Bodrin (café):** marrom com produto "flutuando" e grãos voando. Chamativo, mas exige foto de produto recortada e de boa qualidade.
+- **CutTheory (barbearia):** "Estilos em destaque" com foto de cada corte (low fade, pompadour...) e o nome. Bom pra barbearia: o cliente escolhe o corte pela foto.
+- A CutTheory também foi feita por IA (texto sem sentido no meio).
