@@ -22,7 +22,7 @@ Para o vídeo, rode as 3 partes **no computador**. Assim o registro que aparece 
 
 1. **Banco (SQL Server):** no SSMS, abra `backend/banco/banco-de-dados-sqlserver.sql` e aperte **F5** (cria o banco `saudelife` e as 12 tabelas).
 2. **API (Spring Tools):** em `backend/src/main/resources/application-sqlserver.properties`, coloque a senha do `sa`. Rode `SaudeLifeApplication` com o **Profile `sqlserver`**. Ela cria as contas de demonstração.
-3. **Site (VS Code):** no arquivo `.env.development` (raiz do projeto), deixe `VITE_API_URL=http://localhost:8080/v1`. No terminal: `npm install` (só na primeira vez) e `npm run dev`. Abra o endereço que aparecer (ex.: http://localhost:5173/welcome/welcome.html).
+3. **Site (VS Code):** no arquivo `frontend/.env.development`, deixe `VITE_API_URL=http://localhost:8080/v1`. No terminal, dentro da pasta `frontend`: `npm install` (só na primeira vez) e `npm run dev`. Abra o endereço que aparecer (ex.: http://localhost:5173/welcome/welcome.html).
 4. **Postman:** importe `backend/saude-life-api.postman_collection.json`, troque a variável `base` para `http://localhost:8080/v1` e rode **Login cliente demo**.
 5. **Dados realistas:** entre como cliente demo e faça 1 treino antes de gravar, para o Início e a Evolução terem números.
 6. Zoom do VS Code e do SSMS em 150%. Tema escuro no site.
@@ -54,14 +54,14 @@ Para o vídeo, rode as 3 partes **no computador**. Assim o registro que aparece 
 **Na tela:** VS Code e navegador lado a lado.
 
 - **Tecnologias:** **React 18** (componentes em JSX), **HTML**, **CSS** e **JavaScript**, com o **Vite** para rodar e gerar o site.
-- **Estrutura de pastas (`src/`):**
+- **Estrutura de pastas (`frontend/src/`):**
   - `paginas/` = as telas (`login.jsx`, `inicio.jsx`, `treino.jsx`, `admin.jsx`...);
   - `componentes/` = peças reaproveitadas (`AppLayout.jsx`, `base.jsx`, `Formulario.jsx`);
   - `lib/` = os "serviços": `api.js` (conversa com a API), `nuvem.js` (sincroniza os dados), `conta.js` (login);
   - `estilos/` = o CSS.
-- **O que é um componente:** uma função que devolve um pedaço de tela e pode ser reaproveitada. Exemplo real: `CartaoNumero` em `src/componentes/base.jsx`. Ele é usado no Início ("Meta da semana", "Sequência"...), na Evolução e no Painel do admin, só trocando o texto e o ícone.
+- **O que é um componente:** uma função que devolve um pedaço de tela e pode ser reaproveitada. Exemplo real: `CartaoNumero` em `frontend/src/componentes/base.jsx`. Ele é usado no Início ("Meta da semana", "Sequência"...), na Evolução e no Painel do admin, só trocando o texto e o ícone.
 - **Rotas entre as telas:** cada tela tem o próprio endereço (`/login/login.html`, `/app/inicio/inicio.html`...). O componente `AppLayout.jsx` (função `destino`) controla quem pode abrir cada tela: sem login vai para o Login; cliente sem questionário vai para o questionário; cliente não abre o painel do admin, e o admin não abre as telas do cliente.
-- **CSS e responsividade:** cores e espaços em variáveis (`src/estilos/tokens.css`). Em `src/estilos/app.css`, os `@media (max-width: 900px)` e `(max-width: 640px)` trocam o menu lateral pelo **menu de baixo** no celular. Mostre: diminua a janela do navegador (ou F12 > modo celular).
+- **CSS e responsividade:** cores e espaços em variáveis (`frontend/src/estilos/tokens.css`). Em `frontend/src/estilos/app.css`, os `@media (max-width: 900px)` e `(max-width: 640px)` trocam o menu lateral pelo **menu de baixo** no celular. Mostre: diminua a janela do navegador (ou F12 > modo celular).
 
 ## 4. Back-end | Tomas (3 min)
 
@@ -113,8 +113,8 @@ Para o vídeo, rode as 3 partes **no computador**. Assim o registro que aparece 
 
 **Na tela:** app, código e banco, em sequência.
 
-1. **Usuário clica (React):** Alimentação > **Adicionar refeição** > "Almoço, 600 kcal" > **Salvar refeição**. Código: `src/paginas/alimentacao.jsx`, botão "Salvar refeição" (`onSalvar`).
-2. **O front envia para a API:** `src/lib/nuvem.js` (função `empurrarRefeicoes`) chama `api("POST", "/refeicoes", {...})` em `src/lib/api.js`, com o token do login.
+1. **Usuário clica (React):** Alimentação > **Adicionar refeição** > "Almoço, 600 kcal" > **Salvar refeição**. Código: `frontend/src/paginas/alimentacao.jsx`, botão "Salvar refeição" (`onSalvar`).
+2. **O front envia para a API:** `frontend/src/lib/nuvem.js` (função `empurrarRefeicoes`) chama `api("POST", "/refeicoes", {...})` em `frontend/src/lib/api.js`, com o token do login.
 3. **A API valida e executa:** `ClienteController.java`, método `refeicao`. O `@Valid RefeicaoPedido` confere os dados (nome obrigatório, calorias até 3000), e `refeicoes.save(...)` faz o `INSERT`. Também dá os pontos (`PontosServico`).
 4. **O SQL Server grava:** no SSMS, rode
    `SELECT TOP 5 nome, kcal, proteina, dia FROM refeicoes ORDER BY dia DESC;` e a refeição nova aparece.
@@ -152,5 +152,5 @@ Troquem pelo que viveram de verdade:
 
 - **API não liga ("Schema-validation: missing table"):** rode antes o `banco-de-dados-sqlserver.sql` no SSMS.
 - **API não conecta no SQL Server:** confira a senha do `sa`, o "SQL Server Authentication" ligado e o TCP/IP na porta 1433 (passo a passo em `backend/README.md`).
-- **Site sem dados:** confira o `VITE_API_URL` no `.env.development` e reinicie o `npm run dev`.
+- **Site sem dados:** confira o `VITE_API_URL` no `frontend/.env.development` e reinicie o `npm run dev`.
 - **Plano B:** mostre o site no ar (https://chagaspq.github.io/saude-life); a primeira entrada pode demorar até 1 minuto.

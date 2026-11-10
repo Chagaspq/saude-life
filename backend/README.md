@@ -141,8 +141,8 @@ O arquivo `render.yaml` (na raiz do repositório) cria a API e o banco PostgreSQ
 1. Crie uma conta em https://render.com (pode entrar com o GitHub).
 2. **New > Blueprint**, escolha o repositório `saude-life` e clique em **Apply**.
 3. Espere uns 5 minutos. A API fica em **https://saudelife-api.onrender.com/v1** (confira o nome no painel; se for outro, ajuste `SAUDELIFE_API` no painel e o passo 4).
-4. Ligue o site na API: no arquivo `.env.production` (raiz do projeto), troque para
-   `VITE_API_URL=https://saudelife-api.onrender.com/v1`, rode `npm run build` e mande para o GitHub.
+4. Ligue o site na API: no arquivo `frontend/.env.production`, troque para
+   `VITE_API_URL=https://saudelife-api.onrender.com/v1`, rode `npm run build` (dentro da pasta `frontend`) e mande para o GitHub.
 
 > No plano grátis, a API "dorme" depois de 15 minutos parada: a primeira chamada demora uns 50 segundos. Antes de apresentar, abra o site uma vez para acordar.
 > O banco grátis do Render vale por 30 dias; depois é preciso criar outro (ou pagar o plano básico).

@@ -1,5 +1,5 @@
 // Gera os arquivos .html de todas as páginas (cada um só carrega o React da página).
-// Uso: node ferramentas/gerar-paginas.mjs
+// Uso (dentro da pasta frontend): node ferramentas/gerar-paginas.mjs
 import { writeFileSync, mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 
