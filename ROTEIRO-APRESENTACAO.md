@@ -1,4 +1,4 @@
-# Roteiro da apresentação do TCC: Saúde Life (cerca de 15 minutos)
+# Roteiro do vídeo do TCC: Saúde Life
 
 **Grupo:** Gabriel Chagas (08) · Rafael (PH) Santos (15) · Tomas de Oliveira (17) · Hiago Tetsuo (10)
 **Curso:** [curso] · **Instituição:** [instituição]
@@ -11,103 +11,146 @@
 | 4 | Hiago Tetsuo | 10 | 5. Banco de dados |
 | Todos | — | — | 7. Dificuldades e aprendizados |
 
-## Antes de começar (10 minutos antes)
-
-1. **Acorde o servidor:** abra https://chagaspq.github.io/saude-life, vá em **Entrar > Demonstração: cliente** e espere abrir (na primeira vez pode levar até 1 minuto). Depois **Perfil > Sair da conta**.
-2. Deixe abertos no computador:
-   - o **site** (tela de Entrar) e, em outra aba, a página inicial (`welcome`);
-   - o **VS Code** com a pasta `src/` (front-end React);
-   - o **Spring Tools** com o projeto `backend` (API);
-   - o **SSMS** com o banco `saudelife` (SQL Server);
-   - o **Postman** com a coleção `backend/saude-life-api.postman_collection.json`, já com o **Login cliente demo** rodado.
-3. Tema escuro, idioma português.
+**Tecnologias:** front-end em **React** (com HTML, CSS e JavaScript), back-end em **Java + Spring Boot**, banco **SQL Server**.
 
 ---
 
-## 1. Abertura (Gabriel, 1 min)
+## Antes de gravar: deixar tudo rodando no computador
 
-> "Olá! Somos Gabriel Chagas, número 08, Rafael Santos, 15, Tomas de Oliveira, 17, e Hiago Tetsuo, 10, do curso [curso], da [instituição]. Vamos apresentar o **Saúde Life**, um app de treino com acompanhamento de academia."
+Para o vídeo, rode as 3 partes **no computador**. Assim o registro que aparece na tela é o mesmo que aparece no SQL Server.
+(O site no ar, https://chagaspq.github.io/saude-life, usa um banco PostgreSQL na nuvem; ele serve como plano B.)
 
-- **Problema:** muita gente começa a treinar e desiste; a academia não sabe quem sumiu.
-- **Solução:** treino guiado, pontos para manter a constância e um painel para a academia ou o personal acompanhar os clientes.
-- Dois acessos: **cliente** (quem treina) e **administrador** (academia ou personal).
-
-## 2. Demonstração (Gabriel, 3 min)
-
-Na página inicial e depois em **Entrar > Demonstração: cliente**:
-- **Início:** meta da semana, pontos, próximo treino. Só 5 abas: Início, Treinos, Alimentação, Evolução, Perfil.
-- **Treinos > Iniciar treino:** marque 2 séries, mostre o descanso contando e os pontos. Finalize e mostre o resumo (duração, séries, volume, calorias).
-- **Alimentação:** adicione uma refeição (a busca de comida calcula calorias e proteína) e um copo d'água.
-- **Evolução:** gráfico de peso e de treinos por semana.
-
-## 3. Front-end (Rafael, 2 min)
-
-- Feito em **React 18** com **Vite**; publicado no **GitHub Pages**.
-- Mostre no VS Code a pasta `src/`:
-  - `src/paginas/`: uma página por tela (`login.jsx`, `inicio.jsx`, `treino.jsx`, `admin.jsx`...);
-  - `src/componentes/`: peças reaproveitadas (casco do app, janelas, cartões, formulários);
-  - `src/lib/api.js`: é aqui que o site conversa com a API.
-- Responsivo (celular com menu embaixo), tema claro e escuro, acessibilidade (tamanho da letra, alto contraste, menos movimento) e 3 idiomas (português, inglês e espanhol).
-
-## 4. Back-end (Tomas, 2 min)
-
-- API REST em **Java 17 + Spring Boot 3**, publicada no **Render**.
-- Mostre no Spring Tools a pasta `backend/src/main/java/br/com/saudelife/api/`:
-  - `modelo/`: as tabelas como classes (Usuario, Treino, Refeicao...);
-  - `repositorio/`: acesso ao banco (Spring Data JPA);
-  - `controle/`: as rotas;
-  - `seguranca/`: login por token.
-- Rotas principais: `POST /auth/login`, `POST /auth/cadastro`, `GET /treinos`, `POST /sessoes` (treino concluído), `POST /refeicoes`, `POST /pesos`, `GET /admin/clientes`, `POST /admin/clientes/{id}/treinos`, `POST /admin/avisos`.
-- **No Postman:** mostre o `GET /treinos` respondendo em JSON.
-- **Segurança:** senha só como hash **BCrypt**; o login gera um token; o admin só vê os clientes da academia dele.
-
-## 5. Banco de dados (Hiago, 2 min)
-
-- **SQL Server** (no computador, com o SSMS). No ar, a mesma API usa **PostgreSQL**, porque o servidor grátis só oferece esse; o código não muda, só a configuração.
-- Mostre no SSMS as **12 tabelas**: `usuarios`, `academias`, `treinos`, `treino_itens`, `sessoes_treino`, `refeicoes`, `agua_dia`, `pesos`, `pontos`, `avisos`, `sessoes_login` e `redefinicoes_senha`.
-- Relações principais: um **usuário** pertence a uma **academia**; um usuário tem vários **treinos**, cada treino tem vários **exercícios** (`treino_itens`); um usuário tem vários **treinos concluídos**, **refeições**, **pesos** e **pontos**; a academia tem vários **avisos**.
-- Mostre os dados: botão direito em `usuarios` > **Select Top 1000 Rows** (repare que a senha está como hash, nunca o texto).
-- Script do banco: `backend/banco/banco-de-dados-sqlserver.sql`.
-
-## 6. Fluxo completo (Rafael, 2 min)
-
-Mostra as três partes conversando:
-1. No site, **Sair** e entrar com **Demonstração: administrador**: selo ADMIN, faixa verde e código da academia **SL-DEMO**.
-2. O treino que o Gabriel fez agora há pouco já aparece no cliente de demonstração.
-3. **Mandar treino** para o cliente e **publicar um aviso**.
-4. Sair, entrar como cliente: o aviso aparece no Início e o treino recebido aparece em Treinos.
-5. (Opcional) Atualize o SSMS: a linha nova aparece na tabela `avisos`.
-
-> Caminho: **site (React)** → **API (Spring Boot)** → **banco (SQL Server / PostgreSQL)**.
-
-## 7. Dificuldades e aprendizados (todos, 2 min — cada um fala uma)
-
-Sugestões (troquem pelo que viveram de verdade):
-- **Gabriel:** deixar o app simples (MVP): tiramos várias telas para focar no que importa.
-- **Rafael:** passar o site para React e manter o mesmo visual.
-- **Tomas:** segurança do login (hash de senha, token) e cada pessoa só ver os próprios dados.
-- **Hiago:** desenhar as tabelas e fazer a mesma API funcionar com SQL Server e PostgreSQL.
-
-## 8. Encerramento (Gabriel, 1 min)
-
-- **Próximos passos:** pagamento de verdade (Mercado Pago, já integrado, falta ativar), e-mail de recuperação de senha, app na loja e conta de academia verificada.
-- "Obrigado! Ficamos à disposição para perguntas."
+1. **Banco (SQL Server):** no SSMS, abra `backend/banco/banco-de-dados-sqlserver.sql` e aperte **F5** (cria o banco `saudelife` e as 12 tabelas).
+2. **API (Spring Tools):** em `backend/src/main/resources/application-sqlserver.properties`, coloque a senha do `sa`. Rode `SaudeLifeApplication` com o **Profile `sqlserver`**. Ela cria as contas de demonstração.
+3. **Site (VS Code):** no arquivo `.env.development` (raiz do projeto), deixe `VITE_API_URL=http://localhost:8080/v1`. No terminal: `npm install` (só na primeira vez) e `npm run dev`. Abra o endereço que aparecer (ex.: http://localhost:5173/welcome/welcome.html).
+4. **Postman:** importe `backend/saude-life-api.postman_collection.json`, troque a variável `base` para `http://localhost:8080/v1` e rode **Login cliente demo**.
+5. **Dados realistas:** entre como cliente demo e faça 1 treino antes de gravar, para o Início e a Evolução terem números.
+6. Zoom do VS Code e do SSMS em 150%. Tema escuro no site.
 
 ---
 
-## Perguntas que a banca pode fazer
+## 1. Abertura | Gabriel (1 min)
 
-- **Onde ficam os dados?** No banco do servidor. A pessoa entra de qualquer celular e vê os mesmos dados.
-- **Por que dois bancos?** O servidor grátis (Render) só oferece PostgreSQL; no computador usamos SQL Server. A API usa JPA, então troca de banco sem mudar o código.
-- **A senha é segura?** Fica só como hash BCrypt. O token do login fica no banco só como resumo (SHA-256). Trocar a senha derruba os logins antigos.
-- **Um cliente vê dados de outro?** Não: a API confere o token em toda chamada, e o admin só vê os clientes da própria academia.
-- **Qualquer um pode ser administrador?** No MVP sim, para a demonstração. Na versão comercial, só academias e personais verificados.
-- **E o pagamento?** A integração com o Mercado Pago (Pix e cartão) está no código; falta colocar a chave da conta. Hoje é demonstração.
-- **E a LGPD?** Termos de Uso, Política de Privacidade e, no Perfil, baixar ou excluir todos os próprios dados.
-- **Como testaram?** Teste automático da API e testes de ponta a ponta (site + API) no PostgreSQL e no SQL Server.
+**Na tela:** slide de abertura com "Saúde Life" e os 4 nomes.
+
+> "Olá! Somos Gabriel Chagas, número 08, Rafael Santos, 15, Tomas de Oliveira, 17, e Hiago Tetsuo, 10, do curso [curso], da [instituição]. Nosso TCC é o **Saúde Life**, um aplicativo de treino com acompanhamento da academia."
+
+- **Problema:** muita gente começa a treinar e desiste, e a academia não sabe quem sumiu nem consegue acompanhar cada aluno.
+- **Objetivo:** ajudar a pessoa a manter a constância (treino guiado, metas e pontos) e dar à academia ou ao personal um painel para acompanhar os clientes, mandar treinos e avisos.
+- **Ordem do vídeo:** demonstração, front-end, back-end, banco de dados, um fluxo completo, dificuldades e conclusão.
+
+## 2. Demonstração do aplicativo | Gabriel (3 min)
+
+**Na tela:** navegador com o app rodando.
+
+- **Login e cadastro:** mostre a escolha **Sou cliente / Sou administrador** e o campo **Código da academia**. Entre com **Demonstração: cliente**.
+- **Tela principal (Início):** meta da semana, sequência, pontos da semana e o próximo treino. Só 5 abas: Início, Treinos, Alimentação, Evolução e Perfil.
+- **Funcionalidade 1 (Treino guiado):** Treinos > Iniciar treino. Marque 2 séries, mostre o descanso contando e os pontos. Finalize e mostre o resumo.
+- **Funcionalidade 2 (Painel do administrador):** saia e entre com **Demonstração: administrador**. Selo ADMIN, código da academia **SL-DEMO**, a lista de clientes com quanto cada um treinou.
+- (Se der tempo) Alimentação: refeição e água; Evolução: gráfico de peso.
+
+## 3. Front-end | Rafael (2 min 30)
+
+**Na tela:** VS Code e navegador lado a lado.
+
+- **Tecnologias:** **React 18** (componentes em JSX), **HTML**, **CSS** e **JavaScript**, com o **Vite** para rodar e gerar o site.
+- **Estrutura de pastas (`src/`):**
+  - `paginas/` = as telas (`login.jsx`, `inicio.jsx`, `treino.jsx`, `admin.jsx`...);
+  - `componentes/` = peças reaproveitadas (`AppLayout.jsx`, `base.jsx`, `Formulario.jsx`);
+  - `lib/` = os "serviços": `api.js` (conversa com a API), `nuvem.js` (sincroniza os dados), `conta.js` (login);
+  - `estilos/` = o CSS.
+- **O que é um componente:** uma função que devolve um pedaço de tela e pode ser reaproveitada. Exemplo real: `CartaoNumero` em `src/componentes/base.jsx`. Ele é usado no Início ("Meta da semana", "Sequência"...), na Evolução e no Painel do admin, só trocando o texto e o ícone.
+- **Rotas entre as telas:** cada tela tem o próprio endereço (`/login/login.html`, `/app/inicio/inicio.html`...). O componente `AppLayout.jsx` (função `destino`) controla quem pode abrir cada tela: sem login vai para o Login; cliente sem questionário vai para o questionário; cliente não abre o painel do admin, e o admin não abre as telas do cliente.
+- **CSS e responsividade:** cores e espaços em variáveis (`src/estilos/tokens.css`). Em `src/estilos/app.css`, os `@media (max-width: 900px)` e `(max-width: 640px)` trocam o menu lateral pelo **menu de baixo** no celular. Mostre: diminua a janela do navegador (ou F12 > modo celular).
+
+## 4. Back-end | Tomas (3 min)
+
+**Na tela:** Spring Tools com o código e o Postman.
+
+- **Tecnologia:** **Java 17 + Spring Boot 3** (no lugar do Node.js com Express), com Spring Data JPA para falar com o banco.
+- **Estrutura de pastas** (`backend/src/main/java/br/com/saudelife/api/`):
+  - `controle/` = as rotas (o "routes + controllers"): `AuthController`, `TreinoController`, `ClienteController`, `AdminController`...;
+  - `modelo/` = as tabelas como classes (`Usuario`, `Treino`, `Refeicao`...);
+  - `repositorio/` = os comandos no banco;
+  - `config/` e `seguranca/` = configuração, CORS e login;
+  - `dto/` = o formato dos dados que entram e saem (JSON).
+- **Papel da API:** recebe as requisições do site (React), aplica as regras e grava ou lê no SQL Server.
+- **Rotas principais:**
+  - `GET /treinos`: minhas fichas;
+  - `POST /treinos`: criar ficha;
+  - `PATCH /treinos/{id}`: editar ficha;
+  - `PUT /agua/{dia}`: água do dia;
+  - `DELETE /treinos/{id}`: apagar ficha;
+  - `POST /auth/login`, `POST /refeicoes`, `GET /admin/clientes`, `POST /admin/avisos`.
+- **Conexão com o SQL Server:** arquivo `application-sqlserver.properties` (linha `jdbc:sqlserver://localhost:1433;databaseName=saudelife`) e o driver da Microsoft no `pom.xml`.
+- **Regras e validações:** em `dto/Dtos.java` (`@NotBlank`, `@Email`, `@Size(min = 8)` na senha, peso entre 30 e 300 kg). Os pontos têm limite de 300 por dia e a mesma ação não pontua duas vezes (`servico/PontosServico.java`). Os erros voltam como `{ "erro": "frase" }` (`erro/TratadorDeErros.java`).
+- **Autenticação:** a senha é guardada só como **hash BCrypt**. O `POST /auth/login` devolve um **token**, e o site manda esse token em toda chamada. `seguranca/Autenticacao.java` confere o token, e as rotas `/admin` só abrem para administrador.
+- **No Postman:** rode `GET /treinos` (com o token) e mostre o JSON. Mostre também um erro: login com a senha errada devolve **401** com a mensagem.
+
+## 5. Banco de dados | Hiago (3 min)
+
+**Na tela:** SSMS com as tabelas e as consultas rodando.
+
+- **SQL Server e por quê:** banco relacional da Microsoft que estudamos no curso. Tem chaves e relacionamentos, e o SSMS facilita ver os dados. A API usa JPA, então o mesmo código funciona também no PostgreSQL (é o que está no ar, porque o servidor grátis só oferece esse).
+- **Modelo entidade-relacionamento:** mostre `backend/banco/diagrama-er.png`.
+- **Principais tabelas e relacionamentos:**
+  - `academias` 1:N `usuarios` (FK `academia_id`);
+  - `usuarios` 1:N `treinos` (FK `usuario_id`; e `autor_id` = o admin que mandou a ficha);
+  - `treinos` 1:N `treino_itens` (os exercícios, FK `treino_id`);
+  - `usuarios` 1:N `sessoes_treino`, `refeicoes`, `pesos`, `agua_dia`, `pontos`;
+  - `academias` 1:N `avisos`.
+  - Chaves primárias: `id` (uniqueidentifier ou bigint com IDENTITY). Únicos: `email`, `codigo` da academia, e um registro de água por dia.
+- **Scripts de criação:** `backend/banco/banco-de-dados-sqlserver.sql` (os `CREATE TABLE`).
+- **Consultas:** em `backend/banco/consultas-exemplo.sql` (selecione um bloco e aperte F5):
+  - **SELECT:** as contas (repare que a senha aparece só como hash);
+  - **JOIN:** cliente + academia; fichas + exercícios (3 tabelas);
+  - **GROUP BY:** treinos de cada cliente (é o que o painel do admin mostra);
+  - **INSERT:** um aviso direto pelo banco (depois ele aparece no app!);
+  - **UPDATE:** a meta semanal de um cliente.
+- **View e índices:** a view `vw_resumo_clientes` (resumo por academia) e os índices `sessoes_treino_usuario_data`, `refeicoes_usuario_dia` e `pesos_usuario_data`, que deixam as buscas por pessoa e data rápidas.
+
+## 6. Fluxo completo: registrar uma refeição | Rafael (2 min)
+
+**Na tela:** app, código e banco, em sequência.
+
+1. **Usuário clica (React):** Alimentação > **Adicionar refeição** > "Almoço, 600 kcal" > **Salvar refeição**. Código: `src/paginas/alimentacao.jsx`, botão "Salvar refeição" (`onSalvar`).
+2. **O front envia para a API:** `src/lib/nuvem.js` (função `empurrarRefeicoes`) chama `api("POST", "/refeicoes", {...})` em `src/lib/api.js`, com o token do login.
+3. **A API valida e executa:** `ClienteController.java`, método `refeicao`. O `@Valid RefeicaoPedido` confere os dados (nome obrigatório, calorias até 3000), e `refeicoes.save(...)` faz o `INSERT`. Também dá os pontos (`PontosServico`).
+4. **O SQL Server grava:** no SSMS, rode
+   `SELECT TOP 5 nome, kcal, proteina, dia FROM refeicoes ORDER BY dia DESC;` e a refeição nova aparece.
+5. **A API responde e a tela atualiza:** a API devolve **201 Created** com a refeição e o `id` do banco, e o site mostra a refeição na lista e soma as calorias e a proteína nas barras.
+
+> Caminho: **tela (React)** → **API (Spring Boot)** → **SQL Server** → **resposta** → **tela atualizada**.
+
+## 7. Dificuldades e aprendizados | Todos (2 min, uns 30 s cada)
+
+Troquem pelo que viveram de verdade:
+- **Gabriel:** o app tinha telas demais; aprendemos a fazer um **MVP**, focar no essencial e tirar o resto.
+- **Rafael:** passar o site de HTML/JS puro para **React** sem mudar o visual; aprendemos a dividir a tela em componentes.
+- **Tomas:** segurança do login (hash de senha e token) e garantir que cada pessoa só vê os próprios dados.
+- **Hiago:** desenhar as tabelas e os relacionamentos e fazer a API funcionar com SQL Server e PostgreSQL.
+- **O grupo aprendeu:** front-end, back-end e banco conversando; Git e GitHub; publicar na internet.
+- **Melhorias futuras:** pagamento de verdade (Mercado Pago, já integrado, falta ativar), e-mail de recuperação de senha, app na loja e conta de academia verificada. Testes automáticos e o site no ar (deploy) **já foram feitos**.
+
+## 8. Encerramento | Gabriel (1 min)
+
+**Na tela:** slide final com os nomes e os contatos.
+
+> "Mostramos o Saúde Life funcionando, o front-end em React, a API em Java com Spring Boot e o banco no SQL Server, e como uma ação na tela chega até o banco. Obrigado pela atenção!"
+
+---
+
+## Dicas de gravação
+
+- Ensaiar uma vez e cronometrar (meta: uns 15 minutos).
+- Zoom do editor e do SSMS em 150%.
+- API, banco e site já abertos e funcionando antes de começar.
+- Usar dados realistas (cliente demo com treinos, uma refeição de verdade).
+- Revisar o áudio: ele importa mais que a imagem.
 
 ## Se algo der errado
 
-- **Login demorando:** o servidor está acordando; espere até 1 minuto.
-- **Travou:** Ctrl+F5.
-- **Sem internet:** rode a API no Spring Tools com o SQL Server (perfil `sqlserver`) e mostre pelo Postman.
+- **API não liga ("Schema-validation: missing table"):** rode antes o `banco-de-dados-sqlserver.sql` no SSMS.
+- **API não conecta no SQL Server:** confira a senha do `sa`, o "SQL Server Authentication" ligado e o TCP/IP na porta 1433 (passo a passo em `backend/README.md`).
+- **Site sem dados:** confira o `VITE_API_URL` no `.env.development` e reinicie o `npm run dev`.
+- **Plano B:** mostre o site no ar (https://chagaspq.github.io/saude-life); a primeira entrada pode demorar até 1 minuto.

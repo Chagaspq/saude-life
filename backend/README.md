@@ -35,10 +35,12 @@ O site no ar (Render) continua usando PostgreSQL, porque o Render não oferece S
 2. No instalador do SQL Server, escolha **Mixed Mode** (autenticação do Windows **e** do SQL Server) e crie a senha do usuário **sa**.
    - Já instalou sem isso? No SSMS: botão direito no servidor > **Properties > Security > SQL Server and Windows Authentication**; depois **Security > Logins > sa** > habilite e defina a senha; reinicie o serviço.
 3. Habilite o TCP: **SQL Server Configuration Manager > SQL Server Network Configuration > Protocols for SQLEXPRESS > TCP/IP = Enabled**; em **IP Addresses > IPAll**, coloque **TCP Port = 1433**; reinicie o serviço.
-4. No SSMS, abra **`banco/banco-de-dados-sqlserver.sql`** e aperte **F5**: cria o banco `saudelife` e as 12 tabelas.
+4. No SSMS, abra **`banco/banco-de-dados-sqlserver.sql`** e aperte **F5**: cria o banco `saudelife` e as 12 tabelas. (Com o perfil `sqlserver`, a API não cria tabelas: ela confere se o banco do script está certo.)
 5. Em `src/main/resources/application-sqlserver.properties`, troque a senha (`DB_SENHA`) pela senha do `sa`.
 6. No Spring Tools: **Run As > Run Configurations > Spring Boot App > Profile: `sqlserver`** e rode.
 7. Os dados aparecem no SSMS: **saudelife > Tables** > botão direito > **Select Top 1000 Rows**.
+
+Também na pasta `banco/`: **`diagrama-er.png`** (diagrama entidade-relacionamento) e **`consultas-exemplo.sql`** (SELECT, JOIN, GROUP BY, INSERT, UPDATE, uma VIEW e os índices, para mostrar no SSMS).
 
 Conferido: a API roda em cima desse script no modo `validate` (sem nenhuma diferença), e o caminho completo (cadastro, treino, refeição, peso, admin, avisos, senha e excluir conta) passou no SQL Server 2022.
 
