@@ -6,5 +6,3 @@ import "./base.css";
 import "./welcome.css";
 // Topo e rodapé do site
 import "./site.css";
-// Visual "vitrine" (banners com foto, passos, faixas e dúvidas)
-import "./vitrine.css";

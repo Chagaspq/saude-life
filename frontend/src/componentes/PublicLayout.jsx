@@ -112,10 +112,6 @@ export default function PublicLayout({ atual, classe, topo, children }) {
             </ul>
           </nav>
         </div>
-        {/* Nome da marca gigante no fim da página (só enfeite) */}
-        <p className="vt-marca-gigante" aria-hidden="true">
-          Saúde Life
-        </p>
         {/* Direitos */}
         <p className="footer-copy">&copy; 2026 Saúde Life. Todos os direitos reservados.</p>
       </footer>
