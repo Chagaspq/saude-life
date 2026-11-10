@@ -49,7 +49,7 @@ header{position:sticky;top:0;z-index:10;background:var(--vermelho);color:#fff}
 .s2{background:var(--vermelho)}
 .s2::after{content:"";position:absolute;right:-60px;top:-60px;width:320px;height:320px;border-radius:50%;border:40px solid rgba(255,255,255,.08)}
 .s3{background:var(--preto)}
-.slide .tag{display:inline-block;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;border:1px solid rgba(255,255,255,.5);padding:5px 10px;margin-bottom:14px}
+.slide .tag{display:inline-block;font-size:.85rem;border:1px solid rgba(255,255,255,.5);padding:5px 10px;margin-bottom:14px}
 .slide h1,.slide h2{font-family:var(--titulo);font-weight:700;text-transform:uppercase;line-height:.95;margin:0 0 12px;font-size:clamp(2.6rem,11vw,4.8rem);letter-spacing:.01em}
 .slide p{margin:0 0 20px;max-width:34ch;font-weight:300;font-size:1.05rem}
 .botao{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--preto);font-weight:600;padding:13px 22px;font-size:.95rem;letter-spacing:.03em}
@@ -104,9 +104,9 @@ header{position:sticky;top:0;z-index:10;background:var(--vermelho);color:#fff}
 /* Rodapé */
 footer{background:#1a0f10;color:#e9dfd6;padding-block:40px calc(96px + env(safe-area-inset-bottom,0px))}
 footer .marca{font-family:var(--titulo);font-weight:700;font-size:2rem;letter-spacing:.06em;color:#fff;text-transform:uppercase}
-footer .marca small{display:block;font-family:var(--corpo);font-size:.7rem;letter-spacing:.4em;color:#bfa9a9;margin-top:2px}
+footer .marca small{display:block;font-family:var(--corpo);font-size:.85rem;letter-spacing:.02em;text-transform:none;color:#bfa9a9;margin-top:2px}
 .colunas{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:26px}
-footer h4{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:#bfa9a9;margin:0 0 10px;font-weight:500}
+footer h4{font-size:.9rem;color:#bfa9a9;margin:0 0 10px;font-weight:500}
 footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 footer .redes{display:flex;gap:14px;margin-top:22px}
 footer .redes svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:1.6}
@@ -128,7 +128,7 @@ footer .redes svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:1.6}
 </head>
 <body>
 
-<div class="aviso"><b>Prévia</b> · Agende pelo WhatsApp</div>
+<div class="aviso"><b>Prévia</b> do site. Agende pelo WhatsApp</div>
 
 <header>
   <div class="in cab">
@@ -146,10 +146,10 @@ footer .redes svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:1.6}
 <div class="banner" aria-label="Destaques">
   <section class="slide s1">
     <div class="in">
-      <span class="tag">Since 2025</span>
+      <span class="tag">Desde 2025</span>
       <h1>Corte na<br>régua</h1>
       <p>Degradê, navalhado e barba feita com calma. Escolha o horário e venha pra Caverna.</p>
-      <a class="botao" href="https://wa.me/5511959785352?text=Oi!%20Quero%20agendar%20um%20hor%C3%A1rio." target="_blank" rel="noopener">Agendar agora →</a>
+      <a class="botao" href="https://wa.me/5511959785352?text=Oi!%20Quero%20agendar%20um%20hor%C3%A1rio." target="_blank" rel="noopener">Agendar agora</a>
     </div>
   </section>
   <section class="slide s2">
@@ -157,7 +157,7 @@ footer .redes svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:1.6}
       <span class="tag">Combo da casa</span>
       <h2>Corte +<br>barba</h2>
       <p>O pacote completo por um preço especial.</p>
-      <a class="botao" href="#combos">Ver combos →</a>
+      <a class="botao" href="#combos">Ver combos</a>
     </div>
   </section>
   <section class="slide s3">
@@ -165,7 +165,7 @@ footer .redes svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:1.6}
       <span class="tag">Espaço kids</span>
       <h2>Corte no<br>carrinho</h2>
       <p>A criançada corta o cabelo sentada no carrinho vermelho.</p>
-      <a class="botao" href="#kids">Conhecer →</a>
+      <a class="botao" href="#kids">Conhecer</a>
     </div>
   </section>
 </div>
@@ -184,11 +184,11 @@ footer .redes svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:1.6}
   <div class="in">
     <h2 class="tit">Serviços<small>Toque pra agendar</small></h2>
     <div class="trilho">
-      <a class="card" href="https://wa.me/5511959785352?text=Oi!%20Quero%20agendar%20um%20corte." target="_blank" rel="noopener"><div class="foto">Foto do corte</div><h3>Corte degradê</h3><div class="preco"><b>R$ 50,00</b></div><span class="agendar">Agendar →</span></a>
-      <a class="card" href="https://wa.me/5511959785352?text=Oi!%20Quero%20agendar%20a%20barba." target="_blank" rel="noopener"><div class="foto">Foto da barba</div><h3>Barba completa</h3><div class="preco"><b>R$ 40,00</b></div><span class="agendar">Agendar →</span></a>
-      <a class="card" href="https://wa.me/5511959785352?text=Oi!%20Quero%20agendar%20um%20navalhado." target="_blank" rel="noopener"><div class="foto">Foto do navalhado</div><h3>Navalhado</h3><div class="preco"><b>R$ 55,00</b></div><span class="agendar">Agendar →</span></a>
-      <a class="card" href="https://wa.me/5511959785352?text=Oi!%20Quero%20agendar%20pigmenta%C3%A7%C3%A3o." target="_blank" rel="noopener"><div class="foto">Foto da pigmentação</div><h3>Pigmentação</h3><div class="preco"><b>R$ 30,00</b></div><span class="agendar">Agendar →</span></a>
-      <a class="card" href="https://wa.me/5511959785352?text=Oi!%20Quero%20agendar%20sobrancelha." target="_blank" rel="noopener"><div class="foto">Foto da sobrancelha</div><h3>Sobrancelha</h3><div class="preco"><b>R$ 15,00</b></div><span class="agendar">Agendar →</span></a>
+      <a class="card" href="https://wa.me/5511959785352?text=Oi!%20Quero%20agendar%20um%20corte." target="_blank" rel="noopener"><div class="foto">Foto do corte</div><h3>Corte degradê</h3><div class="preco"><b>R$ 50,00</b></div><span class="agendar">Agendar</span></a>
+      <a class="card" href="https://wa.me/5511959785352?text=Oi!%20Quero%20agendar%20a%20barba." target="_blank" rel="noopener"><div class="foto">Foto da barba</div><h3>Barba completa</h3><div class="preco"><b>R$ 40,00</b></div><span class="agendar">Agendar</span></a>
+      <a class="card" href="https://wa.me/5511959785352?text=Oi!%20Quero%20agendar%20um%20navalhado." target="_blank" rel="noopener"><div class="foto">Foto do navalhado</div><h3>Navalhado</h3><div class="preco"><b>R$ 55,00</b></div><span class="agendar">Agendar</span></a>
+      <a class="card" href="https://wa.me/5511959785352?text=Oi!%20Quero%20agendar%20pigmenta%C3%A7%C3%A3o." target="_blank" rel="noopener"><div class="foto">Foto da pigmentação</div><h3>Pigmentação</h3><div class="preco"><b>R$ 30,00</b></div><span class="agendar">Agendar</span></a>
+      <a class="card" href="https://wa.me/5511959785352?text=Oi!%20Quero%20agendar%20sobrancelha." target="_blank" rel="noopener"><div class="foto">Foto da sobrancelha</div><h3>Sobrancelha</h3><div class="preco"><b>R$ 15,00</b></div><span class="agendar">Agendar</span></a>
     </div>
   </div>
 </section>
@@ -197,10 +197,10 @@ footer .redes svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:1.6}
   <div class="in">
     <h2 class="tit">Combos<small>Pague menos levando junto</small></h2>
     <div class="trilho">
-      <a class="card" href="https://wa.me/5511959785352?text=Oi!%20Quero%20o%20combo%20corte%20%2B%20barba." target="_blank" rel="noopener"><div class="foto">Foto do combo<span class="selo">11% OFF</span></div><h3>Corte + Barba</h3><div class="preco"><s>R$ 90,00</s><b>R$ 80,00</b></div><span class="agendar">Agendar →</span></a>
-      <a class="card" href="https://wa.me/5511959785352?text=Oi!%20Quero%20o%20combo%20corte%20%2B%20sobrancelha." target="_blank" rel="noopener"><div class="foto">Foto do combo<span class="selo">8% OFF</span></div><h3>Corte + Sobrancelha</h3><div class="preco"><s>R$ 65,00</s><b>R$ 60,00</b></div><span class="agendar">Agendar →</span></a>
-      <a class="card" href="https://wa.me/5511959785352?text=Oi!%20Quero%20o%20combo%20pai%20e%20filho." target="_blank" rel="noopener"><div class="foto">Foto pai e filho<span class="selo">15% OFF</span></div><h3>Pai e filho</h3><div class="preco"><s>R$ 95,00</s><b>R$ 80,00</b></div><span class="agendar">Agendar →</span></a>
-      <a class="card" href="https://wa.me/5511959785352?text=Oi!%20Quero%20o%20combo%20completo." target="_blank" rel="noopener"><div class="foto">Foto do combo<span class="selo">13% OFF</span></div><h3>Completo</h3><div class="preco"><s>R$ 135,00</s><b>R$ 117,00</b></div><span class="agendar">Agendar →</span></a>
+      <a class="card" href="https://wa.me/5511959785352?text=Oi!%20Quero%20o%20combo%20corte%20%2B%20barba." target="_blank" rel="noopener"><div class="foto">Foto do combo<span class="selo">11% OFF</span></div><h3>Corte + Barba</h3><div class="preco"><s>R$ 90,00</s><b>R$ 80,00</b></div><span class="agendar">Agendar</span></a>
+      <a class="card" href="https://wa.me/5511959785352?text=Oi!%20Quero%20o%20combo%20corte%20%2B%20sobrancelha." target="_blank" rel="noopener"><div class="foto">Foto do combo<span class="selo">8% OFF</span></div><h3>Corte + Sobrancelha</h3><div class="preco"><s>R$ 65,00</s><b>R$ 60,00</b></div><span class="agendar">Agendar</span></a>
+      <a class="card" href="https://wa.me/5511959785352?text=Oi!%20Quero%20o%20combo%20pai%20e%20filho." target="_blank" rel="noopener"><div class="foto">Foto pai e filho<span class="selo">15% OFF</span></div><h3>Pai e filho</h3><div class="preco"><s>R$ 95,00</s><b>R$ 80,00</b></div><span class="agendar">Agendar</span></a>
+      <a class="card" href="https://wa.me/5511959785352?text=Oi!%20Quero%20o%20combo%20completo." target="_blank" rel="noopener"><div class="foto">Foto do combo<span class="selo">13% OFF</span></div><h3>Completo</h3><div class="preco"><s>R$ 135,00</s><b>R$ 117,00</b></div><span class="agendar">Agendar</span></a>
     </div>
     <p class="exemplo">Preços e fotos de exemplo. No site entram os valores e os cortes reais de vocês.</p>
   </div>
@@ -211,7 +211,7 @@ footer .redes svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:1.6}
   <div class="txt">
     <h2>Espaço kids</h2>
     <p>Corte infantil com a criança sentada no carrinho. Sem choro e com foto pra guardar.</p>
-    <a class="botao" href="https://wa.me/5511959785352?text=Oi!%20Quero%20agendar%20um%20corte%20infantil." target="_blank" rel="noopener">Agendar corte infantil →</a>
+    <a class="botao" href="https://wa.me/5511959785352?text=Oi!%20Quero%20agendar%20um%20corte%20infantil." target="_blank" rel="noopener">Agendar corte infantil</a>
   </div>
 </section>
 
@@ -223,16 +223,16 @@ footer .redes svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:1.6}
 
 <footer>
   <div class="in">
-    <div class="marca">Caverna<small>barbershop · since 2025</small></div>
+    <div class="marca">Caverna<small>Barbershop desde 2025</small></div>
     <div class="colunas">
       <div><h4>Menu</h4><ul><li><a href="#">Início</a></li><li><a href="#servicos">Serviços</a></li><li><a href="#combos">Combos</a></li><li><a href="#kids">Espaço kids</a></li></ul></div>
-      <div><h4>Horários</h4><ul><li>Ter a sex · 9h às 20h</li><li>Sábado · 9h às 18h</li><li>Dom e seg · fechado</li></ul></div>
-      <div><h4>Contato</h4><ul><li>(11) 95978-5352</li><li>Granja Viana, Cotia</li><li><a href="https://www.google.com/maps/search/Caverna+Barbershop+Granja+Viana" target="_blank" rel="noopener">Ver no mapa →</a></li></ul></div>
+      <div><h4>Horários</h4><ul><li>Ter a sex, 9h às 20h</li><li>Sábado, 9h às 18h</li><li>Dom e seg, fechado</li></ul></div>
+      <div><h4>Contato</h4><ul><li>(11) 95978-5352</li><li>Granja Viana, Cotia</li><li><a href="https://www.google.com/maps/search/Caverna+Barbershop+Granja+Viana" target="_blank" rel="noopener">Ver no mapa</a></li></ul></div>
     </div>
     <div class="redes">
       <svg viewBox="0 0 24 24" aria-label="Instagram"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8"/></svg>
     </div>
-    <p class="copy">© Caverna Barbershop · Prévia de site</p>
+    <p class="copy">© Caverna Barbershop. Prévia de site</p>
   </div>
 </footer>
 
