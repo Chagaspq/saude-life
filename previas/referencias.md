@@ -43,3 +43,17 @@
 - **Cliente com fotos boas** (estúdio, salão caprichado): estilo premium, como Hagi's e Artemisa
 - **Cliente sem fotos boas** (barbearia de bairro, pet shop): estilo loja, como o Use Panthera
 - **Advogado:** sóbrio, sem preço e sem promoção (regra da OAB)
+
+## Referências do Pinterest (10/11)
+
+Atenção: várias dessas imagens do Pinterest **foram feitas por IA** (dá pra ver texto sem sentido, como no "The Social Cut"). Servem pra pegar ideias, não pra copiar o visual inteiro. Quase todas usam **preto e dourado**, que já virou padrão e cansa.
+
+### Ideias boas pra usar
+- **Agendamento passo a passo** (Barbearia Exclusiva): escolher serviço, barbeiro, dia e horário, e ver o resumo com o preço. No fim, o botão manda tudo pro WhatsApp. É o recurso que mais vende pra barbearia e salão.
+- **Equipe com foto e nota** (barbeiros ou tatuadores, com as estrelinhas de avaliação)
+- **Avaliações de clientes** com nome e estrelas (pegar as reais do Google)
+- **Faixa de confiança com ícones** (Ink Art, Custom Rose): esterilização, material descartável, experiência. Bom pra tatuagem e pet shop.
+- **Formulário curto de orçamento** (nome, telefone, serviço) que manda pro WhatsApp
+- **Portfólio por estilo** (tatuagem): realismo, fineline, lettering, cobertura
+- **Foto grande de verdade no topo**, ocupando metade da tela
+- **Título serifado elegante** (Luxé Nail Studio) pra salão de unha e beleza
