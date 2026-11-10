@@ -31,6 +31,7 @@ public class Peso {
   public Usuario getUsuario() { return usuario; }
   public void setUsuario(Usuario usuario) { this.usuario = usuario; }
   public Instant getData() { return data; }
+  public void setData(Instant data) { this.data = data; }
   public double getValorKg() { return valorKg; }
   public void setValorKg(double valorKg) { this.valorKg = valorKg; }
 }
