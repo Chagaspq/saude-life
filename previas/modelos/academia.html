@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Academia Ferro</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Manrope:wght@400;600;700&display=swap">
+<style>
+/* Concreto, laranja de sinalização e branco. Destaque: planos em tabela clara com o mais vendido marcado. */
+:root{--concreto:#2b2d2f;--cimento:#e8e6e1;--laranja:#ff5a1f;--branco:#fbfaf7;--cinza:#6b6d70;--linha:#d3d0c9;
+  --d:"Big Shoulders Display",Impact,sans-serif;--t:"Manrope",system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--branco);color:var(--concreto);font-family:var(--t);font-size:17px;line-height:1.55}
+a{color:inherit}img{max-width:100%;display:block}
+.in{max-width:1180px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.topo{position:absolute;inset:0 0 auto;z-index:2;color:#fff}
+.topo .in{display:flex;justify-content:space-between;align-items:center;height:76px}
+.marca{font-family:var(--d);font-weight:900;font-size:1.8rem;text-decoration:none}
+.menu{display:flex;gap:28px;font-weight:600}.menu a{text-decoration:none}
+.btn{display:inline-block;background:var(--laranja);color:#fff;text-decoration:none;font-weight:700;padding:15px 28px}
+.btn.escuro{background:var(--concreto)}
+.hero{position:relative;min-height:660px;display:grid;align-items:end;color:#fff;background:#222 url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1800&q=70") center/cover}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,20,20,.85),rgba(20,20,20,.2))}
+.hero .in{position:relative;padding-block:130px 70px}
+.hero h1{font-family:var(--d);font-weight:900;font-size:clamp(3.6rem,10vw,8rem);line-height:.86;margin:0 0 20px;max-width:9ch;text-transform:uppercase}
+.hero p{max-width:34ch;margin:0 0 30px;font-size:1.12rem;color:#e6e6e6}
+section{padding-block:86px}
+h2{font-family:var(--d);font-weight:900;font-size:clamp(2.6rem,6vw,4.2rem);line-height:.9;margin:0 0 12px;text-transform:uppercase}
+.sub{color:var(--cinza);margin:0 0 38px;max-width:46ch}
+.planos{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.plano{border:2px solid var(--linha);padding:28px;display:grid;gap:10px;align-content:start;background:#fff}
+.plano.top{border-color:var(--laranja)}
+.plano h3{margin:0;font-size:1.2rem}
+.plano .preco{font-family:var(--d);font-weight:900;font-size:3rem;line-height:1}
+.plano .preco small{font-family:var(--t);font-size:1rem;font-weight:600;color:var(--cinza)}
+.plano ul{margin:6px 0 16px;padding-left:18px;color:var(--cinza)}
+.selo{justify-self:start;background:var(--laranja);color:#fff;font-size:.8rem;font-weight:700;padding:4px 10px}
+.mods{background:var(--cimento)}
+.mods .grade{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.mods figure{margin:0;background:#fff}
+.mods img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.mods figcaption{padding:16px 18px}.mods b{display:block;font-size:1.1rem}.mods span{color:var(--cinza);font-size:.95rem}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:14px 12px;border-bottom:1px solid var(--linha)}
+th{font-size:.9rem;color:var(--cinza);font-weight:600}
+.tabela{overflow-x:auto}
+.cta{background:var(--concreto);color:#fff;text-align:center}
+.cta p{color:#cfcfcf;max-width:40ch;margin:0 auto 28px}
+footer .in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;padding-block:36px;color:var(--cinza);font-size:.95rem}
+:focus-visible{outline:3px solid var(--laranja);outline-offset:3px}
+@media (max-width:860px){.menu{display:none}.planos,.mods .grade{grid-template-columns:1fr}.hero{min-height:560px}}
+</style>
+</head>
+<body>
+<header class="topo"><div class="in"><a class="marca" href="#">FERRO</a><nav class="menu"><a href="#planos">Planos</a><a href="#modalidades">Modalidades</a><a href="#horarios">Horários</a></nav></div></header>
+
+<section class="hero"><div class="in">
+  <h1>Treino sério, perto de casa</h1>
+  <p>Academia em Jandira com musculação, funcional e spinning. Aberta das 5h às 23h.</p>
+  <a class="btn" href="https://wa.me/5511900000000?text=Oi!%20Quero%20agendar%20uma%20aula%20experimental." target="_blank" rel="noopener">Agendar aula experimental</a>
+</div></section>
+
+<section id="planos"><div class="in">
+  <h2>Planos</h2>
+  <p class="sub">Sem taxa de matrícula. Todos os planos dão acesso à musculação e às aulas coletivas.</p>
+  <div class="planos">
+    <div class="plano"><h3>Mensal</h3><div class="preco">R$ 119<small>/mês</small></div><ul><li>Sem fidelidade</li><li>Avaliação física</li></ul><a class="btn escuro" href="https://wa.me/5511900000000?text=Oi!%20Quero%20o%20plano%20mensal." target="_blank" rel="noopener">Quero esse</a></div>
+    <div class="plano top"><span class="selo">Mais escolhido</span><h3>Semestral</h3><div class="preco">R$ 99<small>/mês</small></div><ul><li>6 meses</li><li>Avaliação a cada 2 meses</li><li>1 mês de spinning grátis</li></ul><a class="btn" href="https://wa.me/5511900000000?text=Oi!%20Quero%20o%20plano%20semestral." target="_blank" rel="noopener">Quero esse</a></div>
+    <div class="plano"><h3>Anual</h3><div class="preco">R$ 89<small>/mês</small></div><ul><li>12 meses</li><li>Leve um amigo 1x por mês</li></ul><a class="btn escuro" href="https://wa.me/5511900000000?text=Oi!%20Quero%20o%20plano%20anual." target="_blank" rel="noopener">Quero esse</a></div>
+  </div>
+</div></section>
+
+<section class="mods" id="modalidades"><div class="in">
+  <h2>Modalidades</h2>
+  <p class="sub">Professor no salão o dia todo pra ajustar seu treino.</p>
+  <div class="grade">
+    <figure><img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=700&q=70" alt="Levantamento de peso"><figcaption><b>Musculação</b><span>Equipamentos novos e área de peso livre</span></figcaption></figure>
+    <figure><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=700&q=70" alt="Exercício abdominal no colchonete"><figcaption><b>Funcional</b><span>Turmas de 45 minutos, todos os níveis</span></figcaption></figure>
+    <figure><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=700&q=70" alt="Halteres na academia"><figcaption><b>Spinning</b><span>Aulas com música, manhã e noite</span></figcaption></figure>
+  </div>
+</div></section>
+
+<section id="horarios"><div class="in">
+  <h2>Horários das aulas</h2>
+  <div class="tabela"><table>
+    <tr><th>Aula</th><th>Seg, qua e sex</th><th>Ter e qui</th><th>Sábado</th></tr>
+    <tr><td>Funcional</td><td>7h e 19h</td><td>8h e 20h</td><td>9h</td></tr>
+    <tr><td>Spinning</td><td>6h e 18h30</td><td>7h e 19h</td><td>10h</td></tr>
+    <tr><td>Alongamento</td><td>20h</td><td>18h</td><td></td></tr>
+  </table></div>
+</div></section>
+
+<section class="cta"><div class="in">
+  <h2>Faça uma aula grátis</h2>
+  <p>Venha conhecer a academia e treinar com um professor antes de escolher o plano.</p>
+  <a class="btn" href="https://wa.me/5511900000000?text=Oi!%20Quero%20agendar%20uma%20aula%20experimental." target="_blank" rel="noopener">Agendar aula experimental</a>
+</div></section>
+
+<footer><div class="in"><span>Academia Ferro, Jandira, SP. (11) 90000-0000</span><span>Site de exemplo. Nomes e preços são ilustrativos.</span></div></footer>
+</body>
+</html>

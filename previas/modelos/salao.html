@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Salão Lumi</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500&display=swap">
+<style>
+/* Rosa queimado, ameixa e branco. Destaque: título serifado elegante sobre foto grande, com a nota do Google ao lado do botão. */
+:root{--rosa:#ead8d0;--rosa-claro:#f7efea;--ameixa:#4b2737;--vinho:#7a3a52;--cinza:#76666b;--linha:#e2cfc7;
+  --d:"Cormorant Garamond",Georgia,serif;--t:"Jost",system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--rosa-claro);color:var(--ameixa);font-family:var(--t);font-weight:300;font-size:17px;line-height:1.6}
+a{color:inherit}img{max-width:100%;display:block}
+.in{max-width:1180px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.topo .in{display:flex;justify-content:space-between;align-items:center;height:80px}
+.marca{font-family:var(--d);font-weight:600;font-size:1.8rem;text-decoration:none}
+.menu{display:flex;gap:30px;font-weight:400}.menu a{text-decoration:none}
+.btn{display:inline-block;background:var(--ameixa);color:var(--rosa-claro);text-decoration:none;font-weight:400;padding:14px 28px;letter-spacing:.02em}
+.btn.linha{background:none;color:var(--ameixa);border:1px solid var(--ameixa)}
+.hero{display:grid;grid-template-columns:1fr 1.1fr;min-height:620px}
+.hero .txt{display:grid;align-content:center;padding:60px max(20px,6vw)}
+.hero h1{font-family:var(--d);font-weight:500;font-size:clamp(3rem,6.4vw,5.4rem);line-height:1;margin:0 0 22px}
+.hero p{max-width:34ch;color:var(--cinza);margin:0 0 30px}
+.hero img{width:100%;height:100%;object-fit:cover}
+.prova{display:flex;align-items:center;gap:14px;margin-top:30px;font-size:.95rem;color:var(--cinza)}
+.prova b{font-family:var(--d);font-size:2rem;color:var(--ameixa);font-weight:600}
+section{padding-block:90px}
+h2{font-family:var(--d);font-weight:500;font-size:clamp(2.4rem,5vw,3.6rem);line-height:1.05;margin:0 0 12px}
+.sub{color:var(--cinza);margin:0 0 40px;max-width:46ch}
+.servicos{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.servicos article{display:grid;gap:12px}
+.servicos img{aspect-ratio:4/5;object-fit:cover;width:100%}
+.servicos h3{font-family:var(--d);font-weight:600;font-size:1.6rem;margin:0}
+.servicos p{margin:0;color:var(--cinza)}
+.servicos span{font-weight:500;color:var(--vinho)}
+.marcas{background:var(--rosa);padding-block:34px}
+.marcas .in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px 34px;align-items:center;font-family:var(--d);font-size:1.5rem;font-weight:600;color:var(--vinho)}
+.marcas small{font-family:var(--t);font-size:.9rem;font-weight:400;color:var(--cinza);width:100%}
+.espaco{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center}
+.espaco img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.horas{display:grid;gap:8px;margin:20px 0 30px}
+.horas div{display:flex;justify-content:space-between;border-bottom:1px solid var(--linha);padding-bottom:8px}
+footer{background:var(--ameixa);color:var(--rosa);padding-block:50px}
+footer .in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px}
+footer .marca{color:var(--rosa-claro)}
+.exemplo{font-size:.85rem;color:#c9adb8}
+:focus-visible{outline:2px solid var(--vinho);outline-offset:3px}
+@media (max-width:860px){.menu{display:none}.hero,.espaco{grid-template-columns:1fr}.hero img{max-height:440px;order:-1}.servicos{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.servicos{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="topo"><div class="in"><a class="marca" href="#">Lumi</a><nav class="menu"><a href="#servicos">Serviços</a><a href="#espaco">O salão</a><a href="#contato">Contato</a></nav><a class="btn" href="https://wa.me/5511900000000" target="_blank" rel="noopener">Agendar</a></div></header>
+
+<section class="hero" style="padding:0">
+  <div class="txt">
+    <h1>Cabelo, unhas e um tempo só pra você</h1>
+    <p>Salão de beleza em Carapicuíba. Corte, coloração, escova e unhas com hora marcada pelo WhatsApp.</p>
+    <div><a class="btn" href="https://wa.me/5511900000000?text=Oi!%20Quero%20agendar%20um%20hor%C3%A1rio." target="_blank" rel="noopener">Agendar horário</a></div>
+    <div class="prova"><b>4,9</b><span>no Google, com 186 avaliações</span></div>
+  </div>
+  <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=1400&q=70" alt="Cabeleireira finalizando escova em cliente">
+</section>
+
+<section id="servicos"><div class="in">
+  <h2>Serviços</h2>
+  <p class="sub">Os mais pedidos do salão. Os valores começam a partir do preço mostrado.</p>
+  <div class="servicos">
+    <article><img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=700&q=70" alt="Escova"><h3>Corte e escova</h3><p>Corte com lavagem e finalização.</p><span>a partir de R$ 90</span></article>
+    <article><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=700&q=70" alt="Unhas pintadas em tons escuros"><h3>Unhas</h3><p>Manicure, pedicure, gel e fibra.</p><span>a partir de R$ 40</span></article>
+    <article><img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=700&q=70" alt="Salão iluminado com cadeiras"><h3>Coloração</h3><p>Mechas, luzes e tonalização.</p><span>a partir de R$ 180</span></article>
+  </div>
+</div></section>
+
+<div class="marcas"><div class="in"><small>Produtos que usamos</small><span>L'Oréal Professionnel</span><span>Wella</span><span>Kérastase</span><span>Truss</span></div></div>
+
+<section id="espaco"><div class="in espaco">
+  <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=1000&q=70" alt="Bancadas do salão com cadeiras rosa">
+  <div>
+    <h2>O salão</h2>
+    <p class="sub">Espaço climatizado, café e Wi-Fi. A gente atende com hora marcada pra você não esperar.</p>
+    <div class="horas"><div><span>Terça a sexta</span><span>9h às 19h</span></div><div><span>Sábado</span><span>8h às 17h</span></div><div><span>Domingo e segunda</span><span>Fechado</span></div></div>
+    <a class="btn linha" href="https://www.google.com/maps" target="_blank" rel="noopener">Como chegar</a>
+  </div>
+</div></section>
+
+<footer id="contato"><div class="in"><span class="marca">Lumi</span><span>Rua de Exemplo, 200, Carapicuíba. (11) 90000-0000</span><span class="exemplo">Site de exemplo. Nomes, preços e avaliações são ilustrativos.</span></div></footer>
+</body>
+</html>

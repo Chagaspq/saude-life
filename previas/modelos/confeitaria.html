@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Doce Tarde Confeitaria</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Nunito+Sans:wght@400;600;700&display=swap">
+<style>
+/* Chocolate, morango e glacê. Destaque: cardápio de encomenda com quantidade e total, que vira mensagem no WhatsApp. */
+:root{--glace:#fbf3ee;--morango:#d94f5c;--chocolate:#3a2219;--caramelo:#c98b4e;--cinza:#7a6a62;--linha:#ecdcd3;
+  --d:"Fraunces",Georgia,serif;--t:"Nunito Sans",system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--glace);color:var(--chocolate);font-family:var(--t);font-size:17px;line-height:1.6}
+a{color:inherit}img{max-width:100%;display:block}
+.in{max-width:1140px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.topo .in{display:flex;justify-content:space-between;align-items:center;height:76px}
+.marca{font-family:var(--d);font-weight:700;font-size:1.6rem;text-decoration:none}
+.menu{display:flex;gap:26px;font-weight:600}.menu a{text-decoration:none}
+.btn{display:inline-block;background:var(--morango);color:#fff;text-decoration:none;font-weight:700;padding:14px 26px;border-radius:999px;border:0;font:inherit;font-weight:700;cursor:pointer}
+.hero .in{display:grid;grid-template-columns:1fr 1.1fr;gap:50px;align-items:center;padding-block:30px 80px}
+.hero h1{font-family:var(--d);font-weight:700;font-size:clamp(2.8rem,6vw,4.8rem);line-height:1.02;margin:0 0 20px}
+.hero p{color:var(--cinza);max-width:34ch;margin:0 0 30px;font-size:1.1rem}
+.hero img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:50%}
+.vant{border-block:1px solid var(--linha);background:#fff}
+.vant .in{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding-block:26px}
+.vant b{display:block;font-family:var(--d);font-size:1.15rem}.vant span{color:var(--cinza);font-size:.95rem}
+section{padding-block:84px}
+h2{font-family:var(--d);font-weight:700;font-size:clamp(2.2rem,4.6vw,3.2rem);line-height:1.05;margin:0 0 12px}
+.sub{color:var(--cinza);margin:0 0 36px;max-width:46ch}
+.itens{display:grid;gap:0;max-width:760px}
+.item{display:grid;grid-template-columns:1fr auto auto;gap:18px;align-items:center;padding:18px 0;border-bottom:1px solid var(--linha)}
+.item b{font-family:var(--d);font-size:1.25rem;display:block}.item small{color:var(--cinza)}
+.item .preco{font-weight:700;font-variant-numeric:tabular-nums}
+.qtd{display:flex;align-items:center;gap:8px}
+.qtd button{width:34px;height:34px;border-radius:50%;border:1px solid var(--chocolate);background:none;font:inherit;font-weight:700;cursor:pointer}
+.qtd output{min-width:1.5ch;text-align:center;font-variant-numeric:tabular-nums}
+.total{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;max-width:760px;margin-top:26px}
+.total strong{font-family:var(--d);font-size:1.6rem}
+.historia{background:var(--chocolate);color:var(--glace)}
+.historia .in{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.historia p{color:#e2cfc3}
+.historia img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:24px}
+footer .in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;padding-block:36px;color:var(--cinza);font-size:.95rem}
+:focus-visible{outline:2px solid var(--morango);outline-offset:3px}
+@media (max-width:860px){.menu{display:none}.hero .in,.historia .in{grid-template-columns:1fr}.hero img{max-width:420px;order:-1}.vant .in{grid-template-columns:1fr}}
+@media (max-width:520px){.item{grid-template-columns:1fr auto}.item .preco{grid-column:1;grid-row:2}}
+</style>
+</head>
+<body>
+<header class="topo"><div class="in"><a class="marca" href="#">Doce Tarde</a><nav class="menu"><a href="#cardapio">Cardápio</a><a href="#historia">Nossa história</a><a href="#contato">Contato</a></nav></div></header>
+
+<section class="hero" style="padding:0"><div class="in">
+  <div>
+    <h1>Bolos de festa feitos na véspera</h1>
+    <p>Confeitaria em Itapevi. Escolha no cardápio, monte seu pedido e mande pelo WhatsApp com 2 dias de antecedência.</p>
+    <a class="btn" href="#cardapio">Montar encomenda</a>
+  </div>
+  <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1000&q=70" alt="Bolo de chocolate com cobertura e brigadeiros">
+</div></section>
+
+<div class="vant"><div class="in">
+  <div><b>Feito na véspera</b><span>Nada fica na geladeira de um dia pro outro</span></div>
+  <div><b>Entrega na região</b><span>Itapevi, Jandira e Barueri</span></div>
+  <div><b>Personalizado</b><span>Tema, sabor e escrita do seu jeito</span></div>
+</div></div>
+
+<section id="cardapio"><div class="in">
+  <h2>Cardápio de encomendas</h2>
+  <p class="sub">Escolha a quantidade e o pedido vai pronto pro WhatsApp.</p>
+  <div class="itens" id="itens">
+    <div class="item" data-n="Bolo de chocolate (1 kg)" data-p="95"><div><b>Bolo de chocolate</b><small>1 kg, serve 10 pessoas</small></div><span class="preco">R$ 95</span><div class="qtd"><button type="button" aria-label="Menos">−</button><output>0</output><button type="button" aria-label="Mais">+</button></div></div>
+    <div class="item" data-n="Bolo de morango (1 kg)" data-p="110"><div><b>Bolo de morango</b><small>1 kg, chantilly e morango fresco</small></div><span class="preco">R$ 110</span><div class="qtd"><button type="button" aria-label="Menos">−</button><output>0</output><button type="button" aria-label="Mais">+</button></div></div>
+    <div class="item" data-n="Brigadeiro gourmet (cento)" data-p="160"><div><b>Brigadeiro gourmet</b><small>Cento, sabores variados</small></div><span class="preco">R$ 160</span><div class="qtd"><button type="button" aria-label="Menos">−</button><output>0</output><button type="button" aria-label="Mais">+</button></div></div>
+    <div class="item" data-n="Bolo no pote" data-p="14"><div><b>Bolo no pote</b><small>Ninho com Nutella ou prestígio</small></div><span class="preco">R$ 14</span><div class="qtd"><button type="button" aria-label="Menos">−</button><output>0</output><button type="button" aria-label="Mais">+</button></div></div>
+  </div>
+  <div class="total"><span>Total: <strong id="total">R$ 0</strong></span><a class="btn" id="zap" href="#" target="_blank" rel="noopener">Enviar pedido no WhatsApp</a></div>
+</div></section>
+
+<section class="historia" id="historia"><div class="in">
+  <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=900&q=70" alt="Bolo de chocolate">
+  <div>
+    <h2>Começou na cozinha de casa</h2>
+    <p>A Doce Tarde nasceu em 2019 com bolos de aniversário pra família e os vizinhos. Hoje são mais de 40 encomendas por semana, ainda com as receitas da avó.</p>
+  </div>
+</div></section>
+
+<footer id="contato"><div class="in"><span>Doce Tarde Confeitaria, Itapevi, SP. (11) 90000-0000</span><span>Site de exemplo. Nomes e preços são ilustrativos.</span></div></footer>
+<script>
+const itens=[...document.querySelectorAll(".item")],tot=document.getElementById("total"),zap=document.getElementById("zap");
+function at(){let s=0,l=[];itens.forEach(i=>{const q=+i.querySelector("output").value;if(q){s+=q*i.dataset.p;l.push(`${q}x ${i.dataset.n}`)}});
+  tot.textContent="R$ "+s;zap.href="https://wa.me/5511900000000?text="+encodeURIComponent(l.length?`Oi! Quero encomendar: ${l.join(", ")}. Total R$ ${s}.`:"Oi! Quero fazer uma encomenda.")}
+itens.forEach(i=>{const o=i.querySelector("output"),[m,p]=i.querySelectorAll("button");o.value=0;
+  m.onclick=()=>{o.value=Math.max(0,+o.value-1);at()};p.onclick=()=>{o.value=+o.value+1;at()}});at();
+</script>
+</body>
+</html>
