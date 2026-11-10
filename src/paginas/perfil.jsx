@@ -669,7 +669,7 @@ function Perfil() {
               >
                 Apagar meus dados
               </button>
-              <button className="btn-danger-outline btn-with-icon" onClick={() => (sair(), (location.href = "../../login/login.html"))}>
+              <button className="btn-danger-outline btn-with-icon" onClick={async () => (await sair(), (location.href = "../../login/login.html"))}>
                 <Icone d={ICONES.sair} />
                 Sair da conta
               </button>

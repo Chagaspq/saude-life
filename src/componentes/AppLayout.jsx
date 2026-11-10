@@ -195,9 +195,9 @@ export default function AppLayout({ pagina, children, semMenu }) {
               type="button"
               className="btn-icon"
               aria-label="Sair da conta"
-              onClick={() => {
-                // Sai
-                sair();
+              onClick={async () => {
+                // Sai (espera o servidor fechar o login)
+                await sair();
                 // Vai para o login
                 window.location.href = "../../login/login.html";
               }}

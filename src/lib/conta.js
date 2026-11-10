@@ -171,12 +171,15 @@ export function lerSessao() {
   return sessao;
 }
 
-// Sai da conta
+// Sai da conta. Devolve uma promessa: quem vai trocar de página espera ela
+// (no máximo 1,5 s) para o servidor fechar o login antes de a página sumir.
 export function sair() {
-  // Com API: fecha o login no servidor (sem esperar)
-  if (apiLigada() && ler("sl-sessao", null)?.token) api("POST", "/auth/sair").catch(() => {});
-  // Apaga a sessão
+  // Com API: pede para o servidor fechar o login
+  const fechar = apiLigada() && ler("sl-sessao", null)?.token ? api("POST", "/auth/sair").catch(() => {}) : Promise.resolve();
+  // Apaga a sessão deste navegador na hora
   apagar("sl-sessao");
+  // Espera o servidor, mas não mais que 1,5 s
+  return Promise.race([fechar, new Promise((ok) => setTimeout(ok, 1500))]);
 }
 
 // É administrador?
