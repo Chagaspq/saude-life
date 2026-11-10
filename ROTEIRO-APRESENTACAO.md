@@ -1,69 +1,113 @@
-# Roteiro da apresentação do TCC (cerca de 12 minutos)
+# Roteiro da apresentação do TCC: Saúde Life (cerca de 15 minutos)
 
-O Saúde Life é um **MVP** de app de treino com dois acessos: **cliente** (quem treina) e **administrador** (academia ou personal).
-Ele tem três partes: o **site** (React), a **API** (Java + Spring Boot) e o **banco de dados** (PostgreSQL no ar e SQL Server no computador).
+**Grupo:** Gabriel Chagas (08) · Rafael (PH) Santos (15) · Tomas de Oliveira (17) · Hiago Tetsuo (10)
+**Curso:** [curso] · **Instituição:** [instituição]
+
+| Integrante | Nome | Nº | Partes |
+|---|---|---|---|
+| 1 | Gabriel Chagas | 08 | 1. Abertura · 2. Demonstração · 8. Encerramento |
+| 2 | Rafael (PH) Santos | 15 | 3. Front-end · 6. Fluxo completo |
+| 3 | Tomas de Oliveira | 17 | 4. Back-end |
+| 4 | Hiago Tetsuo | 10 | 5. Banco de dados |
+| Todos | — | — | 7. Dificuldades e aprendizados |
 
 ## Antes de começar (10 minutos antes)
 
-1. **Acorde o servidor:** abra https://chagaspq.github.io/saude-life e vá em **Entrar > Demonstração: cliente**. Na primeira vez pode demorar até 1 minuto (o servidor grátis "dorme"). Depois disso fica rápido.
-2. Saia da conta (**Perfil > Sair da conta**) e deixe a tela de **Entrar** aberta.
-3. Em outra aba, abra a página inicial pública (`welcome`).
-4. No computador, deixe abertos (para a parte técnica):
-   - **Spring Tools** com o projeto `backend` (a API);
-   - **SSMS** (SQL Server Management Studio) com o banco `saudelife`;
-   - **Postman** com a coleção `saude-life-api.postman_collection.json` (opcional).
-5. Deixe o tema escuro e o idioma em português.
+1. **Acorde o servidor:** abra https://chagaspq.github.io/saude-life, vá em **Entrar > Demonstração: cliente** e espere abrir (na primeira vez pode levar até 1 minuto). Depois **Perfil > Sair da conta**.
+2. Deixe abertos no computador:
+   - o **site** (tela de Entrar) e, em outra aba, a página inicial (`welcome`);
+   - o **VS Code** com a pasta `src/` (front-end React);
+   - o **Spring Tools** com o projeto `backend` (API);
+   - o **SSMS** com o banco `saudelife` (SQL Server);
+   - o **Postman** com a coleção `backend/saude-life-api.postman_collection.json`, já com o **Login cliente demo** rodado.
+3. Tema escuro, idioma português.
 
-## O caminho (quem fala o quê)
+---
 
-| Tempo | Pessoa | Tela | O que mostrar e falar |
-|---|---|---|---|
-| 1 min | Pessoa 1 | Página inicial pública | O problema: as pessoas começam a treinar e desistem. A proposta: treino guiado, pontos e acompanhamento de quem entende. |
-| 1 min | Pessoa 1 | Criar conta | Mostre a escolha **Sou cliente** ou **Sou administrador** e o campo **Código da academia** (é assim que o cliente entra na academia). Não precisa terminar. |
-| 1 min | Pessoa 2 | Entrar > Demonstração: cliente | Só 5 abas: Início, Treinos, Alimentação, Evolução e Perfil. Meta da semana, pontos e próximo treino. |
-| 2 min | Pessoa 2 | Treinos > Iniciar treino | Marque 2 séries, mostre o descanso e os pontos. Termine e mostre o resumo. |
-| 1 min | Pessoa 2 | Alimentação e Evolução | Adicione uma refeição e um copo d'água. Na Evolução, o gráfico de treinos por semana. |
-| 1 min | Pessoa 3 | Perfil > Sair da conta | Volte ao login e toque em **Demonstração: administrador**. |
-| 2 min | Pessoa 3 | Painel do administrador | Destaque o **selo ADMIN**, a faixa verde e o **código da academia (SL-DEMO)**. Mostre o cliente de demonstração e quanto ele treinou (o treino de agora há pouco já aparece). Toque em **Mandar treino**, monte e envie. Publique um aviso. |
-| 2 min | Pessoa 4 | Parte técnica | **Spring Tools:** a API rodando (pastas modelo, controle, repositório). **SSMS:** as 12 tabelas e os dados (botão direito em `usuarios` > *Select Top 1000 Rows*). Explique: o site chama a API, a API grava no banco. |
-| 1 min | Pessoa 4 | Fechamento | Entre de novo como cliente, mostre o aviso no Início e o treino recebido. Os dados estão no servidor: abrem em qualquer celular. Próximos passos: pagamento de verdade (já pronto, falta ativar), e-mail e app na loja. |
+## 1. Abertura (Gabriel, 1 min)
 
-## O que muda entre cliente e administrador
+> "Olá! Somos Gabriel Chagas, número 08, Rafael Santos, 15, Tomas de Oliveira, 17, e Hiago Tetsuo, 10, do curso [curso], da [instituição]. Vamos apresentar o **Saúde Life**, um app de treino com acompanhamento de academia."
 
-| | Cliente | Administrador |
-|---|---|---|
-| Páginas | Início, Treinos, Alimentação, Evolução e Perfil | Painel do administrador e Perfil |
-| Treinos | Registra os próprios treinos | Monta e manda treinos para os clientes |
-| Dados | Vê só os próprios dados | Vê só os clientes da própria academia |
-| Avisos | Recebe os avisos no Início | Publica avisos para os clientes da academia |
-| Marca na tela | Nenhuma | Selo ADMIN no topo e faixa verde |
+- **Problema:** muita gente começa a treinar e desiste; a academia não sabe quem sumiu.
+- **Solução:** treino guiado, pontos para manter a constância e um painel para a academia ou o personal acompanhar os clientes.
+- Dois acessos: **cliente** (quem treina) e **administrador** (academia ou personal).
 
-Essa mesma tabela aparece no **Perfil** de cada conta.
+## 2. Demonstração (Gabriel, 3 min)
 
-## Como as partes conversam
+Na página inicial e depois em **Entrar > Demonstração: cliente**:
+- **Início:** meta da semana, pontos, próximo treino. Só 5 abas: Início, Treinos, Alimentação, Evolução, Perfil.
+- **Treinos > Iniciar treino:** marque 2 séries, mostre o descanso contando e os pontos. Finalize e mostre o resumo (duração, séries, volume, calorias).
+- **Alimentação:** adicione uma refeição (a busca de comida calcula calorias e proteína) e um copo d'água.
+- **Evolução:** gráfico de peso e de treinos por semana.
 
-```
-Site (React, GitHub Pages)  --->  API (Java + Spring Boot, Render)  --->  Banco (PostgreSQL no Render / SQL Server no computador)
-        tela                        regras e segurança                         12 tabelas
-```
+## 3. Front-end (Rafael, 2 min)
+
+- Feito em **React 18** com **Vite**; publicado no **GitHub Pages**.
+- Mostre no VS Code a pasta `src/`:
+  - `src/paginas/`: uma página por tela (`login.jsx`, `inicio.jsx`, `treino.jsx`, `admin.jsx`...);
+  - `src/componentes/`: peças reaproveitadas (casco do app, janelas, cartões, formulários);
+  - `src/lib/api.js`: é aqui que o site conversa com a API.
+- Responsivo (celular com menu embaixo), tema claro e escuro, acessibilidade (tamanho da letra, alto contraste, menos movimento) e 3 idiomas (português, inglês e espanhol).
+
+## 4. Back-end (Tomas, 2 min)
+
+- API REST em **Java 17 + Spring Boot 3**, publicada no **Render**.
+- Mostre no Spring Tools a pasta `backend/src/main/java/br/com/saudelife/api/`:
+  - `modelo/`: as tabelas como classes (Usuario, Treino, Refeicao...);
+  - `repositorio/`: acesso ao banco (Spring Data JPA);
+  - `controle/`: as rotas;
+  - `seguranca/`: login por token.
+- Rotas principais: `POST /auth/login`, `POST /auth/cadastro`, `GET /treinos`, `POST /sessoes` (treino concluído), `POST /refeicoes`, `POST /pesos`, `GET /admin/clientes`, `POST /admin/clientes/{id}/treinos`, `POST /admin/avisos`.
+- **No Postman:** mostre o `GET /treinos` respondendo em JSON.
+- **Segurança:** senha só como hash **BCrypt**; o login gera um token; o admin só vê os clientes da academia dele.
+
+## 5. Banco de dados (Hiago, 2 min)
+
+- **SQL Server** (no computador, com o SSMS). No ar, a mesma API usa **PostgreSQL**, porque o servidor grátis só oferece esse; o código não muda, só a configuração.
+- Mostre no SSMS as **12 tabelas**: `usuarios`, `academias`, `treinos`, `treino_itens`, `sessoes_treino`, `refeicoes`, `agua_dia`, `pesos`, `pontos`, `avisos`, `sessoes_login` e `redefinicoes_senha`.
+- Relações principais: um **usuário** pertence a uma **academia**; um usuário tem vários **treinos**, cada treino tem vários **exercícios** (`treino_itens`); um usuário tem vários **treinos concluídos**, **refeições**, **pesos** e **pontos**; a academia tem vários **avisos**.
+- Mostre os dados: botão direito em `usuarios` > **Select Top 1000 Rows** (repare que a senha está como hash, nunca o texto).
+- Script do banco: `backend/banco/banco-de-dados-sqlserver.sql`.
+
+## 6. Fluxo completo (Rafael, 2 min)
+
+Mostra as três partes conversando:
+1. No site, **Sair** e entrar com **Demonstração: administrador**: selo ADMIN, faixa verde e código da academia **SL-DEMO**.
+2. O treino que o Gabriel fez agora há pouco já aparece no cliente de demonstração.
+3. **Mandar treino** para o cliente e **publicar um aviso**.
+4. Sair, entrar como cliente: o aviso aparece no Início e o treino recebido aparece em Treinos.
+5. (Opcional) Atualize o SSMS: a linha nova aparece na tabela `avisos`.
+
+> Caminho: **site (React)** → **API (Spring Boot)** → **banco (SQL Server / PostgreSQL)**.
+
+## 7. Dificuldades e aprendizados (todos, 2 min — cada um fala uma)
+
+Sugestões (troquem pelo que viveram de verdade):
+- **Gabriel:** deixar o app simples (MVP): tiramos várias telas para focar no que importa.
+- **Rafael:** passar o site para React e manter o mesmo visual.
+- **Tomas:** segurança do login (hash de senha, token) e cada pessoa só ver os próprios dados.
+- **Hiago:** desenhar as tabelas e fazer a mesma API funcionar com SQL Server e PostgreSQL.
+
+## 8. Encerramento (Gabriel, 1 min)
+
+- **Próximos passos:** pagamento de verdade (Mercado Pago, já integrado, falta ativar), e-mail de recuperação de senha, app na loja e conta de academia verificada.
+- "Obrigado! Ficamos à disposição para perguntas."
+
+---
 
 ## Perguntas que a banca pode fazer
 
-- **Que tecnologias vocês usaram?** Site em **React 18 + Vite** (publicado no GitHub Pages). API em **Java 17 + Spring Boot 3** com **Spring Data JPA** (publicada no Render com Docker). Banco **PostgreSQL** no ar e **SQL Server** no computador: o mesmo código funciona nos dois, só muda a configuração.
-- **Onde ficam os dados?** No banco de dados do servidor. Por isso a pessoa entra de qualquer celular e vê os mesmos dados, e o administrador vê os clientes da academia dele.
-- **Por que dois bancos?** O servidor grátis (Render) só oferece PostgreSQL. No computador usamos SQL Server, que é o que estudamos. A API usa JPA, então troca de banco sem mudar o código.
-- **Quais são as tabelas?** usuarios, academias, treinos, treino_itens, sessoes_treino (histórico), refeicoes, agua_dia, pesos, pontos, avisos, sessoes_login e redefinicoes_senha.
-- **A senha é segura?** Fica guardada só como **hash BCrypt**. O login gera um token aleatório; no banco fica só o resumo (SHA-256) dele. Trocar a senha derruba os logins antigos.
-- **Um cliente consegue ver dados de outro?** Não. A API confere o token em toda chamada, e o administrador só enxerga os clientes da própria academia.
-- **Qualquer um pode criar conta de administrador?** No MVP sim, para facilitar a demonstração. Na versão comercial, a conta de administrador seria liberada só para academias e personais verificados.
-- **Por que as telas começam vazias?** Porque é um MVP: nada é inventado, tudo vem do que o usuário registra.
-- **E o pagamento?** A integração com o **Mercado Pago** (Pix e cartão) já está no código; para cobrar de verdade só falta colocar a chave da conta. Hoje está em modo de demonstração.
-- **E a LGPD?** Tem Termos de Uso e Política de Privacidade, e a pessoa pode baixar ou excluir todos os dados dela pelo Perfil (a API apaga tudo do banco).
-- **Como vocês testaram?** Teste automático na API (cadastro, login, treino, refeição, peso, pontos, admin, aviso, troca de senha) e testes de ponta a ponta do site com a API no PostgreSQL e no SQL Server.
+- **Onde ficam os dados?** No banco do servidor. A pessoa entra de qualquer celular e vê os mesmos dados.
+- **Por que dois bancos?** O servidor grátis (Render) só oferece PostgreSQL; no computador usamos SQL Server. A API usa JPA, então troca de banco sem mudar o código.
+- **A senha é segura?** Fica só como hash BCrypt. O token do login fica no banco só como resumo (SHA-256). Trocar a senha derruba os logins antigos.
+- **Um cliente vê dados de outro?** Não: a API confere o token em toda chamada, e o admin só vê os clientes da própria academia.
+- **Qualquer um pode ser administrador?** No MVP sim, para a demonstração. Na versão comercial, só academias e personais verificados.
+- **E o pagamento?** A integração com o Mercado Pago (Pix e cartão) está no código; falta colocar a chave da conta. Hoje é demonstração.
+- **E a LGPD?** Termos de Uso, Política de Privacidade e, no Perfil, baixar ou excluir todos os próprios dados.
+- **Como testaram?** Teste automático da API e testes de ponta a ponta (site + API) no PostgreSQL e no SQL Server.
 
 ## Se algo der errado
 
 - **Login demorando:** o servidor está acordando; espere até 1 minuto.
-- **Travou:** recarregue a página (Ctrl+F5).
-- **Sem internet:** rode a API no Spring Tools com o SQL Server e mostre pelo Postman (rotas em `backend/README.md`).
-- **Quer recomeçar uma conta:** Perfil > Apagar meus dados.
+- **Travou:** Ctrl+F5.
+- **Sem internet:** rode a API no Spring Tools com o SQL Server (perfil `sqlserver`) e mostre pelo Postman.
