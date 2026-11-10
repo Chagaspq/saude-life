@@ -64,3 +64,11 @@ Atenção: várias dessas imagens do Pinterest **foram feitas por IA** (dá pra 
 - **Fotinhos de clientes + nota do Google** do lado do botão de agendar ("4,9 no Google").
 - **Seção "curso" ou "academia"** se o salão também dá aula.
 - **Academia:** a referência do Pinterest é de APLICATIVO, não de site. Pro site de academia: planos com preço, modalidades, horários das aulas e botão de aula experimental. O verde-limão no preto é muito usado; escolher outra cor.
+
+### Advocacia (McAllister e Novalex)
+- **Dois caminhos:** escuro e elegante (azul-noite + dourado + mármore) ou claro e acolhedor (creme + dourado).
+- **Título serifado grande**, ar sério e confiável.
+- **Áreas de atuação em cards com foto** (família, empresarial, imobiliário, trabalhista...).
+- **Foto do advogado ou da advogada** em destaque, com assinatura: passa confiança.
+- **Botão "Agendar consulta"** que manda pro WhatsApp.
+- **Regra da OAB:** sem preço, sem promoção e sem promessa de resultado. Nada de "98% de casos ganhos". Depoimento de cliente é arriscado, melhor evitar. Pode: áreas de atuação, formação, anos de experiência, artigos e contato.
