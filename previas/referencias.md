@@ -79,3 +79,7 @@ Atenção: várias dessas imagens do Pinterest **foram feitas por IA** (dá pra 
 - **Bodrin (café):** marrom com produto "flutuando" e grãos voando. Chamativo, mas exige foto de produto recortada e de boa qualidade.
 - **CutTheory (barbearia):** "Estilos em destaque" com foto de cada corte (low fade, pompadour...) e o nome. Bom pra barbearia: o cliente escolhe o corte pela foto.
 - A CutTheory também foi feita por IA (texto sem sentido no meio).
+
+## Padrão aprovado (10/11)
+- **Topo com a foto ocupando o fundo inteiro**, com uma camada escura (ou clara) por cima e o texto à esquerda. O Gabriel achou muito melhor que a foto numa caixa ao lado.
+- Os 6 modelos de teste ficam em `previas/modelos/` (barbearia, tatuagem, salão, advocacia, academia, confeitaria), com prints de computador e celular em `previas/modelos/prints/`.
