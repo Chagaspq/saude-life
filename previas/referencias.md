@@ -57,3 +57,10 @@ Atenção: várias dessas imagens do Pinterest **foram feitas por IA** (dá pra 
 - **Portfólio por estilo** (tatuagem): realismo, fineline, lettering, cobertura
 - **Foto grande de verdade no topo**, ocupando metade da tela
 - **Título serifado elegante** (Luxé Nail Studio) pra salão de unha e beleza
+
+### Mais ideias (salão e academia)
+- **Faixa de números** (anos de experiência, clientes atendidos): só usar com números REAIS do cliente, nunca inventar.
+- **Marcas que o salão usa** (L'Oréal, Wella, Kérastase...) numa faixa de logos: passa confiança e é fácil de conseguir.
+- **Fotinhos de clientes + nota do Google** do lado do botão de agendar ("4,9 no Google").
+- **Seção "curso" ou "academia"** se o salão também dá aula.
+- **Academia:** a referência do Pinterest é de APLICATIVO, não de site. Pro site de academia: planos com preço, modalidades, horários das aulas e botão de aula experimental. O verde-limão no preto é muito usado; escolher outra cor.
