@@ -3,6 +3,7 @@ import { useState } from "react";
 import { montar } from "../montar.jsx";
 import PublicLayout from "../componentes/PublicLayout.jsx";
 import { ler, gravar } from "../lib/armazenamento.js";
+import { BannerFoto, Passos } from "../componentes/Vitrine.jsx";
 import "../estilos/kit-publico.js";
 import "../estilos/planos-publico.css";
 import "../estilos/academias.css";
@@ -17,6 +18,16 @@ const BENEFICIOS = [
   ["Avisos para todos", "Feriado, horário novo ou manutenção: publique no painel e todo mundo vê no Início do app.", ["m3 11 18-5v12L3 14v-3z", "M11.6 16.8a3 3 0 1 1-5.8-1.6"]],
   // Pontos
   ["Pontos que motivam", "Cada série e cada treino valem pontos. Meta da semana batida faz a pessoa voltar.", ["M6 9H4.5a2.5 2.5 0 0 1 0-5H6", "M18 9h1.5a2.5 2.5 0 0 0 0-5H18", "M4 22h16", "M18 2H6v7a6 6 0 0 0 12 0V2Z", "M12 15v7"]],
+];
+
+// Passos: [título, texto, foto]
+const PASSOS = [
+  // Passo 1
+  ["Crie a conta de administrador", "No cadastro, escolha \"Sou administrador\".", "plano-academia"],
+  // Passo 2
+  ["Seus clientes entram", "Cada cliente cria a própria conta e aparece no seu painel.", "passo-3"],
+  // Passo 3
+  ["Você acompanha", "No painel você manda treinos, vê quem treinou e publica avisos.", "plano-pro"],
 ];
 
 // Página
@@ -54,15 +65,13 @@ function Academias() {
   // Página
   return (
     <PublicLayout atual="academias">
-      {/* Topo */}
-      <section className="plans-hero">
-        <p className="hero-kicker">Para academias e personais</p>
-        <h1>Seus alunos treinando mais, e voltando sempre</h1>
-        <p className="plans-hero-lead">Mande treinos, acompanhe quem treinou e publique avisos. Tudo no app que o aluno já usa para treinar.</p>
-        <a href="#demo" className="btn-hero-primary">
+      {/* Topo com foto */}
+      <BannerFoto foto="academia" chamada="Para academias e personais" titulo="Seus alunos treinando mais, e voltando sempre" texto="Mande treinos, acompanhe quem treinou e publique avisos. Tudo no app que o aluno já usa para treinar.">
+        {/* Botão */}
+        <a href="#demo" className="vt-btn vt-btn-coral">
           Quero uma demonstração
         </a>
-      </section>
+      </BannerFoto>
 
       {/* Benefícios */}
       <section className="acad-beneficios" aria-labelledby="titulo-beneficios">
@@ -85,24 +94,8 @@ function Academias() {
         </ul>
       </section>
 
-      {/* Como funciona */}
-      <section className="acad-passos" aria-labelledby="titulo-passos">
-        <h2 id="titulo-passos">Como funciona</h2>
-        <ol>
-          <li>
-            <strong>Crie a conta de administrador</strong>
-            <span>No cadastro, escolha "Sou administrador".</span>
-          </li>
-          <li>
-            <strong>Seus clientes entram</strong>
-            <span>Cada cliente cria a própria conta e aparece no seu painel.</span>
-          </li>
-          <li>
-            <strong>Você acompanha</strong>
-            <span>No painel você manda treinos, vê quem treinou e publica avisos.</span>
-          </li>
-        </ol>
-      </section>
+      {/* Como funciona em passos com foto */}
+      <Passos id="titulo-passos" chamada="Como funciona" titulo="Em três passos" passos={PASSOS} />
 
       {/* Simulador */}
       <section className="acad-simulador" aria-labelledby="titulo-simulador">
@@ -147,7 +140,7 @@ function Academias() {
             {msg?.texto}
           </p>
           {/* Enviar */}
-          <button type="submit" className="btn-hero-primary">
+          <button type="submit" className="vt-btn vt-btn-coral">
             Quero uma demonstração
           </button>
         </form>

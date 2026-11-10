@@ -407,3 +407,13 @@
   /* Negrito */
   font-weight: 700;
 }
+
+/* Preço cheio riscado (aparece no plano anual) */
+.plan-price-old {
+  /* Ocupa a linha toda (fica em cima do preço) */
+  flex-basis: 100%;
+  /* Letra pequena */
+  font-size: 14px;
+  /* Cor suave */
+  color: var(--muted);
+}

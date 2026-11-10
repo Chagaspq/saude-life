@@ -18,6 +18,22 @@ export const PLANOS = [
   { nome: "Academia", mensal: null, itens: ["Painel do dono com frequência e alunos sumidos", "Desafios e avisos para os alunos", "Relatórios e suporte dedicado"], cta: "Falar com consultor" },
 ];
 
+// Foto de cada plano (só no site público, com fotos=true)
+const FOTO = {
+  // Free: abdominal em casa
+  Free: "plano-free",
+  // Premium: barra na academia
+  Premium: "plano-premium",
+  // Estudante: flexão com halteres
+  Estudante: "plano-estudante",
+  // Família: aula em grupo
+  Família: "plano-familia",
+  // Profissional: rosca com barra
+  Profissional: "plano-pro",
+  // Academia: salão de musculação
+  Academia: "plano-academia",
+};
+
 // Desconto do plano anual
 export const DESCONTO_ANUAL = 0.2;
 
@@ -35,6 +51,9 @@ function Preco({ plano, anual }) {
   // Valor
   return (
     <>
+      {/* No anual: preço cheio riscado */}
+      {anual && <s className="plan-price-old">{reais(plano.mensal)}</s>}
+      {/* Preço */}
       <span className="plan-price-value">{reais(mensal)}</span>
       <span className="plan-price-period">/mês</span>
       {/* Total do ano */}
@@ -43,13 +62,13 @@ function Preco({ plano, anual }) {
   );
 }
 
-// Cartões (cta = link do botão no site público; onEscolher = ação no app; atual = plano da pessoa)
-export default function Planos({ cta, onEscolher, atual }) {
+// Cartões (cta = link do botão no site público; onEscolher = ação no app; atual = plano da pessoa; fotos = cartão com foto em cima; so = mostra só estes planos)
+export default function Planos({ cta, onEscolher, atual, fotos, so }) {
   // Mostrando o anual?
   const [anual, setAnual] = useState(false);
   // Chave e grade
   return (
-    <div data-planos="">
+    <div data-planos="" className={fotos ? "plans-vitrine" : undefined}>
       {/* Mensal / anual */}
       <div className="billing-toggle" role="group" aria-label="Período de cobrança">
         <button type="button" className={"billing-option" + (anual ? "" : " is-active")} aria-pressed={!anual} onClick={() => setAnual(false)}>
@@ -61,7 +80,7 @@ export default function Planos({ cta, onEscolher, atual }) {
       </div>
       {/* Cartões */}
       <div className="plans-grid">
-        {PLANOS.map((p) => {
+        {PLANOS.filter((p) => !so || so.includes(p.nome)).map((p) => {
           // É o plano da pessoa?
           const ehAtual = p.nome === atual;
           // Classe do botão
@@ -69,8 +88,10 @@ export default function Planos({ cta, onEscolher, atual }) {
           // Cartão
           return (
             <article key={p.nome} className={"plan-card" + (p.destaque ? " plan-card-highlight" : "") + (ehAtual ? " plan-card-current" : "")}>
+              {/* Foto do plano (site público) */}
+              {fotos && <img className="plan-foto" src={`../fotos/${FOTO[p.nome]}.jpg`} alt="" loading="lazy" width="800" height="520" />}
               {/* Etiquetas */}
-              {p.destaque && <span className="plan-tag">Mais escolhido</span>}
+              {p.destaque && <span className="plan-tag">{fotos ? "Mais vantajoso" : "Mais escolhido"}</span>}
               {ehAtual && <span className="plan-tag plan-tag-current">Seu plano</span>}
               {p.teste && !ehAtual && <span className="plan-teste">{p.teste}</span>}
               {/* Nome */}

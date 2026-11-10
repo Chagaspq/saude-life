@@ -8,6 +8,9 @@ import "../estilos/tokens.css";
 import "../estilos/base.css";
 import "../estilos/welcome.css";
 import "../estilos/site.css";
+import Planos from "../componentes/Planos.jsx";
+import { BannerFoto, Cabeca, Passos, Faixa, Duvidas } from "../componentes/Vitrine.jsx";
+import "../estilos/vitrine.css";
 
 // Séries da demonstração: [nome, carga]
 const SERIES = [
@@ -29,16 +32,6 @@ const RECURSOS = [
   ["Alimentação e água", "Anote as refeições do dia e os copos d'água, com metas calculadas para o seu objetivo.", <><path className="duo" d="M11 20.5c1.3 0 2.2.8 3.3.8 2.4 0 4.7-6.3 4.7-9.6A3.9 3.9 0 0 0 15.1 8c-1.7 0-3.1 1.1-4.1 1.6C10 9.1 8.6 8 6.9 8A3.9 3.9 0 0 0 3 11.7c0 3.3 2.3 9.6 4.7 9.6 1.1 0 2-.8 3.3-.8z" /><path d="M11 9.6c0-2.6 1-4.4 3-5.4" /><path d="M20.5 2.5s1.5 1.8 1.5 2.8a1.5 1.5 0 0 1-3 0c0-1 1.5-2.8 1.5-2.8z" /></>],
   // Acompanhamento (prancheta)
   ["Acompanhamento da academia", "Sua academia ou personal acompanha seu progresso, manda treinos e avisos direto no app.", <><rect className="duo" x="5" y="4" width="14" height="17" rx="2" /><rect x="9" y="2.5" width="6" height="3" rx="1" /><path d="m9 13.5 2 2 4-4.5" /></>],
-];
-
-// Passos: [título, texto]
-const PASSOS = [
-  // Passo 1
-  ["Comece em menos de 1 minuto", "Crie sua conta, diga o que você quer (emagrecer, ganhar massa ou ter mais disposição) e comece a usar. Leva menos de um minuto."],
-  // Passo 2
-  ["Um plano com a sua cara", "A gente monta treinos e metas de acordo com sua rotina, seu nível e seu objetivo. Se precisar, um profissional ajusta com você."],
-  // Passo 3
-  ["Veja o progresso acontecer", "Cada treino, cada meta batida, cada pequena vitória fica registrada. Gráficos simples mostram sua evolução real, pra você ver que o esforço está valendo a pena."],
 ];
 
 // Perguntas: [pergunta, resposta]
@@ -140,112 +133,106 @@ function Demo() {
   );
 }
 
+// Passos com foto: [título, texto, foto]
+const PASSOS_FOTO = [
+  // Passo 1
+  ["Crie sua conta", "Leva menos de um minuto. Diga se quer emagrecer, ganhar massa ou ter mais disposição.", "passo-1"],
+  // Passo 2
+  ["Receba seu plano", "Treinos e metas montados para a sua rotina, o seu nível e o seu objetivo.", "passo-2"],
+  // Passo 3
+  ["Treine e registre", "Marque cada série, a carga e o descanso. Cada treino vale pontos.", "passo-3"],
+  // Passo 4
+  ["Veja a evolução", "Gráficos de peso e carga semana a semana mostram o esforço virando resultado.", "passo-4"],
+];
+
 // Página
 function Welcome() {
   // Conteúdo
   return (
     <PublicLayout atual="welcome">
-      {/* Topo */}
-      <div className="hero-faixa">
-        {/* Fundo animado (o vídeo entra se existir o arquivo) */}
-        <div className="hero-fundo" aria-hidden="true" />
-        <section className="hero">
-          {/* Textos */}
-          <div className="hero-content">
-            <p className="hero-kicker">Seu parceiro de treino</p>
-            <h1>Progresso de verdade, no seu ritmo.</h1>
-            <p className="hero-lead">Registre seus treinos, refeições e evolução em um só lugar. Testa aí do lado: marca uma série.</p>
-            {/* Botões */}
-            <div className="hero-actions">
-              <a href="../cadastro/cadastro.html" className="btn-hero-primary">
-                Criar minha conta
-              </a>
-              <a href="../login/login.html" className="btn-hero-secondary">
-                Já tenho conta
-              </a>
-            </div>
-          </div>
-          {/* Demonstração */}
-          <div className="hero-visual">
-            {/* Anéis e batimento ao fundo */}
-            <svg className="hero-pulse" viewBox="0 0 320 320" fill="none" aria-hidden="true">
-              <circle cx="160" cy="160" r="150" className="pulse-ring pulse-ring-1" />
-              <circle cx="160" cy="160" r="110" className="pulse-ring pulse-ring-2" />
-              <path d="M 40 170 L 100 170 L 120 110 L 150 220 L 175 90 L 195 170 L 280 170" className="pulse-line" fill="none" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+      {/* Topo com foto */}
+      <BannerFoto foto="topo" chamada="Seu parceiro de treino" titulo="Treine no seu ritmo. Evolua de verdade." texto="Treinos guiados, alimentação e a sua evolução em um só lugar. Comece de graça.">
+        {/* Botão principal */}
+        <a href="../cadastro/cadastro.html" className="vt-btn vt-btn-coral">
+          Criar minha conta
+        </a>
+        {/* Botão secundário */}
+        <a href="../planos/planos.html" className="vt-btn vt-btn-claro">
+          Ver planos
+        </a>
+      </BannerFoto>
+
+      {/* Recursos em faixa de ícones */}
+      <Revelar className="vt-recursos" aria-label="Recursos">
+        {RECURSOS.map(([titulo, texto, desenho]) => (
+          // Um recurso
+          <article key={titulo} className="vt-recurso">
+            {/* Ícone com degradê da marca */}
+            <svg className="feature-icon feature-icon-duo" viewBox="0 0 24 24" aria-hidden="true">
+              <g stroke="url(#sl-grad)">{desenho}</g>
             </svg>
-            <Demo />
-          </div>
-        </section>
-      </div>
-
-      {/* Recursos */}
-      <Revelar className="features" aria-labelledby="features-heading">
-        <div className="section-head">
-          <p className="section-kicker">Recursos</p>
-          <h2 id="features-heading">Tudo o que você precisa pra treinar com constância</h2>
-        </div>
-        <div className="features-grid">
-          {RECURSOS.map(([titulo, texto, desenho]) => (
-            <article key={titulo} className="feature">
-              {/* Ícone com degradê da marca */}
-              <svg className="feature-icon feature-icon-duo" viewBox="0 0 24 24" aria-hidden="true">
-                <g stroke="url(#sl-grad)">{desenho}</g>
-              </svg>
-              <h3>{titulo}</h3>
-              <p>{texto}</p>
-            </article>
-          ))}
-        </div>
+            {/* Título */}
+            <h3>{titulo}</h3>
+            {/* Texto */}
+            <p>{texto}</p>
+          </article>
+        ))}
       </Revelar>
 
-      {/* Como funciona */}
-      <Revelar className="journey" aria-labelledby="journey-heading">
-        <div className="section-head">
-          <p className="section-kicker">Como funciona</p>
-          <h2 id="journey-heading">Do primeiro clique ao primeiro resultado</h2>
-        </div>
-        <div className="journey-steps">
-          {PASSOS.map(([titulo, texto], i) => (
-            <div key={titulo} className="journey-step">
-              <div className="journey-step-header">
-                <span className="step-num">{i + 1}</span>
-                <h3>{titulo}</h3>
-              </div>
-              <p>{texto}</p>
-            </div>
-          ))}
-        </div>
+      {/* Planos (só os três principais) */}
+      <Revelar className="vt-secao" aria-labelledby="titulo-planos">
+        {/* Cabeçalho */}
+        <Cabeca id="titulo-planos" chamada="Planos" titulo="Escolha o seu plano" texto="Sem fidelidade e sem multa. Cancele quando quiser." />
+        {/* Cartões com foto */}
+        <Planos cta="../cadastro/cadastro.html" fotos so={["Free", "Premium", "Estudante"]} />
+        {/* Link para todos */}
+        <p className="vt-mais">
+          <a href="../planos/planos.html" className="vt-btn vt-btn-contorno">
+            Ver todos os planos
+          </a>
+        </p>
       </Revelar>
+
+      {/* Como funciona em 4 passos */}
+      <Passos id="titulo-passos" chamada="Como funciona" titulo="Do primeiro clique ao primeiro resultado" passos={PASSOS_FOTO} />
+
+      {/* Faixa: alimentação */}
+      <Faixa id="titulo-alimentacao" foto="alimentacao" chamada="Alimentação" titulo="Comer bem também é treino" texto="Anote as refeições e os copos d'água do dia. As metas são calculadas para o seu objetivo.">
+        {/* Botão */}
+        <a href="../calculadoras/calculadoras.html" className="vt-btn vt-btn-coral">
+          Calcular minhas metas
+        </a>
+      </Faixa>
+
+      {/* Experimente agora */}
+      <Revelar className="vt-experimente" aria-labelledby="titulo-demo">
+        {/* Textos */}
+        <div className="vt-experimente-texto">
+          {/* Cabeçalho */}
+          <Cabeca id="titulo-demo" chamada="Experimente" titulo="Marque uma série e sinta o app" texto="Sem criar conta. Cada série vale 10 pontos; o treino completo vale mais 50." />
+        </div>
+        {/* Demonstração */}
+        <Demo />
+      </Revelar>
+
+      {/* Faixa: academias (foto à esquerda) */}
+      <Faixa id="titulo-academias" foto="academia" lado="esquerda" chamada="Para academias e personais" titulo="Seus alunos treinando mais" texto="Mande treinos, veja quem treinou na semana e publique avisos no app que o aluno já usa.">
+        {/* Botão */}
+        <a href="../academias/academias.html" className="vt-btn vt-btn-coral">
+          Conhecer o plano Academia
+        </a>
+      </Faixa>
 
       {/* Dúvidas */}
-      <Revelar className="faq" aria-labelledby="faq-heading">
-        <div className="section-head">
-          <p className="section-kicker">Dúvidas</p>
-          <h2 id="faq-heading">Perguntas frequentes</h2>
-        </div>
-        <div className="faq-list">
-          {PERGUNTAS.map(([p, r]) => (
-            <details key={p}>
-              <summary>{p}</summary>
-              <p>{r}</p>
-            </details>
-          ))}
-        </div>
-      </Revelar>
+      <Duvidas id="titulo-duvidas" perguntas={PERGUNTAS} />
 
-      {/* Convite final */}
-      <Revelar className="plans-cta">
-        <h2>Seu primeiro treino começa hoje.</h2>
-        <p>Crie sua conta em menos de um minuto e conheça os planos quando fizer sentido pra você.</p>
-        <div className="cta-actions">
-          <a href="../cadastro/cadastro.html" className="btn-hero-primary">
-            Criar conta grátis
-          </a>
-          <a href="../planos/planos.html" className="btn-hero-secondary">
-            Ver planos
-          </a>
-        </div>
-      </Revelar>
+      {/* Convite final com foto */}
+      <BannerFoto foto="faixa" titulo="Seu primeiro treino começa hoje." texto="Crie sua conta em menos de um minuto.">
+        {/* Botão */}
+        <a href="../cadastro/cadastro.html" className="vt-btn vt-btn-coral">
+          Criar conta grátis
+        </a>
+      </BannerFoto>
     </PublicLayout>
   );
 }
