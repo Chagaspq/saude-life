@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dicoralla Tattoo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Jost:wght@300;400;500;600&display=swap">
+<style>
+/* Layout no estilo de loja: barra de aviso, cabeçalho com logo no centro, banner, categorias em bolinhas,
+   carrossel de serviços, combos com desconto, faixa de vantagens e rodapé escuro. Vermelho e preto da marca, madeira do salão. */
+:root{
+  --vermelho:#1f2a44; --vermelho-escuro:#141c30; --preto:#111111; --carvao:#1b1b1b;
+  --madeira:#b8925a; --creme:#f7f2ec; --papel:#ffffff; --texto:#1d1d1d; --cinza:#6d6862; --linha:#e7e0d8;
+  --zap:#25d366;
+  --titulo:"Oswald","Arial Narrow",Impact,sans-serif;
+  --corpo:"Jost",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--creme);color:var(--texto);font-family:var(--corpo);font-size:15px;line-height:1.5}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+.in{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* Barra de aviso */
+.aviso{background:var(--preto);color:#f1e9e0;font-size:.78rem;letter-spacing:.06em;text-align:center;padding:8px 16px}
+.aviso b{color:#d9b779;font-weight:600}
+
+/* Cabeçalho */
+header{position:sticky;top:0;z-index:10;background:var(--vermelho);color:#fff}
+.cab{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:64px}
+.cab .lado{display:flex;gap:16px;align-items:center}
+.cab .lado.dir{justify-content:flex-end}
+.ico{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.6}
+.logo{text-align:center;line-height:1}
+.logo b{display:block;font-family:var(--titulo);font-weight:700;font-size:1.65rem;letter-spacing:.06em}
+.logo small{display:block;font-size:.58rem;letter-spacing:.42em;text-transform:uppercase;opacity:.85;margin-top:3px}
+
+/* Banner */
+.banner{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.banner::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;scroll-snap-align:start;min-height:440px;position:relative;display:grid;align-items:end;color:#fff;overflow:hidden}
+.slide .in{position:relative;z-index:1;width:100%;padding-block:40px 56px}
+.s1{background:radial-gradient(70% 60% at 75% 35%, rgba(184,146,90,.35), transparent 70%),#1f2a44}
+.s1::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.75))}
+.s2{background:#b8925a;color:#1f2a44}
+.s2::after{content:"";position:absolute;right:-60px;top:-60px;width:320px;height:320px;border-radius:50%;border:40px solid rgba(255,255,255,.08)}
+.s3{background:var(--preto)}
+.slide .tag{display:inline-block;font-size:.85rem;border:1px solid rgba(255,255,255,.5);padding:5px 10px;margin-bottom:14px}
+.slide h1,.slide h2{font-family:var(--titulo);font-weight:700;text-transform:uppercase;line-height:.95;margin:0 0 12px;font-size:clamp(2.6rem,11vw,4.8rem);letter-spacing:.01em}
+.slide p{margin:0 0 20px;max-width:34ch;font-weight:300;font-size:1.05rem}
+.botao{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--preto);font-weight:600;padding:13px 22px;font-size:.95rem;letter-spacing:.03em}
+.botao.escuro{background:var(--preto);color:#fff}
+.pontos{display:flex;justify-content:center;gap:6px;margin-top:-28px;position:relative;z-index:2;padding-bottom:12px}
+.pontos i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.5)}
+.pontos i:first-child{background:#fff;width:18px;border-radius:4px}
+
+/* Categorias */
+.cats{display:flex;gap:18px;overflow-x:auto;padding-block:26px 22px;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cat{flex:none;display:grid;justify-items:center;gap:8px;font-size:.82rem;color:var(--cinza);width:76px;text-align:center}
+.bola{width:70px;height:70px;border-radius:50%;display:grid;place-items:center;background:var(--papel);border:2px solid var(--vermelho);box-shadow:inset 0 0 0 3px var(--papel)}
+.bola svg{width:30px;height:30px;stroke:var(--vermelho);fill:none;stroke-width:1.6}
+
+/* Títulos de seção */
+.secao{padding-block:28px 34px;border-top:1px solid var(--linha)}
+.tit{text-align:center;font-weight:400;font-size:1.25rem;margin:0 0 22px;letter-spacing:.02em}
+.tit small{display:block;font-size:.78rem;color:var(--cinza);margin-top:2px}
+
+/* Carrossel de serviços */
+.trilho{display:grid;grid-auto-flow:column;grid-auto-columns:46%;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;scrollbar-width:none}
+.trilho::-webkit-scrollbar{display:none}
+.card{scroll-snap-align:start;display:grid;gap:6px}
+.foto{aspect-ratio:3/4;position:relative;background:
+  linear-gradient(160deg,rgba(169,120,76,.18),transparent 60%),
+  repeating-linear-gradient(90deg,#e9e1d7 0 18px,#e4dbd0 18px 36px);
+  display:grid;place-items:center;color:#a29a90;font-size:.75rem;text-align:center;padding:8px}
+.selo{position:absolute;left:8px;bottom:8px;background:#fff6c7;color:#7a5b00;font-size:.68rem;font-weight:600;padding:2px 7px;letter-spacing:.04em}
+.card h3{font-weight:400;font-size:.95rem;margin:4px 0 0}
+.preco{display:flex;gap:8px;align-items:baseline;font-variant-numeric:tabular-nums}
+.preco s{color:#9b948c;font-size:.82rem}
+.preco b{font-weight:600}
+.card .agendar{font-size:.8rem;color:var(--vermelho);font-weight:600}
+.exemplo{text-align:center;font-size:.75rem;color:var(--cinza);margin-top:14px}
+
+/* Espaço kids */
+.kids{background:var(--preto);color:#fff;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:0}
+.kids .txt{padding:36px 22px}
+.kids h2{font-family:var(--titulo);text-transform:uppercase;font-size:2.2rem;line-height:1;margin:0 0 10px}
+.kids p{font-weight:300;margin:0 0 18px;color:#ddd}
+.kids .foto{aspect-ratio:auto;height:100%;min-height:260px;background:radial-gradient(60% 50% at 50% 60%, rgba(184,146,90,.3), transparent 70%),#2a3554;color:#a9b0c2}
+
+/* Vantagens */
+.vant{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding-block:40px;text-align:center}
+.vant div{display:grid;justify-items:center;gap:10px;font-size:1rem}
+.vant svg{width:52px;height:52px;stroke:var(--texto);fill:none;stroke-width:1.2}
+.vant small{display:block;color:var(--cinza);font-size:.82rem}
+
+/* Rodapé */
+footer{background:#141c30;color:#e9dfd6;padding-block:40px calc(96px + env(safe-area-inset-bottom,0px))}
+footer .marca{font-family:var(--titulo);font-weight:700;font-size:2rem;letter-spacing:.06em;color:#fff;text-transform:uppercase}
+footer .marca small{display:block;font-family:var(--corpo);font-size:.85rem;letter-spacing:.02em;text-transform:none;color:#bfa9a9;margin-top:2px}
+.colunas{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:26px}
+footer h4{font-size:.9rem;color:#bfa9a9;margin:0 0 10px;font-weight:500}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+footer .redes{display:flex;gap:14px;margin-top:22px}
+footer .redes svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:1.6}
+.copy{margin-top:30px;font-size:.75rem;color:#8d7f7f}
+
+.passos{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding-block:36px}
+.passos div{display:grid;gap:6px}
+.passos b{font-family:var(--titulo);font-size:2.2rem;color:var(--madeira);line-height:1}
+.passos small{color:var(--cinza)}
+@media (max-width:620px){.passos{grid-template-columns:1fr}}
+/* Botão fixo e selo de prévia */
+.fixo{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:15;width:56px;height:56px;border-radius:50%;background:var(--zap);display:grid;place-items:center;box-shadow:0 8px 24px -6px rgba(0,0,0,.45)}
+.fixo svg{width:30px;height:30px;fill:#fff}
+:focus-visible{outline:2px solid var(--vermelho);outline-offset:2px}
+
+@media (min-width:760px){.trilho{grid-auto-columns:23%}}
+@media (max-width:620px){
+  .kids{grid-template-columns:1fr}
+  .kids .foto{min-height:200px;order:-1}
+  .vant{grid-template-columns:1fr;gap:28px}
+  .colunas{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="aviso"><b>Prévia</b> do site. Orçamento pelo WhatsApp</div>
+
+<header>
+  <div class="in cab">
+    <div class="lado"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></div>
+    <a class="logo" href="#"><b>DICORALLA</b><small>tattoo</small></a>
+    <div class="lado dir">
+      <a href="https://www.google.com/maps/search/Dicoralla+Tattoo+Granja+Viana" target="_blank" rel="noopener" aria-label="Como chegar"><svg class="ico" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg></a>
+      <a href="https://wa.me/5511930628647?text=Oi!" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="ico" viewBox="0 0 24 24"><path d="M4 20l1.2-3.6A8 8 0 1 1 8 19.1L4 20Z"/></svg></a>
+    </div>
+  </div>
+</header>
+
+<div class="banner" aria-label="Destaques">
+  <section class="slide s1"><div class="in">
+    <span class="tag">Granja Viana</span>
+    <h1>Sua ideia<br>na pele</h1>
+    <p>Mande sua referência pelo WhatsApp e receba o orçamento sem compromisso.</p>
+    <a class="botao" href="https://wa.me/5511930628647?text=Oi!%20Quero%20um%20or%C3%A7amento%20de%20tattoo." target="_blank" rel="noopener">Pedir orçamento</a>
+  </div></section>
+  <section class="slide s2"><div class="in">
+    <span class="tag" style="border-color:rgba(31,42,68,.4)">Flash do mês</span>
+    <h2>Desenhos<br>prontos</h2>
+    <p>Artes exclusivas com valor fechado. Escolha a sua.</p>
+    <a class="botao escuro" href="#flash">Ver flashes</a>
+  </div></section>
+  <section class="slide s3"><div class="in">
+    <span class="tag">Portfólio</span>
+    <h2>Fineline e<br>blackwork</h2>
+    <p>Veja os trabalhos do estúdio por estilo.</p>
+    <a class="botao" href="#portfolio">Ver portfólio</a>
+  </div></section>
+</div>
+<div class="pontos" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<nav class="in cats" aria-label="Estilos">
+  <a class="cat" href="#portfolio"><span class="bola"><svg viewBox="0 0 24 24"><path d="M4 20 20 4"/></svg></span>Fineline</a>
+  <a class="cat" href="#portfolio"><span class="bola"><svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" fill="#1f2a44" stroke="none"/></svg></span>Blackwork</a>
+  <a class="cat" href="#portfolio"><span class="bola"><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="4"/><path d="M5 20c1.5-4 12.5-4 14 0"/></svg></span>Realismo</a>
+  <a class="cat" href="#portfolio"><span class="bola"><svg viewBox="0 0 24 24"><path d="M12 4c2 4 6 5 6 9a6 6 0 0 1-12 0c0-4 4-5 6-9Z"/></svg></span>Colorida</a>
+  <a class="cat" href="#portfolio"><span class="bola"><svg viewBox="0 0 24 24"><path d="M5 17c3-8 5-8 6-4s3 4 8-6"/></svg></span>Lettering</a>
+  <a class="cat" href="#flash"><span class="bola"><svg viewBox="0 0 24 24"><path d="M13 3 5 14h6l-1 7 8-11h-6l1-7Z"/></svg></span>Flash</a>
+</nav>
+
+<section class="secao" id="portfolio"><div class="in">
+  <h2 class="tit">Portfólio<small>Trabalhos do estúdio</small></h2>
+  <div class="trilho">
+    <div class="card"><div class="foto">Foto de fineline</div><h3>Fineline</h3></div>
+    <div class="card"><div class="foto">Foto de blackwork</div><h3>Blackwork</h3></div>
+    <div class="card"><div class="foto">Foto de realismo</div><h3>Realismo</h3></div>
+    <div class="card"><div class="foto">Foto de colorida</div><h3>Colorida</h3></div>
+    <div class="card"><div class="foto">Foto de lettering</div><h3>Lettering</h3></div>
+  </div>
+</div></section>
+
+<section class="secao" id="flash"><div class="in">
+  <h2 class="tit">Flash do mês<small>Desenhos prontos com valor fechado</small></h2>
+  <div class="trilho">
+    <a class="card" href="https://wa.me/5511930628647?text=Oi!%20Quero%20o%20flash%201." target="_blank" rel="noopener"><div class="foto">Arte do flash<span class="selo">20% OFF</span></div><h3>Flash 1, até 8 cm</h3><div class="preco"><s>R$ 250,00</s><b>R$ 200,00</b></div><span class="agendar">Quero esse</span></a>
+    <a class="card" href="https://wa.me/5511930628647?text=Oi!%20Quero%20o%20flash%202." target="_blank" rel="noopener"><div class="foto">Arte do flash<span class="selo">15% OFF</span></div><h3>Flash 2, até 10 cm</h3><div class="preco"><s>R$ 350,00</s><b>R$ 300,00</b></div><span class="agendar">Quero esse</span></a>
+    <a class="card" href="https://wa.me/5511930628647?text=Oi!%20Quero%20o%20flash%203." target="_blank" rel="noopener"><div class="foto">Arte do flash</div><h3>Flash 3, até 12 cm</h3><div class="preco"><b>R$ 400,00</b></div><span class="agendar">Quero esse</span></a>
+    <a class="card" href="https://wa.me/5511930628647?text=Oi!%20Quero%20o%20flash%204." target="_blank" rel="noopener"><div class="foto">Arte do flash</div><h3>Flash 4, até 15 cm</h3><div class="preco"><b>R$ 500,00</b></div><span class="agendar">Quero esse</span></a>
+  </div>
+  <p class="exemplo">Preços e artes de exemplo. No site entram os valores e os trabalhos reais de vocês.</p>
+</div></section>
+
+<section class="kids" id="orcamento">
+  <div class="foto">Foto do estúdio</div>
+  <div class="txt">
+    <h2>Orçamento sem compromisso</h2>
+    <p>Mande a referência, o tamanho e o local do corpo. A gente responde com o valor e os horários livres.</p>
+    <a class="botao" href="https://wa.me/5511930628647?text=Oi!%20Quero%20um%20or%C3%A7amento%20de%20tattoo." target="_blank" rel="noopener">Pedir orçamento</a>
+  </div>
+</section>
+
+<div class="in passos">
+  <div><b>1</b>Mande a referência<small>Foto, tamanho e local do corpo</small></div>
+  <div><b>2</b>Receba o orçamento<small>Valor e horários livres</small></div>
+  <div><b>3</b>Garanta o horário<small>Com o sinal, sua data fica reservada</small></div>
+</div>
+
+<footer>
+  <div class="in">
+    <div class="marca">Dicoralla<small>Tattoo na Granja Viana</small></div>
+    <div class="colunas">
+      <div><h4>Menu</h4><ul><li><a href="#">Início</a></li><li><a href="#portfolio">Portfólio</a></li><li><a href="#flash">Flash do mês</a></li><li><a href="#orcamento">Orçamento</a></li></ul></div>
+      <div><h4>Atendimento</h4><ul><li>Com hora marcada</li><li>Ter a sáb, 10h às 19h</li></ul></div>
+      <div><h4>Contato</h4><ul><li>(11) 93062-8647</li><li>Granja Viana, Cotia</li><li><a href="https://www.google.com/maps/search/Dicoralla+Tattoo+Granja+Viana" target="_blank" rel="noopener">Ver no mapa</a></li></ul></div>
+    </div>
+    <div class="redes"><svg viewBox="0 0 24 24" aria-label="Instagram"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8"/></svg></div>
+    <p class="copy">© Dicoralla Tattoo. Prévia de site</p>
+  </div>
+</footer>
+
+<a class="fixo" href="https://wa.me/5511930628647?text=Oi!%20Quero%20um%20or%C3%A7amento%20de%20tattoo." target="_blank" rel="noopener" aria-label="Pedir orçamento pelo WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1 2.7.2.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></svg>
+</a>
+</body>
+</html>
