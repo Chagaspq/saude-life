@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lupion's Barber</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Barlow:wght@400;500;600&display=swap">
+<style>
+/* Tijolo, ferrugem e osso, como o salão. Destaque: agendamento passo a passo que monta a mensagem do WhatsApp. */
+:root{--ferrugem:#a3401f;--tijolo:#6e2a17;--osso:#f2ebe1;--tinta:#1f1a17;--cinza:#6f655c;--linha:#ddd1c2;
+  --d:"Barlow Condensed","Arial Narrow",sans-serif;--t:"Barlow",system-ui,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--osso);color:var(--tinta);font-family:var(--t);font-size:17px;line-height:1.55}
+a{color:inherit}img{max-width:100%;display:block}
+.in{max-width:1180px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.topo{position:absolute;inset:0 0 auto;z-index:3;color:var(--osso)}
+.topo .in{display:flex;justify-content:space-between;align-items:center;height:76px}
+.marca{font-family:var(--d);font-weight:800;font-size:1.6rem;text-decoration:none}
+.menu{display:flex;gap:28px;font-weight:500}.menu a{text-decoration:none}
+.btn{display:inline-block;background:var(--ferrugem);color:#fff;font-weight:600;text-decoration:none;padding:14px 26px;border:0;font:inherit;font-weight:600;cursor:pointer}
+.btn.claro{background:var(--osso);color:var(--tinta)}
+.hero{position:relative;min-height:640px;display:grid;align-items:end;color:var(--osso);background:#2a1d17 url("https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=1800&q=70") center/cover}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,14,11,.35),rgba(20,14,11,.85))}
+.hero .in{position:relative;width:100%;padding-block:120px 64px}
+.hero h1{font-family:var(--d);font-weight:800;font-size:clamp(3.4rem,9vw,7rem);line-height:.9;margin:0 0 18px;max-width:11ch}
+.hero p{max-width:36ch;margin:0 0 28px;font-size:1.15rem;color:#e9ddd0}
+.nota{display:flex;gap:10px;align-items:center;margin-top:26px;font-size:.95rem;color:#e9ddd0}.nota b{color:#fff}
+section{padding-block:84px}
+h2{font-family:var(--d);font-weight:800;font-size:clamp(2.4rem,5vw,3.6rem);line-height:.95;margin:0 0 12px}
+.sub{color:var(--cinza);margin:0 0 36px;max-width:46ch}
+/* Agendamento */
+.agenda{background:var(--tinta);color:var(--osso)}
+.agenda .sub{color:#b9ab9c}
+.passos{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.passo h3{font-family:var(--d);font-weight:600;font-size:1.35rem;margin:0 0 12px;color:#e2b39d}
+.op{display:grid;gap:8px}
+.op label{display:flex;justify-content:space-between;gap:10px;border:1px solid #4a3d35;padding:12px 14px;cursor:pointer}
+.op input{position:absolute;opacity:0}
+.op label:has(input:checked){border-color:var(--ferrugem);background:#2e221d}
+.op label:has(input:focus-visible){outline:2px solid #e2b39d}
+.op small{color:#b9ab9c}
+.resumo{margin-top:30px;display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between;border-top:1px solid #4a3d35;padding-top:24px}
+#resumo{font-size:1.1rem}
+/* Estilos */
+.estilos{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.estilos figure{margin:0}.estilos img{aspect-ratio:3/4;object-fit:cover;width:100%}
+.estilos figcaption{font-family:var(--d);font-weight:600;font-size:1.3rem;margin-top:8px}
+/* Preços */
+.precos{display:grid;grid-template-columns:1fr 1fr;gap:0 48px}
+.precos div{display:flex;justify-content:space-between;border-bottom:1px solid var(--linha);padding:16px 0;font-size:1.1rem}
+.precos b{font-family:var(--d);font-size:1.4rem;color:var(--ferrugem)}
+footer{background:var(--tijolo);color:var(--osso);padding-block:56px}
+footer .in{display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px}
+footer h4{margin:0 0 8px;font-family:var(--d);font-size:1.2rem}
+footer p{margin:0;color:#ecd2c5}
+.exemplo{font-size:.85rem;color:var(--cinza);margin-top:18px}
+@media (max-width:860px){.menu{display:none}.passos{grid-template-columns:1fr 1fr}.estilos{grid-template-columns:1fr 1fr}.precos{grid-template-columns:1fr}footer .in{grid-template-columns:1fr}}
+@media (max-width:520px){.passos{grid-template-columns:1fr}.hero{min-height:560px}}
+</style>
+</head>
+<body>
+<header class="topo"><div class="in"><a class="marca" href="#">Lupion's Barber</a><nav class="menu"><a href="#agendar">Agendar</a><a href="#estilos">Cortes</a><a href="#precos">Preços</a><a href="#contato">Contato</a></nav></div></header>
+<section class="hero"><div class="in">
+  <h1>Corte bem feito, no seu horário</h1>
+  <p>Barbearia na Granja Viana. Escolha o serviço, o barbeiro e o horário aqui mesmo, e confirme pelo WhatsApp.</p>
+  <a class="btn" href="#agendar">Agendar horário</a>
+</div></section>
+
+<section class="agenda" id="agendar"><div class="in">
+  <h2>Agende em 4 passos</h2>
+  <p class="sub">Escolha tudo aqui e a mensagem já vai pronta pro nosso WhatsApp.</p>
+  <form id="f" class="passos">
+    <div class="passo"><h3>1. Serviço</h3><div class="op">
+      <label><span><input type="radio" name="s" value="Corte" checked>Corte</span><small>R$ 50</small></label>
+      <label><span><input type="radio" name="s" value="Barba">Barba</span><small>R$ 40</small></label>
+      <label><span><input type="radio" name="s" value="Corte e barba">Corte e barba</span><small>R$ 80</small></label></div></div>
+    <div class="passo"><h3>2. Barbeiro</h3><div class="op">
+      <label><span><input type="radio" name="b" value="Barbeiro 1" checked>Barbeiro 1</span><small></small></label>
+      <label><span><input type="radio" name="b" value="Barbeiro 2">Barbeiro 2</span><small></small></label>
+      <label><span><input type="radio" name="b" value="o primeiro livre">Primeiro livre</span><small></small></label></div></div>
+    <div class="passo"><h3>3. Dia</h3><div class="op">
+      <label><span><input type="radio" name="d" value="hoje" checked>Hoje</span></label>
+      <label><span><input type="radio" name="d" value="amanhã">Amanhã</span></label>
+      <label><span><input type="radio" name="d" value="sábado">Sábado</span></label></div></div>
+    <div class="passo"><h3>4. Horário</h3><div class="op">
+      <label><span><input type="radio" name="h" value="10h">10h</span></label>
+      <label><span><input type="radio" name="h" value="15h" checked>15h</span></label>
+      <label><span><input type="radio" name="h" value="18h">18h</span></label></div></div>
+  </form>
+  <div class="resumo"><span id="resumo"></span><a class="btn" id="zap" target="_blank" rel="noopener" href="#">Confirmar no WhatsApp</a></div>
+</div></section>
+
+<section id="estilos"><div class="in">
+  <h2>Os cortes da casa</h2>
+  <p class="sub">Mostre a foto pro barbeiro ou escolha pelo nome.</p>
+  <div class="estilos">
+    <figure><img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&q=70" alt="Corte degradê com risco na navalha"><figcaption>Degradê com risco</figcaption></figure>
+    <figure><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&q=70" alt="Barba feita na navalha com toalha quente"><figcaption>Barba na navalha</figcaption></figure>
+    <figure><img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&q=70" alt="Máquinas e tesouras da barbearia"><figcaption>Acabamento na máquina</figcaption></figure>
+    <figure><img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=600&q=70" alt="Cadeira da barbearia"><figcaption>Corte clássico</figcaption></figure>
+  </div>
+</div></section>
+
+<section id="precos" style="padding-top:0"><div class="in">
+  <h2>Preços</h2>
+  <div class="precos">
+    <div><span>Corte</span><b>R$ 50</b></div><div><span>Barba</span><b>R$ 40</b></div>
+    <div><span>Corte e barba</span><b>R$ 80</b></div><div><span>Pigmentação</span><b>R$ 30</b></div>
+    <div><span>Sobrancelha</span><b>R$ 15</b></div><div><span>Corte infantil</span><b>R$ 45</b></div>
+  </div>
+  <p class="exemplo">Prévia: preços, fotos, horários e nomes dos barbeiros são de exemplo.</p>
+</div></section>
+
+<footer id="contato"><div class="in">
+  <div><h4>Lupion's Barber</h4><p>Granja Viana, Cotia</p></div>
+  <div><h4>Horários</h4><p>Ter a sáb, 9h às 20h</p></div>
+  <div><h4>Contato</h4><p>(11) 94470-8564</p></div>
+</div></footer>
+<script>
+const f=document.getElementById("f"),r=document.getElementById("resumo"),z=document.getElementById("zap");
+function at(){const v=n=>f.querySelector(`input[name=${n}]:checked`).value;
+  const t=`${v("s")} com ${v("b")}, ${v("d")} às ${v("h")}`;r.textContent=t;
+  z.href="https://wa.me/5511944708564?text="+encodeURIComponent(`Oi! Quero agendar: ${t}.`)}
+f.addEventListener("change",at);at();
+</script>
+</body>
+</html>
