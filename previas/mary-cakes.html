@@ -37,6 +37,12 @@ h2{font-family:var(--d);font-weight:700;font-size:clamp(2.2rem,4.6vw,3.2rem);lin
 .qtd output{min-width:1.5ch;text-align:center;font-variant-numeric:tabular-nums}
 .total{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;max-width:760px;margin-top:26px}
 .total strong{font-family:var(--d);font-size:1.6rem}
+.temas{background:#fff;border-bottom:1px solid var(--linha)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+.chips span{border:1px solid var(--caramelo);color:var(--chocolate);background:var(--glace);padding:8px 16px;border-radius:999px;font-weight:600}
+.fotos{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.fotos div{aspect-ratio:4/5;border-radius:18px;background:repeating-linear-gradient(135deg,#f8e3ea 0 16px,#fbecf1 16px 32px);display:grid;place-items:center;text-align:center;color:var(--cinza);font-size:.9rem;padding:10px}
+@media (max-width:760px){.fotos{grid-template-columns:1fr 1fr}}
 .historia{background:var(--chocolate);color:var(--glace)}
 .historia .in{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
 .historia p{color:#e2cfc3}
@@ -52,7 +58,7 @@ footer .in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;pa
 
 <section class="hero" style="padding:0"><div class="in">
   <div>
-    <h1>Bolos, doces e balões pra sua festa</h1>
+    <h1>O bolo com o tema da sua festa</h1>
     <p>Confeitaria na Granja Viana, com entrega. Bolos bem recheados e molhadinhos, doces e balões pra sua festa. Monte a encomenda aqui e mande pelo WhatsApp.</p>
     <a class="btn" href="#cardapio">Montar encomenda</a>
     <p style="margin:24px 0 0;font-size:.98rem"><b>Nota 5,0 no Google, com 40 avaliações.</b><br>"Super indico o Red Velvet com recheio de limão siciliano, simplesmente divino!"</p>
@@ -65,11 +71,18 @@ footer .in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;pa
   <div><b>Festa completa</b><span>Bolo, doces e balões no mesmo pedido</span></div>
 </div></div>
 
+<section class="temas"><div class="in">
+  <h2>Temas que já saíram daqui</h2>
+  <p class="sub">Conta o tema da festa e o nome do aniversariante. A gente monta o bolo do jeito que você imaginou.</p>
+  <div class="chips"><span>Minecraft</span><span>Harry Potter</span><span>Route 66</span><span>Unicórnio e arco-íris</span><span>Futebol</span><span>Chá de bebê</span><span>Morango fresco</span></div>
+  <div class="fotos"><div>Foto do bolo Minecraft</div><div>Foto do bolo Harry Potter</div><div>Foto do bolo de unicórnio</div><div>Foto do bolo de morango</div></div>
+</div></section>
+
 <section id="cardapio"><div class="in">
   <h2>Cardápio de encomendas</h2>
   <p class="sub">Escolha a quantidade e o pedido vai pronto pro WhatsApp.</p>
   <div class="itens" id="itens">
-    <div class="item" data-n="Bolo de chocolate (1 kg)" data-p="95"><div><b>Bolo de chocolate</b><small>1 kg, serve 10 pessoas</small></div><span class="preco">R$ 95</span><div class="qtd"><button type="button" aria-label="Menos">−</button><output>0</output><button type="button" aria-label="Mais">+</button></div></div>
+    <div class="item" data-n="Bolo temático (1 kg)" data-p="120"><div><b>Bolo temático</b><small>1 kg, decorado com o tema da festa</small></div><span class="preco">R$ 120</span><div class="qtd"><button type="button" aria-label="Menos">−</button><output>0</output><button type="button" aria-label="Mais">+</button></div></div>
     <div class="item" data-n="Red Velvet com limão siciliano (1 kg)" data-p="110"><div><b>Red Velvet com limão siciliano</b><small>1 kg, o mais elogiado pelos clientes</small></div><span class="preco">R$ 110</span><div class="qtd"><button type="button" aria-label="Menos">−</button><output>0</output><button type="button" aria-label="Mais">+</button></div></div>
     <div class="item" data-n="Brigadeiro gourmet (cento)" data-p="160"><div><b>Brigadeiro gourmet</b><small>Cento, sabores variados</small></div><span class="preco">R$ 160</span><div class="qtd"><button type="button" aria-label="Menos">−</button><output>0</output><button type="button" aria-label="Mais">+</button></div></div>
     <div class="item" data-n="Bolo no pote" data-p="14"><div><b>Bolo no pote</b><small>Ninho com Nutella ou prestígio</small></div><span class="preco">R$ 14</span><div class="qtd"><button type="button" aria-label="Menos">−</button><output>0</output><button type="button" aria-label="Mais">+</button></div></div>
