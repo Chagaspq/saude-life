@@ -1,8 +1,8 @@
 -- =====================================================================
 -- Saúde Life: banco de dados para o Microsoft SQL Server (T-SQL)
 -- São as mesmas tabelas que a API (pasta backend/) usa com o perfil "sqlserver".
--- A API cria tudo sozinha ao ligar; este arquivo serve para criar à mão
--- no SQL Server Management Studio (SSMS) e para mostrar o banco no TCC.
+-- Rode este arquivo UMA vez no SQL Server Management Studio (SSMS) antes de ligar a API:
+-- ele cria o banco e as tabelas, e a API só confere se está tudo certo.
 --
 -- Como usar no SSMS:
 --   1. Conecte no servidor (ex.: localhost\SQLEXPRESS).

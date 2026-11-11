@@ -18,7 +18,8 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 // Testa o caminho principal da apresentação: cadastro, login, treino, refeição, peso, admin mandando treino e aviso
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+// Teste roda no banco H2 na memória (não precisa do SQL Server ligado)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "spring.profiles.active=h2")
 class FluxoCompletoTest {
 
   // Cliente HTTP (já aponta para http://localhost:<porta>/v1)

@@ -8,27 +8,26 @@ Feito em **Java 17** com **Spring Boot 3**, **Spring Data JPA** e banco **H2** (
 1. Instale o **Spring Tools 4** (https://spring.io/tools) e o **Java 17** ou mais novo.
 2. No STS: **File > Import > Maven > Existing Maven Projects** e escolha a pasta `backend`.
 3. Espere o Maven baixar as bibliotecas (barra de progresso no canto de baixo).
-4. Abra `src/main/java/br/com/saudelife/api/SaudeLifeApplication.java`, clique com o botão direito e escolha **Run As > Spring Boot App**.
-5. Pronto: a API fica em **http://localhost:8080/v1**.
+4. Prepare o SQL Server (passos em **Usar o SQL Server**, abaixo). É o banco padrão no computador.
+5. Abra `src/main/java/br/com/saudelife/api/SaudeLifeApplication.java`, clique com o botão direito e escolha **Run As > Spring Boot App**.
+6. Pronto: a API fica em **http://localhost:8080/v1** e os dados aparecem no SQL Server Management Studio.
 
 Ao ligar, ela já cria as contas de demonstração (senha `demo1234`):
 - `admin@saudelife.app`: administrador da **Academia Demonstração** (código `SL-DEMO`).
 - `demo@saudelife.app`: cliente dessa academia, com treinos e pesos de exemplo.
 
-Para ver o banco: **http://localhost:8080/v1/h2-console** (JDBC URL `jdbc:h2:mem:saudelife`, usuário `sa`, senha vazia).
-
-> O H2 fica na memória: os dados somem ao desligar. Para guardar de verdade, use o PostgreSQL (abaixo).
+**Sem banco instalado?** Rode com a variável de ambiente `PERFIL=h2` (no STS: **Run Configurations > Environment > Add**: `PERFIL` = `h2`). Aí a API usa o H2 na memória e o banco fica em **http://localhost:8080/v1/h2-console** (JDBC URL `jdbc:h2:mem:saudelife`, usuário `sa`, senha vazia). Os dados somem ao desligar.
 
 ## Usar o PostgreSQL
 
 1. Instale o PostgreSQL e crie o banco: `CREATE DATABASE saudelife;`
 2. Se o usuário/senha não forem `postgres`/`postgres`, ajuste em `src/main/resources/application-postgres.properties`.
-3. No STS: **Run As > Run Configurations > Spring Boot App > Profile: `postgres`** e rode.
+3. No STS: **Run As > Run Configurations > Environment > Add**: `PERFIL` = `postgres`, e rode.
 4. As tabelas são criadas sozinhas na primeira vez.
 
-## Usar o SQL Server (Microsoft)
+## Usar o SQL Server (Microsoft): padrão no computador
 
-A API também roda no **SQL Server** (ex.: SQL Server Express + SQL Server Management Studio no seu computador).
+No computador, a API usa o **SQL Server** sozinha (perfil `sqlserver`, sem precisar escolher nada). Os dados aparecem no **SQL Server Management Studio (SSMS)**.
 O site no ar (Render) continua usando PostgreSQL, porque o Render não oferece SQL Server; o código é o mesmo para os dois.
 
 1. Instale o **SQL Server Express** e o **SSMS** (https://www.microsoft.com/pt-br/sql-server/sql-server-downloads).
@@ -37,7 +36,7 @@ O site no ar (Render) continua usando PostgreSQL, porque o Render não oferece S
 3. Habilite o TCP: **SQL Server Configuration Manager > SQL Server Network Configuration > Protocols for SQLEXPRESS > TCP/IP = Enabled**; em **IP Addresses > IPAll**, coloque **TCP Port = 1433**; reinicie o serviço.
 4. No SSMS, abra **`banco/banco-de-dados-sqlserver.sql`** e aperte **F5**: cria o banco `saudelife` e as 12 tabelas. (Com o perfil `sqlserver`, a API não cria tabelas: ela confere se o banco do script está certo.)
 5. Em `src/main/resources/application-sqlserver.properties`, troque a senha (`DB_SENHA`) pela senha do `sa`.
-6. No Spring Tools: **Run As > Run Configurations > Spring Boot App > Profile: `sqlserver`** e rode.
+6. No Spring Tools: **Run As > Spring Boot App** (o perfil `sqlserver` já é o padrão).
 7. Os dados aparecem no SSMS: **saudelife > Tables** > botão direito > **Select Top 1000 Rows**.
 
 Também na pasta `banco/`: **`diagrama-er.png`** (diagrama entidade-relacionamento) e **`consultas-exemplo.sql`** (SELECT, JOIN, GROUP BY, INSERT, UPDATE, uma VIEW e os índices, para mostrar no SSMS).
@@ -129,7 +128,7 @@ src/main/java/br/com/saudelife/api/
   config/        CORS, rotas públicas e contas de demonstração
   erro/          erros no formato { "erro": "..." }
 src/main/resources/
-  application.properties            H2 (padrão)
+  application.properties            configuração geral (escolhe o perfil; padrão: sqlserver)
   application-postgres.properties   PostgreSQL (Render)
   application-sqlserver.properties  SQL Server
 ```
