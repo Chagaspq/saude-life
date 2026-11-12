@@ -4,6 +4,8 @@ import { ler, gravar } from "./armazenamento.js";
 import { lerSessao } from "./conta.js";
 import { inicioDaSemana, slug } from "./formato.js";
 import { SL_DADOS } from "./dados.js";
+// Biblioteca de exercícios
+import { BIBLIOTECA } from "./exercicios.js";
 
 // Catálogo de treinos prontos e exercícios de exemplo de cada treino
 export const { CATALOGO, EXERCICIOS } = SL_DADOS;
@@ -140,7 +142,7 @@ export const premium = () => ["Premium", "Estudante", "Família", "Profissional"
 export const treinoAtual = () => ler("sl-treino-atual", null);
 
 // Endereço da tela de treino de um treino
-export const linkTreino = (id) => "../treino/treino.html?id=" + encodeURIComponent(id);
+export const linkTreino = (id) => "/app/treino?id=" + encodeURIComponent(id);
 
 // Resumo de um exercício: "3 × 12 reps • 20 kg"
 export function resumoExercicio(e) {
@@ -155,7 +157,7 @@ export function resumoExercicio(e) {
 // Exercício novo pelo nome (usa a carga sugerida da biblioteca; core e cardio contam tempo)
 export function novoExercicio(nome) {
   // Informações da biblioteca
-  const info = (window.SL_EXERCICIOS || {})[nome];
+  const info = BIBLIOTECA[nome];
   // Conta por tempo?
   const porTempo = info && ["core", "cardio", "alongar"].includes(info.mov) && info.carga === 0 && info.grupo !== "Pernas";
   // Exercício

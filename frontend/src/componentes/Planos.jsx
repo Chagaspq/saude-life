@@ -1,6 +1,7 @@
 // Cartões dos planos com a chave mensal/anual (site público e app usam).
 import { useState } from "react";
-import "../estilos/planos.css";
+// Links entre as telas (React Router: troca de tela sem recarregar)
+import { Link } from "react-router-dom";
 
 // Lista dos planos
 export const PLANOS = [
@@ -91,9 +92,9 @@ export default function Planos({ cta, onEscolher, atual }) {
                   Seu plano atual
                 </button>
               ) : cta ? (
-                <a href={cta} className={classeBotao}>
+                <Link to={cta} className={classeBotao}>
                   {p.cta}
-                </a>
+                </Link>
               ) : (
                 <button type="button" className={classeBotao} onClick={() => onEscolher(p.nome, anual)}>
                   {p.cta}

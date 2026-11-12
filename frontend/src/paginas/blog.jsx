@@ -1,12 +1,20 @@
 // Blog de dicas: lista com filtro e busca, dica do dia e leitura do artigo (?a=nome-do-artigo).
 import { useEffect, useState } from "react";
-import { montar } from "../montar.jsx";
 import PublicLayout from "../componentes/PublicLayout.jsx";
 import { ARTIGOS, DICAS, ICONES_BLOG } from "../lib/blog-artigos.js";
 import { simples } from "../lib/formato.js";
-import "../estilos/kit-publico.js";
-import "../estilos/planos-publico.css";
-import "../estilos/blog.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssWelcome from "../estilos/welcome.css?inline";
+import cssSite from "../estilos/site.css?inline";
+import cssPlanosPublico from "../estilos/planos-publico.css?inline";
+import cssBlog from "../estilos/blog.css?inline";
+// Links entre as telas (React Router: troca de tela sem recarregar)
+import { Link, useSearchParams } from "react-router-dom";
+
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssWelcome, cssSite, cssPlanosPublico, cssBlog];
 
 // Assuntos para os filtros ("Todos" primeiro)
 const ASSUNTOS = ["Todos", ...new Set(ARTIGOS.map((a) => a.assunto))];
@@ -89,36 +97,27 @@ function Artigo({ a, onVoltar }) {
       {/* Aviso */}
       <p className="blog-aviso">Conteúdo educativo. Não substitui a orientação de um profissional de saúde.</p>
       {/* Chamada para o app */}
-      <a className="btn-hero-primary" href="../cadastro/cadastro.html">
+      <Link className="btn-hero-primary" to="/cadastro">
         Colocar em prática no Saúde Life
-      </a>
+      </Link>
     </article>
   );
 }
 
 // Página
 function Blog() {
+  // Endereço (?a=) lido pelo React Router
+  const [parametros, setParametros] = useSearchParams();
   // Artigo aberto (do endereço ?a=)
-  const [aberto, setAberto] = useState(() => new URLSearchParams(location.search).get("a"));
+  const aberto = parametros.get("a");
   // Assunto escolhido
   const [filtro, setFiltro] = useState("Todos");
   // Busca
   const [busca, setBusca] = useState("");
-  // Voltar/avançar do navegador abre o artigo certo
-  useEffect(() => {
-    // Lê o endereço
-    const ler = () => setAberto(new URLSearchParams(location.search).get("a"));
-    // Escuta
-    window.addEventListener("popstate", ler);
-    // Para
-    return () => window.removeEventListener("popstate", ler);
-  }, []);
-  // Abre um artigo (ou volta para a lista)
+  // Abre um artigo (ou volta para a lista). O "voltar" do navegador funciona sozinho (React Router).
   function abrir(slug) {
     // Atualiza o endereço
-    history.pushState({}, "", slug ? `?a=${slug}` : location.pathname);
-    // Guarda
-    setAberto(slug);
+    setParametros(slug ? { a: slug } : {});
   }
   // Artigo procurado
   const artigo = ARTIGOS.find((a) => a.slug === aberto);
@@ -154,7 +153,7 @@ function Blog() {
           </div>
           {/* Atalhos */}
           <p className="blog-atalhos">
-            <a href="../glossario/glossario.html">Glossário de termos</a> • <a href="../calculadoras/calculadoras.html">Calculadoras (IMC, calorias, água, 1RM)</a>
+            <Link to="/glossario">Glossário de termos</Link> • <Link to="/calculadoras">Calculadoras (IMC, calorias, água, 1RM)</Link>
           </p>
           {/* Filtros */}
           <div className="blog-filtros" role="group" aria-label="Filtrar por assunto">
@@ -196,5 +195,5 @@ function Blog() {
   );
 }
 
-// Desenha
-montar(Blog);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Blog;

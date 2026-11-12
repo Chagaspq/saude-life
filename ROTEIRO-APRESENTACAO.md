@@ -22,7 +22,7 @@ Para o vídeo, rode as 3 partes **no computador**. Assim o registro que aparece 
 
 1. **Banco (SQL Server):** no SSMS, abra `backend/banco/banco-de-dados-sqlserver.sql` e aperte **F5** (cria o banco `saudelife` e as 12 tabelas).
 2. **API (Spring Tools):** em `backend/src/main/resources/application-sqlserver.properties`, coloque a senha do `sa`. Rode `SaudeLifeApplication` com o **Profile `sqlserver`**. Ela cria as contas de demonstração.
-3. **Site (VS Code):** no arquivo `frontend/.env.development`, deixe `VITE_API_URL=http://localhost:8080/v1`. No terminal, dentro da pasta `frontend`: `npm install` (só na primeira vez) e `npm run dev`. Abra o endereço que aparecer (ex.: http://localhost:5173/welcome/welcome.html).
+3. **Site (VS Code):** no arquivo `frontend/.env.development`, deixe `VITE_API_URL=http://localhost:8080/v1`. No terminal, dentro da pasta `frontend`: `npm install` (só na primeira vez) e `npm run dev`. Abra o endereço que aparecer (ex.: http://localhost:5173/).
 4. **Postman:** importe `backend/saude-life-api.postman_collection.json`, troque a variável `base` para `http://localhost:8080/v1` e rode **Login cliente demo**.
 5. **Dados realistas:** entre como cliente demo e faça 1 treino antes de gravar, para o Início e a Evolução terem números.
 6. Zoom do VS Code e do SSMS em 150%. Tema escuro no site.
@@ -60,7 +60,7 @@ Para o vídeo, rode as 3 partes **no computador**. Assim o registro que aparece 
   - `lib/` = os "serviços": `api.js` (conversa com a API), `nuvem.js` (sincroniza os dados), `conta.js` (login);
   - `estilos/` = o CSS.
 - **O que é um componente:** uma função que devolve um pedaço de tela e pode ser reaproveitada. Exemplo real: `CartaoNumero` em `frontend/src/componentes/base.jsx`. Ele é usado no Início ("Meta da semana", "Sequência"...), na Evolução e no Painel do admin, só trocando o texto e o ícone.
-- **Rotas entre as telas:** cada tela tem o próprio endereço (`/login/login.html`, `/app/inicio/inicio.html`...). O componente `AppLayout.jsx` (função `destino`) controla quem pode abrir cada tela: sem login vai para o Login; cliente sem questionário vai para o questionário; cliente não abre o painel do admin, e o admin não abre as telas do cliente.
+- **Rotas entre as telas (React Router):** o app tem um `index.html` só. Em `frontend/src/rotas.jsx`, cada endereço (`/login`, `/app/inicio`, `/app/treino?id=`...) mostra uma tela, e o `<Link>` troca de tela sem recarregar a página. O componente `AppLayout.jsx` (função `destino`) controla quem pode abrir cada tela: sem login vai para o Login; cliente sem questionário vai para o questionário; cliente não abre o painel do admin, e o admin não abre as telas do cliente.
 - **CSS e responsividade:** cores e espaços em variáveis (`frontend/src/estilos/tokens.css`). Em `frontend/src/estilos/app.css`, os `@media (max-width: 900px)` e `(max-width: 640px)` trocam o menu lateral pelo **menu de baixo** no celular. Mostre: diminua a janela do navegador (ou F12 > modo celular).
 
 ## 4. Back-end | Tomas (3 min)

@@ -1,7 +1,6 @@
 // Perfil: tipo de conta (cliente x administrador), objetivos, conquistas, atividade,
 // preferências e lembretes, e a conta (segurança, backup, apagar, sair e excluir).
 import { useState } from "react";
-import { montar } from "../montar.jsx";
 import AppLayout from "../componentes/AppLayout.jsx";
 import { Icone, ICONES, Modal, Confirmar } from "../componentes/base.jsx";
 import { usuario, estatisticas, historico, onboarding, premium, plano, toast } from "../lib/nucleo.js";
@@ -13,8 +12,20 @@ import { preencherDemo } from "../lib/demo.js";
 import { api, apiLigada } from "../lib/api.js";
 import { excluirNoServidor } from "../lib/conta.js";
 import { puxar } from "../lib/nuvem.js";
-import "../estilos/kit-app.js";
-import "../estilos/app-perfil.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssApp from "../estilos/app.css?inline";
+import cssAppPerfil from "../estilos/app-perfil.css?inline";
+// Links entre as telas (React Router: troca de tela sem recarregar)
+import { Link } from "react-router-dom";
+// Troca de tela pelo código (React Router)
+import { irPara } from "../lib/navegar.js";
+// Campos com ref (focar o campo com erro)
+import { useCampos } from "../lib/campos.js";
+
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssApp, cssAppPerfil];
 
 // O que muda entre cliente e administrador: [o quê, cliente, administrador]
 const COMPARA = [
@@ -91,6 +102,8 @@ function Chave({ titulo, texto, ligado, onMudar, rotulo }) {
 
 // Formulário de editar perfil
 function FormPerfil({ onSalvar }) {
+  // Campos da tela (ref do React) para focar o que tiver erro
+  const campos = useCampos();
   // Perfil salvo
   const p = ler("sl-perfil", {});
   // Usuário
@@ -131,7 +144,7 @@ function FormPerfil({ onSalvar }) {
         // Sem recarregar
         e.preventDefault();
         // Sem nome: foca
-        if (!c.nome.trim()) return document.getElementById("perfil-nome").focus();
+        if (!c.nome.trim()) return campos.focar("perfil-nome");
         // Guarda
         gravar("sl-perfil", { ...p, nome: c.nome.trim(), apelido: c.apelido.trim(), bio: c.bio.trim(), capa: c.capa, foto: c.foto });
         // Pronto
@@ -156,7 +169,7 @@ function FormPerfil({ onSalvar }) {
       {/* Nome */}
       <div className="form-group">
         <label htmlFor="perfil-nome">Nome</label>
-        <input id="perfil-nome" required maxLength={50} value={c.nome} onChange={mudar("nome")} />
+        <input id="perfil-nome" ref={campos.ref("perfil-nome")} required maxLength={50} value={c.nome} onChange={mudar("nome")} />
       </div>
       {/* Apelido */}
       <div className="form-group">
@@ -429,9 +442,9 @@ function Perfil() {
               <section className="panel" aria-labelledby="heading-objetivos">
                 <div className="section-head">
                   <h2 id="heading-objetivos">Meus objetivos</h2>
-                  <a href="../comecar/comecar.html" className="section-link">
+                  <Link to="/app/comecar" className="section-link">
                     Alterar
-                  </a>
+                  </Link>
                 </div>
                 <dl className="facts-list">
                   {[
@@ -473,9 +486,9 @@ function Perfil() {
               <section className="panel" aria-labelledby="heading-atividade">
                 <div className="section-head">
                   <h2 id="heading-atividade">Atividade recente</h2>
-                  <a href="../evolucao/evolucao.html" className="section-link">
+                  <Link to="/app/evolucao" className="section-link">
                     Ver evolução
-                  </a>
+                  </Link>
                 </div>
                 <ul className="history-list">
                   {!hist.length && <li className="meta">Nenhum treino registrado ainda.</li>}
@@ -580,9 +593,9 @@ function Perfil() {
                   <dt>Plano</dt>
                   <dd>
                     {premium() ? plano() + (assinatura?.teste ? ` (teste: faltam ${Math.max(0, Math.ceil((new Date(assinatura.fim) - Date.now()) / 86400000))} dias)` : "") : "Free"}{" "}
-                    <a href="../planos/planos.html" className="section-link">
+                    <Link to="/app/planos" className="section-link">
                       Ver planos
-                    </a>
+                    </Link>
                   </dd>
                 </div>
               )}
@@ -649,7 +662,7 @@ function Perfil() {
                     texto: "Contas, treinos e dados de todo mundo que usou este navegador somem. Não dá para desfazer.",
                     rotulo: "Apagar tudo",
                     perigo: true,
-                    fn: () => (limparTudo(), (location.href = "../../welcome/welcome.html")),
+                    fn: () => (limparTudo(), irPara("/")),
                   })
                 }
               >
@@ -669,7 +682,7 @@ function Perfil() {
               >
                 Apagar meus dados
               </button>
-              <button className="btn-danger-outline btn-with-icon" onClick={async () => (await sair(), (location.href = "../../login/login.html"))}>
+              <button className="btn-danger-outline btn-with-icon" onClick={async () => (await sair(), irPara("/login"))}>
                 <Icone d={ICONES.sair} />
                 Sair da conta
               </button>
@@ -696,7 +709,7 @@ function Perfil() {
                       // Apaga deste aparelho
                       excluirConta(u.email);
                       // Volta para o começo
-                      location.href = "../../welcome/welcome.html";
+                      irPara("/");
                     },
                   })
                 }
@@ -737,5 +750,5 @@ function Perfil() {
   );
 }
 
-// Desenha
-montar(Perfil);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Perfil;

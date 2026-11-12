@@ -1,17 +1,26 @@
 // Recuperar senha: pede o e-mail e gera o link de redefinição (na demonstração, o link aparece na tela).
 import { useState } from "react";
-import { montar } from "../montar.jsx";
 import CascoSenha from "../componentes/CascoSenha.jsx";
 import { CampoConta, BotaoEnviar, esperar } from "../componentes/Formulario.jsx";
 import { emailValido } from "../lib/conta.js";
 import { ler, gravar } from "../lib/armazenamento.js";
 // API
 import { api, apiLigada } from "../lib/api.js";
-import "../estilos/kit-conta.js";
-import "../estilos/senha.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssAuth from "../estilos/auth.css?inline";
+import cssSenha from "../estilos/senha.css?inline";
+// Campos com ref (focar o campo com erro)
+import { useCampos } from "../lib/campos.js";
+
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssAuth, cssSenha];
 
 // Página
 function Senha() {
+  // Campos da tela (ref do React) para focar o que tiver erro
+  const campos = useCampos();
   // E-mail
   const [email, setEmail] = useState("");
   // Erro do campo
@@ -32,7 +41,7 @@ function Senha() {
     // Mostra
     setErro(problema);
     // Tem erro: foca
-    if (problema) return document.getElementById("email")?.focus();
+    if (problema) return campos.focar("email");
     // Esperando
     setCarregando("Enviando...");
     // Com API: o servidor manda o e-mail
@@ -42,7 +51,7 @@ function Senha() {
         // Pede
         const r = await api("POST", "/auth/esqueci-senha", { email: email.trim() });
         // Sem e-mail configurado no servidor: mostra o link de demonstração
-        setLink(r.tokenDemo ? new URL("redefinir.html", location.href).href + "?token=" + r.tokenDemo : "enviado");
+        setLink(r.tokenDemo ? location.origin + import.meta.env.BASE_URL + "senha/redefinir?token=" + r.tokenDemo : "enviado");
       } catch (e) {
         // Erro
         setErro(e.message);
@@ -61,7 +70,7 @@ function Senha() {
     // Espera
     await esperar(800);
     // Mostra o link
-    setLink(new URL("redefinir.html", location.href).href + "?token=" + token);
+    setLink(location.origin + import.meta.env.BASE_URL + "senha/redefinir?token=" + token);
     // Limpa
     setEmail("");
     // Pronto
@@ -73,7 +82,7 @@ function Senha() {
     <CascoSenha titulo="Recuperar senha" subtitulo="Digite seu e-mail para receber as instruções de redefinição.">
       <form id="recovery-form" className="auth-form" noValidate onSubmit={enviar}>
         {/* E-mail */}
-        <CampoConta id="email" rotulo="E-mail cadastrado" icone="email" type="email" autoComplete="email" required autoFocus placeholder="seu@email.com" value={email} erro={erro} onChange={(e) => (setEmail(e.target.value), setErro(""))} />
+        <CampoConta id="email" ref={campos.ref("email")} rotulo="E-mail cadastrado" icone="email" type="email" autoComplete="email" required autoFocus placeholder="seu@email.com" value={email} erro={erro} onChange={(e) => (setEmail(e.target.value), setErro(""))} />
         {/* Sucesso */}
         <p id="form-global-success" className="field-success" role="status" aria-live="polite" hidden={!link}>
           Se esse e-mail estiver cadastrado, você vai receber as instruções em instantes.
@@ -93,5 +102,5 @@ function Senha() {
   );
 }
 
-// Desenha
-montar(Senha);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Senha;

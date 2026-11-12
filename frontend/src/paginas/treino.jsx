@@ -1,7 +1,6 @@
 // Tela do treino: marca as séries, ajusta reps e carga, descanso com contagem, drop set, bi-set,
 // troca de exercício, sugestão de carga, recordes e o resumo no fim.
 import { useEffect, useRef, useState } from "react";
-import { montar } from "../montar.jsx";
 import AppLayout from "../componentes/AppLayout.jsx";
 import { Icone, ICONES, CartaoNumero, Modal, Confirmar } from "../componentes/base.jsx";
 import { treinoAtual, treinosDoUsuario, acharTreino, exerciciosDe, historico, estatisticas, dadosCorpo, onboarding, resumoExercicio, toast, linkTreino } from "../lib/nucleo.js";
@@ -9,19 +8,42 @@ import { num, duracaoTexto } from "../lib/formato.js";
 import { ler, gravar, apagar } from "../lib/armazenamento.js";
 import { ganhar, perder, conferirTreino } from "../lib/pontos.js";
 import { BIBLIOTECA } from "../lib/exercicios.js";
-import "../estilos/kit-app.js";
-import "../estilos/app-treino.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssApp from "../estilos/app.css?inline";
+import cssAppTreino from "../estilos/app-treino.css?inline";
+// Links entre as telas (React Router: troca de tela sem recarregar)
+import { Link, useSearchParams } from "react-router-dom";
+// Troca de tela pelo código (React Router; "irParaTela" porque esta tela já tem uma função irPara)
+import { irPara as irParaTela } from "../lib/navegar.js";
 
-// Treino pedido no endereço (ou o que está em andamento, ou o primeiro da lista)
-const salvo = treinoAtual();
-// Código do treino
-const idPedido = new URLSearchParams(location.search).get("id") || salvo?.treinoId || treinosDoUsuario()[0]?.id;
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssApp, cssAppTreino];
+
+// Treino desta tela (preenchido toda vez que a tela abre, em carregarTreino)
+// Treino em andamento salvo
+let salvo = null;
 // Treino
-const TREINO = acharTreino(idPedido);
+let TREINO = null;
 // Exercícios (cópia: a troca muda o nome)
-const BASE = TREINO ? exerciciosDe(TREINO).map((e) => ({ ...e })) : [];
+let BASE = [];
 // Outro treino em andamento com séries feitas?
-const OUTRO = salvo && TREINO && salvo.treinoId !== TREINO.id && salvo.series?.some((l) => l.some((s) => s.feito)) ? salvo : null;
+let OUTRO = null;
+
+// Lê o treino pedido no endereço (ou o que está em andamento, ou o primeiro da lista)
+function carregarTreino(idDoEndereco) {
+  // Treino em andamento
+  salvo = treinoAtual();
+  // Código do treino
+  const idPedido = idDoEndereco || salvo?.treinoId || treinosDoUsuario()[0]?.id;
+  // Treino
+  TREINO = acharTreino(idPedido);
+  // Exercícios
+  BASE = TREINO ? exerciciosDe(TREINO).map((e) => ({ ...e })) : [];
+  // Outro treino com séries feitas
+  OUTRO = salvo && TREINO && salvo.treinoId !== TREINO.id && salvo.series?.some((l) => l.some((s) => s.feito)) ? salvo : null;
+}
 // Playlists: [nome, busca]
 const PLAYLISTS = [
   ["Treino pesado", "treino pesado musculação"],
@@ -145,6 +167,15 @@ function ComoFazer({ e }) {
 
 // Resumo do fim do treino
 function Fim({ r }) {
+  // Título do resumo (ref do React)
+  const titulo = useRef(null);
+  // Ao aparecer: leva o foco para o título (o leitor de tela anuncia o resumo)
+  useEffect(() => {
+    // Espera um instante (a tela de treino sai antes)
+    const t = setTimeout(() => titulo.current?.focus(), 50);
+    // Cancela se sair antes
+    return () => clearTimeout(t);
+  }, []);
   // Esforço escolhido
   const [esforco, setEsforco] = useState("");
   // Guarda o esforço (ajusta a sugestão de carga da próxima vez)
@@ -175,7 +206,7 @@ function Fim({ r }) {
         <circle cx="48" cy="48" r="34" className="finish-badge-core" />
         <path d="M33 49l10 10 20-22" className="finish-badge-check" />
       </svg>
-      <h2 id="heading-fim" tabIndex="-1">
+      <h2 id="heading-fim" ref={titulo} tabIndex="-1">
         Treino concluído!
       </h2>
       <p className="page-lead">
@@ -206,19 +237,29 @@ function Fim({ r }) {
       </fieldset>
       {/* Botões */}
       <div className="finish-actions">
-        <a href="../inicio/inicio.html" className="btn-primary">
+        <Link to="/app/inicio" className="btn-primary">
           Voltar ao início
-        </a>
-        <a href="../evolucao/evolucao.html" className="btn-secondary">
+        </Link>
+        <Link to="/app/evolucao" className="btn-secondary">
           Ver minha evolução
-        </a>
+        </Link>
       </div>
     </section>
   );
 }
 
-// Página
+// Tela: lê o treino do endereço (?id=) assim que abre e depois mostra o treino
 function Treino() {
+  // Endereço lido pelo React Router
+  const [parametros] = useSearchParams();
+  // Carrega o treino uma vez, antes de desenhar
+  useState(() => carregarTreino(parametros.get("id")));
+  // Treino
+  return <TreinoEmAndamento />;
+}
+
+// Treino em andamento
+function TreinoEmAndamento() {
   // Estado do treino (continua o salvo, se for o mesmo)
   const [estado, setEstado] = useState(() => (salvo && TREINO && salvo.treinoId === TREINO.id ? { trocas: {}, biset: {}, ...salvo } : TREINO ? novoEstado() : null));
   // Segundos de treino (cronômetro)
@@ -239,7 +280,7 @@ function Treino() {
           // Começa este (o estado novo já está na tela)
           fn: () => {},
           // Cancelar: volta para o outro
-          cancelar: () => (gravar("sl-treino-atual", OUTRO), location.replace(linkTreino(OUTRO.treinoId))),
+          cancelar: () => (gravar("sl-treino-atual", OUTRO), irParaTela(linkTreino(OUTRO.treinoId), true)),
         }
       : null,
   );
@@ -249,11 +290,13 @@ function Treino() {
   const depois = useRef(null);
   // Trava de tela acesa
   const trava = useRef(null);
+  // Área principal do treino (ref do React: recebe o foco ao trocar de exercício)
+  const principal = useRef(null);
 
   // Sem treino: volta para a lista
   useEffect(() => {
     // Volta
-    if (!TREINO) location.replace("../treinos/treinos.html");
+    if (!TREINO) irParaTela("/app/treinos", true);
   }, []);
 
   // Classe da tela cheia, título e tela acesa
@@ -390,7 +433,7 @@ function Treino() {
     // Muda
     salvar({ ...base, indice: Math.max(0, Math.min(exercicios.length - 1, indice)) });
     // Foco no exercício
-    document.getElementById("conteudo")?.focus({ preventScroll: true });
+    principal.current?.focus({ preventScroll: true });
     // Sobe
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -583,15 +626,13 @@ function Treino() {
     document.body.classList.add("is-finished");
     // Mostra o resumo
     setFim({ minutos, series: nFeitas, volume, kcal, comparacao, stats: estatisticas(), nomes: exercicios.map((x) => x.nome) });
-    // Foco no título
-    setTimeout(() => document.getElementById("heading-fim")?.focus(), 50);
   }
 
   // Botão "Finalizar treino"
   function finalizar() {
     // Nenhuma série
     if (!feitas)
-      return setPedido({ titulo: "Nenhuma série concluída", texto: "Marque as séries que você fez para o treino contar na sua evolução.", rotulo: "Sair sem salvar", perigo: true, fn: () => (apagar("sl-treino-atual"), (location.href = "../inicio/inicio.html")) });
+      return setPedido({ titulo: "Nenhuma série concluída", texto: "Marque as séries que você fez para o treino contar na sua evolução.", rotulo: "Sair sem salvar", perigo: true, fn: () => (apagar("sl-treino-atual"), irParaTela("/app/inicio")) });
     // Faltam séries
     if (feitas < todas.length) return setPedido({ titulo: "Finalizar agora?", texto: `Você concluiu ${feitas} de ${todas.length} séries. As que faltaram não entram no resumo.`, rotulo: "Finalizar treino", fn: concluir });
     // Tudo feito
@@ -601,9 +642,9 @@ function Treino() {
   // Botão de sair
   function sairDoTreino() {
     // Nada feito: sai e apaga
-    if (!feitas) return apagar("sl-treino-atual"), (location.href = "../inicio/inicio.html");
+    if (!feitas) return apagar("sl-treino-atual"), irParaTela("/app/inicio");
     // Pergunta
-    setPedido({ titulo: "Sair do treino?", texto: "Seu progresso fica salvo. Você pode continuar depois pelo Início.", rotulo: "Sair e continuar depois", fn: () => (location.href = "../inicio/inicio.html") });
+    setPedido({ titulo: "Sair do treino?", texto: "Seu progresso fica salvo. Você pode continuar depois pelo Início.", rotulo: "Sair e continuar depois", fn: () => irParaTela("/app/inicio") });
   }
 
   // Último exercício?
@@ -658,7 +699,7 @@ function Treino() {
         )}
 
         {/* Miolo */}
-        <main id="conteudo" className="player-main" tabIndex="-1">
+        <main id="conteudo" ref={principal} className="player-main" tabIndex="-1">
           {fim ? (
             <Fim r={fim} />
           ) : (
@@ -857,5 +898,5 @@ function Treino() {
   );
 }
 
-// Desenha
-montar(Treino);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Treino;

@@ -2386,11 +2386,12 @@ input[type="checkbox"]:focus-visible {
   }
 
   /* Fundo com a foto do topo por cima dos brilhos (se o arquivo não existir, ficam só os brilhos) */
+  /* O endereço da foto vem do welcome.jsx na variável --foto-topo (funciona em qualquer endereço do app) */
   .hero-fundo {
     /* Foto + brilhos */
     background:
       linear-gradient(var(--vidro), var(--vidro)),
-      url("../assets/fotos/topo.jpg") center / cover no-repeat,
+      var(--foto-topo, none) center / cover no-repeat,
       radial-gradient(40% 60% at 75% 40%, var(--coral-dim), transparent 70%),
       var(--bg);
   }

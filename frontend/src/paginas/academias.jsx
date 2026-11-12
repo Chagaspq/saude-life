@@ -1,11 +1,17 @@
 // Página de venda para academias e personais: benefícios, como funciona, conta e contato.
 import { useState } from "react";
-import { montar } from "../montar.jsx";
 import PublicLayout from "../componentes/PublicLayout.jsx";
 import { ler, gravar } from "../lib/armazenamento.js";
-import "../estilos/kit-publico.js";
-import "../estilos/planos-publico.css";
-import "../estilos/academias.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssWelcome from "../estilos/welcome.css?inline";
+import cssSite from "../estilos/site.css?inline";
+import cssPlanosPublico from "../estilos/planos-publico.css?inline";
+import cssAcademias from "../estilos/academias.css?inline";
+
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssWelcome, cssSite, cssPlanosPublico, cssAcademias];
 
 // Benefícios: [título, texto, desenhos do ícone]
 const BENEFICIOS = [
@@ -156,5 +162,5 @@ function Academias() {
   );
 }
 
-// Desenha
-montar(Academias);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Academias;

@@ -6,6 +6,8 @@ export const lerA11y = () => ler("sl-a11y", {}) || {};
 
 // Salva e aplica as escolhas de acessibilidade
 export function salvarA11y(a) {
+  // Avisa o app que as escolhas mudaram (o componente <VLibras /> escuta)
+  window.dispatchEvent(new CustomEvent("sl:a11y", { detail: a }));
   // Salva
   localStorage.setItem("sl-a11y", JSON.stringify(a));
   // Aplica
@@ -52,29 +54,6 @@ export function trocarIdioma(idioma) {
   window.location.reload();
 }
 
-// Carrega o VLibras (tradutor em Libras do governo), uma vez só
-export function carregarVLibras() {
-  // Já carregou
-  if (document.querySelector("[vw]")) return;
-  // Caixa do VLibras
-  const caixa = document.createElement("div");
-  // Marca
-  caixa.setAttribute("vw", "");
-  // Classe
-  caixa.className = "enabled";
-  // Botão e janela
-  caixa.innerHTML = '<div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div>';
-  // Coloca
-  document.body.append(caixa);
-  // Script oficial
-  const script = document.createElement("script");
-  // Endereço
-  script.src = "https://vlibras.gov.br/app/vlibras-plugin.js";
-  // Quando carregar, liga
-  script.onload = () => window.VLibras && new window.VLibras.Widget("https://vlibras.gov.br/app");
-  // Carrega
-  document.head.append(script);
-}
 
 // Lê a página em voz alta (ou para). Devolve true se começou a ler
 export function lerEmVoz() {

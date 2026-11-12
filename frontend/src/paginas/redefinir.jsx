@@ -1,24 +1,38 @@
 // Redefinir senha: abre pelo link com ?token=, pede a senha nova e troca.
 import { useState } from "react";
-import { montar } from "../montar.jsx";
 import { CampoConta, BotaoEnviar, RegrasSenha, esperar } from "../componentes/Formulario.jsx";
 import { trocarSenha, REGRAS_SENHA, MIN_SENHA } from "../lib/conta.js";
 import { ler, gravar } from "../lib/armazenamento.js";
 // API
 import { api, apiLigada } from "../lib/api.js";
 import CascoSenha from "../componentes/CascoSenha.jsx";
-import "../estilos/kit-conta.js";
-import "../estilos/senha.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssAuth from "../estilos/auth.css?inline";
+import cssSenha from "../estilos/senha.css?inline";
+// Troca de tela pelo código (React Router)
+import { irPara } from "../lib/navegar.js";
+// Lê o ?token= do endereço (React Router)
+import { useSearchParams } from "react-router-dom";
+// Campos com ref (focar o campo com erro)
+import { useCampos } from "../lib/campos.js";
 
-// Código do link
-const token = new URLSearchParams(location.search).get("token");
-// Código guardado nesta aba
-const tokenSalvo = sessionStorage.getItem("sl-reset-token");
-// Link válido?
-const valido = !!token && (apiLigada() || !tokenSalvo || token === tokenSalvo);
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssAuth, cssSenha];
 
 // Página
 function Redefinir() {
+  // Campos da tela (ref do React) para focar o que tiver erro
+  const campos = useCampos();
+  // Endereço (?token=) lido pelo React Router
+  const [parametros] = useSearchParams();
+  // Código do link
+  const token = parametros.get("token");
+  // Código guardado nesta aba
+  const tokenSalvo = sessionStorage.getItem("sl-reset-token");
+  // Link válido?
+  const valido = !!token && (apiLigada() || !tokenSalvo || token === tokenSalvo);
   // Senha nova
   const [senha, setSenha] = useState("");
   // Confirmação
@@ -45,9 +59,9 @@ function Redefinir() {
     // Mostra
     setErros(novos);
     // Erro: foca
-    if (novos.senha) return document.getElementById("new-password")?.focus();
+    if (novos.senha) return campos.focar("new-password");
     // Erro: foca
-    if (novos.confirmar) return document.getElementById("confirm-new-password")?.focus();
+    if (novos.confirmar) return campos.focar("confirm-new-password");
     // Esperando
     setCarregando("Salvando...");
     // Com API: o servidor confere o link e troca a senha
@@ -67,7 +81,7 @@ function Redefinir() {
       // Espera
       await esperar(1500);
       // Vai
-      return (location.href = "../login/login.html");
+      return irPara("/login");
     }
     // Pedidos
     const pedidos = ler("sl-reset-pedidos", {});
@@ -86,7 +100,7 @@ function Redefinir() {
     // Espera
     await esperar(1500);
     // Vai
-    location.href = "../login/login.html";
+    irPara("/login");
   }
 
   // Página
@@ -94,11 +108,11 @@ function Redefinir() {
     <CascoSenha titulo="Redefinir senha" subtitulo="Escolha uma nova senha para acessar sua conta.">
       <form id="reset-form" className="auth-form" noValidate onSubmit={enviar}>
         {/* Senha nova */}
-        <CampoConta id="new-password" rotulo="Nova senha" senha autoComplete="new-password" required autoFocus minLength={8} placeholder="Mínimo de 8 caracteres" value={senha} erro={erros.senha} disabled={!valido} onChange={(e) => (setSenha(e.target.value), setErros({}))}>
+        <CampoConta id="new-password" ref={campos.ref("new-password")} rotulo="Nova senha" senha autoComplete="new-password" required autoFocus minLength={8} placeholder="Mínimo de 8 caracteres" value={senha} erro={erros.senha} disabled={!valido} onChange={(e) => (setSenha(e.target.value), setErros({}))}>
           <RegrasSenha regras={REGRAS_SENHA} senha={senha} />
         </CampoConta>
         {/* Confirmar */}
-        <CampoConta id="confirm-new-password" rotulo="Confirmar nova senha" senha autoComplete="new-password" required placeholder="Repita a nova senha" value={confirmar} erro={erros.confirmar} disabled={!valido} onChange={(e) => (setConfirmar(e.target.value), setErros({}))} />
+        <CampoConta id="confirm-new-password" ref={campos.ref("confirm-new-password")} rotulo="Confirmar nova senha" senha autoComplete="new-password" required placeholder="Repita a nova senha" value={confirmar} erro={erros.confirmar} disabled={!valido} onChange={(e) => (setConfirmar(e.target.value), setErros({}))} />
         {/* Mensagens */}
         <p id="form-global-error" className="field-error" role="alert" aria-live="assertive" hidden={!msg || msg.ok}>
           {msg?.texto}
@@ -113,5 +127,5 @@ function Redefinir() {
   );
 }
 
-// Desenha
-montar(Redefinir);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Redefinir;

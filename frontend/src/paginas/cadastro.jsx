@@ -1,14 +1,25 @@
 // Criar conta em 2 passos: 1) tipo de conta, nome, e-mail e senha; 2) dados opcionais e termos.
 import { useState } from "react";
-import { montar } from "../montar.jsx";
 import AuthLayout from "../componentes/AuthLayout.jsx";
 import { Logo } from "../componentes/base.jsx";
 import { CampoConta, MensagemGeral, BotaoEnviar, RegrasSenha, esperar } from "../componentes/Formulario.jsx";
 import { acharConta, criarConta, emailValido, REGRAS_SENHA, MIN_SENHA } from "../lib/conta.js";
 // Servidor (quando ligado)
 import { apiLigada } from "../lib/api.js";
-import "../estilos/kit-conta.js";
-import "../estilos/cadastro.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssAuth from "../estilos/auth.css?inline";
+import cssCadastro from "../estilos/cadastro.css?inline";
+// Links entre as telas (React Router: troca de tela sem recarregar)
+import { Link } from "react-router-dom";
+// Troca de tela pelo código (React Router; "irParaTela" porque esta tela já tem uma função irPara)
+import { irPara as irParaTela } from "../lib/navegar.js";
+// Campos com ref (focar o campo com erro)
+import { useCampos } from "../lib/campos.js";
+
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssAuth, cssCadastro];
 
 // Nome de cada passo
 const NOMES_PASSOS = ["Sua conta", "Sobre você"];
@@ -45,6 +56,8 @@ function lerFoto(arquivo, pronto) {
 
 // Página
 function Cadastro() {
+  // Campos da tela (ref do React) para focar o que tiver erro
+  const campos = useCampos();
   // Passo (1 ou 2)
   const [passo, setPasso] = useState(1);
   // Campos
@@ -92,7 +105,7 @@ function Cadastro() {
     // Primeiro campo com erro
     const primeiro = Object.keys(ids).find((k) => novos[k]);
     // Foca
-    if (primeiro) document.getElementById(ids[primeiro])?.focus();
+    if (primeiro) campos.focar(ids[primeiro]);
     // Certo?
     return !Object.keys(novos).length;
   }
@@ -116,7 +129,7 @@ function Cadastro() {
     // Foca o primeiro problema
     const primeiro = ["nascimento", "altura", "peso"].find((k) => novos[k]) || (!c.termos && "terms");
     // Foca
-    if (primeiro) document.getElementById(primeiro)?.focus();
+    if (primeiro) campos.focar(primeiro);
     // Certo?
     return !primeiro;
   }
@@ -128,7 +141,7 @@ function Cadastro() {
     // Some a mensagem
     setMsg(null);
     // Foca o primeiro campo do passo
-    setTimeout(() => document.getElementById(n === 1 ? "name" : "apelido")?.focus(), 0);
+    setTimeout(() => campos.focar(n === 1 ? "name" : "apelido"), 0);
   }
 
   // Envia
@@ -162,7 +175,7 @@ function Cadastro() {
     // Espera
     await esperar(900);
     // Vai para o login
-    location.href = "../login/login.html?cadastro=sucesso";
+    irParaTela("/login?cadastro=sucesso");
   }
 
   // Lista de vantagens do lado visual
@@ -224,15 +237,15 @@ function Cadastro() {
             </label>
           </div>
           {/* Nome */}
-          <CampoConta id="name" rotulo="Nome completo" icone="nome" autoComplete="name" required placeholder="Seu nome completo" value={c.nome} erro={erros.nome} onChange={mudar("nome")} />
+          <CampoConta id="name" ref={campos.ref("name")} rotulo="Nome completo" icone="nome" autoComplete="name" required placeholder="Seu nome completo" value={c.nome} erro={erros.nome} onChange={mudar("nome")} />
           {/* E-mail */}
-          <CampoConta id="email" rotulo="E-mail" icone="email" type="email" autoComplete="email" required placeholder="seu@email.com" value={c.email} erro={erros.email} onChange={mudar("email")} />
+          <CampoConta id="email" ref={campos.ref("email")} rotulo="E-mail" icone="email" type="email" autoComplete="email" required placeholder="seu@email.com" value={c.email} erro={erros.email} onChange={mudar("email")} />
           {/* Senha com as regras */}
-          <CampoConta id="password" rotulo="Senha" icone="senha" senha autoComplete="new-password" required minLength={8} placeholder="••••••••" value={c.senha} erro={erros.senha} onChange={mudar("senha")}>
+          <CampoConta id="password" ref={campos.ref("password")} rotulo="Senha" icone="senha" senha autoComplete="new-password" required minLength={8} placeholder="••••••••" value={c.senha} erro={erros.senha} onChange={mudar("senha")}>
             <RegrasSenha regras={REGRAS_SENHA} senha={c.senha} />
           </CampoConta>
           {/* Confirmar */}
-          <CampoConta id="confirm-password" rotulo="Confirmar senha" icone="senha" senha autoComplete="new-password" required placeholder="••••••••" value={c.confirmar} erro={erros.confirmar} onChange={mudar("confirmar")} />
+          <CampoConta id="confirm-password" ref={campos.ref("confirm-password")} rotulo="Confirmar senha" icone="senha" senha autoComplete="new-password" required placeholder="••••••••" value={c.confirmar} erro={erros.confirmar} onChange={mudar("confirmar")} />
           {/* Código da academia (só cliente e com servidor) */}
           {apiLigada() && c.tipo === "cliente" && <CampoConta id="codigo" rotulo="Código da academia (opcional)" placeholder="Ex.: SL-4F2K" autoComplete="off" value={c.codigo} erro={erros.codigo} onChange={mudar("codigo")} />}
         </fieldset>
@@ -264,25 +277,25 @@ function Cadastro() {
             />
           </div>
           {/* Apelido */}
-          <CampoConta id="apelido" rotulo="Como quer ser chamado(a)?" autoComplete="nickname" maxLength={20} placeholder="Ex.: Biel" value={c.apelido} erro={erros.apelido} onChange={mudar("apelido")} />
+          <CampoConta id="apelido" ref={campos.ref("apelido")} rotulo="Como quer ser chamado(a)?" autoComplete="nickname" maxLength={20} placeholder="Ex.: Biel" value={c.apelido} erro={erros.apelido} onChange={mudar("apelido")} />
           {/* Nascimento, altura e peso */}
           <div className="cad-linha">
-            <CampoConta id="nascimento" rotulo="Nascimento" type="date" autoComplete="bday" value={c.nascimento} erro={erros.nascimento} onChange={mudar("nascimento")} />
-            <CampoConta id="altura" rotulo="Altura (cm)" type="number" inputMode="numeric" min="120" max="230" placeholder="170" value={c.altura} erro={erros.altura} onChange={mudar("altura")} />
-            <CampoConta id="peso" rotulo="Peso (kg)" type="number" inputMode="decimal" min="30" max="300" step="0.1" placeholder="70" value={c.peso} erro={erros.peso} onChange={mudar("peso")} />
+            <CampoConta id="nascimento" ref={campos.ref("nascimento")} rotulo="Nascimento" type="date" autoComplete="bday" value={c.nascimento} erro={erros.nascimento} onChange={mudar("nascimento")} />
+            <CampoConta id="altura" ref={campos.ref("altura")} rotulo="Altura (cm)" type="number" inputMode="numeric" min="120" max="230" placeholder="170" value={c.altura} erro={erros.altura} onChange={mudar("altura")} />
+            <CampoConta id="peso" ref={campos.ref("peso")} rotulo="Peso (kg)" type="number" inputMode="decimal" min="30" max="300" step="0.1" placeholder="70" value={c.peso} erro={erros.peso} onChange={mudar("peso")} />
           </div>
           {/* Termos */}
           <div className="form-group checkbox-group">
-            <input type="checkbox" id="terms" name="terms" required checked={c.termos} onChange={mudar("termos")} />
+            <input type="checkbox" id="terms" ref={campos.ref("terms")} name="terms" required checked={c.termos} onChange={mudar("termos")} />
             <label htmlFor="terms">
               Li e aceito os{" "}
-              <a href="../termos/termos.html" className="btn-comecar">
+              <Link to="/termos" className="btn-comecar">
                 Termos de Uso
-              </a>{" "}
+              </Link>{" "}
               e a{" "}
-              <a href="../politica/politica.html" className="btn-comecar">
+              <Link to="/politica" className="btn-comecar">
                 Política de Privacidade
-              </a>
+              </Link>
               .
             </label>
           </div>
@@ -305,12 +318,12 @@ function Cadastro() {
       {/* Rodapé */}
       <footer className="auth-footer">
         <p>
-          Já tem conta? <a href="../login/login.html">Entrar</a>
+          Já tem conta? <Link to="/login">Entrar</Link>
         </p>
       </footer>
     </AuthLayout>
   );
 }
 
-// Desenha
-montar(Cadastro);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Cadastro;

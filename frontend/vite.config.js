@@ -1,55 +1,56 @@
 // Configuração do Vite (a ferramenta que monta o site React)
-// O site tem várias páginas: cada arquivo .html é uma página com o seu próprio React.
+// O site é um app React só: um index.html e o React Router trocando as telas.
 import { defineConfig } from "vite";
 // Plugin que ensina o Vite a entender React (JSX)
 import react from "@vitejs/plugin-react";
-// Ferramentas do Node para achar os arquivos
-import { readdirSync, statSync } from "node:fs";
+// Copiar arquivo (para o 404.html do GitHub Pages)
+import { copyFileSync } from "node:fs";
 // Caminhos
-import { resolve, join, relative } from "node:path";
+import { resolve } from "node:path";
 // Caminho deste arquivo
 import { fileURLToPath } from "node:url";
 
 // Pasta do front-end (onde este arquivo está)
 const FRONT = fileURLToPath(new URL(".", import.meta.url));
+// Pasta do site pronto (docs/ na raiz do repositório: é ela que o GitHub Pages publica)
+const SAIDA = resolve(FRONT, "../docs");
 
-// Pastas que não são páginas do site
-const IGNORAR = new Set(["node_modules", "public", "src", "ferramentas", ".git"]);
+// GitHub Pages: endereço que não existe (ex.: /saude-life/app/inicio) abre o 404.html.
+// Uma cópia do index.html como 404.html faz o React abrir e o React Router mostrar a tela certa.
+// Pasta de saída de verdade (pode mudar com --outDir)
+let pastaDeSaida = SAIDA;
+// Plugin
+const copiar404 = {
+  // Nome do plugin
+  name: "copiar-404",
+  // Só no build
+  apply: "build",
+  // Guarda a pasta de saída de verdade (pode mudar com --outDir)
+  configResolved(config) {
+    // Pasta de saída
+    pastaDeSaida = config.build.outDir;
+  },
+  // Depois de gerar o site: index.html -> 404.html
+  closeBundle() {
+    // Copia
+    copyFileSync(resolve(pastaDeSaida, "index.html"), resolve(pastaDeSaida, "404.html"));
+  },
+};
 
-// Procura todas as páginas .html do front-end (em qualquer pasta)
-function paginas(pasta = FRONT) {
-  // Lista de páginas: nome -> caminho
-  const lista = {};
-  // Cada item da pasta
-  for (const item of readdirSync(pasta)) {
-    // Pula as pastas que não são páginas
-    if (IGNORAR.has(item)) continue;
-    // Caminho completo
-    const caminho = join(pasta, item);
-    // Pasta: procura dentro
-    if (statSync(caminho).isDirectory()) Object.assign(lista, paginas(caminho));
-    // Página .html: entra na lista (nome tirado do caminho, ex.: "app-inicio-inicio")
-    else if (item.endsWith(".html")) lista[relative(FRONT, caminho).replace(/\.html$/, "").replace(/[\\/]/g, "-")] = resolve(caminho);
-  }
-  // Devolve
-  return lista;
-}
-
-// Configuração
-export default defineConfig({
+// Configuração (command = "serve" no npm run dev, "build" no npm run build; isPreview = npm run preview)
+export default defineConfig(({ command, isPreview }) => ({
   // Pasta do front-end
   root: FRONT,
-  // Caminhos relativos (funciona no GitHub Pages, dentro de /saude-life/)
-  base: "./",
-  // React
-  plugins: [react()],
+  // Endereço base: no ar (e no preview) fica em /saude-life/, como em https://chagaspq.github.io/saude-life/;
+  // no npm run dev fica na raiz (http://localhost:5173/)
+  base: command === "build" || isPreview ? "/saude-life/" : "/",
+  // React e o 404.html
+  plugins: [react(), copiar404],
   // Geração do site pronto
   build: {
-    // Vai para a pasta docs/ na raiz do repositório (é ela que o GitHub Pages publica)
-    outDir: resolve(FRONT, "../docs"),
+    // Vai para a pasta docs/
+    outDir: SAIDA,
     // Limpa a pasta antes (mesmo estando fora do front-end)
     emptyOutDir: true,
-    // Todas as páginas
-    rollupOptions: { input: paginas() },
   },
-});
+}));

@@ -1,11 +1,20 @@
 // Questionário inicial (3 passos): objetivo, nível e dias por semana. Vira a meta da semana.
-import { useEffect, useState } from "react";
-import { montar } from "../montar.jsx";
+import { useEffect, useRef, useState } from "react";
 import AppLayout from "../componentes/AppLayout.jsx";
 import { Logo, Marca } from "../componentes/base.jsx";
 import { ler, gravar } from "../lib/armazenamento.js";
-import "../estilos/kit-app.js";
-import "../estilos/app-comecar.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssApp from "../estilos/app.css?inline";
+import cssAppComecar from "../estilos/app-comecar.css?inline";
+// Links entre as telas (React Router: troca de tela sem recarregar)
+import { Link } from "react-router-dom";
+// Troca de tela pelo código (React Router)
+import { irPara } from "../lib/navegar.js";
+
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssApp, cssAppComecar];
 
 // Objetivos: [valor, título, texto]
 const OBJETIVOS = [
@@ -43,12 +52,14 @@ function Comecar() {
   const [r, setR] = useState(() => ({ objetivo: "Hipertrofia", nivel: "Intermediário", dias: 4, ...(ler("sl-onboarding", null) || {}) }));
   // Passo (0 a 2)
   const [passo, setPasso] = useState(0);
+  // Caixas dos 3 passos (ref do React)
+  const passos = useRef([]);
   // Classes da tela cheia no <body>
   useEffect(() => document.body.classList.add("focus-page", "onboarding-page"), []);
   // Foca a opção marcada ao trocar de passo
   useEffect(() => {
     // Primeiro passo: não rouba o foco
-    if (passo) document.querySelector(".onboarding-step:not([hidden]) input:checked")?.focus();
+    if (passo) passos.current[passo]?.querySelector("input:checked")?.focus();
   }, [passo]);
   // Guarda e vai para o Início
   function concluir(resp) {
@@ -57,7 +68,7 @@ function Comecar() {
     // Guarda
     gravar("sl-onboarding", { objetivo: resp.objetivo, nivel: resp.nivel, dias: Number(resp.dias), rotulo, data: new Date().toISOString() });
     // Vai
-    location.href = "../inicio/inicio.html";
+    irPara("/app/inicio");
   }
   // Porcentagem
   const pct = Math.round(((passo + 1) / 3) * 100);
@@ -67,10 +78,10 @@ function Comecar() {
       <main id="conteudo" className="onboarding" tabIndex="-1">
         <div className="onboarding-card">
           {/* Marca */}
-          <a href="../inicio/inicio.html" className="brand" aria-label="Saúde Life">
+          <Link to="/app/inicio" className="brand" aria-label="Saúde Life">
             <Logo tamanho={30} />
             <Marca />
-          </a>
+          </Link>
           {/* Título */}
           <h1 className="onboarding-title">Vamos personalizar seu Saúde Life</h1>
           {/* Progresso */}
@@ -92,7 +103,7 @@ function Comecar() {
             }}
           >
             {/* Passo 1: objetivo */}
-            <fieldset className="onboarding-step" hidden={passo !== 0}>
+            <fieldset className="onboarding-step" ref={(el) => (passos.current[0] = el)} hidden={passo !== 0}>
               <legend>{PERGUNTAS[0]}</legend>
               <div className="choice-list">
                 {OBJETIVOS.map(([v, t, x]) => (
@@ -101,7 +112,7 @@ function Comecar() {
               </div>
             </fieldset>
             {/* Passo 2: nível */}
-            <fieldset className="onboarding-step" hidden={passo !== 1}>
+            <fieldset className="onboarding-step" ref={(el) => (passos.current[1] = el)} hidden={passo !== 1}>
               <legend>{PERGUNTAS[1]}</legend>
               <div className="choice-list">
                 {NIVEIS.map(([v, x]) => (
@@ -110,7 +121,7 @@ function Comecar() {
               </div>
             </fieldset>
             {/* Passo 3: dias */}
-            <fieldset className="onboarding-step" hidden={passo !== 2}>
+            <fieldset className="onboarding-step" ref={(el) => (passos.current[2] = el)} hidden={passo !== 2}>
               <legend>{PERGUNTAS[2]}</legend>
               <p className="meta">Essa vai ser sua meta semanal. Dá para mudar depois no Perfil.</p>
               <div className="day-chips">
@@ -142,5 +153,5 @@ function Comecar() {
   );
 }
 
-// Desenha
-montar(Comecar);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Comecar;

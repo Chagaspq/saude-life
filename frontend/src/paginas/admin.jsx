@@ -1,7 +1,6 @@
 // Painel do administrador: números dos clientes, lista de clientes, mandar treino e avisos.
 // Os dados de cada cliente ficam na "gaveta" dele (sl-dados:e-mail) neste navegador.
 import { useEffect, useState } from "react";
-import { montar } from "../montar.jsx";
 import AppLayout from "../componentes/AppLayout.jsx";
 import { ICONES, CartaoNumero, Modal } from "../componentes/base.jsx";
 import { usuario, toast } from "../lib/nucleo.js";
@@ -10,8 +9,16 @@ import { ler, gravar } from "../lib/armazenamento.js";
 import { BIBLIOTECA } from "../lib/exercicios.js";
 // Servidor (quando ligado)
 import { api, apiLigada } from "../lib/api.js";
-import "../estilos/kit-app.js";
-import "../estilos/app-admin.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssApp from "../estilos/app.css?inline";
+import cssAppAdmin from "../estilos/app-admin.css?inline";
+// Campos com ref (focar o campo com erro)
+import { useCampos } from "../lib/campos.js";
+
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssApp, cssAppAdmin];
 
 // Um dia em milissegundos
 const DIA = 86400000;
@@ -47,6 +54,8 @@ function gravarNoCliente(email, chave, valor) {
 
 // Formulário de montar e mandar um treino
 function FormTreino({ cliente, onEnviar }) {
+  // Campos da tela (ref do React) para focar o que tiver erro
+  const campos = useCampos();
   // Nome
   const [nome, setNome] = useState("");
   // Grupo
@@ -65,7 +74,7 @@ function FormTreino({ cliente, onEnviar }) {
         // Sem recarregar
         e.preventDefault();
         // Sem nome
-        if (!nome.trim()) return document.getElementById("adm-nome").focus();
+        if (!nome.trim()) return campos.focar("adm-nome");
         // Sem exercício
         if (!lista.length) return toast("Adicione pelo menos 1 exercício");
         // Manda
@@ -75,7 +84,7 @@ function FormTreino({ cliente, onEnviar }) {
       {/* Nome */}
       <div className="form-group">
         <label htmlFor="adm-nome">Nome do treino</label>
-        <input id="adm-nome" placeholder="Ex: Treino A - Pernas" required maxLength={40} value={nome} onChange={(e) => setNome(e.target.value)} />
+        <input id="adm-nome" ref={campos.ref("adm-nome")} placeholder="Ex: Treino A - Pernas" required maxLength={40} value={nome} onChange={(e) => setNome(e.target.value)} />
       </div>
       {/* Grupo e exercício */}
       <div className="form-row">
@@ -301,5 +310,5 @@ function Admin() {
   );
 }
 
-// Desenha
-montar(Admin);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Admin;

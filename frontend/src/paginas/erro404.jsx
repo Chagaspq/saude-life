@@ -1,9 +1,14 @@
 // Página 404: aparece quando o endereço não existe.
-import { montar } from "../montar.jsx";
 import { Logo } from "../componentes/base.jsx";
-import "../estilos/tokens.css";
-import "../estilos/base.css";
-import "../estilos/erro404.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssErro404 from "../estilos/erro404.css?inline";
+// Links entre as telas (React Router: troca de tela sem recarregar)
+import { Link } from "react-router-dom";
+
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssErro404];
 
 // Página
 function Erro404() {
@@ -20,16 +25,16 @@ function Erro404() {
       <p>O endereço pode ter mudado ou a página não existe mais. Que tal voltar pro começo?</p>
       {/* Botões */}
       <div className="acoes">
-        <a href="welcome/welcome.html" className="btn btn-primario">
+        <Link to="/" className="btn btn-primario">
           Voltar ao início
-        </a>
-        <a href="app/inicio/inicio.html" className="btn btn-secundario">
+        </Link>
+        <Link to="/app/inicio" className="btn btn-secundario">
           Abrir o app
-        </a>
+        </Link>
       </div>
     </main>
   );
 }
 
-// Desenha
-montar(Erro404);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Erro404;

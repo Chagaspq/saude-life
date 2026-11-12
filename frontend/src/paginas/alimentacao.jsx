@@ -1,6 +1,5 @@
 // Alimentação: metas do dia (calorias e macros), refeições de hoje, água e "repetir ontem".
 import { useEffect, useState } from "react";
-import { montar } from "../montar.jsx";
 import AppLayout from "../componentes/AppLayout.jsx";
 import { Icone, ICONES, Modal } from "../componentes/base.jsx";
 import { dadosCorpo, onboarding, toast } from "../lib/nucleo.js";
@@ -9,8 +8,16 @@ import { ler, gravar } from "../lib/armazenamento.js";
 import { ganhar, perder } from "../lib/pontos.js";
 import { ALIMENTOS } from "../lib/alimentos.js";
 import { SL_DADOS } from "../lib/dados.js";
-import "../estilos/kit-app.js";
-import "../estilos/app-alimentacao.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssApp from "../estilos/app.css?inline";
+import cssAppAlimentacao from "../estilos/app-alimentacao.css?inline";
+// Campos com ref (focar o campo com erro)
+import { useCampos } from "../lib/campos.js";
+
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssApp, cssAppAlimentacao];
 
 // Tamanho do copo (ml)
 const COPO = 250;
@@ -167,6 +174,8 @@ const Barra = ({ pct, rotulo, cor }) => (
 
 // Formulário de adicionar refeição (com busca de comidas que calcula sozinha)
 function FormRefeicao({ onSalvar }) {
+  // Campos da tela (ref do React) para focar o que tiver erro
+  const campos = useCampos();
   // Campos
   const [c, setC] = useState({ nome: "", hora: horaAgora(), desc: "", kcal: "", proteina: "", carbo: "", gordura: "" });
   // Busca
@@ -215,7 +224,7 @@ function FormRefeicao({ onSalvar }) {
         // Sem recarregar
         e.preventDefault();
         // Sem nome: foca
-        if (!c.nome.trim()) return document.getElementById("ref-nome").focus();
+        if (!c.nome.trim()) return campos.focar("ref-nome");
         // Salva
         onSalvar({ id: "r" + Date.now(), nome: c.nome.trim(), hora: c.hora || horaAgora(), descricao: c.desc.trim(), kcal: n(c.kcal), proteina: n(c.proteina), carbo: n(c.carbo), gordura: n(c.gordura), foto });
       }}
@@ -224,7 +233,7 @@ function FormRefeicao({ onSalvar }) {
       <div className="form-row">
         <div className="form-group">
           <label htmlFor="ref-nome">Refeição</label>
-          <input id="ref-nome" placeholder="Ex: Lanche da tarde" required maxLength={40} value={c.nome} onChange={mudar("nome")} />
+          <input id="ref-nome" ref={campos.ref("ref-nome")} placeholder="Ex: Lanche da tarde" required maxLength={40} value={c.nome} onChange={mudar("nome")} />
         </div>
         <div className="form-group">
           <label htmlFor="ref-hora">Horário</label>
@@ -658,5 +667,5 @@ function Alimentacao() {
   );
 }
 
-// Desenha
-montar(Alimentacao);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Alimentacao;

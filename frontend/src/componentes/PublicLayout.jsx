@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import { Logo, Marca, GradienteIcones, Avisos } from "./base.jsx";
 import Exibicao from "./Exibicao.jsx";
+// Links entre as telas (React Router: troca de tela sem recarregar)
+import { Link } from "react-router-dom";
 
 // Botão "voltar ao topo" (aparece depois de rolar 400 px)
 function VoltarTopo() {
@@ -38,34 +40,34 @@ export default function PublicLayout({ atual, classe, topo, children }) {
       {/* Topo */}
       <header className="top-bar">
         {/* Marca */}
-        <a href="../welcome/welcome.html" className="brand" aria-current={atual === "welcome" ? "page" : undefined}>
+        <Link to="/" className="brand" aria-current={atual === "welcome" ? "page" : undefined}>
           <Logo tamanho={30} />
           <Marca />
-        </a>
+        </Link>
         {/* Links */}
         <nav className="top-bar-actions" aria-label="Navegação principal">
           {/* Exibição (tema, idioma e acessibilidade) */}
           <Exibicao />
           {/* Blog */}
-          <a href="../blog/blog.html" className="link-entrar" aria-current={atual === "blog" ? "page" : undefined}>
+          <Link to="/blog" className="link-entrar" aria-current={atual === "blog" ? "page" : undefined}>
             Blog
-          </a>
+          </Link>
           {/* Para academias */}
-          <a href="../academias/academias.html" className="link-entrar link-esconde-celular" aria-current={atual === "academias" ? "page" : undefined}>
+          <Link to="/academias" className="link-entrar link-esconde-celular" aria-current={atual === "academias" ? "page" : undefined}>
             Para academias
-          </a>
+          </Link>
           {/* Planos */}
-          <a href="../planos/planos.html" className="link-entrar" aria-current={atual === "planos" ? "page" : undefined}>
+          <Link to="/planos" className="link-entrar" aria-current={atual === "planos" ? "page" : undefined}>
             Planos
-          </a>
+          </Link>
           {/* Entrar */}
-          <a href="../login/login.html" className="link-entrar">
+          <Link to="/login" className="link-entrar">
             Entrar
-          </a>
+          </Link>
           {/* Começar */}
-          <a href="../cadastro/cadastro.html" className="btn-criar-conta">
+          <Link to="/cadastro" className="btn-criar-conta">
             Começar
-          </a>
+          </Link>
         </nav>
       </header>
 
@@ -83,32 +85,32 @@ export default function PublicLayout({ atual, classe, topo, children }) {
         <div className="footer-grid">
           {/* Sobre */}
           <div className="footer-about">
-            <a href="../welcome/welcome.html" className="brand">
+            <Link to="/" className="brand">
               <Logo tamanho={24} id="logo-gradiente-rodape" />
               <Marca />
-            </a>
+            </Link>
             <p>Treinos guiados, alimentação e o acompanhamento da sua evolução em um só lugar.</p>
           </div>
           {/* Produto */}
           <nav aria-labelledby="footer-produto">
             <h2 id="footer-produto">Produto</h2>
             <ul>
-              <li><a href="../planos/planos.html">Planos</a></li>
-              <li><a href="../blog/blog.html">Blog de dicas</a></li>
-              <li><a href="../ajuda/ajuda.html">Ajuda</a></li>
-              <li><a href="../glossario/glossario.html">Glossário</a></li>
-              <li><a href="../calculadoras/calculadoras.html">Calculadoras</a></li>
-              <li><a href="../academias/academias.html">Para academias</a></li>
-              <li><a href="../cadastro/cadastro.html">Criar conta</a></li>
-              <li><a href="../login/login.html">Entrar</a></li>
+              <li><Link to="/planos">Planos</Link></li>
+              <li><Link to="/blog">Blog de dicas</Link></li>
+              <li><Link to="/ajuda">Ajuda</Link></li>
+              <li><Link to="/glossario">Glossário</Link></li>
+              <li><Link to="/calculadoras">Calculadoras</Link></li>
+              <li><Link to="/academias">Para academias</Link></li>
+              <li><Link to="/cadastro">Criar conta</Link></li>
+              <li><Link to="/login">Entrar</Link></li>
             </ul>
           </nav>
           {/* Legal */}
           <nav aria-labelledby="footer-legal">
             <h2 id="footer-legal">Legal</h2>
             <ul>
-              <li><a href="../termos/termos.html">Termos de Uso</a></li>
-              <li><a href="../politica/politica.html">Política de Privacidade</a></li>
+              <li><Link to="/termos">Termos de Uso</Link></li>
+              <li><Link to="/politica">Política de Privacidade</Link></li>
             </ul>
           </nav>
         </div>
