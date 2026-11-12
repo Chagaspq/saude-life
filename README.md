@@ -72,7 +72,7 @@ Na tela **Entrar**:
 
 ## Onde os dados ficam
 
-Com a API ligada (`VITE_API_URL` no `frontend/.env.production`), tudo vai para o servidor (pasta `backend/`) e o banco, e funciona em qualquer aparelho. Sem a API, o site salva só no navegador (modo demonstração). A senha fica guardada só como hash BCrypt.
+Hoje, sem o back-end, o site salva só no navegador (modo demonstração). Quando o novo back-end ficar pronto, os dados passam a ir para o banco de dados.
 
 ## Acessibilidade
 
