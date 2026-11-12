@@ -21,6 +21,8 @@ import cssAppPerfil from "../estilos/app-perfil.css?inline";
 import { Link } from "react-router-dom";
 // Troca de tela pelo código (React Router)
 import { irPara } from "../lib/navegar.js";
+// Campos com ref (focar o campo com erro)
+import { useCampos } from "../lib/campos.js";
 
 // Lista do CSS da tela, na ordem
 export const estilos = [cssTokens, cssBase, cssApp, cssAppPerfil];
@@ -100,6 +102,8 @@ function Chave({ titulo, texto, ligado, onMudar, rotulo }) {
 
 // Formulário de editar perfil
 function FormPerfil({ onSalvar }) {
+  // Campos da tela (ref do React) para focar o que tiver erro
+  const campos = useCampos();
   // Perfil salvo
   const p = ler("sl-perfil", {});
   // Usuário
@@ -140,7 +144,7 @@ function FormPerfil({ onSalvar }) {
         // Sem recarregar
         e.preventDefault();
         // Sem nome: foca
-        if (!c.nome.trim()) return document.getElementById("perfil-nome").focus();
+        if (!c.nome.trim()) return campos.focar("perfil-nome");
         // Guarda
         gravar("sl-perfil", { ...p, nome: c.nome.trim(), apelido: c.apelido.trim(), bio: c.bio.trim(), capa: c.capa, foto: c.foto });
         // Pronto
@@ -165,7 +169,7 @@ function FormPerfil({ onSalvar }) {
       {/* Nome */}
       <div className="form-group">
         <label htmlFor="perfil-nome">Nome</label>
-        <input id="perfil-nome" required maxLength={50} value={c.nome} onChange={mudar("nome")} />
+        <input id="perfil-nome" ref={campos.ref("perfil-nome")} required maxLength={50} value={c.nome} onChange={mudar("nome")} />
       </div>
       {/* Apelido */}
       <div className="form-group">

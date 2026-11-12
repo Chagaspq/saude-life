@@ -1,9 +1,8 @@
-// Tela: o que toda página do app faz ao abrir (CSS, título da aba, rolagem e botão do idioma).
+// Tela: o que toda página do app faz ao abrir (CSS, título da aba e rolagem).
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { usarEstilos } from "../lib/estilos.js";
 import { EVENTO_MUDOU } from "../lib/armazenamento.js";
-import { colocarBotao, traduzirTexto } from "../lib/idioma.js";
+import { traduzirTexto } from "../lib/idioma.js";
 
 // Número que sobe toda vez que algum dado salvo muda (a tela redesenha)
 function useVersaoDosDados() {
@@ -30,8 +29,6 @@ function useVersaoDosDados() {
 // Tela (Pagina = componente da tela; estilos = CSS dela; titulo = título da aba;
 // chaveComBusca = abre de novo quando muda o ?id= do endereço, ex.: trocar de treino)
 export default function Tela({ Pagina, estilos, titulo, chaveComBusca }) {
-  // CSS da tela
-  usarEstilos(estilos);
   // Versão dos dados (redesenha quando mudam)
   const versao = useVersaoDosDados();
   // Endereço atual
@@ -48,10 +45,8 @@ export default function Tela({ Pagina, estilos, titulo, chaveComBusca }) {
     else window.scrollTo(0, 0);
   }, []);
 
-  // Botão do idioma e limpeza do <body> ao sair
+  // Limpeza do <body> ao sair
   useEffect(() => {
-    // Coloca o botão "EN/ES/PT" nesta tela
-    colocarBotao();
     // Ao sair da tela: tira as marcas que ela deixou no <body> (ex.: tela cheia do treino)
     return () => {
       // Classes
@@ -61,6 +56,13 @@ export default function Tela({ Pagina, estilos, titulo, chaveComBusca }) {
     };
   }, []);
 
-  // Desenha a tela
-  return <Pagina key={chaveComBusca ? search : undefined} versao={versao} />;
+  // Desenha o CSS da tela (cada arquivo numa tag <style>, na ordem; sai junto quando a tela fecha) e a tela
+  return (
+    <>
+      {estilos.map((css, i) => (
+        <style key={i}>{css}</style>
+      ))}
+      <Pagina key={chaveComBusca ? search : undefined} versao={versao} />
+    </>
+  );
 }

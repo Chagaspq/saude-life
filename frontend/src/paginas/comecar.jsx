@@ -1,5 +1,5 @@
 // Questionário inicial (3 passos): objetivo, nível e dias por semana. Vira a meta da semana.
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AppLayout from "../componentes/AppLayout.jsx";
 import { Logo, Marca } from "../componentes/base.jsx";
 import { ler, gravar } from "../lib/armazenamento.js";
@@ -52,12 +52,14 @@ function Comecar() {
   const [r, setR] = useState(() => ({ objetivo: "Hipertrofia", nivel: "Intermediário", dias: 4, ...(ler("sl-onboarding", null) || {}) }));
   // Passo (0 a 2)
   const [passo, setPasso] = useState(0);
+  // Caixas dos 3 passos (ref do React)
+  const passos = useRef([]);
   // Classes da tela cheia no <body>
   useEffect(() => document.body.classList.add("focus-page", "onboarding-page"), []);
   // Foca a opção marcada ao trocar de passo
   useEffect(() => {
     // Primeiro passo: não rouba o foco
-    if (passo) document.querySelector(".onboarding-step:not([hidden]) input:checked")?.focus();
+    if (passo) passos.current[passo]?.querySelector("input:checked")?.focus();
   }, [passo]);
   // Guarda e vai para o Início
   function concluir(resp) {
@@ -101,7 +103,7 @@ function Comecar() {
             }}
           >
             {/* Passo 1: objetivo */}
-            <fieldset className="onboarding-step" hidden={passo !== 0}>
+            <fieldset className="onboarding-step" ref={(el) => (passos.current[0] = el)} hidden={passo !== 0}>
               <legend>{PERGUNTAS[0]}</legend>
               <div className="choice-list">
                 {OBJETIVOS.map(([v, t, x]) => (
@@ -110,7 +112,7 @@ function Comecar() {
               </div>
             </fieldset>
             {/* Passo 2: nível */}
-            <fieldset className="onboarding-step" hidden={passo !== 1}>
+            <fieldset className="onboarding-step" ref={(el) => (passos.current[1] = el)} hidden={passo !== 1}>
               <legend>{PERGUNTAS[1]}</legend>
               <div className="choice-list">
                 {NIVEIS.map(([v, x]) => (
@@ -119,7 +121,7 @@ function Comecar() {
               </div>
             </fieldset>
             {/* Passo 3: dias */}
-            <fieldset className="onboarding-step" hidden={passo !== 2}>
+            <fieldset className="onboarding-step" ref={(el) => (passos.current[2] = el)} hidden={passo !== 2}>
               <legend>{PERGUNTAS[2]}</legend>
               <p className="meta">Essa vai ser sua meta semanal. Dá para mudar depois no Perfil.</p>
               <div className="day-chips">

@@ -1,7 +1,7 @@
 // Botão "Exibição" e o painel com tema, idioma e acessibilidade.
 import { useEffect, useRef, useState } from "react";
 import { Icone, ICONES } from "./base.jsx";
-import { lerA11y, salvarA11y, lerTema, aplicarTema, lerIdioma, trocarIdioma, carregarVLibras, lerEmVoz } from "../lib/exibicao.js";
+import { lerA11y, salvarA11y, lerTema, aplicarTema, lerIdioma, trocarIdioma, lerEmVoz } from "../lib/exibicao.js";
 
 // Chaves de liga/desliga do painel: [chave, texto]
 const CHAVES = [
@@ -29,12 +29,6 @@ export default function Exibicao({ solto }) {
   const caixa = useRef(null);
   // Idioma atual
   const idioma = lerIdioma();
-
-  // VLibras ligado: carrega ao abrir a página
-  useEffect(() => {
-    // Liga
-    if (a11y.vlibras) carregarVLibras();
-  }, []);
 
   // Clique fora fecha
   useEffect(() => {
@@ -65,8 +59,8 @@ export default function Exibicao({ solto }) {
     salvarA11y(novo);
     // Guarda no estado
     setA11y(novo);
-    // VLibras: liga carregando; desliga recarregando a página
-    if (chave === "vlibras") valor ? carregarVLibras() : window.location.reload();
+    // VLibras: liga sozinho (componente <VLibras />); desligar recarrega a página
+    if (chave === "vlibras" && !valor) window.location.reload();
   }
 
   // Caixa com botão e painel

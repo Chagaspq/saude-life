@@ -167,6 +167,15 @@ function ComoFazer({ e }) {
 
 // Resumo do fim do treino
 function Fim({ r }) {
+  // Título do resumo (ref do React)
+  const titulo = useRef(null);
+  // Ao aparecer: leva o foco para o título (o leitor de tela anuncia o resumo)
+  useEffect(() => {
+    // Espera um instante (a tela de treino sai antes)
+    const t = setTimeout(() => titulo.current?.focus(), 50);
+    // Cancela se sair antes
+    return () => clearTimeout(t);
+  }, []);
   // Esforço escolhido
   const [esforco, setEsforco] = useState("");
   // Guarda o esforço (ajusta a sugestão de carga da próxima vez)
@@ -197,7 +206,7 @@ function Fim({ r }) {
         <circle cx="48" cy="48" r="34" className="finish-badge-core" />
         <path d="M33 49l10 10 20-22" className="finish-badge-check" />
       </svg>
-      <h2 id="heading-fim" tabIndex="-1">
+      <h2 id="heading-fim" ref={titulo} tabIndex="-1">
         Treino concluído!
       </h2>
       <p className="page-lead">
@@ -281,6 +290,8 @@ function TreinoEmAndamento() {
   const depois = useRef(null);
   // Trava de tela acesa
   const trava = useRef(null);
+  // Área principal do treino (ref do React: recebe o foco ao trocar de exercício)
+  const principal = useRef(null);
 
   // Sem treino: volta para a lista
   useEffect(() => {
@@ -422,7 +433,7 @@ function TreinoEmAndamento() {
     // Muda
     salvar({ ...base, indice: Math.max(0, Math.min(exercicios.length - 1, indice)) });
     // Foco no exercício
-    document.getElementById("conteudo")?.focus({ preventScroll: true });
+    principal.current?.focus({ preventScroll: true });
     // Sobe
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -615,8 +626,6 @@ function TreinoEmAndamento() {
     document.body.classList.add("is-finished");
     // Mostra o resumo
     setFim({ minutos, series: nFeitas, volume, kcal, comparacao, stats: estatisticas(), nomes: exercicios.map((x) => x.nome) });
-    // Foco no título
-    setTimeout(() => document.getElementById("heading-fim")?.focus(), 50);
   }
 
   // Botão "Finalizar treino"
@@ -690,7 +699,7 @@ function TreinoEmAndamento() {
         )}
 
         {/* Miolo */}
-        <main id="conteudo" className="player-main" tabIndex="-1">
+        <main id="conteudo" ref={principal} className="player-main" tabIndex="-1">
           {fim ? (
             <Fim r={fim} />
           ) : (

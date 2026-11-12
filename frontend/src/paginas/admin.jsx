@@ -14,6 +14,8 @@ import cssTokens from "../estilos/tokens.css?inline";
 import cssBase from "../estilos/base.css?inline";
 import cssApp from "../estilos/app.css?inline";
 import cssAppAdmin from "../estilos/app-admin.css?inline";
+// Campos com ref (focar o campo com erro)
+import { useCampos } from "../lib/campos.js";
 
 // Lista do CSS da tela, na ordem
 export const estilos = [cssTokens, cssBase, cssApp, cssAppAdmin];
@@ -52,6 +54,8 @@ function gravarNoCliente(email, chave, valor) {
 
 // Formulário de montar e mandar um treino
 function FormTreino({ cliente, onEnviar }) {
+  // Campos da tela (ref do React) para focar o que tiver erro
+  const campos = useCampos();
   // Nome
   const [nome, setNome] = useState("");
   // Grupo
@@ -70,7 +74,7 @@ function FormTreino({ cliente, onEnviar }) {
         // Sem recarregar
         e.preventDefault();
         // Sem nome
-        if (!nome.trim()) return document.getElementById("adm-nome").focus();
+        if (!nome.trim()) return campos.focar("adm-nome");
         // Sem exercício
         if (!lista.length) return toast("Adicione pelo menos 1 exercício");
         // Manda
@@ -80,7 +84,7 @@ function FormTreino({ cliente, onEnviar }) {
       {/* Nome */}
       <div className="form-group">
         <label htmlFor="adm-nome">Nome do treino</label>
-        <input id="adm-nome" placeholder="Ex: Treino A - Pernas" required maxLength={40} value={nome} onChange={(e) => setNome(e.target.value)} />
+        <input id="adm-nome" ref={campos.ref("adm-nome")} placeholder="Ex: Treino A - Pernas" required maxLength={40} value={nome} onChange={(e) => setNome(e.target.value)} />
       </div>
       {/* Grupo e exercício */}
       <div className="form-row">

@@ -1,5 +1,5 @@
 // Peças dos formulários de conta: campo com ícone, mostrar senha, botão com "carregando" e mensagem geral.
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 
 // Desenhos dos ícones dos campos
 const ICONES_CAMPO = {
@@ -12,7 +12,8 @@ const ICONES_CAMPO = {
 };
 
 // Campo de formulário (icone = email | senha | nome; erro = texto do erro; senha = mostra o botão do olho)
-export function CampoConta({ id, rotulo, icone, erro, senha, direita, children, ...props }) {
+// forwardRef: a tela pode pegar o campo com ref (ex.: para focar quando tiver erro)
+export const CampoConta = forwardRef(function CampoConta({ id, rotulo, icone, erro, senha, direita, children, ...props }, ref) {
   // Senha visível?
   const [ver, setVer] = useState(false);
   // Grupo
@@ -38,7 +39,7 @@ export function CampoConta({ id, rotulo, icone, erro, senha, direita, children, 
           </svg>
         )}
         {/* Campo */}
-        <input id={id} name={id} type={senha ? (ver ? "text" : "password") : props.type || "text"} aria-invalid={!!erro} aria-describedby={id + "-error"} {...props} />
+        <input ref={ref} id={id} name={id} type={senha ? (ver ? "text" : "password") : props.type || "text"} aria-invalid={!!erro} aria-describedby={id + "-error"} {...props} />
         {/* Mostrar ou esconder a senha */}
         {senha && (
           <button type="button" className="toggle-password" aria-label={ver ? "Ocultar senha" : "Mostrar senha"} aria-pressed={ver} onClick={() => setVer(!ver)}>
@@ -57,7 +58,7 @@ export function CampoConta({ id, rotulo, icone, erro, senha, direita, children, 
       </span>
     </div>
   );
-}
+});
 
 // Mensagem geral do formulário ({ texto, ok })
 export function MensagemGeral({ msg }) {

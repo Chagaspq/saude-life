@@ -10,6 +10,8 @@ import cssTokens from "../estilos/tokens.css?inline";
 import cssBase from "../estilos/base.css?inline";
 import cssApp from "../estilos/app.css?inline";
 import cssAppEvolucao from "../estilos/app-evolucao.css?inline";
+// Campos com ref (focar o campo com erro)
+import { useCampos } from "../lib/campos.js";
 
 // Lista do CSS da tela, na ordem
 export const estilos = [cssTokens, cssBase, cssApp, cssAppEvolucao];
@@ -258,6 +260,8 @@ function FormMetas({ onSalvar }) {
 
 // Página
 function Evolucao() {
+  // Campos da tela (ref do React) para focar o que tiver erro
+  const campos = useCampos();
   // Semanas do período
   const [semanas, setSemanas] = useState(8);
   // Janela aberta: "peso" | "metas"
@@ -319,7 +323,7 @@ function Evolucao() {
     // Valor (aceita vírgula)
     const valor = Math.round(Number(String(pesoNovo).replace(",", ".")) * 10) / 10;
     // Fora da faixa: foca
-    if (!(valor >= 30 && valor <= 300)) return document.getElementById("peso-valor").focus();
+    if (!(valor >= 30 && valor <= 300)) return campos.focar("peso-valor");
     // Hoje
     const hoje = new Date().toDateString();
     // Troca o de hoje (se já tinha)
@@ -458,7 +462,7 @@ function Evolucao() {
         <form className="modal-form" onSubmit={salvarPeso}>
           <div className="form-group">
             <label htmlFor="peso-valor">Peso de hoje (kg)</label>
-            <input id="peso-valor" type="number" inputMode="decimal" min="30" max="300" step="0.1" required value={pesoNovo} onChange={(e) => setPesoNovo(e.target.value)} />
+            <input id="peso-valor" ref={campos.ref("peso-valor")} type="number" inputMode="decimal" min="30" max="300" step="0.1" required value={pesoNovo} onChange={(e) => setPesoNovo(e.target.value)} />
           </div>
           <button type="submit" className="btn-primary">
             Salvar peso

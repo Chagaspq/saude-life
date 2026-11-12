@@ -13,6 +13,8 @@ import cssTokens from "../estilos/tokens.css?inline";
 import cssBase from "../estilos/base.css?inline";
 import cssApp from "../estilos/app.css?inline";
 import cssAppAlimentacao from "../estilos/app-alimentacao.css?inline";
+// Campos com ref (focar o campo com erro)
+import { useCampos } from "../lib/campos.js";
 
 // Lista do CSS da tela, na ordem
 export const estilos = [cssTokens, cssBase, cssApp, cssAppAlimentacao];
@@ -172,6 +174,8 @@ const Barra = ({ pct, rotulo, cor }) => (
 
 // Formulário de adicionar refeição (com busca de comidas que calcula sozinha)
 function FormRefeicao({ onSalvar }) {
+  // Campos da tela (ref do React) para focar o que tiver erro
+  const campos = useCampos();
   // Campos
   const [c, setC] = useState({ nome: "", hora: horaAgora(), desc: "", kcal: "", proteina: "", carbo: "", gordura: "" });
   // Busca
@@ -220,7 +224,7 @@ function FormRefeicao({ onSalvar }) {
         // Sem recarregar
         e.preventDefault();
         // Sem nome: foca
-        if (!c.nome.trim()) return document.getElementById("ref-nome").focus();
+        if (!c.nome.trim()) return campos.focar("ref-nome");
         // Salva
         onSalvar({ id: "r" + Date.now(), nome: c.nome.trim(), hora: c.hora || horaAgora(), descricao: c.desc.trim(), kcal: n(c.kcal), proteina: n(c.proteina), carbo: n(c.carbo), gordura: n(c.gordura), foto });
       }}
@@ -229,7 +233,7 @@ function FormRefeicao({ onSalvar }) {
       <div className="form-row">
         <div className="form-group">
           <label htmlFor="ref-nome">Refeição</label>
-          <input id="ref-nome" placeholder="Ex: Lanche da tarde" required maxLength={40} value={c.nome} onChange={mudar("nome")} />
+          <input id="ref-nome" ref={campos.ref("ref-nome")} placeholder="Ex: Lanche da tarde" required maxLength={40} value={c.nome} onChange={mudar("nome")} />
         </div>
         <div className="form-group">
           <label htmlFor="ref-hora">Horário</label>

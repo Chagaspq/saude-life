@@ -2,6 +2,8 @@
 import { ler, gravar } from "./armazenamento.js";
 import { inicioDaSemana } from "./formato.js";
 import { onboarding, historico, estatisticas, toast } from "./nucleo.js";
+// Texto voando (desenhado pelo componente <Efeitos />)
+import { voarTexto } from "./efeitos.js";
 
 // Um dia e uma semana em milissegundos
 const DIA = 86400000;
@@ -70,29 +72,10 @@ function temBonus() {
   return Date.now() - new Date(inicio).getTime() < 4 * SEMANA;
 }
 
-// "+10" voando na tela
+// "+10" voando na tela (o componente <Efeitos /> desenha; escondido do leitor de tela, o aviso vai no toast)
 function voar(pts, origem) {
-  // Bolha
-  const bolha = document.createElement("span");
-  // Classe
-  bolha.className = "pontos-voando";
-  // Texto
-  bolha.textContent = "+" + pts;
-  // Escondida do leitor de tela (o aviso vai no toast)
-  bolha.setAttribute("aria-hidden", "true");
-  // Sai do botão clicado
-  if (origem && origem.getBoundingClientRect) {
-    // Posição do botão
-    const r = origem.getBoundingClientRect();
-    // Centro
-    bolha.style.left = r.left + r.width / 2 + "px";
-    // Centro
-    bolha.style.top = r.top + r.height / 2 + "px";
-  }
-  // Coloca
-  document.body.append(bolha);
-  // Some depois
-  setTimeout(() => bolha.remove(), 1300);
+  // Pede o texto voando
+  voarTexto(origem, "+" + pts, "pontos-voando", true);
 }
 
 // Ganha pontos por uma ação ("ref" único: a mesma ação não pontua duas vezes)

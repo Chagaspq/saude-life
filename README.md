@@ -21,11 +21,11 @@ saude-life/
 ├── frontend/          SITE (React + Vite): tudo o que aparece na tela
 │   ├── index.html     a única página HTML: o React desenha tudo dentro dela
 │   ├── src/
-│   │   ├── main.jsx       começo do app (tema, tradução e o roteador)
+│   │   ├── main.jsx       começo do app (tema salvo, roteador, efeitos, tradução e Libras)
 │   │   ├── rotas.jsx      rotas do React Router: cada endereço mostra uma tela
 │   │   ├── paginas/       uma tela por arquivo (login.jsx, inicio.jsx, treino.jsx, admin.jsx...)
-│   │   ├── componentes/   peças reaproveitadas (Tela, casco do app, janelas, cartões, formulários)
-│   │   ├── lib/           serviços: navegar.js, conta.js, pontos.js, idioma.js (EN/ES), api.js...
+│   │   ├── componentes/   componentes React: Tela, casco do app, janelas, formulários, Efeitos (confete), Traducao, VLibras
+│   │   ├── lib/           funções e dados: navegar.js, campos.js (ref), conta.js, pontos.js, exercicios.js, alimentos.js, idioma.js...
 │   │   ├── estilos/       CSS (cores, base, site, app e um arquivo por tela)
 │   │   └── config.js      endereço da API
 │   ├── public/        ícones e imagem de compartilhar

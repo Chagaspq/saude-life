@@ -4,6 +4,8 @@ import { ler, gravar } from "./armazenamento.js";
 import { lerSessao } from "./conta.js";
 import { inicioDaSemana, slug } from "./formato.js";
 import { SL_DADOS } from "./dados.js";
+// Biblioteca de exercícios
+import { BIBLIOTECA } from "./exercicios.js";
 
 // Catálogo de treinos prontos e exercícios de exemplo de cada treino
 export const { CATALOGO, EXERCICIOS } = SL_DADOS;
@@ -155,7 +157,7 @@ export function resumoExercicio(e) {
 // Exercício novo pelo nome (usa a carga sugerida da biblioteca; core e cardio contam tempo)
 export function novoExercicio(nome) {
   // Informações da biblioteca
-  const info = (window.SL_EXERCICIOS || {})[nome];
+  const info = BIBLIOTECA[nome];
   // Conta por tempo?
   const porTempo = info && ["core", "cardio", "alongar"].includes(info.mov) && info.carga === 0 && info.grupo !== "Pernas";
   // Exercício

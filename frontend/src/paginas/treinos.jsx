@@ -15,6 +15,8 @@ import cssAppTreinos from "../estilos/app-treinos.css?inline";
 import { irPara } from "../lib/navegar.js";
 // Links entre as telas (React Router: troca de tela sem recarregar)
 import { Link } from "react-router-dom";
+// Campos com ref (focar o campo com erro)
+import { useCampos } from "../lib/campos.js";
 
 // Lista do CSS da tela, na ordem
 export const estilos = [cssTokens, cssBase, cssApp, cssAppTreinos];
@@ -59,6 +61,8 @@ function sortear(grupos, lugar, quantidade) {
 
 // Formulário de criar ou editar treino
 function FormTreino({ treino, onSalvar }) {
+  // Campos da tela (ref do React) para focar o que tiver erro
+  const campos = useCampos();
   // Nome
   const [nome, setNome] = useState(treino?.nome || "");
   // Grupo
@@ -83,7 +87,7 @@ function FormTreino({ treino, onSalvar }) {
         // Sem recarregar
         e.preventDefault();
         // Sem nome: foca
-        if (!nome.trim()) return document.getElementById("treino-nome").focus();
+        if (!nome.trim()) return campos.focar("treino-nome");
         // Exercícios anteriores (mantém séries e cargas)
         const anteriores = treino ? exerciciosDe(treino) : [];
         // Lista final (no máximo 30)
@@ -95,7 +99,7 @@ function FormTreino({ treino, onSalvar }) {
       {/* Nome */}
       <div className="form-group">
         <label htmlFor="treino-nome">Nome do treino</label>
-        <input id="treino-nome" placeholder="Ex: Membros Superiores B" required maxLength={60} value={nome} onChange={(e) => setNome(e.target.value)} />
+        <input id="treino-nome" ref={campos.ref("treino-nome")} placeholder="Ex: Membros Superiores B" required maxLength={60} value={nome} onChange={(e) => setNome(e.target.value)} />
       </div>
       {/* Grupo */}
       <div className="form-group">

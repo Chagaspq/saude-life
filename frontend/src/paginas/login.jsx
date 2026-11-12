@@ -18,6 +18,8 @@ import { Link } from "react-router-dom";
 import { preencherDemo } from "../lib/demo.js";
 // Troca de tela pelo código (React Router)
 import { irPara } from "../lib/navegar.js";
+// Campos com ref (focar o campo com erro)
+import { useCampos } from "../lib/campos.js";
 
 // Lista do CSS da tela, na ordem
 export const estilos = [cssTokens, cssBase, cssAuth, cssLogin];
@@ -39,6 +41,8 @@ function destino(conta) {
 
 // Página
 function Login() {
+  // Campos da tela (ref do React) para focar o que tiver erro
+  const campos = useCampos();
   // Campos
   const [email, setEmail] = useState("");
   // Senha
@@ -65,7 +69,7 @@ function Login() {
     // Mostra
     setErros(novos);
     // Tem erro: foca o primeiro
-    if (Object.keys(novos).length) return document.getElementById(novos.email ? "email" : "password")?.focus();
+    if (Object.keys(novos).length) return campos.focar(novos.email ? "email" : "password");
     // Mostra "entrando" (com servidor grátis, a primeira vez pode demorar)
     setCarregando("Entrando...");
     // Confere a conta
@@ -77,7 +81,7 @@ function Login() {
       // Mensagem
       setMsg({ texto: res.erro });
       // Foca a senha
-      return document.getElementById("password")?.focus();
+      return campos.focar("password");
     }
     // Some a mensagem
     setMsg(null);
@@ -135,10 +139,10 @@ function Login() {
         }}
       >
         {/* E-mail */}
-        <CampoConta id="email" rotulo="E-mail" icone="email" type="email" autoComplete="email" required placeholder="seu@email.com" value={email} erro={erros.email} onChange={(e) => (setEmail(e.target.value), setErros({ ...erros, email: "" }))} />
+        <CampoConta id="email" ref={campos.ref("email")} rotulo="E-mail" icone="email" type="email" autoComplete="email" required placeholder="seu@email.com" value={email} erro={erros.email} onChange={(e) => (setEmail(e.target.value), setErros({ ...erros, email: "" }))} />
         {/* Senha */}
         <CampoConta
-          id="password"
+          id="password" ref={campos.ref("password")}
           rotulo="Senha"
           icone="senha"
           senha

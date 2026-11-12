@@ -11,12 +11,16 @@ import cssTokens from "../estilos/tokens.css?inline";
 import cssBase from "../estilos/base.css?inline";
 import cssAuth from "../estilos/auth.css?inline";
 import cssSenha from "../estilos/senha.css?inline";
+// Campos com ref (focar o campo com erro)
+import { useCampos } from "../lib/campos.js";
 
 // Lista do CSS da tela, na ordem
 export const estilos = [cssTokens, cssBase, cssAuth, cssSenha];
 
 // Página
 function Senha() {
+  // Campos da tela (ref do React) para focar o que tiver erro
+  const campos = useCampos();
   // E-mail
   const [email, setEmail] = useState("");
   // Erro do campo
@@ -37,7 +41,7 @@ function Senha() {
     // Mostra
     setErro(problema);
     // Tem erro: foca
-    if (problema) return document.getElementById("email")?.focus();
+    if (problema) return campos.focar("email");
     // Esperando
     setCarregando("Enviando...");
     // Com API: o servidor manda o e-mail
@@ -78,7 +82,7 @@ function Senha() {
     <CascoSenha titulo="Recuperar senha" subtitulo="Digite seu e-mail para receber as instruções de redefinição.">
       <form id="recovery-form" className="auth-form" noValidate onSubmit={enviar}>
         {/* E-mail */}
-        <CampoConta id="email" rotulo="E-mail cadastrado" icone="email" type="email" autoComplete="email" required autoFocus placeholder="seu@email.com" value={email} erro={erro} onChange={(e) => (setEmail(e.target.value), setErro(""))} />
+        <CampoConta id="email" ref={campos.ref("email")} rotulo="E-mail cadastrado" icone="email" type="email" autoComplete="email" required autoFocus placeholder="seu@email.com" value={email} erro={erro} onChange={(e) => (setEmail(e.target.value), setErro(""))} />
         {/* Sucesso */}
         <p id="form-global-success" className="field-success" role="status" aria-live="polite" hidden={!link}>
           Se esse e-mail estiver cadastrado, você vai receber as instruções em instantes.

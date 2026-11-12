@@ -15,12 +15,16 @@ import cssSenha from "../estilos/senha.css?inline";
 import { irPara } from "../lib/navegar.js";
 // Lê o ?token= do endereço (React Router)
 import { useSearchParams } from "react-router-dom";
+// Campos com ref (focar o campo com erro)
+import { useCampos } from "../lib/campos.js";
 
 // Lista do CSS da tela, na ordem
 export const estilos = [cssTokens, cssBase, cssAuth, cssSenha];
 
 // Página
 function Redefinir() {
+  // Campos da tela (ref do React) para focar o que tiver erro
+  const campos = useCampos();
   // Endereço (?token=) lido pelo React Router
   const [parametros] = useSearchParams();
   // Código do link
@@ -55,9 +59,9 @@ function Redefinir() {
     // Mostra
     setErros(novos);
     // Erro: foca
-    if (novos.senha) return document.getElementById("new-password")?.focus();
+    if (novos.senha) return campos.focar("new-password");
     // Erro: foca
-    if (novos.confirmar) return document.getElementById("confirm-new-password")?.focus();
+    if (novos.confirmar) return campos.focar("confirm-new-password");
     // Esperando
     setCarregando("Salvando...");
     // Com API: o servidor confere o link e troca a senha
@@ -104,11 +108,11 @@ function Redefinir() {
     <CascoSenha titulo="Redefinir senha" subtitulo="Escolha uma nova senha para acessar sua conta.">
       <form id="reset-form" className="auth-form" noValidate onSubmit={enviar}>
         {/* Senha nova */}
-        <CampoConta id="new-password" rotulo="Nova senha" senha autoComplete="new-password" required autoFocus minLength={8} placeholder="Mínimo de 8 caracteres" value={senha} erro={erros.senha} disabled={!valido} onChange={(e) => (setSenha(e.target.value), setErros({}))}>
+        <CampoConta id="new-password" ref={campos.ref("new-password")} rotulo="Nova senha" senha autoComplete="new-password" required autoFocus minLength={8} placeholder="Mínimo de 8 caracteres" value={senha} erro={erros.senha} disabled={!valido} onChange={(e) => (setSenha(e.target.value), setErros({}))}>
           <RegrasSenha regras={REGRAS_SENHA} senha={senha} />
         </CampoConta>
         {/* Confirmar */}
-        <CampoConta id="confirm-new-password" rotulo="Confirmar nova senha" senha autoComplete="new-password" required placeholder="Repita a nova senha" value={confirmar} erro={erros.confirmar} disabled={!valido} onChange={(e) => (setConfirmar(e.target.value), setErros({}))} />
+        <CampoConta id="confirm-new-password" ref={campos.ref("confirm-new-password")} rotulo="Confirmar nova senha" senha autoComplete="new-password" required placeholder="Repita a nova senha" value={confirmar} erro={erros.confirmar} disabled={!valido} onChange={(e) => (setConfirmar(e.target.value), setErros({}))} />
         {/* Mensagens */}
         <p id="form-global-error" className="field-error" role="alert" aria-live="assertive" hidden={!msg || msg.ok}>
           {msg?.texto}
