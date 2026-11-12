@@ -140,7 +140,7 @@ export const premium = () => ["Premium", "Estudante", "Família", "Profissional"
 export const treinoAtual = () => ler("sl-treino-atual", null);
 
 // Endereço da tela de treino de um treino
-export const linkTreino = (id) => "../treino/treino.html?id=" + encodeURIComponent(id);
+export const linkTreino = (id) => "/app/treino?id=" + encodeURIComponent(id);
 
 // Resumo de um exercício: "3 × 12 reps • 20 kg"
 export function resumoExercicio(e) {

@@ -1,6 +1,5 @@
 // Alimentação: metas do dia (calorias e macros), refeições de hoje, água e "repetir ontem".
 import { useEffect, useState } from "react";
-import { montar } from "../montar.jsx";
 import AppLayout from "../componentes/AppLayout.jsx";
 import { Icone, ICONES, Modal } from "../componentes/base.jsx";
 import { dadosCorpo, onboarding, toast } from "../lib/nucleo.js";
@@ -9,8 +8,14 @@ import { ler, gravar } from "../lib/armazenamento.js";
 import { ganhar, perder } from "../lib/pontos.js";
 import { ALIMENTOS } from "../lib/alimentos.js";
 import { SL_DADOS } from "../lib/dados.js";
-import "../estilos/kit-app.js";
-import "../estilos/app-alimentacao.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssApp from "../estilos/app.css?inline";
+import cssAppAlimentacao from "../estilos/app-alimentacao.css?inline";
+
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssApp, cssAppAlimentacao];
 
 // Tamanho do copo (ml)
 const COPO = 250;
@@ -658,5 +663,5 @@ function Alimentacao() {
   );
 }
 
-// Desenha
-montar(Alimentacao);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Alimentacao;

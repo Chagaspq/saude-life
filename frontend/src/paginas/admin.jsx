@@ -1,7 +1,6 @@
 // Painel do administrador: números dos clientes, lista de clientes, mandar treino e avisos.
 // Os dados de cada cliente ficam na "gaveta" dele (sl-dados:e-mail) neste navegador.
 import { useEffect, useState } from "react";
-import { montar } from "../montar.jsx";
 import AppLayout from "../componentes/AppLayout.jsx";
 import { ICONES, CartaoNumero, Modal } from "../componentes/base.jsx";
 import { usuario, toast } from "../lib/nucleo.js";
@@ -10,8 +9,14 @@ import { ler, gravar } from "../lib/armazenamento.js";
 import { BIBLIOTECA } from "../lib/exercicios.js";
 // Servidor (quando ligado)
 import { api, apiLigada } from "../lib/api.js";
-import "../estilos/kit-app.js";
-import "../estilos/app-admin.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssApp from "../estilos/app.css?inline";
+import cssAppAdmin from "../estilos/app-admin.css?inline";
+
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssApp, cssAppAdmin];
 
 // Um dia em milissegundos
 const DIA = 86400000;
@@ -301,5 +306,5 @@ function Admin() {
   );
 }
 
-// Desenha
-montar(Admin);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Admin;

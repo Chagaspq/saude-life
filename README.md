@@ -2,7 +2,7 @@
 
 Site e app de fitness feito como TCC (MVP). Treinos guiados, registro de séries e cargas, evolução, alimentação e dois tipos de acesso: **cliente** (quem treina) e **administrador** (academia ou personal).
 
-- **Front-end:** React 18 + Vite (pasta `frontend/`)
+- **Front-end:** app React 18 + React Router + Vite (pasta `frontend/`): um `index.html` só, e o React Router troca as telas
 - **Back-end e banco:** em refazimento (a versão antiga foi retirada; fica no histórico do git)
 
 ![Saúde Life](frontend/public/shared/og-image.png)
@@ -19,17 +19,18 @@ Configuração: **Settings > Pages > Deploy from a branch > `main` / `/docs`**.
 ```
 saude-life/
 ├── frontend/          SITE (React + Vite): tudo o que aparece na tela
+│   ├── index.html     a única página HTML: o React desenha tudo dentro dela
 │   ├── src/
+│   │   ├── main.jsx       começo do app (tema, tradução e o roteador)
+│   │   ├── rotas.jsx      rotas do React Router: cada endereço mostra uma tela
 │   │   ├── paginas/       uma tela por arquivo (login.jsx, inicio.jsx, treino.jsx, admin.jsx...)
-│   │   ├── componentes/   peças reaproveitadas (casco do app, janelas, cartões, formulários)
-│   │   ├── lib/           serviços: api.js (fala com a API), nuvem.js, conta.js, pontos.js...
+│   │   ├── componentes/   peças reaproveitadas (Tela, casco do app, janelas, cartões, formulários)
+│   │   ├── lib/           serviços: navegar.js, conta.js, pontos.js, idioma.js (EN/ES), api.js...
 │   │   ├── estilos/       CSS (cores, base, site, app e um arquivo por tela)
 │   │   └── config.js      endereço da API
-│   ├── public/        ícones, imagem de compartilhar, tradução EN/ES
-│   ├── welcome/ login/ cadastro/ app/ ...   o .html de entrada de cada página
-│   ├── ferramentas/   scripts de apoio (gerar os HTML das páginas)
+│   ├── public/        ícones e imagem de compartilhar
 │   ├── .env.development / .env.production   endereço da API no computador / no ar
-│   ├── package.json   dependências (React, Vite)
+│   ├── package.json   dependências (React, React Router, Vite)
 │   └── vite.config.js configuração do Vite
 │
 ├── docs/              SITE PRONTO (gerado pelo build do frontend; não editar à mão)
@@ -50,6 +51,20 @@ npm run build      # gera o site pronto na pasta docs/ da raiz (é ela que vai p
 ```
 
 Depois de mudar qualquer arquivo em `frontend/`, rode `npm run build` e mande a pasta `docs/` junto no commit.
+Para ver o site pronto no computador antes de mandar: `npm run preview` (abre em http://localhost:4173/saude-life/).
+
+## Telas e endereços (React Router)
+
+| Endereço | Tela |
+|---|---|
+| `/` | Boas-vindas |
+| `/planos`, `/blog`, `/academias`, `/ajuda`, `/glossario`, `/calculadoras`, `/termos`, `/politica` | Site público |
+| `/login`, `/cadastro`, `/senha`, `/senha/redefinir?token=` | Conta |
+| `/app/inicio`, `/app/treinos`, `/app/treino?id=`, `/app/alimentacao`, `/app/evolucao`, `/app/perfil`, `/app/planos`, `/app/comecar` | App do cliente |
+| `/app/admin` | Painel do administrador |
+| qualquer outro | Página não encontrada (404) |
+
+As rotas ficam em `frontend/src/rotas.jsx`. Cada tela só carrega quando a pessoa abre (e traz o próprio CSS, que sai quando ela fecha: `componentes/Tela.jsx`). A troca de tela é feita pelo `<Link>` do React Router, sem recarregar a página. O `AppLayout.jsx` (função `destino`) decide quem pode abrir cada tela do app.
 
 ## Back-end
 

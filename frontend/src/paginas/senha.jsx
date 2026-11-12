@@ -1,14 +1,19 @@
 // Recuperar senha: pede o e-mail e gera o link de redefinição (na demonstração, o link aparece na tela).
 import { useState } from "react";
-import { montar } from "../montar.jsx";
 import CascoSenha from "../componentes/CascoSenha.jsx";
 import { CampoConta, BotaoEnviar, esperar } from "../componentes/Formulario.jsx";
 import { emailValido } from "../lib/conta.js";
 import { ler, gravar } from "../lib/armazenamento.js";
 // API
 import { api, apiLigada } from "../lib/api.js";
-import "../estilos/kit-conta.js";
-import "../estilos/senha.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssAuth from "../estilos/auth.css?inline";
+import cssSenha from "../estilos/senha.css?inline";
+
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssAuth, cssSenha];
 
 // Página
 function Senha() {
@@ -42,7 +47,7 @@ function Senha() {
         // Pede
         const r = await api("POST", "/auth/esqueci-senha", { email: email.trim() });
         // Sem e-mail configurado no servidor: mostra o link de demonstração
-        setLink(r.tokenDemo ? new URL("redefinir.html", location.href).href + "?token=" + r.tokenDemo : "enviado");
+        setLink(r.tokenDemo ? location.origin + import.meta.env.BASE_URL + "senha/redefinir?token=" + r.tokenDemo : "enviado");
       } catch (e) {
         // Erro
         setErro(e.message);
@@ -61,7 +66,7 @@ function Senha() {
     // Espera
     await esperar(800);
     // Mostra o link
-    setLink(new URL("redefinir.html", location.href).href + "?token=" + token);
+    setLink(location.origin + import.meta.env.BASE_URL + "senha/redefinir?token=" + token);
     // Limpa
     setEmail("");
     // Pronto
@@ -93,5 +98,5 @@ function Senha() {
   );
 }
 
-// Desenha
-montar(Senha);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Senha;

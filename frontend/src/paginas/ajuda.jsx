@@ -1,10 +1,16 @@
 // Central de ajuda: perguntas frequentes por assunto, com busca.
 import { useState } from "react";
-import { montar } from "../montar.jsx";
 import PublicLayout from "../componentes/PublicLayout.jsx";
 import { simples } from "../lib/formato.js";
-import "../estilos/kit-publico.js";
-import "../estilos/paginas.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssWelcome from "../estilos/welcome.css?inline";
+import cssSite from "../estilos/site.css?inline";
+import cssPaginas from "../estilos/paginas.css?inline";
+
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssWelcome, cssSite, cssPaginas];
 
 // Perguntas: [assunto, [[pergunta, resposta], ...]]
 const AJUDA = [
@@ -99,5 +105,5 @@ function Ajuda() {
   );
 }
 
-// Desenha
-montar(Ajuda);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Ajuda;

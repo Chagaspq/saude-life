@@ -1,14 +1,23 @@
 // Meus treinos: lista de fichas, criar, editar, excluir (com desfazer), ver exercícios e montar automático.
 import { useState } from "react";
-import { montar } from "../montar.jsx";
 import AppLayout from "../componentes/AppLayout.jsx";
 import { Icone, ICONES, EstadoVazio, Modal, Confirmar } from "../componentes/base.jsx";
 import { treinosDoUsuario, treinoAtual, exerciciosDe, ultimaVez, linkTreino, toast, premium, onboarding, resumoExercicio, novoExercicio } from "../lib/nucleo.js";
 import { dataRelativa } from "../lib/formato.js";
 import { ler, gravar } from "../lib/armazenamento.js";
 import { BIBLIOTECA } from "../lib/exercicios.js";
-import "../estilos/kit-app.js";
-import "../estilos/app-treinos.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssApp from "../estilos/app.css?inline";
+import cssAppTreinos from "../estilos/app-treinos.css?inline";
+// Troca de tela pelo código (React Router)
+import { irPara } from "../lib/navegar.js";
+// Links entre as telas (React Router: troca de tela sem recarregar)
+import { Link } from "react-router-dom";
+
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssApp, cssAppTreinos];
 
 // Grupos da biblioteca (filtro)
 const GRUPOS = ["Peito", "Costas", "Pernas", "Ombros", "Braços", "Core", "Cardio", "Mobilidade"];
@@ -215,7 +224,7 @@ function Treinos() {
     // Fecha a janela
     fechar();
     // Oferece o Premium
-    setPedido({ titulo: "Treino automático é Premium", texto: "Você já usou o teste grátis. No Premium o app monta treinos e planos da semana sem limite.", rotulo: "Ver planos", fn: () => (location.href = "../planos/planos.html") });
+    setPedido({ titulo: "Treino automático é Premium", texto: "Você já usou o teste grátis. No Premium o app monta treinos e planos da semana sem limite.", rotulo: "Ver planos", fn: () => irPara("/app/planos") });
     // Não pode
     return false;
   }
@@ -374,10 +383,10 @@ function Treinos() {
                 </ul>
                 {/* Ações */}
                 <div className="card-actions">
-                  <a href={linkTreino(t.id)} className="btn-primary btn-with-icon">
+                  <Link to={linkTreino(t.id)} className="btn-primary btn-with-icon">
                     <Icone d={ICONES.play} />
                     {andamento ? "Continuar" : "Iniciar treino"}
-                  </a>
+                  </Link>
                   <button className="btn-icon btn-outline" aria-label={`Ver exercícios de ${t.nome}`} onClick={() => setJanela({ tipo: "ver", treino: t })}>
                     <Icone d={OLHO} />
                   </button>
@@ -424,9 +433,9 @@ function Treinos() {
                 </li>
               ))}
             </ol>
-            <a href={linkTreino(visto.id)} className="btn-primary btn-block">
+            <Link to={linkTreino(visto.id)} className="btn-primary btn-block">
               Iniciar treino
-            </a>
+            </Link>
           </>
         )}
       </Modal>
@@ -437,5 +446,5 @@ function Treinos() {
   );
 }
 
-// Desenha
-montar(Treinos);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Treinos;

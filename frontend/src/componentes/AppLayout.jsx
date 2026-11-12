@@ -8,10 +8,13 @@ import { ler, gravar } from "../lib/armazenamento.js";
 import { usuario } from "../lib/nucleo.js";
 import { iniciais } from "../lib/formato.js";
 import { listaAvisos, conferirLembretes } from "../lib/avisos.js";
-import { preencherDemo } from "../lib/demo.js";
 // Servidor (quando ligado)
 import { apiLigada } from "../lib/api.js";
 import { sincronizarAoAbrir } from "../lib/nuvem.js";
+// Links entre as telas (React Router: troca de tela sem recarregar)
+import { Link } from "react-router-dom";
+// Troca de tela pelo código (React Router)
+import { irPara } from "../lib/navegar.js";
 
 // Páginas do cliente: [id, nome, ícone]
 const MENU_CLIENTE = [
@@ -41,24 +44,17 @@ function destino(pagina) {
   // Sessão
   const sessao = lerSessao();
   // Ninguém logado: login (e volta para cá depois)
-  if (!sessao) return "../../login/login.html?voltar=" + pagina;
+  if (!sessao) return "/login?voltar=" + pagina;
   // Tipo
   const tipo = sessao.tipo === "admin" ? "admin" : "cliente";
   // Cliente sem questionário respondido: questionário
-  if (tipo === "cliente" && !ler("sl-onboarding", null) && pagina !== "comecar") return "../comecar/comecar.html";
+  if (tipo === "cliente" && !ler("sl-onboarding", null) && pagina !== "comecar") return "/app/comecar";
   // Página de outro tipo de conta
-  if (!PODE[tipo].includes(pagina)) return tipo === "admin" ? "../admin/admin.html" : "../inicio/inicio.html";
+  if (!PODE[tipo].includes(pagina)) return tipo === "admin" ? "/app/admin" : "/app/inicio";
   // Pode ficar
   return null;
 }
 
-// Conta de demonstração: enche os dados de exemplo uma vez (antes de conferir para onde ir)
-if (ler("sl-demo-preencher", false)) {
-  // Apaga o pedido
-  localStorage.removeItem("sl-demo-preencher");
-  // Enche (com servidor, os dados de exemplo já vêm dele)
-  if (!apiLigada()) preencherDemo();
-}
 
 // Casco (semMenu = tela de treino e questionário)
 export default function AppLayout({ pagina, children, semMenu }) {
@@ -75,8 +71,13 @@ export default function AppLayout({ pagina, children, semMenu }) {
 
   // Ao abrir a página
   useEffect(() => {
-    // Precisa ir para outra página: vai
-    if (ir) return window.location.replace(ir);
+    // Precisa ir para outra tela: vai (sem deixar esta no "voltar")
+    if (ir) {
+      // Troca de tela
+      irPara(ir, true);
+      // Mais nada a fazer aqui
+      return;
+    }
     // Marca a página no <body> (o CSS usa)
     document.body.dataset.pagina = pagina;
     // Marca o tipo de conta (o CSS destaca o administrador)
@@ -84,14 +85,21 @@ export default function AppLayout({ pagina, children, semMenu }) {
     // Com servidor: sobe o pendente e baixa os dados atualizados
     sincronizarAoAbrir().catch((e) => {
       // Login vencido: volta para o login
-      if (e.status === 401) sair(), window.location.replace("../../login/login.html?voltar=" + pagina);
+      if (e.status === 401) sair(), irPara("/login?voltar=" + pagina, true);
     });
     // Lembretes agora e a cada minuto
     conferirLembretes();
     // A cada minuto
     const timer = setInterval(conferirLembretes, 60000);
-    // Para ao sair
-    return () => clearInterval(timer);
+    // Para ao sair (e tira as marcas do <body>, porque a próxima tela pode ser outra)
+    return () => {
+      // Para os lembretes
+      clearInterval(timer);
+      // Tira a marca da página
+      delete document.body.dataset.pagina;
+      // Tira a marca do tipo de conta
+      document.body.classList.remove("is-admin", "is-cliente");
+    };
   }, []);
 
   // Clique fora fecha as notificações
@@ -154,10 +162,10 @@ export default function AppLayout({ pagina, children, semMenu }) {
         <aside id="app-sidebar" className={"app-sidebar" + (menuAberto ? " is-open" : "")} aria-label="Navegação lateral principal">
           {/* Marca */}
           <div className="sidebar-brand">
-            <a href={`../${menu[0][0]}/${menu[0][0]}.html`} className="brand" aria-label="Saúde Life — Início">
+            <Link to={`/app/${menu[0][0]}`} className="brand" aria-label="Saúde Life — Início">
               <Logo />
               <Marca />
-            </a>
+            </Link>
           </div>
           {/* Links */}
           <nav className="sidebar-nav" aria-label="Seções do app">
@@ -169,10 +177,10 @@ export default function AppLayout({ pagina, children, semMenu }) {
               {/* Um link por página */}
               {menu.map(([id, nome, tracos]) => (
                 <li key={id}>
-                  <a href={`../${id}/${id}.html`} className={"nav-link" + (id === pagina ? " active" : "")} aria-current={id === pagina ? "page" : undefined}>
+                  <Link to={`/app/${id}`} className={"nav-link" + (id === pagina ? " active" : "")} aria-current={id === pagina ? "page" : undefined}>
                     <Icone d={tracos} className="icon nav-icon" />
                     <span>{nome}</span>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -180,16 +188,16 @@ export default function AppLayout({ pagina, children, semMenu }) {
           {/* Rodapé do menu: pessoa, configurações e sair */}
           <div className="sidebar-footer">
             {/* Pessoa */}
-            <a href="../perfil/perfil.html" className="user-profile-summary">
+            <Link to="/app/perfil" className="user-profile-summary">
               <span className={"user-avatar avatar-initials" + (u.foto ? " tem-foto" : "")} aria-hidden="true" style={u.foto ? { backgroundImage: `url(${u.foto})` } : undefined}>
                 {u.foto ? "" : iniciais(u.nome)}
               </span>
               <span className="user-name">{u.nome}</span>
-            </a>
+            </Link>
             {/* Configurações (preferências no Perfil) */}
-            <a href="../perfil/perfil.html#heading-preferencias" className="btn-icon" aria-label="Configurações">
+            <Link to="/app/perfil#heading-preferencias" className="btn-icon" aria-label="Configurações">
               <Icone d={ICONES.engrenagem} />
-            </a>
+            </Link>
             {/* Sair */}
             <button
               type="button"
@@ -199,7 +207,7 @@ export default function AppLayout({ pagina, children, semMenu }) {
                 // Sai (espera o servidor fechar o login)
                 await sair();
                 // Vai para o login
-                window.location.href = "../../login/login.html";
+                irPara("/login");
               }}
             >
               <Icone d={ICONES.sair} />
@@ -268,12 +276,12 @@ export default function AppLayout({ pagina, children, semMenu }) {
                 )}
               </div>
               {/* Pílula da pessoa */}
-              <a href="../perfil/perfil.html" className="user-menu-trigger" aria-label="Abrir meu perfil">
+              <Link to="/app/perfil" className="user-menu-trigger" aria-label="Abrir meu perfil">
                 <span className={"avatar-small avatar-initials" + (u.foto ? " tem-foto" : "")} aria-hidden="true" style={u.foto ? { backgroundImage: `url(${u.foto})` } : undefined}>
                   {u.foto ? "" : iniciais(u.nome)}
                 </span>
                 <span className="username-top">{u.primeiro}</span>
-              </a>
+              </Link>
             </div>
           </header>
 
@@ -286,9 +294,9 @@ export default function AppLayout({ pagina, children, semMenu }) {
           <footer className="app-footer">
             <p>&copy; 2026 Saúde Life</p>
             <nav aria-label="Links legais">
-              <a href="../../ajuda/ajuda.html">Ajuda</a>
-              <a href="../../termos/termos.html">Termos de Uso</a>
-              <a href="../../politica/politica.html">Política de Privacidade</a>
+              <Link to="/ajuda">Ajuda</Link>
+              <Link to="/termos">Termos de Uso</Link>
+              <Link to="/politica">Política de Privacidade</Link>
             </nav>
           </footer>
         </div>
@@ -297,10 +305,10 @@ export default function AppLayout({ pagina, children, semMenu }) {
       {/* Menu de baixo (celular) */}
       <nav className="bottom-nav" aria-label="Navegação rápida">
         {menu.map(([id, nome, tracos]) => (
-          <a key={id} href={`../${id}/${id}.html`} className={"bottom-nav-link" + (id === pagina ? " active" : "")} aria-current={id === pagina ? "page" : undefined}>
+          <Link key={id} to={`/app/${id}`} className={"bottom-nav-link" + (id === pagina ? " active" : "")} aria-current={id === pagina ? "page" : undefined}>
             <Icone d={tracos} />
             <span>{nome}</span>
-          </a>
+          </Link>
         ))}
       </nav>
 

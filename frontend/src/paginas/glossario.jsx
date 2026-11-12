@@ -1,11 +1,17 @@
 // Glossário: termos de treino e alimentação explicados em uma frase, com busca e letras.
 import { useState } from "react";
-import { montar } from "../montar.jsx";
 import PublicLayout from "../componentes/PublicLayout.jsx";
 import { TERMOS } from "../lib/glossario-termos.js";
 import { simples } from "../lib/formato.js";
-import "../estilos/kit-publico.js";
-import "../estilos/paginas.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssWelcome from "../estilos/welcome.css?inline";
+import cssSite from "../estilos/site.css?inline";
+import cssPaginas from "../estilos/paginas.css?inline";
+
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssWelcome, cssSite, cssPaginas];
 
 // Página
 function Glossario() {
@@ -67,5 +73,5 @@ function Glossario() {
   );
 }
 
-// Desenha
-montar(Glossario);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Glossario;

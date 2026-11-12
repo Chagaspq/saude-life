@@ -1,24 +1,34 @@
 // Redefinir senha: abre pelo link com ?token=, pede a senha nova e troca.
 import { useState } from "react";
-import { montar } from "../montar.jsx";
 import { CampoConta, BotaoEnviar, RegrasSenha, esperar } from "../componentes/Formulario.jsx";
 import { trocarSenha, REGRAS_SENHA, MIN_SENHA } from "../lib/conta.js";
 import { ler, gravar } from "../lib/armazenamento.js";
 // API
 import { api, apiLigada } from "../lib/api.js";
 import CascoSenha from "../componentes/CascoSenha.jsx";
-import "../estilos/kit-conta.js";
-import "../estilos/senha.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssAuth from "../estilos/auth.css?inline";
+import cssSenha from "../estilos/senha.css?inline";
+// Troca de tela pelo código (React Router)
+import { irPara } from "../lib/navegar.js";
+// Lê o ?token= do endereço (React Router)
+import { useSearchParams } from "react-router-dom";
 
-// Código do link
-const token = new URLSearchParams(location.search).get("token");
-// Código guardado nesta aba
-const tokenSalvo = sessionStorage.getItem("sl-reset-token");
-// Link válido?
-const valido = !!token && (apiLigada() || !tokenSalvo || token === tokenSalvo);
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssAuth, cssSenha];
 
 // Página
 function Redefinir() {
+  // Endereço (?token=) lido pelo React Router
+  const [parametros] = useSearchParams();
+  // Código do link
+  const token = parametros.get("token");
+  // Código guardado nesta aba
+  const tokenSalvo = sessionStorage.getItem("sl-reset-token");
+  // Link válido?
+  const valido = !!token && (apiLigada() || !tokenSalvo || token === tokenSalvo);
   // Senha nova
   const [senha, setSenha] = useState("");
   // Confirmação
@@ -67,7 +77,7 @@ function Redefinir() {
       // Espera
       await esperar(1500);
       // Vai
-      return (location.href = "../login/login.html");
+      return irPara("/login");
     }
     // Pedidos
     const pedidos = ler("sl-reset-pedidos", {});
@@ -86,7 +96,7 @@ function Redefinir() {
     // Espera
     await esperar(1500);
     // Vai
-    location.href = "../login/login.html";
+    irPara("/login");
   }
 
   // Página
@@ -113,5 +123,5 @@ function Redefinir() {
   );
 }
 
-// Desenha
-montar(Redefinir);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Redefinir;

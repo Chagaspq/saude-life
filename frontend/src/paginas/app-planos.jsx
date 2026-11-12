@@ -1,6 +1,5 @@
 // Planos dentro do app: escolher plano e pagar (demonstração): teste grátis, Pix ou cartão.
 import { useEffect, useState } from "react";
-import { montar } from "../montar.jsx";
 import AppLayout from "../componentes/AppLayout.jsx";
 import { Modal, Confirmar } from "../componentes/base.jsx";
 import Planos, { PLANOS, reais, DESCONTO_ANUAL } from "../componentes/Planos.jsx";
@@ -10,8 +9,15 @@ import { confete } from "../lib/efeitos.js";
 // Servidor (quando ligado)
 import { api, apiLigada } from "../lib/api.js";
 import { puxar } from "../lib/nuvem.js";
-import "../estilos/kit-app.js";
-import "../estilos/app-planos.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssPlanos from "../estilos/planos.css?inline";
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssApp from "../estilos/app.css?inline";
+import cssAppPlanos from "../estilos/app-planos.css?inline";
+
+// Lista do CSS da tela, na ordem
+export const estilos = [cssPlanos, cssTokens, cssBase, cssApp, cssAppPlanos];
 
 // Confere o número do cartão (conta de Luhn)
 function cartaoValido(numero) {
@@ -287,5 +293,5 @@ function AppPlanos() {
   );
 }
 
-// Desenha
-montar(AppPlanos);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default AppPlanos;

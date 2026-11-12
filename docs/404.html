@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Página do Saúde Life feita em React (o conteúdo vem de src/paginas/erro404.jsx) -->
+<!-- Saúde Life: app React (o conteúdo vem de src/main.jsx; o React Router troca as telas) -->
 <html lang="pt-BR">
   <head>
     <!-- Acentos certos -->
@@ -8,18 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Cor da barra do navegador no celular -->
     <meta name="theme-color" content="#0e1512" />
-    <!-- Título da aba -->
-    <title>Saúde Life - Página não encontrada</title>
+    <!-- Título da aba (cada tela troca o seu) -->
+    <title>Saúde Life</title>
     <!-- Descrição para buscadores -->
-    <meta name="description" content="Página não encontrada." />
+    <meta name="description" content="Treinos guiados, alimentação e evolução em um só app." />
     <!-- Ícone da aba -->
-    <link rel="icon" href="./shared/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/saude-life/shared/favicon.svg" type="image/svg+xml" />
     <!-- App instalável -->
-    <link rel="manifest" href="./shared/manifest.webmanifest" />
+    <link rel="manifest" href="/saude-life/shared/manifest.webmanifest" />
     <!-- Ícone no iPhone -->
-    <link rel="apple-touch-icon" href="./shared/icon-192.png" />
+    <link rel="apple-touch-icon" href="/saude-life/shared/icon-192.png" />
     <!-- Prévia ao compartilhar -->
-    <meta property="og:title" content="Saúde Life - Página não encontrada" />
+    <meta property="og:title" content="Saúde Life" />
     <!-- Imagem da prévia -->
     <meta property="og:image" content="https://chagaspq.github.io/saude-life/shared/og-image.png" />
     <!-- Fontes -->
@@ -28,20 +28,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- Fontes: Barlow, Barlow Semi Condensed e Space Mono -->
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-    <!-- Tema e acessibilidade antes de desenhar (sem piscar) -->
-    <script src="./shared/antes.js"></script>
-    <!-- Tradução para inglês e espanhol -->
-    <script src="./shared/idioma.js" defer></script>
-    <script type="module" crossorigin src="./assets/404-Cok3gESq.js"></script>
-    <link rel="modulepreload" crossorigin href="./assets/base-D_JQW1_b.js">
-    <link rel="stylesheet" crossorigin href="./assets/base-CdxCsogw.css">
-    <link rel="stylesheet" crossorigin href="./assets/404-xC64GvqV.css">
+    <script type="module" crossorigin src="/saude-life/assets/index-qcAeByzG.js"></script>
   </head>
   <body>
-    <!-- Lugar onde o React desenha a página -->
+    <!-- Lugar onde o React desenha o app -->
     <div id="raiz"></div>
     <!-- Sem JavaScript: aviso -->
     <noscript>Ative o JavaScript para usar o Saúde Life.</noscript>
-    <!-- Página em React -->
+    <!-- App React -->
   </body>
 </html>

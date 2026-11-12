@@ -1,13 +1,18 @@
 // Página inicial pública (welcome): topo com demonstração, recursos, como funciona, dúvidas e convite.
 import { useState, useRef } from "react";
-import { montar } from "../montar.jsx";
 import PublicLayout from "../componentes/PublicLayout.jsx";
 import Revelar from "../componentes/Revelar.jsx";
 import { confete, voarTexto } from "../lib/efeitos.js";
-import "../estilos/tokens.css";
-import "../estilos/base.css";
-import "../estilos/welcome.css";
-import "../estilos/site.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssWelcome from "../estilos/welcome.css?inline";
+import cssSite from "../estilos/site.css?inline";
+// Links entre as telas (React Router: troca de tela sem recarregar)
+import { Link } from "react-router-dom";
+
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssWelcome, cssSite];
 
 // Séries da demonstração: [nome, carga]
 const SERIES = [
@@ -148,7 +153,7 @@ function Welcome() {
       {/* Topo */}
       <div className="hero-faixa">
         {/* Fundo animado (o vídeo entra se existir o arquivo) */}
-        <div className="hero-fundo" aria-hidden="true" />
+        <div className="hero-fundo" aria-hidden="true" style={{ "--foto-topo": `url("${import.meta.env.BASE_URL}assets/fotos/topo.jpg")` }} />
         <section className="hero">
           {/* Textos */}
           <div className="hero-content">
@@ -157,12 +162,12 @@ function Welcome() {
             <p className="hero-lead">Registre seus treinos, refeições e evolução em um só lugar. Testa aí do lado: marca uma série.</p>
             {/* Botões */}
             <div className="hero-actions">
-              <a href="../cadastro/cadastro.html" className="btn-hero-primary">
+              <Link to="/cadastro" className="btn-hero-primary">
                 Criar minha conta
-              </a>
-              <a href="../login/login.html" className="btn-hero-secondary">
+              </Link>
+              <Link to="/login" className="btn-hero-secondary">
                 Já tenho conta
-              </a>
+              </Link>
             </div>
           </div>
           {/* Demonstração */}
@@ -238,17 +243,17 @@ function Welcome() {
         <h2>Seu primeiro treino começa hoje.</h2>
         <p>Crie sua conta em menos de um minuto e conheça os planos quando fizer sentido pra você.</p>
         <div className="cta-actions">
-          <a href="../cadastro/cadastro.html" className="btn-hero-primary">
+          <Link to="/cadastro" className="btn-hero-primary">
             Criar conta grátis
-          </a>
-          <a href="../planos/planos.html" className="btn-hero-secondary">
+          </Link>
+          <Link to="/planos" className="btn-hero-secondary">
             Ver planos
-          </a>
+          </Link>
         </div>
       </Revelar>
     </PublicLayout>
   );
 }
 
-// Desenha a página
-montar(Welcome);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Welcome;

@@ -1,14 +1,23 @@
 // Criar conta em 2 passos: 1) tipo de conta, nome, e-mail e senha; 2) dados opcionais e termos.
 import { useState } from "react";
-import { montar } from "../montar.jsx";
 import AuthLayout from "../componentes/AuthLayout.jsx";
 import { Logo } from "../componentes/base.jsx";
 import { CampoConta, MensagemGeral, BotaoEnviar, RegrasSenha, esperar } from "../componentes/Formulario.jsx";
 import { acharConta, criarConta, emailValido, REGRAS_SENHA, MIN_SENHA } from "../lib/conta.js";
 // Servidor (quando ligado)
 import { apiLigada } from "../lib/api.js";
-import "../estilos/kit-conta.js";
-import "../estilos/cadastro.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssAuth from "../estilos/auth.css?inline";
+import cssCadastro from "../estilos/cadastro.css?inline";
+// Links entre as telas (React Router: troca de tela sem recarregar)
+import { Link } from "react-router-dom";
+// Troca de tela pelo código (React Router; "irParaTela" porque esta tela já tem uma função irPara)
+import { irPara as irParaTela } from "../lib/navegar.js";
+
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssAuth, cssCadastro];
 
 // Nome de cada passo
 const NOMES_PASSOS = ["Sua conta", "Sobre você"];
@@ -162,7 +171,7 @@ function Cadastro() {
     // Espera
     await esperar(900);
     // Vai para o login
-    location.href = "../login/login.html?cadastro=sucesso";
+    irParaTela("/login?cadastro=sucesso");
   }
 
   // Lista de vantagens do lado visual
@@ -276,13 +285,13 @@ function Cadastro() {
             <input type="checkbox" id="terms" name="terms" required checked={c.termos} onChange={mudar("termos")} />
             <label htmlFor="terms">
               Li e aceito os{" "}
-              <a href="../termos/termos.html" className="btn-comecar">
+              <Link to="/termos" className="btn-comecar">
                 Termos de Uso
-              </a>{" "}
+              </Link>{" "}
               e a{" "}
-              <a href="../politica/politica.html" className="btn-comecar">
+              <Link to="/politica" className="btn-comecar">
                 Política de Privacidade
-              </a>
+              </Link>
               .
             </label>
           </div>
@@ -305,12 +314,12 @@ function Cadastro() {
       {/* Rodapé */}
       <footer className="auth-footer">
         <p>
-          Já tem conta? <a href="../login/login.html">Entrar</a>
+          Já tem conta? <Link to="/login">Entrar</Link>
         </p>
       </footer>
     </AuthLayout>
   );
 }
 
-// Desenha
-montar(Cadastro);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Cadastro;

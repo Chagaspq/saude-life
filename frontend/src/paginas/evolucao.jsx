@@ -1,13 +1,18 @@
 // Evolução: resumo do período, gráfico do peso, treinos por semana, histórico e metas pessoais.
 import { useState } from "react";
-import { montar } from "../montar.jsx";
 import AppLayout from "../componentes/AppLayout.jsx";
 import { Icone, ICONES, CartaoNumero, EstadoVazio, Modal } from "../componentes/base.jsx";
 import { historico, estatisticas, treinosDoUsuario, exerciciosDe, toast } from "../lib/nucleo.js";
 import { num, inicioDaSemana, dataRelativa, duracaoTexto } from "../lib/formato.js";
 import { ler, gravar } from "../lib/armazenamento.js";
-import "../estilos/kit-app.js";
-import "../estilos/app-evolucao.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssApp from "../estilos/app.css?inline";
+import cssAppEvolucao from "../estilos/app-evolucao.css?inline";
+
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssApp, cssAppEvolucao];
 
 // Um dia em milissegundos
 const DIA = 86400000;
@@ -469,5 +474,5 @@ function Evolucao() {
   );
 }
 
-// Desenha
-montar(Evolucao);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Evolucao;

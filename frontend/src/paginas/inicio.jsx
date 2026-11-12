@@ -1,13 +1,20 @@
 // Início do cliente: resumo da semana, avisos da academia, pontos e próximo treino.
-import { montar } from "../montar.jsx";
 import AppLayout from "../componentes/AppLayout.jsx";
 import { Icone, ICONES, CartaoNumero, EstadoVazio, Escudo, Anel } from "../componentes/base.jsx";
 import { usuario, estatisticas, historico, treinoAtual, treinosDoUsuario, acharTreino, exerciciosDe, ultimaVez, linkTreino } from "../lib/nucleo.js";
 import { num, duracaoTexto, dataRelativa, inicioDaSemana, saudacao, hojeTexto } from "../lib/formato.js";
 import { situacaoDaLiga, LIGAS, SOBE } from "../lib/pontos.js";
 import { ler } from "../lib/armazenamento.js";
-import "../estilos/kit-app.js";
-import "../estilos/app-inicio.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssApp from "../estilos/app.css?inline";
+import cssAppInicio from "../estilos/app-inicio.css?inline";
+// Links entre as telas (React Router: troca de tela sem recarregar)
+import { Link } from "react-router-dom";
+
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssApp, cssAppInicio];
 
 // Letras dos dias (segunda a domingo)
 const DIAS = ["S", "T", "Q", "Q", "S", "S", "D"];
@@ -26,9 +33,9 @@ function ProximoTreino() {
       <section aria-labelledby="heading-continue">
         <h2 id="heading-continue">Seu próximo treino</h2>
         <EstadoVazio titulo="Nenhum treino ainda" texto="Crie seu primeiro treino ou escolha um pronto.">
-          <a href="../treinos/treinos.html" className="btn-primary">
+          <Link to="/app/treinos" className="btn-primary">
             Criar meu primeiro treino
-          </a>
+          </Link>
         </EstadoVazio>
       </section>
     );
@@ -73,10 +80,10 @@ function ProximoTreino() {
           </div>
         )}
         {/* Botão */}
-        <a href={linkTreino(treino.id)} className="btn-primary btn-with-icon">
+        <Link to={linkTreino(treino.id)} className="btn-primary btn-with-icon">
           <Icone d={ICONES.play} />
           {atual ? "Continuar treino" : "Iniciar treino"}
-        </a>
+        </Link>
       </article>
     </section>
   );
@@ -113,9 +120,9 @@ function Inicio() {
             </h1>
             <p className="page-lead">{faltam ? `${faltam > 1 ? "Faltam" : "Falta"} ${faltam} treino${faltam > 1 ? "s" : ""} para bater sua meta da semana.` : "Meta da semana batida. Que tal um treino leve de mobilidade?"}</p>
           </div>
-          <a href="../treinos/treinos.html" className="btn-secondary">
+          <Link to="/app/treinos" className="btn-secondary">
             Meus treinos
-          </a>
+          </Link>
         </header>
 
         {/* Resumo */}
@@ -183,5 +190,5 @@ function Inicio() {
   );
 }
 
-// Desenha
-montar(Inicio);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Inicio;

@@ -1,16 +1,26 @@
 // Tela de entrar: e-mail e senha, lembrar de mim, contas de demonstração e "apagar tudo".
 import { useState } from "react";
-import { montar } from "../montar.jsx";
 import AuthLayout from "../componentes/AuthLayout.jsx";
 import { Logo } from "../componentes/base.jsx";
 import { CampoConta, MensagemGeral, BotaoEnviar, esperar } from "../componentes/Formulario.jsx";
 import { acharConta, conferirLogin, criarConta, entrar, limparTudo, emailValido, MIN_SENHA } from "../lib/conta.js";
-import { gravar } from "../lib/armazenamento.js";
 // API e sincronização
 import { apiLigada } from "../lib/api.js";
 import { puxar } from "../lib/nuvem.js";
-import "../estilos/kit-conta.js";
-import "../estilos/login.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssAuth from "../estilos/auth.css?inline";
+import cssLogin from "../estilos/login.css?inline";
+// Links entre as telas (React Router: troca de tela sem recarregar)
+import { Link } from "react-router-dom";
+// Dados de exemplo da conta de demonstração
+import { preencherDemo } from "../lib/demo.js";
+// Troca de tela pelo código (React Router)
+import { irPara } from "../lib/navegar.js";
+
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssAuth, cssLogin];
 
 // Páginas do app que aceitam o "?voltar="
 const PAGINAS_APP = ["inicio", "treinos", "alimentacao", "evolucao", "perfil", "planos"];
@@ -18,13 +28,13 @@ const PAGINAS_APP = ["inicio", "treinos", "alimentacao", "evolucao", "perfil", "
 // Para onde ir depois de entrar
 function destino(conta) {
   // Administrador: painel
-  if (conta.tipo === "admin") return "../app/admin/admin.html";
+  if (conta.tipo === "admin") return "/app/admin";
   // Página pedida no endereço
   const voltar = new URLSearchParams(location.search).get("voltar");
   // Só aceita páginas conhecidas
   const pagina = PAGINAS_APP.includes(voltar) ? voltar : "inicio";
   // Endereço
-  return `../app/${pagina}/${pagina}.html`;
+  return `/app/${pagina}`;
 }
 
 // Página
@@ -43,7 +53,7 @@ function Login() {
   const [carregando, setCarregando] = useState("");
 
   // Entra com e-mail e senha
-  async function enviar(emailUsado = email, senhaUsada = senha) {
+  async function enviar(emailUsado = email, senhaUsada = senha, encherDemo = false) {
     // Erros
     const novos = {};
     // E-mail vazio ou errado
@@ -73,13 +83,15 @@ function Login() {
     setMsg(null);
     // Abre a sessão
     entrar(res.conta, lembrar);
+    // Conta de demonstração do cliente: enche os treinos, pesos e pontos de exemplo
+    if (encherDemo && !apiLigada()) preencherDemo();
     // Mostra "entrando"
     setCarregando("Entrando...");
     // Com API: baixa os dados da conta; sem API: só espera um pouco
     if (apiLigada()) await puxar().catch(() => {});
     else await esperar(900);
     // Vai
-    location.href = destino(res.conta);
+    irPara(destino(res.conta));
   }
 
   // Entra numa conta de demonstração
@@ -94,10 +106,8 @@ function Login() {
     if (apiLigada()) return enviar(emailDemo, "demo1234");
     // Cria a conta se ainda não existe
     if (!acharConta(emailDemo)) await criarConta({ nome: admin ? "Academia Demonstração" : "Biel Demonstração", email: emailDemo, senha: "demo1234", tipo: admin ? "admin" : "cliente" });
-    // Cliente: pede para encher os dados de exemplo
-    if (!admin) gravar("sl-demo-preencher", true);
     // Entra
-    enviar(emailDemo, "demo1234");
+    await enviar(emailDemo, "demo1234", !admin);
   }
 
   // Página
@@ -139,9 +149,9 @@ function Login() {
           erro={erros.senha}
           onChange={(e) => (setSenha(e.target.value), setErros({ ...erros, senha: "" }))}
           direita={
-            <a href="../senha/senha.html" className="forgot-password">
+            <Link to="/senha" className="forgot-password">
               Esqueci minha senha
-            </a>
+            </Link>
           }
         />
         {/* Lembrar de mim */}
@@ -159,9 +169,9 @@ function Login() {
       <footer className="auth-footer">
         <p>
           Não tem conta?{" "}
-          <a href="../cadastro/cadastro.html" className="btn-comecar">
+          <Link to="/cadastro" className="btn-comecar">
             Criar conta
-          </a>
+          </Link>
         </p>
         <p>
           Só conhecendo?{" "}
@@ -183,7 +193,7 @@ function Login() {
               // Apaga
               limparTudo();
               // Volta para a página inicial
-              location.href = "../welcome/welcome.html";
+              irPara("/");
             }}
           >
             Apagar tudo deste navegador
@@ -194,5 +204,5 @@ function Login() {
   );
 }
 
-// Desenha
-montar(Login);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Login;

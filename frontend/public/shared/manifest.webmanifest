@@ -3,7 +3,7 @@
   "short_name": "Saúde Life",
   "description": "Treinos guiados, profissionais verificados e sua evolução em um só lugar.",
   "lang": "pt-BR",
-  "start_url": "../app/inicio/inicio.html",
+  "start_url": "../app/inicio",
   "scope": "../",
   "display": "standalone",
   "orientation": "portrait",
@@ -32,7 +32,7 @@
     {
       "name": "Começar treino",
       "short_name": "Treinar",
-      "url": "../app/treino/treino.html",
+      "url": "../app/treino",
       "icons": [
         {
           "src": "icon-192.png",
@@ -43,18 +43,7 @@
     {
       "name": "Registrar refeição",
       "short_name": "Refeição",
-      "url": "../app/alimentacao/alimentacao.html",
-      "icons": [
-        {
-          "src": "icon-192.png",
-          "sizes": "192x192"
-        }
-      ]
-    },
-    {
-      "name": "Ranking da semana",
-      "short_name": "Ranking",
-      "url": "../app/ranking/ranking.html",
+      "url": "../app/alimentacao",
       "icons": [
         {
           "src": "icon-192.png",
@@ -65,7 +54,7 @@
     {
       "name": "Meus treinos",
       "short_name": "Treinos",
-      "url": "../app/treinos/treinos.html",
+      "url": "../app/treinos",
       "icons": [
         {
           "src": "icon-192.png",

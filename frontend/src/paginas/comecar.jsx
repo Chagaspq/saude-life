@@ -1,11 +1,20 @@
 // Questionário inicial (3 passos): objetivo, nível e dias por semana. Vira a meta da semana.
 import { useEffect, useState } from "react";
-import { montar } from "../montar.jsx";
 import AppLayout from "../componentes/AppLayout.jsx";
 import { Logo, Marca } from "../componentes/base.jsx";
 import { ler, gravar } from "../lib/armazenamento.js";
-import "../estilos/kit-app.js";
-import "../estilos/app-comecar.css";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssApp from "../estilos/app.css?inline";
+import cssAppComecar from "../estilos/app-comecar.css?inline";
+// Links entre as telas (React Router: troca de tela sem recarregar)
+import { Link } from "react-router-dom";
+// Troca de tela pelo código (React Router)
+import { irPara } from "../lib/navegar.js";
+
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssApp, cssAppComecar];
 
 // Objetivos: [valor, título, texto]
 const OBJETIVOS = [
@@ -57,7 +66,7 @@ function Comecar() {
     // Guarda
     gravar("sl-onboarding", { objetivo: resp.objetivo, nivel: resp.nivel, dias: Number(resp.dias), rotulo, data: new Date().toISOString() });
     // Vai
-    location.href = "../inicio/inicio.html";
+    irPara("/app/inicio");
   }
   // Porcentagem
   const pct = Math.round(((passo + 1) / 3) * 100);
@@ -67,10 +76,10 @@ function Comecar() {
       <main id="conteudo" className="onboarding" tabIndex="-1">
         <div className="onboarding-card">
           {/* Marca */}
-          <a href="../inicio/inicio.html" className="brand" aria-label="Saúde Life">
+          <Link to="/app/inicio" className="brand" aria-label="Saúde Life">
             <Logo tamanho={30} />
             <Marca />
-          </a>
+          </Link>
           {/* Título */}
           <h1 className="onboarding-title">Vamos personalizar seu Saúde Life</h1>
           {/* Progresso */}
@@ -142,5 +151,5 @@ function Comecar() {
   );
 }
 
-// Desenha
-montar(Comecar);
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Comecar;
