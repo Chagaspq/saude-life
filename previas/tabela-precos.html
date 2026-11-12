@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tabela de Preços dos Sites</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Tabela de uso interno: quatro níveis lado a lado, do mais simples ao mais completo. O degrau de cor mostra a subida de preço. */
+:root{--papel:#f4f2ee;--branco:#ffffff;--tinta:#1d2321;--cinza:#636b68;--linha:#dcdedb;
+  --n1:#d9e4dd;--n2:#a9cbb6;--n3:#5f9c78;--n4:#24563d;--sim:#24563d;
+  --d:"Bricolage Grotesque",system-ui,sans-serif;--t:"Figtree",system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--t);font-size:16px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:40px 64px}
+.in{max-width:1100px;margin:0 auto;display:grid;gap:40px}
+.in>*{min-width:0}
+h1{font-family:var(--d);font-weight:800;font-size:clamp(2rem,5vw,3rem);line-height:1;margin:0 0 10px}
+h2{font-family:var(--d);font-weight:600;font-size:1.5rem;margin:0 0 6px}
+.sub{color:var(--cinza);margin:0;max-width:62ch}
+.rolar{overflow-x:auto;background:var(--branco);border:1px solid var(--linha);border-radius:14px}
+table{border-collapse:collapse;width:100%;min-width:760px;font-variant-numeric:tabular-nums}
+th,td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--linha);vertical-align:top}
+thead th{vertical-align:bottom;border-bottom:0;padding-top:20px}
+thead th:first-child{width:28%}
+.nivel{display:grid;gap:6px}
+.nivel .nome{font-family:var(--d);font-weight:800;font-size:1.25rem}
+.nivel .preco{font-family:var(--d);font-weight:800;font-size:1.7rem;line-height:1}
+.nivel .pra{font-size:.85rem;color:var(--cinza);font-weight:400}
+.degrau{height:8px;border-radius:4px;margin-top:6px}
+tbody th{font-weight:500}
+tbody th small{display:block;color:var(--cinza);font-weight:400;font-size:.85rem}
+td.sim{color:var(--sim);font-weight:600}
+td.nao{color:#a7aca9}
+tr.grupo th{background:var(--papel);font-family:var(--d);font-weight:600;font-size:.95rem;color:var(--cinza);padding-block:10px}
+.extras{display:grid;grid-template-columns:repeat(2,1fr);gap:0;background:var(--branco);border:1px solid var(--linha);border-radius:14px;overflow:hidden}
+.extras div{display:flex;justify-content:space-between;gap:16px;padding:14px 18px;border-bottom:1px solid var(--linha)}
+.extras div:nth-child(odd){border-right:1px solid var(--linha)}
+.extras b{font-family:var(--d);white-space:nowrap}
+.extras span small{display:block;color:var(--cinza);font-size:.85rem}
+.regras{margin:0;padding-left:20px;display:grid;gap:8px}
+.regras b{font-weight:600}
+@media (max-width:640px){.extras{grid-template-columns:1fr}.extras div:nth-child(odd){border-right:0}}
+</style>
+</head>
+<body>
+<div class="in">
+
+<header>
+  <h1>Tabela de preços</h1>
+  <p class="sub">Uso interno. Do site mais simples ao mais completo. Os valores são o preço cheio; o "mínimo" é até onde dá pra negociar sem perder dinheiro.</p>
+</header>
+
+<section>
+  <div class="rolar">
+  <table>
+    <thead>
+      <tr>
+        <th><h2>Níveis</h2></th>
+        <th><div class="nivel"><span class="nome">Essencial</span><span class="preco">R$ 250</span><span class="pra">mínimo R$ 200</span><div class="degrau" style="background:var(--n1)"></div></div></th>
+        <th><div class="nivel"><span class="nome">Completo</span><span class="preco">R$ 500</span><span class="pra">mínimo R$ 400</span><div class="degrau" style="background:var(--n2)"></div></div></th>
+        <th><div class="nivel"><span class="nome">Premium</span><span class="preco">R$ 900</span><span class="pra">mínimo R$ 750</span><div class="degrau" style="background:var(--n3)"></div></div></th>
+        <th><div class="nivel"><span class="nome">Animado</span><span class="preco">R$ 1.800</span><span class="pra">mínimo R$ 1.500</span><div class="degrau" style="background:var(--n4)"></div></div></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th>Pra quem é</th><td>Comércio pequeno, sem foto boa</td><td>Barbearia, salão, pet, confeitaria</td><td>Comércio maior, mais de uma unidade, advocacia</td><td>Marca que quer impressionar, produto bonito</td></tr>
+      <tr><th>Prazo de entrega</th><td>3 dias úteis</td><td>5 dias úteis</td><td>7 a 10 dias úteis</td><td>10 a 15 dias úteis</td></tr>
+
+      <tr class="grupo"><th colspan="5">Básico de todo site</th></tr>
+      <tr><th>Uma página que funciona no celular e no computador</th><td class="sim">Sim</td><td class="sim">Sim</td><td class="sim">Sim</td><td class="sim">Sim</td></tr>
+      <tr><th>Botão do WhatsApp em todo lugar</th><td class="sim">Sim</td><td class="sim">Sim</td><td class="sim">Sim</td><td class="sim">Sim</td></tr>
+      <tr><th>Ligado ao Google Maps e ao Instagram</th><td class="sim">Sim</td><td class="sim">Sim</td><td class="sim">Sim</td><td class="sim">Sim</td></tr>
+      <tr><th>Domínio próprio no 1º ano<small>Depois, uns R$ 40 por ano, pagos pelo cliente</small></th><td class="sim">Sim</td><td class="sim">Sim</td><td class="sim">Sim</td><td class="sim">Sim</td></tr>
+      <tr><th>Hospedagem</th><td>Grátis</td><td>Grátis</td><td>Grátis</td><td>Grátis</td></tr>
+
+      <tr class="grupo"><th colspan="5">Conteúdo</th></tr>
+      <tr><th>Serviços, preços e horários</th><td class="sim">Sim</td><td class="sim">Sim</td><td class="sim">Sim</td><td class="sim">Sim</td></tr>
+      <tr><th>Galeria de fotos</th><td>Até 6 fotos</td><td>Até 15 fotos</td><td>Sem limite</td><td>Sem limite</td></tr>
+      <tr><th>Avaliações reais do Google no site</th><td class="nao">Não</td><td class="sim">Sim</td><td class="sim">Sim</td><td class="sim">Sim</td></tr>
+      <tr><th>Textos escritos por nós</th><td class="nao">Não</td><td>Básicos</td><td class="sim">Todos</td><td class="sim">Todos</td></tr>
+      <tr><th>Mais de uma página<small>Ex.: uma página por serviço ou por unidade</small></th><td class="nao">Não</td><td class="nao">Não</td><td>Até 5</td><td>Até 5</td></tr>
+
+      <tr class="grupo"><th colspan="5">Recursos que vendem</th></tr>
+      <tr><th>Agendamento ou pedido que monta a mensagem no WhatsApp<small>Barbearia: serviço, barbeiro e horário. Confeitaria: carrinho com total.</small></th><td class="nao">Não</td><td class="sim">Sim</td><td class="sim">Sim</td><td class="sim">Sim</td></tr>
+      <tr><th>Formulário de orçamento</th><td class="nao">Não</td><td class="sim">Sim</td><td class="sim">Sim</td><td class="sim">Sim</td></tr>
+      <tr><th>Design 100% com a identidade da marca<small>Cores, fontes e estilo tirados da logo e das fotos</small></th><td>Modelo pronto</td><td>Modelo ajustado</td><td class="sim">Do zero</td><td class="sim">Do zero</td></tr>
+      <tr><th>Animação conforme rola a página<small>Vídeo do produto passando quadro a quadro</small></th><td class="nao">Não</td><td class="nao">Não</td><td class="nao">Não</td><td class="sim">Sim</td></tr>
+      <tr><th>Preparado pra anúncios e Google<small>Código de medição e títulos pro Google achar</small></th><td class="nao">Não</td><td class="nao">Não</td><td class="sim">Sim</td><td class="sim">Sim</td></tr>
+
+      <tr class="grupo"><th colspan="5">Depois da entrega</th></tr>
+      <tr><th>Rodadas de ajuste</th><td>1</td><td>2</td><td>3</td><td>3</td></tr>
+      <tr><th>Suporte grátis</th><td>15 dias</td><td>30 dias</td><td>60 dias</td><td>60 dias</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <h2>Extras</h2>
+  <p class="sub" style="margin-bottom:16px">Cobrados à parte, em qualquer nível.</p>
+  <div class="extras">
+    <div><span>Manutenção mensal<small>Até 2 alterações por mês e site sempre no ar</small></span><b>R$ 60/mês</b></div>
+    <div><span>Configurar anúncios<small>Google Ads ou Instagram, o valor do anúncio é do cliente</small></span><b>R$ 150</b></div>
+    <div><span>Cuidar dos anúncios<small>Ajustes e relatório mensal</small></span><b>R$ 200/mês</b></div>
+    <div><span>Vídeo do produto feito com IA<small>Pro site animado, quando o cliente não tem vídeo</small></span><b>R$ 200</b></div>
+    <div><span>Logo simples<small>Pra quem não tem ou tem uma muito ruim</small></span><b>R$ 150</b></div>
+    <div><span>Página extra<small>Além do que o nível inclui</small></span><b>R$ 80</b></div>
+  </div>
+</section>
+
+<section>
+  <h2>Clientes de fora (Portugal e brasileiros no exterior)</h2>
+  <p class="sub" style="margin-bottom:16px">Mesmo conteúdo, cobrado em euro. Receber por Wise ou PayPal.</p>
+  <div class="extras">
+    <div><span>Essencial</span><b>€ 150</b></div>
+    <div><span>Completo</span><b>€ 350</b></div>
+    <div><span>Premium</span><b>€ 650</b></div>
+    <div><span>Animado</span><b>€ 1.200</b></div>
+  </div>
+</section>
+
+<section>
+  <h2>Regras pra não perder dinheiro</h2>
+  <ul class="regras">
+    <li><b>Metade antes, metade na entrega.</b> Só começar depois que a entrada cair no Pix.</li>
+    <li><b>Mostrar duas opções</b> (ex.: Completo e Essencial). O cliente escolhe em vez de pedir desconto.</li>
+    <li><b>Nunca descer abaixo do mínimo.</b> Se o cliente quiser pagar menos, tire recursos, não baixe o preço.</li>
+    <li><b>Advocacia:</b> sem preço e sem promoção no site (regra da OAB). Cobrar como Premium.</li>
+    <li><b>Comércio com mais de uma unidade</b> ou muito movimento: no mínimo Completo.</li>
+  </ul>
+</section>
+
+</div>
+</body>
+</html>
