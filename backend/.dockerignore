@@ -1,7 +1,0 @@
-# Não manda para o servidor o que é gerado ou do editor
-target/
-.settings/
-.classpath
-.project
-*.iml
-.idea/

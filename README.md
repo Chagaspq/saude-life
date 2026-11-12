@@ -3,8 +3,7 @@
 Site e app de fitness feito como TCC (MVP). Treinos guiados, registro de séries e cargas, evolução, alimentação e dois tipos de acesso: **cliente** (quem treina) e **administrador** (academia ou personal).
 
 - **Front-end:** React 18 + Vite (pasta `frontend/`)
-- **Back-end:** Java 17 + Spring Boot 3 (pasta `backend/`)
-- **Banco:** SQL Server (no computador) e PostgreSQL (no ar, no Render)
+- **Back-end e banco:** em refazimento (a versão antiga foi retirada; fica no histórico do git)
 
 ![Saúde Life](frontend/public/shared/og-image.png)
 
@@ -33,19 +32,9 @@ saude-life/
 │   ├── package.json   dependências (React, Vite)
 │   └── vite.config.js configuração do Vite
 │
-├── backend/           API (Java + Spring Boot): regras, segurança e banco
-│   ├── src/main/java/br/com/saudelife/api/   controle, modelo, repositorio, dto, servico, seguranca...
-│   ├── src/main/resources/                   configurações (H2, PostgreSQL, SQL Server)
-│   ├── banco/         scripts SQL (SQL Server e PostgreSQL), diagrama ER e consultas de exemplo
-│   ├── saude-life-api.postman_collection.json   testes no Postman
-│   ├── Dockerfile     para publicar no Render
-│   └── README.md      como rodar no Spring Tools, rotas e banco
-│
 ├── docs/              SITE PRONTO (gerado pelo build do frontend; não editar à mão)
-├── documentacao/      desenho da API (API.md)
 ├── apresentacao/      vídeo da apresentação, falas e os scripts que geraram o vídeo
 ├── ROTEIRO-APRESENTACAO.md
-├── render.yaml        publicação da API e do banco no Render
 └── index.html         leva da raiz do repositório para o site pronto
 ```
 
@@ -62,11 +51,9 @@ npm run build      # gera o site pronto na pasta docs/ da raiz (é ela que vai p
 
 Depois de mudar qualquer arquivo em `frontend/`, rode `npm run build` e mande a pasta `docs/` junto no commit.
 
-## Rodar o back-end (API)
+## Back-end
 
-Abra a pasta `backend` no **Spring Tools** (**File > Import > Existing Maven Projects**) e rode `SaudeLifeApplication` (**Run As > Spring Boot App**). Passo a passo, rotas e como usar o SQL Server em **`backend/README.md`**.
-
-Para o site usar a API do computador: em `frontend/.env.development`, coloque `VITE_API_URL=http://localhost:8080/v1` e rode `npm run dev` de novo.
+O back-end e o banco de dados antigos foram retirados para serem refeitos. A versão antiga continua no histórico do git.
 
 ## Como testar rápido
 
