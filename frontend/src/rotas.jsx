@@ -79,7 +79,7 @@ const ROTAS = [
   tela("*", () => import("./paginas/erro404.jsx"), "Saúde Life - Página não encontrada"),
 ];
 
-// Roteador (basename: o site no ar fica dentro de /saude-life/)
+// Roteador (basename: o site no ar fica dentro de /saude-life/docs/)
 export const roteador = createBrowserRouter(ROTAS, {
   // Pasta do site
   basename: import.meta.env.BASE_URL.replace(/\/$/, "") || "/",
