@@ -9,10 +9,11 @@ Site e app de fitness feito como TCC (MVP). Treinos guiados, registro de séries
 
 ## Ver online
 
-**https://chagaspq.github.io/saude-life/**
+**https://chagaspq.github.io/saude-life/** (leva para o app em https://chagaspq.github.io/saude-life/docs/)
 
-O GitHub Pages publica a pasta `docs/` (o site pronto, gerado a partir do `frontend/`).
-Configuração: **Settings > Pages > Deploy from a branch > `main` / `/docs`**.
+O GitHub Pages publica a raiz do repositório (**Settings > Pages > Deploy from a branch > `main` / `/ (root)`**).
+O `index.html` da raiz leva para a pasta `docs/`, que é o site pronto (gerado a partir do `frontend/`).
+O `404.html` da raiz é uma cópia do app: faz qualquer endereço do app (ex.: `/saude-life/docs/app/inicio`) abrir certo.
 
 ## Organização das pastas
 
@@ -51,7 +52,7 @@ npm run build      # gera o site pronto na pasta docs/ da raiz (é ela que vai p
 ```
 
 Depois de mudar qualquer arquivo em `frontend/`, rode `npm run build` e mande a pasta `docs/` junto no commit.
-Para ver o site pronto no computador antes de mandar: `npm run preview` (abre em http://localhost:4173/saude-life/).
+Para ver o site pronto no computador antes de mandar: `npm run preview` (abre em http://localhost:4173/saude-life/docs/).
 
 ## Telas e endereços (React Router)
 

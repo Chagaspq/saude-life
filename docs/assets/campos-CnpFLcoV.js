@@ -1,0 +1,1 @@
+import{r as s}from"./index-C5y8S6Uw.js";function o(){const t=s.useRef({}),u=s.useRef(null);return u.current||(u.current={ref:r=>e=>{e?t.current[r]=e:delete t.current[r]},focar:(r,e)=>{const c=t.current[r];c&&c.focus(e)}}),u.current}export{o as u};
