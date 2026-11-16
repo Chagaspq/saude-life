@@ -1,0 +1,271 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background: #f4f6f8;
+  color: #1f2933;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 32px auto;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
+  margin-top: 0;
+}
+
+/* ---------- Barras de botões ---------- */
+.barra-topo {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.barra-rodape {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+/* ---------- Botões ---------- */
+.botao {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.botao:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.botao-primario {
+  background: #1d4ed8;
+  color: #ffffff;
+}
+
+.botao-primario:hover:not(:disabled) {
+  background: #1e40af;
+}
+
+.botao-secundario {
+  background: #e5e7eb;
+  color: #1f2933;
+}
+
+.botao-secundario:hover {
+  background: #d1d5db;
+}
+
+.botao-perigo {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.botao-perigo:hover {
+  background: #b91c1c;
+}
+
+/* ---------- Botões de ação da tabela ---------- */
+.botao-icone {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.botao-apagar {
+  background: #dc2626;
+}
+
+.botao-apagar:hover {
+  background: #b91c1c;
+}
+
+.botao-editar {
+  background: #2563eb;
+}
+
+.botao-editar:hover {
+  background: #1d4ed8;
+}
+
+/* Texto explicativo (tooltip) ao passar o mouse */
+.botao-icone[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  right: 0;
+  white-space: nowrap;
+  background: #111827;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: normal;
+  padding: 4px 8px;
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ---------- Tabela zebrada ---------- */
+.tabela-zebrada {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela-zebrada th,
+.tabela-zebrada td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.tabela-zebrada thead th {
+  background: #1f2933;
+  color: #ffffff;
+}
+
+.tabela-zebrada tbody tr:nth-child(odd) {
+  background: #ffffff;
+}
+
+.tabela-zebrada tbody tr:nth-child(even) {
+  background: #eef2f7;
+}
+
+.tabela-zebrada .numero {
+  text-align: right;
+}
+
+.tabela-zebrada .celula-acao {
+  width: 48px;
+  text-align: center;
+}
+
+.tabela-zebrada .vazio {
+  text-align: center;
+  color: #6b7280;
+}
+
+/* ---------- Formulário ---------- */
+.formulario {
+  display: flex;
+  flex-direction: column;
+  max-width: 560px;
+}
+
+.formulario label {
+  margin-top: 12px;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.formulario input,
+.formulario select,
+.formulario textarea {
+  padding: 8px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.formulario input[readonly] {
+  background: #f1f5f9;
+  color: #6b7280;
+}
+
+/* ---------- Mensagem de erro ---------- */
+.erro {
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  background: #fee2e2;
+  color: #991b1b;
+  border-radius: 4px;
+}
+
+/* ---------- Modal ---------- */
+.modal-fundo {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal-caixa {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 8px;
+  min-width: 320px;
+  max-width: 90%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.modal-mensagem {
+  margin-top: 0;
+  font-size: 16px;
+}
+
+.modal-botoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+/* ---------- Menu de navegação ---------- */
+.menu {
+  display: flex;
+  gap: 4px;
+  padding: 0 24px;
+  background: #1f2933;
+}
+
+.menu-item {
+  padding: 14px 18px;
+  color: #e5e7eb;
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 3px solid transparent;
+}
+
+a.menu-item:hover {
+  background: #323f4b;
+  color: #ffffff;
+}
+
+.menu-item-ativo {
+  color: #ffffff;
+  border-bottom-color: #3b82f6;
+}
+
+.menu-item-desabilitado {
+  color: #7b8794;
+  cursor: not-allowed;
+}
+
+/* Linha com o ID e a data de cadastro (tela Editar Usuário) */
+.info-usuario {
+  color: #6b7280;
+  margin: 0 0 16px;
+}
