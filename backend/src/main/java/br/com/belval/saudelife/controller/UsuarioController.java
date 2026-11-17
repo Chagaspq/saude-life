@@ -22,9 +22,8 @@ import br.com.belval.saudelife.repository.UsuarioRepository;
 // Rotas da API de usuários: http://localhost:8080/usuarios
 @RestController
 @RequestMapping("/usuarios")
-// Deixa a tela React chamar esta API quando ela roda no computador, em qualquer porta
-// (o npm run dev usa a 5173, ou a 5174 se a 5173 estiver ocupada)
-@CrossOrigin(originPatterns = { "http://localhost:*", "http://127.0.0.1:*" })
+// Deixa a tela React chamar esta API: no computador (qualquer porta: 5173, 5174...) e no GitHub Pages
+@CrossOrigin(originPatterns = { "http://localhost:*", "http://127.0.0.1:*", "https://chagaspq.github.io" })
 public class UsuarioController {
 
 	// Tipos de usuário aceitos

@@ -1,8 +1,9 @@
-// Camada de acesso à API REST de usuários (Spring Boot em http://localhost:8080).
+// Camada de acesso à API REST de usuários (Spring Boot).
 // Cada função faz uma única chamada HTTP e lança erro se o status não for o esperado.
 
-// Endereço da API de usuários
-const API_URL = 'http://localhost:8080/usuarios';
+// Endereço da API: no computador é http://localhost:8080; para usar a API no ar (Render),
+// coloque VITE_API_URL=https://saudelife-api.onrender.com no arquivo .env.local desta pasta
+const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8080') + '/usuarios';
 
 // Monta o erro com o status e a frase que a API mandou (ex.: "Já existe um usuário com este e-mail.")
 async function lerErro(resposta) {
