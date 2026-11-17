@@ -33,7 +33,7 @@ saude-life/
 │
 ├── frontend/          TELA DE USUÁRIOS (React + Vite): conversa com a API
 │   ├── src/services/usuarioService.js   chama a API
-│   ├── src/pages/     ListaUsuarios, NovoUsuario, EditarUsuario (e as de produtos)
+│   ├── src/pages/     Principal, ListaUsuarios, NovoUsuario, EditarUsuario
 │   └── src/components/ Menu, Modal, FormularioUsuario
 │
 ├── site/              SITE DO SAÚDE LIFE (React + React Router + Vite)
