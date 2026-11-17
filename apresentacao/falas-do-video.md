@@ -6,7 +6,7 @@ Separadas por pessoa, na ordem: **Gabriel → Tomas → Rafael → Hiago**. Cada
 
 Antes de gravar, troquem **[curso]**, **[instituição]** e **[contatos do grupo]** pelas informações de vocês.
 
-> **Atenção:** o vídeo `apresentacao/video-apresentacao.mp4` foi gerado antes e mostra o back-end antigo nas partes 4, 5 e 6. Para gravar com estas falas, as telas dessas partes têm que ser regravadas com a API de usuários (pastas `backend` e `frontend`), seguindo o `ROTEIRO-POR-PESSOA.md`.
+> **Vídeo pronto:** `apresentacao/Saude-Life-Apresentacao.mp4` (versão leve: `Saude-Life-Apresentacao-leve.mp4`), montado com as gravações do grupo e a parte "API funcionando".
 
 ---
 
