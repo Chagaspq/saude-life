@@ -51,7 +51,7 @@ Preencham antes: **[curso]** e **[instituição]**.
 
 > "O front-end foi feito em React 18, com HTML, CSS e JavaScript. Usamos o Vite para rodar e gerar o site, e o React Router para trocar de tela."
 
-- **Pastas** (abra `frontend/src/`):
+- **Pastas** (abra `site/src/`):
   > "Em `paginas` ficam as telas, como login, início, treino e admin. Em `componentes` ficam as peças que a gente reaproveita. O `main.jsx` é o começo do app e o `rotas.jsx` tem as rotas: cada endereço mostra uma tela. Em `estilos` fica o CSS."
 - **Componente** (abra `componentes/base.jsx`, `CartaoNumero`):
   > "Um componente é uma função que devolve um pedaço da tela e pode ser reaproveitada. O `CartaoNumero` aparece no Início, na Evolução e no painel do admin, só trocando o texto e o ícone."
@@ -87,7 +87,7 @@ Preencham antes: **[curso]** e **[instituição]**.
 
 > "O back-end é uma API em Java 17 com Spring Boot. Usamos o Spring Data JPA para falar com o banco."
 
-- **Pastas** (abra `backend/saudelife/src/main/java/br/com/belval/saudelife/`):
+- **Pastas** (abra `backend/src/main/java/br/com/belval/saudelife/`):
   > "Em `model` está a classe `Usuario`, que vira a tabela de usuários. Em `repository` está o `UsuarioRepository`: o Spring cria o SQL sozinho, como o `findAll` e o `save`. Em `controller` está o `UsuarioController`, com as rotas. A conexão com o banco fica no `application.properties`."
 - **Papel da API:**
   > "A API recebe o que a tela manda, confere e grava ou lê no SQL Server."
@@ -146,7 +146,7 @@ Preencham antes: **[curso]** e **[instituição]**.
 ## Antes de gravar (checklist)
 - [ ] SSMS: rodar `criar-banco.sql` (F5) e colocar a senha do `sa` no `application.properties`.
 - [ ] API ligada (Spring Tools: Run As > Spring Boot App, ou no terminal: `.\mvnw spring-boot:run`) e com "Started SaudelifeApplication" no console.
-- [ ] Tela de usuários ligada (`npm install` e `npm run dev` em `tcc-sem2-2026-saudelife\frontend\saudelife`) e 2 ou 3 usuários cadastrados.
+- [ ] Tela de usuários ligada (`npm install` e `npm run dev` em `frontend`) e 2 ou 3 usuários cadastrados.
 - [ ] Site aberto: https://chagaspq.github.io/saude-life/ (cliente demo com 1 treino feito).
 - [ ] Postman com o GET e o POST prontos.
 - [ ] Zoom em 150% no VS Code, Spring Tools e SSMS.
