@@ -65,3 +65,14 @@ JSON de exemplo (Postman, POST):
 - **"Failed to fetch" na tela:** a API não está ligada (passo 2).
 - **`npm install` dá erro de package.json:** você está na pasta errada. O `npm` é só na pasta `frontend` (ou `site`); na pasta `backend` use o `.\mvnw`.
 - **API não conecta no banco:** confira a senha do `sa`, a porta 1433 e se rodou o `criar-banco.sql`.
+
+## API no ar (Render)
+A API também pode ficar na internet, no Render (plano grátis). No ar ela usa PostgreSQL, porque o Render não tem SQL Server.
+O código é o mesmo, e as tabelas ficam no schema `api` do banco.
+
+1. Entre em https://dashboard.render.com com a conta do grupo.
+2. **Blueprints > New Blueprint Instance**, escolha o repositório `Chagaspq/saude-life` e clique em **Apply**. Se o blueprint "saude-life" já existir, abra ele e clique em **Manual Sync**.
+3. Espere o deploy (uns 5 minutos). A API fica em **https://saudelife-api.onrender.com/usuarios**.
+4. Para a tela usar a API no ar, crie o arquivo `frontend/.env.local` com a linha `VITE_API_URL=https://saudelife-api.onrender.com` e rode `npm run dev` de novo.
+
+No plano grátis, a API "dorme" depois de 15 minutos sem uso, e a primeira chamada depois disso demora uns 50 segundos.
