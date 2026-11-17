@@ -124,7 +124,7 @@
 Troquem pelo que viveram de verdade:
 - **Gabriel:** o app tinha telas demais; aprendemos a fazer um **MVP**, focar no essencial e tirar o resto.
 - **Rafael:** passar o site de várias páginas HTML para **um app React só, com React Router**, sem mudar o visual; aprendemos a dividir a tela em componentes.
-- **Tomas:** segurança do login (hash de senha e token) e garantir que cada pessoa só vê os próprios dados.
+- **Tomas:** segurança: guardar a senha com hash (BCrypt) e fazer a API recusar dados errados com uma mensagem clara.
 - **Hiago:** desenhar as tabelas, ligar a API no SQL Server (usuário `sa`, porta 1433) e garantir que o e-mail não se repete.
 - **O grupo aprendeu:** front-end, back-end e banco conversando; Git e GitHub; publicar na internet.
 - **Melhorias futuras:** ligar as outras telas do Saúde Life (treinos, alimentação, evolução) na API e no banco, login com a tabela de usuários, pagamento de verdade e app na loja. O site no ar (deploy) **já foi feito**.
