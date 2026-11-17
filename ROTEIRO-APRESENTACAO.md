@@ -14,19 +14,18 @@
 **Tecnologias:** front-end em **React** (com React Router, HTML, CSS e JavaScript), back-end em **Java + Spring Boot**, banco **SQL Server**.
 
 **Onde está cada parte no GitHub (https://github.com/Chagaspq/saude-life):**
-- Site Saúde Life (React): pasta `frontend/` (no ar em https://chagaspq.github.io/saude-life/)
-- API e banco (projeto do professor, com a parte de usuários): pasta `tcc-sem2-2026-saudelife/`
-  - API: `tcc-sem2-2026-saudelife/backend/saudelife`
-  - Tela de usuários ligada na API: `tcc-sem2-2026-saudelife/frontend/saudelife`
+- `backend/`: a API (Java + Spring Boot) e o script do banco (SQL Server)
+- `frontend/`: a tela de usuários (React), ligada na API
+- `site/`: o site do Saúde Life (React), no ar em https://chagaspq.github.io/saude-life/
 
 ---
 
 ## Antes de gravar: deixar tudo rodando no computador
 
-1. **Banco (SQL Server):** no SSMS, abra `tcc-sem2-2026-saudelife/backend/saudelife/banco/criar-banco.sql` e aperte **F5** (cria o banco `saudelife`).
-2. **API (Spring Tools):** **File > Import > Existing Maven Projects** > pasta `tcc-sem2-2026-saudelife/backend/saudelife`. Em `src/main/resources/application.properties`, coloque a senha do `sa`. Rode `SaudelifeApplication` (**Run As > Spring Boot App**). A tabela `usuarios` é criada sozinha.
-3. **Tela de usuários (Git Bash):** dentro de `tcc-sem2-2026-saudelife/frontend/saudelife`: `npm install` (só na primeira vez) e `npm run dev`. Abra http://localhost:5173/usuarios e cadastre 2 ou 3 usuários de verdade.
-4. **Site Saúde Life:** abra https://chagaspq.github.io/saude-life/ (ou, dentro de `frontend/`, `npm install` e `npm run dev`).
+1. **Banco (SQL Server):** no SSMS, abra `backend/banco/criar-banco.sql` e aperte **F5** (cria o banco `saudelife`).
+2. **API (Spring Tools):** **File > Import > Existing Maven Projects** > pasta `backend`. Em `src/main/resources/application.properties`, coloque a senha do `sa`. Rode `SaudelifeApplication` (**Run As > Spring Boot App**). A tabela `usuarios` é criada sozinha.
+3. **Tela de usuários (Git Bash):** dentro de `frontend`: `npm install` (só na primeira vez) e `npm run dev`. Abra http://localhost:5173/usuarios e cadastre 2 ou 3 usuários de verdade.
+4. **Site Saúde Life:** abra https://chagaspq.github.io/saude-life/ (ou, dentro de `site/`, `npm install` e `npm run dev`).
 5. **Postman:** deixe pronto um `GET http://localhost:8080/usuarios` e um `POST` com o JSON de exemplo (fim deste roteiro).
 6. **Dados realistas no site:** entre como cliente demo e faça 1 treino antes de gravar, para o Início e a Evolução terem números.
 7. Zoom do VS Code, do Spring Tools e do SSMS em 150%. Tema escuro no site.
@@ -58,21 +57,21 @@
 **Na tela:** VS Code e navegador lado a lado.
 
 - **Tecnologias:** **React 18** (componentes em JSX) com **React Router** (troca de telas), **HTML**, **CSS** e **JavaScript**, e o **Vite** para rodar e gerar o site.
-- **Estrutura de pastas (`frontend/src/`):**
+- **Estrutura de pastas (`site/src/`):**
   - `paginas/` = as telas (`login.jsx`, `inicio.jsx`, `treino.jsx`, `admin.jsx`...);
   - `componentes/` = peças reaproveitadas (`AppLayout.jsx`, `base.jsx`, `Formulario.jsx`);
   - `main.jsx` = começo do app e `rotas.jsx` = as rotas (cada endereço mostra uma tela);
   - `lib/` = funções e dados: `navegar.js`, `conta.js` (login), `pontos.js`, `exercicios.js`...;
   - `estilos/` = o CSS (cada tela carrega o seu, pelo componente `Tela.jsx`).
-- **O que é um componente:** uma função que devolve um pedaço de tela e pode ser reaproveitada. Exemplo real: `CartaoNumero` em `frontend/src/componentes/base.jsx`. Ele é usado no Início ("Meta da semana", "Sequência"...), na Evolução e no Painel do admin, só trocando o texto e o ícone.
-- **Rotas entre as telas (React Router):** o app tem um `index.html` só. Em `frontend/src/rotas.jsx`, cada endereço (`/login`, `/app/inicio`, `/app/treino?id=`...) mostra uma tela, e o `<Link>` troca de tela sem recarregar a página. O componente `AppLayout.jsx` (função `destino`) controla quem pode abrir cada tela: sem login vai para o Login; cliente sem questionário vai para o questionário; cliente não abre o painel do admin, e o admin não abre as telas do cliente.
-- **CSS e responsividade:** cores e espaços em variáveis (`frontend/src/estilos/tokens.css`). Em `frontend/src/estilos/app.css`, os `@media (max-width: 900px)` e `(max-width: 640px)` trocam o menu lateral pelo **menu de baixo** no celular. Mostre: diminua a janela do navegador (ou F12 > modo celular).
+- **O que é um componente:** uma função que devolve um pedaço de tela e pode ser reaproveitada. Exemplo real: `CartaoNumero` em `site/src/componentes/base.jsx`. Ele é usado no Início ("Meta da semana", "Sequência"...), na Evolução e no Painel do admin, só trocando o texto e o ícone.
+- **Rotas entre as telas (React Router):** o app tem um `index.html` só. Em `site/src/rotas.jsx`, cada endereço (`/login`, `/app/inicio`, `/app/treino?id=`...) mostra uma tela, e o `<Link>` troca de tela sem recarregar a página. O componente `AppLayout.jsx` (função `destino`) controla quem pode abrir cada tela: sem login vai para o Login; cliente sem questionário vai para o questionário; cliente não abre o painel do admin, e o admin não abre as telas do cliente.
+- **CSS e responsividade:** cores e espaços em variáveis (`site/src/estilos/tokens.css`). Em `site/src/estilos/app.css`, os `@media (max-width: 900px)` e `(max-width: 640px)` trocam o menu lateral pelo **menu de baixo** no celular. Mostre: diminua a janela do navegador (ou F12 > modo celular).
 
 ## 4. Back-end | Tomas (3 min)
 
 **Na tela:** Spring Tools com o código e o Postman.
 
-- **Tecnologia:** **Java 17 + Spring Boot**, com **Spring Data JPA** para falar com o banco (projeto `tcc-sem2-2026-saudelife/backend/saudelife`).
+- **Tecnologia:** **Java 17 + Spring Boot**, com **Spring Data JPA** para falar com o banco (projeto `backend`).
 - **Estrutura de pastas** (`src/main/java/br/com/belval/saudelife/`):
   - `model/Usuario.java` = a tabela `usuarios` como classe (nome completo, e-mail, senha, tipo, data de nascimento, data de cadastro);
   - `repository/UsuarioRepository.java` = os comandos no banco (o Spring cria o SQL: `findAll`, `findById`, `save`, `deleteById`);
@@ -112,8 +111,8 @@
 
 **Na tela:** tela de usuários, código e banco, em sequência.
 
-1. **Usuário clica (React):** http://localhost:5173/usuarios > **+ Novo Usuário** > preenche nome, e-mail, senha, tipo e nascimento > **Salvar**. Código: `frontend/saudelife/src/components/FormularioUsuario.jsx` (função `salvar`).
-2. **O front envia para a API:** `frontend/saudelife/src/services/usuarioService.js`, função `criarUsuario`, faz `fetch("http://localhost:8080/usuarios", { method: "POST", body: JSON })`.
+1. **Usuário clica (React):** http://localhost:5173/usuarios > **+ Novo Usuário** > preenche nome, e-mail, senha, tipo e nascimento > **Salvar**. Código: `frontend/src/components/FormularioUsuario.jsx` (função `salvar`).
+2. **O front envia para a API:** `frontend/src/services/usuarioService.js`, função `criarUsuario`, faz `fetch("http://localhost:8080/usuarios", { method: "POST", body: JSON })`.
 3. **A API valida e executa:** `UsuarioController.java`, método `criar`. Confere os dados (`conferir`), vê se o e-mail já existe, faz o hash da senha e `repositorio.save(novo)` faz o `INSERT`.
 4. **O SQL Server grava:** no SSMS, rode `SELECT TOP 5 id, nome_completo, email FROM usuarios ORDER BY id DESC;` e o usuário novo aparece.
 5. **A API responde e a tela atualiza:** a API devolve **201 Created** com o usuário (sem a senha), a tela mostra "Usuário criado com sucesso" e a lista já traz o usuário novo. Mostre também **editar** (lápis) e **apagar** (X com confirmação).

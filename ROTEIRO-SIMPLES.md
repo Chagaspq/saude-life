@@ -64,7 +64,7 @@ FALAR: "Mostramos o app funcionando, a parte visual, a API e o banco de dados. O
 ## RAFAEL
 
 **1. Front-end: o que usamos**
-MOSTRAR: VS Code com a pasta frontend aberta.
+MOSTRAR: VS Code com a pasta site aberta.
 FALAR: "O front-end é a parte que aparece na tela. Fizemos com React, que é uma biblioteca de JavaScript para montar telas."
 
 **2. Pastas**
@@ -184,8 +184,8 @@ FALAR (uma pessoa): "Com esse projeto aprendemos a ligar a tela, a API e o banco
 
 ## ANTES DE GRAVAR
 1. SQL Server ligado e o banco criado (arquivo `criar-banco.sql`, apertar F5).
-2. API ligada: no terminal, na pasta `backend\saudelife`, rodar `.\mvnw spring-boot:run`.
-3. Tela de usuários ligada: no outro terminal, na pasta `frontend\saudelife`, rodar `npm run dev`.
+2. API ligada: no terminal, na pasta `backend`, rodar `.\mvnw spring-boot:run`.
+3. Tela de usuários ligada: no outro terminal, na pasta `frontend`, rodar `npm run dev`.
 4. Cadastrar 2 ou 3 usuários antes.
 5. Site aberto: https://chagaspq.github.io/saude-life/
 6. Zoom da tela em 150%, para dar para ler no vídeo.
