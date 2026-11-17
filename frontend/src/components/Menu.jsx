@@ -12,7 +12,6 @@ export default function Menu() {
 
   return (
     <nav className="menu">
-      <NavLink to="/produtos" className={classeLink}>Produtos</NavLink>
       <NavLink to="/usuarios" className={classeLink}>Usuários</NavLink>
       <span className="menu-item menu-item-desabilitado" title="Em breve">Pedidos</span>
       <NavLink to="/" end className={classeLink}>Principal</NavLink>

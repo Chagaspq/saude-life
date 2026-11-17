@@ -269,3 +269,10 @@ a.menu-item:hover {
   color: #6b7280;
   margin: 0 0 16px;
 }
+
+/* Link com cara de botão (página inicial) */
+a.botao {
+  display: inline-block;
+  text-decoration: none;
+  margin-top: 8px;
+}
