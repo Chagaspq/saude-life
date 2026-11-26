@@ -1,0 +1,212 @@
+// Tela de entrar: e-mail e senha, lembrar de mim, contas de demonstração e "apagar tudo".
+import { useState } from "react";
+import AuthLayout from "../componentes/AuthLayout.jsx";
+import { Logo } from "../componentes/base.jsx";
+import { CampoConta, MensagemGeral, BotaoEnviar, esperar } from "../componentes/Formulario.jsx";
+import { acharConta, conferirLogin, criarConta, entrar, limparTudo, emailValido, MIN_SENHA } from "../lib/conta.js";
+// API e sincronização
+import { apiLigada } from "../lib/api.js";
+import { puxar } from "../lib/nuvem.js";
+// CSS desta tela (entra quando a tela abre e sai quando ela fecha, na mesma ordem de sempre)
+import cssTokens from "../estilos/tokens.css?inline";
+import cssBase from "../estilos/base.css?inline";
+import cssAuth from "../estilos/auth.css?inline";
+import cssLogin from "../estilos/login.css?inline";
+// Links entre as telas (React Router: troca de tela sem recarregar)
+import { Link } from "react-router-dom";
+// Dados de exemplo da conta de demonstração
+import { preencherDemo } from "../lib/demo.js";
+// Troca de tela pelo código (React Router)
+import { irPara } from "../lib/navegar.js";
+// Campos com ref (focar o campo com erro)
+import { useCampos } from "../lib/campos.js";
+
+// Lista do CSS da tela, na ordem
+export const estilos = [cssTokens, cssBase, cssAuth, cssLogin];
+
+// Páginas do app que aceitam o "?voltar="
+const PAGINAS_APP = ["inicio", "treinos", "alimentacao", "evolucao", "perfil", "planos"];
+
+// Para onde ir depois de entrar
+function destino(conta) {
+  // Administrador: painel
+  if (conta.tipo === "admin") return "/app/admin";
+  // Página pedida no endereço
+  const voltar = new URLSearchParams(location.search).get("voltar");
+  // Só aceita páginas conhecidas
+  const pagina = PAGINAS_APP.includes(voltar) ? voltar : "inicio";
+  // Endereço
+  return `/app/${pagina}`;
+}
+
+// Página
+function Login() {
+  // Campos da tela (ref do React) para focar o que tiver erro
+  const campos = useCampos();
+  // Campos
+  const [email, setEmail] = useState("");
+  // Senha
+  const [senha, setSenha] = useState("");
+  // Lembrar de mim
+  const [lembrar, setLembrar] = useState(true);
+  // Erros dos campos
+  const [erros, setErros] = useState({});
+  // Mensagem geral (conta criada aparece em verde)
+  const [msg, setMsg] = useState(() => (new URLSearchParams(location.search).get("cadastro") === "sucesso" ? { ok: true, texto: "Conta criada com sucesso! Faça login para continuar." } : null));
+  // Texto do botão enquanto entra
+  const [carregando, setCarregando] = useState("");
+
+  // Entra com e-mail e senha
+  async function enviar(emailUsado = email, senhaUsada = senha, encherDemo = false) {
+    // Erros
+    const novos = {};
+    // E-mail vazio ou errado
+    if (!emailUsado.trim()) novos.email = "Digite seu e-mail.";
+    else if (!emailValido(emailUsado)) novos.email = "Digite um e-mail válido.";
+    // Senha vazia ou curta
+    if (!senhaUsada) novos.senha = "Digite sua senha.";
+    else if (senhaUsada.length < MIN_SENHA) novos.senha = `A senha precisa ter no mínimo ${MIN_SENHA} caracteres.`;
+    // Mostra
+    setErros(novos);
+    // Tem erro: foca o primeiro
+    if (Object.keys(novos).length) return campos.focar(novos.email ? "email" : "password");
+    // Mostra "entrando" (com servidor grátis, a primeira vez pode demorar)
+    setCarregando("Entrando...");
+    // Confere a conta
+    const res = await conferirLogin(emailUsado, senhaUsada);
+    // Errou: avisa
+    if (res.erro) {
+      // Para de carregar
+      setCarregando("");
+      // Mensagem
+      setMsg({ texto: res.erro });
+      // Foca a senha
+      return campos.focar("password");
+    }
+    // Some a mensagem
+    setMsg(null);
+    // Abre a sessão
+    entrar(res.conta, lembrar);
+    // Conta de demonstração do cliente: enche os treinos, pesos e pontos de exemplo
+    if (encherDemo && !apiLigada()) preencherDemo();
+    // Mostra "entrando"
+    setCarregando("Entrando...");
+    // Com API: baixa os dados da conta; sem API: só espera um pouco
+    if (apiLigada()) await puxar().catch(() => {});
+    else await esperar(900);
+    // Vai
+    irPara(destino(res.conta));
+  }
+
+  // Entra numa conta de demonstração
+  async function demo(admin) {
+    // E-mail da demonstração
+    const emailDemo = admin ? "admin@saudelife.app" : "demo@saudelife.app";
+    // Preenche os campos
+    setEmail(emailDemo);
+    // Senha
+    setSenha("demo1234");
+    // Com API: as contas de demonstração já existem no servidor
+    if (apiLigada()) return enviar(emailDemo, "demo1234");
+    // Cria a conta se ainda não existe
+    if (!acharConta(emailDemo)) await criarConta({ nome: admin ? "Academia Demonstração" : "Biel Demonstração", email: emailDemo, senha: "demo1234", tipo: admin ? "admin" : "cliente" });
+    // Entra
+    await enviar(emailDemo, "demo1234", !admin);
+  }
+
+  // Página
+  return (
+    <AuthLayout titulo="Continue exatamente de onde parou." texto="Cada treino registrado, cada meta batida. Sua evolução está guardada aqui, esperando por você.">
+      {/* Topo do cartão */}
+      <header className="auth-header">
+        <div className="logo-compact" aria-hidden="true">
+          <Logo tamanho={34} />
+        </div>
+        <h1>Entrar</h1>
+        <p className="auth-subtitle">Que bom ter você de volta. Acesse sua conta.</p>
+      </header>
+
+      {/* Formulário */}
+      <form
+        id="login-form"
+        className="auth-form"
+        noValidate
+        onSubmit={(e) => {
+          // Sem recarregar
+          e.preventDefault();
+          // Entra
+          enviar();
+        }}
+      >
+        {/* E-mail */}
+        <CampoConta id="email" ref={campos.ref("email")} rotulo="E-mail" icone="email" type="email" autoComplete="email" required placeholder="seu@email.com" value={email} erro={erros.email} onChange={(e) => (setEmail(e.target.value), setErros({ ...erros, email: "" }))} />
+        {/* Senha */}
+        <CampoConta
+          id="password" ref={campos.ref("password")}
+          rotulo="Senha"
+          icone="senha"
+          senha
+          autoComplete="current-password"
+          required
+          placeholder="••••••••"
+          value={senha}
+          erro={erros.senha}
+          onChange={(e) => (setSenha(e.target.value), setErros({ ...erros, senha: "" }))}
+          direita={
+            <Link to="/senha" className="forgot-password">
+              Esqueci minha senha
+            </Link>
+          }
+        />
+        {/* Lembrar de mim */}
+        <div className="form-group checkbox-group">
+          <input type="checkbox" id="lembrar" name="lembrar" checked={lembrar} onChange={(e) => setLembrar(e.target.checked)} />
+          <label htmlFor="lembrar">Lembrar de mim neste aparelho</label>
+        </div>
+        {/* Mensagem geral */}
+        <MensagemGeral msg={msg} />
+        {/* Entrar */}
+        <BotaoEnviar texto="Entrar" carregando={carregando} />
+      </form>
+
+      {/* Rodapé */}
+      <footer className="auth-footer">
+        <p>
+          Não tem conta?{" "}
+          <Link to="/cadastro" className="btn-comecar">
+            Criar conta
+          </Link>
+        </p>
+        <p>
+          Só conhecendo?{" "}
+          <button type="button" className="link-demo" onClick={() => demo(false)}>
+            Demonstração: cliente
+          </button>{" "}
+          ·{" "}
+          <button type="button" className="link-demo" onClick={() => demo(true)}>
+            Demonstração: administrador
+          </button>
+        </p>
+        <p>
+          <button
+            type="button"
+            className="link-demo link-limpar"
+            onClick={() => {
+              // Confirma (não dá para desfazer)
+              if (!window.confirm("Apagar tudo o que o Saúde Life salvou neste navegador? Contas, treinos e dados somem e não dá para desfazer.")) return;
+              // Apaga
+              limparTudo();
+              // Volta para a página inicial
+              irPara("/");
+            }}
+          >
+            Apagar tudo deste navegador
+          </button>
+        </p>
+      </footer>
+    </AuthLayout>
+  );
+}
+
+// Tela exportada (o roteador em src/rotas.jsx mostra ela no endereço certo)
+export default Login;

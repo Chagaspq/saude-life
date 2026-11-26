@@ -1,0 +1,57 @@
+# Publicação no Render (https://render.com): a API (pasta backend) e o banco PostgreSQL.
+# No Render: Blueprints > New Blueprint Instance > escolha este repositório > Apply.
+
+# Banco de dados
+databases:
+  # Banco PostgreSQL grátis (as tabelas da API ficam no schema "api")
+  - name: saudelife-banco
+    # Plano grátis
+    plan: free
+    # Nome do banco
+    databaseName: saudelife
+    # Usuário
+    user: saudelife
+
+# Serviços
+services:
+  # A API (Java + Spring Boot)
+  - type: web
+    # Nome (vira o endereço: https://saudelife-api.onrender.com)
+    name: saudelife-api
+    # Roda com Docker
+    runtime: docker
+    # Pasta da API
+    rootDir: backend
+    # Receita
+    dockerfilePath: ./Dockerfile
+    # Plano grátis (dorme depois de 15 min parada; a primeira chamada demora uns 50 s)
+    plan: free
+    # Rota para o Render saber que ligou
+    healthCheckPath: /usuarios
+    # Configurações (o banco acima)
+    envVars:
+      # Endereço do banco
+      - key: DB_HOST
+        fromDatabase:
+          name: saudelife-banco
+          property: host
+      # Porta do banco
+      - key: DB_PORT
+        fromDatabase:
+          name: saudelife-banco
+          property: port
+      # Nome do banco
+      - key: DB_NOME
+        fromDatabase:
+          name: saudelife-banco
+          property: database
+      # Usuário do banco
+      - key: DB_USUARIO
+        fromDatabase:
+          name: saudelife-banco
+          property: user
+      # Senha do banco
+      - key: DB_SENHA
+        fromDatabase:
+          name: saudelife-banco
+          property: password

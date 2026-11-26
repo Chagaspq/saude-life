@@ -1,0 +1,20 @@
+# Dependências do React/Vite (instaladas com npm install) - pastas site/ e frontend/
+node_modules/
+# Build do frontend do professor (o site do Saúde Life gera em docs/, que vai para o ar)
+frontend/dist/
+
+# Back-end Java (Maven / Spring Tools)
+backend/target/
+.classpath
+.project
+.settings/
+.factorypath
+.sts4-cache/
+.springBeans
+*.iml
+.idea/
+.vscode/
+
+# Sistema
+.DS_Store
+Thumbs.db

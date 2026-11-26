@@ -1,0 +1,148 @@
+/* Página 404 (endereço que não existe) */
+/* Corpo da página */
+body {
+  /* Sem margem */
+  margin: 0;
+  /* Ocupa pelo menos a altura da tela toda */
+  min-height: 100vh;
+  /* Organiza o conteúdo com flexbox */
+  display: flex;
+  /* Centraliza na altura */
+  align-items: center;
+  /* Centraliza na largura */
+  justify-content: center;
+  /* Espaço nas bordas */
+  padding: 24px;
+  /* A largura inclui o espaço interno */
+  box-sizing: border-box;
+  /* Fundo verde-carvão */
+  background: var(--bg);
+  /* Brilho coral no canto de cima */
+  background-image: radial-gradient(circle at 85% -10%, rgba(240, 132, 90, 0.14), transparent 45%);
+  /* Cor do texto */
+  color: var(--ink);
+  /* Fonte Inter */
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Texto centralizado */
+  text-align: center;
+}
+
+/* Bloco principal */
+.erro404 {
+  /* No máximo 440 pixels de largura */
+  max-width: 440px;
+  /* Itens com flexbox... */
+  display: flex;
+  /* ...em coluna */
+  flex-direction: column;
+  /* ...centralizados */
+  align-items: center;
+  /* ...com 16 pixels entre eles */
+  gap: 16px;
+}
+
+/* O número 404 grandão */
+.codigo {
+  /* Margem só em cima */
+  margin: 8px 0 0;
+  /* Fonte de títulos */
+  font-family: "Space Grotesk", sans-serif;
+  /* Tamanho 72 pixels */
+  font-size: 72px;
+  /* Bem negrito */
+  font-weight: 700;
+  /* Linha bem justa */
+  line-height: 1;
+  /* Degradê coral para esmeralda */
+  background: linear-gradient(135deg, var(--coral), var(--emerald));
+  /* Pinta só as letras com o degradê (Safari) */
+  -webkit-background-clip: text;
+  /* Pinta só as letras com o degradê */
+  background-clip: text;
+  /* A cor da letra fica transparente para o degradê aparecer */
+  color: transparent;
+}
+
+/* Título da página */
+h1 {
+  /* Sem margem */
+  margin: 0;
+  /* Fonte de títulos */
+  font-family: "Space Grotesk", sans-serif;
+  /* Tamanho 26 pixels */
+  font-size: 26px;
+  /* Branco */
+  color: var(--ink-strong);
+}
+
+/* Parágrafos */
+p {
+  /* Sem margem */
+  margin: 0;
+  /* Cor apagada */
+  color: var(--muted);
+  /* Linhas mais espaçadas */
+  line-height: 1.6;
+}
+
+/* Caixa dos botões */
+.acoes {
+  /* Botões lado a lado */
+  display: flex;
+  /* 12 pixels entre eles */
+  gap: 12px;
+  /* Quebra linha se não couber */
+  flex-wrap: wrap;
+  /* Centralizados */
+  justify-content: center;
+  /* Espaço em cima */
+  margin-top: 8px;
+}
+
+/* Base dos dois botões */
+.btn {
+  /* Ficam em linha, com flexbox por dentro */
+  display: inline-flex;
+  /* Conteúdo centralizado na altura */
+  align-items: center;
+  /* Espaço interno */
+  padding: 12px 22px;
+  /* Formato pílula */
+  border-radius: 999px;
+  /* Letra seminegrito */
+  font-weight: 600;
+  /* Tamanho 14,5 pixels */
+  font-size: 14.5px;
+  /* Sem sublinhado */
+  text-decoration: none;
+}
+
+/* Botão principal (coral) */
+.btn-primario {
+  /* Texto escuro */
+  color: var(--on-coral);
+  /* Degradê coral */
+  background: linear-gradient(180deg, var(--coral-light), var(--coral) 70%);
+}
+
+/* Botão secundário (contorno) */
+.btn-secundario {
+  /* Texto claro */
+  color: var(--ink);
+  /* Borda fininha */
+  border: 1px solid var(--border);
+}
+
+/* Botão secundário com o mouse em cima */
+.btn-secundario:hover {
+  /* A borda fica coral */
+  border-color: var(--coral);
+}
+
+/* Link focado pelo teclado */
+a:focus-visible {
+  /* Contorno coral */
+  outline: 2px solid var(--coral);
+  /* Contorno um pouco afastado */
+  outline-offset: 3px;
+}

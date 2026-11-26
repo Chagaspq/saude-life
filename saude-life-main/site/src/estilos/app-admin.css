@@ -1,0 +1,114 @@
+/* Painel do administrador */
+
+/* Painéis com espaço entre eles */
+#view-admin .panel {
+  /* Espaço em cima */
+  margin-top: var(--space-4);
+}
+
+/* Listas sem bolinhas */
+.adm-clientes,
+.adm-avisos,
+.adm-escolhidos {
+  /* Sem bolinhas */
+  list-style: none;
+  /* Sem espaço */
+  padding: 0;
+  /* Sem margem */
+  margin: 0;
+  /* Coluna */
+  display: grid;
+  /* Espaço */
+  gap: 8px;
+}
+
+/* Cliente */
+.adm-cliente {
+  /* Lado a lado */
+  display: flex;
+  /* Alinhados */
+  align-items: center;
+  /* Espaço */
+  gap: 12px;
+  /* Quebra no celular */
+  flex-wrap: wrap;
+  /* Espaço */
+  padding: 10px 0;
+  /* Linha embaixo */
+  border-bottom: 1px solid var(--border);
+}
+
+/* Bolinha com as iniciais */
+.adm-avatar {
+  /* Centraliza */
+  display: grid;
+  /* Centraliza */
+  place-items: center;
+  /* Tamanho */
+  width: 40px;
+  /* Tamanho */
+  height: 40px;
+  /* Redonda */
+  border-radius: 50%;
+  /* Fundo */
+  background: var(--surface-3);
+  /* Letra */
+  font: 700 13px var(--font-display);
+  /* Não encolhe */
+  flex-shrink: 0;
+}
+
+/* Textos do cliente */
+.adm-cliente-info {
+  /* Ocupa o espaço */
+  flex: 1 1 220px;
+  /* Coluna */
+  display: grid;
+  /* Espaço */
+  gap: 2px;
+  /* Pode encolher */
+  min-width: 0;
+}
+
+/* Formulário de aviso */
+.adm-aviso-form {
+  /* Lado a lado */
+  display: flex;
+  /* Espaço */
+  gap: 8px;
+  /* Espaço */
+  margin: 12px 0;
+}
+
+/* Campo do aviso e caixas do formulário */
+.adm-aviso-form input,
+#adm-grupo,
+#adm-ex {
+  /* Ocupa o espaço */
+  flex: 1;
+  /* Fundo */
+  background: var(--surface-2);
+  /* Borda */
+  border: 1px solid var(--border);
+  /* Cantos */
+  border-radius: var(--radius-sm);
+  /* Espaço */
+  padding: 10px 12px;
+  /* Cor */
+  color: var(--ink);
+  /* Fonte (16px evita zoom no celular) */
+  font: 400 16px var(--font-body);
+}
+
+/* Aviso publicado e exercício escolhido */
+.adm-avisos li,
+.adm-escolhidos li {
+  /* Lado a lado */
+  display: flex;
+  /* Nas pontas */
+  justify-content: space-between;
+  /* Alinhados */
+  align-items: center;
+  /* Espaço */
+  gap: 8px;
+}
